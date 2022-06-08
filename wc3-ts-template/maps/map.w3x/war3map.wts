@@ -1,0 +1,26 @@
+﻿STRING 1
+{
+Peasant 2
+}
+
+STRING 2
+{
+Peasant 2
+}
+
+STRING 3
+{
+Peasant 2
+}
+
+STRING 4
+{
+Peasant 2
+}
+
+STRING 5
+// Units: h000 (Peasant 2), Name (Name)
+{
+Peasant 2
+}
+

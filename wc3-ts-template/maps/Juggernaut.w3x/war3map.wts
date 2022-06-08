@@ -1,0 +1,369 @@
+﻿STRING 0
+{
+Ice Crown
+}
+
+STRING 1
+{
+3v3v3v3 or 6v6
+}
+
+STRING 2
+{
+These frozen woods are haunted by souls in torment, enslaved by the dark magic of the Undead. End their suffering.
+}
+
+STRING 3
+{
+Blizzard Entertainment
+}
+
+STRING 4
+{
+
+}
+
+STRING 5
+{
+Player 1
+}
+
+STRING 6
+{
+Player 2
+}
+
+STRING 7
+{
+Player 3
+}
+
+STRING 8
+{
+Player 4
+}
+
+STRING 9
+{
+Player 5
+}
+
+STRING 10
+{
+Player 6
+}
+
+STRING 11
+{
+Player 7
+}
+
+STRING 12
+{
+Player 8
+}
+
+STRING 13
+{
+Player 9
+}
+
+STRING 14
+{
+Player 10
+}
+
+STRING 15
+{
+Player 11
+}
+
+STRING 16
+{
+Player 12
+}
+
+STRING 18
+{
+Light Force
+}
+
+STRING 19
+{
+Dark Force
+}
+
+STRING 20
+// Items: I000 (Blade of the Soul Keeper), Name (Name)
+{
+Blade of the Soul Keeper
+}
+
+STRING 21
+// Items: I000 (Blade of the Soul Keeper), Tip (Tooltip - Basic)
+{
+Blade of the Soul Keeper
+}
+
+STRING 22
+// Items: I000 (Blade of the Soul Keeper), Ubertip (Tooltip - Extended)
+{
+Grant an ability to take the victim's soul. Also give the ancient magic to do the dark ritual that summon all soul that you have taken for 20 seconds.
+}
+
+STRING 23
+// Items: I000 (Blade of the Soul Keeper), Description (Description)
+{
+Ancient blade of Soul Keeper.
+}
+
+STRING 24
+// Abilities: A000 (Blade Dance), Name (Name)
+{
+Blade Dance
+}
+
+STRING 25
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 1|r] [|cffffcc00R|r]
+}
+
+STRING 26
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 2|r] [|cffffcc00R|r]
+}
+
+STRING 27
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 3|r] [|cffffcc00R|r]
+}
+
+STRING 28
+// Abilities: A000 (Blade Dance), Researchtip (Tooltip - Learn)
+{
+Learn Blade Dance - [|cffffcc00Level %d|r] [|cffffcc00R|r]
+}
+
+STRING 33
+// Abilities: A000 (Blade Dance), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 34
+// Abilities: A000 (Blade Dance), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 35
+// Abilities: A001 (Wind Walk), Tip (Tooltip - Normal)
+{
+|cffffcc00W|rind Walk - [|cffffcc00Level 4|r]
+}
+
+STRING 36
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move 110% faster for <AOwk,Dur4> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 400 bonus damage.
+}
+
+STRING 37
+// Abilities: A001 (Wind Walk), Researchubertip (Tooltip - Learn - Extended)
+{
+Allows the Blademaster to become invisible, and move faster for a set amount of time. When the Blademaster attacks a unit to break invisibility, he will deal bonus damage. |n|n|cffffcc00Level 1|r - <AOwk,DataB1,%>% move, 100 bonus damage, <AOwk,Dur1> seconds. |n|cffffcc00Level 2|r - <AOwk,DataB2,%>% move, 200 bonus damage, <AOwk,Dur2> seconds. |n|cffffcc00Level 3|r - <AOwk,DataB3,%>% move, 300 bonus damage, <AOwk,Dur3> seconds. |n|cffffcc00Level 4|r - 110% move, 400 bonus damage, 80 seconds.
+}
+
+STRING 38
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <AOwk,DataB1,%>% faster for <AOwk,Dur1> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 100 bonus damage.
+}
+
+STRING 39
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <AOwk,DataB2,%>% faster for <AOwk,Dur2> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 200 bonus damage.
+}
+
+STRING 40
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <AOwk,DataB3,%>% faster for <AOwk,Dur3> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 300 bonus damage.
+}
+
+STRING 41
+// Abilities: A001 (Wind Walk), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 42
+// Abilities: A001 (Wind Walk), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 43
+// Abilities: A002 (Critical Strike), Tip (Tooltip - Normal)
+{
+Critical Strike - [|cffffcc00Level 4|r]
+}
+
+STRING 44
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 60% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 45
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 15% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 46
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 30% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 47
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 45% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 48
+// Abilities: A002 (Critical Strike), Researchhotkey (Hotkey - Learn)
+{
+E
+}
+
+STRING 49
+// Abilities: A003 (Incinerate), Tip (Tooltip - Normal)
+{
+Incinerate - [|cffffcc00Level 4|r]
+}
+
+STRING 50
+// Abilities: A003 (Incinerate), Ubertip (Tooltip - Normal - Extended)
+{
+Each attack made is enhanced with living flames that cling to the target. These flames add 40 damage on the first attack, twice as much on the second attack, three times as much on the third attack, etc.|n|nIf a unit dies while under this effect, it is incinerated, causing up to 200 damage to all nearby hostile units.
+}
+
+STRING 51
+// Abilities: A003 (Incinerate), Ubertip (Tooltip - Normal - Extended)
+{
+Each attack made is enhanced with living flames that cling to the target. These flames add 10 damage on the first attack, twice as much on the second attack, three times as much on the third attack, etc.|n|nIf a unit dies while under this effect, it is incinerated, causing up to 50 damage to all nearby hostile units.
+}
+
+STRING 52
+// Abilities: A003 (Incinerate), Ubertip (Tooltip - Normal - Extended)
+{
+Each attack made is enhanced with living flames that cling to the target. These flames add 20 damage on the first attack, twice as much on the second attack, three times as much on the third attack, etc.|n|nIf a unit dies while under this effect, it is incinerated, causing up to 100 damage to all nearby hostile units.
+}
+
+STRING 53
+// Abilities: A003 (Incinerate), Ubertip (Tooltip - Normal - Extended)
+{
+Each attack made is enhanced with living flames that cling to the target. These flames add 30 damage on the first attack, twice as much on the second attack, three times as much on the third attack, etc.|n|nIf a unit dies while under this effect, it is incinerated, causing up to 150 damage to all nearby hostile units.
+}
+
+STRING 54
+// Abilities: A003 (Incinerate), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 55
+// Abilities: A003 (Incinerate), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 56
+// Abilities: A004 (Army of Soul), Name (Name)
+{
+Army of Soul
+}
+
+STRING 57
+// Abilities: A005 (fire), Name (Name)
+{
+fire
+}
+
+STRING 58
+// Abilities: A006 (move), Name (Name)
+{
+move
+}
+
+STRING 59
+{
+ON
+}
+
+STRING 60
+{
+OFF
+}
+
+STRING 61
+// Buffs/Effects: B000 (Attacked), EditorName (Name (Editor Only))
+{
+Attacked
+}
+
+STRING 62
+// Buffs/Effects: B000 (Attacked), Bufftip (Tooltip)
+{
+Attacked
+}
+
+STRING 63
+// Buffs/Effects: B000 (Attacked), Buffubertip (Tooltip - Extended)
+{
+This unit was hit attacked.
+}
+
+STRING 64
+// Abilities: A007 (Item AttackDetection), Name (Name)
+{
+Item AttackDetection
+}
+
+STRING 65
+// Abilities: A008 (Item Attack Speed Frenzy), Name (Name)
+{
+Item Attack Speed Frenzy
+}
+
+STRING 66
+// Abilities: A000 (Blade Dance), Researchubertip (Tooltip - Learn - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 67
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 68
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 69
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+

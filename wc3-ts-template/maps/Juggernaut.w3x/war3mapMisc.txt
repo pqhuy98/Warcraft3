@@ -1,0 +1,6 @@
+[Misc]
+CanDeactivateWindWalk=1
+MaxHeroLevel=25
+MaxUnitSpeed=522.0
+MinUnitSpeed=0.0
+
