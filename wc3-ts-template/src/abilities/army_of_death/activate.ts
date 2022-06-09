@@ -1,3 +1,4 @@
+import { OrderId } from 'w3ts/globals/order';
 import {
   FOLLOW_DISTANCE, REVIVED_RED, REVIVED_GREEN, REVIVED_BLUE, REVIVED_ALPHA, FOLLOW_MOVEMENT_SPEED,
 } from 'abilities/army_of_death/constants';
@@ -24,7 +25,7 @@ function activate(s: Store) {
     revived.acquireRange = 2 * FOLLOW_MOVEMENT_SPEED;
 
     const newLoc = PolarProjectionBJ(loc, GetRandomReal(100, FOLLOW_DISTANCE), GetRandomDirectionDeg());
-    revived.issueOrderAt('move', GetLocationX(newLoc), GetLocationY(newLoc));
+    revived.issueOrderAt(OrderId.Move, GetLocationX(newLoc), GetLocationY(newLoc));
     RemoveLocation(newLoc);
   });
   RemoveLocation(loc);

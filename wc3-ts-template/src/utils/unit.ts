@@ -27,6 +27,13 @@ export function distanceBetweenUnits(u1: Unit, u2:Unit) {
   return result;
 }
 
+export function unitPolarProjection(unit: Unit, distance: number, angle: number):location {
+  const loc = getUnitLocation(unit);
+  const newLoc = PolarProjectionBJ(loc, distance, angle);
+  RemoveLocation(loc);
+  return newLoc;
+}
+
 export function fadeUnit(
   u: Unit,
   red: number,

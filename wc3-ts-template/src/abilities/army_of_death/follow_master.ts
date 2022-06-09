@@ -1,3 +1,4 @@
+import { OrderId } from 'w3ts/globals/order';
 import { Timer, Unit } from 'w3ts';
 import { Store } from 'abilities/army_of_death/store';
 import { distanceBetweenUnits } from 'utils/unit';
@@ -6,7 +7,8 @@ import { FOLLOW_DISTANCE, FOLLOW_MOVEMENT_SPEED, RETURN_MOVEMENT_SPEED } from 'a
 
 export function followMaster(s: Store) {
   const t1 = new Timer();
-  t1.start(1, true, () => {
+  const T1_TICK_PER_SEC = 8;
+  t1.start(1.0 / T1_TICK_PER_SEC, true, () => {
     // Do not keep distance when activated.
     if (!s.activated) return;
 
@@ -15,15 +17,16 @@ export function followMaster(s: Store) {
       const revived = Unit.fromEnum();
       if (distanceBetweenUnits(revived, s.master) <= FOLLOW_DISTANCE) {
         // Occasionally wandering around
-        if (GetRandomInt(1, 8) !== 1) return;
+        if (GetRandomInt(1, T1_TICK_PER_SEC * 8) !== 1) return;
         const newLoc = PolarProjectionBJ(loc, GetRandomReal(100, FOLLOW_DISTANCE), GetRandomDirectionDeg());
-        revived.issueOrderAt('attack', GetLocationX(newLoc), GetLocationY(newLoc));
+        revived.issueOrderAt(OrderId.Attack, GetLocationX(newLoc), GetLocationY(newLoc));
         RemoveLocation(newLoc);
         revived.moveSpeed = FOLLOW_MOVEMENT_SPEED;
       } else {
         // Must get close to master
+        if (GetRandomInt(1, T1_TICK_PER_SEC) !== 1) return;
         const newLoc = PolarProjectionBJ(loc, GetRandomReal(100, FOLLOW_DISTANCE), GetRandomDirectionDeg());
-        revived.issueOrderAt('move', GetLocationX(newLoc), GetLocationY(newLoc));
+        revived.issueOrderAt(OrderId.Move, GetLocationX(newLoc), GetLocationY(newLoc));
         RemoveLocation(newLoc);
         revived.moveSpeed = RETURN_MOVEMENT_SPEED;
       }

@@ -1,5 +1,5 @@
 export const RETURN_EFFECT_STRING = 'Objects\\Spawnmodels\\Undead\\UndeadDissipate\\UndeadDissipate.mdl';
-export const RETURN_DISTANCE = 175;
+export const RETURN_DISTANCE = 50;
 export const RETURN_MOVEMENT_SPEED = 999;
 
 export const FOLLOW_DISTANCE = 800;
