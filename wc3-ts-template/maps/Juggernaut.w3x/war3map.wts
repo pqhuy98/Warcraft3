@@ -303,16 +303,6 @@ STRING 58
 move
 }
 
-STRING 59
-{
-ON
-}
-
-STRING 60
-{
-OFF
-}
-
 STRING 61
 // Buffs/Effects: B000 (Attacked), EditorName (Name (Editor Only))
 {
@@ -437,5 +427,65 @@ STRING 81
 // Units: h000 (Dummy), Name (Name)
 {
 Dummy
+}
+
+STRING 82
+{
+Player 13
+}
+
+STRING 83
+{
+Player 14
+}
+
+STRING 84
+{
+Player 15
+}
+
+STRING 85
+{
+Player 16
+}
+
+STRING 86
+{
+Player 17
+}
+
+STRING 87
+{
+Player 18
+}
+
+STRING 88
+{
+Player 19
+}
+
+STRING 89
+{
+Player 20
+}
+
+STRING 90
+{
+Player 21
+}
+
+STRING 91
+{
+Player 22
+}
+
+STRING 92
+{
+Player 23
+}
+
+STRING 93
+{
+Player 24
 }
 

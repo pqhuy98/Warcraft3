@@ -16,7 +16,7 @@ export default class ArmyOfDeath {
       activateUntil: new Timer(),
       activated: false,
 
-      revivedDuration: 180,
+      revivedDuration: 60,
       activatedDuration: 20,
     };
     onActivate(s);

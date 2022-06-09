@@ -14,21 +14,24 @@ export function multicastUnit() {
     });
     t.addAction(() => {
       const caster = Unit.fromHandle(GetSpellAbilityUnit());
+      const target = Unit.fromHandle(GetSpellTargetUnit());
       const abilityId = GetSpellAbilityId();
       const abilityLevel = GetUnitAbilityLevel(caster.handle, abilityId);
       const order = OrderId2String(GetUnitCurrentOrder(caster.handle));
 
       const ability = BlzGetUnitAbility(caster.handle, abilityId);
       const castRange = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_CAST_RANGE, abilityLevel - 1);
-      const loc = getUnitLocation(caster);
+      const loc = getUnitLocation(target);
 
-      const nearby = GetUnitsInRangeOfLocMatching(Math.min(500, castRange), loc, Condition(() => {
+      const nearby = GetUnitsInRangeOfLocMatching(Math.min(300, castRange), loc, Condition(() => {
         const u = Unit.fromFilter();
-        return u.isAlive() && u.handle !== caster.handle && u.handle !== GetSpellTargetUnit();
+        return u.isAlive()
+            && u.handle !== caster.handle
+            && u.handle !== target.handle;
       }));
 
       const dummy = new Unit(caster.owner, UNIT_ID_DUMMY, caster.x, caster.y, 0);
-      dummy.applyTimedLife(BUFF_ID_GENERIC, 0.1);
+      dummy.applyTimedLife(BUFF_ID_GENERIC, 0.2);
       dummy.addAbility(abilityId);
       dummy.setAbilityLevel(abilityId, abilityLevel);
       dummy.addAbility(ABILITY_ID_LOCUST);

@@ -39,7 +39,7 @@ function deactivate(s: Store) {
   s.revivedGroup.for(() => {
     const revived = Unit.fromEnum();
     revived.acquireRange = 0;
-    revived.issueTargetOrder('move', s.master);
+    revived.issueTargetOrder(OrderId.Move, s.master);
   });
 }
 
