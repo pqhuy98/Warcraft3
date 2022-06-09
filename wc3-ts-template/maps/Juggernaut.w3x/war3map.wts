@@ -367,3 +367,75 @@ STRING 69
 By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
 }
 
+STRING 70
+// Abilities: A009 (Gravity), Name (Name)
+{
+Gravity
+}
+
+STRING 71
+// Abilities: A009 (Gravity), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 72
+// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
+{
+Gravity - [|cffffcc00Level 1|r]
+}
+
+STRING 73
+// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 74
+// Abilities: A009 (Gravity), Researchubertip (Tooltip - Learn - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 75
+// Abilities: A009 (Gravity), Researchtip (Tooltip - Learn)
+{
+Gravity
+}
+
+STRING 76
+// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
+{
+Gravity - [|cffffcc00Level 2|r]
+}
+
+STRING 77
+// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
+{
+Gravity - [|cffffcc00Level 3|r]
+}
+
+STRING 78
+// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 79
+// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 80
+// Abilities: A009 (Gravity), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 81
+// Units: h000 (Dummy), Name (Name)
+{
+Dummy
+}
+
