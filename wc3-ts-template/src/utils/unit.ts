@@ -54,7 +54,7 @@ export function fadeUnit(
     newAlpha -= alphaLossPerTick;
 
     if (checkCancel()) {
-      // fading is cancelled because of re-activate
+      // fading is cancelled
       t.destroy();
       return;
     }

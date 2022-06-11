@@ -16,7 +16,8 @@
         ]
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "unused-imports"
     ],
     "rules": {
         "linebreak-style": 0,
@@ -28,7 +29,7 @@
         "max-len": [
             "error",
             {
-                "code": 140
+                "code": 200
             }
         ],
         "no-restricted-globals": "off",
@@ -43,7 +44,17 @@
             }
         ],
         "no-mixed-operators": "off",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-vars": [
+            "warn",
+            {
+                "vars": "all",
+                "varsIgnorePattern": "^_",
+                "args": "after-used",
+                "argsIgnorePattern": "^_"
+            }
+        ]
     },
     "settings": {
         "import/resolver": {

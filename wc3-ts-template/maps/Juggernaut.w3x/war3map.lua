@@ -1654,6 +1654,8 @@ function CreateUnitsForPlayer0()
     local unitID
     local t
     local life
+    u = BlzCreateUnitWithSkin(p, FourCC("Ocb2"), 7671.9, 6399.8, 267.020, FourCC("Ocb2"))
+    SetHeroLevel(u, 25, false)
     gg_unit_Osam_0245 = BlzCreateUnitWithSkin(p, FourCC("Osam"), 4365.9, 10814.2, 350.660, FourCC("Osam"))
     SetHeroLevel(gg_unit_Osam_0245, 16, false)
     SelectHeroSkill(gg_unit_Osam_0245, FourCC("A001"))
@@ -1683,8 +1685,6 @@ function CreateUnitsForPlayer0()
     u = BlzCreateUnitWithSkin(p, FourCC("Hamg"), 7521.6, 6644.4, 38.508, FourCC("Hamg"))
     SetHeroLevel(u, 25, false)
     u = BlzCreateUnitWithSkin(p, FourCC("Ofar"), 7876.0, 6730.7, 246.563, FourCC("Ofar"))
-    SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Otch"), 7972.2, 6729.0, 40.574, FourCC("Otch"))
     SetHeroLevel(u, 25, false)
     u = BlzCreateUnitWithSkin(p, FourCC("Oshd"), 7893.7, 6857.2, 273.392, FourCC("Oshd"))
     SetHeroLevel(u, 25, false)

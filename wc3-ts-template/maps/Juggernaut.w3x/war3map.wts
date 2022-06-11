@@ -243,44 +243,14 @@ STRING 48
 E
 }
 
-STRING 49
-// Abilities: A003 (Incinerate), Tip (Tooltip - Normal)
-{
-Incinerate - [|cffffcc00Level 4|r]
-}
-
-STRING 50
-// Abilities: A003 (Incinerate), Ubertip (Tooltip - Normal - Extended)
-{
-Each attack made is enhanced with living flames that cling to the target. These flames add 40 damage on the first attack, twice as much on the second attack, three times as much on the third attack, etc.|n|nIf a unit dies while under this effect, it is incinerated, causing up to 200 damage to all nearby hostile units.
-}
-
-STRING 51
-// Abilities: A003 (Incinerate), Ubertip (Tooltip - Normal - Extended)
-{
-Each attack made is enhanced with living flames that cling to the target. These flames add 10 damage on the first attack, twice as much on the second attack, three times as much on the third attack, etc.|n|nIf a unit dies while under this effect, it is incinerated, causing up to 50 damage to all nearby hostile units.
-}
-
-STRING 52
-// Abilities: A003 (Incinerate), Ubertip (Tooltip - Normal - Extended)
-{
-Each attack made is enhanced with living flames that cling to the target. These flames add 20 damage on the first attack, twice as much on the second attack, three times as much on the third attack, etc.|n|nIf a unit dies while under this effect, it is incinerated, causing up to 100 damage to all nearby hostile units.
-}
-
-STRING 53
-// Abilities: A003 (Incinerate), Ubertip (Tooltip - Normal - Extended)
-{
-Each attack made is enhanced with living flames that cling to the target. These flames add 30 damage on the first attack, twice as much on the second attack, three times as much on the third attack, etc.|n|nIf a unit dies while under this effect, it is incinerated, causing up to 150 damage to all nearby hostile units.
-}
-
 STRING 54
-// Abilities: A003 (Incinerate), Researchhotkey (Hotkey - Learn)
+// Abilities: A009 (Gravity), Hotkey (Hotkey - Normal)
 {
 W
 }
 
 STRING 55
-// Abilities: A003 (Incinerate), Hotkey (Hotkey - Normal)
+// Abilities: A009 (Gravity), Researchhotkey (Hotkey - Learn)
 {
 W
 }
@@ -363,12 +333,6 @@ STRING 70
 Gravity
 }
 
-STRING 71
-// Abilities: A009 (Gravity), Hotkey (Hotkey - Normal)
-{
-W
-}
-
 STRING 72
 // Abilities: A009 (Gravity), Tip (Tooltip - Normal)
 {
@@ -415,12 +379,6 @@ STRING 79
 // Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
 {
 Pull all nearby units.
-}
-
-STRING 80
-// Abilities: A009 (Gravity), Researchhotkey (Hotkey - Learn)
-{
-W
 }
 
 STRING 81

@@ -1,5 +1,5 @@
-import { Unit, Timer, Group } from 'w3ts';
-import { buildTrigger } from 'utils/trigger';
+import { Unit, Group } from 'w3ts';
+import { buildTrigger, setInterval, setTimeout } from 'utils/trigger';
 import { getUnitLocation, locY, locX } from 'utils/location';
 import { angleBetweenUnits, unitPolarProjection } from 'utils/unit';
 
@@ -25,9 +25,8 @@ export class Gravity {
     private caster: Unit,
     private abilityLevel: number,
   ) {
-    const t1 = new Timer();
     const TICK_PER_SEC = 30;
-    t1.start(1.0 / TICK_PER_SEC, true, () => {
+    const t1 = setInterval(1.0 / TICK_PER_SEC, () => {
       const casterLoc = getUnitLocation(caster);
       const nearby = GetUnitsInRangeOfLocMatching(abilityLevel * 500, casterLoc, Condition(() => {
         const matchingUnit = Unit.fromFilter();
@@ -48,10 +47,9 @@ export class Gravity {
       DestroyGroup(nearby);
     });
 
-    const t2 = new Timer();
-    t2.start(5, false, () => {
+    setTimeout(5, () => {
+      t1.pause();
       t1.destroy();
-      t2.destroy();
     });
   }
 }

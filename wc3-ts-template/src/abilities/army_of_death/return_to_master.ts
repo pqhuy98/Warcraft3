@@ -5,9 +5,10 @@ import {
 } from 'utils/unit';
 import { getUnitLocation, locX, locY } from 'utils/location';
 import {
-  RETURN_DISTANCE, RETURN_EFFECT_STRING, REVIVED_ALPHA, REVIVED_BLUE, REVIVED_GREEN, REVIVED_RED,
+  RETURN_DISTANCE, REVIVED_ALPHA, REVIVED_BLUE, REVIVED_GREEN, REVIVED_RED,
 } from 'abilities/army_of_death/constants';
 import { OrderId } from 'w3ts/globals/order';
+import { MODEL_UndeadDissipate } from 'resources/war3-models';
 
 export function returnToMaster(s: Store) {
   const t1 = new Timer();
@@ -21,7 +22,7 @@ export function returnToMaster(s: Store) {
       const revived = Unit.fromEnum();
       if (distanceBetweenUnits(revived, s.master) <= RETURN_DISTANCE) {
         const loc = getUnitLocation(revived);
-        const effect = AddSpecialEffectLoc(RETURN_EFFECT_STRING, loc);
+        const effect = AddSpecialEffectLoc(MODEL_UndeadDissipate, loc);
         DestroyEffect(effect);
         RemoveLocation(loc);
         s.revivedGroup.removeUnit(revived);

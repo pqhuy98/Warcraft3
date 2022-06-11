@@ -10,17 +10,22 @@ import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 import ArmyOfDeath from 'abilities/army_of_death/index';
 import { Gravity } from 'abilities/gravity/index';
 import { multicastUnit } from 'abilities/multicast/unit';
+import { WarStomp } from 'abilities/war_stomp/index';
+import { MulticastNoTarget } from 'abilities/multicast/no-target';
 
 function tsMain() {
   Gravity.register(FourCC('A009:ANcl'));
   BladeDance.register(FourCC('A000:AHtb'));
   new ArmyOfDeath(Unit.fromHandle(gg_unit_Osam_0245), FourCC('A004:AHtc'));
+  WarStomp.register(FourCC('A00A:AOws'));
 
   Cheat('warpten');
   Cheat('greedisgood 999999999');
   Cheat('thereisnospoon');
 
   multicastUnit();
+  MulticastNoTarget.register(FourCC('A00A:AOws'));
+  MulticastNoTarget.register(FourCC('AHtc'));
 }
 
 addScriptHook(W3TS_HOOK.MAIN_AFTER, tsMain);

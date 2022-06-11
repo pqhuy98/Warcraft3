@@ -3,16 +3,17 @@ import { Unit } from 'w3ts';
 import { Store } from 'abilities/army_of_death/store';
 import { buildTrigger } from 'utils/trigger';
 import { getUnitLocation } from 'utils/location';
-import { ABILITY_ID_LOCUST, BUFF_ID_GENERIC, EXPIRED_EFFECT_STRING } from 'utils/constants';
+import { ABILITY_ID_LOCUST, BUFF_ID_GENERIC } from 'utils/constants';
 import {
   REVIVED_RED, REVIVED_GREEN, REVIVED_BLUE, REVIVED_ALPHA, FOLLOW_MOVEMENT_SPEED,
 } from 'abilities/army_of_death/constants';
+import { MODEL_UndeadDissipate } from 'resources/war3-models';
 
 export function collectSouls(s: Store) {
   const cleanupOnDeath = buildTrigger((t) => {
     t.addAction(() => {
       const loc = getUnitLocation(Unit.fromEvent());
-      const effect = AddSpecialEffectLoc(EXPIRED_EFFECT_STRING, loc);
+      const effect = AddSpecialEffectLoc(MODEL_UndeadDissipate, loc);
       DestroyEffect(effect);
       RemoveLocation(loc);
 
