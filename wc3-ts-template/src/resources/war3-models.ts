@@ -364,6 +364,7 @@ export const MODEL_Phoenix_Missile = 'Abilities/Weapons/PhoenixMissile/Phoenix_M
 export const MODEL_PoisonArrowMissile = 'Abilities/Weapons/PoisonArrow/PoisonArrowMissile.mdx';
 export const MODEL_PoisonStingMissile = 'Abilities/Weapons/PoisonSting/PoisonStingMissile.mdx';
 export const MODEL_PoisonStingTarget = 'Abilities/Weapons/PoisonSting/PoisonStingTarget.mdx';
+export const MODEL_Rings_Green = 'Abilities/Weapons/PoisonSting/Rings_Green.MDX';
 export const MODEL_PriestMissile = 'Abilities/Weapons/PriestMissile/PriestMissile.mdx';
 export const MODEL_ProcMissile = 'Abilities/Weapons/ProcMissile/ProcMissile.mdx';
 export const MODEL_QuillSprayMissile = 'Abilities/Weapons/QuillSprayMissile/QuillSprayMissile.mdx';
@@ -417,10 +418,16 @@ export const MODEL_HumanTower = 'buildings/Human/HumanTower/HumanTower.mdx';
 export const MODEL_TownHall = 'buildings/Human/TownHall/TownHall.mdx';
 export const MODEL_Workshop = 'buildings/Human/Workshop/Workshop.mdx';
 export const MODEL_AltarOfDepths = 'buildings/Naga/AltarOfDepths/AltarOfDepths.mdx';
+export const MODEL_NagaBirth = 'buildings/Naga/AltarOfDepths/NagaBirth.MDX';
 export const MODEL_CoralBed = 'buildings/Naga/CoralBed/CoralBed.mdx';
+export const MODEL_NagaBirth_Small = 'buildings/Naga/CoralBed/NagaBirth_Small.MDX';
+export const MODEL_NagaBirth_2 = 'buildings/Naga/ShrineOfAshjara/NagaBirth.MDX';
 export const MODEL_ShrineOfAshjara = 'buildings/Naga/ShrineOfAshjara/ShrineOfAshjara.mdx';
+export const MODEL_NagaBirth_3 = 'buildings/Naga/SpawningGrounds/NagaBirth.MDX';
 export const MODEL_SpawningGrounds = 'buildings/Naga/SpawningGrounds/SpawningGrounds.mdx';
+export const MODEL_NagaBirth_4 = 'buildings/Naga/TempleofTides/NagaBirth.MDX';
 export const MODEL_TempleofTides = 'buildings/Naga/TempleofTides/TempleofTides.mdx';
+export const MODEL_NagaBirth_Small_2 = 'buildings/Naga/TidalGuardian/NagaBirth_Small.MDX';
 export const MODEL_TidalGuardian = 'buildings/Naga/TidalGuardian/TidalGuardian.mdx';
 export const MODEL_AltarOfElders = 'buildings/NightElf/AltarOfElders/AltarOfElders.mdx';
 export const MODEL_AncientofLore_Portrait = 'buildings/NightElf/AncientOfLore/AncientofLore_Portrait.mdx';
@@ -567,6 +574,7 @@ export const MODEL_SlaughterHouse = 'buildings/Undead/SlaughterHouse/SlaughterHo
 export const MODEL_TempleOfTheDamned = 'buildings/Undead/TempleOfTheDamned/TempleOfTheDamned.mdx';
 export const MODEL_TombOfRelics = 'buildings/Undead/TombOfRelics/TombOfRelics.mdx';
 export const MODEL_UndeadShipyard = 'buildings/Undead/UndeadShipyard/UndeadShipyard.mdx';
+export const MODEL_UBirth = 'buildings/Undead/Ziggurat/UBirth.MDX';
 export const MODEL_Ziggurat = 'buildings/Undead/Ziggurat/Ziggurat.mdx';
 export const MODEL_AshenBush0 = 'Doodads/Ashenvale/Plants/AshenBush0/AshenBush0.mdx';
 export const MODEL_AshenCanopyTree0 = 'Doodads/Ashenvale/Plants/AshenCanopyTree/AshenCanopyTree0.mdx';
@@ -2329,6 +2337,7 @@ export const MODEL_CryptFiendEggsack = 'Objects/Spawnmodels/Undead/CryptFiendEgg
 export const MODEL_GargoyleCrumble = 'Objects/Spawnmodels/Undead/GargoyleCrumble/GargoyleCrumble.mdx';
 export const MODEL_ImpaleTargetDust = 'Objects/Spawnmodels/Undead/ImpaleTargetDust/ImpaleTargetDust.mdx';
 export const MODEL_UCancelDeath = 'Objects/Spawnmodels/Undead/UCancelDeath/UCancelDeath.mdx';
+export const MODEL_UDeath = 'Objects/Spawnmodels/Undead/UDeathMedium/UDeath.MDX';
 export const MODEL_UDeathSmall = 'Objects/Spawnmodels/Undead/UDeathSmall/UDeathSmall.mdx';
 export const MODEL_ObsidianStatueCrumble = 'Objects/Spawnmodels/Undead/UndeadBlood/ObsidianStatueCrumble.mdx';
 export const MODEL_ObsidianStatueCrumble2 = 'Objects/Spawnmodels/Undead/UndeadBlood/ObsidianStatueCrumble2.mdx';
@@ -2343,8 +2352,24 @@ export const MODEL_UndeadBloodNecromancer = 'Objects/Spawnmodels/Undead/UndeadBl
 export const MODEL_UndeadDissipate = 'Objects/Spawnmodels/Undead/UndeadDissipate/UndeadDissipate.mdx';
 export const MODEL_UndeadLargeDeathExplode = 'Objects/Spawnmodels/Undead/UndeadLargeDeathExplode/UndeadLargeDeathExplode.mdx';
 export const MODEL_StartLocation = 'Objects/StartLocation/StartLocation.mdx';
+export const MODEL_Bones1 = 'SharedModels/Bones1.MDX';
+export const MODEL_BuildingParticlebeam = 'SharedModels/BuildingParticlebeam.MDX';
+export const MODEL_EntangleWisp = 'SharedModels/EntangleWisp.MDX';
+export const MODEL_Feather1 = 'SharedModels/Feather1.MDX';
+export const MODEL_Feather2 = 'SharedModels/Feather2.MDX';
+export const MODEL_FeatherPurple = 'SharedModels/FeatherPurple.MDX';
+export const MODEL_FeatherPurple1 = 'SharedModels/FeatherPurple1.MDX';
+export const MODEL_FeatherPurple2 = 'SharedModels/FeatherPurple2.MDX';
+export const MODEL_Glow1_red = 'SharedModels/Glow1_red.MDX';
+export const MODEL_Gutz1 = 'SharedModels/Gutz1.MDX';
 export const MODEL_IllidanImprisoned = 'SharedModels/IllidanImprisoned.mdx';
 export const MODEL_leaves = 'SharedModels/leaves.mdx';
+export const MODEL_Lightning2 = 'SharedModels/Lightning2.MDX';
+export const MODEL_NEBirth = 'SharedModels/NEBirth.MDX';
+export const MODEL_ObsidianFeather = 'SharedModels/ObsidianFeather.MDX';
+export const MODEL_rocks1 = 'SharedModels/rocks1.MDX';
+export const MODEL_Smoke1_Green = 'SharedModels/Smoke1_Green.MDX';
+export const MODEL_UBirth_2 = 'SharedModels/UBirth.MDX';
 export const MODEL_HeroLevel = 'UI/Buttons/HeroLevel/HeroLevel.mdx';
 export const MODEL_HumanUI_InventoryCover = 'UI/Console/Human/HumanUI-InventoryCover.mdx';
 export const MODEL_HumanUI_TimeIndicator = 'UI/Console/Human/HumanUI-TimeIndicator.mdx';
@@ -2893,6 +2918,7 @@ export const MODEL_HeroPitLord = 'Units/Demon/HeroPitLord/HeroPitLord.mdx';
 export const MODEL_Infernal_portrait = 'Units/Demon/Infernal/Infernal_portrait.mdx';
 export const MODEL_Infernal = 'Units/Demon/Infernal/Infernal.mdx';
 export const MODEL_InfernalBirth = 'Units/Demon/Infernal/InfernalBirth.mdx';
+export const MODEL_Rock1 = 'Units/Demon/Infernal/Rock1.MDX';
 export const MODEL_Kiljaeden_Portrait = 'Units/Demon/Kiljaeden/Kiljaeden_Portrait.mdx';
 export const MODEL_Kiljaeden = 'Units/Demon/Kiljaeden/Kiljaeden.mdx';
 export const MODEL_Mannoroth_Portrait = 'Units/Demon/Mannoroth/Mannoroth_Portrait.mdx';
@@ -2919,8 +2945,10 @@ export const MODEL_Gyrocopter_V1 = 'Units/Human/GyroCopter/Gyrocopter_V1.mdx';
 export const MODEL_GyroCopter = 'Units/Human/GyroCopter/GyroCopter.mdx';
 export const MODEL_HeroArchMage_portrait = 'Units/Human/HeroArchMage/HeroArchMage_portrait.mdx';
 export const MODEL_HeroArchMage = 'Units/Human/HeroArchMage/HeroArchMage.mdx';
+export const MODEL_BloodElfBall = 'Units/Human/HeroBloodElf/BloodElfBall.MDX';
 export const MODEL_HeroBloodElf_Portrait = 'Units/Human/HeroBloodElf/HeroBloodElf_Portrait.mdx';
 export const MODEL_HeroBloodElf = 'Units/Human/HeroBloodElf/HeroBloodElf.mdx';
+export const MODEL_HeroBloodSphere = 'Units/Human/HeroBloodElf/HeroBloodSphere.MDX';
 export const MODEL_HeroMountainKing_Portrait = 'Units/Human/HeroMountainKing/HeroMountainKing_Portrait.mdx';
 export const MODEL_HeroMountainKing = 'Units/Human/HeroMountainKing/HeroMountainKing.mdx';
 export const MODEL_HeroPaladin_portrait = 'Units/Human/HeroPaladin/HeroPaladin_portrait.mdx';
@@ -2931,6 +2959,8 @@ export const MODEL_HeroPaladinBoss2_portrait = 'Units/Human/HeroPaladinBoss2/Her
 export const MODEL_HeroPaladinBoss2 = 'Units/Human/HeroPaladinBoss2/HeroPaladinBoss2.mdx';
 export const MODEL_Jaina_portrait = 'Units/Human/Jaina/Jaina_portrait.mdx';
 export const MODEL_Jaina = 'Units/Human/Jaina/Jaina.mdx';
+export const MODEL_BloodElfBall_2 = 'Units/Human/Kael/BloodElfBall.MDX';
+export const MODEL_HeroBloodSphere_2 = 'Units/Human/Kael/HeroBloodSphere.MDX';
 export const MODEL_Kael_Portrait = 'Units/Human/Kael/Kael_Portrait.mdx';
 export const MODEL_Kael = 'Units/Human/Kael/Kael.mdx';
 export const MODEL_Knight_Portrait = 'Units/Human/Knight/Knight_Portrait.mdx';
@@ -3560,6 +3590,7 @@ export const ALL_MODELS = [
   MODEL_PoisonArrowMissile,
   MODEL_PoisonStingMissile,
   MODEL_PoisonStingTarget,
+  MODEL_Rings_Green,
   MODEL_PriestMissile,
   MODEL_ProcMissile,
   MODEL_QuillSprayMissile,
@@ -3613,10 +3644,16 @@ export const ALL_MODELS = [
   MODEL_TownHall,
   MODEL_Workshop,
   MODEL_AltarOfDepths,
+  MODEL_NagaBirth,
   MODEL_CoralBed,
+  MODEL_NagaBirth_Small,
+  MODEL_NagaBirth_2,
   MODEL_ShrineOfAshjara,
+  MODEL_NagaBirth_3,
   MODEL_SpawningGrounds,
+  MODEL_NagaBirth_4,
   MODEL_TempleofTides,
+  MODEL_NagaBirth_Small_2,
   MODEL_TidalGuardian,
   MODEL_AltarOfElders,
   MODEL_AncientofLore_Portrait,
@@ -3763,6 +3800,7 @@ export const ALL_MODELS = [
   MODEL_TempleOfTheDamned,
   MODEL_TombOfRelics,
   MODEL_UndeadShipyard,
+  MODEL_UBirth,
   MODEL_Ziggurat,
   MODEL_AshenBush0,
   MODEL_AshenCanopyTree0,
@@ -5525,6 +5563,7 @@ export const ALL_MODELS = [
   MODEL_GargoyleCrumble,
   MODEL_ImpaleTargetDust,
   MODEL_UCancelDeath,
+  MODEL_UDeath,
   MODEL_UDeathSmall,
   MODEL_ObsidianStatueCrumble,
   MODEL_ObsidianStatueCrumble2,
@@ -5539,8 +5578,24 @@ export const ALL_MODELS = [
   MODEL_UndeadDissipate,
   MODEL_UndeadLargeDeathExplode,
   MODEL_StartLocation,
+  MODEL_Bones1,
+  MODEL_BuildingParticlebeam,
+  MODEL_EntangleWisp,
+  MODEL_Feather1,
+  MODEL_Feather2,
+  MODEL_FeatherPurple,
+  MODEL_FeatherPurple1,
+  MODEL_FeatherPurple2,
+  MODEL_Glow1_red,
+  MODEL_Gutz1,
   MODEL_IllidanImprisoned,
   MODEL_leaves,
+  MODEL_Lightning2,
+  MODEL_NEBirth,
+  MODEL_ObsidianFeather,
+  MODEL_rocks1,
+  MODEL_Smoke1_Green,
+  MODEL_UBirth_2,
   MODEL_HeroLevel,
   MODEL_HumanUI_InventoryCover,
   MODEL_HumanUI_TimeIndicator,
@@ -6089,6 +6144,7 @@ export const ALL_MODELS = [
   MODEL_Infernal_portrait,
   MODEL_Infernal,
   MODEL_InfernalBirth,
+  MODEL_Rock1,
   MODEL_Kiljaeden_Portrait,
   MODEL_Kiljaeden,
   MODEL_Mannoroth_Portrait,
@@ -6115,8 +6171,10 @@ export const ALL_MODELS = [
   MODEL_GyroCopter,
   MODEL_HeroArchMage_portrait,
   MODEL_HeroArchMage,
+  MODEL_BloodElfBall,
   MODEL_HeroBloodElf_Portrait,
   MODEL_HeroBloodElf,
+  MODEL_HeroBloodSphere,
   MODEL_HeroMountainKing_Portrait,
   MODEL_HeroMountainKing,
   MODEL_HeroPaladin_portrait,
@@ -6127,6 +6185,8 @@ export const ALL_MODELS = [
   MODEL_HeroPaladinBoss2,
   MODEL_Jaina_portrait,
   MODEL_Jaina,
+  MODEL_BloodElfBall_2,
+  MODEL_HeroBloodSphere_2,
   MODEL_Kael_Portrait,
   MODEL_Kael,
   MODEL_Knight_Portrait,
