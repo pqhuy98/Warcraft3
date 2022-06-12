@@ -1,4 +1,5 @@
 import { getUnitLocation } from 'utils/location';
+import { setInterval } from 'utils/trigger';
 import { Timer, Unit } from 'w3ts';
 
 export function getAttackRange(unit: Unit, weaponIndex:number):number {
@@ -66,4 +67,16 @@ export function fadeUnit(
 
     u.setVertexColor(red, green, blue, newAlpha);
   });
+}
+
+export function growUnit(u: Unit, targetScale: number, duration:number) {
+  let scale = (u.getField(UNIT_RF_SCALING_VALUE) as number);
+  const scalePerSec = (targetScale - scale) / duration;
+  const TICK_TIME = 1.0 / 15;
+  const scalePerTick = scalePerSec * TICK_TIME;
+  const tickCount = duration / TICK_TIME;
+  setInterval(TICK_TIME, () => {
+    u.setScale(scale, 0, 0);
+    scale += scalePerTick;
+  }, tickCount + 1);
 }

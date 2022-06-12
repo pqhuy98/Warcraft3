@@ -5,6 +5,7 @@ gg_rct_Yellow_Bottom = nil
 gg_rct_Red_Left = nil
 gg_trg_Initialization = nil
 gg_unit_Osam_0245 = nil
+gg_unit_Hamg_0343 = nil
 gg_unit_oalt_0054 = nil
 function InitGlobals()
 end
@@ -1682,9 +1683,9 @@ function CreateUnitsForPlayer0()
     SetHeroLevel(u, 25, false)
     u = BlzCreateUnitWithSkin(p, FourCC("Hblm"), 7829.0, 6828.0, 51.418, FourCC("Hblm"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Hamg"), 7521.6, 6644.4, 38.508, FourCC("Hamg"))
-    SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Ofar"), 7876.0, 6730.7, 246.563, FourCC("Ofar"))
+    gg_unit_Hamg_0343 = BlzCreateUnitWithSkin(p, FourCC("Hamg"), 7407.2, 6658.9, 38.508, FourCC("Hamg"))
+    SetHeroLevel(gg_unit_Hamg_0343, 25, false)
+    u = BlzCreateUnitWithSkin(p, FourCC("Ofar"), 7920.3, 6458.0, 246.563, FourCC("Ofar"))
     SetHeroLevel(u, 25, false)
     u = BlzCreateUnitWithSkin(p, FourCC("Oshd"), 7893.7, 6857.2, 273.392, FourCC("Oshd"))
     SetHeroLevel(u, 25, false)
@@ -2479,7 +2480,7 @@ function CreateRegions()
     gg_rct_Red_Left = Rect(-9536.0, -896.0, -8768.0, -128.0)
 end
 
-function Trig_Initialization_Func012A()
+function Trig_Initialization_Func013A()
         ConvertAIDifficulty(2)
 end
 
@@ -2493,8 +2494,9 @@ function Trig_Initialization_Actions()
     MeleeStartingAI()
     MeleeInitVictoryDefeat()
     udg_samuro = gg_unit_Osam_0245
+    udg_samuro = gg_unit_Hamg_0343
     SetUnitInvulnerable(gg_unit_oalt_0054, true)
-    ForForce(GetPlayersAll(), Trig_Initialization_Func012A)
+    ForForce(GetPlayersAll(), Trig_Initialization_Func013A)
 end
 
 function InitTrig_Initialization()

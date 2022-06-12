@@ -1,7 +1,9 @@
-import { Unit } from 'w3ts';
-import { buildTrigger } from 'utils/trigger';
+import {
+  MODEL_AncientProtectorMissile, MODEL_EarthquakeTarget, MODEL_WarStompCaster,
+} from 'resources/war3-models';
 import { getUnitLocation } from 'utils/location';
-import { MODEL_AncientProtectorMissile, MODEL_CavernDust, MODEL_WarStompCaster } from 'resources/war3-models';
+import { buildTrigger } from 'utils/trigger';
+import { Unit } from 'w3ts';
 
 export class WarStomp {
   static register(abilityId?: number) {
@@ -70,9 +72,9 @@ export class WarStomp {
       BlzSetSpecialEffectTimeScale(eff, 0.5);
       DestroyEffect(eff);
 
-      eff = AddSpecialEffectLoc(MODEL_CavernDust, newLoc);
-      BlzSetSpecialEffectScale(eff, 2);
-      BlzSetSpecialEffectTimeScale(eff, 0.5);
+      eff = AddSpecialEffectLoc(MODEL_EarthquakeTarget, newLoc);
+      BlzSetSpecialEffectScale(eff, 1);
+      BlzSetSpecialEffectTimeScale(eff, 1);
       DestroyEffect(eff);
 
       RemoveLocation(newLoc);

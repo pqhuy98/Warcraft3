@@ -1,7 +1,15 @@
-import { Unit, Group } from 'w3ts';
+import { getUnitLocation, locX, locY } from 'utils/location';
 import { buildTrigger, setInterval, setTimeout } from 'utils/trigger';
-import { getUnitLocation, locY, locX } from 'utils/location';
 import { angleBetweenUnits, unitPolarProjection } from 'utils/unit';
+import {
+  Group, Timer, Unit,
+} from 'w3ts';
+
+type UnitData = {
+  castTimes: number
+  timer: Timer
+}
+const mp = new Map<number, UnitData>();
 
 export class Gravity {
   static register(abilityId?: number) {
@@ -26,30 +34,55 @@ export class Gravity {
     private abilityLevel: number,
   ) {
     const TICK_PER_SEC = 30;
-    const t1 = setInterval(1.0 / TICK_PER_SEC, () => {
-      const casterLoc = getUnitLocation(caster);
-      const nearby = GetUnitsInRangeOfLocMatching(abilityLevel * 500, casterLoc, Condition(() => {
-        const matchingUnit = Unit.fromFilter();
-        return matchingUnit.handle !== caster.handle
+
+    let ud: UnitData;
+    if (mp.has(caster.id)) {
+      ud = mp.get(caster.id);
+      ud.castTimes++;
+    } else {
+      ud = {
+        castTimes: 1,
+        timer: null,
+      } as UnitData;
+    }
+    mp.set(caster.id, ud);
+
+    if (ud.timer === null) {
+      ud.timer = setInterval(1.0 / TICK_PER_SEC, () => {
+        print('pull', caster.x);
+        const casterLoc = getUnitLocation(caster);
+
+        const nearby = GetUnitsInRangeOfLocMatching(abilityLevel * 500, casterLoc, Condition(() => {
+          const matchingUnit = Unit.fromFilter();
+          return matchingUnit.handle !== caster.handle
             && matchingUnit.isAlive()
             && !matchingUnit.getField(UNIT_BF_IS_A_BUILDING);
-      }));
+        }));
 
-      Group.fromHandle(nearby).for(() => {
-        const u = Unit.fromEnum();
-        const newLoc = unitPolarProjection(u, u.moveSpeed / 4 / TICK_PER_SEC, angleBetweenUnits(u, caster));
-        u.x = locX(newLoc);
-        u.y = locY(newLoc);
-        RemoveLocation(newLoc);
-        u.getAbility(1);
+        Group.fromHandle(nearby).for(() => {
+          const u = Unit.fromEnum();
+          const newLoc = unitPolarProjection(
+            u,
+            ud.castTimes * u.moveSpeed / 4 / TICK_PER_SEC,
+            angleBetweenUnits(u, caster),
+          );
+          u.x = locX(newLoc);
+          u.y = locY(newLoc);
+          RemoveLocation(newLoc);
+          u.getAbility(1);
+        });
+        RemoveLocation(casterLoc);
+        DestroyGroup(nearby);
       });
-      RemoveLocation(casterLoc);
-      DestroyGroup(nearby);
-    });
+    }
 
     setTimeout(5, () => {
-      t1.pause();
-      t1.destroy();
+      ud.castTimes--;
+      if (ud.castTimes === 0) {
+        mp.delete(caster.id);
+        ud.timer.pause();
+        ud.timer.destroy();
+      }
     });
   }
 }
