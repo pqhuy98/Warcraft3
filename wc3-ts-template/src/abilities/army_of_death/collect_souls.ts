@@ -1,13 +1,13 @@
-import { Unit } from 'w3ts';
-
-import { Store } from 'abilities/army_of_death/store';
-import { buildTrigger } from 'utils/trigger';
-import { getUnitLocation } from 'utils/location';
-import { ABILITY_ID_LOCUST, BUFF_ID_GENERIC } from 'utils/constants';
 import {
-  REVIVED_RED, REVIVED_GREEN, REVIVED_BLUE, REVIVED_ALPHA, FOLLOW_MOVEMENT_SPEED,
+  FOLLOW_MOVEMENT_SPEED,
+  REVIVED_ALPHA, REVIVED_BLUE, REVIVED_GREEN, REVIVED_RED,
 } from 'abilities/army_of_death/constants';
+import { Store } from 'abilities/army_of_death/store';
 import { MODEL_UndeadDissipate } from 'resources/war3-models';
+import { ABILITY_ID_LOCUST, BUFF_ID_GENERIC } from 'utils/constants';
+import { getUnitLocation } from 'utils/location';
+import { buildTrigger } from 'utils/trigger';
+import { Unit } from 'w3ts';
 
 export function collectSouls(s: Store) {
   const cleanupOnDeath = buildTrigger((t) => {

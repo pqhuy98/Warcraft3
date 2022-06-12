@@ -1,11 +1,12 @@
-import { OrderId } from 'w3ts/globals/order';
 import {
-  FOLLOW_DISTANCE, REVIVED_RED, REVIVED_GREEN, REVIVED_BLUE, REVIVED_ALPHA, FOLLOW_MOVEMENT_SPEED,
+  FOLLOW_DISTANCE, FOLLOW_MOVEMENT_SPEED,
+  REVIVED_ALPHA, REVIVED_BLUE, REVIVED_GREEN, REVIVED_RED,
 } from 'abilities/army_of_death/constants';
-import { Unit } from 'w3ts';
-import { buildTrigger } from 'utils/trigger';
 import { Store } from 'abilities/army_of_death/store';
 import { getUnitLocation } from 'utils/location';
+import { buildTrigger } from 'utils/trigger';
+import { Unit } from 'w3ts';
+import { OrderId } from 'w3ts/globals/order';
 
 function activate(s: Store) {
   s.activated = true;

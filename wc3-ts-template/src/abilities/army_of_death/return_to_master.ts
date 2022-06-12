@@ -1,14 +1,14 @@
-import { Timer, Unit } from 'w3ts';
-import { Store } from 'abilities/army_of_death/store';
-import {
-  angleBetweenUnits, distanceBetweenUnits, fadeUnit, unitPolarProjection,
-} from 'utils/unit';
-import { getUnitLocation, locX, locY } from 'utils/location';
 import {
   RETURN_DISTANCE, REVIVED_ALPHA, REVIVED_BLUE, REVIVED_GREEN, REVIVED_RED,
 } from 'abilities/army_of_death/constants';
-import { OrderId } from 'w3ts/globals/order';
+import { Store } from 'abilities/army_of_death/store';
 import { MODEL_UndeadDissipate } from 'resources/war3-models';
+import { getUnitLocation, locX, locY } from 'utils/location';
+import {
+  angleBetweenUnits, distanceBetweenUnits, fadeUnit, unitPolarProjection,
+} from 'utils/unit';
+import { Timer, Unit } from 'w3ts';
+import { OrderId } from 'w3ts/globals/order';
 
 export function returnToMaster(s: Store) {
   const t1 = new Timer();

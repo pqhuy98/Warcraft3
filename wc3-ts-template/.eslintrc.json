@@ -17,7 +17,8 @@
     },
     "plugins": [
         "@typescript-eslint",
-        "unused-imports"
+        "unused-imports",
+        "simple-import-sort"
     ],
     "rules": {
         "linebreak-style": 0,
@@ -54,7 +55,8 @@
                 "args": "after-used",
                 "argsIgnorePattern": "^_"
             }
-        ]
+        ],
+        "simple-import-sort/imports": "error"
     },
     "settings": {
         "import/resolver": {

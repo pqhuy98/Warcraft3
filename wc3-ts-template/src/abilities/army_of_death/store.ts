@@ -1,4 +1,4 @@
-import { Unit, Group, Timer } from 'w3ts';
+import { Group, Timer, Unit } from 'w3ts';
 
 export interface Store {
     master: Unit

@@ -1,9 +1,9 @@
-import { OrderId } from 'w3ts/globals/order';
-import { Timer, Unit } from 'w3ts';
-import { Store } from 'abilities/army_of_death/store';
-import { distanceBetweenUnits } from 'utils/unit';
-import { getUnitLocation } from 'utils/location';
 import { FOLLOW_DISTANCE, FOLLOW_MOVEMENT_SPEED, RETURN_MOVEMENT_SPEED } from 'abilities/army_of_death/constants';
+import { Store } from 'abilities/army_of_death/store';
+import { getUnitLocation } from 'utils/location';
+import { distanceBetweenUnits } from 'utils/unit';
+import { Timer, Unit } from 'w3ts';
+import { OrderId } from 'w3ts/globals/order';
 
 export function followMaster(s: Store) {
   const t1 = new Timer();
