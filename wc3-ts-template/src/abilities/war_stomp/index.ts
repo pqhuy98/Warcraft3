@@ -64,11 +64,11 @@ export class WarStomp {
       const newLoc = PolarProjectionBJ(
         loc,
         GetRandomReal(0, 500),
-        GetRandomReal(0, 360),
+        GetRandomDirectionDeg(),
       );
 
       eff = AddSpecialEffectLoc(MODEL_AncientProtectorMissile, newLoc);
-      BlzSetSpecialEffectScale(eff, 2);
+      BlzSetSpecialEffectScale(eff, 3);
       BlzSetSpecialEffectTimeScale(eff, 0.5);
       DestroyEffect(eff);
 

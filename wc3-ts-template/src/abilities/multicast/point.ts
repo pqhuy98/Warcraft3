@@ -59,9 +59,10 @@ export class MulticastPoint {
             t2.addAction(() => {
               t2.destroy();
               RemoveLocation(targetLoc);
-              fadeUnit(dummy, 255, 255, 0, 128, 128 / 0.5, () => false, () => dummy.destroy());
+              fadeUnit(dummy, 255, 255, 0, 128, 128 / 1, () => false, () => dummy.destroy());
             });
-            if (OrderId2String(order) === 'forceofnature') {
+            if (OrderId2String(order) === 'forceofnature'
+              || OrderId2String(order) === 'blink') {
               setTimeout(castPoint, () => t2.exec());
             }
           });

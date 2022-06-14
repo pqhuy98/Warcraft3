@@ -4,6 +4,8 @@ import { getSpellType } from 'utils/spell';
 import { buildTrigger } from 'utils/trigger';
 import { Unit } from 'w3ts';
 
+const REPEAT_CAST_MAX = 6;
+
 export class MulticastUnit {
   static register() {
     buildTrigger((t) => {
@@ -25,11 +27,12 @@ export class MulticastUnit {
         const castRange = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_CAST_RANGE, abiLevel - 1);
         const loc = getUnitLocation(target);
 
+        let cnt = 0;
         const nearby = GetUnitsInRangeOfLocMatching(Math.min(300, castRange), loc, Condition(() => {
           const u = Unit.fromFilter();
           return u.isAlive()
             && u.handle !== caster.handle
-            && u.handle !== target.handle;
+            && u.handle !== target.handle && ((++cnt) <= REPEAT_CAST_MAX);
         }));
 
         const dummy = new Unit(caster.owner, UNIT_ID_DUMMY, caster.x, caster.y, 0);

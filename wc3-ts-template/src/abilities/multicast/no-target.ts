@@ -12,6 +12,7 @@ export class MulticastNoTarget {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       t.addCondition(() => GetUnitTypeId(GetSpellAbilityUnit()) !== UNIT_ID_DUMMY
           && getSpellType().noTarget
+          && IsHeroUnitId(GetUnitTypeId(GetSpellAbilityUnit()))
           && BlzGetAbilityStringLevelField(
             GetSpellAbility(),
             ABILITY_SLF_NORMAL_FORM_UNIT_EME1,
