@@ -1,4 +1,5 @@
 import { getHero } from 'utils/heroes';
+import { locX, locY } from 'utils/location';
 import { buildTrigger } from 'utils/trigger';
 import {
   MapPlayer, Unit,
@@ -7,6 +8,11 @@ import {
 export class AllHeroes {
   constructor(private player: player) {
     this.learnSkill();
+    const startLoc = GetStartLocationLoc(GetPlayerId(player));
+
+    ['hpea', 'opeo', 'uaco', 'ewsp'].forEach((workerId) => {
+      new Unit(MapPlayer.fromHandle(player), FourCC(workerId), locX(startLoc), locY(startLoc), 0);
+    });
   }
 
   learnSkill() {

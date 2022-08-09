@@ -1,4 +1,5 @@
 udg_samuro = nil
+udg_all_heroes_player = nil
 gg_rct_Yellow_Top = nil
 gg_rct_Red_Right = nil
 gg_rct_Yellow_Bottom = nil
@@ -1646,7 +1647,11 @@ function CreateBuildingsForPlayer0()
     local unitID
     local t
     local life
-    gg_unit_oalt_0054 = BlzCreateUnitWithSkin(p, FourCC("oalt"), 8224.0, 6560.0, 270.000, FourCC("oalt"))
+    gg_unit_oalt_0054 = BlzCreateUnitWithSkin(p, FourCC("oalt"), 8096.0, 6560.0, 270.000, FourCC("oalt"))
+    u = BlzCreateUnitWithSkin(p, FourCC("ovln"), 8320.0, 6208.0, 270.000, FourCC("ovln"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hvlt"), 7936.0, 6208.0, 270.000, FourCC("hvlt"))
+    u = BlzCreateUnitWithSkin(p, FourCC("eden"), 8448.0, 6592.0, 270.000, FourCC("eden"))
+    u = BlzCreateUnitWithSkin(p, FourCC("utom"), 7744.0, 6592.0, 270.000, FourCC("utom"))
 end
 
 function CreateUnitsForPlayer0()
@@ -1677,63 +1682,35 @@ function CreateUnitsForPlayer0()
     UnitAddItemToSlotById(gg_unit_Osam_0245, FourCC("I000"), 0)
     UnitAddItemToSlotById(gg_unit_Osam_0245, FourCC("desc"), 1)
     UnitAddItemToSlotById(gg_unit_Osam_0245, FourCC("modt"), 2)
-    u = BlzCreateUnitWithSkin(p, FourCC("Hmkg"), 7612.4, 6836.3, 335.970, FourCC("Hmkg"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Hmkg"), 7133.4, 6737.0, 335.970, FourCC("Hmkg"))
     SetHeroLevel(u, 25, false)
     SetUnitState(u, UNIT_STATE_MANA, 765)
-    u = BlzCreateUnitWithSkin(p, FourCC("Hpal"), 7695.2, 6737.3, 102.154, FourCC("Hpal"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Hpal"), 7216.2, 6638.0, 102.154, FourCC("Hpal"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Hblm"), 7829.0, 6828.0, 51.418, FourCC("Hblm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Hblm"), 7350.0, 6728.7, 51.418, FourCC("Hblm"))
     SetHeroLevel(u, 25, false)
     gg_unit_Hamg_0343 = BlzCreateUnitWithSkin(p, FourCC("Hamg"), 7407.2, 6658.9, 38.508, FourCC("Hamg"))
     SetHeroLevel(gg_unit_Hamg_0343, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Ofar"), 7920.3, 6458.0, 246.563, FourCC("Ofar"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Ofar"), 7269.0, 6699.4, 246.563, FourCC("Ofar"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Oshd"), 7893.7, 6857.2, 273.392, FourCC("Oshd"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Oshd"), 7414.7, 6758.0, 273.392, FourCC("Oshd"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Udea"), 7693.8, 6878.5, 281.940, FourCC("Udea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Udea"), 7214.8, 6779.2, 281.940, FourCC("Udea"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Ulic"), 7759.6, 6934.9, 179.577, FourCC("Ulic"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Ulic"), 7280.6, 6835.6, 179.577, FourCC("Ulic"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Udre"), 7943.3, 6940.5, 42.233, FourCC("Udre"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Udre"), 7464.3, 6841.3, 42.233, FourCC("Udre"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Ucrl"), 8051.7, 6880.2, 57.548, FourCC("Ucrl"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Ucrl"), 7572.7, 6780.9, 57.548, FourCC("Ucrl"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Ekee"), 7607.2, 6980.5, 222.095, FourCC("Ekee"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Ekee"), 7128.2, 6881.2, 222.095, FourCC("Ekee"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Emoo"), 7754.4, 7055.0, 344.102, FourCC("Emoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Emoo"), 7275.4, 6955.7, 344.102, FourCC("Emoo"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Edem"), 7852.3, 7057.7, 148.990, FourCC("Edem"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Edem"), 7373.3, 6958.4, 148.990, FourCC("Edem"))
     SetHeroLevel(u, 25, false)
-    u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 8000.4, 7040.1, 55.131, FourCC("Ewar"))
+    u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 7521.4, 6940.8, 55.131, FourCC("Ewar"))
     SetHeroLevel(u, 25, false)
-end
-
-function CreateBuildingsForPlayer4()
-    local p = Player(4)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("hcas"), 5824.0, 8768.0, 270.000, FourCC("hcas"))
-    u = BlzCreateUnitWithSkin(p, FourCC("ofrt"), 5632.0, 9472.0, 270.000, FourCC("ofrt"))
-    u = BlzCreateUnitWithSkin(p, FourCC("etoe"), 6272.0, 9152.0, 270.000, FourCC("etoe"))
-    u = BlzCreateUnitWithSkin(p, FourCC("unp2"), 6784.0, 8896.0, 270.000, FourCC("unp2"))
-    u = BlzCreateUnitWithSkin(p, FourCC("uaod"), 6304.0, 8736.0, 270.000, FourCC("uaod"))
-    u = BlzCreateUnitWithSkin(p, FourCC("halt"), 6688.0, 8416.0, 270.000, FourCC("halt"))
-    u = BlzCreateUnitWithSkin(p, FourCC("oalt"), 5408.0, 7840.0, 270.000, FourCC("oalt"))
-    u = BlzCreateUnitWithSkin(p, FourCC("eate"), 5920.0, 7712.0, 270.000, FourCC("eate"))
-end
-
-function CreateUnitsForPlayer4()
-    local p = Player(4)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("opeo"), 5464.2, 8075.4, 71.479, FourCC("opeo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 5596.3, 8003.1, 291.971, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("uaco"), 5710.4, 7990.4, 105.758, FourCC("uaco"))
-    u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), 5597.0, 8113.8, 264.746, FourCC("ewsp"))
 end
 
 function CreateNeutralHostile()
@@ -2487,12 +2464,10 @@ end
 
 function CreatePlayerBuildings()
     CreateBuildingsForPlayer0()
-    CreateBuildingsForPlayer4()
 end
 
 function CreatePlayerUnits()
     CreateUnitsForPlayer0()
-    CreateUnitsForPlayer4()
 end
 
 function CreateAllUnits()
@@ -2527,10 +2502,10 @@ function Trig_Initialization_Actions()
     udg_samuro = gg_unit_Hamg_0343
     SetUnitInvulnerable(gg_unit_oalt_0054, true)
     ForForce(GetPlayersAll(), Trig_Initialization_Func012A)
-    StartMeleeAI(Player(4), "war3mapImported\\all-heroes.ai")
-    SetPlayerMaxHeroesAllowed(9999, Player(4))
-    SetPlayerAllianceStateBJ(Player(4), Player(0), bj_ALLIANCE_ALLIED_UNITS)
-    SetPlayerHandicapXPBJ(Player(4), 800.00)
+    udg_all_heroes_player = Player(5)
+    StartMeleeAI(udg_all_heroes_player, "war3mapImported\\all-heroes.ai")
+    SetPlayerMaxHeroesAllowed(9999, udg_all_heroes_player)
+    SetPlayerHandicapXPBJ(udg_all_heroes_player, 800.00)
     MeleeStartingAI()
 end
 

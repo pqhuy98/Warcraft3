@@ -18,7 +18,7 @@ import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
 function tsMain() {
   importHeroes();
-  new AllHeroes(Player(4));
+  new AllHeroes(Player(5));
 
   Gravity.register(FourCC('A009:ANcl'));
   BladeDance.register(FourCC('A000:AHtb'));
@@ -31,7 +31,7 @@ function tsMain() {
 
   MulticastUnit.register();
   MulticastPoint.register();
-  // TODO: fix MulticastNoTarget crashes the game
+  // TODO: fix MulticastNoTarget crashes the game on some unknown unit abilities
   MulticastNoTarget.register();
 }
 
