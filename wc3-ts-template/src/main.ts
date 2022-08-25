@@ -22,7 +22,7 @@ function tsMain() {
 
   Gravity.register(FourCC('A009:ANcl'));
   BladeDance.register(FourCC('A000:AHtb'));
-  new ArmyOfDeath(Unit.fromHandle(gg_unit_Osam_0245), FourCC('A004:AHtc'));
+  ArmyOfDeath.register(Unit.fromHandle(gg_unit_Osam_0245), FourCC('A004:AHtc'));
   WarStomp.register(FourCC('A00A:AOws'));
 
   Cheat('warpten');

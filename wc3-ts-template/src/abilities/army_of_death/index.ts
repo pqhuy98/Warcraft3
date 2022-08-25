@@ -6,6 +6,10 @@ import { Store } from 'abilities/army_of_death/store';
 import { Group, Timer, Unit } from 'w3ts';
 
 export default class ArmyOfDeath {
+  static register(caster: Unit, abilityId: number) {
+    return new ArmyOfDeath(caster, abilityId);
+  }
+
   constructor(caster: Unit, abilityId: number) {
     const s: Store = {
       master: caster,
