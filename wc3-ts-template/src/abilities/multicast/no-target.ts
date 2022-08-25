@@ -6,19 +6,23 @@ import { fadeUnit, growUnit } from 'utils/unit';
 import { Timer, Unit } from 'w3ts';
 
 const REPEAT_CAST = 2;
+
+function isNotMorphAbility() {
+  return BlzGetAbilityStringLevelField(
+    GetSpellAbility(),
+    ABILITY_SLF_NORMAL_FORM_UNIT_EME1,
+    GetUnitAbilityLevel(GetSpellAbilityUnit(), GetSpellAbilityId()) - 1,
+  ) === '';
+}
+
 export class MulticastNoTarget {
   static register() {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       t.addCondition(() => GetUnitTypeId(GetSpellAbilityUnit()) !== UNIT_ID_DUMMY
-          && getSpellType().noTarget
-          && IsHeroUnitId(GetUnitTypeId(GetSpellAbilityUnit()))
-          && BlzGetAbilityStringLevelField(
-            GetSpellAbility(),
-            ABILITY_SLF_NORMAL_FORM_UNIT_EME1,
-            GetUnitAbilityLevel(GetSpellAbilityUnit(), GetSpellAbilityId()) - 1,
-          ) === '');
-
+        && getSpellType().noTarget
+        && IsHeroUnitId(GetUnitTypeId(GetSpellAbilityUnit()))
+        && isNotMorphAbility());
       t.addAction(() => {
         const abiId = GetSpellAbilityId();
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
