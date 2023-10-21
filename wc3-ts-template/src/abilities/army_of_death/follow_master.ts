@@ -1,11 +1,11 @@
 import { FOLLOW_DISTANCE, FOLLOW_MOVEMENT_SPEED, RETURN_MOVEMENT_SPEED } from 'abilities/army_of_death/constants';
-import { Store } from 'abilities/army_of_death/store';
+import { State } from 'abilities/army_of_death/store';
 import { getUnitLocation } from 'utils/location';
 import { distanceBetweenUnits } from 'utils/unit';
 import { Timer, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals/order';
 
-export function followMaster(s: Store) {
+export function followMaster(s: State) {
   const t1 = new Timer();
   const T1_TICK_PER_SEC = 8;
   t1.start(1.0 / T1_TICK_PER_SEC, true, () => {

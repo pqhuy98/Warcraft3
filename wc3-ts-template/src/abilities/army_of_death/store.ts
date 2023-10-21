@@ -1,6 +1,6 @@
 import { Group, Timer, Unit } from 'w3ts';
 
-export interface Store {
+export interface State {
     master: Unit
     abilityId: number
 

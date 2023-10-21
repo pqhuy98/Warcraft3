@@ -20,9 +20,9 @@
     "plugins": [
       {
         "transform": "war3-transformer",
-        "mapDir": "E:/Projects/Warcraft3/wc3-ts-template/maps/Juggernaut.w3x",
-        "entryFile": "E:/Projects/Warcraft3/wc3-ts-template/src/main.ts",
-        "outputDir": "E:/Projects/Warcraft3/wc3-ts-template/dist/Juggernaut.w3x"
+        "mapDir": "D:/_Projects/Warcraft3/wc3-ts-template/maps/Juggernaut.w3x",
+        "entryFile": "D:/_Projects/Warcraft3/wc3-ts-template/src/main.ts",
+        "outputDir": "D:/_Projects/Warcraft3/wc3-ts-template/dist/Juggernaut.w3x"
       }
     ],
     "types": [

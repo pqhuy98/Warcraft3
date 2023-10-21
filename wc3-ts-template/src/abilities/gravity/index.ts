@@ -49,7 +49,6 @@ export class Gravity {
 
     if (ud.timer === null) {
       ud.timer = setInterval(1.0 / TICK_PER_SEC, () => {
-        print('pull', caster.x);
         const casterLoc = getUnitLocation(caster);
 
         const nearby = GetUnitsInRangeOfLocMatching(abilityLevel * 500, casterLoc, Condition(() => {

@@ -2,13 +2,13 @@ import {
   FOLLOW_DISTANCE, FOLLOW_MOVEMENT_SPEED,
   REVIVED_ALPHA, REVIVED_BLUE, REVIVED_GREEN, REVIVED_RED,
 } from 'abilities/army_of_death/constants';
-import { Store } from 'abilities/army_of_death/store';
+import { State } from 'abilities/army_of_death/store';
 import { getUnitLocation } from 'utils/location';
 import { buildTrigger } from 'utils/trigger';
 import { Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals/order';
 
-function activate(s: Store) {
+function activate(s: State) {
   s.activated = true;
   const loc = getUnitLocation(s.master);
   s.revivedGroupHidden.for(() => {
@@ -33,7 +33,7 @@ function activate(s: Store) {
   s.activateUntil.start(s.activatedDuration, false, () => deactivate(s));
 }
 
-function deactivate(s: Store) {
+function deactivate(s: State) {
   s.activated = false;
   s.activateUntil.pause();
   // Must get back to master
@@ -44,7 +44,7 @@ function deactivate(s: Store) {
   });
 }
 
-export function onActivate(s:Store) {
+export function onActivate(s:State) {
   buildTrigger((t) => {
     t.registerUnitEvent(s.master, EVENT_UNIT_SPELL_EFFECT);
     t.addCondition(() => GetSpellAbilityId() === s.abilityId);

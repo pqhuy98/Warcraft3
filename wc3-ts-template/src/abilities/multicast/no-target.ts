@@ -16,13 +16,16 @@ function isNotMorphAbility() {
 }
 
 export class MulticastNoTarget {
-  static register() {
+  static register(abilityId?: number) {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       t.addCondition(() => GetUnitTypeId(GetSpellAbilityUnit()) !== UNIT_ID_DUMMY
         && getSpellType().noTarget
         && IsHeroUnitId(GetUnitTypeId(GetSpellAbilityUnit()))
         && isNotMorphAbility());
+      if (abilityId) {
+        t.addCondition(() => GetSpellAbilityId() === abilityId);
+      }
       t.addAction(() => {
         const abiId = GetSpellAbilityId();
         const caster = Unit.fromHandle(GetSpellAbilityUnit());

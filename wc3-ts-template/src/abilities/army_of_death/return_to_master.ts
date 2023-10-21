@@ -1,7 +1,7 @@
 import {
   RETURN_DISTANCE, REVIVED_ALPHA, REVIVED_BLUE, REVIVED_GREEN, REVIVED_RED,
 } from 'abilities/army_of_death/constants';
-import { Store } from 'abilities/army_of_death/store';
+import { State } from 'abilities/army_of_death/store';
 import { MODEL_UndeadDissipate } from 'resources/war3-models';
 import { getUnitLocation, locX, locY } from 'utils/location';
 import {
@@ -10,7 +10,7 @@ import {
 import { Timer, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals/order';
 
-export function returnToMaster(s: Store) {
+export function returnToMaster(s: State) {
   const t1 = new Timer();
   const TICK_PER_SEC = 30;
   const RETURN_SPEED_PER_TICK = 300.0 / TICK_PER_SEC;
