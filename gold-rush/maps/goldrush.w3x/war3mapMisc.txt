@@ -1,0 +1,13 @@
+[Misc]
+BuildingKillsGiveExp=1
+FoodCeiling=300
+HeroAwakenLifeFactor=1.0
+HeroAwakenManaFactor=1.0
+HeroExpRange=12000.0
+HeroReviveManaFactor=1.0
+MaxHeroLevel=10000
+MaxUnitLevel=100
+MaxUnitSpeed=522.0
+ReviveTimeFactor=0.1
+UpkeepUsage=100,200,10000,10000,10000,10000,10000,10000,10000,10000
+

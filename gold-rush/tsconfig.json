@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "allowJs": true,
+    "target": "es6",
+    "lib": [
+      "es6"
+    ],
+    "moduleResolution": "classic",
+    "paths": {
+      "*": [
+        "./*",
+        "../node_modules/*/src/index",
+        "../node_modules/*/lib/index",
+        "../node_modules/*/index",
+        "../node_modules/*/dist/index",
+        "../node_modules/*"
+      ]
+    },
+    "plugins": [
+      {
+        "transform": "war3-transformer",
+        "mapDir": "D:/_Projects/Warcraft3/gold-rush/maps/goldrush.w3x",
+        "entryFile": "D:/_Projects/Warcraft3/gold-rush/src/main.ts",
+        "outputDir": "D:/_Projects/Warcraft3/gold-rush/dist/goldrush.w3x"
+      }
+    ],
+    "types": [
+      "lua-types/core/index",
+      "lua-types/core/coroutine",
+      "lua-types/core/global",
+      "lua-types/core/math",
+      "lua-types/core/metatable",
+      "lua-types/core/modules",
+      "lua-types/core/string",
+      "lua-types/core/table",
+      "lua-types/core/os",
+      "lua-types/special/5.3",
+      "war3-types/core/compat",
+      "war3-types/core/common",
+      "war3-types/core/blizzard",
+      "war3-types/core/commonai",
+      "war3-types/core/polyfill",
+      "war3-types/special/w3ts"
+    ]
+  },
+  "include": [
+    "src",
+    "war3map.d.ts"
+  ],
+  "exclude": [],
+  "tstl": {
+    "luaTarget": "5.3",
+    "noHeader": true,
+    "luaLibImport": "require",
+    "noImplicitSelf": true,
+    "luaBundle": "dist/tstl_output.lua",
+    "luaBundleEntry": "./src/main.ts"
+  }
+}

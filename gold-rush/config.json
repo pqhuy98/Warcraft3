@@ -1,0 +1,9 @@
+{
+  "mapFolder": "goldrush.w3x",
+  "minifyScript": false,
+  "gameExecutable": "D:\\Warcraft III\\_retail_\\x86_64\\Warcraft III.exe",
+  "outputFolder": "./dist/bin",
+  "launchArgs": [
+    "-launch"
+  ]
+}

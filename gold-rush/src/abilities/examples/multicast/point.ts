@@ -1,8 +1,8 @@
-import { ABILITY_ID_LOCUST, UNIT_ID_DUMMY } from 'utils/constants';
-import { locX, locY } from 'utils/location';
-import { getSpellType } from 'utils/spell';
-import { buildTrigger, setTimeout } from 'utils/trigger';
-import { fadeUnit, unitPolarProjection } from 'utils/unit';
+import { ABILITY_ID_LOCUST, UNIT_ID_DUMMY } from 'lib/constants';
+import { locX, locY } from 'lib/location';
+import { getSpellType } from 'lib/spell';
+import { buildTrigger, setTimeout } from 'lib/trigger';
+import { fadeUnit, unitPolarProjection } from 'lib/unit';
 import { Unit } from 'w3ts';
 
 const REPEAT_CAST = 3;
@@ -34,7 +34,7 @@ export class MulticastPoint {
           const dummy = new Unit(caster.owner, UNIT_ID_DUMMY, locX(dummyLoc), locY(dummyLoc), caster.facing);
           dummy.addAbility(ABILITY_ID_LOCUST);
           dummy.setPathing(false);
-          dummy.setflyHeight(caster.getflyHeight(), 0);
+          dummy.setflyHeight(caster.getflyHeight(), 999999);
           dummy.skin = caster.skin;
           const scale = (caster.getField(UNIT_RF_SCALING_VALUE) as number);
           dummy.setScale(scale, scale, scale);
@@ -45,6 +45,7 @@ export class MulticastPoint {
           dummy.setAbilityCooldown(abiId, abiLevel, 0);
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel, 99999);
           dummy.color = PLAYER_COLOR_YELLOW;
+          RemoveLocation(dummyLoc);
 
           const targetLoc = GetSpellTargetLoc();
           const newLoc = PolarProjectionBJ(targetLoc, offsetDistance, offsetAngle);

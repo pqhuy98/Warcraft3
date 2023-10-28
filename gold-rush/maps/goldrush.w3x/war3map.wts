@@ -1,0 +1,490 @@
+﻿STRING 1
+{
+Gold Rush
+}
+
+STRING 2
+{
+3v3, 4v4, or FFA
+}
+
+STRING 3
+{
+This land is shot with veins of gold, gleaming with the promise of wealth and power. Don't be lured into complacency. Expand early and often, or you cannot hope to achieve greatness.
+}
+
+STRING 4
+{
+Blizzard Entertainment
+}
+
+STRING 5
+{
+Player 1
+}
+
+STRING 6
+{
+Player 2
+}
+
+STRING 7
+{
+Player 3
+}
+
+STRING 8
+{
+Player 4
+}
+
+STRING 9
+{
+Player 5
+}
+
+STRING 10
+{
+Player 6
+}
+
+STRING 11
+{
+Player 7
+}
+
+STRING 12
+{
+Player 8
+}
+
+STRING 14
+{
+Human Alliance
+}
+
+STRING 15
+{
+Orcish Horde
+}
+
+STRING 16
+// Units: h000 (Dummy), Name (Name)
+{
+Dummy
+}
+
+STRING 17
+// Abilities: A000 (Blade Dance), Name (Name)
+{
+Blade Dance
+}
+
+STRING 18
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 1|r] [|cffffcc00R|r]
+}
+
+STRING 19
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 2|r] [|cffffcc00R|r]
+}
+
+STRING 20
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 3|r] [|cffffcc00R|r]
+}
+
+STRING 21
+// Abilities: A000 (Blade Dance), Researchtip (Tooltip - Learn)
+{
+Learn Blade Dance - [|cffffcc00Level %d|r] [|cffffcc00R|r]
+}
+
+STRING 22
+// Abilities: A000 (Blade Dance), Researchubertip (Tooltip - Learn - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 23
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 24
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 25
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 26
+// Abilities: A000 (Blade Dance), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 27
+// Abilities: A000 (Blade Dance), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 28
+// Abilities: A001 (Wind Walk), Tip (Tooltip - Normal)
+{
+|cffffcc00W|rind Walk - [|cffffcc00Level 4|r]
+}
+
+STRING 29
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move 110% faster for <AOwk,Dur4> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 400 bonus damage.
+}
+
+STRING 30
+// Abilities: A001 (Wind Walk), Researchubertip (Tooltip - Learn - Extended)
+{
+Allows the Blademaster to become invisible, and move faster for a set amount of time. When the Blademaster attacks a unit to break invisibility, he will deal bonus damage. |n|n|cffffcc00Level 1|r - <AOwk,DataB1,%>% move, 100 bonus damage, <AOwk,Dur1> seconds. |n|cffffcc00Level 2|r - <AOwk,DataB2,%>% move, 200 bonus damage, <AOwk,Dur2> seconds. |n|cffffcc00Level 3|r - <AOwk,DataB3,%>% move, 300 bonus damage, <AOwk,Dur3> seconds. |n|cffffcc00Level 4|r - 110% move, 400 bonus damage, 80 seconds.
+}
+
+STRING 31
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <AOwk,DataB1,%>% faster for <AOwk,Dur1> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 100 bonus damage.
+}
+
+STRING 32
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <AOwk,DataB2,%>% faster for <AOwk,Dur2> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 200 bonus damage.
+}
+
+STRING 33
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <AOwk,DataB3,%>% faster for <AOwk,Dur3> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 300 bonus damage.
+}
+
+STRING 34
+// Abilities: A001 (Wind Walk), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 35
+// Abilities: A001 (Wind Walk), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 36
+// Abilities: A002 (Critical Strike), Tip (Tooltip - Normal)
+{
+Critical Strike - [|cffffcc00Level 4|r]
+}
+
+STRING 37
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 60% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 38
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 15% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 39
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 30% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 40
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 45% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 41
+// Abilities: A002 (Critical Strike), Researchhotkey (Hotkey - Learn)
+{
+E
+}
+
+STRING 42
+// Abilities: A004 (Army of Soul), Name (Name)
+{
+Army of Soul
+}
+
+STRING 43
+// Abilities: A005 (fire), Name (Name)
+{
+fire
+}
+
+STRING 44
+// Abilities: A006 (move), Name (Name)
+{
+move
+}
+
+STRING 45
+// Abilities: A007 (Item AttackDetection), Name (Name)
+{
+Item AttackDetection
+}
+
+STRING 46
+// Abilities: A008 (Item Attack Speed Frenzy), Name (Name)
+{
+Item Attack Speed Frenzy
+}
+
+STRING 47
+// Abilities: A009 (Gravity), Name (Name)
+{
+Gravity
+}
+
+STRING 48
+// Abilities: A009 (Gravity), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 49
+// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
+{
+Gravity - [|cffffcc00Level 1|r]
+}
+
+STRING 50
+// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 51
+// Abilities: A009 (Gravity), Researchubertip (Tooltip - Learn - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 52
+// Abilities: A009 (Gravity), Researchtip (Tooltip - Learn)
+{
+Gravity
+}
+
+STRING 53
+// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
+{
+Gravity - [|cffffcc00Level 2|r]
+}
+
+STRING 54
+// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
+{
+Gravity - [|cffffcc00Level 3|r]
+}
+
+STRING 55
+// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 56
+// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 57
+// Abilities: A009 (Gravity), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 58
+// Buffs/Effects: B000 (Attacked), EditorName (Name (Editor Only))
+{
+Attacked
+}
+
+STRING 59
+// Buffs/Effects: B000 (Attacked), Bufftip (Tooltip)
+{
+Attacked
+}
+
+STRING 60
+// Buffs/Effects: B000 (Attacked), Buffubertip (Tooltip - Extended)
+{
+This unit was hit attacked.
+}
+
+STRING 61
+// Units: h001 (Gold Peasant), Name (Name)
+{
+Gold Peasant
+}
+
+STRING 62
+// Units: h001 (Gold Peasant), Tip (Tooltip - Basic)
+{
+Train Gold Peasant
+}
+
+STRING 63
+// Units: h001 (Gold Peasant), Ubertip (Tooltip - Extended)
+{
+Can build Gold Mine.
+}
+
+STRING 64
+// Units: u000 (Gold Acolyte), Name (Name)
+{
+Gold Acolyte
+}
+
+STRING 65
+// Units: u000 (Gold Acolyte), Tip (Tooltip - Basic)
+{
+Train Gold Acolyte
+}
+
+STRING 66
+// Units: u000 (Gold Acolyte), Ubertip (Tooltip - Extended)
+{
+Can summon Gold Mine.
+}
+
+STRING 67
+// Units: H002 (God of Thunder), Name (Name)
+{
+God of Thunder
+}
+
+STRING 68
+// Units: H002 (God of Thunder), Propernames (Proper Names)
+{
+Zeus
+}
+
+STRING 69
+// Units: H002 (God of Thunder), Awakentip (Tooltip - Awaken)
+{
+Revive Zeus
+}
+
+STRING 70
+// Units: H002 (God of Thunder), Tip (Tooltip - Basic)
+{
+Summon Zeus
+}
+
+STRING 71
+// Units: H002 (God of Thunder), Ubertip (Tooltip - Extended)
+{
+Eons ago, Zeus reigned supreme over the gods of Olympus, wielding the sky's fury with his mighty thunderbolts. His dominion was unquestioned, his power unparalleled. Yet, a prophecy whispered through the winds of time spoke of another realm, a world known as Azeroth that would face cataclysmic events that could ripple through the very fabric of existence. Intrigued and slightly alarmed, Zeus decided to descend from his celestial throne to intervene.
+
+Upon his arrival, Zeus found Azeroth embroiled in ceaseless conflict: Humans, Orcs, Elves, and Undead locked in a never-ending battle for survival and supremacy. The intensity of their strife had disturbed the cosmic balance, creating fissures in the fabric of reality itself. Realizing that the prophecy was unfolding before his very eyes, Zeus knew he had to act.
+
+However, Zeus could not reveal his true identity. The gods of Azeroth and Olympus had an ancient pact, forbidding interference in each other's realms. Thus, shrouded in the guise of a wandering mage, Zeus ventured forth to correct the imbalance discreetly. But even in his disguised form, the sheer magnitude of his celestial energy could hardly be contained. Thunderclouds gathered where he walked, and bolts of lightning would strike down his foes, betraying his divine nature.
+
+Driven by a newfound purpose, Zeus seeks to quell the unrest in Azeroth, aware that the fate of his own realm is intrinsically tied to this foreign land. Along the way, he has found unlikely allies, ancient enemies, and a myriad of challenges that even a god had not foreseen. But with every thunderbolt he casts, Zeus sends a clear message to all who dare plunge the world into chaos: The God of Thunder has arrived, and he will tolerate no evil in his quest to restore cosmic balance.
+}
+
+STRING 72
+// Units: H002 (God of Thunder), Revivetip (Tooltip - Revive)
+{
+Revive Zeus
+}
+
+STRING 73
+// Abilities: A003 (Chain Lightning), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 74
+// Abilities: A003 (Chain Lightning), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 75
+// Abilities: A00B (Thunder Blink), Name (Name)
+{
+Thunder Blink
+}
+
+STRING 76
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 1|r]
+}
+
+STRING 77
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 2|r]
+}
+
+STRING 78
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 3|r]
+}
+
+STRING 79
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+In a dazzling display of divine might, Zeus vanishes from his current location only to reappear instantaneously at a target destination. As he materializes, the skies darken and a resounding clap of thunder fills the air. A violent explosion of electrical energy erupts around him, dealing significant damage to all nearby enemies. The celestial force of the explosion is so overwhelming that it slows enemies in its radius, sapping their will to fight. In addition, tendrils of electric energy snake out from the epicenter, latching onto foes and electrifying them for a brief duration. This spectacle of celestial power is a testament to Zeus' mastery over thunder and lightning, serving both as a tactical maneuver and a devastating attack.
+
+
+}
+
+STRING 80
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+In a dazzling display of divine might, Zeus vanishes from his current location only to reappear instantaneously at a target destination. As he materializes, the skies darken and a resounding clap of thunder fills the air. A violent explosion of electrical energy erupts around him, dealing significant damage to all nearby enemies. The celestial force of the explosion is so overwhelming that it slows enemies in its radius, sapping their will to fight. In addition, tendrils of electric energy snake out from the epicenter, latching onto foes and electrifying them for a brief duration. This spectacle of celestial power is a testament to Zeus' mastery over thunder and lightning, serving both as a tactical maneuver and a devastating attack.
+
+
+}
+
+STRING 81
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+In a dazzling display of divine might, Zeus vanishes from his current location only to reappear instantaneously at a target destination. As he materializes, the skies darken and a resounding clap of thunder fills the air. A violent explosion of electrical energy erupts around him, dealing significant damage to all nearby enemies. The celestial force of the explosion is so overwhelming that it slows enemies in its radius, sapping their will to fight. In addition, tendrils of electric energy snake out from the epicenter, latching onto foes and electrifying them for a brief duration. This spectacle of celestial power is a testament to Zeus' mastery over thunder and lightning, serving both as a tactical maneuver and a devastating attack.
+
+
+}
+
+STRING 82
+// Abilities: A00B (Thunder Blink), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 83
+// Abilities: A00B (Thunder Blink), Hotkey (Hotkey - Normal)
+{
+W
+}
+
