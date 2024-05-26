@@ -1,7 +1,3 @@
-import { ChainLightning } from 'abilities/chain_lightning/chain_lightning';
-import { ChainLightningAttack } from 'abilities/chain_lightning/chain_lightning_attack';
-import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
-import { tieUnitToUnitDaemon } from 'lib/unit';
 import { Group, Unit } from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 import { customHauntedGoldMine } from 'world/custom_gold_mine';
@@ -12,10 +8,6 @@ function tsMain() {
 
   configurePlayerColor();
   customHauntedGoldMine();
-  tieUnitToUnitDaemon();
-  ChainLightning.register(FourCC('A003:AOcl'));
-  ChainLightningAttack.register(gg_unit_H002_0255, FourCC('A003:AOcl'));
-  ThunderBlink.register(FourCC('A00B:AEbl'));
 }
 
 function configurePlayerColor() {

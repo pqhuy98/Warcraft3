@@ -488,3 +488,23 @@ STRING 83
 W
 }
 
+STRING 84
+{
+Player 9
+}
+
+STRING 85
+{
+Player 10
+}
+
+STRING 86
+{
+Player 11
+}
+
+STRING 87
+{
+Player 12
+}
+

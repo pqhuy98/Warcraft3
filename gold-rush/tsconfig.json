@@ -2,9 +2,9 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "allowJs": true,
-    "target": "es6",
+    "target": "es2017",
     "lib": [
-      "es6"
+      "es2017"
     ],
     "moduleResolution": "classic",
     "paths": {
@@ -20,9 +20,9 @@
     "plugins": [
       {
         "transform": "war3-transformer",
-        "mapDir": "D:/_Projects/Warcraft3/gold-rush/maps/goldrush.w3x",
-        "entryFile": "D:/_Projects/Warcraft3/gold-rush/src/main.ts",
-        "outputDir": "D:/_Projects/Warcraft3/gold-rush/dist/goldrush.w3x"
+        "mapDir": "D:/Projects/Warcraft3/gold-rush/maps/goldrush.w3x",
+        "entryFile": "D:/Projects/Warcraft3/gold-rush/src/main.ts",
+        "outputDir": "D:/Projects/Warcraft3/gold-rush/dist/goldrush.w3x"
       }
     ],
     "types": [

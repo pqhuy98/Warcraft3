@@ -1,5 +1,7 @@
 import { getUnitLocation, locX, locY } from 'lib/location';
-import { buildTrigger, setInterval, setTimeout } from 'lib/trigger';
+import {
+  buildTrigger, setIntervalIndefinite, setTimeout,
+} from 'lib/trigger';
 import { angleBetweenUnits, unitPolarProjection } from 'lib/unit';
 import {
   Group, Timer, Unit,
@@ -48,7 +50,7 @@ export class Gravity {
     mp.set(caster.id, ud);
 
     if (ud.timer === null) {
-      ud.timer = setInterval(1.0 / TICK_PER_SEC, () => {
+      ud.timer = setIntervalIndefinite(1.0 / TICK_PER_SEC, () => {
         const casterLoc = getUnitLocation(caster);
 
         const nearby = GetUnitsInRangeOfLocMatching(abilityLevel * 500, casterLoc, Condition(() => {

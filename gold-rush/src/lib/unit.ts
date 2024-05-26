@@ -1,6 +1,10 @@
 import { getUnitLocation } from 'lib/location';
-import { setInterval } from 'lib/trigger';
-import { Group, Timer, Unit } from 'w3ts';
+import {
+  addScriptHook, Group, Timer, Unit,
+  W3TS_HOOK,
+} from 'w3ts';
+
+import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
 export function getAttackRange(unit: Unit, weaponIndex:number):number {
   return BlzGetUnitWeaponRealField(unit.handle, UNIT_WEAPON_RF_ATTACK_RANGE, weaponIndex);
@@ -70,35 +74,36 @@ export function fadeUnit(
 }
 
 export function growUnit(u: Unit, targetScale: number, duration:number) {
-  let scale = (u.getField(UNIT_RF_SCALING_VALUE) as number);
-  const scalePerSec = (targetScale - scale) / duration;
-  const TICK_TIME = 1.0 / 15;
-  const scalePerTick = scalePerSec * TICK_TIME;
-  const tickCount = duration / TICK_TIME;
-  setInterval(TICK_TIME, () => {
+  const initialScale = (u.getField(UNIT_RF_SCALING_VALUE) as number);
+  setIntervalForDuration(0.03, duration, (i, repeat) => {
+    const scale = i / repeat * (targetScale - initialScale) + initialScale;
     u.setScale(scale, 0, 0);
-    scale += scalePerTick;
-  }, tickCount + 1);
+  });
 }
 
 const unitTies = new Map<unit, unit>();
 
-export function tieUnitToUnit(tiedUnit: unit, targetUnit: unit) {
-  unitTies.set(tiedUnit, targetUnit);
+export function tieUnitToUnit(tiedunit: unit, targetunit: unit) {
+  unitTies.set(tiedunit, targetunit);
+  relocateUnitToUnit(tiedunit, targetunit);
 }
 
-export function tieUnitToUnitDaemon() {
-  setInterval(0.03, () => {
-    unitTies.forEach((targetUnit, tiedUnit) => {
-      if (!Unit.fromHandle(tiedUnit).isAlive()) {
-        unitTies.delete(tiedUnit);
-      } else {
-        Unit.fromHandle(tiedUnit).x = Unit.fromHandle(targetUnit).x;
-        Unit.fromHandle(tiedUnit).y = Unit.fromHandle(targetUnit).y;
-        Unit.fromHandle(tiedUnit).setflyHeight(Unit.fromHandle(targetUnit).getflyHeight(), 999999);
-      }
-    });
+addScriptHook(W3TS_HOOK.MAIN_AFTER, () => {
+  setIntervalIndefinite(0.03, () => {
+    unitTies.forEach((target, tied) => relocateUnitToUnit(tied, target));
   });
+});
+
+function relocateUnitToUnit(tiedunit: unit, targetunit: unit) {
+  const tiedUnit = Unit.fromHandle(tiedunit);
+  const targetUnit = Unit.fromHandle(targetunit);
+  if (!tiedUnit.isAlive()) {
+    unitTies.delete(tiedunit);
+  } else {
+    tiedUnit.x = targetUnit.x;
+    tiedUnit.y = targetUnit.y;
+    tiedUnit.setflyHeight(targetUnit.getflyHeight(), 9999);
+  }
 }
 
 export function enumUnitGroupWithDelay(

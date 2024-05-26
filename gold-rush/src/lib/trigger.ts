@@ -1,4 +1,4 @@
-import { Timer, Trigger, Unit } from 'w3ts';
+import { Timer, Trigger } from 'w3ts';
 
 export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
   const t = new Trigger();
@@ -6,17 +6,9 @@ export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
   return t;
 }
 
-const removeOnDeathTrigger = buildTrigger((t) => {
-  t.addAction(() => RemoveUnit(GetDyingUnit()));
-});
-
-export function removeOnDeath(whichUnit: Unit) {
-  removeOnDeathTrigger.registerUnitEvent(whichUnit, EVENT_UNIT_DEATH);
-}
-
-export function setTimeout(duration: number, callback: () => void): Timer {
+export function setTimeout(durationS: number, callback: () => void): Timer {
   const t = new Timer();
-  t.start(duration, false, () => {
+  t.start(durationS, false, () => {
     callback();
     t.pause();
     t.destroy();
@@ -24,37 +16,66 @@ export function setTimeout(duration: number, callback: () => void): Timer {
   return t;
 }
 
-export function setInterval(
-  duration: number,
-  callback: () => void,
+function setInterval(
+  intervalS: number,
+  callback: (index: number, repeat: number) => void,
   repeat?: number,
-  cleanup?:()=>void,
+  cleanup?: () => void,
 ): Timer {
-  const t = new Timer();
+  const timer = new Timer();
   if (repeat !== undefined) {
     let remain = repeat;
     if (remain <= 0) {
-      t.destroy();
-      return t;
+      timer.destroy();
+      return timer;
     }
-    callback();
+    callback(repeat - remain, repeat);
     remain--;
     if (remain <= 0) {
-      t.destroy();
-      return t;
+      timer.destroy();
+      return timer;
     }
-    t.start(duration, true, () => {
-      callback();
+    timer.start(intervalS, true, () => {
+      callback(repeat - remain, repeat);
       remain--;
       if (remain <= 0) {
-        t.pause();
-        t.destroy();
+        timer.pause();
+        timer.destroy();
         cleanup();
       }
     });
   } else {
-    callback();
-    t.start(duration, true, callback);
+    let index = 0;
+    callback(index, -1);
+    timer.start(intervalS, true, () => {
+      index++;
+      callback(index, -1);
+    });
   }
-  return t;
+  return timer;
+}
+
+export function setIntervalIndefinite(
+  intervalS: number,
+  callback: (index: number, repeat: number) => void,
+): Timer {
+  return setInterval(intervalS, callback);
+}
+
+export function setIntervalFixedCount(
+  intervalS: number,
+  repeatCount: number,
+  callback: (index: number, repeat: number) => void,
+  cleanup?: () => void,
+): Timer {
+  return setInterval(intervalS, callback, repeatCount, cleanup);
+}
+
+export function setIntervalForDuration(
+  intervalS: number,
+  durationS: number,
+  callback: (index: number, repeat: number) => void,
+  cleanup?: () => void,
+): Timer {
+  return setInterval(intervalS, callback, durationS / intervalS, cleanup);
 }

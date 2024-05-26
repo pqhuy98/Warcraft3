@@ -1,8 +1,10 @@
 import { ABILITY_ID_LOCUST, BUFF_ID_GENERIC, UNIT_ID_DUMMY } from 'lib/constants';
 import { getUnitLocation } from 'lib/location';
-import { buildTrigger, setInterval } from 'lib/trigger';
+import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
 import { enumUnitGroupWithDelay, tieUnitToUnit } from 'lib/unit';
-import { Group, Unit } from 'w3ts';
+import {
+  addScriptHook, Group, Unit, W3TS_HOOK,
+} from 'w3ts';
 
 export class ChainLightning {
   static dummies: group;
@@ -23,7 +25,7 @@ export class ChainLightning {
       });
     });
 
-    setInterval(1, () => {
+    setIntervalIndefinite(1, () => {
       Group.fromHandle(ChainLightning.dummies).for(() => {
         if (!Unit.fromEnum().isAlive()) {
           GroupRemoveUnit(ChainLightning.dummies, GetEnumUnit());
@@ -57,7 +59,6 @@ export class ChainLightning {
       dummy.addAbility(abilityId);
       dummy.setAbilityLevel(abilityId, abilityLevel);
       dummy.addAbility(ABILITY_ID_LOCUST);
-      dummy.setflyHeight(caster.getflyHeight(), 999999);
       tieUnitToUnit(dummy.handle, caster.handle);
       IssueTargetOrder(dummy.handle, order, enumUnit);
     }, durationPerStep);
@@ -70,3 +71,7 @@ export class ChainLightning {
     GroupAddUnit(ChainLightning.dummies, caster.handle);
   }
 }
+
+addScriptHook(W3TS_HOOK.MAIN_AFTER, () => {
+  ChainLightning.register(FourCC('A003:AOcl'));
+});
