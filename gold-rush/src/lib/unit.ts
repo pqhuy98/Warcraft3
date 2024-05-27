@@ -1,7 +1,6 @@
 import { getUnitLocation } from 'lib/location';
 import {
-  addScriptHook, Group, Timer, Unit,
-  W3TS_HOOK,
+  Group, Timer, Unit,
 } from 'w3ts';
 
 import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
@@ -88,11 +87,11 @@ export function tieUnitToUnit(tiedunit: unit, targetunit: unit) {
   relocateUnitToUnit(tiedunit, targetunit);
 }
 
-addScriptHook(W3TS_HOOK.MAIN_AFTER, () => {
+export function daemonTieUnitToUnit() {
   setIntervalIndefinite(0.03, () => {
     unitTies.forEach((target, tied) => relocateUnitToUnit(tied, target));
   });
-});
+}
 
 function relocateUnitToUnit(tiedunit: unit, targetunit: unit) {
   const tiedUnit = Unit.fromHandle(tiedunit);

@@ -3,7 +3,7 @@ import { getUnitLocation } from 'lib/location';
 import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
 import { enumUnitGroupWithDelay, tieUnitToUnit } from 'lib/unit';
 import {
-  addScriptHook, Group, Unit, W3TS_HOOK,
+  Group, Unit,
 } from 'w3ts';
 
 export class ChainLightning {
@@ -71,7 +71,3 @@ export class ChainLightning {
     GroupAddUnit(ChainLightning.dummies, caster.handle);
   }
 }
-
-addScriptHook(W3TS_HOOK.MAIN_AFTER, () => {
-  ChainLightning.register(FourCC('A003:AOcl'));
-});

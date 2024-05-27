@@ -4,13 +4,9 @@ import { setIntervalIndefinite } from 'lib/trigger';
 import { enumUnitGroupWithDelay, unitPolarProjection } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import {
-  addScriptHook, Group, Unit, W3TS_HOOK,
+  Group, Unit,
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals/order';
-
-addScriptHook(W3TS_HOOK.MAIN_AFTER, () => {
-  new CreepSpawn(Unit.fromHandle(gg_unit_H002_0255));
-});
 
 const spawnables = [
   UNIT_SkeletonWarrior,
@@ -23,6 +19,10 @@ export class CreepSpawn {
   constructor(private target: Unit) {
     this.spawns = new Group();
     setIntervalIndefinite(1, () => {
+      if (!this.target.isAlive()) {
+        return;
+      }
+
       this.spawnEnemy();
 
       enumUnitGroupWithDelay(this.spawns.handle, (unit) => {

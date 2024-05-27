@@ -11,7 +11,6 @@ export const logEvent = debounce(
   defineEvent('log', '${0}: {1}', 'key', 'message'),
 );
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const emitLog = (key: string, arg: unknown, ...args: Array<unknown>): void => {
   const allArgs = [arg, ...args];
   const message = allArgs.map((v) => termToString(v, false)).join(' ');
@@ -30,7 +29,6 @@ export const wrapFunction = <A extends any[], B>(key: string, fn: (...args: A) =
   throw 'impossible';
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isArray = (v: unknown): boolean => {
   if (typeof v !== 'object') return false;
 
@@ -39,13 +37,11 @@ const isArray = (v: unknown): boolean => {
     && (v[0] != null || v[1] != null);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const userdataType = (userdata: Record<string, any>): string => {
+const userdataType = (userdata: Record<string, unknown>): string => {
   const typeString = userdata.toString();
   return typeString.slice(0, typeString.indexOf(':'));
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const termToString = (v: unknown, color = true): string => {
   if (typeof v === 'string') return color ? colorize.string(`"${v}"`) : v;
   if (typeof v === 'number') return color ? colorize.number(v) : v.toString();
@@ -54,16 +50,13 @@ export const termToString = (v: unknown, color = true): string => {
   if (v == null) return color ? colorize.boolean('null') : 'null';
 
   if (isArray(v)) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const arr = v as Array<any>;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return `[ ${arr.map((v: any) => termToString(v)).join(', ')} ]`;
+    const arr = v as Array<unknown>;
+    return `[ ${arr.map((v: unknown) => termToString(v)).join(', ')} ]`;
   }
 
   if (typeof v === 'object' && v != null) { return `{ ${Object.entries(v).map(([key, value]) => `${key}: ${termToString(value)}`).join(', ')} }`; }
 
-  const type = userdataType(v);
+  const type = userdataType(v as Record<string, unknown>);
 
   switch (type) {
     case 'player': return `Player ${termToString({ id: GetPlayerId(v as player), name: GetPlayerName(v as player) })}`;
@@ -84,5 +77,4 @@ export const termToString = (v: unknown, color = true): string => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const log = (...args: Array<any>): void => BJDebugMsg(args.map((v) => termToString(v)).join(' '));
+export const log = (...args: Array<unknown>): void => BJDebugMsg(args.map((v) => termToString(v)).join(' '));

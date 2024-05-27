@@ -65,9 +65,7 @@ wc3ColorMap.set(PLAYER_COLOR_PEANUT, 'peanut');
 
 export const playerColorToColor = (playerColor: playercolor): Color => wc3ColorMap.get(playerColor) ?? 'white';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const colorize = {} as Record<Color, (v: any) => string>;
+export const colorize = {} as Record<Color, (v: unknown) => string>;
 Object.entries(color).forEach(([color, code]) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   colorize[color as Color] = (string: string): string => `${code}${string}|r`;
 });

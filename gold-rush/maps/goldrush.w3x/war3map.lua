@@ -2441,16 +2441,9 @@ local t
 local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("u000"), -5670.1, 6014.0, 308.989, FourCC("u000"))
-gg_unit_H002_0255 = BlzCreateUnitWithSkin(p, FourCC("H002"), -8794.1, 3323.0, 24.730, FourCC("H002"))
-SetHeroLevel(gg_unit_H002_0255, 10, false)
-SetUnitState(gg_unit_H002_0255, UNIT_STATE_MANA, 420)
+gg_unit_H002_0255 = BlzCreateUnitWithSkin(p, FourCC("H002"), -8894.7, 3477.9, 24.730, FourCC("H002"))
+SetUnitState(gg_unit_H002_0255, UNIT_STATE_MANA, 225)
 SelectHeroSkill(gg_unit_H002_0255, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0255, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0255, FourCC("A003"))
-IssueImmediateOrder(gg_unit_H002_0255, "")
-SelectHeroSkill(gg_unit_H002_0255, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0255, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0255, FourCC("A00B"))
 IssueImmediateOrder(gg_unit_H002_0255, "")
 end
 

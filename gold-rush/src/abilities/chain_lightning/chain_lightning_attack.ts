@@ -2,13 +2,9 @@ import { ABILITY_ID_LOCUST, BUFF_ID_GENERIC, UNIT_ID_DUMMY } from 'lib/constants
 import { ORDER_chainlightning } from 'lib/resources/war3-orders';
 import { buildTrigger } from 'lib/trigger';
 import { tieUnitToUnit } from 'lib/unit';
-import { addScriptHook, Unit, W3TS_HOOK } from 'w3ts';
+import { Unit } from 'w3ts';
 
 import { ChainLightning } from './chain_lightning';
-
-addScriptHook(W3TS_HOOK.MAIN_AFTER, () => {
-  ChainLightningAttack.register(gg_unit_H002_0255, FourCC('A003:AOcl'));
-});
 
 export class ChainLightningAttack {
   static register(unit: unit, abilityId: number) {
@@ -16,7 +12,8 @@ export class ChainLightningAttack {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED);
       t.addCondition(() => GetEventDamageSource() === unit
        && BlzGetEventDamageType() === DAMAGE_TYPE_NORMAL
-       && !IsUnitAlly(BlzGetEventDamageTarget(), GetOwningPlayer(GetEventDamageSource())));
+        && !IsUnitAlly(BlzGetEventDamageTarget(), GetOwningPlayer(GetEventDamageSource()))
+        && GetUnitAbilityLevel(GetEventDamageSource(), abilityId) > 0);
       t.addAction(() => {
         new ChainLightningAttack(
           abilityId,

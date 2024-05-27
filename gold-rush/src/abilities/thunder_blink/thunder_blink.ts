@@ -3,16 +3,12 @@ import { getUnitLocation, locX, locY } from 'lib/location';
 import { LIGHTNING_FingerOfDeath } from 'lib/resources/war3-lightnings';
 import { MODEL_BoltImpact, MODEL_ThunderclapCaster } from 'lib/resources/war3-models';
 import { ORDER_chainlightning, ORDER_thunderclap } from 'lib/resources/war3-orders';
-import { buildTrigger, setIntervalForDuration, setTimeout } from 'lib/trigger';
+import { buildTrigger, setIntervalForDuration } from 'lib/trigger';
 import { enumUnitGroupWithDelay, tieUnitToUnit } from 'lib/unit';
-import { addScriptHook, Unit, W3TS_HOOK } from 'w3ts';
+import { Unit } from 'w3ts';
 
 const THUNDER_CLAP_ABILITY_ID = FourCC('A00C:AHtc');
 const CHAIN_LIGHTNING_ABILITY_ID = FourCC('A003:AOcl');
-
-addScriptHook(W3TS_HOOK.MAIN_AFTER, () => {
-  ThunderBlink.register(FourCC('A00B:AEbl'));
-});
 
 export class ThunderBlink {
   static register(abilityId: number) {
@@ -71,25 +67,25 @@ export class ThunderBlink {
 
     const anglePhase = GetRandomDirectionDeg();
 
-    // const numberEffects = GetRandomInt(4, 6);
-    // const layers = 3
-    // const effectStep = radius / layers
-    // for (let j = 0; j < layers; j++) {
-    //   for (let i = 0; i < (j + 1) * numberEffects; i++) {
-    //     const loc1 = PolarProjectionBJ(targetLoc, (j + 1) * effectStep, i * 360 / numberEffects + j * anglePhase);
-    //     const effect1 = AddSpecialEffectLoc(MODEL_ThunderclapCaster, loc1);
-    //     BlzSetSpecialEffectColor(effect1, 255, 0, 0);
-    //     DestroyEffect(effect1);
+    const numberEffects = GetRandomInt(4, 6);
+    const layers = 2;
+    const effectStep = radius / layers;
+    for (let j = 0; j < layers; j++) {
+      for (let i = 0; i < (j + 1) * numberEffects; i++) {
+        const loc1 = PolarProjectionBJ(targetLoc, (j + 1) * effectStep, i * 360 / numberEffects + j * anglePhase);
+        const effect1 = AddSpecialEffectLoc(MODEL_ThunderclapCaster, loc1);
+        BlzSetSpecialEffectColor(effect1, 255, 0, 0);
+        DestroyEffect(effect1);
 
-    //     const loc2 = PolarProjectionBJ(targetLoc, (j + 1) * effectStep, i * 360 / numberEffects + j * anglePhase * 2);
-    //     const effect2 = AddSpecialEffectLoc(MODEL_BoltImpact, loc2);
-    //     BlzSetSpecialEffectColor(effect2, 255, 0, 0);
-    //     DestroyEffect(effect2);
+        const loc2 = PolarProjectionBJ(targetLoc, (j + 1) * effectStep, i * 360 / numberEffects + j * anglePhase * 2);
+        const effect2 = AddSpecialEffectLoc(MODEL_BoltImpact, loc2);
+        BlzSetSpecialEffectColor(effect2, 255, 0, 0);
+        DestroyEffect(effect2);
 
-    //     RemoveLocation(loc1);
-    //     RemoveLocation(loc2);
-    //   }
-    // }
+        RemoveLocation(loc1);
+        RemoveLocation(loc2);
+      }
+    }
 
     const lightningsInner: lightning[] = [];
     const lightningsOuter: lightning[] = [];
@@ -100,8 +96,8 @@ export class ThunderBlink {
     }
     const lightnings = [...lightningsInner, ...lightningsOuter];
 
-    const lnRadius = radius * 2;
-    setIntervalForDuration(0.03, 1, (i, repeat) => {
+    const lnRadius = radius;
+    setIntervalForDuration(0.03, 0.5, (i, repeat) => {
       const distancePercent = i / repeat;
       // let distancePercent = i / (repeat / 2)
       // if (distancePercent > 1) {
@@ -124,13 +120,13 @@ export class ThunderBlink {
       });
       RemoveLocation(casterLoc);
     }, () => {
-      setTimeout(0.1, () => {
-        setIntervalForDuration(0.03, 0.1, (i: number, repeat: number) => {
-          lightnings.forEach((l) => SetLightningColor(l, 1, 1, 1, 1 - (i / repeat)));
-        }, () => {
-          lightnings.forEach((l) => DestroyLightning(l));
-        });
+      // setTimeout(0.1, () => {
+      setIntervalForDuration(0.03, 0.1, (i: number, repeat: number) => {
+        lightnings.forEach((l) => SetLightningColor(l, 1, 1, 1, 1 - (i / repeat)));
+      }, () => {
+        lightnings.forEach((l) => DestroyLightning(l));
       });
+      // });
     });
 
     // Chain lightning around

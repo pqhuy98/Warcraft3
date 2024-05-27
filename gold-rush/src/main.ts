@@ -1,3 +1,9 @@
+import { ChainLightning } from 'abilities/chain_lightning/chain_lightning';
+import { ChainLightningAttack } from 'abilities/chain_lightning/chain_lightning_attack';
+import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
+import { PeriodBuff } from 'events/period_buff/period_buff';
+import { CreepSpawn } from 'events/screep_spawn/creep_spawn';
+import { daemonTieUnitToUnit } from 'lib/unit';
 import { Group, Unit } from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 import { customHauntedGoldMine } from 'world/custom_gold_mine';
@@ -8,6 +14,13 @@ function tsMain() {
 
   configurePlayerColor();
   customHauntedGoldMine();
+
+  ThunderBlink.register(FourCC('A00B:AEbl'));
+  ChainLightningAttack.register(gg_unit_H002_0255, FourCC('A003:AOcl'));
+  ChainLightning.register(FourCC('A003:AOcl'));
+  new CreepSpawn(Unit.fromHandle(gg_unit_H002_0255));
+  new PeriodBuff(Unit.fromHandle(gg_unit_H002_0255));
+  daemonTieUnitToUnit();
 }
 
 function configurePlayerColor() {

@@ -12,16 +12,12 @@ import {
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import { tieUnitToUnit } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
-import { addScriptHook, Unit, W3TS_HOOK } from 'w3ts';
+import { Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals/order';
 
 import {
   ABILITY_AuraBrillianceCreep, ABILITY_AuraTrueshotCreep, ABILITY_HolyLightItem, ABILITY_ImmolationCreep, ABILITY_VampiricAuraCreep,
 } from '../../lib/resources/war3-abilities';
-
-addScriptHook(W3TS_HOOK.MAIN_AFTER, () => {
-  new PeriodBuff(Unit.fromHandle(gg_unit_H002_0255));
-});
 
 interface BaseAbility {
   ability: ABILITY_TYPE

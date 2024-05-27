@@ -18,8 +18,7 @@ type Timing = {
 * @param timing.duration The sliding window in which the debounce operates.
 * @param fn The call that will be invoked if the call is not rejected.
 */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const debounce = <A extends any[], B>(
+export const debounce = <A extends unknown[], B>(
   { threshold, duration }: Timing,
   fn: (...args: A) => B,
 ): ((...args: A) => B | undefined) => {
