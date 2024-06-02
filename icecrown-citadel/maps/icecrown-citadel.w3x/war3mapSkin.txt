@@ -1,0 +1,4 @@
+[CustomSkin]
+AllyHeroDiesSound=AxeMediumChopWood
+HeroDiesSound=AxeMediumChopWood
+

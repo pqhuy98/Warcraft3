@@ -1,0 +1,5567 @@
+﻿STRING 3
+{
+Icecrown Citadel (Unit Version)
+}
+
+STRING 4
+{
+1 -1
+}
+
+STRING 5
+{
+At long last, the Alliance and the Horde fight arm to arm against the Lich King. They have started the invasion...
+}
+
+STRING 6
+{
+pqhuy98
+}
+
+STRING 7
+// Doodads: D000 (neco effect), Name (Name)
+{
+neco effect
+}
+
+STRING 8
+// Doodads: D001 (neco effect2 ), Name (Name)
+{
+neco effect2 
+}
+
+STRING 9
+// Doodads: D002 (neco effect3), Name (Name)
+{
+neco effect3
+}
+
+STRING 10
+// Doodads: D003 (Fence 2), Name (Name)
+{
+Fence 2
+}
+
+STRING 11
+// Doodads: D004 (Fence 2 Angled), Name (Name)
+{
+Fence 2 Angled
+}
+
+STRING 14
+{
+Lich King
+}
+
+STRING 15
+{
+Orcish Horde
+}
+
+STRING 16
+{
+Saufang's Force
+}
+
+STRING 17
+{
+Undead Scourge
+}
+
+STRING 18
+{
+Fordragon's Force
+}
+
+STRING 20
+{
+The Scourge
+}
+
+STRING 21
+{
+The Invaders
+}
+
+STRING 22
+// Units: H001 (Lich King), Name (Name)
+{
+Lich King
+}
+
+STRING 23
+// Destructibles: B000 (Wrathgate), Name (Name)
+{
+Wrathgate
+}
+
+STRING 24
+// Units: H001 (Lich King), Propernames (Proper Names)
+{
+Arthas
+}
+
+STRING 25
+// Units: H006 (Master of Fordragon Hold), Awakentip (Tooltip - Awaken)
+{
+_
+}
+
+STRING 26
+// Units: H006 (Master of Fordragon Hold), Ubertip (Tooltip - Extended)
+{
+_
+}
+
+STRING 27
+// Units: H006 (Master of Fordragon Hold), Revivetip (Tooltip - Revive)
+{
+_
+}
+
+STRING 29
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 4|r]
+}
+
+STRING 30
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 5|r]
+}
+
+STRING 31
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 6|r]
+}
+
+STRING 32
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 7|r]
+}
+
+STRING 33
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 8|r]
+}
+
+STRING 34
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 9|r]
+}
+
+STRING 35
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 10|r]
+}
+
+STRING 36
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 11|r]
+}
+
+STRING 37
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 12|r]
+}
+
+STRING 38
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 13|r]
+}
+
+STRING 39
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 14|r]
+}
+
+STRING 40
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 15|r]
+}
+
+STRING 41
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 16|r]
+}
+
+STRING 42
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 17|r]
+}
+
+STRING 43
+// Abilities: A001 (Frost Nova), Tip (Tooltip - Normal)
+{
+Frost |cffffcc00N|rova - [|cffffcc00Level 18|r]
+}
+
+STRING 44
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB4> damage to the target, and <AUfn,DataA4> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur4> seconds.
+}
+
+STRING 45
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB5> damage to the target, and <AUfn,DataA5> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur5> seconds.
+}
+
+STRING 46
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB6> damage to the target, and <AUfn,DataA6> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur6> seconds.
+}
+
+STRING 47
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB7> damage to the target, and <AUfn,DataA7> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur7> seconds.
+}
+
+STRING 48
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB8> damage to the target, and <AUfn,DataA8> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur8> seconds.
+}
+
+STRING 49
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB9> damage to the target, and <AUfn,DataA9> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur9> seconds.
+}
+
+STRING 50
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB10> damage to the target, and <AUfn,DataA10> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur10> seconds.
+}
+
+STRING 51
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB11> damage to the target, and <AUfn,DataA11> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur11> seconds.
+}
+
+STRING 52
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB12> damage to the target, and <AUfn,DataA12> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur12> seconds.
+}
+
+STRING 53
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB13> damage to the target, and <AUfn,DataA13> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur13> seconds.
+}
+
+STRING 54
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB14> damage to the target, and <AUfn,DataA14> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur14> seconds.
+}
+
+STRING 55
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB15> damage to the target, and <AUfn,DataA15> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur15> seconds.
+}
+
+STRING 56
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB16> damage to the target, and <AUfn,DataA16> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur16> seconds.
+}
+
+STRING 57
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB17> damage to the target, and <AUfn,DataA17> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur17> seconds.
+}
+
+STRING 58
+// Abilities: A001 (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <AUfn,DataB18> damage to the target, and <AUfn,DataA18> nova damage. Cold damage slows units' movement and attack rate for <AUfn,Dur18> seconds.
+}
+
+STRING 59
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 4|r]
+}
+
+STRING 60
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 5|r]
+}
+
+STRING 61
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 6|r]
+}
+
+STRING 62
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 7|r]
+}
+
+STRING 63
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 8|r]
+}
+
+STRING 64
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 9|r]
+}
+
+STRING 65
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 10|r]
+}
+
+STRING 66
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 11|r]
+}
+
+STRING 67
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 12|r]
+}
+
+STRING 68
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 13|r]
+}
+
+STRING 69
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 14|r]
+}
+
+STRING 70
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 15|r]
+}
+
+STRING 71
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 16|r]
+}
+
+STRING 72
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 17|r]
+}
+
+STRING 73
+// Abilities: A002 (Death Coil), Tip (Tooltip - Normal)
+{
+Death |cffffcc00C|roil - [|cffffcc00Level 18|r]
+}
+
+STRING 74
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA4> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 75
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA5> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 76
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA6> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 77
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA7> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 78
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA8> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 79
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA9> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 80
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA10> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 81
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA11> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 82
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA12> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 83
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA13> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 84
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA14> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 85
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA15> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 86
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA16> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 87
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA17> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 88
+// Abilities: A002 (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+A coil of death that can heal a friendly Undead unit for <AUdc,DataA18> hit points, or deal half damage to an enemy living unit.
+}
+
+STRING 89
+// Abilities: A003 (Army of the Death), Ubertip (Tooltip - Normal - Extended)
+{
+Raises all corpses within 1000 range into Zombies, Skeletons, Ghouls or Abominations.
+}
+
+STRING 90
+// Abilities: A003 (Army of the Death), Tip (Tooltip - Normal)
+{
+A|cffffcc00r|rmy of the Death
+}
+
+STRING 91
+// Abilities: A003 (Army of the Death), Name (Name)
+{
+Army of the Death
+}
+
+STRING 92
+// Abilities: A004 (Frostmourne), Name (Name)
+{
+Frostmourne
+}
+
+STRING 93
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 1
+}
+
+STRING 94
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 2
+}
+
+STRING 95
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 3
+}
+
+STRING 96
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 97
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 98
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 99
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 4
+}
+
+STRING 100
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 5
+}
+
+STRING 101
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 6
+}
+
+STRING 102
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 7
+}
+
+STRING 103
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 8
+}
+
+STRING 104
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 9
+}
+
+STRING 105
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 10
+}
+
+STRING 106
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 11
+}
+
+STRING 107
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 12
+}
+
+STRING 108
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 13
+}
+
+STRING 109
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 14
+}
+
+STRING 110
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 15
+}
+
+STRING 111
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 16
+}
+
+STRING 112
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 17
+}
+
+STRING 113
+// Abilities: A004 (Frostmourne), Tip (Tooltip - Normal)
+{
+Frostmourne - Level 18
+}
+
+STRING 114
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 115
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 116
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 117
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 118
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 119
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 120
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 121
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 122
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 123
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 124
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 125
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 126
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 127
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 128
+// Abilities: A004 (Frostmourne), Ubertip (Tooltip - Normal - Extended)
+{
+Frostmourne
+}
+
+STRING 129
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 130
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 131
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 132
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 133
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 134
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 135
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 136
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 137
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 138
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA2> initial damage, and <ACbf,DataE2> damage per second over <ACbf,Dur2> seconds.
+}
+
+STRING 139
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA3> initial damage, and <ACbf,DataE3> damage per second over <ACbf,Dur3> seconds.
+}
+
+STRING 140
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA4> initial damage, and <ACbf,DataE4> damage per second over <ACbf,Dur4> seconds.
+}
+
+STRING 141
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA5> initial damage, and <ACbf,DataE5> damage per second over <ACbf,Dur5> seconds.
+}
+
+STRING 142
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA6> initial damage, and <ACbf,DataE6> damage per second over <ACbf,Dur6> seconds.
+}
+
+STRING 143
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA7> initial damage, and <ACbf,DataE7> damage per second over <ACbf,Dur7> seconds.
+}
+
+STRING 144
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA8> initial damage, and <ACbf,DataE8> damage per second over <ACbf,Dur8> seconds.
+}
+
+STRING 145
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA9> initial damage, and <ACbf,DataE9> damage per second over <ACbf,Dur9> seconds.
+}
+
+STRING 146
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA10> initial damage, and <ACbf,DataE10> damage per second over <ACbf,Dur10> seconds.
+}
+
+STRING 147
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 148
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 149
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 150
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 151
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 152
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 153
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 154
+// Abilities: A000 (Breath of Frost), Tip (Tooltip - Normal)
+{
+Breath of |cffffcc00F|rrost
+}
+
+STRING 155
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA11> initial damage, and <ACbf,DataE11> damage per second over <ACbf,Dur11> seconds.
+}
+
+STRING 156
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA12> initial damage, and <ACbf,DataE12> damage per second over <ACbf,Dur12> seconds.
+}
+
+STRING 157
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA13> initial damage, and <ACbf,DataE13> damage per second over <ACbf,Dur13> seconds.
+}
+
+STRING 158
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA14> initial damage, and <ACbf,DataE14> damage per second over <ACbf,Dur14> seconds.
+}
+
+STRING 159
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA15> initial damage, and <ACbf,DataE15> damage per second over <ACbf,Dur15> seconds.
+}
+
+STRING 160
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA16> initial damage, and <ACbf,DataE16> damage per second over <ACbf,Dur16> seconds.
+}
+
+STRING 161
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA17> initial damage, and <ACbf,DataE17> damage per second over <ACbf,Dur17> seconds.
+}
+
+STRING 162
+// Abilities: A000 (Breath of Frost), Ubertip (Tooltip - Normal - Extended)
+{
+Breathes a cone of frost at enemy units that deals <ACbf,DataA18> initial damage, and <ACbf,DataE18> damage per second over <ACbf,Dur18> seconds.
+}
+
+STRING 163
+// Abilities: A005 (Wrath of the Lich King), Name (Name)
+{
+Wrath of the Lich King
+}
+
+STRING 164
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 1|r]
+}
+
+STRING 165
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 2|r]
+}
+
+STRING 166
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 3|r]
+}
+
+STRING 167
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 4|r]
+}
+
+STRING 168
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 5|r]
+}
+
+STRING 169
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 6|r]
+}
+
+STRING 170
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 7|r]
+}
+
+STRING 171
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 8|r]
+}
+
+STRING 172
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 9|r]
+}
+
+STRING 173
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 10|r]
+}
+
+STRING 174
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 11|r]
+}
+
+STRING 175
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 12|r]
+}
+
+STRING 176
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 13|r]
+}
+
+STRING 177
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 14|r]
+}
+
+STRING 178
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 15|r]
+}
+
+STRING 179
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 16|r]
+}
+
+STRING 180
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 17|r]
+}
+
+STRING 181
+// Abilities: A005 (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 18|r]
+}
+
+STRING 182
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA4> damage to nearby enemy land units and stunning them for <AOws,Dur4> seconds.
+}
+
+STRING 183
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA5> damage to nearby enemy land units and stunning them for <AOws,Dur5> seconds.
+}
+
+STRING 184
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA6> damage to nearby enemy land units and stunning them for <AOws,Dur6> seconds.
+}
+
+STRING 185
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA7> damage to nearby enemy land units and stunning them for <AOws,Dur7> seconds.
+}
+
+STRING 186
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA8> damage to nearby enemy land units and stunning them for <AOws,Dur8> seconds.
+}
+
+STRING 187
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA9> damage to nearby enemy land units and stunning them for <AOws,Dur9> seconds.
+}
+
+STRING 188
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA10> damage to nearby enemy land units and stunning them for <AOws,Dur10> seconds.
+}
+
+STRING 189
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA11> damage to nearby enemy land units and stunning them for <AOws,Dur11> seconds.
+}
+
+STRING 190
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA12> damage to nearby enemy land units and stunning them for <AOws,Dur12> seconds.
+}
+
+STRING 191
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA13> damage to nearby enemy land units and stunning them for <AOws,Dur13> seconds.
+}
+
+STRING 192
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA14> damage to nearby enemy land units and stunning them for <AOws,Dur14> seconds.
+}
+
+STRING 193
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA15> damage to nearby enemy land units and stunning them for <AOws,Dur15> seconds.
+}
+
+STRING 194
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA16> damage to nearby enemy land units and stunning them for <AOws,Dur16> seconds.
+}
+
+STRING 195
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA17> damage to nearby enemy land units and stunning them for <AOws,Dur17> seconds.
+}
+
+STRING 196
+// Abilities: A005 (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA18> damage to nearby enemy land units and stunning them for <AOws,Dur18> seconds.
+}
+
+STRING 197
+// Abilities: A006 (Raise Dead crypt fiend), Name (Name)
+{
+Raise Dead crypt fiend
+}
+
+STRING 198
+// Abilities: A007 (Raise Dead ghoul), Name (Name)
+{
+Raise Dead ghoul
+}
+
+STRING 199
+// Abilities: A008 (Raise Dead abom), Name (Name)
+{
+Raise Dead abom
+}
+
+STRING 200
+// Abilities: A009 (Raise Dead sket), Name (Name)
+{
+Raise Dead sket
+}
+
+STRING 201
+// Abilities: A00B (Stone Form), Ubertip (Tooltip - Normal - Extended)
+{
+Transforms the Gargoyle into a statue that is immune to spells, gains additional armor and has a regeneration rate of 1000 hit points per second. |nThe Gargoyle cannot attack in this form.
+}
+
+STRING 202
+// Units: u000 (the frozen throne), Name (Name)
+{
+the frozen throne
+}
+
+STRING 203
+// Units: h002 (dummy), Name (Name)
+{
+dummy
+}
+
+STRING 204
+// Units: h003 (dummy Lich King), Name (Name)
+{
+dummy Lich King
+}
+
+STRING 205
+// Units: u001 (Elite Gargoyle), Name (Name)
+{
+Elite Gargoyle
+}
+
+STRING 206
+// Units: u002 (Stone Form Elite Gargoyle), Name (Name)
+{
+Stone Form Elite Gargoyle
+}
+
+STRING 207
+{
+Bolvar Fordragon
+}
+
+STRING 209
+// Units: H006 (Master of Fordragon Hold), Propernames (Proper Names)
+{
+Bolvar Fordragon
+}
+
+STRING 210
+// Units: H006 (Master of Fordragon Hold), Name (Name)
+{
+Master of Fordragon Hold
+}
+
+STRING 211
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 15|r]
+}
+
+STRING 212
+// Abilities: A00D (High Lord's Spirit), Name (Name)
+{
+High Lord's Spirit
+}
+
+STRING 214
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 15|r]
+}
+
+STRING 215
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 1|r]
+}
+
+STRING 216
+// Abilities: A00E (A Slash For the Alliance), Name (Name)
+{
+A Slash For the Alliance
+}
+
+STRING 217
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 10% and attack rate by 10%.
+}
+
+STRING 218
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 2|r]
+}
+
+STRING 219
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 3|r]
+}
+
+STRING 220
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 4|r]
+}
+
+STRING 221
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 5|r]
+}
+
+STRING 222
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 6|r]
+}
+
+STRING 223
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 7|r]
+}
+
+STRING 224
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 8|r]
+}
+
+STRING 225
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 9|r]
+}
+
+STRING 226
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 10|r]
+}
+
+STRING 227
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 11|r]
+}
+
+STRING 228
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 12|r]
+}
+
+STRING 229
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 13|r]
+}
+
+STRING 230
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 14|r]
+}
+
+STRING 231
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 20% and attack rate by 20%.
+}
+
+STRING 232
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 30% and attack rate by 30%.
+}
+
+STRING 233
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 40% and attack rate by 40%.
+}
+
+STRING 234
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 50% and attack rate by 50%.
+}
+
+STRING 235
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 60% and attack rate by 60%.
+}
+
+STRING 236
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 70% and attack rate by 70%.
+}
+
+STRING 237
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 80% and attack rate by 80%.
+}
+
+STRING 238
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 90% and attack rate by 90%.
+}
+
+STRING 239
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 100% and attack rate by 100%.
+}
+
+STRING 240
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 110% and attack rate by 110%.
+}
+
+STRING 241
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 120% and attack rate by 120%.
+}
+
+STRING 242
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 130% and attack rate by 130%.
+}
+
+STRING 243
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 140% and attack rate by 140%.
+}
+
+STRING 244
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 150% and attack rate by 150%.
+}
+
+STRING 245
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 4|r]
+}
+
+STRING 246
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 5|r]
+}
+
+STRING 247
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 6|r]
+}
+
+STRING 248
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 7|r]
+}
+
+STRING 249
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 8|r]
+}
+
+STRING 250
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 9|r]
+}
+
+STRING 251
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 10|r]
+}
+
+STRING 252
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 11|r]
+}
+
+STRING 253
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 12|r]
+}
+
+STRING 254
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 13|r]
+}
+
+STRING 255
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 14|r]
+}
+
+STRING 256
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 100 or deal half damage to an enemy Undead unit.
+}
+
+STRING 257
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 200 or deal half damage to an enemy Undead unit.
+}
+
+STRING 258
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 300 or deal half damage to an enemy Undead unit.
+}
+
+STRING 259
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 400 or deal half damage to an enemy Undead unit.
+}
+
+STRING 260
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 500 or deal half damage to an enemy Undead unit.
+}
+
+STRING 261
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 600 or deal half damage to an enemy Undead unit.
+}
+
+STRING 262
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 700 or deal half damage to an enemy Undead unit.
+}
+
+STRING 263
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 800 or deal half damage to an enemy Undead unit.
+}
+
+STRING 264
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 900 or deal half damage to an enemy Undead unit.
+}
+
+STRING 265
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 1000 or deal half damage to an enemy Undead unit.
+}
+
+STRING 266
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 1100 or deal half damage to an enemy Undead unit.
+}
+
+STRING 267
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 1200 or deal half damage to an enemy Undead unit.
+}
+
+STRING 268
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 1300 or deal half damage to an enemy Undead unit.
+}
+
+STRING 269
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 1400 or deal half damage to an enemy Undead unit.
+}
+
+STRING 270
+// Abilities: A00C (Holy Light), Ubertip (Tooltip - Normal - Extended)
+{
+A holy light that can heal a friendly living unit for 1500 or deal half damage to an enemy Undead unit.
+}
+
+STRING 271
+// Abilities: A00F (Holy Ray), Name (Name)
+{
+Holy Ray
+}
+
+STRING 287
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 1|r]
+}
+
+STRING 288
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 2|r]
+}
+
+STRING 289
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 3|r]
+}
+
+STRING 290
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 4|r]
+}
+
+STRING 291
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 5|r]
+}
+
+STRING 292
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 6|r]
+}
+
+STRING 293
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 7|r]
+}
+
+STRING 294
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 8|r]
+}
+
+STRING 295
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 9|r]
+}
+
+STRING 296
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 10|r]
+}
+
+STRING 297
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 11|r]
+}
+
+STRING 298
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 12|r]
+}
+
+STRING 299
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 13|r]
+}
+
+STRING 300
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 14|r]
+}
+
+STRING 301
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 15|r]
+}
+
+STRING 302
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 10 damage. |nLasts for 9 seconds.
+}
+
+STRING 303
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 20 damage. |nLasts for 9 seconds.
+}
+
+STRING 304
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 30 damage. |nLasts for 9 seconds.
+}
+
+STRING 305
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 40 damage. |nLasts for 9 seconds.
+}
+
+STRING 306
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 50 damage. |nLasts for 9 seconds.
+}
+
+STRING 307
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 60 damage. |nLasts for 9 seconds.
+}
+
+STRING 308
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 70 damage. |nLasts for 9 seconds.
+}
+
+STRING 309
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 80 damage. |nLasts for 9 seconds.
+}
+
+STRING 310
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 90 damage. |nLasts for 9 seconds.
+}
+
+STRING 311
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 100 damage. |nLasts for 9 seconds.
+}
+
+STRING 312
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 110 damage. |nLasts for 9 seconds.
+}
+
+STRING 313
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 120 damage. |nLasts for 9 seconds.
+}
+
+STRING 314
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 130 damage. |nLasts for 9 seconds.
+}
+
+STRING 315
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 140 damage. |nLasts for 9 seconds.
+}
+
+STRING 316
+// Abilities: A00F (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 150 damage. |nLasts for 9 seconds.
+}
+
+STRING 317
+// Units: h005 (Guard Tower), EditorSuffix (Name - Editor Suffix)
+{
+2
+}
+
+STRING 318
+// Abilities: A00G (Holy Ray), Name (Name)
+{
+Holy Ray
+}
+
+STRING 319
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 1|r]
+}
+
+STRING 320
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 2|r]
+}
+
+STRING 321
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 3|r]
+}
+
+STRING 322
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 4|r]
+}
+
+STRING 323
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 5|r]
+}
+
+STRING 324
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 6|r]
+}
+
+STRING 325
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 7|r]
+}
+
+STRING 326
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 8|r]
+}
+
+STRING 327
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 9|r]
+}
+
+STRING 328
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 10|r]
+}
+
+STRING 329
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 11|r]
+}
+
+STRING 330
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 12|r]
+}
+
+STRING 331
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 13|r]
+}
+
+STRING 332
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 14|r]
+}
+
+STRING 333
+// Abilities: A00G (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 15|r]
+}
+
+STRING 334
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 10 damage. |nLasts for 9 seconds.
+}
+
+STRING 335
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 20 damage. |nLasts for 9 seconds.
+}
+
+STRING 336
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 30 damage. |nLasts for 9 seconds.
+}
+
+STRING 337
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 40 damage. |nLasts for 9 seconds.
+}
+
+STRING 338
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 50 damage. |nLasts for 9 seconds.
+}
+
+STRING 339
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 60 damage. |nLasts for 9 seconds.
+}
+
+STRING 340
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 70 damage. |nLasts for 9 seconds.
+}
+
+STRING 341
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 80 damage. |nLasts for 9 seconds.
+}
+
+STRING 342
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 90 damage. |nLasts for 9 seconds.
+}
+
+STRING 343
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 100 damage. |nLasts for 9 seconds.
+}
+
+STRING 344
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 110 damage. |nLasts for 9 seconds.
+}
+
+STRING 345
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 120 damage. |nLasts for 9 seconds.
+}
+
+STRING 346
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 130 damage. |nLasts for 9 seconds.
+}
+
+STRING 347
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 140 damage. |nLasts for 9 seconds.
+}
+
+STRING 348
+// Abilities: A00G (Holy Ray), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down Holy Rays that damage nearby undead enemy units. Each ray deals 150 damage. |nLasts for 9 seconds.
+}
+
+STRING 349
+// Units: h00B (Dragon), EditorSuffix (Name - Editor Suffix)
+{
+2
+}
+
+STRING 350
+{
+The Last Battle
+}
+
+STRING 351
+{
+Icecrown Citadel
+}
+
+STRING 352
+{
+At long last, the Alliance and the Horde fight arm to arm against the Lich King. They have started the invasion...
+}
+
+STRING 353
+// Units: e000 (Frost Wyrm), Name (Name)
+{
+Frost Wyrm
+}
+
+STRING 354
+// Units: H007 (Lich King), Name (Name)
+{
+Lich King
+}
+
+STRING 355
+{
+At last, the time you have to pay for all that tou have stolen, Arthas. My heroes, attack !
+}
+
+STRING 356
+{
+You are nothing to me... Argrr...!
+}
+
+STRING 357
+{
+Face your destiny, it's only death... Go, to die !
+}
+
+STRING 358
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 1|r]
+}
+
+STRING 359
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 2|r]
+}
+
+STRING 360
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 3|r]
+}
+
+STRING 361
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 4|r]
+}
+
+STRING 362
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 5|r]
+}
+
+STRING 363
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 6|r]
+}
+
+STRING 364
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 7|r]
+}
+
+STRING 365
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 8|r]
+}
+
+STRING 366
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 9|r]
+}
+
+STRING 367
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 10|r]
+}
+
+STRING 368
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 11|r]
+}
+
+STRING 369
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 12|r]
+}
+
+STRING 370
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 13|r]
+}
+
+STRING 371
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 14|r]
+}
+
+STRING 372
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 15|r]
+}
+
+STRING 373
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 16|r]
+}
+
+STRING 374
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 17|r]
+}
+
+STRING 375
+// Abilities: A00E (A Slash For the Alliance), Tip (Tooltip - Normal)
+{
+A Slash For the Alliance [|cffffcc00W|r] - [|cffffcc00Level 18|r]
+}
+
+STRING 376
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA4> damage to nearby enemy land units and stunning them for <AOws,Dur4> seconds.
+}
+
+STRING 377
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA5> damage to nearby enemy land units and stunning them for <AOws,Dur5> seconds.
+}
+
+STRING 378
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA6> damage to nearby enemy land units and stunning them for <AOws,Dur6> seconds.
+}
+
+STRING 379
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA7> damage to nearby enemy land units and stunning them for <AOws,Dur7> seconds.
+}
+
+STRING 380
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA8> damage to nearby enemy land units and stunning them for <AOws,Dur8> seconds.
+}
+
+STRING 381
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA9> damage to nearby enemy land units and stunning them for <AOws,Dur9> seconds.
+}
+
+STRING 382
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA10> damage to nearby enemy land units and stunning them for <AOws,Dur10> seconds.
+}
+
+STRING 383
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA11> damage to nearby enemy land units and stunning them for <AOws,Dur11> seconds.
+}
+
+STRING 384
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA12> damage to nearby enemy land units and stunning them for <AOws,Dur12> seconds.
+}
+
+STRING 385
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA13> damage to nearby enemy land units and stunning them for <AOws,Dur13> seconds.
+}
+
+STRING 386
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA14> damage to nearby enemy land units and stunning them for <AOws,Dur14> seconds.
+}
+
+STRING 387
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA15> damage to nearby enemy land units and stunning them for <AOws,Dur15> seconds.
+}
+
+STRING 388
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA16> damage to nearby enemy land units and stunning them for <AOws,Dur16> seconds.
+}
+
+STRING 389
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA17> damage to nearby enemy land units and stunning them for <AOws,Dur17> seconds.
+}
+
+STRING 390
+// Abilities: A00E (A Slash For the Alliance), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA18> damage to nearby enemy land units and stunning them for <AOws,Dur18> seconds.
+}
+
+STRING 391
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 16|r]
+}
+
+STRING 392
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 17|r]
+}
+
+STRING 393
+// Abilities: A00C (Holy Light), Tip (Tooltip - Normal)
+{
+Holy Ligh|cffffcc00t|r - [|cffffcc00Level 18|r]
+}
+
+STRING 394
+// Abilities: ACmp (Impale), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 395
+// Abilities: A00C (Holy Light), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 396
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 16|r]
+}
+
+STRING 397
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 17|r]
+}
+
+STRING 398
+// Abilities: A00D (High Lord's Spirit), Tip (Tooltip - Normal)
+{
+High Lord's Spirit - [|cffffcc00Level 18|r]
+}
+
+STRING 399
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 160% and attack rate by 160%.
+}
+
+STRING 400
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 170% and attack rate by 170%.
+}
+
+STRING 401
+// Abilities: A00D (High Lord's Spirit), Ubertip (Tooltip - Normal - Extended)
+{
+Increases nearby friendly units' movement speed by 180% and attack rate by 180%.
+}
+
+STRING 402
+// Abilities: Ambd (Mana Burn), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 403
+// Abilities: A00E (A Slash For the Alliance), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 404
+// Abilities: A00F (Holy Ray), Researchubertip (Tooltip - Learn - Extended)
+{
+Calls down Holy Rays that damage nearby enemy units. |nLasts for 9 seconds.
+}
+
+STRING 405
+// Abilities: A00F (Holy Ray), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 406
+// Abilities: A00F (Holy Ray), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 407
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 16|r]
+}
+
+STRING 408
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 17|r]
+}
+
+STRING 409
+// Abilities: A00F (Holy Ray), Tip (Tooltip - Normal)
+{
+Holy |cffffcc00R|rays - [|cffffcc00Level 18|r]
+}
+
+STRING 410
+// Units: H007 (Lich King), Propernames (Proper Names)
+{
+Arthas
+}
+
+STRING 411
+// Units: H007 (Lich King), EditorSuffix (Name - Editor Suffix)
+{
+Flying
+}
+
+STRING 412
+// Items: I000 (Horn of Frost Wyrm), Name (Name)
+{
+Horn of Frost Wyrm
+}
+
+STRING 413
+// Items: I000 (Horn of Frost Wyrm), Description (Description)
+{
+Summon a Frost Wyrm to mount.
+}
+
+STRING 414
+// Units: N000 (High Overlord of Kor'kron Guard), Awakentip (Tooltip - Awaken)
+{
+_
+}
+
+STRING 415
+// Items: I000 (Horn of Frost Wyrm), Ubertip (Tooltip - Extended)
+{
+Summon a Frost Wyrm to mount.
+}
+
+STRING 416
+// Abilities: A00H (Mount Frost Wyrm), Name (Name)
+{
+Mount Frost Wyrm
+}
+
+STRING 417
+// Doodads: D005 (throne), Name (Name)
+{
+throne
+}
+
+STRING 418
+// Abilities: A016 (Frost Wyrm), Name (Name)
+{
+Frost Wyrm
+}
+
+STRING 419
+// Abilities: A00J (Wrath of the Lich King), Name (Name)
+{
+Wrath of the Lich King
+}
+
+STRING 420
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 1|r]
+}
+
+STRING 421
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 2|r]
+}
+
+STRING 422
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 3|r]
+}
+
+STRING 423
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 4|r]
+}
+
+STRING 424
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 5|r]
+}
+
+STRING 425
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 6|r]
+}
+
+STRING 426
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 7|r]
+}
+
+STRING 427
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 8|r]
+}
+
+STRING 428
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 9|r]
+}
+
+STRING 429
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 10|r]
+}
+
+STRING 430
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 11|r]
+}
+
+STRING 431
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 12|r]
+}
+
+STRING 432
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 13|r]
+}
+
+STRING 433
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 14|r]
+}
+
+STRING 434
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 15|r]
+}
+
+STRING 435
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 16|r]
+}
+
+STRING 436
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 17|r]
+}
+
+STRING 437
+// Abilities: A00J (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 18|r]
+}
+
+STRING 438
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA4> damage to nearby enemy land units and stunning them for <AOws,Dur4> seconds.
+}
+
+STRING 439
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA5> damage to nearby enemy land units and stunning them for <AOws,Dur5> seconds.
+}
+
+STRING 440
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA6> damage to nearby enemy land units and stunning them for <AOws,Dur6> seconds.
+}
+
+STRING 441
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA7> damage to nearby enemy land units and stunning them for <AOws,Dur7> seconds.
+}
+
+STRING 442
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA8> damage to nearby enemy land units and stunning them for <AOws,Dur8> seconds.
+}
+
+STRING 443
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA9> damage to nearby enemy land units and stunning them for <AOws,Dur9> seconds.
+}
+
+STRING 444
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA10> damage to nearby enemy land units and stunning them for <AOws,Dur10> seconds.
+}
+
+STRING 445
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA11> damage to nearby enemy land units and stunning them for <AOws,Dur11> seconds.
+}
+
+STRING 446
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA12> damage to nearby enemy land units and stunning them for <AOws,Dur12> seconds.
+}
+
+STRING 447
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA13> damage to nearby enemy land units and stunning them for <AOws,Dur13> seconds.
+}
+
+STRING 448
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA14> damage to nearby enemy land units and stunning them for <AOws,Dur14> seconds.
+}
+
+STRING 449
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA15> damage to nearby enemy land units and stunning them for <AOws,Dur15> seconds.
+}
+
+STRING 450
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA16> damage to nearby enemy land units and stunning them for <AOws,Dur16> seconds.
+}
+
+STRING 451
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA17> damage to nearby enemy land units and stunning them for <AOws,Dur17> seconds.
+}
+
+STRING 452
+// Abilities: A00J (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+Slams the ground, dealing <AOws,DataA18> damage to nearby enemy land units and stunning them for <AOws,Dur18> seconds.
+}
+
+STRING 453
+// Doodads: D006 (Remains Scorched 2), Name (Name)
+{
+Remains Scorched 2
+}
+
+STRING 454
+{
+Argent Crusade
+}
+
+STRING 455
+// Units: U005 (Kel'Thuzad), Name (Name)
+{
+Kel'Thuzad
+}
+
+STRING 456
+// Units: N000 (High Overlord of Kor'kron Guard), Name (Name)
+{
+High Overlord of Kor'kron Guard
+}
+
+STRING 457
+// Units: N000 (High Overlord of Kor'kron Guard), Propernames (Proper Names)
+{
+Varok Saurfang
+}
+
+STRING 458
+// Units: N000 (High Overlord of Kor'kron Guard), Revivetip (Tooltip - Revive)
+{
+_
+}
+
+STRING 459
+// Units: O002 (Butcher), Awakentip (Tooltip - Awaken)
+{
+_
+}
+
+STRING 460
+// Abilities: A00M (Critical Strike), EditorSuffix (Editor Suffix)
+{
+saurfang
+}
+
+STRING 461
+// Abilities: A00N (Cleaving Attack), EditorSuffix (Editor Suffix)
+{
+saurfang
+}
+
+STRING 462
+// Abilities: A00O (Blood Strike), Name (Name)
+{
+Blood Strike
+}
+
+STRING 500
+// Abilities: A00O (Blood Strike), Researchtip (Tooltip - Learn)
+{
+Learn Blood Strike
+}
+
+STRING 501
+// Abilities: A00C (Holy Light), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 502
+// Abilities: A00Q (Charge), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 503
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 1 [W]
+}
+
+STRING 504
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 2 [W]
+}
+
+STRING 505
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 3 [W]
+}
+
+STRING 506
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 4 [W]
+}
+
+STRING 507
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 5 [W]
+}
+
+STRING 508
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 6 [W]
+}
+
+STRING 509
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 7 [W]
+}
+
+STRING 510
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 8 [W]
+}
+
+STRING 511
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 9 [W]
+}
+
+STRING 512
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 10 [W]
+}
+
+STRING 513
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 11 [W]
+}
+
+STRING 514
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 12 [W]
+}
+
+STRING 515
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 13 [W]
+}
+
+STRING 516
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 14 [W]
+}
+
+STRING 517
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 15 [W]
+}
+
+STRING 518
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 16 [W]
+}
+
+STRING 519
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 17 [W]
+}
+
+STRING 520
+// Abilities: A00P (Bladestorm), Tip (Tooltip - Normal)
+{
+Bladestorm - Level 18 [W]
+}
+
+STRING 521
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 10 damage per second to nearby enemy land units. |nLasts <AOww,Dur1> seconds.
+}
+
+STRING 522
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 20 damage per second to nearby enemy land units. |nLasts <AOww,Dur2> seconds.
+}
+
+STRING 523
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 30 damage per second to nearby enemy land units. |nLasts <AOww,Dur3> seconds.
+}
+
+STRING 524
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 40 damage per second to nearby enemy land units. |nLasts <AOww,Dur4> seconds.
+}
+
+STRING 525
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 50 damage per second to nearby enemy land units. |nLasts <AOww,Dur5> seconds.
+}
+
+STRING 526
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 60 damage per second to nearby enemy land units. |nLasts <AOww,Dur6> seconds.
+}
+
+STRING 527
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 70 damage per second to nearby enemy land units. |nLasts <AOww,Dur7> seconds.
+}
+
+STRING 528
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 80 damage per second to nearby enemy land units. |nLasts <AOww,Dur8> seconds.
+}
+
+STRING 529
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 90 damage per second to nearby enemy land units. |nLasts <AOww,Dur9> seconds.
+}
+
+STRING 530
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 100 damage per second to nearby enemy land units. |nLasts <AOww,Dur10> seconds.
+}
+
+STRING 531
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 110 damage per second to nearby enemy land units. |nLasts <AOww,Dur11> seconds.
+}
+
+STRING 532
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 120 damage per second to nearby enemy land units. |nLasts <AOww,Dur12> seconds.
+}
+
+STRING 533
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 130 damage per second to nearby enemy land units. |nLasts <AOww,Dur13> seconds.
+}
+
+STRING 534
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 140 damage per second to nearby enemy land units. |nLasts <AOww,Dur14> seconds.
+}
+
+STRING 535
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 150 damage per second to nearby enemy land units. |nLasts <AOww,Dur15> seconds.
+}
+
+STRING 536
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 160 damage per second to nearby enemy land units. |nLasts <AOww,Dur16> seconds.
+}
+
+STRING 537
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 170 damage per second to nearby enemy land units. |nLasts <AOww,Dur17> seconds.
+}
+
+STRING 538
+// Abilities: A00P (Bladestorm), Ubertip (Tooltip - Normal - Extended)
+{
+Causes a bladestorm of destructive force around the Blademaster, rendering him immune to magic and dealing 180 damage per second to nearby enemy land units. |nLasts <AOww,Dur18> seconds.
+}
+
+STRING 539
+// Abilities: A00Q (Charge), Name (Name)
+{
+Charge
+}
+
+STRING 558
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 559
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 560
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 561
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 562
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 563
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 564
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 565
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 566
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 567
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 568
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 569
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 570
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 571
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 572
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 573
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 574
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 575
+// Abilities: A00Q (Charge), Ubertip (Tooltip - Normal - Extended)
+{
+Charge to the enemy, stunning it for a short duration which is improved each levels.
+}
+
+STRING 576
+// Abilities: A00R (Storm Bolt), EditorSuffix (Editor Suffix)
+{
+saurfang
+}
+
+STRING 577
+// Abilities: A00S (Call of Loyalty), Name (Name)
+{
+Call of Loyalty
+}
+
+STRING 578
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 1 [R]
+}
+
+STRING 579
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 2 [R]
+}
+
+STRING 580
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 3 [R]
+}
+
+STRING 581
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 4 [R]
+}
+
+STRING 582
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 5 [R]
+}
+
+STRING 583
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 6 [R]
+}
+
+STRING 584
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 7 [R]
+}
+
+STRING 585
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 8 [R]
+}
+
+STRING 586
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 9 [R]
+}
+
+STRING 587
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 10 [R]
+}
+
+STRING 588
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 11 [R]
+}
+
+STRING 589
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 12 [R]
+}
+
+STRING 590
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 13 [R]
+}
+
+STRING 591
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 14 [R]
+}
+
+STRING 592
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 15 [R]
+}
+
+STRING 593
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 16 [R]
+}
+
+STRING 594
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 17 [R]
+}
+
+STRING 595
+// Abilities: A00S (Call of Loyalty), Tip (Tooltip - Normal)
+{
+Call of Loyalty - Level 18 [R]
+}
+
+STRING 596
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 597
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 598
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 599
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 600
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 601
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 602
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 603
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 604
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 605
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 606
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 607
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 608
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 609
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 610
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 611
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 612
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 613
+// Abilities: A00S (Call of Loyalty), Ubertip (Tooltip - Normal - Extended)
+{
+Call all of nearby Orc become yours. Also increase nearby allies' damage and armor. Last for 45 seconds.
+}
+
+STRING 614
+// Abilities: A00T (Axe), Name (Name)
+{
+Axe
+}
+
+STRING 615
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 1 [E]
+}
+
+STRING 616
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 2 [E]
+}
+
+STRING 617
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 3 [E]
+}
+
+STRING 618
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 4 [E]
+}
+
+STRING 619
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 5 [E]
+}
+
+STRING 620
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 6 [E]
+}
+
+STRING 621
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 7 [E]
+}
+
+STRING 622
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 8 [E]
+}
+
+STRING 623
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 9 [E]
+}
+
+STRING 624
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 10 [E]
+}
+
+STRING 625
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 11 [E]
+}
+
+STRING 626
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 12 [E]
+}
+
+STRING 627
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 13 [E]
+}
+
+STRING 628
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 14 [E]
+}
+
+STRING 629
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 15 [E]
+}
+
+STRING 630
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 16 [E]
+}
+
+STRING 631
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 17 [E]
+}
+
+STRING 632
+// Abilities: A00O (Blood Strike), Tip (Tooltip - Normal)
+{
+Blood Strike - Level 18 [E]
+}
+
+STRING 633
+// Abilities: A00O (Blood Strike), Researchhotkey (Hotkey - Learn)
+{
+E
+}
+
+STRING 634
+// Abilities: A00O (Blood Strike), Hotkey (Hotkey - Normal)
+{
+E
+}
+
+STRING 635
+// Abilities: A00E (A Slash For the Alliance), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 636
+// Abilities: A00P (Bladestorm), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 637
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 1 [Q]
+}
+
+STRING 638
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 2 [Q]
+}
+
+STRING 639
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 3 [Q]
+}
+
+STRING 640
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 4 [Q]
+}
+
+STRING 641
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 5 [Q]
+}
+
+STRING 642
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 6 [Q]
+}
+
+STRING 643
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 7 [Q]
+}
+
+STRING 644
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 8 [Q]
+}
+
+STRING 645
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 9 [Q]
+}
+
+STRING 646
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 10 [Q]
+}
+
+STRING 647
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 11 [Q]
+}
+
+STRING 648
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 12 [Q]
+}
+
+STRING 649
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 13 [Q]
+}
+
+STRING 650
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 14 [Q]
+}
+
+STRING 651
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 15 [Q]
+}
+
+STRING 652
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 16 [Q]
+}
+
+STRING 653
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 17 [Q]
+}
+
+STRING 654
+// Abilities: A00Q (Charge), Tip (Tooltip - Normal)
+{
+Charge - Level 18 [Q]
+}
+
+STRING 655
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 1  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 656
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 2  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 657
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 3  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 658
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 4  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 659
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 5  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 660
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 6  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 661
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 7  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 662
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 8  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 663
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 9  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 664
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 10  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 665
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 11  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 666
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 12  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 667
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 13  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 668
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 14  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 669
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 15  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 670
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 16  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 671
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 17  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 672
+// Abilities: A00O (Blood Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Landing a bloody strike on an enemy, dealing 18  times of your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 673
+// Abilities: A00O (Blood Strike), Researchubertip (Tooltip - Learn - Extended)
+{
+Landing a bloody strike on an enemy, dealing mutiplied your weapon's damage to the target and a quarter to nearby enemies.
+}
+
+STRING 674
+// Abilities: A00U (Mana Shield), Researchubertip (Tooltip - Learn - Extended)
+{
+Creates a shield that absorbs damage by using the Lich's mana. |n|n|cffffcc00Level 1|r - 1 damage per point of mana. |n|cffffcc00Level 2|r - 1.5 damage per point of mana. |n|cffffcc00Level 3|r - 2 damage per point of mana.
+}
+
+STRING 675
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 4|r] [W]
+}
+
+STRING 676
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 5|r] [W]
+}
+
+STRING 677
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 6|r] [W]
+}
+
+STRING 678
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 7|r] [W]
+}
+
+STRING 679
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 8|r] [W]
+}
+
+STRING 680
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 9|r] [W]
+}
+
+STRING 681
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 10|r] [W]
+}
+
+STRING 682
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 11|r] [W]
+}
+
+STRING 683
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 12|r] [W]
+}
+
+STRING 684
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 13|r] [W]
+}
+
+STRING 685
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 14|r] [W]
+}
+
+STRING 686
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 15|r] [W]
+}
+
+STRING 687
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 16|r] [W]
+}
+
+STRING 688
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 17|r] [W]
+}
+
+STRING 689
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 18|r] [W]
+}
+
+STRING 690
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 691
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 692
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 693
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 694
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 695
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 696
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 697
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 698
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 699
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 700
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 701
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 702
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 703
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 704
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 705
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 706
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 707
+// Abilities: A00U (Mana Shield), Ubertip (Tooltip - Normal - Extended)
+{
+Activates a shield that absorbs damage per point of mana.
+}
+
+STRING 708
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 709
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 710
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 711
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 712
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 713
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 714
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 715
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 716
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 717
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 718
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 719
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 720
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 721
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 722
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 723
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 724
+// Abilities: A00U (Mana Shield), Untip (Tooltip - Turn Off)
+{
+Deactivate Ma|cffffcc00n|ra Shield
+}
+
+STRING 725
+// Abilities: A00P (Bladestorm), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 726
+// Abilities: A00U (Mana Shield), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 727
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 1|r] [W]
+}
+
+STRING 728
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 2|r] [W]
+}
+
+STRING 729
+// Abilities: A00U (Mana Shield), Tip (Tooltip - Normal)
+{
+Activate Ma|cffffcc00n|ra Shield - [|cffffcc00Level 3|r] [W]
+}
+
+STRING 730
+// Abilities: A00V (Mana of the Destruction), Name (Name)
+{
+Mana of the Destruction
+}
+
+STRING 731
+// Abilities: A00V (Mana of the Destruction), Researchubertip (Tooltip - Learn - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies. Damage deal depend on  your lossing mana, base on 0.1x of your lossing mana and increase 0.1 per level of this ability.
+}
+
+STRING 732
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 1 [R]
+}
+
+STRING 733
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 2 [R]
+}
+
+STRING 734
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 3 [R]
+}
+
+STRING 735
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 4 [R]
+}
+
+STRING 736
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 5 [R]
+}
+
+STRING 737
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 6 [R]
+}
+
+STRING 738
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 7 [R]
+}
+
+STRING 739
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 8 [R]
+}
+
+STRING 740
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 9 [R]
+}
+
+STRING 741
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 10 [R]
+}
+
+STRING 742
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 11 [R]
+}
+
+STRING 743
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 12 [R]
+}
+
+STRING 744
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 13 [R]
+}
+
+STRING 745
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 14 [R]
+}
+
+STRING 746
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 15 [R]
+}
+
+STRING 747
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 16 [R]
+}
+
+STRING 748
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 17 [R]
+}
+
+STRING 749
+// Abilities: A00V (Mana of the Destruction), Tip (Tooltip - Normal)
+{
+Mana of the Destruction - Level 18 [R]
+}
+
+STRING 750
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 0.1x of your lossing mana..
+}
+
+STRING 751
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 0.2x of your lossing mana..
+}
+
+STRING 752
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 0.3x of your lossing mana..
+}
+
+STRING 753
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 0.4x of your lossing mana..
+}
+
+STRING 754
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 0.5x of your lossing mana..
+}
+
+STRING 755
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 0.6x of your lossing mana..
+}
+
+STRING 756
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 0.7x of your lossing mana..
+}
+
+STRING 757
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 0.8x of your lossing mana..
+}
+
+STRING 758
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 0.9x of your lossing mana..
+}
+
+STRING 759
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 1x of your lossing mana..
+}
+
+STRING 760
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 1.1x of your lossing mana..
+}
+
+STRING 761
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 1.2x of your lossing mana..
+}
+
+STRING 762
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 1.3x of your lossing mana..
+}
+
+STRING 763
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 1.4x of your lossing mana..
+}
+
+STRING 764
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 1.5x of your lossing mana..
+}
+
+STRING 765
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 1.6x of your lossing mana..
+}
+
+STRING 766
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 1.7x of your lossing mana..
+}
+
+STRING 767
+// Abilities: A00V (Mana of the Destruction), Ubertip (Tooltip - Normal - Extended)
+{
+Release wave of mystical mana, damaging nearby enemies by 1.8x of your lossing mana..
+}
+
+STRING 768
+// Abilities: A00V (Mana of the Destruction), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 769
+// Abilities: A00V (Mana of the Destruction), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 770
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 4|r] [Q]
+}
+
+STRING 771
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 5|r] [Q]
+}
+
+STRING 772
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 6|r] [Q]
+}
+
+STRING 773
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 7|r] [Q]
+}
+
+STRING 774
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 8|r] [Q]
+}
+
+STRING 775
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 9|r] [Q]
+}
+
+STRING 776
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 10|r] [Q]
+}
+
+STRING 777
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 11|r] [Q]
+}
+
+STRING 778
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 12|r] [Q]
+}
+
+STRING 779
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 13|r] [Q]
+}
+
+STRING 780
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 14|r] [Q]
+}
+
+STRING 781
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 15|r] [Q]
+}
+
+STRING 782
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 16|r] [Q]
+}
+
+STRING 783
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 17|r] [Q]
+}
+
+STRING 784
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 18|r] [Q]
+}
+
+STRING 785
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA4> freezing ice shard waves; each wave deals <AHbz,DataB4> damage to units in an area.
+}
+
+STRING 786
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA5> freezing ice shard waves; each wave deals <AHbz,DataB5> damage to units in an area.
+}
+
+STRING 787
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA6> freezing ice shard waves; each wave deals <AHbz,DataB6> damage to units in an area.
+}
+
+STRING 788
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA7> freezing ice shard waves; each wave deals <AHbz,DataB7> damage to units in an area.
+}
+
+STRING 789
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA8> freezing ice shard waves; each wave deals <AHbz,DataB8> damage to units in an area.
+}
+
+STRING 790
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA9> freezing ice shard waves; each wave deals <AHbz,DataB9> damage to units in an area.
+}
+
+STRING 791
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA10> freezing ice shard waves; each wave deals <AHbz,DataB10> damage to units in an area.
+}
+
+STRING 792
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA11> freezing ice shard waves; each wave deals <AHbz,DataB11> damage to units in an area.
+}
+
+STRING 793
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA12> freezing ice shard waves; each wave deals <AHbz,DataB12> damage to units in an area.
+}
+
+STRING 794
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA13> freezing ice shard waves; each wave deals <AHbz,DataB13> damage to units in an area.
+}
+
+STRING 795
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA14> freezing ice shard waves; each wave deals <AHbz,DataB14> damage to units in an area.
+}
+
+STRING 796
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA15> freezing ice shard waves; each wave deals <AHbz,DataB15> damage to units in an area.
+}
+
+STRING 797
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA16> freezing ice shard waves; each wave deals <AHbz,DataB16> damage to units in an area.
+}
+
+STRING 798
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA17> freezing ice shard waves; each wave deals <AHbz,DataB17> damage to units in an area.
+}
+
+STRING 799
+// Abilities: A00X (Blizzard), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down <AHbz,DataA18> freezing ice shard waves; each wave deals <AHbz,DataB18> damage to units in an area.
+}
+
+STRING 800
+// Abilities: A00Q (Charge), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 801
+// Abilities: A00X (Blizzard), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 802
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 1|r] [Q]
+}
+
+STRING 803
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 2|r] [Q]
+}
+
+STRING 804
+// Abilities: A00X (Blizzard), Tip (Tooltip - Normal)
+{
+|cffffcc00B|rlizzard - [|cffffcc00Level 3|r] [Q]
+}
+
+STRING 805
+// Abilities: A00Y (Lost and Gain), Name (Name)
+{
+Lost and Gain
+}
+
+STRING 806
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 1 [E]
+}
+
+STRING 807
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 2 [E]
+}
+
+STRING 808
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 3 [E]
+}
+
+STRING 809
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 4 [E]
+}
+
+STRING 810
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 5 [E]
+}
+
+STRING 811
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 6 [E]
+}
+
+STRING 812
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 7 [E]
+}
+
+STRING 813
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 8 [E]
+}
+
+STRING 814
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 9 [E]
+}
+
+STRING 815
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 10 [E]
+}
+
+STRING 816
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 11 [E]
+}
+
+STRING 817
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 12 [E]
+}
+
+STRING 818
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 13 [E]
+}
+
+STRING 819
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 14 [E]
+}
+
+STRING 820
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 15 [E]
+}
+
+STRING 821
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 16 [E]
+}
+
+STRING 822
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 17 [E]
+}
+
+STRING 823
+// Abilities: A00Y (Lost and Gain), Tip (Tooltip - Normal)
+{
+Lost and Gain - Level 18 [E]
+}
+
+STRING 824
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return1.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 825
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return2.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 826
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return3.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 827
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return4.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 828
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return5.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 829
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return6.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 830
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return7.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 831
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return8.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 832
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return9.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 833
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return10.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 834
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return11.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 835
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return12.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 836
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return13.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 837
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return14.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 838
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return15.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 839
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return16.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 840
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return17.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 841
+// Abilities: A00Y (Lost and Gain), Ubertip (Tooltip - Normal - Extended)
+{
+Lost half of the target's current mana and return18.5x of that after 5 seconds. Mana cost decrease per level.
+}
+
+STRING 842
+// Abilities: A00U (Mana Shield), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 843
+// Units: u006 (Crypt Lord), Name (Name)
+{
+Crypt Lord
+}
+
+STRING 844
+// Abilities: A00U (Mana Shield), Unhotkey (Hotkey - Turn Off)
+{
+W
+}
+
+STRING 845
+// Abilities: A00X (Blizzard), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 846
+// Abilities: A00Z (Locust Swarm), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 847
+// Abilities: A011 (Wind Walk), Hotkey (Hotkey - Normal)
+{
+E
+}
+
+STRING 848
+// Units: O002 (Butcher), Name (Name)
+{
+Butcher
+}
+
+STRING 849
+// Units: O002 (Butcher), Propernames (Proper Names)
+{
+Pudge
+}
+
+STRING 850
+// Units: O002 (Butcher), Tip (Tooltip - Basic)
+{
+_
+}
+
+STRING 851
+// Units: O002 (Butcher), Ubertip (Tooltip - Extended)
+{
+_
+}
+
+STRING 852
+// Units: O002 (Butcher), Revivetip (Tooltip - Revive)
+{
+_
+}
+
+STRING 853
+// Units: h008 (dummy MH), Name (Name)
+{
+dummy MH
+}
+
+STRING 854
+// Items: I000 (Horn of Frost Wyrm), Tip (Tooltip - Basic)
+{
+_
+}
+
+STRING 855
+// Abilities: A012 (Meat Hook), Name (Name)
+{
+Meat Hook
+}
+
+STRING 856
+// Abilities: A012 (Meat Hook), Researchubertip (Tooltip - Learn - Extended)
+{
+Launches a bloody hook at a unit or location. The hook will snag all targets it encounters when it's back, dealing damage then dragging the victim to Pudge.
+}
+
+STRING 857
+// Abilities: A012 (Meat Hook), Tip (Tooltip - Normal)
+{
+Meat Hook - [|cffffcc00Level 1|r] - [ |cffffcc00Q|r]
+}
+
+STRING 858
+// Abilities: A012 (Meat Hook), Tip (Tooltip - Normal)
+{
+Meat Hook - [|cffffcc00Level 2|r] - [ |cffffcc00Q|r]
+}
+
+STRING 859
+// Abilities: A012 (Meat Hook), Tip (Tooltip - Normal)
+{
+Meat Hook - [|cffffcc00Level 3|r] - [ |cffffcc00Q|r]
+}
+
+STRING 860
+// Abilities: A012 (Meat Hook), Tip (Tooltip - Normal)
+{
+Meat Hook - [|cffffcc00Level 4|r] - [ |cffffcc00Q|r]
+}
+
+STRING 861
+// Abilities: A012 (Meat Hook), Ubertip (Tooltip - Normal - Extended)
+{
+Launches a bloody hook at a unit or location. The hook will snag all targets it encounters when it's back, dealing 150 damage then dragging the victim to Pudge.
+}
+
+STRING 862
+// Abilities: A012 (Meat Hook), Ubertip (Tooltip - Normal - Extended)
+{
+Launches a bloody hook at a unit or location. The hook will snag all targets it encounters when it's back, dealing 300 damage then dragging the victim to Pudge.
+}
+
+STRING 863
+// Abilities: A012 (Meat Hook), Ubertip (Tooltip - Normal - Extended)
+{
+Launches a bloody hook at a unit or location. The hook will snag all targets it encounters when it's back, dealing 450 damage then dragging the victim to Pudge.
+}
+
+STRING 864
+// Abilities: A012 (Meat Hook), Ubertip (Tooltip - Normal - Extended)
+{
+Launches a bloody hook at a unit or location. The hook will snag all targets it encounters when it's back, dealing 600 damage then dragging the victim to Pudge.
+}
+
+STRING 865
+// Abilities: A012 (Meat Hook), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 866
+// Abilities: A012 (Meat Hook), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 867
+// Abilities: A013 (Rot), Name (Name)
+{
+Rot
+}
+
+STRING 868
+// Abilities: A013 (Rot), Tip (Tooltip - Normal)
+{
+Activate Rot - [|cffffcc00Level 1|r] - |cffffcc00W|r
+}
+
+STRING 869
+// Abilities: A013 (Rot), Tip (Tooltip - Normal)
+{
+Activate Rot - [|cffffcc00Level 2|r] - |cffffcc00W|r
+}
+
+STRING 870
+// Abilities: A013 (Rot), Tip (Tooltip - Normal)
+{
+Activate Rot - [|cffffcc00Level 3|r] - |cffffcc00W|r
+}
+
+STRING 871
+// Abilities: A013 (Rot), Tip (Tooltip - Normal)
+{
+Activate Rot - [|cffffcc00Level 4|r] - |cffffcc00W|r
+}
+
+STRING 872
+// Units: h009 (dummy MH head), Name (Name)
+{
+dummy MH head
+}
+
+STRING 873
+// Abilities: A013 (Rot), Untip (Tooltip - Turn Off)
+{
+Deactivate Rot - [|cffffcc00W|r]
+}
+
+STRING 874
+// Abilities: A013 (Rot), Unubertip (Tooltip - Turn Off - Extended)
+{
+Deactivate Immolation to stop draining health.
+}
+
+STRING 875
+// Abilities: A013 (Rot), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 876
+// Abilities: A013 (Rot), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 877
+// Abilities: A013 (Rot), Unhotkey (Hotkey - Turn Off)
+{
+W
+}
+
+STRING 878
+// Abilities: A014 (Ahh Fresh Meat), Name (Name)
+{
+Ahh Fresh Meat
+}
+
+STRING 879
+// Abilities: A014 (Ahh Fresh Meat), Tip (Tooltip - Normal)
+{
+Ahh Fresh Meat - [|cffffcc00Level 1|r] - [|cffffcc00R|r]
+}
+
+STRING 880
+// Abilities: A014 (Ahh Fresh Meat), Tip (Tooltip - Normal)
+{
+Ahh Fresh Meat - [|cffffcc00Level 2|r] - [|cffffcc00R|r]
+}
+
+STRING 881
+// Abilities: A014 (Ahh Fresh Meat), Tip (Tooltip - Normal)
+{
+Ahh Fresh Meat - [|cffffcc00Level 3|r] - [|cffffcc00R|r]
+}
+
+STRING 882
+// Abilities: A014 (Ahh Fresh Meat), Ubertip (Tooltip - Normal - Extended)
+{
+_
+}
+
+STRING 883
+// Abilities: A014 (Ahh Fresh Meat), Ubertip (Tooltip - Normal - Extended)
+{
+_
+}
+
+STRING 884
+// Abilities: A014 (Ahh Fresh Meat), Ubertip (Tooltip - Normal - Extended)
+{
+_
+}
+
+STRING 885
+// Abilities: A014 (Ahh Fresh Meat), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 886
+// Abilities: A014 (Ahh Fresh Meat), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 887
+// Units: u009 (Val'kyr), Name (Name)
+{
+Val'kyr
+}
+
+STRING 888
+// Units: u009 (Val'kyr), Tip (Tooltip - Basic)
+{
+Train |cffffcc00V|ral'Kyr
+}
+
+STRING 889
+// Units: u009 (Val'kyr), Hotkey (Hotkey)
+{
+V
+}
+
+STRING 890
+// Units: u009 (Val'kyr), Ubertip (Tooltip - Extended)
+{
+Powerful undead creature. Has two forms, a ground one and an air one. Has a powerful ranged attack in the air form and a powerful melee attack in the ground form. Can use Raise Dead, Animate Dead and Spirit Sacrifice. |n|n|cffffcc00Attacks land and air units.|r
+}
+
+STRING 891
+// Units: u009 (Val'kyr), Casterupgradetip (Caster Upgrade Tips)
+{
+- Spirit Touch,- Spirit Touch|n- Raise Dead,- Spirit Touch|n- Raise Dead|n- Howl of Teror
+}
+
+STRING 892
+// Units: u00D (Val'kyr), EditorSuffix (Name - Editor Suffix)
+{
+(Ground)(White)
+}
+
+STRING 893
+// Units: u00C (Val'kyr), Name (Name)
+{
+Val'kyr
+}
+
+STRING 894
+// Units: u00D (Val'kyr), Tip (Tooltip - Basic)
+{
+Train |cffffcc00V|ral'Kyr
+}
+
+STRING 895
+// Units: u00D (Val'kyr), Hotkey (Hotkey)
+{
+V
+}
+
+STRING 896
+// Units: u00D (Val'kyr), Ubertip (Tooltip - Extended)
+{
+Powerful undead creature. Has two forms, a ground one and an air one. Has a powerful ranged attack in the air form and a powerful melee attack in the ground form. Can use Raise Dead, Animate Dead and Spirit Sacrifice. |n|n|cffffcc00Attacks land and air units.|r
+}
+
+STRING 898
+// Units: u009 (Val'kyr), EditorSuffix (Name - Editor Suffix)
+{
+(Air)(White)
+}
+
+STRING 899
+// Units: h00A (Dragon), Name (Name)
+{
+Dragon
+}
+
+STRING 900
+// Units: h00B (Dragon), Name (Name)
+{
+Dragon
+}
+
+STRING 901
+// Abilities: A00G (Holy Ray), EditorSuffix (Editor Suffix)
+{
+2
+}
+
+STRING 902
+// Units: e000 (Frost Wyrm), EditorSuffix (Name - Editor Suffix)
+{
+Ground
+}
+
+STRING 903
+// Abilities: A016 (Frost Wyrm), Tip (Tooltip - Normal)
+{
+Flying Form
+}
+
+STRING 904
+// Abilities: A016 (Frost Wyrm), Ubertip (Tooltip - Normal - Extended)
+{
+Become flying Frost Wyrm.
+}
+
+STRING 905
+// Abilities: A016 (Frost Wyrm), Untip (Tooltip - Turn Off)
+{
+Ground Form
+}
+
+STRING 907
+// Abilities: A016 (Frost Wyrm), Unubertip (Tooltip - Turn Off - Extended)
+{
+Become ground Frost Wyrm.
+}
+
+STRING 908
+// Abilities: A016 (Frost Wyrm), Hotkey (Hotkey - Normal)
+{
+D
+}
+
+STRING 909
+// Abilities: A016 (Frost Wyrm), Unhotkey (Hotkey - Turn Off)
+{
+D
+}
+
+STRING 1022
+// Abilities: A015 ( ), Name (Name)
+{
+ 
+}
+
+STRING 1023
+// Units: u00D (Val'kyr), Name (Name)
+{
+Val'kyr
+}
+
+STRING 1026
+// Units: u00E (Boof of Summon Vy'kyr), Name (Name)
+{
+Boof of Summon Vy'kyr
+}
+
+STRING 1027
+// Units: h00C (Book of Summon Vy'kyr), Name (Name)
+{
+Book of Summon Vy'kyr
+}
+
+STRING 1029
+// Units: u008 (Elite Meat Wagon), Name (Name)
+{
+Elite Meat Wagon
+}
+
+STRING 1030
+// Abilities: Acan (Cannibalize(Channel)), Name (Name)
+{
+Cannibalize(Channel)
+}
+
+STRING 1031
+// Abilities: A017 (Disease Cloud), EditorSuffix (Editor Suffix)
+{
+ (Meat Wagon) S
+}
+
+STRING 1032
+// Abilities: A018 (Disease Cloud), EditorSuffix (Editor Suffix)
+{
+(Plague Ward) S
+}
+
+STRING 1033
+// Abilities: A019 (Poison), Name (Name)
+{
+Poison
+}
+
+STRING 1035
+// Units: u00H (Flame 2), Name (Name)
+{
+Flame 2
+}
+
+STRING 1036
+// Abilities: A01A (Cloud), Name (Name)
+{
+Cloud
+}
+
+STRING 1037
+// Units: h00D (Caster), Name (Name)
+{
+Caster
+}
+
+STRING 1038
+// Abilities: A01B (Plague Bomb), Name (Name)
+{
+Plague Bomb
+}
+
+STRING 1039
+// Abilities: A01C (Plague Bomb Attack Checker), Name (Name)
+{
+Plague Bomb Attack Checker
+}
+
+STRING 1040
+// Buffs/Effects: B000 (PB Checker), EditorName (Name (Editor Only))
+{
+PB Checker
+}
+
+STRING 1041
+// Units: u00G (Flame 3), Name (Name)
+{
+Flame 3
+}
+
+STRING 1042
+// Units: U00I (Sand King), Name (Name)
+{
+Sand King
+}
+
+STRING 1043
+// Abilities: A01D (Burrowstrike Dmg), Name (Name)
+{
+Burrowstrike Dmg
+}
+
+STRING 1044
+// Abilities: A01E (Burrowstrike), Name (Name)
+{
+Burrowstrike
+}
+
+STRING 1045
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 1|r]
+}
+
+STRING 1046
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 2|r]
+}
+
+STRING 1047
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 3|r]
+}
+
+STRING 1048
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 4|r]
+}
+
+STRING 1049
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 5|r]
+}
+
+STRING 1050
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 6|r]
+}
+
+STRING 1051
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 7|r]
+}
+
+STRING 1052
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 8|r]
+}
+
+STRING 1053
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 9|r]
+}
+
+STRING 1054
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 10|r]
+}
+
+STRING 1055
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 11|r]
+}
+
+STRING 1056
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 12|r]
+}
+
+STRING 1057
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 13|r]
+}
+
+STRING 1058
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 14|r]
+}
+
+STRING 1059
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 15|r]
+}
+
+STRING 1060
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 16|r]
+}
+
+STRING 1061
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 17|r]
+}
+
+STRING 1062
+// Abilities: A01E (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 18|r]
+}
+
+STRING 1063
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1064
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1065
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1066
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1067
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1068
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1069
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1070
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1071
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1072
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1073
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1074
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1075
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1076
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1077
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1078
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1079
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1080
+// Abilities: A01E (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1081
+// Abilities: A01E (Burrowstrike), Researchtip (Tooltip - Learn)
+{
+Learn Burrowstrike - [|cffffcc00Level %d|r]
+}
+
+STRING 1082
+// Abilities: A01E (Burrowstrike), Researchubertip (Tooltip - Learn - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1083
+// Abilities: A01E (Burrowstrike), EditorSuffix (Editor Suffix)
+{
+(Shockwave)
+}
+
+STRING 1084
+// Abilities: A01F (Burrowstrike), Name (Name)
+{
+Burrowstrike
+}
+
+STRING 1085
+// Abilities: A01F (Burrowstrike), EditorSuffix (Editor Suffix)
+{
+(Impale)
+}
+
+STRING 1086
+// Abilities: A01F (Burrowstrike), Researchtip (Tooltip - Learn)
+{
+Learn Burrowstrike - [|cffffcc00Level %d|r]
+}
+
+STRING 1087
+// Abilities: A01F (Burrowstrike), Researchubertip (Tooltip - Learn - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1088
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 1|r]
+}
+
+STRING 1089
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 2|r]
+}
+
+STRING 1090
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 3|r]
+}
+
+STRING 1091
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 4|r]
+}
+
+STRING 1092
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 5|r]
+}
+
+STRING 1093
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 6|r]
+}
+
+STRING 1094
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 7|r]
+}
+
+STRING 1095
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 8|r]
+}
+
+STRING 1096
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 9|r]
+}
+
+STRING 1097
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 10|r]
+}
+
+STRING 1098
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 11|r]
+}
+
+STRING 1099
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 12|r]
+}
+
+STRING 1100
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 13|r]
+}
+
+STRING 1101
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 14|r]
+}
+
+STRING 1102
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 15|r]
+}
+
+STRING 1103
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 16|r]
+}
+
+STRING 1104
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 17|r]
+}
+
+STRING 1105
+// Abilities: A01F (Burrowstrike), Tip (Tooltip - Normal)
+{
+Burrowstrike [Q] - [|cffffcc00Level 18|r]
+}
+
+STRING 1106
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1107
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1108
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1109
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1110
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1111
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1112
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1113
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1114
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1115
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1116
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1117
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1118
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1119
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1120
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1121
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1122
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1123
+// Abilities: A01F (Burrowstrike), Ubertip (Tooltip - Normal - Extended)
+{
+The Sand King burrows into the ground and tunnels forward, impaling everything above him, then resurfaces.
+}
+
+STRING 1124
+// Abilities: A01E (Burrowstrike), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 1125
+// Abilities: A01E (Burrowstrike), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 1126
+// Abilities: A01F (Burrowstrike), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 1127
+// Abilities: A01F (Burrowstrike), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
