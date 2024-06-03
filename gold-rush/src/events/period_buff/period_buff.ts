@@ -1,4 +1,3 @@
-import { ABILITY_ID_LOCUST, BUFF_ID_GENERIC, UNIT_ID_DUMMY } from 'lib/constants';
 import { getUnitLocation, locX, locY } from 'lib/location';
 import {
   ABILITY_AbolishMagicCreep, ABILITY_AuraCommandCreep, ABILITY_AuraDevotionCreep, ABILITY_AuraEnduranceCreep,
@@ -10,7 +9,7 @@ import {
   MODEL_Brilliance, MODEL_CommandAura, MODEL_DevotionAura, MODEL_DrumsCasterHeal, MODEL_ImmolationREDTarget, MODEL_TrueshotAura, MODEL_UnholyAura, MODEL_VampiricAura,
 } from 'lib/resources/war3-models';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
-import { tieUnitToUnit } from 'lib/unit';
+import { createDummy, tieUnitToUnit } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import { Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals/order';
@@ -161,11 +160,9 @@ export class PeriodBuff {
     const targetLoc = getUnitLocation(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = new Unit(this.target.owner, UNIT_ID_DUMMY, locX(targetLoc), locY(targetLoc), 0);
-    dummy.applyTimedLife(BUFF_ID_GENERIC, 0.5);
+    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
-    dummy.addAbility(ABILITY_ID_LOCUST);
     IssueTargetOrderById(dummy.handle, orderId, this.target.handle);
     RemoveLocation(targetLoc);
 
@@ -183,11 +180,9 @@ export class PeriodBuff {
     const targetLoc = getUnitLocation(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = new Unit(this.target.owner, UNIT_ID_DUMMY, locX(targetLoc), locY(targetLoc), 0);
-    dummy.applyTimedLife(BUFF_ID_GENERIC, 0.5);
+    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
-    dummy.addAbility(ABILITY_ID_LOCUST);
     IssueImmediateOrderById(dummy.handle, orderId);
     RemoveLocation(targetLoc);
 
@@ -205,11 +200,9 @@ export class PeriodBuff {
     const targetLoc = getUnitLocation(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = new Unit(this.target.owner, UNIT_ID_DUMMY, locX(targetLoc), locY(targetLoc), 0);
-    dummy.applyTimedLife(BUFF_ID_GENERIC, periodS);
+    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
-    dummy.addAbility(ABILITY_ID_LOCUST);
     tieUnitToUnit(dummy.handle, this.target.handle);
     RemoveLocation(targetLoc);
 
@@ -233,11 +226,9 @@ export class PeriodBuff {
 
     const abilityId = FourCC(ability.code);
 
-    const dummy = new Unit(this.target.owner, UNIT_ID_DUMMY, locX(targetLoc), locY(targetLoc), 0);
-    dummy.applyTimedLife(BUFF_ID_GENERIC, periodS);
+    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
-    dummy.addAbility(ABILITY_ID_LOCUST);
     tieUnitToUnit(dummy.handle, this.target.handle);
     IssueImmediateOrderById(dummy.handle, orderId);
     RemoveLocation(targetLoc);

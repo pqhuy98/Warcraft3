@@ -2440,11 +2440,12 @@ local unitID
 local t
 local life
 
+u = BlzCreateUnitWithSkin(p, FourCC("Osam"), -8900.4, 3684.4, -9.346, FourCC("Osam"))
+SetHeroLevel(u, 15, false)
 u = BlzCreateUnitWithSkin(p, FourCC("u000"), -5670.1, 6014.0, 308.989, FourCC("u000"))
-gg_unit_H002_0255 = BlzCreateUnitWithSkin(p, FourCC("H002"), -8894.7, 3477.9, 24.730, FourCC("H002"))
+gg_unit_H002_0255 = BlzCreateUnitWithSkin(p, FourCC("H002"), -8882.5, 3491.6, 267.150, FourCC("H002"))
+SetHeroLevel(gg_unit_H002_0255, 25, false)
 SetUnitState(gg_unit_H002_0255, UNIT_STATE_MANA, 225)
-SelectHeroSkill(gg_unit_H002_0255, FourCC("A003"))
-IssueImmediateOrder(gg_unit_H002_0255, "")
 end
 
 function CreateNeutralHostile()

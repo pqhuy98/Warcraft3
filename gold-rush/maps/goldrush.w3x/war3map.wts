@@ -224,22 +224,10 @@ STRING 41
 E
 }
 
-STRING 42
-// Abilities: A004 (Army of Soul), Name (Name)
-{
-Army of Soul
-}
-
 STRING 43
 // Abilities: A005 (fire), Name (Name)
 {
 fire
-}
-
-STRING 44
-// Abilities: A006 (move), Name (Name)
-{
-move
 }
 
 STRING 45
@@ -374,32 +362,26 @@ STRING 66
 Can summon Gold Mine.
 }
 
-STRING 67
-// Units: H002 (God of Thunder), Name (Name)
-{
-God of Thunder
-}
-
 STRING 68
-// Units: H002 (God of Thunder), Propernames (Proper Names)
+// Units: H002 (King of Olympus), Propernames (Proper Names)
 {
 Zeus
 }
 
 STRING 69
-// Units: H002 (God of Thunder), Awakentip (Tooltip - Awaken)
+// Units: H002 (King of Olympus), Awakentip (Tooltip - Awaken)
 {
 Revive Zeus
 }
 
 STRING 70
-// Units: H002 (God of Thunder), Tip (Tooltip - Basic)
+// Units: H002 (King of Olympus), Tip (Tooltip - Basic)
 {
 Summon Zeus
 }
 
 STRING 71
-// Units: H002 (God of Thunder), Ubertip (Tooltip - Extended)
+// Units: H002 (King of Olympus), Ubertip (Tooltip - Extended)
 {
 Eons ago, Zeus reigned supreme over the gods of Olympus, wielding the sky's fury with his mighty thunderbolts. His dominion was unquestioned, his power unparalleled. Yet, a prophecy whispered through the winds of time spoke of another realm, a world known as Azeroth that would face cataclysmic events that could ripple through the very fabric of existence. Intrigued and slightly alarmed, Zeus decided to descend from his celestial throne to intervene.
 
@@ -411,7 +393,7 @@ Driven by a newfound purpose, Zeus seeks to quell the unrest in Azeroth, aware t
 }
 
 STRING 72
-// Units: H002 (God of Thunder), Revivetip (Tooltip - Revive)
+// Units: H002 (King of Olympus), Revivetip (Tooltip - Revive)
 {
 Revive Zeus
 }
@@ -715,5 +697,17 @@ STRING 136
 {
 Teleports Zeus to the target location, dealing damage to nearby enemies and slowing them for a short duration. Cast Zeus's current level of Chain Lightning to all affected units. |n|n|cffffcc00Level 1|r - <A00B:AEbl,DataA1> range, <A00B:AEbl,Cool1> cooldown, <A00C:AHtc,DataA1> damage, <A00C:AHtc,Area1> radius, <A00C:AHtc,DataD1,%>% slow for <A00C:AHtc,HeroDur1>/<A00C:AHtc,Dur1> seconds. |n|cffffcc00Level 2|r - <A00B:AEbl,DataA2> range, <A00B:AEbl,Cool2> cooldown, <A00C:AHtc,DataA2> damage, <A00C:AHtc,Area2> radius, <A00C:AHtc,DataD2,%>% slow for <A00C:AHtc,HeroDur2>/<A00C:AHtc,Dur2> seconds. |n|cffffcc00Level 3|r - <A00B:AEbl,DataA3> range, <A00B:AEbl,Cool3> cooldown, <A00C:AHtc,DataA3> damage, <A00C:AHtc,Area3> radius, <A00C:AHtc,DataD3,%>% slow for <A00C:AHtc,HeroDur3>/<A00C:AHtc,Dur3> seconds. |n|cffffcc00Level 4|r - <A00B:AEbl,DataA4> range, <A00B:AEbl,Cool4> cooldown, <A00C:AHtc,DataA4> damage, <A00C:AHtc,Area4> radius, <A00C:AHtc,DataD4,%>% slow for <A00C:AHtc,HeroDur4>/<A00C:AHtc,Dur4> seconds. |n|cffffcc00Level 5|r - <A00B:AEbl,DataA5> range, <A00B:AEbl,Cool5> cooldown, <A00C:AHtc,DataA5> damage, <A00C:AHtc,Area5> radius, <A00C:AHtc,DataD5,%>% slow for <A00C:AHtc,HeroDur5>/<A00C:AHtc,Dur5> seconds. |n|cffffcc00Level 6|r - <A00B:AEbl,DataA6> range, <A00B:AEbl,Cool6> cooldown, <A00C:AHtc,DataA6> damage, <A00C:AHtc,Area6> radius, <A00C:AHtc,DataD6,%>% slow for <A00C:AHtc,HeroDur6>/<A00C:AHtc,Dur6> seconds. |n|cffffcc00Level 7|r - <A00B:AEbl,DataA7> range, <A00B:AEbl,Cool7> cooldown, <A00C:AHtc,DataA7> damage, <A00C:AHtc,Area7> radius, <A00C:AHtc,DataD7,%>% slow for <A00C:AHtc,HeroDur7>/<A00C:AHtc,Dur7> seconds. |n|cffffcc00Level 8|r - <A00B:AEbl,DataA8> range, <A00B:AEbl,Cool8> cooldown, <A00C:AHtc,DataA8> damage, <A00C:AHtc,Area8> radius, <A00C:AHtc,DataD8,%>% slow for <A00C:AHtc,HeroDur8>/<A00C:AHtc,Dur8> seconds. |n|cffffcc00Level 9|r - <A00B:AEbl,DataA9> range, <A00B:AEbl,Cool9> cooldown, <A00C:AHtc,DataA9> damage, <A00C:AHtc,Area9> radius, <A00C:AHtc,DataD9,%>% slow for <A00C:AHtc,HeroDur9>/<A00C:AHtc,Dur9> seconds. |n|cffffcc00Level 10|r - <A00B:AEbl,DataA10> range, <A00B:AEbl,Cool10> cooldown, <A00C:AHtc,DataA10> damage, <A00C:AHtc,Area10> radius, <A00C:AHtc,DataD10,%>% slow for <A00C:AHtc,HeroDur10>/<A00C:AHtc,Dur10> seconds.
 
+}
+
+STRING 137
+// Abilities: A00C (Thunder Blink (AOE damage)), Name (Name)
+{
+Thunder Blink (AOE damage)
+}
+
+STRING 138
+// Units: H002 (King of Olympus), Name (Name)
+{
+King of Olympus
 }
 

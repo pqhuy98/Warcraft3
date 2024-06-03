@@ -1,10 +1,12 @@
-import { ABILITY_ID_LOCUST, BUFF_ID_GENERIC, UNIT_ID_DUMMY } from 'lib/constants';
+import { ChainLightningMulticast } from 'abilities/chain_lightning/chain_lightning_multicast';
 import { getUnitLocation, locX, locY } from 'lib/location';
 import { LIGHTNING_FingerOfDeath } from 'lib/resources/war3-lightnings';
 import { MODEL_BoltImpact, MODEL_ThunderclapCaster } from 'lib/resources/war3-models';
 import { ORDER_chainlightning, ORDER_thunderclap } from 'lib/resources/war3-orders';
 import { buildTrigger, setIntervalForDuration } from 'lib/trigger';
-import { enumUnitGroupWithDelay, tieUnitToUnit } from 'lib/unit';
+import {
+  createDummy, enumUnitGroupWithDelay, tieUnitToUnit,
+} from 'lib/unit';
 import { Unit } from 'w3ts';
 
 const THUNDER_CLAP_ABILITY_ID = FourCC('A00C:AHtc');
@@ -33,22 +35,18 @@ export class ThunderBlink {
     abilityLevel: number,
   ) {
     const casterLoc = getUnitLocation(caster);
-    const radius = 500;
+    const radius = 1000;
 
     // Thunder Clap in place
-    const dummy1 = new Unit(caster.owner, UNIT_ID_DUMMY, locX(casterLoc), locY(casterLoc), 0);
-    dummy1.applyTimedLife(BUFF_ID_GENERIC, 1);
+    const dummy1 = createDummy(caster.owner, locX(casterLoc), locY(casterLoc), caster);
     dummy1.addAbility(THUNDER_CLAP_ABILITY_ID);
     dummy1.setAbilityLevel(THUNDER_CLAP_ABILITY_ID, abilityLevel);
-    dummy1.addAbility(ABILITY_ID_LOCUST);
     IssueImmediateOrder(dummy1.handle, OrderId2String(ORDER_thunderclap));
 
     // Thunder Clap at target
-    const dummy2 = new Unit(caster.owner, UNIT_ID_DUMMY, locX(targetLoc), locY(targetLoc), 0);
-    dummy2.applyTimedLife(BUFF_ID_GENERIC, 1);
+    const dummy2 = createDummy(caster.owner, locX(targetLoc), locY(targetLoc), caster);
     dummy2.addAbility(THUNDER_CLAP_ABILITY_ID);
     dummy2.setAbilityLevel(THUNDER_CLAP_ABILITY_ID, abilityLevel);
-    dummy2.addAbility(ABILITY_ID_LOCUST);
     IssueImmediateOrder(dummy2.handle, OrderId2String(ORDER_thunderclap));
 
     const blinkEffect1 = AddSpecialEffectLoc(MODEL_ThunderclapCaster, casterLoc);
@@ -139,12 +137,10 @@ export class ThunderBlink {
 
     const durationPerStep = Math.min(0.1, 2.0 / BlzGroupGetSize(nearby));
     enumUnitGroupWithDelay(nearby, (enumUnit) => {
-      const dummy2 = new Unit(caster.owner, UNIT_ID_DUMMY, caster.x, caster.y, 0);
-      // ChainLightning.blackListCaster(dummy2);
-      dummy2.applyTimedLife(BUFF_ID_GENERIC, 5);
+      const dummy2 = createDummy(caster.owner, caster.x, caster.y, caster);
+      ChainLightningMulticast.blackListCaster(dummy2);
       dummy2.addAbility(CHAIN_LIGHTNING_ABILITY_ID);
       dummy2.setAbilityLevel(CHAIN_LIGHTNING_ABILITY_ID, abilityLevel);
-      dummy2.addAbility(ABILITY_ID_LOCUST);
       tieUnitToUnit(dummy2.handle, caster.handle);
       IssueTargetOrder(dummy2.handle, OrderId2String(ORDER_chainlightning), enumUnit);
     }, durationPerStep);

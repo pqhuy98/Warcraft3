@@ -1,7 +1,7 @@
 import { Timer, Trigger } from 'w3ts';
 
 export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
-  const t = new Trigger();
+  const t = Trigger.create();
   wrapper(t);
   return t;
 }

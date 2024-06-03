@@ -1,9 +1,13 @@
 import { getUnitLocation } from 'lib/location';
 import {
-  Group, Timer, Unit,
+  Group, MapPlayer, Timer, Unit,
 } from 'w3ts';
 
 import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
+
+export const ABILITY_ID_LOCUST = FourCC('Aloc');
+export const BUFF_ID_GENERIC = FourCC('BTLF');
+export const UNIT_ID_DUMMY = FourCC('h000:hfoo');
 
 export function getAttackRange(unit: Unit, weaponIndex:number):number {
   return BlzGetUnitWeaponRealField(unit.handle, UNIT_WEAPON_RF_ATTACK_RANGE, weaponIndex);
@@ -126,4 +130,37 @@ export function enumUnitGroupWithDelay(
   });
 
   return t;
+}
+
+const damageSourceMaster = new Map<unit, unit>();
+function setDamageSourceMaster(dummy: unit, master: unit) {
+  damageSourceMaster.set(dummy, master);
+}
+
+export function getDamageSourceMaster(dummy: unit) {
+  return damageSourceMaster.get(dummy) || dummy;
+}
+
+export function daemonDamageSourceMaster() {
+  setIntervalIndefinite(5, () => {
+    unitTies.forEach((master, dummy) => {
+      const dummyUnit = Unit.fromHandle(dummy);
+      if (!dummyUnit.isAlive()) {
+        damageSourceMaster.delete(dummy);
+      }
+    });
+  });
+}
+
+export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan = 1, facing = 0) {
+  const dummy = new Unit(owner, UNIT_ID_DUMMY, locX, locY, facing);
+  setDamageSourceMaster(dummy.handle, master.handle);
+  dummy.applyTimedLife(BUFF_ID_GENERIC, timespan);
+  dummy.addAbility(ABILITY_ID_LOCUST);
+  dummy.invulnerable = true;
+  return dummy;
+}
+
+export function isDummy(unit: unit) {
+  return GetUnitTypeId(unit) === UNIT_ID_DUMMY;
 }

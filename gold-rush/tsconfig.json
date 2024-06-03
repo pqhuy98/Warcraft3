@@ -6,7 +6,7 @@
     "lib": [
       "es2017"
     ],
-    "moduleResolution": "classic",
+    "moduleResolution": "node",
     "paths": {
       "*": [
         "./*",
@@ -26,7 +26,7 @@
       }
     ],
     "types": [
-      "lua-types/core/index",
+      "@typescript-to-lua/language-extensions",
       "lua-types/core/coroutine",
       "lua-types/core/global",
       "lua-types/core/math",
@@ -36,12 +36,7 @@
       "lua-types/core/table",
       "lua-types/core/os",
       "lua-types/special/5.3",
-      "war3-types/core/compat",
-      "war3-types/core/common",
-      "war3-types/core/blizzard",
-      "war3-types/core/commonai",
-      "war3-types/core/polyfill",
-      "war3-types/special/w3ts"
+      "war3-types-strict/1.33.0"
     ]
   },
   "include": [

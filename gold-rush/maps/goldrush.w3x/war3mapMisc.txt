@@ -4,6 +4,7 @@ FoodCeiling=300
 HeroAwakenLifeFactor=1.0
 HeroAwakenManaFactor=1.0
 HeroExpRange=12000.0
+HeroFactorXP=100
 HeroReviveManaFactor=1.0
 ItemStackingEnabled=1
 MaxHeroLevel=10000
