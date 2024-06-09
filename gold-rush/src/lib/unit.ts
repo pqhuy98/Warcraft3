@@ -109,22 +109,27 @@ function relocateUnitToUnit(tiedunit: unit, targetunit: unit) {
   }
 }
 
+export function getUnitsFromGroup(group: group) {
+  const units: unit[] = [];
+  Group.fromHandle(group).for(() => {
+    units.push(GetEnumUnit());
+  });
+  return units;
+}
+
 export function enumUnitGroupWithDelay(
   unitGroup: group,
   callback: (u: unit, index: number) => void,
   durationPerStep: number,
 ): Timer {
-  const t = new Timer();
-  const groupArray: unit[] = [];
-  Group.fromHandle(unitGroup).for(() => {
-    groupArray.push(GetEnumUnit());
-  });
+  const t = Timer.create();
+  const units = getUnitsFromGroup(unitGroup);
 
   let index = 0;
   t.start(durationPerStep, true, () => {
-    callback(groupArray[index], index);
+    callback(units[index], index);
     index++;
-    if (index >= groupArray.length) {
+    if (index >= units.length) {
       t.destroy();
     }
   });
@@ -152,7 +157,7 @@ export function daemonDamageSourceMaster() {
   });
 }
 
-export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan = 1, facing = 0) {
+export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
   const dummy = new Unit(owner, UNIT_ID_DUMMY, locX, locY, facing);
   setDamageSourceMaster(dummy.handle, master.handle);
   dummy.applyTimedLife(BUFF_ID_GENERIC, timespan);
@@ -163,4 +168,12 @@ export function createDummy(owner: MapPlayer, locX: number, locY: number, master
 
 export function isDummy(unit: unit) {
   return GetUnitTypeId(unit) === UNIT_ID_DUMMY;
+}
+
+export function isBuilding(unit: unit) {
+  return !!Unit.fromHandle(unit).getField(UNIT_BF_IS_A_BUILDING);
+}
+
+export function isHero(unit: unit) {
+  return Unit.fromHandle(unit).isHero();
 }

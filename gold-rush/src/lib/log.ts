@@ -18,9 +18,9 @@ export const emitLog = (key: string, arg: unknown, ...args: Array<unknown>): voi
   log(key, ...allArgs);
 };
 
-export const wrapFunction = <A extends any[], B>(key: string, fn: (...args: A) => B): ((...args: A) => B) => (...args: A): B => {
+export const wrapFunction = <A extends unknown[], B>(key: string, fn: (...args: A) => Promise<B>): ((...args: A) => Promise<B>) => async (...args: A): Promise<B> => {
   try {
-    return fn(...args);
+    return await fn(...args);
   } catch (err) {
     emitLog(key, err);
   }
@@ -38,6 +38,7 @@ const isArray = (v: unknown): boolean => {
 };
 
 const userdataType = (userdata: Record<string, unknown>): string => {
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   const typeString = userdata.toString();
   return typeString.slice(0, typeString.indexOf(':'));
 };

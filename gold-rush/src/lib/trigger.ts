@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Timer, Trigger } from 'w3ts';
 
 export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
@@ -7,7 +8,7 @@ export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
 }
 
 export function setTimeout(durationS: number, callback: () => void): Timer {
-  const t = new Timer();
+  const t = Timer.create();
   t.start(durationS, false, () => {
     callback();
     t.pause();
@@ -18,11 +19,11 @@ export function setTimeout(durationS: number, callback: () => void): Timer {
 
 function setInterval(
   intervalS: number,
-  callback: (index: number, repeat: number) => void,
+  callback: (index: number, repeat: number) => void | Promise<void>,
   repeat?: number,
-  cleanup?: () => void,
+  cleanup?: () => void | Promise<void>,
 ): Timer {
-  const timer = new Timer();
+  const timer = Timer.create();
   if (repeat !== undefined) {
     let remain = repeat;
     if (remain <= 0) {
@@ -57,7 +58,7 @@ function setInterval(
 
 export function setIntervalIndefinite(
   intervalS: number,
-  callback: (index: number, repeat: number) => void,
+  callback: (index: number, repeat: number) => void | Promise<void>,
 ): Timer {
   return setInterval(intervalS, callback);
 }

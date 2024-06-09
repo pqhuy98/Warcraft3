@@ -30,7 +30,7 @@ export class ChainLightningAttack {
     abilityLevel: number,
   ) {
     const order = OrderId2String(ORDER_chainlightning);
-    const dummy = createDummy(attacker.owner, target.x, target.y, attacker);
+    const dummy = createDummy(attacker.owner, target.x, target.y, attacker, 1);
     ChainLightningMulticast.blackListCaster(dummy);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, abilityLevel);

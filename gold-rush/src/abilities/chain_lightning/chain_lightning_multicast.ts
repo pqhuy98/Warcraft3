@@ -54,7 +54,7 @@ export class ChainLightningMulticast {
 
     const durationPerStep = Math.min(0.1, 1.0 / BlzGroupGetSize(nearby));
     enumUnitGroupWithDelay(nearby, (enumUnit) => {
-      const dummy = createDummy(caster.owner, caster.x, caster.y, caster);
+      const dummy = createDummy(caster.owner, caster.x, caster.y, caster, 1);
       GroupAddUnit(ChainLightningMulticast.dummies, dummy.handle);
       dummy.addAbility(abilityId);
       dummy.setAbilityLevel(abilityId, abilityLevel);

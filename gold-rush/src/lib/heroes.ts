@@ -1,4 +1,4 @@
-import { ALL_HEROES, Hero } from "./resources/war3-heroes";
+import { ALL_HEROES, Hero } from './resources/war3-heroes';
 
 const heroMap = new Map<number, Hero>();
 ALL_HEROES.forEach((hero) => {

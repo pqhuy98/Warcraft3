@@ -115,7 +115,7 @@ export class PeriodBuff {
   private auraMap: Set<string> = new Set();
 
   constructor(private target: Unit) {
-    setIntervalIndefinite(3, () => {
+    setIntervalIndefinite(10, () => {
       this.buffTarget();
     });
   }
@@ -160,7 +160,7 @@ export class PeriodBuff {
     const targetLoc = getUnitLocation(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target);
+    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target, 1);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     IssueTargetOrderById(dummy.handle, orderId, this.target.handle);
@@ -180,7 +180,7 @@ export class PeriodBuff {
     const targetLoc = getUnitLocation(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target);
+    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target, 1);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     IssueImmediateOrderById(dummy.handle, orderId);
@@ -200,7 +200,7 @@ export class PeriodBuff {
     const targetLoc = getUnitLocation(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target);
+    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target, periodS);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     tieUnitToUnit(dummy.handle, this.target.handle);
@@ -226,7 +226,7 @@ export class PeriodBuff {
 
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target);
+    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target, periodS);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     tieUnitToUnit(dummy.handle, this.target.handle);

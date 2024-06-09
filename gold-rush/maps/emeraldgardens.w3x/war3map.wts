@@ -1,0 +1,692 @@
+﻿STRING 7
+{
+Player 6
+}
+
+STRING 8
+{
+Player 7
+}
+
+STRING 9
+{
+Player 8
+}
+
+STRING 10
+{
+Player 9
+}
+
+STRING 11
+{
+Player 10
+}
+
+STRING 12
+{
+Player 11
+}
+
+STRING 13
+{
+Player 12
+}
+
+STRING 14
+{
+Emerald Gardens
+}
+
+STRING 15
+{
+4v4, 6v6, or FFA
+}
+
+STRING 16
+{
+Lush greenery has almost succeeded in cloaking the ruins of a city whose name has passed into memory. Pay heed to its mute testimony: peace is fragile where resources are in demand.
+}
+
+STRING 17
+{
+Blizzard Entertainment
+}
+
+STRING 18
+// Units: h000 (Dummy), Name (Name)
+{
+Dummy
+}
+
+STRING 25
+// Units: H002 (King of Olympus), Name (Name)
+{
+King of Olympus
+}
+
+STRING 26
+// Units: H002 (King of Olympus), Propernames (Proper Names)
+{
+Zeus
+}
+
+STRING 27
+// Units: H002 (King of Olympus), Awakentip (Tooltip - Awaken)
+{
+Revive Zeus
+}
+
+STRING 28
+// Units: H002 (King of Olympus), Tip (Tooltip - Basic)
+{
+Summon Zeus
+}
+
+STRING 29
+// Units: H002 (King of Olympus), Ubertip (Tooltip - Extended)
+{
+Eons ago, Zeus reigned supreme over the gods of Olympus, wielding the sky's fury with his mighty thunderbolts. His dominion was unquestioned, his power unparalleled. Yet, a prophecy whispered through the winds of time spoke of another realm, a world known as Azeroth that would face cataclysmic events that could ripple through the very fabric of existence. Intrigued and slightly alarmed, Zeus decided to descend from his celestial throne to intervene.
+
+Upon his arrival, Zeus found Azeroth embroiled in ceaseless conflict: Humans, Orcs, Elves, and Undead locked in a never-ending battle for survival and supremacy. The intensity of their strife had disturbed the cosmic balance, creating fissures in the fabric of reality itself. Realizing that the prophecy was unfolding before his very eyes, Zeus knew he had to act.
+
+However, Zeus could not reveal his true identity. The gods of Azeroth and Olympus had an ancient pact, forbidding interference in each other's realms. Thus, shrouded in the guise of a wandering mage, Zeus ventured forth to correct the imbalance discreetly. But even in his disguised form, the sheer magnitude of his celestial energy could hardly be contained. Thunderclouds gathered where he walked, and bolts of lightning would strike down his foes, betraying his divine nature.
+
+Driven by a newfound purpose, Zeus seeks to quell the unrest in Azeroth, aware that the fate of his own realm is intrinsically tied to this foreign land. Along the way, he has found unlikely allies, ancient enemies, and a myriad of challenges that even a god had not foreseen. But with every thunderbolt he casts, Zeus sends a clear message to all who dare plunge the world into chaos: The God of Thunder has arrived, and he will tolerate no evil in his quest to restore cosmic balance.
+}
+
+STRING 30
+// Units: H002 (King of Olympus), Revivetip (Tooltip - Revive)
+{
+Revive Zeus
+}
+
+STRING 31
+// Abilities: A000 (Blade Dance), Name (Name)
+{
+Blade Dance
+}
+
+STRING 32
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 1|r] [|cffffcc00R|r]
+}
+
+STRING 33
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 2|r] [|cffffcc00R|r]
+}
+
+STRING 34
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 3|r] [|cffffcc00R|r]
+}
+
+STRING 35
+// Abilities: A000 (Blade Dance), Researchtip (Tooltip - Learn)
+{
+Learn Blade Dance - [|cffffcc00Level %d|r] [|cffffcc00R|r]
+}
+
+STRING 36
+// Abilities: A000 (Blade Dance), Researchubertip (Tooltip - Learn - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 37
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 38
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 39
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 40
+// Abilities: A000 (Blade Dance), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 41
+// Abilities: A000 (Blade Dance), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 42
+// Abilities: A001 (Wind Walk), Tip (Tooltip - Normal)
+{
+|cffffcc00W|rind Walk - [|cffffcc00Level 4|r]
+}
+
+STRING 43
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move 110% faster for <AOwk,Dur4> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 400 bonus damage.
+}
+
+STRING 44
+// Abilities: A001 (Wind Walk), Researchubertip (Tooltip - Learn - Extended)
+{
+Allows the Blademaster to become invisible, and move faster for a set amount of time. When the Blademaster attacks a unit to break invisibility, he will deal bonus damage. |n|n|cffffcc00Level 1|r - <AOwk,DataB1,%>% move, 100 bonus damage, <AOwk,Dur1> seconds. |n|cffffcc00Level 2|r - <AOwk,DataB2,%>% move, 200 bonus damage, <AOwk,Dur2> seconds. |n|cffffcc00Level 3|r - <AOwk,DataB3,%>% move, 300 bonus damage, <AOwk,Dur3> seconds. |n|cffffcc00Level 4|r - 110% move, 400 bonus damage, 80 seconds.
+}
+
+STRING 45
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <AOwk,DataB1,%>% faster for <AOwk,Dur1> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 100 bonus damage.
+}
+
+STRING 46
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <AOwk,DataB2,%>% faster for <AOwk,Dur2> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 200 bonus damage.
+}
+
+STRING 47
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <AOwk,DataB3,%>% faster for <AOwk,Dur3> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 300 bonus damage.
+}
+
+STRING 48
+// Abilities: A001 (Wind Walk), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 49
+// Abilities: A001 (Wind Walk), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 50
+// Abilities: A002 (Critical Strike), Tip (Tooltip - Normal)
+{
+Critical Strike - [|cffffcc00Level 4|r]
+}
+
+STRING 51
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 60% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 52
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 15% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 53
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 30% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 54
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a 45% chance to do 2.5 times normal damage on an attack.
+}
+
+STRING 55
+// Abilities: A002 (Critical Strike), Researchhotkey (Hotkey - Learn)
+{
+E
+}
+
+STRING 59
+// Abilities: A009 (Gravity), Name (Name)
+{
+Gravity
+}
+
+STRING 60
+// Abilities: A009 (Gravity), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 61
+// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
+{
+Gravity - [|cffffcc00Level 1|r]
+}
+
+STRING 62
+// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 63
+// Abilities: A009 (Gravity), Researchubertip (Tooltip - Learn - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 64
+// Abilities: A009 (Gravity), Researchtip (Tooltip - Learn)
+{
+Gravity
+}
+
+STRING 65
+// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
+{
+Gravity - [|cffffcc00Level 2|r]
+}
+
+STRING 66
+// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
+{
+Gravity - [|cffffcc00Level 3|r]
+}
+
+STRING 67
+// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 68
+// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
+{
+Pull all nearby units.
+}
+
+STRING 69
+// Abilities: A009 (Gravity), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 70
+// Abilities: A003 (Chain Lightning), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 71
+// Abilities: A003 (Chain Lightning), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 72
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 4|r]
+}
+
+STRING 73
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 5|r]
+}
+
+STRING 74
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 6|r]
+}
+
+STRING 75
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 7|r]
+}
+
+STRING 76
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 8|r]
+}
+
+STRING 77
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 9|r]
+}
+
+STRING 78
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 10|r]
+}
+
+STRING 79
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB1> times, dealing <A003:AOcl,DataA1> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 80
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB2> times, dealing <A003:AOcl,DataA2> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 81
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB3> times, dealing <A003:AOcl,DataA3> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 82
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB4> times, dealing <A003:AOcl,DataA4> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 83
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB5> times, dealing <A003:AOcl,DataA5> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 84
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB6> times, dealing <A003:AOcl,DataA6> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 85
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB7> times, dealing <A003:AOcl,DataA7> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 86
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB8> times, dealing <A003:AOcl,DataA8> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 87
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB9> times, dealing <A003:AOcl,DataA9> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 88
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB10> times, dealing <A003:AOcl,DataA10> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 89
+// Abilities: A003 (Chain Lightning), Researchubertip (Tooltip - Learn - Extended)
+{
+Hurls a bolt of damaging lightning at a target enemy that jumps to nearby enemies. Each jump deals less damage.|n|n|cffffcc00Level 1|r - <A003:AOcl,DataA1> damage, jumps <A003:AOcl,DataB1> times. |n|cffffcc00Level 2|r - <A003:AOcl,DataA2> damage, jumps <A003:AOcl,DataB2> times. |n|cffffcc00Level 3|r - <A003:AOcl,DataA3> damage, jumps <A003:AOcl,DataB3> times. |n|cffffcc00Level 4|r - <A003:AOcl,DataA4> damage, jumps <A003:AOcl,DataB4> times. |n|cffffcc00Level 5|r - <A003:AOcl,DataA5> damage, jumps <A003:AOcl,DataB5> times. |n|cffffcc00Level 6|r - <A003:AOcl,DataA6> damage, jumps <A003:AOcl,DataB6> times. |n|cffffcc00Level 7|r - <A003:AOcl,DataA7> damage, jumps <A003:AOcl,DataB7> times. |n|cffffcc00Level 8|r - <A003:AOcl,DataA8> damage, jumps <A003:AOcl,DataB8> times. |n|cffffcc00Level 9|r - <A003:AOcl,DataA9> damage, jumps <A003:AOcl,DataB9> times. |n|cffffcc00Level 10|r - <A003:AOcl,DataA10> damage, jumps <A003:AOcl,DataB10> times.
+}
+
+STRING 90
+// Abilities: A00B (Thunder Blink), Name (Name)
+{
+Thunder Blink
+}
+
+STRING 91
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 1|r]
+}
+
+STRING 92
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 2|r]
+}
+
+STRING 93
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 3|r]
+}
+
+STRING 94
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA1> range to the target location, dealing <A00C:AHtc,DataA1> damage and slowing enemies by <A00C:AHtc,DataD1,%>% for <A00C:AHtc,HeroDur1> seconds (heroes) / <A00C:AHtc,Dur1> seconds (non-heroes) in a <A00C:AHtc,Area1> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool1>
+
+}
+
+STRING 95
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA2> range to the target location, dealing <A00C:AHtc,DataA2> damage and slowing enemies by <A00C:AHtc,DataD2,%>% for <A00C:AHtc,HeroDur2> seconds (heroes) / <A00C:AHtc,Dur2> seconds (non-heroes) in a <A00C:AHtc,Area2> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool2>
+
+}
+
+STRING 96
+// Abilities: A00B (Thunder Blink), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 97
+// Abilities: A00B (Thunder Blink), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 98
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 4|r]
+}
+
+STRING 99
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 5|r]
+}
+
+STRING 100
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 6|r]
+}
+
+STRING 101
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 7|r]
+}
+
+STRING 102
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 8|r]
+}
+
+STRING 103
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 9|r]
+}
+
+STRING 104
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 10|r]
+}
+
+STRING 105
+// Abilities: A00B (Thunder Blink), Researchubertip (Tooltip - Learn - Extended)
+{
+Teleports Zeus to the target location, dealing damage to nearby enemies and slowing them for a short duration. Cast Zeus's current level of Chain Lightning to all affected units. |n|n|cffffcc00Level 1|r - <A00B:AEbl,DataA1> range, <A00B:AEbl,Cool1> cooldown, <A00C:AHtc,DataA1> damage, <A00C:AHtc,Area1> radius, <A00C:AHtc,DataD1,%>% slow for <A00C:AHtc,HeroDur1>/<A00C:AHtc,Dur1> seconds. |n|cffffcc00Level 2|r - <A00B:AEbl,DataA2> range, <A00B:AEbl,Cool2> cooldown, <A00C:AHtc,DataA2> damage, <A00C:AHtc,Area2> radius, <A00C:AHtc,DataD2,%>% slow for <A00C:AHtc,HeroDur2>/<A00C:AHtc,Dur2> seconds. |n|cffffcc00Level 3|r - <A00B:AEbl,DataA3> range, <A00B:AEbl,Cool3> cooldown, <A00C:AHtc,DataA3> damage, <A00C:AHtc,Area3> radius, <A00C:AHtc,DataD3,%>% slow for <A00C:AHtc,HeroDur3>/<A00C:AHtc,Dur3> seconds. |n|cffffcc00Level 4|r - <A00B:AEbl,DataA4> range, <A00B:AEbl,Cool4> cooldown, <A00C:AHtc,DataA4> damage, <A00C:AHtc,Area4> radius, <A00C:AHtc,DataD4,%>% slow for <A00C:AHtc,HeroDur4>/<A00C:AHtc,Dur4> seconds. |n|cffffcc00Level 5|r - <A00B:AEbl,DataA5> range, <A00B:AEbl,Cool5> cooldown, <A00C:AHtc,DataA5> damage, <A00C:AHtc,Area5> radius, <A00C:AHtc,DataD5,%>% slow for <A00C:AHtc,HeroDur5>/<A00C:AHtc,Dur5> seconds. |n|cffffcc00Level 6|r - <A00B:AEbl,DataA6> range, <A00B:AEbl,Cool6> cooldown, <A00C:AHtc,DataA6> damage, <A00C:AHtc,Area6> radius, <A00C:AHtc,DataD6,%>% slow for <A00C:AHtc,HeroDur6>/<A00C:AHtc,Dur6> seconds. |n|cffffcc00Level 7|r - <A00B:AEbl,DataA7> range, <A00B:AEbl,Cool7> cooldown, <A00C:AHtc,DataA7> damage, <A00C:AHtc,Area7> radius, <A00C:AHtc,DataD7,%>% slow for <A00C:AHtc,HeroDur7>/<A00C:AHtc,Dur7> seconds. |n|cffffcc00Level 8|r - <A00B:AEbl,DataA8> range, <A00B:AEbl,Cool8> cooldown, <A00C:AHtc,DataA8> damage, <A00C:AHtc,Area8> radius, <A00C:AHtc,DataD8,%>% slow for <A00C:AHtc,HeroDur8>/<A00C:AHtc,Dur8> seconds. |n|cffffcc00Level 9|r - <A00B:AEbl,DataA9> range, <A00B:AEbl,Cool9> cooldown, <A00C:AHtc,DataA9> damage, <A00C:AHtc,Area9> radius, <A00C:AHtc,DataD9,%>% slow for <A00C:AHtc,HeroDur9>/<A00C:AHtc,Dur9> seconds. |n|cffffcc00Level 10|r - <A00B:AEbl,DataA10> range, <A00B:AEbl,Cool10> cooldown, <A00C:AHtc,DataA10> damage, <A00C:AHtc,Area10> radius, <A00C:AHtc,DataD10,%>% slow for <A00C:AHtc,HeroDur10>/<A00C:AHtc,Dur10> seconds.
+
+}
+
+STRING 106
+// Abilities: A00B (Thunder Blink), Researchtip (Tooltip - Learn)
+{
+Learn Thunder Blink - [|cffffcc00Level %d|r]
+}
+
+STRING 107
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA3> range to the target location, dealing <A00C:AHtc,DataA3> damage and slowing enemies by <A00C:AHtc,DataD3,%>% for <A00C:AHtc,HeroDur3> seconds (heroes) / <A00C:AHtc,Dur3> seconds (non-heroes) in a <A00C:AHtc,Area3> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool3>
+
+}
+
+STRING 108
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA4> range to the target location, dealing <A00C:AHtc,DataA4> damage and slowing enemies by <A00C:AHtc,DataD4,%>% for <A00C:AHtc,HeroDur4> seconds (heroes) / <A00C:AHtc,Dur4> seconds (non-heroes) in a <A00C:AHtc,Area4> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool4>
+
+}
+
+STRING 109
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA5> range to the target location, dealing <A00C:AHtc,DataA5> damage and slowing enemies by <A00C:AHtc,DataD5,%>% for <A00C:AHtc,HeroDur5> seconds (heroes) / <A00C:AHtc,Dur5> seconds (non-heroes) in a <A00C:AHtc,Area5> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool5>
+
+}
+
+STRING 110
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA6> range to the target location, dealing <A00C:AHtc,DataA6> damage and slowing enemies by <A00C:AHtc,DataD6,%>% for <A00C:AHtc,HeroDur6> seconds (heroes) / <A00C:AHtc,Dur6> seconds (non-heroes) in a <A00C:AHtc,Area6> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool6>
+
+}
+
+STRING 111
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA7> range to the target location, dealing <A00C:AHtc,DataA7> damage and slowing enemies by <A00C:AHtc,DataD7,%>% for <A00C:AHtc,HeroDur7> seconds (heroes) / <A00C:AHtc,Dur7> seconds (non-heroes) in a <A00C:AHtc,Area7> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool7>
+
+}
+
+STRING 112
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA8> range to the target location, dealing <A00C:AHtc,DataA8> damage and slowing enemies by <A00C:AHtc,DataD8,%>% for <A00C:AHtc,HeroDur8> seconds (heroes) / <A00C:AHtc,Dur8> seconds (non-heroes) in a <A00C:AHtc,Area8> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool8>
+
+}
+
+STRING 113
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA9> range to the target location, dealing <A00C:AHtc,DataA9> damage and slowing enemies by <A00C:AHtc,DataD9,%>% for <A00C:AHtc,HeroDur9> seconds (heroes) / <A00C:AHtc,Dur9> seconds (non-heroes) in a <A00C:AHtc,Area9> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool9>
+
+}
+
+STRING 114
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA10> range to the target location, dealing <A00C:AHtc,DataA10> damage and slowing enemies by <A00C:AHtc,DataD10,%>% for <A00C:AHtc,HeroDur10> seconds (heroes) / <A00C:AHtc,Dur10> seconds (non-heroes) in a <A00C:AHtc,Area10> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool10>
+
+}
+
+STRING 115
+// Abilities: A00C (Thunder Blink (AOE damage)), Name (Name)
+{
+Thunder Blink (AOE damage)
+}
+
+STRING 120
+{
+Player 13
+}
+
+STRING 121
+{
+Player 14
+}
+
+STRING 122
+{
+Player 15
+}
+
+STRING 132
+{
+Orcish Horde
+}
+
+STRING 133
+// Units: h003 (Elite Guard Tower), Name (Name)
+{
+Elite Guard Tower
+}
+
+STRING 134
+// Destructibles: ZTsx (Massive Ruined Gate), EditorSuffix (Editor Suffix)
+{
+(South)
+}
+
+STRING 135
+// Destructibles: ZTsg (Massive Ruined Gate), EditorSuffix (Editor Suffix)
+{
+(West)
+}
+
+STRING 136
+// Destructibles: B000 (Massive Ruined Gate), EditorSuffix (Editor Suffix)
+{
+(North)
+}
+
+STRING 137
+// Destructibles: B001 (Massive Ruined Gate), EditorSuffix (Editor Suffix)
+{
+(East)
+}
+
+STRING 138
+{
+Player 1
+}
+
+STRING 139
+{
+Player 2
+}
+
+STRING 140
+{
+Player 3
+}
+
+STRING 141
+{
+Player 4
+}
+
+STRING 142
+{
+Player 5
+}
+
+STRING 143
+{
+Light Force
+}
+
+STRING 144
+// Units: o000 (Elite Watch Tower), Name (Name)
+{
+Elite Watch Tower
+}
+

@@ -241,7 +241,7 @@ export const init = () => {
 };
 
 addScriptHook(W3TS_HOOK.MAIN_AFTER, (): void => {
-  FlushGameCache(InitGameCache('MMD.dat')!);
+  FlushGameCache(InitGameCache('MMD.dat'));
   cache = InitGameCache('MMD.dat')!;
 
   const t = CreateTimer();

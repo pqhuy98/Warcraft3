@@ -1,6 +1,6 @@
 import { getUnitLocation } from 'lib/location';
 import {
-  UNIT_Footman, UNIT_Ghoul, UNIT_Grunt, UNIT_Militia, UNIT_Raider, UNIT_SkeletalOrc, UNIT_SkeletonWarrior, UNIT_Zombie,
+  UNIT_Ghoul, UNIT_SkeletalOrc, UNIT_SkeletonWarrior, UNIT_Zombie,
 } from 'lib/resources/war3-units';
 import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
 import { enumUnitGroupWithDelay, unitPolarProjection } from 'lib/unit';
@@ -13,21 +13,17 @@ import { OrderId } from 'w3ts/globals/order';
 const spawnables = [
   UNIT_SkeletonWarrior,
   UNIT_SkeletalOrc,
-  UNIT_Footman,
   UNIT_Ghoul,
   UNIT_Zombie,
-  UNIT_Militia,
-  UNIT_Grunt,
-  UNIT_Raider,
 ];
 
 export class CreepSpawn {
   private spawns: Group;
 
   constructor(private target: Unit) {
-    this.spawns = new Group();
+    this.spawns = Group.create();
     setIntervalIndefinite(0.2, () => {
-      if (!this.target.isAlive()) {
+      if (!this.target.isAlive() || RectContainsCoords(gg_rct_Region_000, this.target.x, this.target.y)) {
         return;
       }
 
@@ -45,6 +41,13 @@ export class CreepSpawn {
       t.addCondition(() => this.spawns.hasUnit(Unit.fromHandle(GetDyingUnit())));
       t.addAction(() => {
         this.spawns.removeUnit(Unit.fromHandle(GetDyingUnit()));
+      });
+    });
+
+    buildTrigger((t) => {
+      t.registerUnitEvent(this.target, EVENT_UNIT_DEATH);
+      t.addAction(() => {
+        enumUnitGroupWithDelay(this.spawns.handle, (u) => KillUnit(u), 0.2);
       });
     });
   }
@@ -65,7 +68,7 @@ export class CreepSpawn {
     ));
     this.spawns.addUnit(spawn);
     spawn.setPathing(false);
-    RemoveGuardPosition(spawn.handle)
+    RemoveGuardPosition(spawn.handle);
 
     spawn.issueTargetOrder(OrderId.Attack, this.target);
     // spawn.color = PLAYER_COLOR_RED;

@@ -6,8 +6,8 @@ import {
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals/order';
 
-const ATTACK_SCALING = 8;
-const ATTACKS_PER_LEVEL = 10;
+const ATTACK_SCALING = 12;
+const ATTACKS_PER_LEVEL = 20;
 const ATTACK_DISTANCE = 100;
 const EXTRA_ATTACK_RANGE = 99999;
 
@@ -43,6 +43,8 @@ export default class BladeDance {
 
   private timerIdle: Timer;
 
+  private isCasterMeleeUnit: boolean;
+
   /**
    * Executed when the spell is casted.
    * @param caster
@@ -67,11 +69,12 @@ export default class BladeDance {
       this.caster.setAttackCooldown(this.caster.getAttackCooldown(weaponIndex) / ATTACK_SCALING, weaponIndex);
       const currentAttackRange = getAttackRange(this.caster, weaponIndex);
       setAttackRange(this.caster, weaponIndex, currentAttackRange + EXTRA_ATTACK_RANGE);
+      this.isCasterMeleeUnit = currentAttackRange < 300;
     }
 
     this.caster.issueTargetOrder(OrderId.Attack, target);
     this.caster.setPathing(false);
-    // this.caster.invulnerable = true;
+    this.caster.invulnerable = true;
     this.caster.removeBuffs(false, true);
 
     // watch for each attack
@@ -82,7 +85,7 @@ export default class BladeDance {
 
     // watch for when target is dead
     this.onTargetDeath = buildTrigger((t) => {
-      t.addAction(() => this.handleTargetDeath());
+      t.addAction(() => this.handleTargetDeath(GetDyingUnit()));
     });
 
     this.setTarget(target);
@@ -123,17 +126,19 @@ export default class BladeDance {
       // teleport if too far away
       const casterLoc = getUnitLocation(this.caster);
       const targetLoc = getUnitLocation(this.target);
-      // const distance = DistanceBetweenPoints(casterLoc, targetLoc);
 
-      // if (distance >= ATTACK_DISTANCE * 1.5) {
-      const newLoc = PolarProjectionBJ(targetLoc, ATTACK_DISTANCE, this.target.facing - 180);
+      let newLoc: location = PolarProjectionBJ(targetLoc, ATTACK_DISTANCE, this.target.facing - 180);
+      if (this.isCasterMeleeUnit) {
+        newLoc = PolarProjectionBJ(targetLoc, ATTACK_DISTANCE, this.target.facing - 180);
+      } else {
+        newLoc = PolarProjectionBJ(casterLoc, GetRandomInt(0, 50), GetRandomDirectionDeg());
+      }
       SetUnitX(this.caster.handle, GetLocationX(newLoc));
       SetUnitY(this.caster.handle, GetLocationY(newLoc));
       this.caster.setFacingEx(AngleBetweenPoints(casterLoc, targetLoc));
       RemoveLocation(casterLoc);
       RemoveLocation(targetLoc);
       RemoveLocation(newLoc);
-      // }
     }
   }
 
@@ -150,21 +155,24 @@ export default class BladeDance {
       setAttackRange(this.caster, weaponIndex, currentAttackRange - EXTRA_ATTACK_RANGE);
     }
     this.caster.setPathing(true);
-    // this.caster.invulnerable = false;
+    this.caster.invulnerable = false;
   }
 
-  handleTargetDeath() {
-    const nextTarget = this.findNextTarget();
+  handleTargetDeath(dyingUnit: unit) {
+    const dyingLoc = getUnitLocation(Unit.fromHandle(dyingUnit));
+
+    const nextTarget = this.findNextTarget(dyingLoc);
     if (nextTarget !== null) {
       this.setTarget(Unit.fromHandle(nextTarget));
     } else {
       this.endSpell();
     }
+
+    RemoveLocation(dyingLoc);
   }
 
-  findNextTarget(): unit {
-    const casterLoc = getUnitLocation(this.caster);
-    const candidates = GetUnitsInRangeOfLocMatching(500, casterLoc, Condition(() => {
+  findNextTarget(loc: location): unit {
+    const candidates = GetUnitsInRangeOfLocMatching(500, loc, Condition(() => {
       const matchingUnit = Group.getFilterUnit();
       return (
         matchingUnit.isAlive()
@@ -179,7 +187,6 @@ export default class BladeDance {
     const result = GroupPickRandomUnit(candidates);
 
     DestroyGroup(candidates);
-    RemoveLocation(casterLoc);
     return result;
   }
 }
