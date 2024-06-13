@@ -690,3 +690,234 @@ STRING 144
 Elite Watch Tower
 }
 
+STRING 146
+// Abilities: A004 (Divine Fury), Tip (Tooltip - Normal)
+{
+Divine Fury - [|cffffcc00Level 1|r]
+}
+
+STRING 147
+// Abilities: A004 (Divine Fury), Tip (Tooltip - Normal)
+{
+Divine Fury - [|cffffcc00Level 2|r]
+}
+
+STRING 148
+// Abilities: A004 (Divine Fury), Tip (Tooltip - Normal)
+{
+Divine Fury - [|cffffcc00Level 3|r]
+}
+
+STRING 149
+// Abilities: A004 (Divine Fury), Researchtip (Tooltip - Learn)
+{
+Learn Divine Fury - [|cffffcc00Level %d|r]
+}
+
+STRING 150
+// Abilities: A004 (Divine Fury), Researchubertip (Tooltip - Learn - Extended)
+{
+With a surge of celestial energy, Zeus channels the power of the heavens, attacking enemies with godly speed. Unleashing a storm of strikes, his assault becomes increasingly relentless with each level.
+}
+
+STRING 151
+// Abilities: A004 (Divine Fury), Ubertip (Tooltip - Normal - Extended)
+{
+With a surge of celestial energy, Zeus channels the power of the heavens, attacking enemies with godly speed. Unleashing a storm of strikes, his assault becomes increasingly relentless with each level.
+}
+
+STRING 152
+// Abilities: A004 (Divine Fury), Ubertip (Tooltip - Normal - Extended)
+{
+With a surge of celestial energy, Zeus channels the power of the heavens, attacking enemies with godly speed. Unleashing a storm of strikes, his assault becomes increasingly relentless with each level.
+}
+
+STRING 153
+// Abilities: A004 (Divine Fury), Ubertip (Tooltip - Normal - Extended)
+{
+With a surge of celestial energy, Zeus channels the power of the heavens, attacking enemies with godly speed. Unleashing a storm of strikes, his assault becomes increasingly relentless with each level.
+}
+
+STRING 154
+// Abilities: A004 (Divine Fury), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 155
+// Abilities: A004 (Divine Fury), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 156
+// Abilities: A004 (Divine Fury), Name (Name)
+{
+Divine Fury
+}
+
+STRING 157
+// Units: H001 (Lich King), Name (Name)
+{
+Lich King
+}
+
+STRING 158
+// Units: H001 (Lich King), Propernames (Proper Names)
+{
+Arthas
+}
+
+STRING 159
+// Units: H001 (Lich King), Awakentip (Tooltip - Awaken)
+{
+Revive Lich King
+}
+
+STRING 160
+// Units: H001 (Lich King), Tip (Tooltip - Basic)
+{
+Summon Lich King
+}
+
+STRING 161
+// Units: H001 (Lich King), Ubertip (Tooltip - Extended)
+{
+The Lich King was the master and lord of the Scourge which he ruled telepathically through the Helm of Domination from his Frozen Throne atop Icecrown Citadel.|n|nKil'jaeden the Deceiver created the original Lich King from the spirit of the orc shaman Ner'zhul for the purpose of raising an undead army to weaken Azeroth in preparation for the Burning Legion's invasion. Initially trapped within the Frozen Throne with Frostmourne, the Lich King eventually betrayed Kil'jaeden and merged with the human Arthas Menethil.
+}
+
+STRING 162
+// Units: H001 (Lich King), Revivetip (Tooltip - Revive)
+{
+Revive Lich King
+}
+
+STRING 163
+// Units: U000 (Desert's Wrath), Name (Name)
+{
+Desert's Wrath
+}
+
+STRING 164
+// Units: U000 (Desert's Wrath), Ubertip (Tooltip - Extended)
+{
+Scor'tah, once a revered guardian of the ancient desert kingdom of Aramath, fell from grace in a tragic twist of fate. Born in the searing sands, Scor'tah was a colossal scorpion worshipped by the desert nomads for his strength and cunning. His carapace, glistening like burnished gold, symbolized the sun's relentless power. However, when the Lich King’s shadow fell upon Aramath, Scor'tah was ensnared by dark magic and twisted into a malevolent force. Now a formidable lieutenant, Scor'tah wields his venomous sting and command over sandstorms to spread terror, his once noble spirit forever bound to the Lich King's sinister will.
+
+
+
+
+
+
+
+}
+
+STRING 165
+// Units: U000 (Desert's Wrath), Propernames (Proper Names)
+{
+Scor'tah
+}
+
+STRING 166
+// Units: U000 (Desert's Wrath), Awakentip (Tooltip - Awaken)
+{
+Revive Desert's Wrath
+}
+
+STRING 167
+// Units: U000 (Desert's Wrath), Revivetip (Tooltip - Revive)
+{
+Revive Desert's Wrath
+}
+
+STRING 169
+// Abilities: A005 (Sandquake), Name (Name)
+{
+Sandquake
+}
+
+STRING 170
+// Abilities: A005 (Sandquake), EditorSuffix (Editor Suffix)
+{
+(Impale)
+}
+
+STRING 171
+// Abilities: A006 (Sandquake), Name (Name)
+{
+Sandquake
+}
+
+STRING 172
+// Abilities: A006 (Sandquake), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 173
+// Abilities: A006 (Sandquake), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 174
+// Abilities: A006 (Sandquake), Researchtip (Tooltip - Learn)
+{
+Learn Sandquake - [|cffffcc00Level %d|r]
+}
+
+STRING 175
+// Abilities: A006 (Sandquake), Researchubertip (Tooltip - Learn - Extended)
+{
+Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
+
+
+}
+
+STRING 176
+// Abilities: A006 (Sandquake), Tip (Tooltip - Normal)
+{
+Sandquake - [|cffffcc00Level 1|r]
+}
+
+STRING 177
+// Abilities: A006 (Sandquake), Tip (Tooltip - Normal)
+{
+Sandquake - [|cffffcc00Level 2|r]
+}
+
+STRING 178
+// Abilities: A006 (Sandquake), Tip (Tooltip - Normal)
+{
+Sandquake - [|cffffcc00Level 3|r]
+}
+
+STRING 179
+// Abilities: A006 (Sandquake), Tip (Tooltip - Normal)
+{
+Sandquake - [|cffffcc00Level 4|r]
+}
+
+STRING 180
+// Abilities: A006 (Sandquake), Ubertip (Tooltip - Normal - Extended)
+{
+Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
+}
+
+STRING 181
+// Abilities: A006 (Sandquake), Ubertip (Tooltip - Normal - Extended)
+{
+Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
+}
+
+STRING 182
+// Abilities: A006 (Sandquake), Ubertip (Tooltip - Normal - Extended)
+{
+Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
+}
+
+STRING 183
+// Abilities: A006 (Sandquake), Ubertip (Tooltip - Normal - Extended)
+{
+Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
+}
+

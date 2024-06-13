@@ -6,18 +6,22 @@ import {
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals/order';
 
-const ATTACK_SCALING = 12;
-const ATTACKS_PER_LEVEL = 20;
-const ATTACK_DISTANCE = 100;
-const EXTRA_ATTACK_RANGE = 99999;
-
 export default class BladeDance {
-  static register(abilityId?: number) {
+  static Data = {
+    ABILITY_IDS: <number[]>[],
+    ATTACK_SPEED_SCALING: 8,
+    ATTACKS_PER_LEVEL: 20,
+    ATTACK_MELEE_DISTANCE: 100,
+    EXTRA_ATTACK_RANGE: 99999,
+  };
+
+  static unitsInCast = Group.create();
+
+  static register(abilityId: number) {
+    BladeDance.Data.ABILITY_IDS.push(abilityId);
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
-      if (abilityId) {
-        t.addCondition(() => GetSpellAbilityId() === abilityId);
-      }
+      t.addCondition(() => GetSpellAbilityId() === abilityId);
       t.addAction(() => {
         new BladeDance(
           GetSpellAbilityId(),
@@ -27,6 +31,10 @@ export default class BladeDance {
         );
       });
     });
+  }
+
+  static isUnitCasting(unit: Unit): boolean {
+    return unit.inGroup(this.unitsInCast);
   }
 
   private target: Unit;
@@ -45,6 +53,8 @@ export default class BladeDance {
 
   private isCasterMeleeUnit: boolean;
 
+  private weaponEffect: effect;
+
   /**
    * Executed when the spell is casted.
    * @param caster
@@ -61,21 +71,24 @@ export default class BladeDance {
       return;
     }
 
-    this.maxAtackCount = (this.abilityLevel + 1) * ATTACKS_PER_LEVEL;
+    this.maxAtackCount = (this.abilityLevel + 1) * BladeDance.Data.ATTACKS_PER_LEVEL;
     this.attackCount = 0;
 
     // increase attack speed and range
     for (let weaponIndex = 0; weaponIndex < 2; weaponIndex++) {
-      this.caster.setAttackCooldown(this.caster.getAttackCooldown(weaponIndex) / ATTACK_SCALING, weaponIndex);
+      this.caster.setAttackCooldown(this.caster.getAttackCooldown(weaponIndex) / BladeDance.Data.ATTACK_SPEED_SCALING, weaponIndex);
       const currentAttackRange = getAttackRange(this.caster, weaponIndex);
-      setAttackRange(this.caster, weaponIndex, currentAttackRange + EXTRA_ATTACK_RANGE);
-      this.isCasterMeleeUnit = currentAttackRange < 300;
+      setAttackRange(this.caster, weaponIndex, currentAttackRange + BladeDance.Data.EXTRA_ATTACK_RANGE);
     }
+    this.isCasterMeleeUnit = this.caster.isUnitType(UNIT_TYPE_MELEE_ATTACKER);
 
     this.caster.issueTargetOrder(OrderId.Attack, target);
     this.caster.setPathing(false);
     this.caster.invulnerable = true;
     this.caster.removeBuffs(false, true);
+
+    this.weaponEffect = AddSpellEffectTargetById(this.abilityId, EFFECT_TYPE_CASTER, this.caster.handle, 'weapon');
+    BlzSetSpecialEffectScale(this.weaponEffect, 1);
 
     // watch for each attack
     this.onAttack = buildTrigger((t) => {
@@ -102,6 +115,8 @@ export default class BladeDance {
         this.endSpell();
       }
     });
+
+    BladeDance.unitsInCast.addUnit(this.caster);
   }
 
   setTarget(newTarget: Unit) {
@@ -127,15 +142,16 @@ export default class BladeDance {
       const casterLoc = getUnitLocation(this.caster);
       const targetLoc = getUnitLocation(this.target);
 
-      let newLoc: location = PolarProjectionBJ(targetLoc, ATTACK_DISTANCE, this.target.facing - 180);
+      let newLoc: location;
       if (this.isCasterMeleeUnit) {
-        newLoc = PolarProjectionBJ(targetLoc, ATTACK_DISTANCE, this.target.facing - 180);
+        const angle = AngleBetweenPoints(casterLoc, targetLoc) + GetRandomReal(-30, 30);
+        newLoc = PolarProjectionBJ(targetLoc, BladeDance.Data.ATTACK_MELEE_DISTANCE, angle);
       } else {
-        newLoc = PolarProjectionBJ(casterLoc, GetRandomInt(0, 50), GetRandomDirectionDeg());
+        newLoc = PolarProjectionBJ(casterLoc, GetRandomReal(0, 50), GetRandomDirectionDeg());
       }
       SetUnitX(this.caster.handle, GetLocationX(newLoc));
       SetUnitY(this.caster.handle, GetLocationY(newLoc));
-      this.caster.setFacingEx(AngleBetweenPoints(casterLoc, targetLoc));
+      this.caster.setFacingEx(AngleBetweenPoints(newLoc, targetLoc));
       RemoveLocation(casterLoc);
       RemoveLocation(targetLoc);
       RemoveLocation(newLoc);
@@ -150,12 +166,14 @@ export default class BladeDance {
 
     // restore to normal attack speed
     for (let weaponIndex = 0; weaponIndex < 2; weaponIndex++) {
-      this.caster.setAttackCooldown(this.caster.getAttackCooldown(weaponIndex) * ATTACK_SCALING, weaponIndex);
+      this.caster.setAttackCooldown(this.caster.getAttackCooldown(weaponIndex) * BladeDance.Data.ATTACK_SPEED_SCALING, weaponIndex);
       const currentAttackRange = getAttackRange(this.caster, weaponIndex);
-      setAttackRange(this.caster, weaponIndex, currentAttackRange - EXTRA_ATTACK_RANGE);
+      setAttackRange(this.caster, weaponIndex, currentAttackRange - BladeDance.Data.EXTRA_ATTACK_RANGE);
     }
     this.caster.setPathing(true);
     this.caster.invulnerable = false;
+    BladeDance.unitsInCast.removeUnit(this.caster);
+    DestroyEffect(this.weaponEffect);
   }
 
   handleTargetDeath(dyingUnit: unit) {
@@ -179,8 +197,9 @@ export default class BladeDance {
         && !matchingUnit.invulnerable
         && matchingUnit.isEnemy(this.caster.owner)
         && matchingUnit.handle !== this.target.handle
-        && !matchingUnit.getField(UNIT_BF_IS_A_BUILDING)
+        && !matchingUnit.isUnitType(UNIT_TYPE_STRUCTURE)
         && !matchingUnit.isUnitType(UNIT_TYPE_ETHEREAL)
+        && (ConvertTargetFlag(matchingUnit.getField(UNIT_IF_TARGETED_AS) as number)) !== TARGET_FLAG_WARD
       );
     }));
 

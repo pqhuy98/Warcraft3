@@ -36,12 +36,14 @@ interface NoTargetAbility extends BaseAbility {
 interface AuraAbility extends BaseAbility {
   type: 'aura'
   specialEffect: string
+  attachmentPoint?: string
 }
 
 interface ActiveAuraTargetAbility extends BaseAbility {
   type: 'active-aura'
   orderId: OrderId
   specialEffect: string
+  attachmentPoint?: string
 }
 
 const buffAbilities: (UnitTargetAbility | NoTargetAbility | AuraAbility | ActiveAuraTargetAbility)[] = [
@@ -107,7 +109,12 @@ const buffAbilities: (UnitTargetAbility | NoTargetAbility | AuraAbility | Active
 
   // Active aura
   {
-    ability: ABILITY_ImmolationCreep, type: 'active-aura', orderId: OrderId.Immolation, specialEffect: MODEL_ImmolationREDTarget, periodS: 30,
+    ability: ABILITY_ImmolationCreep,
+    type: 'active-aura',
+    orderId: OrderId.Immolation,
+    specialEffect: MODEL_ImmolationREDTarget,
+    periodS: 30,
+    attachmentPoint: 'chest',
   },
 ];
 
@@ -192,7 +199,9 @@ export class PeriodBuff {
     });
   }
 
-  buffAuraAbility({ ability, specialEffect, periodS }: AuraAbility) {
+  buffAuraAbility({
+    ability, specialEffect, attachmentPoint = 'origin', periodS,
+  }: AuraAbility) {
     if (this.auraMap.has(ability.code)) {
       return;
     }
@@ -206,7 +215,7 @@ export class PeriodBuff {
     tieUnitToUnit(dummy.handle, this.target.handle);
     RemoveLocation(targetLoc);
 
-    const effect = AddSpecialEffectTarget(specialEffect, this.target.handle, 'origin');
+    const effect = AddSpecialEffectTarget(specialEffect, this.target.handle, attachmentPoint);
 
     this.auraMap.add(ability.code);
     setTimeout(periodS, () => {

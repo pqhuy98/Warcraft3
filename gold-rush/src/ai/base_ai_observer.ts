@@ -1,7 +1,9 @@
-import { getUnitLocation, trimLocationArrayToLength } from 'lib/location';
-import { setIntervalIndefinite } from 'lib/trigger';
+import { TimestampedQueue } from 'lib/data_structures/timestamped_queue';
+import { getUnitLocation, locX, locY } from 'lib/location';
+import { buildTrigger, getTimeS, setIntervalIndefinite } from 'lib/trigger';
 import {
   getUnitsFromGroup,
+  isBuilding,
 } from 'lib/unit';
 import {
   MapPlayer, Point, Unit,
@@ -9,7 +11,14 @@ import {
 
 type State = 'retreat' | 'attack'
 
-export class AiObserver {
+type InterestingEventType = 'ally_hero_attack' | 'ally_building_attacked'
+
+interface InterestingEvent {
+  location: location
+  type: InterestingEventType
+}
+
+export class BaseAiObserver {
   private state: State = 'attack';
 
   private homeLoc: location;
@@ -20,7 +29,10 @@ export class AiObserver {
 
   private enemies: player[] = [];
 
-  private recentInterestingLocs: location[] = [];
+  private recentInterestingEvents: TimestampedQueue<InterestingEvent> = new TimestampedQueue({
+    itemExpireS: 10,
+    cleanUp: (event) => RemoveLocation(event.location),
+  });
 
   private destination: location;
 
@@ -40,28 +52,37 @@ export class AiObserver {
       }
     }
 
-    // buildTrigger((t) => {
-    //   this.allies.forEach((p) => {
-    //     t.registerPlayerUnitEvent(MapPlayer.fromHandle(p), EVENT_PLAYER_UNIT_DAMAGED, undefined);
-    //   });
-    //   t.addCondition(() => isBuilding(BlzGetEventDamageTarget()));
-    //   t.addAction(() => {
-    //     log('Building damaged, source', GetEventDamageSource(), ', target', BlzGetEventDamageTarget());
-    //     log('target is building', isBuilding(BlzGetEventDamageTarget()) ? 'yes' : 'no');
-    //     this.recentInterestingLocs.push(getUnitLocation(Unit.fromHandle(BlzGetEventDamageTarget())));
-    //   });
-    // });
+    buildTrigger((t) => {
+      this.allies.forEach((p) => {
+        t.registerPlayerUnitEvent(MapPlayer.fromHandle(p), EVENT_PLAYER_UNIT_DAMAGED, undefined);
+      });
+      t.addCondition(() => isBuilding(BlzGetEventDamageTarget()) && GetEventDamage() > 0);
+      t.addAction(() => {
+        this.recentInterestingEvents.push({
+          timestamp: getTimeS(),
+          value: {
+            location: getUnitLocation(Unit.fromHandle(GetEventDamageSource())),
+            type: 'ally_building_attacked',
+          },
+        });
+      });
+    });
 
-    // buildTrigger((t) => {
-    //   this.allies.forEach((p) => {
-    //     t.registerPlayerUnitEvent(MapPlayer.fromHandle(p), EVENT_PLAYER_UNIT_DAMAGING, undefined);
-    //   });
-    //   t.addCondition(() => Unit.fromHandle(GetEventDamageSource()).isHero() && GetEventDamageSource() !== this.hero.handle);
-    //   t.addAction(() => {
-    //     log('Hero damaging, source', GetEventDamageSource(), ', target', BlzGetEventDamageTarget());
-    //     this.recentInterestingLocs.push(getUnitLocation(Unit.fromHandle(GetEventDamageSource())));
-    //   });
-    // });
+    buildTrigger((t) => {
+      this.allies.forEach((p) => {
+        t.registerPlayerUnitEvent(MapPlayer.fromHandle(p), EVENT_PLAYER_UNIT_DAMAGING, undefined);
+      });
+      t.addCondition(() => Unit.fromHandle(GetEventDamageSource()).isHero() && GetEventDamageSource() !== this.hero.handle);
+      t.addAction(() => {
+        this.recentInterestingEvents.push({
+          timestamp: getTimeS(),
+          value: {
+            location: getUnitLocation(Unit.fromHandle(BlzGetEventDamageTarget())),
+            type: 'ally_hero_attack',
+          },
+        });
+      });
+    });
 
     // Bookkeeping
     setIntervalIndefinite(0.5, () => {
@@ -69,11 +90,11 @@ export class AiObserver {
         RemoveLocation(this.heroLoc);
       }
       this.heroLoc = getUnitLocation(this.hero);
-
-      trimLocationArrayToLength(this.recentInterestingLocs, 40, (oldLocs) => {
-        oldLocs.forEach((l) => RemoveLocation(l));
-      });
     });
+  }
+
+  setHomeLocation(loc: location) {
+    this.homeLoc = Location(locX(loc), locY(loc));
   }
 
   getState() {
@@ -104,7 +125,6 @@ export class AiObserver {
     return this.hero.currentOrder;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getAcquisitionRange() {
     return 800;
   }
@@ -125,6 +145,10 @@ export class AiObserver {
 
   getGlobalAllyHeroes() {
     return this.allies.flatMap((p) => getHeroesForPlayer(p));
+  }
+
+  getGlobalEnemyTownHalls() {
+    return this.enemies.flatMap((p) => getTownHallsForPlayer(p));
   }
 
   getGlobalEnemyHeroes() {
@@ -153,8 +177,8 @@ export class AiObserver {
     return units;
   }
 
-  getRecentInterestingLocs() {
-    return this.recentInterestingLocs;
+  getRecentInterestingEvents(limit?: number): InterestingEvent[] {
+    return this.recentInterestingEvents.get(limit).map((item) => item.value);
   }
 
   getDestination() {
@@ -167,12 +191,27 @@ export class AiObserver {
     }
     this.destination = loc;
   }
+
+  getHeroLocation() {
+    return this.heroLoc;
+  }
 }
 
 function getHeroesForPlayer(p: player) {
   const group = GetUnitsOfPlayerMatching(p, Condition(() => {
     const unit = Unit.fromFilter();
-    return unit.isHero() && unit.isAlive() && !unit.getField(UNIT_BF_IS_A_BUILDING);
+    return unit.isHero() && unit.isAlive();
+  }));
+
+  const units = getUnitsFromGroup(group).map((u) => Unit.fromHandle(u));
+  DestroyGroup(group);
+  return units;
+}
+
+function getTownHallsForPlayer(p: player) {
+  const group = GetUnitsOfPlayerMatching(p, Condition(() => {
+    const unit = Unit.fromFilter();
+    return unit.isUnitType(UNIT_TYPE_TOWNHALL) && unit.isAlive();
   }));
 
   const units = getUnitsFromGroup(group).map((u) => Unit.fromHandle(u));

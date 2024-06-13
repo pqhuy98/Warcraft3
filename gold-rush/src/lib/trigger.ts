@@ -80,3 +80,19 @@ export function setIntervalForDuration(
 ): Timer {
   return setInterval(intervalS, callback, durationS / intervalS, cleanup);
 }
+
+let infiniteTimer: Timer;
+
+export function trackElapsedGameTime() {
+  buildTrigger((t) => {
+    t.registerTimerEvent(0.00, false);
+    t.addAction(() => {
+      infiniteTimer = Timer.create();
+      infiniteTimer.start(1000000000.00, false, () => { });
+    });
+  });
+}
+
+export function getTimeS() {
+  return infiniteTimer.elapsed;
+}

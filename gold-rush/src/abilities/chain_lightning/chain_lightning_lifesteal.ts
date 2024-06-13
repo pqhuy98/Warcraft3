@@ -10,7 +10,7 @@ export class ChainLightningLifesteal {
         && !IsUnitAlly(BlzGetEventDamageTarget(), GetOwningPlayer(GetEventDamageSource())));
       t.addAction(() => {
         const sourceUnit = Unit.fromHandle(getDamageSourceMaster(GetEventDamageSource()));
-        const heal = GetEventDamage() * 0.04 * sourceUnit.getAbilityLevel(abilityId);
+        const heal = GetEventDamage() * 0.005 * sourceUnit.getAbilityLevel(abilityId);
         sourceUnit.life += heal;
       });
     });

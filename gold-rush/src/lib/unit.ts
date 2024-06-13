@@ -76,10 +76,10 @@ export function fadeUnit(
   });
 }
 
-export function growUnit(u: Unit, targetScale: number, duration:number) {
-  const initialScale = (u.getField(UNIT_RF_SCALING_VALUE) as number);
+export function growUnit(u: Unit, targetScale: number, duration: number, initialScale?: number) {
+  const startingScale = initialScale ?? (u.getField(UNIT_RF_SCALING_VALUE) as number);
   setIntervalForDuration(0.03, duration, (i, repeat) => {
-    const scale = i / repeat * (targetScale - initialScale) + initialScale;
+    const scale = i / repeat * (targetScale - startingScale) + startingScale;
     u.setScale(scale, 0, 0);
   });
 }
@@ -171,7 +171,7 @@ export function isDummy(unit: unit) {
 }
 
 export function isBuilding(unit: unit) {
-  return !!Unit.fromHandle(unit).getField(UNIT_BF_IS_A_BUILDING);
+  return !!Unit.fromHandle(unit).isUnitType(UNIT_TYPE_STRUCTURE);
 }
 
 export function isHero(unit: unit) {
