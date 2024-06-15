@@ -1,6 +1,5 @@
-import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import { pickRandom } from 'lib/utils';
-import { Rectangle, WeatherEffect } from 'w3ts';
+import { Rectangle, Timer, WeatherEffect } from 'w3ts';
 
 const weathers = [
   { effectId: 'RAhr', name: 'WESTRING_WEATHER_ASHENVALEHEAVYRAIN' },
@@ -26,23 +25,33 @@ const weathers = [
   { effectId: 'WOlw', name: 'WESTRING_WEATHER_OUTLANDWINDLIGHT' },
 ];
 
-export class Weather {
-  static register() {
-    let weather: WeatherEffect;
-    setIntervalIndefinite(60, () => {
-      if (weather) {
-        weather.enable(false);
-      }
-      const delay = GetRandomInt(0, 10);
+export const weatherBlizzard = { effectId: 'SNbs', name: 'WESTRING_WEATHER_NORTHRENDBLIZZARD' };
 
-      setTimeout(delay, () => {
-        if (weather) {
-          weather.destroy();
-        }
-        const chosenWeatherType = pickRandom(weathers);
-        weather = WeatherEffect.create(Rectangle.getWorldBounds(), FourCC(chosenWeatherType.effectId));
-        weather.enable(true);
-      });
+export class Weather {
+  static currentWeather: WeatherEffect;
+
+  static delayTimer = Timer.create();
+
+  static activeTimer = Timer.create();
+
+  static changeWeather(chosenWeatherType: typeof weathers[number] = pickRandom(weathers), duration: number = 60, noWeatherDelay: number = 10) {
+    Weather.delayTimer.pause();
+    Weather.activeTimer.pause();
+
+    if (Weather.currentWeather) {
+      Weather.currentWeather.enable(false);
+    }
+
+    Weather.delayTimer.start(noWeatherDelay, false, () => {
+      if (Weather.currentWeather) {
+        Weather.currentWeather.destroy();
+      }
+      Weather.currentWeather = WeatherEffect.create(Rectangle.getWorldBounds(), FourCC(chosenWeatherType.effectId));
+      Weather.currentWeather.enable(true);
+    });
+
+    Weather.activeTimer.start(duration + noWeatherDelay, false, () => {
+      Weather.changeWeather();
     });
   }
 }

@@ -1,4 +1,4 @@
-import { getUnitLocation, locX, locY } from 'lib/location';
+import { getUnitXY } from 'lib/location';
 import {
   ABILITY_AbolishMagicCreep, ABILITY_AuraCommandCreep, ABILITY_AuraDevotionCreep, ABILITY_AuraEnduranceCreep,
   ABILITY_BloodlustCreep, ABILITY_FrostArmorCreepOld, ABILITY_HealCreepHigh, ABILITY_InnerFireCreep,
@@ -164,14 +164,13 @@ export class PeriodBuff {
       return;
     }
 
-    const targetLoc = getUnitLocation(this.target);
+    const targetLoc = getUnitXY(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target, 1);
+    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, 1);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     IssueTargetOrderById(dummy.handle, orderId, this.target.handle);
-    RemoveLocation(targetLoc);
 
     this.auraMap.add(ability.code);
     setTimeout(periodS, () => {
@@ -184,14 +183,13 @@ export class PeriodBuff {
       return;
     }
 
-    const targetLoc = getUnitLocation(this.target);
+    const targetLoc = getUnitXY(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target, 1);
+    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, 1);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     IssueImmediateOrderById(dummy.handle, orderId);
-    RemoveLocation(targetLoc);
 
     this.auraMap.add(ability.code);
     setTimeout(periodS, () => {
@@ -206,14 +204,13 @@ export class PeriodBuff {
       return;
     }
 
-    const targetLoc = getUnitLocation(this.target);
+    const targetLoc = getUnitXY(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target, periodS);
+    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     tieUnitToUnit(dummy.handle, this.target.handle);
-    RemoveLocation(targetLoc);
 
     const effect = AddSpecialEffectTarget(specialEffect, this.target.handle, attachmentPoint);
 
@@ -231,16 +228,15 @@ export class PeriodBuff {
       return;
     }
 
-    const targetLoc = getUnitLocation(this.target);
+    const targetLoc = getUnitXY(this.target);
 
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy(this.target.owner, locX(targetLoc), locY(targetLoc), this.target, periodS);
+    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     tieUnitToUnit(dummy.handle, this.target.handle);
     IssueImmediateOrderById(dummy.handle, orderId);
-    RemoveLocation(targetLoc);
 
     const effect = AddSpecialEffectTarget(specialEffect, this.target.handle, 'origin');
 

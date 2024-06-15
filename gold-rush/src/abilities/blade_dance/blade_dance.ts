@@ -1,6 +1,11 @@
-import { getUnitLocation } from 'lib/location';
+import {
+  AngleBetweenLocs, getUnitXY, Loc, PolarProjection,
+} from 'lib/location';
 import { buildTrigger } from 'lib/trigger';
-import { angleBetweenUnits, getAttackRange, setAttackRange } from 'lib/unit';
+import {
+  angleBetweenUnits, getAttackRange, GetUnitsInRangeOfXYMatching, setAttackRange,
+} from 'lib/unit';
+import { pickRandom } from 'lib/utils';
 import {
   Group, Timer, Trigger, Unit,
 } from 'w3ts';
@@ -127,7 +132,7 @@ export default class BladeDance {
 
   onEachAttack() {
     this.timerIdle.destroy();
-    this.timerIdle = new Timer();
+    this.timerIdle = Timer.create();
     this.timerIdle.start(2, false, () => this.endSpell());
 
     const effect = AddSpellEffectTargetById(this.abilityId, EFFECT_TYPE_TARGET, this.target.handle, 'chest');
@@ -139,22 +144,19 @@ export default class BladeDance {
       this.endSpell();
     } else {
       // teleport if too far away
-      const casterLoc = getUnitLocation(this.caster);
-      const targetLoc = getUnitLocation(this.target);
+      const casterLoc = getUnitXY(this.caster);
+      const targetLoc = getUnitXY(this.target);
 
-      let newLoc: location;
+      let newLoc: Loc;
       if (this.isCasterMeleeUnit) {
-        const angle = AngleBetweenPoints(casterLoc, targetLoc) + GetRandomReal(-30, 30);
-        newLoc = PolarProjectionBJ(targetLoc, BladeDance.Data.ATTACK_MELEE_DISTANCE, angle);
+        const angle = AngleBetweenLocs(casterLoc, targetLoc) + GetRandomReal(-30, 30);
+        newLoc = PolarProjection(targetLoc, BladeDance.Data.ATTACK_MELEE_DISTANCE, angle);
       } else {
-        newLoc = PolarProjectionBJ(casterLoc, GetRandomReal(0, 50), GetRandomDirectionDeg());
+        newLoc = PolarProjection(casterLoc, GetRandomReal(0, 50), GetRandomDirectionDeg());
       }
-      SetUnitX(this.caster.handle, GetLocationX(newLoc));
-      SetUnitY(this.caster.handle, GetLocationY(newLoc));
-      this.caster.setFacingEx(AngleBetweenPoints(newLoc, targetLoc));
-      RemoveLocation(casterLoc);
-      RemoveLocation(targetLoc);
-      RemoveLocation(newLoc);
+      SetUnitX(this.caster.handle, newLoc.x);
+      SetUnitY(this.caster.handle, newLoc.y);
+      this.caster.setFacingEx(AngleBetweenLocs(newLoc, targetLoc));
     }
   }
 
@@ -177,20 +179,18 @@ export default class BladeDance {
   }
 
   handleTargetDeath(dyingUnit: unit) {
-    const dyingLoc = getUnitLocation(Unit.fromHandle(dyingUnit));
+    const dyingLoc = getUnitXY(Unit.fromHandle(dyingUnit));
 
     const nextTarget = this.findNextTarget(dyingLoc);
     if (nextTarget !== null) {
-      this.setTarget(Unit.fromHandle(nextTarget));
+      this.setTarget(nextTarget);
     } else {
       this.endSpell();
     }
-
-    RemoveLocation(dyingLoc);
   }
 
-  findNextTarget(loc: location): unit {
-    const candidates = GetUnitsInRangeOfLocMatching(500, loc, Condition(() => {
+  findNextTarget(loc: Loc): Unit {
+    const candidates = GetUnitsInRangeOfXYMatching(500, loc, () => {
       const matchingUnit = Group.getFilterUnit();
       return (
         matchingUnit.isAlive()
@@ -201,11 +201,8 @@ export default class BladeDance {
         && !matchingUnit.isUnitType(UNIT_TYPE_ETHEREAL)
         && (ConvertTargetFlag(matchingUnit.getField(UNIT_IF_TARGETED_AS) as number)) !== TARGET_FLAG_WARD
       );
-    }));
+    });
 
-    const result = GroupPickRandomUnit(candidates);
-
-    DestroyGroup(candidates);
-    return result;
+    return pickRandom(candidates);
   }
 }

@@ -7,9 +7,9 @@ export class TimestampedQueue<T> {
 
   private itemExpireS: number;
 
-  private cleanUp: (t: T) => void;
+  private cleanUp?: (t: T) => void;
 
-  constructor({ itemExpireS, cleanUp }: { itemExpireS: number, cleanUp: (t: T) => void }) {
+  constructor({ itemExpireS, cleanUp }: { itemExpireS: number, cleanUp?: (t: T) => void }) {
     this.itemExpireS = itemExpireS;
     this.cleanUp = cleanUp;
   }
@@ -23,7 +23,7 @@ export class TimestampedQueue<T> {
       this.startIdx < this.queue.length
       && (currentTimeS - this.queue[this.startIdx].timestamp) > this.itemExpireS
     ) {
-      this.cleanUp(this.queue[this.startIdx].value);
+      this.cleanUp?.(this.queue[this.startIdx].value);
       this.startIdx++;
     }
 

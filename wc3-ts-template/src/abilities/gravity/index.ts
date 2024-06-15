@@ -51,12 +51,14 @@ export class Gravity {
       ud.timer = setInterval(1.0 / TICK_PER_SEC, () => {
         const casterLoc = getUnitLocation(caster);
 
-        const nearby = GetUnitsInRangeOfLocMatching(abilityLevel * 500, casterLoc, Condition(() => {
+        let cond: conditionfunc;
+        const nearby = GetUnitsInRangeOfLocMatching(abilityLevel * 500, casterLoc, cond = Condition(() => {
           const matchingUnit = Unit.fromFilter();
           return matchingUnit.handle !== caster.handle
             && matchingUnit.isAlive()
             && !matchingUnit.getField(UNIT_BF_IS_A_BUILDING);
         }));
+        DestroyBoolExpr(cond);
 
         Group.fromHandle(nearby).for(() => {
           const u = Unit.fromEnum();

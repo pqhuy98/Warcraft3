@@ -1,4 +1,7 @@
-import { getUnitLocation } from 'lib/location';
+import {
+  AngleBetweenLocs, DistanceBetweenLocs, getUnitXY, Loc, PolarProjection,
+  tempLocation,
+} from 'lib/location';
 import {
   Group, MapPlayer, Timer, Unit,
 } from 'w3ts';
@@ -17,28 +20,26 @@ export function setAttackRange(unit: Unit, weaponIndex:number, value:number) {
   BlzSetUnitWeaponRealField(unit.handle, UNIT_WEAPON_RF_ATTACK_RANGE, weaponIndex, value);
 }
 
+/**
+ * @returns angle in degree
+ */
 export function angleBetweenUnits(u1: Unit, u2:Unit) {
-  const l1 = getUnitLocation(u1);
-  const l2 = getUnitLocation(u2);
-  const result = AngleBetweenPoints(l1, l2);
-  RemoveLocation(l1);
-  RemoveLocation(l2);
+  const l1 = getUnitXY(u1);
+  const l2 = getUnitXY(u2);
+  const result = AngleBetweenLocs(l1, l2);
   return result;
 }
 
 export function distanceBetweenUnits(u1: Unit, u2:Unit) {
-  const l1 = getUnitLocation(u1);
-  const l2 = getUnitLocation(u2);
-  const result = DistanceBetweenPoints(l1, l2);
-  RemoveLocation(l1);
-  RemoveLocation(l2);
+  const l1 = getUnitXY(u1);
+  const l2 = getUnitXY(u2);
+  const result = DistanceBetweenLocs(l1, l2);
   return result;
 }
 
-export function unitPolarProjection(unit: Unit, distance: number, angle: number):location {
-  const loc = getUnitLocation(unit);
-  const newLoc = PolarProjectionBJ(loc, distance, angle);
-  RemoveLocation(loc);
+export function unitPolarProjection(unit: Unit, distance: number, angle: number): Loc {
+  const loc = getUnitXY(unit);
+  const newLoc = PolarProjection(loc, distance, angle);
   return newLoc;
 }
 
@@ -78,7 +79,7 @@ export function fadeUnit(
 
 export function growUnit(u: Unit, targetScale: number, duration: number, initialScale?: number) {
   const startingScale = initialScale ?? (u.getField(UNIT_RF_SCALING_VALUE) as number);
-  setIntervalForDuration(0.03, duration, (i, repeat) => {
+  setIntervalForDuration(0.1, duration, (i, repeat) => {
     const scale = i / repeat * (targetScale - startingScale) + startingScale;
     u.setScale(scale, 0, 0);
   });
@@ -93,7 +94,9 @@ export function tieUnitToUnit(tiedunit: unit, targetunit: unit) {
 
 export function daemonTieUnitToUnit() {
   setIntervalIndefinite(0.03, () => {
-    unitTies.forEach((target, tied) => relocateUnitToUnit(tied, target));
+    for (const [tied, target] of unitTies) {
+      relocateUnitToUnit(tied, target);
+    }
   });
 }
 
@@ -109,22 +112,20 @@ function relocateUnitToUnit(tiedunit: unit, targetunit: unit) {
   }
 }
 
-export function getUnitsFromGroup(group: group) {
-  const units: unit[] = [];
+export function getUnitsFromGroup(group: group): Unit[] {
+  const units: Unit[] = [];
   Group.fromHandle(group).for(() => {
-    units.push(GetEnumUnit());
+    units.push(Unit.fromEnum());
   });
   return units;
 }
 
-export function enumUnitGroupWithDelay(
-  unitGroup: group,
-  callback: (u: unit, index: number) => void,
+export function enumUnitsWithDelay(
+  units: Unit[],
+  callback: (u: Unit, index: number) => void,
   durationPerStep: number,
 ): Timer {
   const t = Timer.create();
-  const units = getUnitsFromGroup(unitGroup);
-
   let index = 0;
   t.start(durationPerStep, true, () => {
     callback(units[index], index);
@@ -148,12 +149,13 @@ export function getDamageSourceMaster(dummy: unit) {
 
 export function daemonDamageSourceMaster() {
   setIntervalIndefinite(5, () => {
-    unitTies.forEach((master, dummy) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    for (const dummy of unitTies.keys()) {
       const dummyUnit = Unit.fromHandle(dummy);
       if (!dummyUnit.isAlive()) {
         damageSourceMaster.delete(dummy);
       }
-    });
+    }
   });
 }
 
@@ -166,14 +168,23 @@ export function createDummy(owner: MapPlayer, locX: number, locY: number, master
   return dummy;
 }
 
-export function isDummy(unit: unit) {
-  return GetUnitTypeId(unit) === UNIT_ID_DUMMY;
-}
-
 export function isBuilding(unit: unit) {
   return !!Unit.fromHandle(unit).isUnitType(UNIT_TYPE_STRUCTURE);
 }
 
 export function isHero(unit: unit) {
   return Unit.fromHandle(unit).isHero();
+}
+
+export function isWard(unit: unit) {
+  return ConvertTargetFlag(BlzGetUnitIntegerField(unit, UNIT_IF_TARGETED_AS)) === TARGET_FLAG_WARD;
+}
+
+export function GetUnitsInRangeOfXYMatching(range: number, loc: Loc, filter: () => boolean): Unit[] {
+  let cond: conditionfunc;
+  const group = GetUnitsInRangeOfLocMatching(500, tempLocation(loc), cond = Condition(() => filter()));
+  DestroyCondition(cond);
+  const units = getUnitsFromGroup(group);
+  DestroyGroup(group);
+  return units;
 }

@@ -2,6 +2,7 @@ declare var gg_rct_Region_000: rect;
 declare var gg_trg_Melee_Initialization: trigger;
 declare var gg_unit_nfoh_0003: unit;
 declare var gg_unit_H002_0191: unit;
+declare var gg_unit_nfoh_0321: unit;
 declare var gg_unit_Othr_0324: unit;
 declare var gg_unit_Osam_0326: unit;
 declare var gg_unit_Hjai_0327: unit;

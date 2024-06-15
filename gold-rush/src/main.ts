@@ -1,15 +1,26 @@
+/* eslint-disable unused-imports/no-unused-imports */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import BladeDance from 'abilities/blade_dance/blade_dance';
 import { ChainLightning } from 'abilities/chain_lightning/chain_lightning';
 import Sandquake from 'abilities/sandquake/sandquake';
 import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
+import WrathOfTheLichKing from 'abilities/wrath_of_the_lich_king/wrath_of_the_lich_king';
+import { LichKingAi } from 'ai/custom/lich-king-ai';
+import { ZeusAi } from 'ai/custom/zeus-ai';
 import { DarkForceAi } from 'ai/dark_force_ai';
 import { LightForceAi } from 'ai/light_force_ai';
-import { ZeusAi } from 'ai/zeus/zeus-ai';
 import { PeriodBuff } from 'events/period_buff/period_buff';
 import { Weather } from 'events/weather/weather';
 import {
-  ABILITY_ID_BLADE_DANCE, ABILITY_ID_CHAIN_LIGHTNING, ABILITY_ID_DIVINE_FURY, ABILITY_ID_SANDQUAKE, ABILITY_ID_THUNDER_BLINK,
+  ABILITY_ID_BLADE_DANCE,
+  ABILITY_ID_CHAIN_LIGHTNING,
+  ABILITY_ID_DIVINE_FURY,
+  ABILITY_ID_SANDQUAKE,
+  ABILITY_ID_THUNDER_BLINK,
+  ABILITY_ID_WRATH_OF_THE_LICH_KING,
 } from 'lib/constants';
+import { DamageObserver } from 'lib/data_structures/damage_observer';
+import { daemonTempLocationCleanUp } from 'lib/location';
 import { setIntervalIndefinite, trackElapsedGameTime } from 'lib/trigger';
 import { daemonDamageSourceMaster, daemonTieUnitToUnit, growUnit } from 'lib/unit';
 import { Group, Unit } from 'w3ts';
@@ -25,27 +36,21 @@ function tsMain() {
   BladeDance.register(ABILITY_ID_BLADE_DANCE);
   BladeDance.register(ABILITY_ID_DIVINE_FURY);
   Sandquake.register(ABILITY_ID_SANDQUAKE);
+  WrathOfTheLichKing.register(ABILITY_ID_WRATH_OF_THE_LICH_KING);
 
   // new CreepSpawn(Unit.fromHandle(gg_unit_H002_0191));
   new PeriodBuff(Unit.fromHandle(gg_unit_H002_0191));
 
-  Weather.register();
+  DamageObserver.register();
+  Weather.changeWeather();
 
   removeStartingUnit(Player(0));
+  upgradeTownHallAllPlayers();
 
   daemonTieUnitToUnit();
   daemonDamageSourceMaster();
+  daemonTempLocationCleanUp();
 }
-
-const colorPreservedUnits = [
-  gg_unit_H001_0320,
-  gg_unit_Othr_0324,
-  gg_unit_Osam_0326,
-  gg_unit_Hjai_0327,
-  gg_unit_nfoh_0003,
-  gg_unit_H001_0320,
-  gg_unit_U000_0322,
-];
 
 function configurePlayerColor() {
   for (let i = 0; i < 24; i++) {
@@ -57,25 +62,35 @@ function configurePlayerColor() {
     }
     switch (GetPlayerRace(player)) {
       case RACE_HUMAN:
-        SetPlayerColor(player, PLAYER_COLOR_LIGHT_BLUE);
+        SetPlayerColorBJ(player, PLAYER_COLOR_LIGHT_BLUE, false);
         SetPlayerName(player, 'Human Alliances');
         break;
       case RACE_ORC:
-        SetPlayerColor(player, PLAYER_COLOR_RED);
+        SetPlayerColorBJ(player, PLAYER_COLOR_RED, false);
         SetPlayerName(player, 'Orcish Horde');
         break;
       case RACE_NIGHTELF:
-        SetPlayerColor(player, PLAYER_COLOR_CYAN);
+        SetPlayerColorBJ(player, PLAYER_COLOR_CYAN, false);
         SetPlayerName(player, 'Night Elf Sentinels');
         break;
       case RACE_UNDEAD:
-        SetPlayerColor(player, PLAYER_COLOR_GREEN);
+        SetPlayerColorBJ(player, PLAYER_COLOR_GREEN, false);
         SetPlayerName(player, 'Undead Scourge');
         break;
       default:
     }
     const playerColor = GetPlayerColor(player);
     const allUnitsOfPlayer = GetUnitsInRectOfPlayer(GetPlayableMapRect(), player);
+
+    const colorPreservedUnits = [
+      gg_unit_H001_0320,
+      gg_unit_Othr_0324,
+      gg_unit_Osam_0326,
+      gg_unit_Hjai_0327,
+      gg_unit_nfoh_0003,
+      gg_unit_H001_0320,
+      gg_unit_U000_0322,
+    ];
 
     Group.fromHandle(allUnitsOfPlayer).for(() => {
       const u = Unit.fromEnum();
@@ -86,7 +101,7 @@ function configurePlayerColor() {
     DestroyGroup(allUnitsOfPlayer);
 
     if (IsPlayerEnemy(player, GetOwningPlayer(gg_unit_H002_0191))) {
-      let handicap = 0.8;
+      let handicap = 2;
       SetPlayerHandicap(player, handicap);
       let oldScale: number;
       setIntervalIndefinite(3, () => {
@@ -98,7 +113,7 @@ function configurePlayerColor() {
           const newScale = Math.max(1.4, Math.sqrt(boss.owner.handicap));
           growUnit(boss, newScale, 2, oldScale);
           oldScale = newScale;
-          boss.setField(UNIT_RF_SELECTION_SCALE, 1 + Math.sqrt(boss.owner.handicap));
+          boss.selectionScale = 1.8 + Math.sqrt(boss.owner.handicap);
         }
       });
     }
@@ -111,7 +126,7 @@ function registerAi() {
   ZeusAi.register(GetOwningPlayer(gg_unit_H002_0191), GetUnitTypeId(gg_unit_H002_0191));
 
   // Undead bosses
-  DarkForceAi.register(GetOwningPlayer(gg_unit_H001_0320), GetUnitTypeId(gg_unit_H001_0320));
+  LichKingAi.register(GetOwningPlayer(gg_unit_H001_0320), GetUnitTypeId(gg_unit_H001_0320));
   DarkForceAi.register(GetOwningPlayer(gg_unit_U000_0322), GetUnitTypeId(gg_unit_U000_0322));
 
   // Orc bosses
@@ -135,6 +150,22 @@ function removeStartingUnit(player: player) {
     const townHalls = GetUnitsOfPlayerAndTypeId(player, FourCC(townTypeId));
     Group.fromHandle(townHalls).for(() => {
       ShowUnitHide(GetEnumUnit());
+    });
+    DestroyGroup(townHalls);
+  });
+}
+
+function upgradeTownHallAllPlayers() {
+  const newUnits: Record<string, string> = {
+    htow: 'hcas', ogre: 'ofrt', unpl: 'unp2', etol: 'etoe',
+  };
+
+  ['ogre', 'htow', 'unpl', 'etol'].forEach((townTypeId) => {
+    const townHalls = GetUnitsOfTypeIdAll(FourCC(townTypeId));
+    Group.fromHandle(townHalls).for(() => {
+      if (!IsUnitHidden(GetEnumUnit())) {
+        ReplaceUnitBJ(GetEnumUnit(), FourCC(newUnits[townTypeId]), bj_UNIT_STATE_METHOD_MAXIMUM);
+      }
     });
     DestroyGroup(townHalls);
   });

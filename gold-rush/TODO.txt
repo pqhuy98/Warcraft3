@@ -1,1 +1,8 @@
 - Add expiration to interesting events.
+
+
+Perf tests:
+- No spells, AI no dmg events: 200 fps
+- ThunderBlink, ChainLightning, BladeDance, AI no dmg events: 130 fps (20 min)
+- ThunderBlink, AI no dmg events: 170 fps (5 min)
+- ChainLightning, BladeDance, AI no dmg events: 55 fps (1 hour game)

@@ -1,5 +1,6 @@
-import { locX, locY } from 'lib/location';
+import { Loc } from 'lib/location';
 import { setTimeout } from 'lib/trigger';
+import { Unit } from 'w3ts';
 
 interface Point { x: number, y: number }
 
@@ -83,18 +84,18 @@ export function isLocked() {
   return lock;
 }
 
-export async function findBestCircleCoverMostUnits(units: unit[], radius: number) {
+export async function findBestCircleCoverMostUnits(units: Unit[], radius: number) {
   return findBestCircle(
-    units.map((u) => GetUnitX(u)),
-    units.map((u) => GetUnitY(u)),
+    units.map((u) => u.x),
+    units.map((u) => u.y),
     radius,
   );
 }
 
-export async function findBestCircleCoverMostLocations(locs: location[], radius: number) {
+export async function findBestCircleCoverMostLocations(locs: Loc[], radius: number) {
   return findBestCircle(
-    locs.map((l) => locX(l)),
-    locs.map((l) => locY(l)),
+    locs.map((l) => l.x),
+    locs.map((l) => l.y),
     radius,
   );
 }

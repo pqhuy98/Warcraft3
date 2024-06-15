@@ -1,8 +1,8 @@
 [Misc]
 AgiDefenseBonus=0.14
 AllowMultiBounce=1
-BoneDecayTime=
-DecayTime=
+BoneDecayTime=88.0
+DecayTime=2.0
 FoodCeiling=150
 GoldMineMaxGold=1000000000
 GuardReturnTime=10000.0

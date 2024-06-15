@@ -921,3 +921,219 @@ STRING 183
 Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
 }
 
+STRING 184
+// Abilities: A007 (Army of the Dead), Name (Name)
+{
+Army of the Dead
+}
+
+STRING 185
+// Abilities: A007 (Army of the Dead), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 186
+// Abilities: A007 (Army of the Dead), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 187
+// Abilities: A007 (Army of the Dead), Researchtip (Tooltip - Learn)
+{
+Learn Army of the Dead
+}
+
+STRING 188
+// Abilities: A007 (Army of the Dead), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King channels dark necromantic power to raise nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for a certain duration before returning to their graves.
+}
+
+STRING 189
+// Abilities: A007 (Army of the Dead), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King channels dark necromantic power to raise nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for a certain duration before returning to their graves.
+}
+
+STRING 190
+// Abilities: A007 (Army of the Dead), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King channels dark necromantic power to raise nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for a certain duration before returning to their graves.
+}
+
+STRING 194
+// Abilities: A007 (Army of the Dead), Researchubertip (Tooltip - Learn - Extended)
+{
+The Lich King channels dark necromantic power to raise nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for a certain duration before returning to their graves.
+}
+
+STRING 195
+// Abilities: A008 (Wrath of the Lich King), Name (Name)
+{
+Wrath of the Lich King
+}
+
+STRING 196
+// Buffs/Effects: B000 (Frozen), EditorName (Name (Editor Only))
+{
+Frozen
+}
+
+STRING 197
+// Buffs/Effects: B000 (Frozen), Buffubertip (Tooltip - Extended)
+{
+This unit is frozen; it cannot move, attack or cast spells.
+}
+
+STRING 198
+// Buffs/Effects: B000 (Frozen), Bufftip (Tooltip)
+{
+Frozen
+}
+
+STRING 199
+// Abilities: A00A (Wrath of the Lich King), Name (Name)
+{
+Wrath of the Lich King
+}
+
+STRING 203
+// Abilities: A008 (Wrath of the Lich King), Researchubertip (Tooltip - Learn - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
+}
+
+STRING 204
+// Abilities: A008 (Wrath of the Lich King), Researchtip (Tooltip - Learn)
+{
+Learn Wrath of the Lich King - [|cffffcc00Level %d|r].
+}
+
+STRING 206
+// Abilities: A00A (Wrath of the Lich King), Hotkey (Hotkey - Normal)
+{
+D
+}
+
+STRING 207
+// Abilities: A00A (Wrath of the Lich King), Researchhotkey (Hotkey - Learn)
+{
+D
+}
+
+STRING 208
+// Abilities: A00A (Wrath of the Lich King), Researchtip (Tooltip - Learn)
+{
+Learn Wrath of the Lich King - [|cffffcc00Level %d|r].
+}
+
+STRING 209
+// Abilities: A00A (Wrath of the Lich King), Researchubertip (Tooltip - Learn - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
+}
+
+STRING 211
+// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
+}
+
+STRING 214
+// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
+}
+
+STRING 215
+// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
+}
+
+STRING 216
+// Abilities: A008 (Wrath of the Lich King), EditorSuffix (Editor Suffix)
+{
+(Stun)
+}
+
+STRING 217
+// Abilities: A00D (Wrath of the Lich King), Name (Name)
+{
+Wrath of the Lich King
+}
+
+STRING 218
+// Abilities: A00D (Wrath of the Lich King), EditorSuffix (Editor Suffix)
+{
+(Blizzard)
+}
+
+STRING 219
+// Abilities: A007 (Army of the Dead), Tip (Tooltip - Normal)
+{
+Army of the Dead - [|cffffcc00Level 1|r]
+}
+
+STRING 220
+// Abilities: A007 (Army of the Dead), Tip (Tooltip - Normal)
+{
+Army of the Dead - [|cffffcc00Level 2|r]
+}
+
+STRING 221
+// Abilities: A007 (Army of the Dead), Tip (Tooltip - Normal)
+{
+Army of the Dead - [|cffffcc00Level 3|r]
+}
+
+STRING 222
+// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level %d|r]
+}
+
+STRING 223
+// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level %d|r]
+}
+
+STRING 224
+// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level %d|r]
+}
+
+STRING 225
+// Buffs/Effects: B001 (Blizzard), EditorName (Name (Editor Only))
+{
+Blizzard
+}
+
+STRING 226
+// Buffs/Effects: B001 (Blizzard), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 227
+// Buffs/Effects: B002 (Blizzard (Caster)), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 228
+// Buffs/Effects: B003 (Impale), EditorName (Name (Editor Only))
+{
+Impale
+}
+
+STRING 229
+// Buffs/Effects: B003 (Impale), EditorSuffix (Editor Suffix)
+{
+(Sandquake)
+}
+

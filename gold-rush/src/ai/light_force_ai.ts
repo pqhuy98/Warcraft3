@@ -1,4 +1,4 @@
-import { getUnitLocation } from 'lib/location';
+import { getUnitXY } from 'lib/location';
 import {
   Group,
   Unit,
@@ -17,8 +17,7 @@ export class LightForceAi extends BaseAi {
 
   constructor(hero: Unit) {
     super(hero);
-    const loc = getUnitLocation(Unit.fromHandle(gg_unit_nfoh_0003));
+    const loc = getUnitXY(Unit.fromHandle(gg_unit_nfoh_0003));
     this.observer.setHomeLocation(loc);
-    RemoveLocation(loc);
   }
 }

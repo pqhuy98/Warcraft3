@@ -50,6 +50,11 @@
     "luaLibImport": "require",
     "noImplicitSelf": true,
     "luaBundle": "dist/tstl_output.lua",
-    "luaBundleEntry": "./src/main.ts"
+    "luaBundleEntry": "./src/main.ts",
+    "luaPlugins": [
+      {
+        "name": "tstl-doender-plugin"
+      }
+    ]
   }
 }

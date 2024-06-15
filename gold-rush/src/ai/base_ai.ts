@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-empty-function */
-import { getUnitLocation } from 'lib/location';
+import { DistanceBetweenLocs, getUnitXY } from 'lib/location';
 import { log } from 'lib/log';
 import { findBestCircleCoverMostLocations, isLocked } from 'lib/maths/circle_cover_most_points';
 import { isComputer } from 'lib/player';
@@ -15,12 +15,12 @@ import { BaseAiObserver } from './base_ai_observer';
 
 const debug = false;
 
-interface Config {
+export interface Config {
   supportAllyHeroes: boolean
   defendAllyBases: boolean
   siegeEnemyHeroes: boolean
   siegeEnemyBases: boolean
-  allowRetreatToAllies: boolean
+  retreatWhenAlone: boolean
 }
 
 const defaultConfig: Config = {
@@ -28,7 +28,7 @@ const defaultConfig: Config = {
   defendAllyBases: true,
   siegeEnemyHeroes: true,
   siegeEnemyBases: true,
-  allowRetreatToAllies: true,
+  retreatWhenAlone: true,
 };
 
 export class BaseAi {
@@ -36,7 +36,9 @@ export class BaseAi {
 
   config: Config;
 
-  constructor(protected hero: Unit, protected observer = new BaseAiObserver(hero), config?: Config) {
+  dbShouldRetreatToAllies = false;
+
+  constructor(protected hero: Unit, protected observer = new BaseAiObserver(hero), config?: Partial<Config>) {
     if (!isComputer(hero.owner.handle)) {
       return;
     }
@@ -54,6 +56,14 @@ export class BaseAi {
       setIntervalIndefinite(GetRandomReal(0.1, 0.2), () => this.thinkFast());
       setIntervalIndefinite(GetRandomReal(1.8, 2.2), () => this.thinkSlow());
     });
+
+    if (this.hero.handle === gg_unit_H001_0320) {
+      setIntervalIndefinite(1, () => {
+        const { x, y } = this.observer.getDestination();
+        log(this.hero.currentOrder, OrderId2String(this.hero.currentOrder), x, y, 'retreat', this.dbShouldRetreatToAllies ? 'true' : 'false');
+        PingMinimapEx(x, y, 1, 255, 255, 255, false);
+      });
+    }
   }
 
   isPaused() {
@@ -112,7 +122,8 @@ export class BaseAi {
   protected tryRetreat() {
     debug && log('Hero is retreating to home.');
     if (this.observer.getDistanceToHome() > 500) {
-      this.hero.issuePointOrder(OrderId.Move, this.observer.getHomePoint());
+      const homeLoc = this.observer.getHome();
+      this.hero.issueOrderAt(OrderId.Move, homeLoc.x, homeLoc.y);
     }
   }
 
@@ -129,7 +140,7 @@ export class BaseAi {
     const nearbyAllyHeroesCount = this.observer.getNearbyAllyHeroes().length;
     const allyHeroes = this.config.supportAllyHeroes ? this.observer.getGlobalAllyHeroes() : [];
 
-    const shouldRetreatToAllies = nearbyAllyHeroesCount === 0 && allyHeroes.length > 0 && this.config.allowRetreatToAllies;
+    const shouldRetreatToAllies = nearbyAllyHeroesCount === 0 && allyHeroes.length > 0 && this.config.retreatWhenAlone;
 
     const enemiesHeroes = !shouldRetreatToAllies && this.config.siegeEnemyHeroes ? this.observer.getGlobalEnemyHeroes() : [];
 
@@ -139,7 +150,7 @@ export class BaseAi {
       ...enemiesTownHalls,
       ...allyHeroes,
       ...enemiesHeroes,
-    ].map((u) => getUnitLocation(u));
+    ].map((u) => getUnitXY(u));
 
     const locs = [
       ...interestingUnitsLocs,
@@ -151,13 +162,12 @@ export class BaseAi {
     shuffleArray(locs);
 
     if (locs.length === 0) {
-      locs.push(Location(this.observer.getHomePoint().x, this.observer.getHomePoint().y));
+      locs.push(this.observer.getHome());
     }
 
     debug && log('findBestCircleCoverMostLocations with', locs.length, 'locations');
 
     const result = await findBestCircleCoverMostLocations(locs, this.observer.getAcquisitionRange());
-    interestingUnitsLocs.forEach((l) => RemoveLocation(l));
 
     if (!result) {
       return;
@@ -170,17 +180,14 @@ export class BaseAi {
 
     debug && log('found new target, issueing order at', x, y, ', should retreat', shouldRetreatToAllies ? 'true' : 'false');
 
-    this.observer.setDestination(Location(x, y));
+    this.observer.setDestination({ x, y });
 
-    if (DistanceBetweenPoints(this.observer.getHeroLocation(), this.observer.getDestination()) > this.observer.getAcquisitionRange()) {
-      this.hero.issuePointOrder(shouldRetreatToAllies ? OrderId.Move : OrderId.Attack, this.observer.getDestinationPoint());
-    }
-    if (this.hero.handle === gg_unit_U000_0322) {
-      log('sand king', this.observer.getCurrentOrder(), OrderId2String(this.observer.getCurrentOrder()));
-      PingMinimapEx(x, y, 5, 0, 0, 255, false);
-    }
+    this.dbShouldRetreatToAllies = shouldRetreatToAllies;
 
-    // no need to RemoveLocation(loc)
+    if (DistanceBetweenLocs(this.observer.getHeroLocation(), this.observer.getDestination()) > this.observer.getAcquisitionRange()) {
+      const destinationLoc = this.observer.getDestination();
+      this.hero.issueOrderAt(shouldRetreatToAllies ? OrderId.Move : OrderId.Attack, destinationLoc.x, destinationLoc.y);
+    }
   }
 
   protected reviveHeroWhenDeath() {
@@ -188,9 +195,9 @@ export class BaseAi {
       t.registerUnitEvent(this.hero, EVENT_UNIT_DEATH);
       t.addAction(() => {
         setTimeout(10, () => {
-          const point = this.observer.getHomePoint();
+          const point = this.observer.getHome();
           PingMinimapEx(point.x, point.y, 5, 255, 255, 255, false);
-          this.hero.reviveAtPoint(point, true);
+          this.hero.revive(point.x, point.y, true);
         });
       });
     });

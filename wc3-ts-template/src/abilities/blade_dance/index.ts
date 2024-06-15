@@ -164,7 +164,8 @@ export default class BladeDance {
 
   findNextTarget(): unit {
     const casterLoc = getUnitLocation(this.caster);
-    const candidates = GetUnitsInRangeOfLocMatching(500, casterLoc, Condition(() => {
+    let cond: conditionfunc;
+    const candidates = GetUnitsInRangeOfLocMatching(500, casterLoc, cond = Condition(() => {
       const matchingUnit = Group.getFilterUnit();
       return (
         matchingUnit.isAlive()
@@ -174,6 +175,7 @@ export default class BladeDance {
           && !matchingUnit.isUnitType(UNIT_TYPE_ETHEREAL)
       );
     }));
+    DestroyBoolExpr(cond);
 
     const result = GroupPickRandomUnit(candidates);
 

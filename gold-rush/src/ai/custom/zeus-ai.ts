@@ -1,5 +1,5 @@
 import BladeDance from 'abilities/blade_dance/blade_dance';
-import { EFFECT_RADIUS, targetMatching } from 'abilities/thunder_blink/thunder_blink';
+import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
 import { LightForceAi } from 'ai/light_force_ai';
 import { ABILITY_ID_THUNDER_BLINK } from 'lib/constants';
 import { findBestCircleCoverMostUnits } from 'lib/maths/circle_cover_most_points';
@@ -60,7 +60,8 @@ export class ZeusAi extends LightForceAi {
 
     if (currentState === 'retreat') {
       if (observer.getDistanceToHome() > maxRange) {
-        this.hero.issuePointOrder(OrderId.Blink, observer.getHomePoint());
+        const homeLoc = observer.getHome();
+        this.hero.issueOrderAt(OrderId.Blink, homeLoc.x, homeLoc.y);
       }
       return;
     }
@@ -68,12 +69,13 @@ export class ZeusAi extends LightForceAi {
     if (currentState === 'attack') {
       if (observer.getCurrentOrder() === OrderId.Move) {
         if (observer.getDistanceToDestination() > maxRange) {
-          this.hero.issuePointOrder(OrderId.Blink, observer.getDestinationPoint());
+          const destinationLoc = observer.getDestination();
+          this.hero.issueOrderAt(OrderId.Blink, destinationLoc.x, destinationLoc.y);
         }
       } else {
-        const nearbyEnemies = observer.getUnitsInRangeMatching(maxRange, (u) => targetMatching(this.hero, u));
+        const nearbyEnemies = observer.getUnitsInRangeMatching(maxRange, (u) => ThunderBlink.Data.targetMatching(this.hero, u));
         if (nearbyEnemies.length > 0) {
-          const targetLoc = await findBestCircleCoverMostUnits(nearbyEnemies, EFFECT_RADIUS);
+          const targetLoc = await findBestCircleCoverMostUnits(nearbyEnemies, ThunderBlink.Data.EFFECT_RADIUS);
           this.hero.issueOrderAt(OrderId.Blink, targetLoc.x, targetLoc.y);
         }
       }

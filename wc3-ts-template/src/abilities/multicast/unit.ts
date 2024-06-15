@@ -28,12 +28,14 @@ export class MulticastUnit {
         const loc = getUnitLocation(target);
 
         let cnt = 0;
-        const nearby = GetUnitsInRangeOfLocMatching(Math.min(300, castRange), loc, Condition(() => {
+        let cond: conditionfunc;
+        const nearby = GetUnitsInRangeOfLocMatching(Math.min(300, castRange), loc, cond = Condition(() => {
           const u = Unit.fromFilter();
           return u.isAlive()
             && u.handle !== caster.handle
             && u.handle !== target.handle && ((++cnt) <= REPEAT_CAST_MAX);
         }));
+        DestroyBoolExpr(cond);
 
         const dummy = new Unit(caster.owner, UNIT_ID_DUMMY, caster.x, caster.y, 0);
         dummy.applyTimedLife(BUFF_ID_GENERIC, 0.2);

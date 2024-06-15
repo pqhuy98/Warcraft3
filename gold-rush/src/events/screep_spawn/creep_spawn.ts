@@ -1,9 +1,9 @@
-import { getUnitLocation } from 'lib/location';
+import { AngleBetweenLocs, getUnitXY } from 'lib/location';
 import {
   UNIT_Ghoul, UNIT_SkeletalOrc, UNIT_SkeletonWarrior, UNIT_Zombie,
 } from 'lib/resources/war3-units';
 import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
-import { enumUnitGroupWithDelay, unitPolarProjection } from 'lib/unit';
+import { enumUnitsWithDelay, getUnitsFromGroup, unitPolarProjection } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import {
   Group, Unit,
@@ -47,7 +47,7 @@ export class CreepSpawn {
     buildTrigger((t) => {
       t.registerUnitEvent(this.target, EVENT_UNIT_DEATH);
       t.addAction(() => {
-        enumUnitGroupWithDelay(this.spawns.handle, (u) => KillUnit(u), 0.2);
+        enumUnitsWithDelay(getUnitsFromGroup(this.spawns.handle), (u) => u.kill(), 0.2);
       });
     });
   }
@@ -57,23 +57,20 @@ export class CreepSpawn {
 
     const unitId = FourCC(pickRandom(spawnables).code);
 
-    const targetLoc = getUnitLocation(this.target);
+    const targetLoc = getUnitXY(this.target);
     const spawnLoc = unitPolarProjection(this.target, 600, GetRandomDirectionDeg());
 
-    const spawn = Unit.fromHandle(CreateUnitAtLoc(
+    const spawn = Unit.fromHandle(CreateUnit(
       Player(PLAYER_NEUTRAL_AGGRESSIVE),
       unitId,
-      spawnLoc,
-      AngleBetweenPoints(spawnLoc, targetLoc),
+      spawnLoc.x,
+      spawnLoc.y,
+      AngleBetweenLocs(spawnLoc, targetLoc),
     ));
     this.spawns.addUnit(spawn);
     spawn.setPathing(false);
     RemoveGuardPosition(spawn.handle);
 
     spawn.issueTargetOrder(OrderId.Attack, this.target);
-    // spawn.color = PLAYER_COLOR_RED;
-
-    RemoveLocation(targetLoc);
-    RemoveLocation(spawnLoc);
   }
 }

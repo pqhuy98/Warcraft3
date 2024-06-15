@@ -94,5 +94,8 @@ export function trackElapsedGameTime() {
 }
 
 export function getTimeS() {
-  return infiniteTimer.elapsed;
+  if (infiniteTimer) {
+    return infiniteTimer.elapsed;
+  }
+  return 0;
 }

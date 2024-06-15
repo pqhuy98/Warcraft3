@@ -1,12 +1,17 @@
+import { DamageObserver } from 'lib/data_structures/damage_observer';
 import { TimestampedQueue } from 'lib/data_structures/timestamped_queue';
-import { getUnitLocation, locX, locY } from 'lib/location';
-import { buildTrigger, getTimeS, setIntervalIndefinite } from 'lib/trigger';
+import {
+  DistanceBetweenLocs,
+  getUnitXY, Loc,
+} from 'lib/location';
+import { getTimeS, setIntervalIndefinite } from 'lib/trigger';
 import {
   getUnitsFromGroup,
+  GetUnitsInRangeOfXYMatching,
   isBuilding,
 } from 'lib/unit';
 import {
-  MapPlayer, Point, Unit,
+  MapPlayer, Unit,
 } from 'w3ts';
 
 type State = 'retreat' | 'attack'
@@ -14,87 +19,82 @@ type State = 'retreat' | 'attack'
 type InterestingEventType = 'ally_hero_attack' | 'ally_building_attacked'
 
 interface InterestingEvent {
-  location: location
+  location: Loc
   type: InterestingEventType
 }
 
 export class BaseAiObserver {
   private state: State = 'attack';
 
-  private homeLoc: location;
+  private homeLoc: Loc;
 
-  private owner: player;
+  private owner: MapPlayer;
 
-  private allies: player[] = [];
+  private allies: MapPlayer[] = [];
 
-  private enemies: player[] = [];
+  private enemies: MapPlayer[] = [];
 
   private recentInterestingEvents: TimestampedQueue<InterestingEvent> = new TimestampedQueue({
     itemExpireS: 10,
-    cleanUp: (event) => RemoveLocation(event.location),
   });
 
-  private destination: location;
+  private destination: Loc;
 
-  private heroLoc: location;
+  private heroLoc: Loc;
 
   constructor(protected readonly hero: Unit) {
-    this.owner = this.hero.getOwner().handle;
-    this.homeLoc = GetPlayerStartLocationLoc(this.owner);
+    this.owner = this.hero.getOwner();
+    this.homeLoc = {
+      x: this.owner.startLocationX,
+      y: this.owner.startLocationY,
+    };
+    this.destination = {
+      x: this.hero.x,
+      y: this.hero.y,
+    };
 
     for (let playerId = 0; playerId < 24; playerId++) {
-      const player = Player(playerId);
+      const player = MapPlayer.fromIndex(playerId);
       if (player === this.owner) continue;
-      if (IsPlayerAlly(player, this.owner)) {
+      if (player.isPlayerAlly(this.owner)) {
         this.allies.push(player);
-      } else if (IsPlayerEnemy(player, this.owner)) {
+      } else if (player.isPlayerEnemy(this.owner)) {
         this.enemies.push(player);
       }
     }
 
-    buildTrigger((t) => {
-      this.allies.forEach((p) => {
-        t.registerPlayerUnitEvent(MapPlayer.fromHandle(p), EVENT_PLAYER_UNIT_DAMAGED, undefined);
-      });
-      t.addCondition(() => isBuilding(BlzGetEventDamageTarget()) && GetEventDamage() > 0);
-      t.addAction(() => {
+    false && DamageObserver.subscribeBuildingDamaged((victim) => {
+      if (victim.owner.isPlayerAlly(this.owner)) {
         this.recentInterestingEvents.push({
           timestamp: getTimeS(),
           value: {
-            location: getUnitLocation(Unit.fromHandle(GetEventDamageSource())),
+            location: getUnitXY(victim),
             type: 'ally_building_attacked',
           },
         });
-      });
+      }
     });
 
-    buildTrigger((t) => {
-      this.allies.forEach((p) => {
-        t.registerPlayerUnitEvent(MapPlayer.fromHandle(p), EVENT_PLAYER_UNIT_DAMAGING, undefined);
-      });
-      t.addCondition(() => Unit.fromHandle(GetEventDamageSource()).isHero() && GetEventDamageSource() !== this.hero.handle);
-      t.addAction(() => {
+    false && DamageObserver.subscribeHeroDamaging((_victim, attacker) => {
+      if (attacker.owner.isPlayerAlly(this.owner)) {
         this.recentInterestingEvents.push({
           timestamp: getTimeS(),
           value: {
-            location: getUnitLocation(Unit.fromHandle(BlzGetEventDamageTarget())),
+            location: getUnitXY(attacker),
             type: 'ally_hero_attack',
           },
         });
-      });
+      }
     });
 
     // Bookkeeping
     setIntervalIndefinite(0.5, () => {
-      if (this.heroLoc) {
-        RemoveLocation(this.heroLoc);
-      }
-      this.heroLoc = getUnitLocation(this.hero);
+      this.heroLoc = getUnitXY(this.hero);
     });
   }
 
-  setHomeLocation(loc: location) {
-    this.homeLoc = Location(locX(loc), locY(loc));
+  setHomeLocation(loc: Loc) {
+    this.homeLoc = loc;
   }
 
   getState() {
@@ -105,20 +105,12 @@ export class BaseAiObserver {
     this.state = state;
   }
 
-  getHomePoint() {
-    return Point.fromHandle(this.homeLoc);
-  }
-
-  getDestinationPoint() {
-    return Point.fromHandle(this.destination);
-  }
-
   getDistanceToHome() {
-    return DistanceBetweenPoints(this.heroLoc, this.homeLoc);
+    return DistanceBetweenLocs(this.heroLoc, this.homeLoc);
   }
 
   getDistanceToDestination() {
-    return DistanceBetweenPoints(this.heroLoc, this.destination);
+    return DistanceBetweenLocs(this.heroLoc, this.destination);
   }
 
   getCurrentOrder() {
@@ -130,17 +122,14 @@ export class BaseAiObserver {
   }
 
   getNearbyAllyHeroes() {
-    const nearbyAllyHeroes = GetUnitsInRangeOfLocMatching(this.getAcquisitionRange() + 500, this.heroLoc, Condition(() => {
+    return GetUnitsInRangeOfXYMatching(this.getAcquisitionRange() + 500, this.heroLoc, () => {
       const unit = Unit.fromFilter();
-      return unit.isAlly(MapPlayer.fromHandle(this.owner))
+      return unit.isAlly(this.owner)
         && unit.isHero()
         && unit.handle !== this.hero.handle
         && unit.isAlive()
-        && !unit.getField(UNIT_BF_IS_A_BUILDING);
-    }));
-    const result = getUnitsFromGroup(nearbyAllyHeroes);
-    DestroyGroup(nearbyAllyHeroes);
-    return result;
+        && !isBuilding(unit.handle);
+    });
   }
 
   getGlobalAllyHeroes() {
@@ -171,24 +160,22 @@ export class BaseAiObserver {
   }
 
   getUnitsInRangeMatching(range: number, filter: (u: Unit) => boolean) {
-    const nearbyEnemies = GetUnitsInRangeOfLocMatching(range, this.heroLoc, Condition(() => filter(Unit.fromFilter())));
-    const units = getUnitsFromGroup(nearbyEnemies);
-    DestroyGroup(nearbyEnemies);
-    return units;
+    return GetUnitsInRangeOfXYMatching(range, this.heroLoc, () => filter(Unit.fromFilter()));
   }
 
   getRecentInterestingEvents(limit?: number): InterestingEvent[] {
     return this.recentInterestingEvents.get(limit).map((item) => item.value);
   }
 
+  getHome() {
+    return this.homeLoc;
+  }
+
   getDestination() {
     return this.destination;
   }
 
-  setDestination(loc: location) {
-    if (this.destination) {
-      RemoveLocation(this.destination);
-    }
+  setDestination(loc: Loc) {
     this.destination = loc;
   }
 
@@ -197,24 +184,28 @@ export class BaseAiObserver {
   }
 }
 
-function getHeroesForPlayer(p: player) {
-  const group = GetUnitsOfPlayerMatching(p, Condition(() => {
+function getHeroesForPlayer(p: MapPlayer) {
+  let cond: conditionfunc;
+  const group = GetUnitsOfPlayerMatching(p.handle, cond = Condition(() => {
     const unit = Unit.fromFilter();
     return unit.isHero() && unit.isAlive();
   }));
+  DestroyBoolExpr(cond);
 
-  const units = getUnitsFromGroup(group).map((u) => Unit.fromHandle(u));
+  const units = getUnitsFromGroup(group);
   DestroyGroup(group);
   return units;
 }
 
-function getTownHallsForPlayer(p: player) {
-  const group = GetUnitsOfPlayerMatching(p, Condition(() => {
+function getTownHallsForPlayer(p: MapPlayer) {
+  let cond: conditionfunc;
+  const group = GetUnitsOfPlayerMatching(p.handle, cond = Condition(() => {
     const unit = Unit.fromFilter();
     return unit.isUnitType(UNIT_TYPE_TOWNHALL) && unit.isAlive();
   }));
+  DestroyBoolExpr(cond);
 
-  const units = getUnitsFromGroup(group).map((u) => Unit.fromHandle(u));
+  const units = getUnitsFromGroup(group);
   DestroyGroup(group);
   return units;
 }
