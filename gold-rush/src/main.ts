@@ -35,8 +35,8 @@ function tsMain() {
   ChainLightning.register(ABILITY_ID_CHAIN_LIGHTNING);
   BladeDance.register(ABILITY_ID_BLADE_DANCE);
   BladeDance.register(ABILITY_ID_DIVINE_FURY);
-  // Sandquake.register(ABILITY_ID_SANDQUAKE);
-  // WrathOfTheLichKing.register(ABILITY_ID_WRATH_OF_THE_LICH_KING);
+  Sandquake.register(ABILITY_ID_SANDQUAKE);
+  WrathOfTheLichKing.register(ABILITY_ID_WRATH_OF_THE_LICH_KING);
 
   // new CreepSpawn(Unit.fromHandle(gg_unit_H002_0191));
   new PeriodBuff(Unit.fromHandle(gg_unit_H002_0191));
