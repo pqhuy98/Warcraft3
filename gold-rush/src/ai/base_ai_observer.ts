@@ -128,7 +128,7 @@ export class BaseAiObserver {
         && unit.isHero()
         && unit.handle !== this.hero.handle
         && unit.isAlive()
-        && !isBuilding(unit.handle);
+        && !isBuilding(unit);
     });
   }
 

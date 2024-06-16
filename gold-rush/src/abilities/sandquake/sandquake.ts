@@ -1,7 +1,6 @@
 import {
   AngleBetweenLocs,
-  DistanceBetweenLocs,
-  fromLocation, getUnitXY, Loc,
+  DistanceBetweenLocs, fromTempLocation, getUnitXY, Loc,
   PolarProjection,
   tempLocation,
 } from 'lib/location';
@@ -12,6 +11,7 @@ import {
 import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
 import {
   createDummy, GetUnitsInRangeOfXYMatching, isBuilding,
+  isWard,
 } from 'lib/unit';
 import {
   Unit,
@@ -26,8 +26,8 @@ export default class Sandquake {
     RADIUS: 500,
     targetMatching: (caster: Unit, unit: Unit) => unit.isAlive()
       && unit.isEnemy(caster.getOwner())
-      && !isBuilding(unit.handle)
-      && (ConvertTargetFlag(unit.getField(UNIT_IF_TARGETED_AS) as number)) !== TARGET_FLAG_WARD,
+      && !isBuilding(unit)
+      && !isWard(unit),
   };
 
   static unitDestination = new Map<unit, Loc>();
@@ -42,40 +42,42 @@ export default class Sandquake {
           GetSpellAbilityId(),
           Unit.fromHandle(GetSpellAbilityUnit()),
           GetSpellTargetUnit(),
-          fromLocation(GetSpellTargetLoc()),
+          fromTempLocation(GetSpellTargetLoc()),
           GetUnitAbilityLevel(GetSpellAbilityUnit(), GetSpellAbilityId()),
         );
       });
     });
 
+    const allowedOrders = [
+      OrderId.Smart,
+      OrderId.Move,
+      OrderId.Attack,
+      OrderId.Aimove,
+      0,
+    ];
+
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER);
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER);
       t.addCondition(() => GetUnitAbilityLevel(GetTriggerUnit(), abilityId) > 0
-        && [
-          OrderId.Smart,
-          OrderId.Move,
-          OrderId.Attack,
-          OrderId.Aimove,
-          0,
-        ].includes(GetIssuedOrderId()));
+        && allowedOrders.includes(GetIssuedOrderId()));
       t.addAction(() => {
         const caster = Unit.fromEvent();
 
-        let loc = fromLocation(GetOrderPointLoc());
+        let locXY = fromTempLocation(GetOrderPointLoc());
         const targUnit = GetOrderTargetUnit();
-        if (targUnit && !loc) {
-          loc = getUnitXY(Unit.fromHandle(targUnit));
+        if (targUnit && !locXY) {
+          locXY = getUnitXY(Unit.fromHandle(targUnit));
         }
 
-        if (!loc) return;
+        if (!locXY) return;
 
         if (Sandquake.unitDestination.has(caster.handle)) {
-          Sandquake.unitDestination.set(caster.handle, loc);
+          Sandquake.unitDestination.set(caster.handle, locXY);
         } else {
           BlzUnitForceStopOrder(caster.handle, true);
           caster.endAbilityCooldown(abilityId);
-          caster.issueOrderAt(OrderId.Shockwave, loc.x, loc.y);
+          caster.issueOrderAt(OrderId.Shockwave, locXY.x, locXY.y);
         }
       });
     });
@@ -140,7 +142,7 @@ export default class Sandquake {
       }
 
       if (idx % 6 === 0) {
-        TerrainDeformationRandomBJ(0.5, tempLocation(newLoc), radius, -30, 30, 0.15);
+        TerrainDeformationRandomBJ(0.5, tempLocation(newLoc).handle, radius, -30, 30, 0.15);
         const effect = AddSpecialEffect(MODEL_EarthquakeTarget, newLoc.x, newLoc.y);
         BlzSetSpecialEffectYaw(effect, Math.random() * 2 * Math.PI);
         // setTimeout(0.95, () => DestroyEffect(effect));
@@ -154,10 +156,10 @@ export default class Sandquake {
 
         for (const enumUnit of nearbyEnemies) {
           if (affectedEnemies.has(enumUnit.handle)) return;
-          const dummy = createDummy(caster.owner, enumUnit.x, enumUnit.y, caster, 2);
+          const dummy = createDummy('Sandquake-impale', caster.owner, enumUnit.x, enumUnit.y, caster, 1);
           dummy.addAbility(SUPPORT_ABILITY_ID_SANDQUAKE_IMPALE);
           dummy.setAbilityLevel(SUPPORT_ABILITY_ID_SANDQUAKE_IMPALE, abilityLevel);
-          dummy.issueTargetOrder(OrderId2String(OrderId.Impale), enumUnit);
+          dummy.issueTargetOrder(OrderId.Impale, enumUnit);
         }
 
         affectedEnemies.clear();

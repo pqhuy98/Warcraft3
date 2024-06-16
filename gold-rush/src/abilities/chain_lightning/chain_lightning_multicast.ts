@@ -10,21 +10,21 @@ import {
 } from 'w3ts';
 
 export class ChainLightningMulticast {
-  private static dummies: group;
+  private static dummies: Group;
 
   static Data = {
     targetMatching: (caster: Unit, originalTargeT: Unit, matchingUnit: Unit) => matchingUnit.isAlive()
       && matchingUnit.isEnemy(caster.owner)
       && matchingUnit.handle !== originalTargeT.handle
-      && !isBuilding(matchingUnit.handle),
+      && !isBuilding(matchingUnit),
   };
 
   static register(abilityId: number) {
-    ChainLightningMulticast.dummies = CreateGroup();
+    ChainLightningMulticast.dummies = Group.create();
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       t.addCondition(() => GetSpellAbilityId() === abilityId
-        && !IsUnitInGroup(GetSpellAbilityUnit(), ChainLightningMulticast.dummies));
+        && !ChainLightningMulticast.dummies.hasUnit(Unit.fromHandle(GetSpellAbilityUnit())));
       t.addAction(() => {
         new ChainLightningMulticast(
           abilityId,
@@ -36,9 +36,9 @@ export class ChainLightningMulticast {
     });
 
     setIntervalIndefinite(1, () => {
-      Group.fromHandle(ChainLightningMulticast.dummies).for(() => {
+      ChainLightningMulticast.dummies.for(() => {
         if (!Unit.fromEnum().isAlive()) {
-          GroupRemoveUnit(ChainLightningMulticast.dummies, GetEnumUnit());
+          ChainLightningMulticast.dummies.removeUnit(Unit.fromEnum());
         }
       });
     });
@@ -51,7 +51,7 @@ export class ChainLightningMulticast {
     abilityLevel: number,
   ) {
     const targetLoc = getUnitXY(target);
-    const order = OrderId2String(GetUnitCurrentOrder(caster.handle));
+    const order = caster.currentOrder;
 
     const nearby = GetUnitsInRangeOfXYMatching(
       500,
@@ -61,16 +61,16 @@ export class ChainLightningMulticast {
 
     const durationPerStep = Math.min(0.1, 1.0 / nearby.length);
     enumUnitsWithDelay(nearby, (enumUnit) => {
-      const dummy = createDummy(caster.owner, caster.x, caster.y, caster, 1);
-      GroupAddUnit(ChainLightningMulticast.dummies, dummy.handle);
+      const dummy = createDummy('ChainLightning-multicast', caster.owner, caster.x, caster.y, caster, 1);
+      ChainLightningMulticast.dummies.addUnit(dummy);
       dummy.addAbility(abilityId);
       dummy.setAbilityLevel(abilityId, abilityLevel);
-      tieUnitToUnit(dummy.handle, caster.handle);
       dummy.issueTargetOrder(order, enumUnit);
+      tieUnitToUnit(dummy.handle, caster.handle);
     }, durationPerStep);
   }
 
   public static blackListCaster(caster: Unit) {
-    GroupAddUnit(ChainLightningMulticast.dummies, caster.handle);
+    ChainLightningMulticast.dummies.addUnit(caster);
   }
 }

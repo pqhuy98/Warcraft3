@@ -3,7 +3,7 @@ import {
 } from 'lib/location';
 import { buildTrigger } from 'lib/trigger';
 import {
-  angleBetweenUnits, getAttackRange, GetUnitsInRangeOfXYMatching, setAttackRange,
+  angleBetweenUnits, getAttackRange, GetUnitsInRangeOfXYMatching, isWard, setAttackRange,
 } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import {
@@ -52,9 +52,11 @@ export default class BladeDance {
 
   private onTargetDeath: Trigger;
 
-  private timer: Timer;
+  private timerAttack: Timer;
 
-  private timerIdle: Timer;
+  private timerIdle1: Timer;
+
+  private timerIdle2: Timer;
 
   private isCasterMeleeUnit: boolean;
 
@@ -103,22 +105,25 @@ export default class BladeDance {
 
     // watch for when target is dead
     this.onTargetDeath = buildTrigger((t) => {
-      t.addAction(() => this.handleTargetDeath(GetDyingUnit()));
+      t.addAction(() => this.handleTargetUnattackable());
     });
 
     this.setTarget(target);
 
     // continuously monitor
-    this.timerIdle = new Timer();
-    this.timerIdle.start(1, false, () => this.endSpell());
+    this.timerIdle1 = Timer.create();
+    this.timerIdle2 = Timer.create();
+    // these timer will be extended each attack, so if no attack happens then they will run.
+    this.timerIdle1.start(0.75, false, () => this.handleTargetUnattackable());
+    this.timerIdle2.start(1.5, false, () => this.endSpell());
 
-    this.timer = new Timer();
-    this.timer.start(0.1, true, () => {
+    this.timerAttack = Timer.create();
+    this.timerAttack.start(0.1, true, () => {
+      if (this.target.invulnerable || !this.caster.isAlive()) {
+        this.handleTargetUnattackable();
+      }
       this.caster.setFacingEx(angleBetweenUnits(this.caster, this.target));
       this.caster.issueTargetOrder(OrderId.Attack, this.target);
-      if (this.target.invulnerable || !this.caster.isAlive()) {
-        this.endSpell();
-      }
     });
 
     BladeDance.unitsInCast.addUnit(this.caster);
@@ -131,9 +136,13 @@ export default class BladeDance {
   }
 
   onEachAttack() {
-    this.timerIdle.destroy();
-    this.timerIdle = Timer.create();
-    this.timerIdle.start(2, false, () => this.endSpell());
+    this.timerIdle1.destroy();
+    this.timerIdle2.destroy();
+    this.timerIdle1 = Timer.create();
+    this.timerIdle2 = Timer.create();
+    // these timer will be extended each attack, so if no attack happens then they will run.
+    this.timerIdle1.start(0.75, false, () => this.handleTargetUnattackable());
+    this.timerIdle2.start(1.5, false, () => this.endSpell());
 
     const effect = AddSpellEffectTargetById(this.abilityId, EFFECT_TYPE_TARGET, this.target.handle, 'chest');
     BlzSetSpecialEffectScale(effect, 1);
@@ -163,8 +172,9 @@ export default class BladeDance {
   endSpell() {
     this.onAttack.destroy();
     this.onTargetDeath.destroy();
-    this.timer.destroy();
-    this.timerIdle.destroy();
+    this.timerAttack.destroy();
+    this.timerIdle1.destroy();
+    this.timerIdle2.destroy();
 
     // restore to normal attack speed
     for (let weaponIndex = 0; weaponIndex < 2; weaponIndex++) {
@@ -178,10 +188,10 @@ export default class BladeDance {
     DestroyEffect(this.weaponEffect);
   }
 
-  handleTargetDeath(dyingUnit: unit) {
-    const dyingLoc = getUnitXY(Unit.fromHandle(dyingUnit));
+  handleTargetUnattackable() {
+    const targetLoc = getUnitXY(this.target);
 
-    const nextTarget = this.findNextTarget(dyingLoc);
+    const nextTarget = this.findNextTarget(targetLoc);
     if (nextTarget !== null) {
       this.setTarget(nextTarget);
     } else {
@@ -199,7 +209,7 @@ export default class BladeDance {
         && matchingUnit.handle !== this.target.handle
         && !matchingUnit.isUnitType(UNIT_TYPE_STRUCTURE)
         && !matchingUnit.isUnitType(UNIT_TYPE_ETHEREAL)
-        && (ConvertTargetFlag(matchingUnit.getField(UNIT_IF_TARGETED_AS) as number)) !== TARGET_FLAG_WARD
+        && !isWard(matchingUnit)
       );
     });
 

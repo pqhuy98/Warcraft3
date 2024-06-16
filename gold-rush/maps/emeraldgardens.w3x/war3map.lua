@@ -1677,70 +1677,6 @@ local life
 gg_unit_nfoh_0003 = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -192.0, -448.0, 270.000, FourCC("nfoh"))
 end
 
-function CreateUnitsForPlayer0()
-local p = Player(0)
-local u
-local unitID
-local t
-local life
-
-gg_unit_H002_0191 = BlzCreateUnitWithSkin(p, FourCC("H002"), 162.3, -480.9, 226.895, FourCC("H002"))
-SetHeroLevel(gg_unit_H002_0191, 24, false)
-SetUnitState(gg_unit_H002_0191, UNIT_STATE_MANA, 1410)
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-IssueImmediateOrder(gg_unit_H002_0191, "")
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-IssueImmediateOrder(gg_unit_H002_0191, "")
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A000"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A000"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A000"))
-IssueImmediateOrder(gg_unit_H002_0191, "")
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
-IssueImmediateOrder(gg_unit_H002_0191, "")
-gg_unit_Osam_0326 = BlzCreateUnitWithSkin(p, FourCC("Osam"), -529.6, -506.2, -53.148, FourCC("Osam"))
-SetHeroLevel(gg_unit_Osam_0326, 16, false)
-SetUnitState(gg_unit_Osam_0326, UNIT_STATE_MANA, 705)
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOwk"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOwk"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOwk"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOmi"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOmi"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOmi"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOcr"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOcr"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOcr"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("A000"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("A000"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("A000"))
-IssueImmediateOrder(gg_unit_Osam_0326, "")
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOww"))
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("fwss"), 0)
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("klmm"), 1)
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("bfhr"), 2)
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("arsh"), 3)
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("shdt"), 4)
-end
-
 function CreateBuildingsForPlayer1()
 local p = Player(1)
 local u
@@ -1850,6 +1786,48 @@ u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 576.0, -2368.0, 270.000, FourCC("hh
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 448.0, -2368.0, 270.000, FourCC("hhou"))
 end
 
+function CreateUnitsForPlayer2()
+local p = Player(2)
+local u
+local unitID
+local t
+local life
+
+gg_unit_H002_0191 = BlzCreateUnitWithSkin(p, FourCC("H002"), 247.8, -444.8, 226.900, FourCC("H002"))
+SetHeroLevel(gg_unit_H002_0191, 24, false)
+SetUnitState(gg_unit_H002_0191, UNIT_STATE_MANA, 1410)
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
+IssueImmediateOrder(gg_unit_H002_0191, "")
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
+IssueImmediateOrder(gg_unit_H002_0191, "")
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A000"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A000"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A000"))
+IssueImmediateOrder(gg_unit_H002_0191, "")
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
+SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
+IssueImmediateOrder(gg_unit_H002_0191, "")
+end
+
 function CreateBuildingsForPlayer3()
 local p = Player(3)
 local u
@@ -1883,6 +1861,37 @@ u = BlzCreateUnitWithSkin(p, FourCC("otrb"), -1888.0, -2336.0, 270.000, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("otrb"), -544.0, -1632.0, 270.000, FourCC("otrb"))
 u = BlzCreateUnitWithSkin(p, FourCC("otrb"), -1888.0, -672.0, 270.000, FourCC("otrb"))
 u = BlzCreateUnitWithSkin(p, FourCC("ovln"), -896.0, -704.0, 270.000, FourCC("ovln"))
+end
+
+function CreateUnitsForPlayer3()
+local p = Player(3)
+local u
+local unitID
+local t
+local life
+
+gg_unit_Osam_0326 = BlzCreateUnitWithSkin(p, FourCC("Osam"), -529.6, -506.2, 306.850, FourCC("Osam"))
+SetHeroLevel(gg_unit_Osam_0326, 16, false)
+SetUnitState(gg_unit_Osam_0326, UNIT_STATE_MANA, 705)
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOwk"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOwk"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOwk"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOmi"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOmi"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOmi"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOcr"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOcr"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOcr"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("A000"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("A000"))
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("A000"))
+IssueImmediateOrder(gg_unit_Osam_0326, "")
+SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOww"))
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("fwss"), 0)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("klmm"), 1)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("bfhr"), 2)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("arsh"), 3)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("shdt"), 4)
 end
 
 function CreateBuildingsForPlayer4()
@@ -1972,7 +1981,7 @@ local unitID
 local t
 local life
 
-gg_unit_nfoh_0321 = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -6208.0, 5120.0, 270.000, FourCC("nfoh"))
+gg_unit_nfoh_0321 = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -7104.0, 3904.0, 270.000, FourCC("nfoh"))
 end
 
 function CreateUnitsForPlayer6()
@@ -1982,7 +1991,7 @@ local unitID
 local t
 local life
 
-gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -6071.6, 4604.8, 297.320, FourCC("H001"))
+gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -6863.4, 3621.3, -18.775, FourCC("H001"))
 SetHeroLevel(gg_unit_H001_0320, 20, false)
 SetUnitState(gg_unit_H001_0320, UNIT_STATE_MANA, 1650)
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))
@@ -2002,7 +2011,7 @@ SelectHeroSkill(gg_unit_H001_0320, FourCC("A00A"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("A00A"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("A00A"))
 IssueImmediateOrder(gg_unit_H001_0320, "")
-gg_unit_U000_0322 = BlzCreateUnitWithSkin(p, FourCC("U000"), -5836.9, 4720.4, 243.190, FourCC("U000"))
+gg_unit_U000_0322 = BlzCreateUnitWithSkin(p, FourCC("U000"), -6642.9, 3931.1, -88.115, FourCC("U000"))
 SetHeroLevel(gg_unit_U000_0322, 20, false)
 SetUnitState(gg_unit_U000_0322, UNIT_STATE_MANA, 660)
 SelectHeroSkill(gg_unit_U000_0322, FourCC("A006"))
@@ -2619,8 +2628,9 @@ CreateBuildingsForPlayer6()
 end
 
 function CreatePlayerUnits()
-CreateUnitsForPlayer0()
 CreateUnitsForPlayer1()
+CreateUnitsForPlayer2()
+CreateUnitsForPlayer3()
 CreateUnitsForPlayer4()
 CreateUnitsForPlayer5()
 CreateUnitsForPlayer6()

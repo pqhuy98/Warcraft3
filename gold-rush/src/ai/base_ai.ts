@@ -39,10 +39,6 @@ export class BaseAi {
   dbShouldRetreatToAllies = false;
 
   constructor(protected hero: Unit, protected observer = new BaseAiObserver(hero), config?: Partial<Config>) {
-    if (!isComputer(hero.owner.handle)) {
-      return;
-    }
-
     this.config = {
       ...defaultConfig,
       ...config,
@@ -51,6 +47,10 @@ export class BaseAi {
     this.hero.removeGuardPosition();
     this.reviveHeroWhenDeath();
     this.freezeStartingItems();
+
+    if (!isComputer(hero.owner.handle)) {
+      return;
+    }
 
     setTimeout(GetRandomReal(0, 10), () => {
       setIntervalIndefinite(GetRandomReal(0.1, 0.2), () => this.thinkFast());

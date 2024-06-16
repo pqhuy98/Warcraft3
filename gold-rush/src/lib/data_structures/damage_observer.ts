@@ -21,7 +21,7 @@ export class DamageObserver {
         t.registerPlayerUnitEvent(MapPlayer.fromEnum(), EVENT_PLAYER_UNIT_DAMAGED, undefined);
       });
 
-      t.addCondition(() => isBuilding(BlzGetEventDamageTarget()) && GetEventDamage() > 0);
+      t.addCondition(() => isBuilding(Unit.fromHandle(BlzGetEventDamageTarget())) && GetEventDamage() > 0);
       t.addAction(() => {
         for (const subscriber of this.subscribers) {
           subscriber(Unit.fromHandle(BlzGetEventDamageTarget()), Unit.fromHandle(GetEventDamageSource()), GetEventDamage());

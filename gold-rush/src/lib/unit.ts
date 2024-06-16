@@ -6,7 +6,7 @@ import {
   Group, MapPlayer, Timer, Unit,
 } from 'w3ts';
 
-import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
+import { getTimeS, setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
 export const ABILITY_ID_LOCUST = FourCC('Aloc');
 export const BUFF_ID_GENERIC = FourCC('BTLF');
@@ -101,6 +101,11 @@ export function daemonTieUnitToUnit() {
 }
 
 function relocateUnitToUnit(tiedunit: unit, targetunit: unit) {
+  if (tiedunit == null || targetunit == null) {
+    unitTies.delete(tiedunit);
+    return;
+  }
+
   const tiedUnit = Unit.fromHandle(tiedunit);
   const targetUnit = Unit.fromHandle(targetunit);
   if (!tiedUnit.isAlive()) {
@@ -124,18 +129,20 @@ export function enumUnitsWithDelay(
   units: Unit[],
   callback: (u: Unit, index: number) => void,
   durationPerStep: number,
-): Timer {
+) {
+  if (units.length === 0) {
+    return;
+  }
   const t = Timer.create();
   let index = 0;
   t.start(durationPerStep, true, () => {
-    callback(units[index], index);
-    index++;
-    if (index >= units.length) {
+    if (index >= units.length - 1) {
+      t.pause();
       t.destroy();
     }
+    index++;
+    callback(units[index - 1], index - 1);
   });
-
-  return t;
 }
 
 const damageSourceMaster = new Map<unit, unit>();
@@ -144,45 +151,40 @@ function setDamageSourceMaster(dummy: unit, master: unit) {
 }
 
 export function getDamageSourceMaster(dummy: unit) {
-  return damageSourceMaster.get(dummy) || dummy;
+  return damageSourceMaster.get(dummy) ?? dummy;
 }
 
 export function daemonDamageSourceMaster() {
   setIntervalIndefinite(5, () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for (const dummy of unitTies.keys()) {
-      const dummyUnit = Unit.fromHandle(dummy);
-      if (!dummyUnit.isAlive()) {
+    for (const dummy of damageSourceMaster.keys()) {
+      if (dummy == null || !IsUnitAliveBJ(dummy)) {
         damageSourceMaster.delete(dummy);
       }
     }
   });
 }
 
-export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
-  const dummy = new Unit(owner, UNIT_ID_DUMMY, locX, locY, facing);
-  setDamageSourceMaster(dummy.handle, master.handle);
+export function createDummy(usecase: string, owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
+  const dummy = Unit.create(owner, UNIT_ID_DUMMY, locX, locY, facing);
   dummy.applyTimedLife(BUFF_ID_GENERIC, timespan);
+  dummy.name = `${usecase} ${dummy.name} ${getTimeS()}`;
   dummy.addAbility(ABILITY_ID_LOCUST);
   dummy.invulnerable = true;
+  setDamageSourceMaster(dummy.handle, master.handle);
   return dummy;
 }
 
-export function isBuilding(unit: unit) {
-  return !!Unit.fromHandle(unit).isUnitType(UNIT_TYPE_STRUCTURE);
+export function isBuilding(unit: Unit) {
+  return !!unit.isUnitType(UNIT_TYPE_STRUCTURE);
 }
 
-export function isHero(unit: unit) {
-  return Unit.fromHandle(unit).isHero();
-}
-
-export function isWard(unit: unit) {
-  return ConvertTargetFlag(BlzGetUnitIntegerField(unit, UNIT_IF_TARGETED_AS)) === TARGET_FLAG_WARD;
+export function isWard(unit: Unit) {
+  return ConvertTargetFlag(unit.getField(UNIT_IF_TARGETED_AS) as number) === TARGET_FLAG_WARD;
 }
 
 export function GetUnitsInRangeOfXYMatching(range: number, loc: Loc, filter: () => boolean): Unit[] {
   let cond: conditionfunc;
-  const group = GetUnitsInRangeOfLocMatching(500, tempLocation(loc), cond = Condition(() => filter()));
+  const group = GetUnitsInRangeOfLocMatching(range, tempLocation(loc).handle, cond = Condition(() => filter()));
   DestroyCondition(cond);
   const units = getUnitsFromGroup(group);
   DestroyGroup(group);

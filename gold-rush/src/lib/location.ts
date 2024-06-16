@@ -1,4 +1,4 @@
-import { Unit } from 'w3ts';
+import { Group, Point, Unit } from 'w3ts';
 
 import { setIntervalIndefinite } from './trigger';
 
@@ -9,30 +9,36 @@ export interface Loc {
   y: number
 }
 
-let tempLocations: location[] = [];
-let nextTempLocations: location[] = [];
+type Destroyable = Point | Group
+let temps: Destroyable[] = [];
+let nextTemps: Destroyable[] = [];
+
+export function temp<T extends Destroyable>(obj: T): T {
+  nextTemps.push(obj);
+  return obj;
+}
 
 export function tempLocation(loc: Loc) {
-  const tempLoc = Location(loc.x, loc.y);
-  nextTempLocations.push(tempLoc);
-  return tempLoc;
+  return temp(Point.create(loc.x, loc.y));
 }
 
 export function daemonTempLocationCleanUp() {
-  setIntervalIndefinite(1, () => {
-    for (const loc of tempLocations) {
-      RemoveLocation(loc);
+  setIntervalIndefinite(0.1, () => {
+    for (const obj of temps) {
+      obj.destroy();
     }
-    tempLocations = nextTempLocations;
-    nextTempLocations = [];
+    temps = nextTemps;
+    nextTemps = [];
   });
 }
 
-export function fromLocation(loc: location): Loc | undefined {
+export function fromTempLocation(loc: location): Loc | undefined {
   if (loc == null) {
     return undefined;
   }
-  return { x: GetLocationX(loc), y: GetLocationY(loc) };
+  const point = Point.fromHandle(loc);
+  temp(point);
+  return { x: point.x, y: point.y };
 }
 
 export function getUnitXY(unit: Unit): Loc {

@@ -25,24 +25,19 @@ function setInterval(
 ): Timer {
   const timer = Timer.create();
   if (repeat !== undefined) {
-    let remain = repeat;
-    if (remain <= 0) {
+    let idx = 0;
+    if (repeat <= 0) {
       timer.destroy();
       return timer;
     }
-    callback(repeat - remain, repeat);
-    remain--;
-    if (remain <= 0) {
-      timer.destroy();
-      return timer;
-    }
+    callback(idx++, repeat);
     timer.start(intervalS, true, () => {
-      callback(repeat - remain, repeat);
-      remain--;
-      if (remain <= 0) {
+      if (idx >= repeat) {
         timer.pause();
         timer.destroy();
-        cleanup();
+        cleanup?.();
+      } else {
+        callback(idx++, repeat);
       }
     });
   } else {

@@ -35,8 +35,8 @@ function tsMain() {
   ChainLightning.register(ABILITY_ID_CHAIN_LIGHTNING);
   BladeDance.register(ABILITY_ID_BLADE_DANCE);
   BladeDance.register(ABILITY_ID_DIVINE_FURY);
-  Sandquake.register(ABILITY_ID_SANDQUAKE);
-  WrathOfTheLichKing.register(ABILITY_ID_WRATH_OF_THE_LICH_KING);
+  // Sandquake.register(ABILITY_ID_SANDQUAKE);
+  // WrathOfTheLichKing.register(ABILITY_ID_WRATH_OF_THE_LICH_KING);
 
   // new CreepSpawn(Unit.fromHandle(gg_unit_H002_0191));
   new PeriodBuff(Unit.fromHandle(gg_unit_H002_0191));
@@ -117,7 +117,7 @@ function configurePlayerColor() {
           const newScale = Math.max(1.4, Math.sqrt(boss.owner.handicap));
           growUnit(boss, newScale, 2, oldScale);
           oldScale = newScale;
-          boss.selectionScale = 1.8 + Math.sqrt(boss.owner.handicap);
+          boss.selectionScale = 1.6 + Math.sqrt(boss.owner.handicap);
         }
       });
     }
