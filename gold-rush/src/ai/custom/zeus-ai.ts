@@ -37,11 +37,11 @@ export class ZeusAi extends LightForceAi {
     });
   }
 
-  async thinkSlowExtra(): Promise<void> {
-    await this.tryThunderBlink();
+  thinkSlowExtra() {
+    this.tryThunderBlink();
   }
 
-  async tryThunderBlink() {
+  tryThunderBlink() {
     const { observer } = this;
 
     const abilityId = ABILITY_ID_THUNDER_BLINK;
@@ -75,7 +75,7 @@ export class ZeusAi extends LightForceAi {
       } else {
         const nearbyEnemies = observer.getUnitsInRangeMatching(maxRange, (u) => ThunderBlink.Data.targetMatching(this.hero, u));
         if (nearbyEnemies.length > 0) {
-          const targetLoc = await findBestCircleCoverMostUnits(nearbyEnemies, ThunderBlink.Data.EFFECT_RADIUS);
+          const targetLoc = findBestCircleCoverMostUnits(nearbyEnemies, ThunderBlink.Data.EFFECT_RADIUS);
           this.hero.issueOrderAt(OrderId.Blink, targetLoc.x, targetLoc.y);
         }
       }

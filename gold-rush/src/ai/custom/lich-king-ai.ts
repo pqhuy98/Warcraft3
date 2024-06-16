@@ -16,8 +16,7 @@ export class LichKingAi extends DarkForceAi {
     DestroyGroup(heroes);
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  async thinkSlowExtra(): Promise<void> {
+  thinkSlowExtra(): void {
     this.tryWrathOfTheLichKing();
   }
 

@@ -1,8 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-empty-function */
-import { DistanceBetweenLocs, getUnitXY } from 'lib/location';
+import { getUnitXY } from 'lib/location';
 import { log } from 'lib/log';
-import { findBestCircleCoverMostLocations, isLocked } from 'lib/maths/circle_cover_most_points';
+import { findBestCircleCoverMostLocations } from 'lib/maths/circle_cover_most_points';
 import { isComputer } from 'lib/player';
 import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import { shuffleArray } from 'lib/utils';
@@ -89,7 +89,7 @@ export class BaseAi {
 
   protected thinkFastExtra() { }
 
-  protected async thinkSlow() {
+  protected thinkSlow() {
     if (this._isPaused) return;
 
     debug && log('check action, current order = ', OrderId2String(this.hero.currentOrder));
@@ -100,16 +100,16 @@ export class BaseAi {
         break;
       }
       case 'attack': {
-        await this.tryAttack();
+        this.tryAttack();
         break;
       }
       default:
     }
 
-    await this.thinkSlowExtra();
+    this.thinkSlowExtra();
   }
 
-  protected async thinkSlowExtra() { }
+  protected thinkSlowExtra() { }
 
   protected tryRetreat() {
     debug && log('Hero is retreating to home.');
@@ -119,12 +119,7 @@ export class BaseAi {
     }
   }
 
-  private async tryAttack() {
-    if (isLocked()) {
-      debug && log('find circle is locked');
-      return;
-    }
-
+  private tryAttack() {
     if (![OrderId.Standdown, OrderId.Move, 0].includes(this.observer.getCurrentOrder())) return;
 
     debug && log('Hero is idle, find new target');
@@ -160,7 +155,7 @@ export class BaseAi {
     // locs = [enemiesTownHalls[0]];
     debug && log('findBestCircleCoverMostLocations with', locs.length, 'locations');
 
-    const result = await findBestCircleCoverMostLocations(locs, this.observer.getAcquisitionRange());
+    const result = findBestCircleCoverMostLocations(locs, this.observer.getAcquisitionRange());
 
     if (!result) {
       return;
@@ -177,7 +172,7 @@ export class BaseAi {
 
     this.dbShouldRetreatToAllies = shouldRetreatToAllies;
 
-    if (DistanceBetweenLocs(this.observer.getHeroLocation(), this.observer.getDestination()) > this.observer.getAcquisitionRange()) {
+    if (this.observer.getDistanceToDestination() > this.observer.getAcquisitionRange()) {
       const destinationLoc = this.observer.getDestination();
       this.hero.issueOrderAt(shouldRetreatToAllies ? OrderId.Move : OrderId.Attack, destinationLoc.x, destinationLoc.y);
     }

@@ -18,17 +18,6 @@ export const emitLog = (key: string, arg: unknown, ...args: Array<unknown>): voi
   log(key, ...allArgs);
 };
 
-export const wrapFunction = <A extends unknown[], B>(key: string, fn: (...args: A) => Promise<B>): ((...args: A) => Promise<B>) => async (...args: A): Promise<B> => {
-  try {
-    return await fn(...args);
-  } catch (err) {
-    emitLog(key, err);
-  }
-
-  emitLog('wrapFunction impossible', 'this should never happen');
-  throw 'impossible';
-};
-
 const isArray = (v: unknown): boolean => {
   if (typeof v !== 'object') return false;
 

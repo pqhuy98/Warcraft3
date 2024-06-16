@@ -76,7 +76,7 @@ export class BaseAiObserver {
     });
 
     DamageObserver.subscribeHeroDamaging((_victim, attacker) => {
-      if (attacker.owner.isPlayerAlly(this.owner)) {
+      if (attacker.owner.isPlayerAlly(this.owner) && attacker.handle !== this.hero.handle) {
         this.recentInterestingEvents.push({
           timestamp: getTimeS(),
           value: {
