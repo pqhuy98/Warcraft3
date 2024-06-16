@@ -21,9 +21,9 @@ import {
 } from 'lib/constants';
 import { DamageObserver } from 'lib/data_structures/damage_observer';
 import { daemonTempLocationCleanUp } from 'lib/location';
-import { setIntervalIndefinite, trackElapsedGameTime } from 'lib/trigger';
+import { getTimeS, setIntervalIndefinite, trackElapsedGameTime } from 'lib/trigger';
 import { daemonDamageSourceMaster, daemonTieUnitToUnit, growUnit } from 'lib/unit';
-import { Group, Unit } from 'w3ts';
+import { Group, MapPlayer, Unit } from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
 function tsMain() {
@@ -50,6 +50,10 @@ function tsMain() {
   daemonTieUnitToUnit();
   daemonDamageSourceMaster();
   daemonTempLocationCleanUp();
+
+  setIntervalIndefinite(1, () => {
+    MapPlayer.fromLocal().setState(PLAYER_STATE_RESOURCE_LUMBER, getTimeS());
+  });
 }
 
 function configurePlayerColor() {

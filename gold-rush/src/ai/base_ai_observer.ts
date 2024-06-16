@@ -63,7 +63,7 @@ export class BaseAiObserver {
       }
     }
 
-    false && DamageObserver.subscribeBuildingDamaged((victim) => {
+    DamageObserver.subscribeBuildingDamaged((victim) => {
       if (victim.owner.isPlayerAlly(this.owner)) {
         this.recentInterestingEvents.push({
           timestamp: getTimeS(),
@@ -75,7 +75,7 @@ export class BaseAiObserver {
       }
     });
 
-    false && DamageObserver.subscribeHeroDamaging((_victim, attacker) => {
+    DamageObserver.subscribeHeroDamaging((_victim, attacker) => {
       if (attacker.owner.isPlayerAlly(this.owner)) {
         this.recentInterestingEvents.push({
           timestamp: getTimeS(),

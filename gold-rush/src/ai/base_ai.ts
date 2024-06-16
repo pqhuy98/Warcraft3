@@ -56,14 +56,6 @@ export class BaseAi {
       setIntervalIndefinite(GetRandomReal(0.1, 0.2), () => this.thinkFast());
       setIntervalIndefinite(GetRandomReal(1.8, 2.2), () => this.thinkSlow());
     });
-
-    if (this.hero.handle === gg_unit_H001_0320) {
-      setIntervalIndefinite(1, () => {
-        const { x, y } = this.observer.getDestination();
-        log(this.hero.currentOrder, OrderId2String(this.hero.currentOrder), x, y, 'retreat', this.dbShouldRetreatToAllies ? 'true' : 'false');
-        PingMinimapEx(x, y, 1, 255, 255, 255, false);
-      });
-    }
   }
 
   isPaused() {
@@ -165,6 +157,7 @@ export class BaseAi {
       locs.push(this.observer.getHome());
     }
 
+    // locs = [enemiesTownHalls[0]];
     debug && log('findBestCircleCoverMostLocations with', locs.length, 'locations');
 
     const result = await findBestCircleCoverMostLocations(locs, this.observer.getAcquisitionRange());
