@@ -37,7 +37,8 @@
       "lua-types/core/os",
       "lua-types/special/5.3",
       "war3-types-strict/1.33.0"
-    ]
+    ],
+    "strictNullChecks": false
   },
   "include": [
     "src",

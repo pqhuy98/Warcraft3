@@ -105,11 +105,11 @@ function configurePlayerColor() {
     DestroyGroup(allUnitsOfPlayer);
 
     if (IsPlayerEnemy(player, GetOwningPlayer(gg_unit_H002_0191))) {
-      let handicap = 2;
+      let handicap = 1;
       SetPlayerHandicap(player, handicap);
       let oldScale: number;
       setIntervalIndefinite(3, () => {
-        handicap = Math.min(handicap * 1.01, 100);
+        handicap = Math.min(handicap * 1.01, 2);
         SetPlayerHandicap(player, Math.min(handicap, 3));
         SetPlayerHandicapDamage(player, Math.min(Math.max(1, handicap), 3));
         if (gg_unit_H001_0320) {
