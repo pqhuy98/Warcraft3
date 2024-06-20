@@ -619,11 +619,6 @@ STRING 122
 Player 15
 }
 
-STRING 132
-{
-Orcish Horde
-}
-
 STRING 133
 // Units: h003 (Elite Guard Tower), Name (Name)
 {
@@ -1114,13 +1109,13 @@ Blizzard
 }
 
 STRING 226
-// Buffs/Effects: B001 (Blizzard), EditorSuffix (Editor Suffix)
+// Abilities: A00E (Howl of Terror), EditorSuffix (Editor Suffix)
 {
 (Lich King)
 }
 
 STRING 227
-// Buffs/Effects: B002 (Blizzard (Caster)), EditorSuffix (Editor Suffix)
+// Buffs/Effects: B001 (Blizzard), EditorSuffix (Editor Suffix)
 {
 (Lich King)
 }
@@ -1135,5 +1130,46 @@ STRING 229
 // Buffs/Effects: B003 (Impale), EditorSuffix (Editor Suffix)
 {
 (Sandquake)
+}
+
+STRING 230
+// Abilities: A00E (Howl of Terror), Researchubertip (Tooltip - Learn - Extended)
+{
+The Lich King lets loose a terrifying howl that causes nearby enemy units to shiver in fear, reducing their attack damage. |nLasts <ANht,Dur1> seconds. |n|n|cffffcc00Level 1|r - <ANht,DataA1,%>% attack damage reduction. |n|cffffcc00Level 2|r - <ANht,DataA2,%>% attack damage reduction. |n|cffffcc00Level 3|r - <ANht,DataA3,%>% attack damage reduction.
+}
+
+STRING 231
+// Abilities: A00E (Howl of Terror), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King lets loose a terrifying howl that reduces nearby enemy units' attack damage by <A00E:ANht,DataA1,%>% for <A00E:ANht,Dur1> seconds.
+}
+
+STRING 232
+// Abilities: A00E (Howl of Terror), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King lets loose a terrifying howl that reduces nearby enemy units' attack damage by <A00E:ANht,DataA2,%>% for <A00E:ANht,Dur2> seconds.
+}
+
+STRING 233
+// Abilities: A00E (Howl of Terror), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King lets loose a terrifying howl that reduces nearby enemy units' attack damage by <A00E:ANht,DataA3,%>% for <A00E:ANht,Dur3> seconds.
+}
+
+STRING 234
+// Buffs/Effects: B002 (Blizzard (Caster)), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 235
+// Units: Obla (Blademaster), Propernames (Proper Names)
+{
+Tojara,Nikoro,Kajind,Mikasa,Akinos,Mazuru,Yozshura,Daisho,Kigami,Arashicage,Moogul the Sly,Jubei
+}
+
+STRING 236
+{
+Dark Force
 }
 

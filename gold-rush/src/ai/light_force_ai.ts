@@ -1,3 +1,4 @@
+import { globalUnits } from 'lib/constants';
 import { getUnitXY } from 'lib/location';
 import {
   Group,
@@ -17,7 +18,7 @@ export class LightForceAi extends BaseAi {
 
   constructor(hero: Unit) {
     super(hero);
-    const loc = getUnitXY(Unit.fromHandle(gg_unit_nfoh_0003));
-    this.observer.setHomeLocation(loc);
+    const loc = getUnitXY(Unit.fromHandle(globalUnits.fountainLight));
+    this.observer.setHome(loc);
   }
 }

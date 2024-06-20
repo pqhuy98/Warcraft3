@@ -1,7 +1,7 @@
 import {
   AngleBetweenLocs, getUnitXY, Loc, PolarProjection,
 } from 'lib/location';
-import { buildTrigger } from 'lib/trigger';
+import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
   angleBetweenUnits, getAttackRange, GetUnitsInRangeOfXYMatching, isWard, setAttackRange,
 } from 'lib/unit';
@@ -18,6 +18,7 @@ export default class BladeDance {
     ATTACKS_PER_LEVEL: 20,
     ATTACK_MELEE_DISTANCE: 100,
     EXTRA_ATTACK_RANGE: 99999,
+    IS_INVULNERABLE_DURING_CAST: false,
   };
 
   static unitsInCast = Group.create();
@@ -91,7 +92,9 @@ export default class BladeDance {
 
     this.caster.issueTargetOrder(OrderId.Attack, target);
     this.caster.setPathing(false);
-    this.caster.invulnerable = true;
+    if (BladeDance.Data.IS_INVULNERABLE_DURING_CAST) {
+      this.caster.invulnerable = true;
+    }
     this.caster.removeBuffs(false, true);
 
     this.weaponEffect = AddSpellEffectTargetById(this.abilityId, EFFECT_TYPE_CASTER, this.caster.handle, 'weapon');
@@ -183,9 +186,11 @@ export default class BladeDance {
       setAttackRange(this.caster, weaponIndex, currentAttackRange - BladeDance.Data.EXTRA_ATTACK_RANGE);
     }
     this.caster.setPathing(true);
-    this.caster.invulnerable = false;
+    if (BladeDance.Data.IS_INVULNERABLE_DURING_CAST) {
+      this.caster.invulnerable = false;
+    }
     BladeDance.unitsInCast.removeUnit(this.caster);
-    DestroyEffect(this.weaponEffect);
+    setTimeout(1, () => DestroyEffect(this.weaponEffect));
   }
 
   handleTargetUnattackable() {

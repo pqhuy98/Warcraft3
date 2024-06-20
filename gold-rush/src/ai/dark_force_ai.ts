@@ -1,4 +1,6 @@
-import { getUnitXY } from 'lib/location';
+import { globalUnits } from 'lib/constants';
+import { fromTempLocation, getUnitXY, temp } from 'lib/location';
+import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
   Group,
   Unit,
@@ -16,8 +18,29 @@ export class DarkForceAi extends BaseAi {
   }
 
   constructor(hero: Unit) {
-    super(hero, undefined, { retreatWhenAlone: false });
-    const loc = getUnitXY(Unit.fromHandle(gg_unit_nfoh_0321));
-    this.observer.setHomeLocation(loc);
+    super(hero, undefined, {
+      retreatWhenAlone: false,
+      followAllyHeroes: false,
+    });
+    const loc = getUnitXY(Unit.fromHandle(globalUnits.fountainDark));
+    this.observer.setHome(loc);
+  }
+
+  protected reviveHeroWhenDeath() {
+    buildTrigger((t) => {
+      t.registerUnitEvent(this.hero, EVENT_UNIT_DEATH);
+      t.addAction(() => {
+        setTimeout(10, () => {
+          const chosenFountain = Unit.fromHandle(GroupPickRandomUnit(
+            temp(Group.fromHandle(GetUnitsOfPlayerAndTypeId(GetOwningPlayer(globalUnits.fountainDark), GetUnitTypeId(globalUnits.fountainDark)))).handle,
+          ));
+
+          const point = fromTempLocation(chosenFountain.getPoint().handle);
+          this.observer.setHome(point);
+          PingMinimapEx(point.x, point.y, 5, 255, 255, 255, false);
+          this.hero.revive(point.x, point.y, true);
+        });
+      });
+    });
   }
 }

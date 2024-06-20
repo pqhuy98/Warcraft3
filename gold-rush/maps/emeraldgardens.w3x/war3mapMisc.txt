@@ -3,6 +3,7 @@ AgiDefenseBonus=0.14
 AllowMultiBounce=1
 BoneDecayTime=88.0
 DecayTime=2.0
+DisplayEnemyInventory=1
 FoodCeiling=150
 GoldMineMaxGold=1000000000
 GuardReturnTime=10000.0

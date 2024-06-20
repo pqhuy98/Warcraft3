@@ -101,10 +101,10 @@ function InitOptions takes nothing returns nothing
     call SetRandomPaths( true )
     call SetTargetHeroes( true )
     call SetPeonsRepair( true )
-    call SetHeroesFlee( true )
+    call SetHeroesFlee( false )
     call SetHeroesBuyItems( true )
-    call SetUnitsFlee( true )
-    call SetGroupsFlee( true )
+    call SetUnitsFlee( false )
+    call SetGroupsFlee( false )
     call SetWatchMegaTargets( true )
     call SetIgnoreInjured( false )
     call SetHeroesTakeItems( true )
@@ -137,32 +137,38 @@ endfunction
 function SetHero takes integer order, integer heroid returns nothing
     if (order == 1) then
         set hero_id = heroid
-        if (heroid == 'H002') then
-            set skills1[ 1] = 'A003'
-            set skills1[ 2] = 'A00B'
-            set skills1[ 3] = 'A003'
-            set skills1[ 4] = 'A00B'
-            set skills1[ 5] = 'A003'
-            set skills1[ 6] = 'A000'
-            set skills1[ 7] = 'A00B'
-            set skills1[ 8] = 'A003'
-            set skills1[ 9] = 'A00B'
-            set skills1[10] = 'A003'
-            set skills1[11] = 'A000'
-            set skills1[12] = 'A003'
-            set skills1[13] = 'A00B'
-            set skills1[14] = 'A003'
-            set skills1[15] = 'A00B'
-            set skills1[16] = 'A000'
-            set skills1[17] = 'A003'
-            set skills1[18] = 'A00B'
-            set skills1[19] = 'A003'
-            set skills1[20] = 'A00B'
-            set skills1[21] = 'A003'
-            set skills1[22] = 'A00B'
-            set skills1[23] = 'A00B'
-        endif
     endif
+    if (order == 2) then
+        set hero_id2 = heroid
+    endif
+    if (order == 3) then
+        set hero_id3 = heroid
+    endif
+    // if (heroid == 'H001') then
+    //     set skills1[ 1] = 'A003'
+    //     set skills1[ 2] = 'A00B'
+    //     set skills1[ 3] = 'A003'
+    //     set skills1[ 4] = 'A00B'
+    //     set skills1[ 5] = 'A003'
+    //     set skills1[ 6] = 'A000'
+    //     set skills1[ 7] = 'A00B'
+    //     set skills1[ 8] = 'A003'
+    //     set skills1[ 9] = 'A00B'
+    //     set skills1[10] = 'A003'
+    //     set skills1[11] = 'A000'
+    //     set skills1[12] = 'A003'
+    //     set skills1[13] = 'A00B'
+    //     set skills1[14] = 'A003'
+    //     set skills1[15] = 'A00B'
+    //     set skills1[16] = 'A000'
+    //     set skills1[17] = 'A003'
+    //     set skills1[18] = 'A00B'
+    //     set skills1[19] = 'A003'
+    //     set skills1[20] = 'A00B'
+    //     set skills1[21] = 'A003'
+    //     set skills1[22] = 'A00B'
+    //     set skills1[23] = 'A00B'
+    // endif
 endfunction
 
 //===========================================================================
@@ -170,7 +176,8 @@ endfunction
 //===========================================================================
 function SelectHeroes takes nothing returns nothing
     local integer roll = GetRandomInt(1,100)
-    call SetHero( 1, 'H002' )
+    call SetHero( 1, 'H001' )
+    call SetHero( 2, 'U000' )
 endfunction
 
 //===========================================================================
@@ -272,6 +279,8 @@ function PrepareAttackGroup takes integer groupID returns nothing
     if (groupID == 1) then
         set all = GetUnitCountDone( hero_id )
         call AddAttackUnit( all, all, hero_id )
+        call AddAttackUnit( all, all, hero_id2 )
+        call AddAttackUnit( all, all, hero_id3 )
 
     endif
 endfunction
@@ -332,12 +341,6 @@ function LaunchAttack takes nothing returns nothing
     local unit target = null
     local boolean setAlly = true
 
-    // Don't launch any attack while town is threatened
-    if (TownThreatened()) then
-        call Sleep( 2 )
-        return
-    endif
-
     // Target Priority #1
     if (target == null) then
         set target = GetAllianceTarget()
@@ -377,23 +380,13 @@ function LaunchAttack takes nothing returns nothing
         endif
     endif
 
-    // Target Priority #6
-    if (target == null) then
-        set target = GetCreepCamp( 0, 9, false )
-    endif
-
-    // Target Priority #7
-    if (target == null) then
-        set target = GetCreepCamp( 10, 100, true )
-    endif
-
     // Attack the target and increment attack wave
     if (target != null) then
         call AttackTarget( target, setAlly )
         call AttackWaveUpdate(  )
     else
         // If no target was found, sleep a bit before trying again
-        call Sleep( 20 )
+        call Sleep( 3 )
     endif
 endfunction
 
@@ -429,7 +422,7 @@ function main takes nothing returns nothing
     call InitOptions(  )
     call SelectHeroes(  )
     call CreateCaptains(  )
-    call SetHeroLevels( function ChooseHeroSkill )
+    // call SetHeroLevels( function ChooseHeroSkill )
 
     call Sleep( 0.1 )
     call StartThread( function WorkerAssignment )

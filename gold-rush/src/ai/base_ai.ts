@@ -16,7 +16,7 @@ import { BaseAiObserver } from './base_ai_observer';
 const debug = false;
 
 export interface Config {
-  supportAllyHeroes: boolean
+  followAllyHeroes: boolean
   defendAllyBases: boolean
   siegeEnemyHeroes: boolean
   siegeEnemyBases: boolean
@@ -24,7 +24,7 @@ export interface Config {
 }
 
 const defaultConfig: Config = {
-  supportAllyHeroes: true,
+  followAllyHeroes: true,
   defendAllyBases: true,
   siegeEnemyHeroes: true,
   siegeEnemyBases: true,
@@ -46,12 +46,12 @@ export class BaseAi {
 
     this.hero.removeGuardPosition();
     this.reviveHeroWhenDeath();
-    this.freezeStartingItems();
 
     if (!isComputer(hero.owner.handle)) {
       return;
     }
 
+    this.freezeStartingItems();
     setTimeout(GetRandomReal(0, 10), () => {
       setIntervalIndefinite(GetRandomReal(0.1, 0.2), () => this.thinkFast());
       setIntervalIndefinite(GetRandomReal(1.8, 2.2), () => this.thinkSlow());
@@ -69,10 +69,10 @@ export class BaseAi {
   protected thinkFast() {
     if (this._isPaused) return;
 
-    const retreatLifeThreshold = 300;
-    const retreatManaThreshold = 200;
-    const attackLifeThreshold = this.hero.maxLife * 0.9;
-    const attackManaThreshold = this.hero.maxMana * 0.9;
+    const retreatLifeThreshold = Math.max(400, this.hero.maxLife / 8);
+    const retreatManaThreshold = 150;
+    const attackLifeThreshold = this.hero.maxLife * 0.85;
+    const attackManaThreshold = this.hero.maxMana * 0.85;
 
     const currentState = this.observer.getState();
     if (currentState === 'attack') {
@@ -125,7 +125,7 @@ export class BaseAi {
     debug && log('Hero is idle, find new target');
 
     const nearbyAllyHeroesCount = this.observer.getNearbyAllyHeroes().length;
-    const allyHeroes = this.config.supportAllyHeroes ? this.observer.getGlobalAllyHeroes() : [];
+    const allyHeroes = this.config.followAllyHeroes ? this.observer.getGlobalAllyHeroes() : [];
 
     const shouldRetreatToAllies = nearbyAllyHeroesCount === 0 && allyHeroes.length > 0 && this.config.retreatWhenAlone;
 
@@ -143,7 +143,7 @@ export class BaseAi {
       ...interestingUnitsLocs,
       ...this.observer.getRecentInterestingEvents(40)
         .filter((t) => this.config.defendAllyBases && t.type === 'ally_building_attacked'
-          || this.config.supportAllyHeroes && t.type === 'ally_hero_attack')
+          || this.config.followAllyHeroes && t.type === 'ally_hero_attack')
         .map((event) => event.location),
     ];
     shuffleArray(locs);

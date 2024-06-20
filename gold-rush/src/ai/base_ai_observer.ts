@@ -93,10 +93,6 @@ export class BaseAiObserver {
     });
   }
 
-  setHomeLocation(loc: Loc) {
-    this.homeLoc = loc;
-  }
-
   getState() {
     return this.state;
   }
@@ -169,6 +165,10 @@ export class BaseAiObserver {
 
   getHome() {
     return this.homeLoc;
+  }
+
+  setHome(loc: Loc) {
+    this.homeLoc = loc;
   }
 
   getDestination() {

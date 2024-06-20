@@ -53,7 +53,7 @@ export function fadeUnit(
   checkCancel: () => boolean,
   onComplete: () => void,
 ) {
-  const t = new Timer();
+  const t = Timer.create();
 
   const TICK_TIME = 1.0 / 15;
   const alphaLossPerTick = Math.round(alphaLossPerSec * TICK_TIME);
@@ -170,6 +170,7 @@ export function createDummy(usecase: string, owner: MapPlayer, locX: number, loc
   dummy.name = `${usecase} ${dummy.name} ${getTimeS()}`;
   dummy.addAbility(ABILITY_ID_LOCUST);
   dummy.invulnerable = true;
+  dummy.setPathing(false);
   setDamageSourceMaster(dummy.handle, master.handle);
   return dummy;
 }
@@ -180,6 +181,10 @@ export function isBuilding(unit: Unit) {
 
 export function isWard(unit: Unit) {
   return ConvertTargetFlag(unit.getField(UNIT_IF_TARGETED_AS) as number) === TARGET_FLAG_WARD;
+}
+
+export function isDummy(unit: Unit) {
+  return unit.typeId === UNIT_ID_DUMMY;
 }
 
 export function GetUnitsInRangeOfXYMatching(range: number, loc: Loc, filter: () => boolean): Unit[] {
