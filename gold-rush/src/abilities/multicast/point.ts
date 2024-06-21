@@ -51,7 +51,6 @@ export class MulticastPoint {
           dummy.setAbilityLevel(abiId, abiLevel);
           dummy.setAbilityCooldown(abiId, abiLevel, 0);
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 99999);
-          dummy.color = PLAYER_COLOR_YELLOW;
 
           const targetLoc = fromTempLocation(GetSpellTargetLoc());
           const newLoc = PolarProjection(targetLoc, offsetDistance, offsetAngle);

@@ -18,7 +18,7 @@ export class LightForceAi extends BaseAi {
 
   constructor(hero: Unit) {
     super(hero);
-    const loc = getUnitXY(Unit.fromHandle(globalUnits.fountainLight));
+    const loc = getUnitXY(globalUnits.fountainLight);
     this.observer.setHome(loc);
   }
 }

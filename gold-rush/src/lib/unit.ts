@@ -166,7 +166,9 @@ export function daemonDamageSourceMaster() {
 
 export function createDummy(usecase: string, owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
   const dummy = Unit.create(owner, UNIT_ID_DUMMY, locX, locY, facing);
-  dummy.applyTimedLife(BUFF_ID_GENERIC, timespan);
+  if (timespan > 0) {
+    dummy.applyTimedLife(BUFF_ID_GENERIC, timespan);
+  }
   dummy.name = `${usecase} ${dummy.name} ${getTimeS()}`;
   dummy.addAbility(ABILITY_ID_LOCUST);
   dummy.invulnerable = true;

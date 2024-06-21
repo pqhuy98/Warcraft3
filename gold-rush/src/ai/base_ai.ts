@@ -69,7 +69,7 @@ export class BaseAi {
   protected thinkFast() {
     if (this._isPaused) return;
 
-    const retreatLifeThreshold = Math.max(400, this.hero.maxLife / 8);
+    const retreatLifeThreshold = Math.max(400, this.hero.maxLife / 6);
     const retreatManaThreshold = 150;
     const attackLifeThreshold = this.hero.maxLife * 0.85;
     const attackManaThreshold = this.hero.maxMana * 0.85;

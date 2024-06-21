@@ -1,6 +1,10 @@
 declare var gg_rct_Region_000: rect;
 declare var gg_snd_WotLK_main_title: string;
 declare var gg_snd_11__Invincible: string;
+declare var gg_snd_raise_death: sound;
+declare var gg_snd_lichking_death1: sound;
+declare var gg_snd_lichking_death2: sound;
+declare var gg_snd_lichking_death3: sound;
 declare var gg_trg_Melee_Initialization: trigger;
 declare var gg_unit_nfoh_0003: unit;
 declare var gg_unit_H002_0191: unit;
@@ -10,3 +14,4 @@ declare var gg_unit_Osam_0326: unit;
 declare var gg_unit_Hjai_0327: unit;
 declare var gg_unit_H001_0320: unit;
 declare var gg_unit_U000_0322: unit;
+declare var gg_snd_lich_king_stab_out: sound;

@@ -22,7 +22,7 @@ export class DarkForceAi extends BaseAi {
       retreatWhenAlone: false,
       followAllyHeroes: false,
     });
-    const loc = getUnitXY(Unit.fromHandle(globalUnits.fountainDark));
+    const loc = getUnitXY(globalUnits.fountainDark);
     this.observer.setHome(loc);
   }
 
@@ -32,7 +32,7 @@ export class DarkForceAi extends BaseAi {
       t.addAction(() => {
         setTimeout(10, () => {
           const chosenFountain = Unit.fromHandle(GroupPickRandomUnit(
-            temp(Group.fromHandle(GetUnitsOfPlayerAndTypeId(GetOwningPlayer(globalUnits.fountainDark), GetUnitTypeId(globalUnits.fountainDark)))).handle,
+            temp(Group.fromHandle(GetUnitsOfPlayerAndTypeId(globalUnits.fountainDark.owner.handle, globalUnits.fountainDark.typeId))).handle,
           ));
 
           const point = fromTempLocation(chosenFountain.getPoint().handle);

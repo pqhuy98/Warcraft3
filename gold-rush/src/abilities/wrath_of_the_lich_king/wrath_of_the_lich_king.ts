@@ -4,6 +4,8 @@ import {
   MODEL_Water_Tornado, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN,
 } from 'lib/constants';
 import { getUnitXY } from 'lib/location';
+import { log } from 'lib/log';
+import { playSoundIsolate } from 'lib/sound';
 import {
   buildTrigger, setIntervalForDuration, setTimeout,
 } from 'lib/trigger';
@@ -20,9 +22,10 @@ export default class WrathOfTheLichKing {
   static Data = {
     ABILITY_IDS: <number[]>[],
     STUN_RANGE: 2000, // hard-coded
-    DURATION: 12, // hard-coded
+    DURATION: 43, // hard-coded
     targetMatching: (caster: Unit, unit: Unit) => unit.isAlive()
       && unit.isEnemy(caster.getOwner())
+      && unit.isUnitType(UNIT_TYPE_GROUND)
       && !isBuilding(unit)
       && !isWard(unit),
   };
@@ -34,7 +37,31 @@ export default class WrathOfTheLichKing {
       t.addCondition(() => GetSpellAbilityId() === abilityId);
       t.addAction(() => {
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
-        caster.setTimeScale(5);
+        const abilityId = GetSpellAbilityId();
+        const abilityLevel = caster.getAbilityLevel(GetSpellAbilityId());
+        caster.setTimeScale(2);
+        log('start');
+        caster.setAnimation(4);
+        setTimeout(0.01, () => {
+          playSoundIsolate(gg_snd_lich_king_stab_out, 100, 0);
+        });
+        setTimeout(1.4, () => {
+          log('spell slam');
+          caster.setAnimation('spell slam');
+          caster.setTimeScale(3);
+        });
+
+        setTimeout(5.5, () => {
+          caster.setTimeScale(1);
+          caster.queueAnimation('stand');
+        });
+        setTimeout(3 + 0.4, () => {
+          new WrathOfTheLichKing(
+            abilityId,
+            caster,
+            abilityLevel,
+          );
+        });
       });
     });
 
@@ -44,20 +71,6 @@ export default class WrathOfTheLichKing {
       t.addAction(() => {
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
         caster.setTimeScale(1);
-      });
-    });
-
-    buildTrigger((t) => {
-      t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_FINISH);
-      t.addCondition(() => GetSpellAbilityId() === abilityId);
-      t.addAction(() => {
-        const caster = Unit.fromHandle(GetSpellAbilityUnit());
-        caster.setTimeScale(1);
-        new WrathOfTheLichKing(
-          GetSpellAbilityId(),
-          caster,
-          GetUnitAbilityLevel(GetSpellAbilityUnit(), GetSpellAbilityId()),
-        );
       });
     });
   }
@@ -89,24 +102,42 @@ export default class WrathOfTheLichKing {
       effects.push(eff);
     }
 
-    setIntervalForDuration(0.05, durationS + 1.4, () => {
+    let cleanUp: () => void;
+
+    const t1 = setIntervalForDuration(0.05, durationS + 1.4, () => {
       if (caster.isAlive()) {
         const loc = getUnitXY(caster);
         for (const eff of effects) {
           BlzSetSpecialEffectPosition(eff, loc.x, loc.y, 0);
         }
+      } else {
+        cleanUp();
       }
     });
 
-    setIntervalForDuration(1, durationS, () => {
-      dummy2.issueOrderAt(OrderId.Blizzard, caster.x, caster.y);
+    const t2 = setIntervalForDuration(1, durationS, () => {
+      if (caster.isAlive()) {
+        dummy2.issueOrderAt(OrderId.Blizzard, caster.x, caster.y);
+      }
     });
 
-    setTimeout(durationS + 1.5, () => {
+    const t3 = setTimeout(durationS + 1.5, () => {
+      cleanUp();
+    });
+
+    cleanUp = () => {
       for (const eff of effects) {
         DestroyEffect(eff);
       }
-    });
+      StopSoundBJ(gg_snd_lich_king_stab_out, true);
+      setTimeout(3, () => {
+        dummy2.kill();
+        Weather.changeWeather();
+      });
+      t1.destroy();
+      t2.destroy();
+      t3.destroy();
+    };
 
     Weather.changeWeather(weatherBlizzard, durationS, 0);
   }

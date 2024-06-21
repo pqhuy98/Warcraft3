@@ -1,6 +1,10 @@
 gg_rct_Region_000 = nil
 gg_snd_WotLK_main_title = ""
 gg_snd_11__Invincible = ""
+gg_snd_raise_death = nil
+gg_snd_lichking_death1 = nil
+gg_snd_lichking_death2 = nil
+gg_snd_lichking_death3 = nil
 gg_trg_Melee_Initialization = nil
 gg_unit_nfoh_0003 = nil
 gg_unit_H002_0191 = nil
@@ -10,6 +14,7 @@ gg_unit_Osam_0326 = nil
 gg_unit_Hjai_0327 = nil
 gg_unit_H001_0320 = nil
 gg_unit_U000_0322 = nil
+gg_snd_lich_king_stab_out = nil
 function InitGlobals()
 end
 
@@ -1672,6 +1677,35 @@ end
 function InitSounds()
 gg_snd_WotLK_main_title = "war3mapImported/WotLK_main_title.mp3"
 gg_snd_11__Invincible = "war3mapImported/11. Invincible.mp3"
+gg_snd_raise_death = CreateSound("war3mapImported/raise-death.mp3", false, true, false, 1, 1, "DefaultEAXON")
+SetSoundDuration(gg_snd_raise_death, 19435)
+SetSoundChannel(gg_snd_raise_death, 0)
+SetSoundVolume(gg_snd_raise_death, 127)
+SetSoundPitch(gg_snd_raise_death, 1.0)
+SetSoundDistances(gg_snd_raise_death, 0.0, 10000.0)
+SetSoundDistanceCutoff(gg_snd_raise_death, 3000.0)
+SetSoundConeAngles(gg_snd_raise_death, 0.0, 0.0, 127)
+SetSoundConeOrientation(gg_snd_raise_death, 0.0, 0.0, 0.0)
+gg_snd_lichking_death1 = CreateSound("war3mapImported/lichking_death1.mp3", false, false, false, 1, 1, "DefaultEAXON")
+SetSoundDuration(gg_snd_lichking_death1, 5224)
+SetSoundChannel(gg_snd_lichking_death1, 0)
+SetSoundVolume(gg_snd_lichking_death1, 127)
+SetSoundPitch(gg_snd_lichking_death1, 1.0)
+gg_snd_lichking_death2 = CreateSound("war3mapImported/lichking_death2.mp3", false, false, false, 1, 1, "DefaultEAXON")
+SetSoundDuration(gg_snd_lichking_death2, 5694)
+SetSoundChannel(gg_snd_lichking_death2, 0)
+SetSoundVolume(gg_snd_lichking_death2, 127)
+SetSoundPitch(gg_snd_lichking_death2, 1.0)
+gg_snd_lichking_death3 = CreateSound("war3mapImported/lichking_death3.mp3", false, false, false, 1, 1, "DefaultEAXON")
+SetSoundDuration(gg_snd_lichking_death3, 8594)
+SetSoundChannel(gg_snd_lichking_death3, 0)
+SetSoundVolume(gg_snd_lichking_death3, 127)
+SetSoundPitch(gg_snd_lichking_death3, 1.0)
+gg_snd_lich_king_stab_out = CreateSound("war3mapImported/lich-king-stab_out.mp3", false, false, false, 1, 1, "DefaultEAXON")
+SetSoundDuration(gg_snd_lich_king_stab_out, 49162)
+SetSoundChannel(gg_snd_lich_king_stab_out, 0)
+SetSoundVolume(gg_snd_lich_king_stab_out, 127)
+SetSoundPitch(gg_snd_lich_king_stab_out, 1.0)
 end
 
 function CreateBuildingsForPlayer0()
@@ -1996,7 +2030,7 @@ local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), -3163.2, 5803.0, 147.650, FourCC("uabo"))
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), -3106.0, 5559.7, 102.275, FourCC("uabo"))
-gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -6150.6, 4814.7, 341.220, FourCC("H001"))
+gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -8580.7, 6849.2, 341.220, FourCC("H001"))
 SetHeroLevel(gg_unit_H001_0320, 20, false)
 SetUnitState(gg_unit_H001_0320, UNIT_STATE_MANA, 1650)
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))
@@ -2020,9 +2054,10 @@ SelectHeroSkill(gg_unit_H001_0320, FourCC("A00E"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("A00E"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("A00E"))
 IssueImmediateOrder(gg_unit_H001_0320, "")
-UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("ocor"), 0)
+UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("I000"), 0)
 UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("spsh"), 1)
 UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("lgdh"), 2)
+UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("stel"), 3)
 end
 
 function CreateUnitsForPlayer6()
@@ -2032,7 +2067,7 @@ local unitID
 local t
 local life
 
-gg_unit_U000_0322 = BlzCreateUnitWithSkin(p, FourCC("U000"), -5832.8, 5124.5, 271.890, FourCC("U000"))
+gg_unit_U000_0322 = BlzCreateUnitWithSkin(p, FourCC("U000"), -5950.9, 5232.2, 271.890, FourCC("U000"))
 SetHeroLevel(gg_unit_U000_0322, 20, false)
 SetUnitState(gg_unit_U000_0322, UNIT_STATE_MANA, 660)
 SelectHeroSkill(gg_unit_U000_0322, FourCC("A006"))

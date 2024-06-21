@@ -11,14 +11,14 @@ export class MulticastUnit {
   static Data = {
   };
 
-  static register(abilityId?: number, caster?: unit) {
+  static register(abilityId?: number, caster?: Unit) {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       if (abilityId) {
         t.addCondition(() => GetSpellAbilityId() === abilityId);
       }
       if (caster) {
-        t.addCondition(() => GetSpellAbilityUnit() === caster);
+        t.addCondition(() => GetSpellAbilityUnit() === caster.handle);
       }
       t.addCondition(() => {
         const caster = GetSpellAbilityUnit();
@@ -55,7 +55,7 @@ export class MulticastUnit {
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_COOLDOWN, abiLevel - 1, 0);
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 999999);
           dummy.issueTargetOrder(order, unit);
-        }, Math.min(0.2, 0.5 / nearby.length));
+        }, Math.min(0.2, 0.6 / nearby.length));
       });
     });
   }
