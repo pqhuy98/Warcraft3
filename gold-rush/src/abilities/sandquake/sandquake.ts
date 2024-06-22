@@ -177,6 +177,7 @@ export default class Sandquake {
         Sandquake.unitDestination.delete(caster.handle);
         DestroyEffect(sandstormEffect);
         DestroyEffect(sandstormEffect2);
+        timer.pause();
         timer.destroy();
         affectedEnemies.clear();
 

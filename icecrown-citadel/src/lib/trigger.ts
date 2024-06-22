@@ -26,12 +26,14 @@ function setInterval(
   if (repeat !== undefined) {
     let remain = repeat;
     if (remain <= 0) {
+      timer.pause();
       timer.destroy();
       return timer;
     }
     callback(repeat - remain, repeat);
     remain--;
     if (remain <= 0) {
+      timer.pause();
       timer.destroy();
       return timer;
     }

@@ -74,6 +74,7 @@ export class MulticastNoTarget {
           let tLimit = Timer.create();
           const startCleanUp = () => {
             t2.destroy();
+            tLimit.pause();
             tLimit.destroy();
             RemoveLocation(targetLoc);
             fadeUnit(dummy, 255, 255, 0, 128, 128 / (castPoint + castBackSwing + 0.1), () => false, () => {
@@ -84,6 +85,7 @@ export class MulticastNoTarget {
           tLimit.start(tLimitDuration, false, () => startCleanUp());
           t2.registerUnitEvent(dummy, EVENT_UNIT_SPELL_ENDCAST);
           t2.addAction(() => {
+            tLimit.pause();
             tLimit.destroy();
             tLimit = Timer.create();
             tLimit.start(tLimitDuration, false, () => startCleanUp());

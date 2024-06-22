@@ -29,7 +29,7 @@ import {
   registerUnits,
 } from 'lib/constants';
 import { DamageObserver } from 'lib/data_structures/damage_observer';
-import { daemonTempLocationCleanUp, fromTempLocation, PolarProjection } from 'lib/location';
+import { daemonTempCleanUp, fromTempLocation, PolarProjection } from 'lib/location';
 import { isComputer } from 'lib/player';
 import {
   ABILITY_ArchMageBlizzard, ABILITY_ArchMageWaterElemental, ABILITY_BladeMasterBladestorm,
@@ -79,7 +79,7 @@ function tsMain() {
 
   daemonTieUnitToUnit();
   daemonDamageSourceMaster();
-  daemonTempLocationCleanUp();
+  daemonTempCleanUp();
 
   setIntervalIndefinite(1, () => {
     MapPlayer.fromLocal().setState(PLAYER_STATE_RESOURCE_LUMBER, getTimeS());
@@ -194,19 +194,17 @@ function configurePlayerColor() {
         }
       });
 
-      setTimeout(0.1, () => {
-        const startingUnits: Record<string, number> = {
-          [UNIT_Abomination.code]: 3,
-          [UNIT_Ghoul.code]: 15,
-          [UNIT_CryptFiend.code]: 6,
-        };
-        for (const [code, count] of Object.entries(startingUnits)) {
-          for (let i = 0; i < count; i++) {
-            const loc = PolarProjection(fromTempLocation(GetPlayerStartLocationLoc(player)), GetRandomReal(0, 500), GetRandomDirectionDeg());
-            Unit.create(MapPlayer.fromHandle(player), FourCC(code), loc.x, loc.y);
-          }
+      const startingUnits: Record<string, number> = {
+        [UNIT_Abomination.code]: 2,
+        [UNIT_Ghoul.code]: 10,
+        [UNIT_CryptFiend.code]: 3,
+      };
+      for (const [code, count] of Object.entries(startingUnits)) {
+        for (let i = 0; i < count; i++) {
+          const loc = PolarProjection(fromTempLocation(GetPlayerStartLocationLoc(player)), GetRandomReal(500, 1000), GetRandomDirectionDeg());
+          Unit.create(MapPlayer.fromHandle(player), FourCC(code), loc.x, loc.y);
         }
-      });
+      }
     }
   }
   MeleeStartingAI();

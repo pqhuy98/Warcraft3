@@ -22,7 +22,7 @@ export function tempLocation(loc: Loc) {
   return temp(Point.create(loc.x, loc.y));
 }
 
-export function daemonTempLocationCleanUp() {
+export function daemonTempCleanUp() {
   setIntervalIndefinite(0.1, () => {
     for (const obj of temps) {
       obj.destroy();

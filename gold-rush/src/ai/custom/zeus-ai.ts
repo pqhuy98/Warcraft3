@@ -30,6 +30,7 @@ export class ZeusAi extends LightForceAi {
         const timer = setIntervalIndefinite(0.5, () => {
           if (!BladeDance.isUnitCasting(this.hero) && this.isPaused()) {
             this.setPause(false);
+            timer.pause();
             timer.destroy();
           }
         });

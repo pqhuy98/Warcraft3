@@ -34,12 +34,14 @@ export function setInterval(
   if (repeat !== undefined) {
     let remain = repeat;
     if (remain <= 0) {
+      t.pause();
       t.destroy();
       return t;
     }
     callback();
     remain--;
     if (remain <= 0) {
+      t.pause();
       t.destroy();
       return t;
     }

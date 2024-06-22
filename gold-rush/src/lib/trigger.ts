@@ -10,9 +10,9 @@ export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
 export function setTimeout(durationS: number, callback: () => void): Timer {
   const t = Timer.create();
   t.start(durationS, false, () => {
-    callback();
     t.pause();
     t.destroy();
+    callback();
   });
   return t;
 }
@@ -27,6 +27,7 @@ function setInterval(
   if (repeat !== undefined) {
     let idx = 0;
     if (repeat <= 0) {
+      timer.pause();
       timer.destroy();
       return timer;
     }

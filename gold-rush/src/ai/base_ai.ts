@@ -45,6 +45,10 @@ export class BaseAi {
 
   dbShouldRetreatToAllies = false;
 
+  thinkFastCycle: number = 0;
+
+  thinkSlowCycle: number = 0;
+
   constructor(protected hero: Unit, protected observer = new BaseAiObserver(hero), config?: Partial<Config>) {
     this.config = {
       ...defaultConfig,
@@ -76,6 +80,8 @@ export class BaseAi {
   protected thinkFast() {
     if (this._isPaused) return;
 
+    this.thinkFastCycle++;
+
     const retreatLifeThreshold = Math.max(400, this.hero.maxLife / 6);
     const retreatManaThreshold = 150;
     const attackLifeThreshold = this.hero.maxLife * 0.85;
@@ -99,6 +105,8 @@ export class BaseAi {
 
   protected thinkSlow() {
     if (this._isPaused) return;
+
+    this.thinkSlowCycle++;
 
     debug && log('check action, current order = ', OrderId2String(this.hero.currentOrder));
 
@@ -219,6 +227,8 @@ export class BaseAi {
       return;
     }
 
+    if (this.thinkSlowCycle % 3 !== 0) return;
+
     if (this.observer.getDistanceToDestination() > 2500) {
       const loc = this.observer.getDestination();
       const nearbyAllies = GetUnitsInRangeOfXYMatching(800, loc, () => Unit.fromFilter().isAlly(this.hero.owner)
@@ -230,6 +240,8 @@ export class BaseAi {
           const item = UnitItemInSlot(this.hero.handle, i + 1);
           if (item != null && GetItemTypeId(item) === itemTypeId) {
             this.hero.useItemAt(Item.fromHandle(item), loc.x, loc.y);
+            this.setPause(true);
+            setTimeout(3.05, () => this.setPause(false));
             break;
           }
         }

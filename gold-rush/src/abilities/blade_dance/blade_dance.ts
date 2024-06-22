@@ -139,7 +139,9 @@ export default class BladeDance {
   }
 
   onEachAttack() {
+    this.timerIdle1.pause();
     this.timerIdle1.destroy();
+    this.timerIdle2.pause();
     this.timerIdle2.destroy();
     this.timerIdle1 = Timer.create();
     this.timerIdle2 = Timer.create();
@@ -176,7 +178,9 @@ export default class BladeDance {
     this.onAttack.destroy();
     this.onTargetDeath.destroy();
     this.timerAttack.destroy();
+    this.timerIdle1.pause();
     this.timerIdle1.destroy();
+    this.timerIdle2.pause();
     this.timerIdle2.destroy();
 
     // restore to normal attack speed

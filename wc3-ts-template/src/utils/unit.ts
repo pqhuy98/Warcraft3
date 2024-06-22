@@ -56,11 +56,13 @@ export function fadeUnit(
 
     if (checkCancel()) {
       // fading is cancelled
+      t.pause();
       t.destroy();
       return;
     }
     if (newAlpha <= 0) {
       // fading is completed
+      t.pause();
       t.destroy();
       onComplete();
     }
