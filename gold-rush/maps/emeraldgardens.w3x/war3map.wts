@@ -1066,24 +1066,6 @@ STRING 218
 (Blizzard)
 }
 
-STRING 222
-// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
-{
-Wrath of the Lich King - [|cffffcc00Level %d|r]
-}
-
-STRING 223
-// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
-{
-Wrath of the Lich King - [|cffffcc00Level %d|r]
-}
-
-STRING 224
-// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
-{
-Wrath of the Lich King - [|cffffcc00Level %d|r]
-}
-
 STRING 225
 // Buffs/Effects: B001 (Blizzard), EditorName (Name (Editor Only))
 {
@@ -1245,12 +1227,6 @@ STRING 252
 Domination Aura
 }
 
-STRING 253
-// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
-{
-Decreases nearby enemy units' movement speed by <A00G:AUau,DataA1,%>% and remove <A00G:AUau,DataB1,%>% life per second.
-}
-
 STRING 254
 // Buffs/Effects: B005 (), Buffubertip (Tooltip - Extended)
 {
@@ -1261,5 +1237,41 @@ STRING 255
 // Buffs/Effects: B005 (), Bufftip (Tooltip)
 {
 Domination Aura
+}
+
+STRING 256
+// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 1|r]
+}
+
+STRING 257
+// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 2|r]
+}
+
+STRING 258
+// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 3|r]
+}
+
+STRING 259
+// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
+{
+Decreases nearby enemy units' movement speed by <A00G:AUau,DataA1,%>% and remove 3% max life per second.
+}
+
+STRING 260
+// Items: stel (Book of Teleportation), Name (Name)
+{
+Book of Teleportation
+}
+
+STRING 261
+// Items: stel (Book of Teleportation), Tip (Tooltip - Basic)
+{
+Purchase Book of Teleportation
 }
 

@@ -4,6 +4,7 @@ import {
 import { MODEL_ZigguratMissile } from 'lib/resources/war3-models';
 import {
   buildTrigger, setIntervalIndefinite,
+  setTimeout,
 } from 'lib/trigger';
 import {
   getDamageSourceMaster,
@@ -42,8 +43,10 @@ export default class Frostmourne {
       t.addAction(() => {
         const killer = Unit.fromHandle(getDamageSourceMaster(GetKillingUnit()));
         const victim = Unit.fromHandle(GetDyingUnit());
-        const soul = AddSpecialEffect(Frostmourne.Data.SOUL_MODEL, victim.x, victim.y);
-        souls.set(soul, killer.handle);
+        setTimeout(1, () => {
+          const soul = AddSpecialEffect(Frostmourne.Data.SOUL_MODEL, victim.x, victim.y);
+          souls.set(soul, killer.handle);
+        });
       });
     });
 

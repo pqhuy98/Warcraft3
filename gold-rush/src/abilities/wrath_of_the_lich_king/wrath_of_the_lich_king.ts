@@ -3,8 +3,7 @@ import {
   MODEL_Shadow_Tornado,
   MODEL_Water_Tornado, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN,
 } from 'lib/constants';
-import { getUnitXY } from 'lib/location';
-import { log } from 'lib/log';
+import { getUnitXY, PolarProjection } from 'lib/location';
 import { playSoundIsolate } from 'lib/sound';
 import {
   buildTrigger, setIntervalForDuration, setTimeout,
@@ -14,6 +13,7 @@ import {
   isWard,
 } from 'lib/unit';
 import {
+  Ubersplat,
   Unit,
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
@@ -22,7 +22,7 @@ export default class WrathOfTheLichKing {
   static Data = {
     ABILITY_IDS: <number[]>[],
     STUN_RANGE: 2000, // hard-coded
-    DURATION: 43, // hard-coded
+    DURATION: 39, // hard-coded
     targetMatching: (caster: Unit, unit: Unit) => unit.isAlive()
       && unit.isEnemy(caster.getOwner())
       && unit.isUnitType(UNIT_TYPE_GROUND)
@@ -39,23 +39,33 @@ export default class WrathOfTheLichKing {
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
         const abilityId = GetSpellAbilityId();
         const abilityLevel = caster.getAbilityLevel(GetSpellAbilityId());
-        caster.setTimeScale(2);
-        log('start');
-        caster.setAnimation(4);
-        setTimeout(0.01, () => {
+        setTimeout(0, () => {
           playSoundIsolate(gg_snd_lich_king_stab_out, 100, 0);
         });
-        setTimeout(1.4, () => {
-          log('spell slam');
-          caster.setAnimation('spell slam');
-          caster.setTimeScale(3);
+
+        caster.setAnimation(4);
+        caster.setTimeScale(8);
+        setTimeout(0.03, () => {
+          caster.setTimeScale(1);
         });
 
-        setTimeout(5.5, () => {
+        setTimeout(2, () => {
+          caster.setAnimation('spell slam');
+          caster.setTimeScale(3);
+          setTimeout(0.45, () => {
+            const loc = PolarProjection(caster, 125, caster.facing);
+            const ub = Ubersplat.create(loc.x, loc.y, 'THND', 255, 255, 255, 255, false, false);
+            ub.render(true, true);
+            ub.show(true);
+            // setTimeout(90, () => ub.destroy());
+          });
+        });
+
+        setTimeout(5, () => {
           caster.setTimeScale(1);
           caster.queueAnimation('stand');
         });
-        setTimeout(3 + 0.4, () => {
+        setTimeout(2 + 0.45, () => {
           new WrathOfTheLichKing(
             abilityId,
             caster,
@@ -95,7 +105,7 @@ export default class WrathOfTheLichKing {
     const effects: effect[] = [];
     for (let i = 1; i <= 2; i++) {
       const eff = AddSpecialEffect(i === 1 ? MODEL_Shadow_Tornado : MODEL_Water_Tornado, caster.x, caster.y);
-      const scaleXy = 3.5 * i;
+      const scaleXy = 4.5 * i;
       BlzSetSpecialEffectMatrixScale(eff, scaleXy, scaleXy, 2);
       BlzSetSpecialEffectTime(eff, 0.51);
       BlzSetSpecialEffectTimeScale(eff, 0.10 + (2 - i) * 0.10);
@@ -108,7 +118,7 @@ export default class WrathOfTheLichKing {
       if (caster.isAlive()) {
         const loc = getUnitXY(caster);
         for (const eff of effects) {
-          BlzSetSpecialEffectPosition(eff, loc.x, loc.y, 0);
+          BlzSetSpecialEffectPosition(eff, loc.x, loc.y, 100);
         }
       } else {
         cleanUp();
@@ -133,6 +143,7 @@ export default class WrathOfTheLichKing {
       setTimeout(3, () => {
         dummy2.kill();
         Weather.changeWeather();
+        SetMusicVolume(100);
       });
       t1.destroy();
       t2.destroy();

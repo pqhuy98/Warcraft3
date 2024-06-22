@@ -1,6 +1,5 @@
 import { Unit } from 'w3ts';
 
-
 export function registerDialogues() {
   SetDialogueTextKey(gg_snd_lichking_death1, 'Impossible.');
   SetDialogueSpeakerNameKey(gg_snd_lichking_death1, 'Lich King');

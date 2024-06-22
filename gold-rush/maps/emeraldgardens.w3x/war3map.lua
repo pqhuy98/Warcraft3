@@ -5,6 +5,7 @@ gg_snd_raise_death = nil
 gg_snd_lichking_death1 = nil
 gg_snd_lichking_death2 = nil
 gg_snd_lichking_death3 = nil
+gg_snd_lich_king_stab_out = nil
 gg_trg_Melee_Initialization = nil
 gg_unit_nfoh_0003 = nil
 gg_unit_H002_0191 = nil
@@ -14,7 +15,6 @@ gg_unit_Osam_0326 = nil
 gg_unit_Hjai_0327 = nil
 gg_unit_H001_0320 = nil
 gg_unit_U000_0322 = nil
-gg_snd_lich_king_stab_out = nil
 function InitGlobals()
 end
 
@@ -1687,22 +1687,22 @@ SetSoundDistanceCutoff(gg_snd_raise_death, 3000.0)
 SetSoundConeAngles(gg_snd_raise_death, 0.0, 0.0, 127)
 SetSoundConeOrientation(gg_snd_raise_death, 0.0, 0.0, 0.0)
 gg_snd_lichking_death1 = CreateSound("war3mapImported/lichking_death1.mp3", false, false, false, 1, 1, "DefaultEAXON")
-SetSoundDuration(gg_snd_lichking_death1, 5224)
+SetSoundDuration(gg_snd_lichking_death1, 4702)
 SetSoundChannel(gg_snd_lichking_death1, 0)
 SetSoundVolume(gg_snd_lichking_death1, 127)
 SetSoundPitch(gg_snd_lichking_death1, 1.0)
 gg_snd_lichking_death2 = CreateSound("war3mapImported/lichking_death2.mp3", false, false, false, 1, 1, "DefaultEAXON")
-SetSoundDuration(gg_snd_lichking_death2, 5694)
+SetSoundDuration(gg_snd_lichking_death2, 4806)
 SetSoundChannel(gg_snd_lichking_death2, 0)
 SetSoundVolume(gg_snd_lichking_death2, 127)
 SetSoundPitch(gg_snd_lichking_death2, 1.0)
 gg_snd_lichking_death3 = CreateSound("war3mapImported/lichking_death3.mp3", false, false, false, 1, 1, "DefaultEAXON")
-SetSoundDuration(gg_snd_lichking_death3, 8594)
+SetSoundDuration(gg_snd_lichking_death3, 7706)
 SetSoundChannel(gg_snd_lichking_death3, 0)
 SetSoundVolume(gg_snd_lichking_death3, 127)
 SetSoundPitch(gg_snd_lichking_death3, 1.0)
-gg_snd_lich_king_stab_out = CreateSound("war3mapImported/lich-king-stab_out.mp3", false, false, false, 1, 1, "DefaultEAXON")
-SetSoundDuration(gg_snd_lich_king_stab_out, 49162)
+gg_snd_lich_king_stab_out = CreateSound("war3mapImported/lich-king-stab_out.mp3", false, false, false, 0, 0, "DefaultEAXON")
+SetSoundDuration(gg_snd_lich_king_stab_out, 44721)
 SetSoundChannel(gg_snd_lich_king_stab_out, 0)
 SetSoundVolume(gg_snd_lich_king_stab_out, 127)
 SetSoundPitch(gg_snd_lich_king_stab_out, 1.0)
@@ -1867,6 +1867,7 @@ SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
 SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
 SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
 IssueImmediateOrder(gg_unit_H002_0191, "")
+UnitAddItemToSlotById(gg_unit_H002_0191, FourCC("stel"), 5)
 end
 
 function CreateBuildingsForPlayer3()
@@ -1933,6 +1934,7 @@ UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("klmm"), 1)
 UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("bfhr"), 2)
 UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("arsh"), 3)
 UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("shdt"), 4)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("stel"), 5)
 end
 
 function CreateBuildingsForPlayer4()
@@ -2001,6 +2003,7 @@ UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("btst"), 1)
 UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("shcw"), 2)
 UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("fwss"), 3)
 UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("spsh"), 4)
+UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("stel"), 5)
 end
 
 function CreateBuildingsForPlayer5()
@@ -2054,10 +2057,10 @@ SelectHeroSkill(gg_unit_H001_0320, FourCC("A00E"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("A00E"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("A00E"))
 IssueImmediateOrder(gg_unit_H001_0320, "")
+IssueImmediateOrder(gg_unit_H001_0320, "")
 UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("I000"), 0)
-UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("spsh"), 1)
-UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("lgdh"), 2)
-UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("stel"), 3)
+UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("lgdh"), 1)
+UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("stel"), 5)
 end
 
 function CreateUnitsForPlayer6()
@@ -2715,7 +2718,7 @@ SetUnitColor(gg_unit_H001_0320, PLAYER_COLOR_AQUA)
 SetUnitColor(gg_unit_U000_0322, PLAYER_COLOR_BROWN)
 SetUnitColor(gg_unit_H002_0191, PLAYER_COLOR_AQUA)
 SetUnitColor(gg_unit_Othr_0324, PLAYER_COLOR_RED)
-SetUnitColor(gg_unit_Osam_0326, PLAYER_COLOR_BLUE)
+SetUnitColor(gg_unit_Osam_0326, PLAYER_COLOR_ORANGE)
 SetUnitColor(gg_unit_Hjai_0327, PLAYER_COLOR_BLUE)
 MeleeStartingVisibility()
 MeleeStartingHeroLimit()

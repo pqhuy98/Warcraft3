@@ -15,6 +15,7 @@ import { DarkForceAi } from 'ai/dark_force_ai';
 import { LightForceAi } from 'ai/light_force_ai';
 import { LichKingEvents } from 'events/lich_king/lich_king_events';
 import { PeriodBuff } from 'events/period_buff/period_buff';
+import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
 import { Weather } from 'events/weather/weather';
 import {
   ABILITY_ID_BLADE_DANCE,
@@ -37,7 +38,7 @@ import {
   ABILITY_BloodMageSiphonMana,
   ABILITY_ChieftainShockWave,
   ABILITY_ChieftainWarStomp,
-  ABILITY_DeathKnightDeathCoil, ABILITY_FarseerChainLightning, ABILITY_FarseerEarthquake, ABILITY_FarseerSpiritWolf, ABILITY_LichFrostNova,
+  ABILITY_DeathKnightDeathCoil, ABILITY_FarseerChainLightning, ABILITY_FarseerEarthquake, ABILITY_LichFrostNova,
   ABILITY_MountainKingThunderBolt,
   ABILITY_MountainKingThunderClap,
   ABILITY_PaladinHolyLight,
@@ -62,6 +63,7 @@ function tsMain() {
   configurePlayerColor();
   registerAi();
   registerDialogues();
+  useReforgedIcons();
 
   // Miscs
   // new CreepSpawn(Unit.fromHandle(heroZeus));

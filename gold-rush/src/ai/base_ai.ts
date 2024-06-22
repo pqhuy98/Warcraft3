@@ -4,9 +4,14 @@ import { getUnitXY } from 'lib/location';
 import { log } from 'lib/log';
 import { findBestCircleCoverMostLocations } from 'lib/maths/circle_cover_most_points';
 import { isComputer } from 'lib/player';
-import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
+import { ABILITY_StaffOTeleportation } from 'lib/resources/war3-abilities';
+import {
+  buildTrigger, getTimeS, setIntervalIndefinite, setTimeout,
+} from 'lib/trigger';
+import { GetUnitsInRangeOfXYMatching } from 'lib/unit';
 import { shuffleArray } from 'lib/utils';
 import {
+  Item,
   Unit,
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
@@ -21,6 +26,7 @@ export interface Config {
   siegeEnemyHeroes: boolean
   siegeEnemyBases: boolean
   retreatWhenAlone: boolean
+  firstAttackDelay: number
 }
 
 const defaultConfig: Config = {
@@ -29,6 +35,7 @@ const defaultConfig: Config = {
   siegeEnemyHeroes: true,
   siegeEnemyBases: true,
   retreatWhenAlone: true,
+  firstAttackDelay: 30,
 };
 
 export class BaseAi {
@@ -53,7 +60,7 @@ export class BaseAi {
 
     this.freezeStartingItems();
     setTimeout(GetRandomReal(0, 10), () => {
-      setIntervalIndefinite(GetRandomReal(0.1, 0.2), () => this.thinkFast());
+      setIntervalIndefinite(GetRandomReal(0.3, 0.6), () => this.thinkFast());
       setIntervalIndefinite(GetRandomReal(1.8, 2.2), () => this.thinkSlow());
     });
   }
@@ -78,6 +85,7 @@ export class BaseAi {
     if (currentState === 'attack') {
       if (this.hero.life < retreatLifeThreshold || this.hero.mana < retreatManaThreshold) {
         this.observer.setState('retreat');
+        this.observer.setDestination(this.observer.getHome());
       }
     } else if (currentState === 'retreat') {
       if (this.hero.life > attackLifeThreshold && this.hero.mana > attackManaThreshold) {
@@ -106,6 +114,8 @@ export class BaseAi {
       default:
     }
 
+    this.tryBookOfTeleport();
+
     this.thinkSlowExtra();
   }
 
@@ -120,6 +130,8 @@ export class BaseAi {
   }
 
   private tryAttack() {
+    if (getTimeS() < this.config.firstAttackDelay) return;
+
     if (![OrderId.Standdown, OrderId.Move, 0].includes(this.observer.getCurrentOrder())) return;
 
     debug && log('Hero is idle, find new target');
@@ -152,7 +164,6 @@ export class BaseAi {
       locs.push(this.observer.getHome());
     }
 
-    // locs = [enemiesTownHalls[0]];
     debug && log('findBestCircleCoverMostLocations with', locs.length, 'locations');
 
     const result = findBestCircleCoverMostLocations(locs, this.observer.getAcquisitionRange());
@@ -196,6 +207,32 @@ export class BaseAi {
       const item = this.hero.getItemInSlot(i);
       if (item) {
         item.setDroppable(false);
+      }
+    }
+  }
+
+  protected tryBookOfTeleport() {
+    const itemTypeId = FourCC('stel');
+
+    const abilityId = FourCC(ABILITY_StaffOTeleportation.code);
+    if (!this.observer.getCanCastSpellNow(abilityId)) {
+      return;
+    }
+
+    if (this.observer.getDistanceToDestination() > 2500) {
+      const loc = this.observer.getDestination();
+      const nearbyAllies = GetUnitsInRangeOfXYMatching(800, loc, () => Unit.fromFilter().isAlly(this.hero.owner)
+        && Unit.fromFilter().isAlive()
+        && !Unit.fromFilter().isHero()
+        && !Unit.fromFilter().isUnitType(UNIT_TYPE_FLYING));
+      if (nearbyAllies.length > 0) {
+        for (let i = 0; i < 6; i++) {
+          const item = UnitItemInSlot(this.hero.handle, i + 1);
+          if (item != null && GetItemTypeId(item) === itemTypeId) {
+            this.hero.useItemAt(Item.fromHandle(item), loc.x, loc.y);
+            break;
+          }
+        }
       }
     }
   }
