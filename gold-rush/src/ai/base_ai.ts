@@ -35,7 +35,7 @@ const defaultConfig: Config = {
   siegeEnemyHeroes: true,
   siegeEnemyBases: true,
   retreatWhenAlone: true,
-  firstAttackDelay: 30,
+  firstAttackDelay: 60,
 };
 
 export class BaseAi {
