@@ -20,6 +20,7 @@ export default class Frostmourne {
     ABILITY_IDS: <number[]>[],
     SOUL_RETURN_SPEED: 700,
     SOUL_MODEL: MODEL_ZigguratMissile,
+    LIFE_PERCENT_RESTORED_PER_SOUL: 0.01,
   };
 
   static register(abilityId: number) {
@@ -34,7 +35,6 @@ export default class Frostmourne {
         return GetUnitAbilityLevel(getDamageSourceMaster(GetKillingUnit()), abilityId) > 0
           && !dead.isUnitType(UNIT_TYPE_STRUCTURE)
           && !dead.isIllusion()
-          && !dead.isUnitType(UNIT_TYPE_HERO)
           && !dead.isUnitType(UNIT_TYPE_MECHANICAL)
           && !dead.isUnitType(UNIT_TYPE_SUMMONED)
           && !isWard(dead)
@@ -43,8 +43,11 @@ export default class Frostmourne {
       t.addAction(() => {
         const killer = Unit.fromHandle(getDamageSourceMaster(GetKillingUnit()));
         const victim = Unit.fromHandle(GetDyingUnit());
-        setTimeout(1, () => {
+        const scale = Math.min(2, victim.level / 5);
+        setTimeout(scale + GetRandomReal(0, 0.3), () => {
           const soul = AddSpecialEffect(Frostmourne.Data.SOUL_MODEL, victim.x, victim.y);
+          BlzSetSpecialEffectHeight(soul, 200);
+          BlzSetSpecialEffectScale(soul, scale);
           souls.set(soul, killer.handle);
         });
       });
@@ -59,10 +62,10 @@ export default class Frostmourne {
           souls.delete(soul);
           // eff.x = GetCameraBoundMaxX() - 1;
           // eff.y = GetCameraBoundMaxY() - 1;
-          eff.destroy();
           if (target.isAlive()) {
-            target.life += target.life * 0.02;
+            target.life += target.maxLife * (0.5 + eff.scale) * Frostmourne.Data.LIFE_PERCENT_RESTORED_PER_SOUL;
           }
+          eff.destroy();
         } else {
           const newLoc = PolarProjection(eff, Frostmourne.Data.SOUL_RETURN_SPEED * interval, AngleBetweenLocs(eff, target));
           eff.x = newLoc.x;

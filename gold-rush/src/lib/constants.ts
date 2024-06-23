@@ -17,6 +17,9 @@ export const SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN = FourCC('A008:AOw2'
 export const SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD = FourCC('A00D:AHbz');
 
 export const ABILITY_ID_ARMY_OF_DEATH = FourCC('A007:AUan');
+export const ABILITY_ID_DEATH_COIL_LICH_KING = FourCC('A00I:AUdc');
+export const ABILITY_ID_FROST_NOVA_LICH_KING = FourCC('A00J:AUfn');
+
 export const ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION = FourCC('A00F:AIcb');
 
 export const MODEL_Sand_Tornado = 'SandTornado.mdx';

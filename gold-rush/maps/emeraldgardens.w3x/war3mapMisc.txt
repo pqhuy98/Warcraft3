@@ -1,7 +1,7 @@
 [Misc]
 AgiDefenseBonus=0.14
 AllowMultiBounce=1
-BoneDecayTime=88.0
+BoneDecayTime=15.0
 DecayTime=2.0
 DisplayEnemyInventory=1
 FoodCeiling=150

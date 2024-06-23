@@ -12,7 +12,11 @@ import {
   createDummy, enumUnitsWithDelay, GetUnitsInRangeOfXYMatching,
   isBuilding, isWard, tieUnitToUnit,
 } from 'lib/unit';
+import { classic } from 'lib/utils';
 import { Unit } from 'w3ts';
+
+const MODEL_ThunderclapCaster_classic = classic(MODEL_ThunderclapCaster);
+const MODEL_BoltImpact_classic = classic(MODEL_BoltImpact);
 
 export class ThunderBlink {
   static Data = {
@@ -59,16 +63,16 @@ export class ThunderBlink {
     dummy2.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel);
     dummy2.issueImmediateOrder(ORDER_thunderclap);
 
-    const blinkEffect1 = AddSpecialEffect(MODEL_ThunderclapCaster, casterLoc.x, casterLoc.y);
+    const blinkEffect1 = AddSpecialEffect(MODEL_ThunderclapCaster_classic, casterLoc.x, casterLoc.y);
     BlzSetSpecialEffectColor(blinkEffect1, 255, 0, 0);
     DestroyEffect(blinkEffect1);
 
-    const effectCenter = AddSpecialEffect(MODEL_ThunderclapCaster, targetLoc.x, targetLoc.y);
+    const effectCenter = AddSpecialEffect(MODEL_ThunderclapCaster_classic, targetLoc.x, targetLoc.y);
     BlzSetSpecialEffectScale(effectCenter, 4);
     BlzSetSpecialEffectColor(effectCenter, 255, 0, 0);
     DestroyEffect(effectCenter);
 
-    const effectCenter2 = AddSpecialEffect(MODEL_BoltImpact, targetLoc.x, targetLoc.y);
+    const effectCenter2 = AddSpecialEffect(MODEL_BoltImpact_classic, targetLoc.x, targetLoc.y);
     BlzSetSpecialEffectScale(effectCenter2, 4);
     BlzSetSpecialEffectColor(effectCenter2, 255, 0, 0);
     DestroyEffect(effectCenter2);
@@ -81,12 +85,12 @@ export class ThunderBlink {
     for (let j = 0; j < layers; j++) {
       for (let i = 0; i < (j + 1) * numberEffects; i++) {
         const loc1 = PolarProjection(targetLoc, (j + 1) * effectStep, i * 360 / numberEffects + j * anglePhase);
-        const effect1 = AddSpecialEffect(MODEL_ThunderclapCaster, loc1.x, loc1.y);
+        const effect1 = AddSpecialEffect(MODEL_ThunderclapCaster_classic, loc1.x, loc1.y);
         BlzSetSpecialEffectColor(effect1, 255, 0, 0);
         DestroyEffect(effect1);
 
         const loc2 = PolarProjection(targetLoc, (j + 1) * effectStep, i * 360 / numberEffects + j * anglePhase * 2);
-        const effect2 = AddSpecialEffect(MODEL_BoltImpact, loc2.x, loc2.y);
+        const effect2 = AddSpecialEffect(MODEL_BoltImpact_classic, loc2.x, loc2.y);
         BlzSetSpecialEffectColor(effect2, 255, 0, 0);
         DestroyEffect(effect2);
       }

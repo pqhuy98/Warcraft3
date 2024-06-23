@@ -49,3 +49,15 @@ export function shuffleArray<T>(array: T[]): void {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+
+export function classic(resourcePath: string) {
+  return `war3.w3mod:${resourcePath}`;
+}
+
+export function reforged(resourcePath: string) {
+  return `_hd.w3mod:${resourcePath}`;
+}
+
+export function isReforgedForcefully(resourcePath: string) {
+  return resourcePath.startsWith('_hd.w3mod:');
+}

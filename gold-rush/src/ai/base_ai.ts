@@ -78,11 +78,11 @@ export class BaseAi {
   }
 
   protected thinkFast() {
-    if (this._isPaused) return;
+    if (this.isPaused()) return;
 
     this.thinkFastCycle++;
 
-    const retreatLifeThreshold = Math.max(400, this.hero.maxLife / 6);
+    const retreatLifeThreshold = Math.max(400, this.hero.maxLife / 4);
     const retreatManaThreshold = 150;
     const attackLifeThreshold = this.hero.maxLife * 0.85;
     const attackManaThreshold = this.hero.maxMana * 0.85;
@@ -104,7 +104,7 @@ export class BaseAi {
   protected thinkFastExtra() { }
 
   protected thinkSlow() {
-    if (this._isPaused) return;
+    if (this.isPaused()) return;
 
     this.thinkSlowCycle++;
 
@@ -220,14 +220,14 @@ export class BaseAi {
   }
 
   protected tryBookOfTeleport() {
-    const itemTypeId = FourCC('stel');
+    // const itemTypeId = FourCC('stel');
 
     const abilityId = FourCC(ABILITY_StaffOTeleportation.code);
     if (!this.observer.getCanCastSpellNow(abilityId)) {
       return;
     }
 
-    if (this.thinkSlowCycle % 3 !== 0) return;
+    if (this.observer.getState() !== 'retreat' && this.thinkSlowCycle % 3 !== 0) return;
 
     if (this.observer.getDistanceToDestination() > 2500) {
       const loc = this.observer.getDestination();
@@ -237,13 +237,19 @@ export class BaseAi {
         && !Unit.fromFilter().isUnitType(UNIT_TYPE_FLYING));
       if (nearbyAllies.length > 0) {
         for (let i = 0; i < 6; i++) {
-          const item = UnitItemInSlot(this.hero.handle, i + 1);
-          if (item != null && GetItemTypeId(item) === itemTypeId) {
-            this.hero.useItemAt(Item.fromHandle(item), loc.x, loc.y);
-            this.setPause(true);
-            setTimeout(3.05, () => this.setPause(false));
-            break;
-          }
+          const _item = UnitItemInSlot(this.hero.handle, i + 1);
+          if (_item == null) continue;
+
+          const item = Item.fromHandle(_item);
+
+          const ability = item.getAbility(abilityId);
+          if (ability == null) continue;
+
+          this.hero.useItemAt(item, loc.x, loc.y);
+          this.setPause(true);
+          const delay = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_CASTING_DELAY, 0);
+          setTimeout(delay + 0.1, () => this.setPause(false));
+          break;
         }
       }
     }

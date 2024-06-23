@@ -929,7 +929,7 @@ R
 }
 
 STRING 186
-// Abilities: A007 (Army of the Dead), Hotkey (Hotkey - Normal)
+// Abilities: A00A (Wrath of the Lich King), Hotkey (Hotkey - Normal)
 {
 R
 }
@@ -1002,24 +1002,6 @@ The Lich King plunges Frostmourne into the ground, channeling his boundless fury
 
 STRING 204
 // Abilities: A008 (Wrath of the Lich King), Researchtip (Tooltip - Learn)
-{
-Learn Wrath of the Lich King - [|cffffcc00Level %d|r].
-}
-
-STRING 206
-// Abilities: A00A (Wrath of the Lich King), Hotkey (Hotkey - Normal)
-{
-D
-}
-
-STRING 207
-// Abilities: A00A (Wrath of the Lich King), Researchhotkey (Hotkey - Learn)
-{
-D
-}
-
-STRING 208
-// Abilities: A00A (Wrath of the Lich King), Researchtip (Tooltip - Learn)
 {
 Learn Wrath of the Lich King - [|cffffcc00Level %d|r].
 }
@@ -1121,7 +1103,7 @@ The Lich King lets loose a terrifying howl that reduces nearby enemy units' atta
 }
 
 STRING 234
-// Buffs/Effects: B001 (Blizzard), EditorSuffix (Editor Suffix)
+// Abilities: A00H (Frost Bolt), EditorSuffix (Editor Suffix)
 {
 (Lich King)
 }
@@ -1198,21 +1180,9 @@ This unit was hit by Frostmourne; its armor is temporarily reduced.
 }
 
 STRING 247
-// Buffs/Effects: B002 (Blizzard (Caster)), EditorSuffix (Editor Suffix)
+// Abilities: A00I (Death Coil), EditorSuffix (Editor Suffix)
 {
 (Lich King)
-}
-
-STRING 249
-// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
-{
-Decreases nearby enemy units' movement speed by <A00G:AUau,DataA2,%>% and life regeneration rate.
-}
-
-STRING 250
-// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
-{
-Decreases nearby enemy units' movement speed by <A00G:AUau,DataA3,%>% and life regeneration rate.
 }
 
 STRING 251
@@ -1257,12 +1227,6 @@ STRING 258
 Wrath of the Lich King - [|cffffcc00Level 3|r]
 }
 
-STRING 259
-// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
-{
-Decreases nearby enemy units' movement speed by <A00G:AUau,DataA1,%>% and remove 3% max life per second.
-}
-
 STRING 260
 // Items: stel (Book of Teleportation), Name (Name)
 {
@@ -1273,5 +1237,185 @@ STRING 261
 // Items: stel (Book of Teleportation), Tip (Tooltip - Basic)
 {
 Purchase Book of Teleportation
+}
+
+STRING 262
+// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
+{
+Throws a magical shard of ice at a target enemy unit, dealing <A00H:ACcb,DataA1> damage and freezing the target for <A00H:ACcb,Dur1> seconds.
+}
+
+STRING 263
+// Abilities: A00J (Frost Nova), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 264
+// Abilities: A00J (Frost Nova), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 265
+// Abilities: A00J (Frost Nova), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 266
+// Abilities: A00I (Death Coil), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 267
+// Abilities: A00I (Death Coil), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 268
+// Abilities: A007 (Army of the Dead), Hotkey (Hotkey - Normal)
+{
+F
+}
+
+STRING 270
+// Abilities: A00H (Frost Bolt), Hotkey (Hotkey - Normal)
+{
+E
+}
+
+STRING 271
+// Abilities: A00E (Howl of Terror), Researchhotkey (Hotkey - Learn)
+{
+V
+}
+
+STRING 275
+// Abilities: A00G (Domination Aura), Tip (Tooltip - Normal)
+{
+Domination Aura - [|cffffcc00Level 2|r]
+}
+
+STRING 276
+// Abilities: A00G (Domination Aura), Tip (Tooltip - Normal)
+{
+Domination Aura - [|cffffcc00Level 3|r]
+}
+
+STRING 277
+// Abilities: A00H (Frost Bolt), Tip (Tooltip - Normal)
+{
+Frost Bolt - [|cffffcc00Level 2|r]
+}
+
+STRING 278
+// Abilities: A00H (Frost Bolt), Tip (Tooltip - Normal)
+{
+Frost Bolt - [|cffffcc00Level 1|r]
+}
+
+STRING 279
+// Abilities: A00H (Frost Bolt), Tip (Tooltip - Normal)
+{
+Frost Bolt - [|cffffcc00Level 3|r]
+}
+
+STRING 280
+// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
+{
+Throws a magical shard of ice at a target enemy unit, dealing <A00H:ACcb,DataA2> damage and freezing the target for <A00H:ACcb,Dur2> seconds.
+}
+
+STRING 281
+// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
+{
+Throws a magical shard of ice at a target enemy unit, dealing <A00H:ACcb,DataA3> damage and freezing the target for <A00H:ACcb,Dur3> seconds.
+}
+
+STRING 282
+// Abilities: A00H (Frost Bolt), Researchhotkey (Hotkey - Learn)
+{
+E
+}
+
+STRING 283
+// Abilities: A00H (Frost Bolt), Researchtip (Tooltip - Learn)
+{
+Learn Frost Bolt - [|cffffcc00Level %d|r]
+}
+
+STRING 284
+// Abilities: A00H (Frost Bolt), Researchubertip (Tooltip - Learn - Extended)
+{
+Throws a magical shard of ice at a target enemy unit, dealing damage and freezing the target for a long duration.
+}
+
+STRING 285
+// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
+{
+Slows nearby enemy units' movement speed by <A00G:AUau,DataA1,%>% and removes 3% of their max life per second. Affects enemies with a small area.
+}
+
+STRING 286
+// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
+{
+Slows nearby enemy units' movement speed by <A00G:AUau,DataA2,%>% and removes 3% of their max life per second. Affects enemies with a medium area.
+}
+
+STRING 287
+// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
+{
+Slows nearby enemy units' movement speed by <A00G:AUau,DataA3,%>% and removes 3% of their max life per second. Affects enemies with a large area.
+}
+
+STRING 288
+// Abilities: A00G (Domination Aura), Researchubertip (Tooltip - Learn - Extended)
+{
+Decreases nearby enemy units' movement speed and remove some percentage of their max life per second.
+}
+
+STRING 289
+// Abilities: A00G (Domination Aura), Researchtip (Tooltip - Learn)
+{
+Learn Domination Aura - [|cffffcc00Level %d|r]
+}
+
+STRING 290
+// Abilities: A00G (Domination Aura), Researchhotkey (Hotkey - Learn)
+{
+X
+}
+
+STRING 291
+// Abilities: A00A (Wrath of the Lich King), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 292
+// Abilities: A00A (Wrath of the Lich King), Researchtip (Tooltip - Learn)
+{
+Learn Wrath of the Lich King - [|cffffcc00Level %d|r]
+}
+
+STRING 293
+// Buffs/Effects: B001 (Blizzard), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 294
+// Buffs/Effects: B002 (Blizzard (Caster)), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 295
+// Abilities: A00E (Howl of Terror), Hotkey (Hotkey - Normal)
+{
+D
 }
 

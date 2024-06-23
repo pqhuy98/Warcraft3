@@ -8,17 +8,21 @@ import { log } from 'lib/log';
 import {
   MODEL_AncientProtectorMissile, MODEL_EarthquakeTarget, MODEL_Tornado,
 } from 'lib/resources/war3-models';
-import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
+import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import {
   createDummy, GetUnitsInRangeOfXYMatching, isBuilding,
   isWard,
 } from 'lib/unit';
+import { classic } from 'lib/utils';
 import {
   Unit,
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
 import { MODEL_Sand_Tornado, SUPPORT_ABILITY_ID_SANDQUAKE_IMPALE } from '../../lib/constants';
+
+const MODEL_EarthquakeTarget_classic = classic(MODEL_EarthquakeTarget);
+const MODEL_AncientProtectorMissile_classic = classic(MODEL_AncientProtectorMissile);
 
 export default class Sandquake {
   static Data = {
@@ -134,19 +138,18 @@ export default class Sandquake {
 
       SetUnitFacingTimed(caster.handle, AngleBetweenLocs(casterLoc, targetLoc), 0.1 * timeToReach);
 
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 2; i++) {
         const angle = GetRandomDirectionDeg();
         const distance = GetRandomReal(0, radius);
         const loc = PolarProjection(newLoc, distance, angle);
-        DestroyEffect(AddSpecialEffect(MODEL_AncientProtectorMissile, loc.x, loc.y));
+        DestroyEffect(AddSpecialEffect(MODEL_AncientProtectorMissile_classic, loc.x, loc.y));
       }
 
-      if (idx % 6 === 0) {
+      if (idx % 8 === 0) {
         TerrainDeformationRandomBJ(0.5, tempLocation(newLoc).handle, radius, -30, 30, 0.15);
-        const effect = AddSpecialEffect(MODEL_EarthquakeTarget, newLoc.x, newLoc.y);
+        const effect = AddSpecialEffect(MODEL_EarthquakeTarget_classic, newLoc.x, newLoc.y);
         BlzSetSpecialEffectYaw(effect, Math.random() * 2 * Math.PI);
-        // setTimeout(0.95, () => DestroyEffect(effect));
-        DestroyEffect(effect);
+        setTimeout(0.95, () => DestroyEffect(effect));
 
         const nearbyEnemies = GetUnitsInRangeOfXYMatching(
           radius,

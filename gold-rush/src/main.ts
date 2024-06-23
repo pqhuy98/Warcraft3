@@ -20,7 +20,9 @@ import { Weather } from 'events/weather/weather';
 import {
   ABILITY_ID_BLADE_DANCE,
   ABILITY_ID_CHAIN_LIGHTNING,
+  ABILITY_ID_DEATH_COIL_LICH_KING,
   ABILITY_ID_DIVINE_FURY,
+  ABILITY_ID_FROST_NOVA_LICH_KING,
   ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION,
   ABILITY_ID_SANDQUAKE,
   ABILITY_ID_THUNDER_BLINK,
@@ -58,12 +60,19 @@ import { UNIT_CryptFiend } from './lib/resources/war3-units';
 
 function tsMain() {
   registerUnits();
-
-  trackElapsedGameTime();
-  configurePlayerColor();
-  registerAi();
+  // Player settings
+  removeStartingUnit(Player(0));
+  removeStartingUnit(Player(5));
+  configurePlayerSettings();
   registerDialogues();
+  upgradeTownHallAllPlayers();
+
+  registerAi();
   useReforgedIcons();
+  trackElapsedGameTime();
+  daemonTieUnitToUnit();
+  daemonDamageSourceMaster();
+  daemonTempCleanUp();
 
   // Miscs
   // new CreepSpawn(Unit.fromHandle(heroZeus));
@@ -72,14 +81,6 @@ function tsMain() {
   DamageObserver.register();
   Weather.changeWeather();
   LichKingEvents.register(globalUnits.heroLichKing);
-
-  removeStartingUnit(Player(0));
-  removeStartingUnit(Player(5));
-  upgradeTownHallAllPlayers();
-
-  daemonTieUnitToUnit();
-  daemonDamageSourceMaster();
-  daemonTempCleanUp();
 
   setIntervalIndefinite(1, () => {
     MapPlayer.fromLocal().setState(PLAYER_STATE_RESOURCE_LUMBER, getTimeS());
@@ -96,8 +97,8 @@ function tsMain() {
   Frostmourne.register(ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION);
 
   // Multicasts
-  MulticastUnit.register(FourCC(ABILITY_DeathKnightDeathCoil.code), globalUnits.heroLichKing);
-  MulticastUnit.register(FourCC(ABILITY_LichFrostNova.code), globalUnits.heroLichKing);
+  MulticastUnit.register(ABILITY_ID_DEATH_COIL_LICH_KING);
+  MulticastUnit.register(ABILITY_ID_FROST_NOVA_LICH_KING);
 
   MulticastUnit.register(FourCC(ABILITY_PaladinHolyLight.code));
   MulticastUnit.register(FourCC(ABILITY_MountainKingThunderBolt.code));
@@ -118,7 +119,10 @@ function tsMain() {
   MulticastNoTarget.register(FourCC(ABILITY_BladeMasterBladestorm.code));
 }
 
-function configurePlayerColor() {
+function configurePlayerSettings() {
+  const lightForceBoss = globalUnits.heroZeus;
+  const darkForceBoss = globalUnits.heroLichKing;
+
   const colorPreservedUnits: unit[] = [
     globalUnits.fountainLight,
     globalUnits.fountainDark,
@@ -170,39 +174,40 @@ function configurePlayerColor() {
     });
     DestroyGroup(allUnitsOfPlayer);
 
-    if (player === globalUnits.heroLichKing.owner.handle && isComputer(player)) {
+    if (player === darkForceBoss.owner.handle && isComputer(player)) {
       StartCampaignAI(player, 'war3mapImported\\undead-heroes.ai');
     }
 
     // Undead strong
-    if (IsPlayerEnemy(player, globalUnits.heroZeus.owner.handle)) {
+    if (IsPlayerEnemy(player, lightForceBoss.owner.handle)) {
       let handicap = 1;
-      const maxHpHandicap = 1.5;
-      const maxDamageHandicap = 1.5;
+      const maxHpHandicap = 2;
+      const maxDamageHandicap = 2;
       SetPlayerHandicap(player, handicap);
       let oldScale: number;
-      setIntervalIndefinite(3, () => {
+      setIntervalIndefinite(14, () => {
         handicap = Math.min(handicap * 1.01, Math.max(maxHpHandicap, maxDamageHandicap));
         SetPlayerHandicap(player, Math.min(handicap, maxHpHandicap));
         SetPlayerHandicapDamage(player, Math.min(Math.max(1, handicap), maxDamageHandicap));
-        if (globalUnits.heroLichKing && player === GetOwningPlayer(globalUnits.heroLichKing.handle)) {
-          const boss = globalUnits.heroLichKing;
-          const newScale = Math.max(1.4, Math.sqrt(boss.owner.handicap));
-          growUnit(boss, newScale, 2, oldScale);
+        if (player === GetOwningPlayer(darkForceBoss.handle)) {
+          const newScale = Math.max(1.4, Math.sqrt(darkForceBoss.owner.handicap));
+          growUnit(darkForceBoss, newScale, 2, oldScale);
           oldScale = newScale;
-          boss.selectionScale = 1.4 + Math.sqrt(boss.owner.handicap);
+          darkForceBoss.selectionScale = 1.4 + Math.sqrt(darkForceBoss.owner.handicap);
         }
       });
 
-      const startingUnits: Record<string, number> = {
-        [UNIT_Abomination.code]: 2,
-        [UNIT_Ghoul.code]: 10,
-        [UNIT_CryptFiend.code]: 3,
-      };
-      for (const [code, count] of Object.entries(startingUnits)) {
-        for (let i = 0; i < count; i++) {
-          const loc = PolarProjection(fromTempLocation(GetPlayerStartLocationLoc(player)), GetRandomReal(500, 1000), GetRandomDirectionDeg());
-          Unit.create(MapPlayer.fromHandle(player), FourCC(code), loc.x, loc.y);
+      if (!noUnitPlayers.includes(player)) {
+        const startingUnits: Record<string, number> = {
+          [UNIT_Abomination.code]: 2,
+          [UNIT_Ghoul.code]: 10,
+          [UNIT_CryptFiend.code]: 3,
+        };
+        for (const [code, count] of Object.entries(startingUnits)) {
+          for (let i = 0; i < count; i++) {
+            const loc = PolarProjection(fromTempLocation(GetPlayerStartLocationLoc(player)), GetRandomReal(500, 700), GetRandomDirectionDeg());
+            Unit.create(MapPlayer.fromHandle(player), FourCC(code), loc.x, loc.y);
+          }
         }
       }
     }
@@ -226,8 +231,11 @@ function registerAi() {
   LightForceAi.register(globalUnits.heroJaina.owner.handle, globalUnits.heroJaina.typeId);
 }
 
+const noUnitPlayers: player[] = [];
+
 function removeStartingUnit(player: player) {
-  ['hpea', 'opeo', 'uaco', 'ewsp'].forEach((workerTypeId) => {
+  noUnitPlayers.push(player);
+  ['hpea', 'opeo', 'uaco', 'ewsp', 'ugho'].forEach((workerTypeId) => {
     const workers = GetUnitsOfPlayerAndTypeId(player, FourCC(workerTypeId));
     Group.fromHandle(workers).for(() => {
       RemoveUnit(GetEnumUnit());

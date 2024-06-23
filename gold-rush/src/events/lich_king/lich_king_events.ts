@@ -16,10 +16,11 @@ export class LichKingEvents {
       t.registerUnitEvent(lichKing, EVENT_UNIT_DEATH);
       t.addAction(() => {
         const now = getTimeS();
-        if (now - lastDeath > 3 * 60 || GetRandomInt(1, 3) === 1) {
+        const diff = now - lastDeath;
+        lastDeath = now;
+        if (diff > 10 * 60 || GetRandomInt(1, 3) === 1) {
           playSpeech(lichKing, pickRandom(deathSounds));
         }
-        lastDeath = now;
       });
     });
   }
