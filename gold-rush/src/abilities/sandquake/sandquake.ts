@@ -102,6 +102,7 @@ export default class Sandquake {
 
     caster.setVertexColor(255, 255, 255, 0);
     caster.setPathing(false);
+    caster.invulnerable = true;
 
     const radius = Sandquake.Data.RADIUS;
     const intervalS = 0.03;
@@ -174,6 +175,7 @@ export default class Sandquake {
       if (!caster.isAlive() || DistanceBetweenLocs(newLoc, targetLoc) < distancePerStep) {
         caster.setVertexColor(255, 255, 255, 255);
         caster.setPathing(true);
+        caster.invulnerable = false;
         caster.endAbilityCooldown(abilityId);
         SetUnitPosition(caster.handle, targetLoc.x, targetLoc.y);
 

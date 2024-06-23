@@ -6,8 +6,6 @@ import { Group, Unit } from 'w3ts';
 
 const excludedAbilityIds = [
   FourCC('A00G:AUau'),
-  FourCC('Adef'), // Defend
-  FourCC('Ablo'), // Bloodlust
 ];
 
 const abilitySet = new Set<number>(excludedAbilityIds);
@@ -36,7 +34,7 @@ function updateReforgedIcons(unit: Unit) {
       const iconPath = BlzGetAbilityIcon(id);
       if (!isReforgedForcefully(iconPath)) {
         BlzSetAbilityIcon(id, reforged(BlzGetAbilityIcon(id)));
-        BlzSetAbilityActivatedIcon(id, reforged(BlzGetAbilityIcon(id)));
+        BlzSetAbilityActivatedIcon(id, reforged(BlzGetAbilityActivatedIcon(id)));
       }
       if (BlzGetAbilityPosY(id) === 2) {
         BlzSetAbilityPosY(id, 0);

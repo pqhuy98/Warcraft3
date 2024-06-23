@@ -16,7 +16,7 @@ export default class BladeDance {
   static Data = {
     ABILITY_IDS: <number[]>[],
     ATTACK_SPEED_SCALING: 8,
-    ATTACKS_PER_LEVEL: 7,
+    ATTACKS_PER_LEVEL: 15,
     ATTACK_MELEE_DISTANCE: 150,
     EXTRA_ATTACK_RANGE: 99999,
     IS_INVULNERABLE_DURING_CAST: false,

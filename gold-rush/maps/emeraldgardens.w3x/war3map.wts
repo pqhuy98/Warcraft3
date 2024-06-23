@@ -1143,18 +1143,6 @@ STRING 240
 |cff0000ffFrostmourne|r
 }
 
-STRING 241
-// Items: I000 (|cff0000ffFrostmourne|r), Ubertip (Tooltip - Extended)
-{
-|cffff8c00Artifact|r|nGrant great powers. |n|cffffcc00History|r|n|cffffdeadFrostmourne was the mourneblade of the Lich King. A fearsome, rune-inscribed two-handed longsword, it possessed the power to shatter and imprison the souls of its victims and could remake the living into mindless undead. Frostmourne was thrust from the Frozen Throne by the Lich King Ner'zhul and was taken up by Arthas Menethil in the wastes of Northrend during the Third War. The blade spilled the blood of kings, destroyed nations, and inflicted scars on the world that remain to this day. Few weapons have shaped modern history as much as Frostmourne.|r
-}
-
-STRING 242
-// Items: I000 (|cff0000ffFrostmourne|r), Tip (Tooltip - Basic)
-{
-Purchase |cff0000ffFrostmourne|r
-}
-
 STRING 243
 // Abilities: A00F (Item Frostmourne Armor Reduction), Name (Name)
 {
@@ -1417,5 +1405,18 @@ STRING 295
 // Abilities: A00E (Howl of Terror), Hotkey (Hotkey - Normal)
 {
 D
+}
+
+STRING 297
+// Items: I000 (|cff0000ffFrostmourne|r), Tip (Tooltip - Basic)
+{
+Claim |cff0000ffFrostmourne|r
+}
+
+STRING 298
+// Items: I000 (|cff0000ffFrostmourne|r), Ubertip (Tooltip - Extended)
+{
+|cffff8c00Artifact|r|nThis powerful blade collects the soul of each enemy it kills. Each soul heals the Lich King for a percentage of his maximum life, allowing him to sustain himself and remain powerful in battle.
+ |n|cffffcc00History|r|n|cffffdeadFrostmourne was the mourneblade of the Lich King. A fearsome, rune-inscribed two-handed longsword, it possessed the power to shatter and imprison the souls of its victims and could remake the living into mindless undead. Frostmourne was thrust from the Frozen Throne by the Lich King Ner'zhul and was taken up by Arthas Menethil in the wastes of Northrend during the Third War. The blade spilled the blood of kings, destroyed nations, and inflicted scars on the world that remain to this day. Few weapons have shaped modern history as much as Frostmourne.|r|n|n|cffc0c0c0Whomsoever takes up this blade shall wield power eternal. Just as the blade rends flesh, so must power scar the spirit.|r
 }
 

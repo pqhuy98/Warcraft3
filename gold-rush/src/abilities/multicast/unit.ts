@@ -46,6 +46,8 @@ export class MulticastUnit {
             && u.handle !== target.handle;
         });
 
+        const backSwing = caster.getField(UNIT_RF_CAST_BACK_SWING) as number;
+
         enumUnitsWithDelay(nearby, (unit) => {
           const dummy = createDummy('MulticastUnit', caster.owner, caster.x, caster.y, caster, 0.5, caster.facing);
           dummy.addAbility(abiId);
@@ -55,7 +57,7 @@ export class MulticastUnit {
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_COOLDOWN, abiLevel - 1, 0);
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 999999);
           dummy.issueTargetOrder(order, unit);
-        }, Math.min(0.3, 1 / nearby.length));
+        }, Math.min(0.3, backSwing / nearby.length));
       });
     });
   }

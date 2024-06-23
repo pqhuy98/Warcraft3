@@ -2028,9 +2028,9 @@ local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), -3163.2, 5803.0, 147.650, FourCC("uabo"))
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), -3106.0, 5559.7, 102.275, FourCC("uabo"))
-gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -5495.5, 1572.0, -19.662, FourCC("H001"))
-SetHeroLevel(gg_unit_H001_0320, 20, false)
-SetUnitState(gg_unit_H001_0320, UNIT_STATE_MANA, 1650)
+gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -5495.5, 1572.0, 340.340, FourCC("H001"))
+SetHeroLevel(gg_unit_H001_0320, 30, false)
+SetUnitState(gg_unit_H001_0320, UNIT_STATE_MANA, 1290)
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))
@@ -2065,15 +2065,6 @@ IssueImmediateOrder(gg_unit_H001_0320, "")
 UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("I000"), 0)
 UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("lgdh"), 1)
 UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("stel"), 5)
-end
-
-function CreateUnitsForPlayer6()
-local p = Player(6)
-local u
-local unitID
-local t
-local life
-
 gg_unit_U000_0322 = BlzCreateUnitWithSkin(p, FourCC("U000"), -5957.0, 5336.7, 271.890, FourCC("U000"))
 SetHeroLevel(gg_unit_U000_0322, 20, false)
 SetUnitState(gg_unit_U000_0322, UNIT_STATE_MANA, 660)
@@ -2701,7 +2692,6 @@ CreateUnitsForPlayer2()
 CreateUnitsForPlayer3()
 CreateUnitsForPlayer4()
 CreateUnitsForPlayer5()
-CreateUnitsForPlayer6()
 end
 
 function CreateAllUnits()

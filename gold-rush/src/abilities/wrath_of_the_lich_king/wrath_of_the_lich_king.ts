@@ -120,7 +120,7 @@ export default class WrathOfTheLichKing {
     caster: Unit,
     abilityLevel: number,
   ) {
-    const effectDurationS = musicDuration - animationDurationSwordUp - animationDurationSwordSlam - 2;
+    const effectDurationS = musicDuration - animationDurationSwordUp - animationDurationSwordSlam - 1;
     const casterLoc = getUnitXY(caster);
 
     const dummy1 = createDummy('WotLK-stun', caster.owner, casterLoc.x, casterLoc.y, caster, 0.5);

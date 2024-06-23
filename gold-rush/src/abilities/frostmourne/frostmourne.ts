@@ -46,7 +46,7 @@ export default class Frostmourne {
         const scale = Math.min(2, victim.level / 5);
         setTimeout(scale + GetRandomReal(0, 0.3), () => {
           const soul = AddSpecialEffect(Frostmourne.Data.SOUL_MODEL, victim.x, victim.y);
-          BlzSetSpecialEffectHeight(soul, 200);
+          BlzSetSpecialEffectHeight(soul, 145);
           BlzSetSpecialEffectScale(soul, scale);
           souls.set(soul, killer.handle);
         });
@@ -63,7 +63,7 @@ export default class Frostmourne {
           // eff.x = GetCameraBoundMaxX() - 1;
           // eff.y = GetCameraBoundMaxY() - 1;
           if (target.isAlive()) {
-            target.life += target.maxLife * (0.5 + eff.scale) * Frostmourne.Data.LIFE_PERCENT_RESTORED_PER_SOUL;
+            target.life += target.maxLife * (0.1 + eff.scale) * Frostmourne.Data.LIFE_PERCENT_RESTORED_PER_SOUL;
           }
           eff.destroy();
         } else {
