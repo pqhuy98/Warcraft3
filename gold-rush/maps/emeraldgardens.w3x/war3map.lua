@@ -2028,7 +2028,7 @@ local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), -3163.2, 5803.0, 147.650, FourCC("uabo"))
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), -3106.0, 5559.7, 102.275, FourCC("uabo"))
-gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -5495.5, 1572.0, 340.340, FourCC("H001"))
+gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -5478.1, 1490.4, 264.827, FourCC("H001"))
 SetHeroLevel(gg_unit_H001_0320, 30, false)
 SetUnitState(gg_unit_H001_0320, UNIT_STATE_MANA, 1290)
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))

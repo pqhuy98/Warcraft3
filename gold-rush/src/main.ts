@@ -158,7 +158,7 @@ function configurePlayerSettings() {
         SetPlayerName(player, 'Night Elf Sentinels');
         break;
       case RACE_UNDEAD:
-        SetPlayerColorBJ(player, PLAYER_COLOR_GREEN, false);
+        SetPlayerColorBJ(player, PLAYER_COLOR_PURPLE, false);
         SetPlayerName(player, 'Undead Scourge');
         break;
       default:
