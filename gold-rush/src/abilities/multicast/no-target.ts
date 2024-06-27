@@ -1,3 +1,4 @@
+import { k0, k1 } from 'lib/debug/key_counter';
 import { ABILITY_BladeMasterBladestorm } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
@@ -34,6 +35,7 @@ export class MulticastNoTarget {
         t.addCondition(() => GetSpellAbilityUnit() === caster);
       }
       t.addAction(() => {
+        k0('mcnt');
         const abiId = GetSpellAbilityId();
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
         const abiLevel = caster.getAbilityLevel(abiId);
@@ -77,9 +79,12 @@ export class MulticastNoTarget {
             tLimit.pause();
             tLimit.destroy();
             RemoveLocation(targetLoc);
+            k0('mcnt-f');
             fadeUnit(dummy, 255, 255, 0, 128, 128 / (castPoint + castBackSwing + 0.1), () => false, () => {
               dummy.destroy();
+              k1('mcnt-f');
             });
+            k1('mcnt');
           };
 
           tLimit.start(tLimitDuration, false, () => startCleanUp());

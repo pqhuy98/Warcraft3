@@ -218,7 +218,7 @@ export default class BladeDance {
         matchingUnit.isAlive()
         && !matchingUnit.invulnerable
         && matchingUnit.isEnemy(this.caster.owner)
-        && matchingUnit.handle !== this.target.handle
+        && matchingUnit !== this.target
         && !matchingUnit.isUnitType(UNIT_TYPE_STRUCTURE)
         && !matchingUnit.isUnitType(UNIT_TYPE_ETHEREAL)
         && !isWard(matchingUnit)

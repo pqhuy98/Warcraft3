@@ -20,9 +20,9 @@
     "plugins": [
       {
         "transform": "war3-transformer",
-        "mapDir": "C:/Projects/Warcraft3/gold-rush/maps/emeraldgardens.w3x",
-        "entryFile": "C:/Projects/Warcraft3/gold-rush/src/main.ts",
-        "outputDir": "C:/Projects/Warcraft3/gold-rush/dist/emeraldgardens.w3x"
+        "mapDir": "D:/Projects/Warcraft3/gold-rush/maps/emeraldgardens.w3x",
+        "entryFile": "D:/Projects/Warcraft3/gold-rush/src/main.ts",
+        "outputDir": "D:/Projects/Warcraft3/gold-rush/dist/emeraldgardens.w3x"
       }
     ],
     "types": [

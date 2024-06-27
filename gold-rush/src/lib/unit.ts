@@ -6,6 +6,7 @@ import {
   Group, MapPlayer, Timer, Unit,
 } from 'w3ts';
 
+import { k0, k1 } from './debug/key_counter';
 import { getTimeS, setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
 export const ABILITY_ID_LOCUST = FourCC('Aloc');
@@ -53,6 +54,7 @@ export function fadeUnit(
   checkCancel: () => boolean,
   onComplete: () => void,
 ) {
+  k0('fade');
   const t = Timer.create();
 
   const TICK_TIME = 1.0 / 15;
@@ -66,12 +68,14 @@ export function fadeUnit(
       // fading is cancelled
       t.pause();
       t.destroy();
+      k1('fade');
       return;
     }
     if (newAlpha <= 0) {
       // fading is completed
       t.pause();
       t.destroy();
+      k1('fade');
       onComplete();
     }
 
@@ -80,16 +84,20 @@ export function fadeUnit(
 }
 
 export function growUnit(u: Unit, targetScale: number, duration: number, initialScale?: number) {
+  k0('grwu');
   const startingScale = initialScale ?? (u.getField(UNIT_RF_SCALING_VALUE) as number);
   setIntervalForDuration(0.1, duration, (i, repeat) => {
     const scale = i / repeat * (targetScale - startingScale) + startingScale;
     u.setScale(scale, 0, 0);
+  }, () => {
+    k1('grwu');
   });
 }
 
 const unitTies = new Map<unit, unit>();
 
 export function tieUnitToUnit(tiedunit: unit, targetunit: unit) {
+  k0('tu2u');
   unitTies.set(tiedunit, targetunit);
   relocateUnitToUnit(tiedunit, targetunit);
 }
@@ -112,6 +120,7 @@ function relocateUnitToUnit(tiedunit: unit, targetunit: unit) {
   const targetUnit = Unit.fromHandle(targetunit);
   if (!tiedUnit.isAlive()) {
     unitTies.delete(tiedunit);
+    k1('tu2u');
   } else {
     tiedUnit.x = targetUnit.x;
     tiedUnit.y = targetUnit.y;
@@ -135,32 +144,31 @@ export function enumUnitsWithDelay(
   if (units.length === 0) {
     return;
   }
+  k0('euwd');
   const t = Timer.create();
   let index = 0;
   t.start(durationPerStep, true, () => {
     if (index >= units.length - 1) {
       t.pause();
       t.destroy();
+      k1('euwd');
     }
     index++;
     callback(units[index - 1], index - 1);
   });
 }
 
-const damageSourceMaster = new Map<unit, unit>();
-function setDamageSourceMaster(dummy: unit, master: unit) {
-  damageSourceMaster.set(dummy, master);
+const dummyMaster = new Map<unit, unit>();
+
+export function getDummyMaster(dummy: unit) {
+  return dummyMaster.get(dummy) ?? dummy;
 }
 
-export function getDamageSourceMaster(dummy: unit) {
-  return damageSourceMaster.get(dummy) ?? dummy;
-}
-
-export function daemonDamageSourceMaster() {
+export function daemonDummyMaster() {
   setIntervalIndefinite(5, () => {
-    for (const dummy of damageSourceMaster.keys()) {
+    for (const dummy of dummyMaster.keys()) {
       if (dummy == null || !IsUnitAliveBJ(dummy)) {
-        damageSourceMaster.delete(dummy);
+        dummyMaster.delete(dummy);
       }
     }
   });
@@ -175,7 +183,7 @@ export function createDummy(usecase: string, owner: MapPlayer, locX: number, loc
   dummy.addAbility(ABILITY_ID_LOCUST);
   dummy.invulnerable = true;
   dummy.setPathing(false);
-  setDamageSourceMaster(dummy.handle, master.handle);
+  dummyMaster.set(dummy.handle, master.handle);
   return dummy;
 }
 

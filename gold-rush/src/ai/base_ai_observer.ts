@@ -1,10 +1,11 @@
-import { DamageObserver } from 'lib/data_structures/damage_observer';
 import { TimestampedQueue } from 'lib/data_structures/timestamped_queue';
 import {
   DistanceBetweenLocs,
   getUnitXY, Loc,
 } from 'lib/location';
-import { getTimeS, setIntervalIndefinite } from 'lib/trigger';
+import { log } from 'lib/log';
+import { DamageObserver } from 'lib/systems/damage_observer';
+import { getTimeS, onChatLocal, setIntervalIndefinite } from 'lib/trigger';
 import {
   getUnitsFromGroup,
   GetUnitsInRangeOfXYMatching,
@@ -16,7 +17,10 @@ import {
 
 type State = 'retreat' | 'attack'
 
-type InterestingEventType = 'ally_hero_attack' | 'ally_building_attacked'
+export enum InterestingEventType {
+  AllyHeroAttack = 0,
+  AllyBuildingAttacked = 1
+}
 
 interface InterestingEvent {
   location: Loc
@@ -69,19 +73,19 @@ export class BaseAiObserver {
           timestamp: getTimeS(),
           value: {
             location: getUnitXY(victim),
-            type: 'ally_building_attacked',
+            type: InterestingEventType.AllyBuildingAttacked,
           },
         });
       }
     });
 
     DamageObserver.subscribeHeroDamaging((_victim, attacker) => {
-      if (attacker.owner.isPlayerAlly(this.owner) && attacker.handle !== this.hero.handle) {
+      if (attacker.owner.isPlayerAlly(this.owner) && attacker !== this.hero) {
         this.recentInterestingEvents.push({
           timestamp: getTimeS(),
           value: {
             location: getUnitXY(attacker),
-            type: 'ally_hero_attack',
+            type: InterestingEventType.AllyHeroAttack,
           },
         });
       }
@@ -90,6 +94,10 @@ export class BaseAiObserver {
     // Bookkeeping
     setIntervalIndefinite(0.5, () => {
       this.heroLoc = getUnitXY(this.hero);
+    });
+
+    onChatLocal('-qs', true, () => {
+      log('Queue size:', this.recentInterestingEvents.getValidLength(), this.recentInterestingEvents.getTrueLength());
     });
   }
 
@@ -122,7 +130,7 @@ export class BaseAiObserver {
       const unit = Unit.fromFilter();
       return unit.isAlly(this.owner)
         && unit.isHero()
-        && unit.handle !== this.hero.handle
+        && unit !== this.hero
         && unit.isAlive()
         && !isBuilding(unit);
     });

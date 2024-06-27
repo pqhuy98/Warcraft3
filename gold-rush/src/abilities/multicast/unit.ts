@@ -40,10 +40,10 @@ export class MulticastUnit {
         const nearby = GetUnitsInRangeOfXYMatching(Math.min(500, castRange), loc, () => {
           const u = Unit.fromFilter();
           return u.isAlive()
-            && u.handle !== caster.handle
+            && u !== caster
             && !isBuilding(u)
             && !isWard(u)
-            && u.handle !== target.handle;
+            && u !== target;
         });
 
         const backSwing = caster.getField(UNIT_RF_CAST_BACK_SWING) as number;

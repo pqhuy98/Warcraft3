@@ -1,3 +1,4 @@
+import { k0, k1 } from 'lib/debug/key_counter';
 import {
   AngleBetweenLocs, DistanceBetweenLocs, PolarProjection,
 } from 'lib/location';
@@ -7,7 +8,7 @@ import {
   setTimeout,
 } from 'lib/trigger';
 import {
-  getDamageSourceMaster,
+  getDummyMaster,
   isWard,
 } from 'lib/unit';
 import {
@@ -32,7 +33,7 @@ export default class Frostmourne {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
       t.addCondition(() => {
         const dead = Unit.fromHandle(GetDyingUnit());
-        return GetUnitAbilityLevel(getDamageSourceMaster(GetKillingUnit()), abilityId) > 0
+        return GetUnitAbilityLevel(getDummyMaster(GetKillingUnit()), abilityId) > 0
           && !dead.isUnitType(UNIT_TYPE_STRUCTURE)
           && !dead.isIllusion()
           && !dead.isUnitType(UNIT_TYPE_MECHANICAL)
@@ -41,7 +42,8 @@ export default class Frostmourne {
           && dead.handle !== GetKillingUnit();
       });
       t.addAction(() => {
-        const killer = Unit.fromHandle(getDamageSourceMaster(GetKillingUnit()));
+        k0('fstm');
+        const killer = Unit.fromHandle(getDummyMaster(GetKillingUnit()));
         const victim = Unit.fromHandle(GetDyingUnit());
         const scale = Math.min(2, victim.level / 5);
         setTimeout(scale + GetRandomReal(0, 0.3), () => {
@@ -49,6 +51,7 @@ export default class Frostmourne {
           BlzSetSpecialEffectHeight(soul, 145);
           BlzSetSpecialEffectScale(soul, scale);
           souls.set(soul, killer.handle);
+          k0('fstm2');
         });
       });
     });
@@ -58,7 +61,7 @@ export default class Frostmourne {
       for (const soul of souls.keys()) {
         const eff = Effect.fromHandle(soul);
         const target = Unit.fromHandle(souls.get(soul));
-        if (!target.handle || DistanceBetweenLocs(eff, target) < Frostmourne.Data.SOUL_RETURN_SPEED * interval) {
+        if (!target || DistanceBetweenLocs(eff, target) < Frostmourne.Data.SOUL_RETURN_SPEED * interval) {
           souls.delete(soul);
           // eff.x = GetCameraBoundMaxX() - 1;
           // eff.y = GetCameraBoundMaxY() - 1;
@@ -66,6 +69,8 @@ export default class Frostmourne {
             target.life += target.maxLife * (0.1 + eff.scale) * Frostmourne.Data.LIFE_PERCENT_RESTORED_PER_SOUL;
           }
           eff.destroy();
+          k1('fstm');
+          k1('fstm2');
         } else {
           const newLoc = PolarProjection(eff, Frostmourne.Data.SOUL_RETURN_SPEED * interval, AngleBetweenLocs(eff, target));
           eff.x = newLoc.x;

@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { Timer, Trigger } from 'w3ts';
+import { MapPlayer, Timer, Trigger } from 'w3ts';
+
+import { k0, k1 } from './debug/key_counter';
 
 export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
   const t = Trigger.create();
@@ -9,10 +11,12 @@ export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
 
 export function setTimeout(durationS: number, callback: () => void): Timer {
   const t = Timer.create();
+  k0('setto');
   t.start(durationS, false, () => {
     t.pause();
     t.destroy();
     callback();
+    k1('setto');
   });
   return t;
 }
@@ -23,6 +27,7 @@ function setInterval(
   repeat?: number,
   cleanup?: () => void | Promise<void>,
 ): Timer {
+  k0('setitv');
   const timer = Timer.create();
   if (repeat !== undefined) {
     let idx = 0;
@@ -37,6 +42,7 @@ function setInterval(
         timer.pause();
         timer.destroy();
         cleanup?.();
+        k1('setitv');
       } else {
         callback(idx++, repeat);
       }
@@ -94,4 +100,11 @@ export function getTimeS() {
     return infiniteTimer.elapsed;
   }
   return 0;
+}
+
+export function onChatLocal(text: string, exactMatch: boolean, callback: (text: string) => void) {
+  buildTrigger((t) => {
+    t.registerPlayerChatEvent(MapPlayer.fromLocal(), text, exactMatch);
+    t.addAction(() => callback(GetEventPlayerChatString()));
+  });
 }

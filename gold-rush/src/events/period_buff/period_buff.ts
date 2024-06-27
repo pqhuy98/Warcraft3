@@ -1,3 +1,4 @@
+import { k0, k1 } from 'lib/debug/key_counter';
 import { getUnitXY } from 'lib/location';
 import {
   ABILITY_AbolishMagicCreep, ABILITY_AuraCommandCreep, ABILITY_AuraDevotionCreep, ABILITY_AuraEnduranceCreep,
@@ -136,7 +137,7 @@ export class PeriodBuff {
     if (pickableAbilities.length === 0) {
       return;
     }
-
+    k0('pb');
     const ability = pickRandom(pickableAbilities);
     switch (ability.type) {
       case 'unit-target': {
@@ -157,6 +158,7 @@ export class PeriodBuff {
       }
       default:
     }
+    k1('pb');
   }
 
   buffUnitTargetAbility({ ability, orderId, periodS }: UnitTargetAbility) {
@@ -164,6 +166,7 @@ export class PeriodBuff {
       return;
     }
 
+    k0('pb-t');
     const targetLoc = getUnitXY(this.target);
     const abilityId = FourCC(ability.code);
 
@@ -175,6 +178,7 @@ export class PeriodBuff {
     this.auraMap.add(ability.code);
     setTimeout(periodS, () => {
       this.auraMap.delete(ability.code);
+      k1('pb-t');
     });
   }
 
@@ -182,6 +186,7 @@ export class PeriodBuff {
     if (this.auraMap.has(ability.code)) {
       return;
     }
+    k0('pb-nt');
 
     const targetLoc = getUnitXY(this.target);
     const abilityId = FourCC(ability.code);
@@ -194,6 +199,7 @@ export class PeriodBuff {
     this.auraMap.add(ability.code);
     setTimeout(periodS, () => {
       this.auraMap.delete(ability.code);
+      k1('pb-nt');
     });
   }
 
@@ -204,6 +210,7 @@ export class PeriodBuff {
       return;
     }
 
+    k0('pb-a');
     const targetLoc = getUnitXY(this.target);
     const abilityId = FourCC(ability.code);
 
@@ -218,6 +225,7 @@ export class PeriodBuff {
     setTimeout(periodS, () => {
       this.auraMap.delete(ability.code);
       DestroyEffect(effect);
+      k1('pb-a');
     });
   }
 
@@ -228,6 +236,7 @@ export class PeriodBuff {
       return;
     }
 
+    k0('pb-aa');
     const targetLoc = getUnitXY(this.target);
 
     const abilityId = FourCC(ability.code);
@@ -244,6 +253,7 @@ export class PeriodBuff {
     setTimeout(periodS, () => {
       this.auraMap.delete(ability.code);
       DestroyEffect(effect);
+      k1('pb-aa');
     });
   }
 }

@@ -1,22 +1,25 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-empty-function */
+import { getGlobalUnitColor } from 'lib/constants';
 import { getUnitXY } from 'lib/location';
 import { log } from 'lib/log';
 import { findBestCircleCoverMostLocations } from 'lib/maths/circle_cover_most_points';
 import { isComputer } from 'lib/player';
-import { ABILITY_StaffOTeleportation } from 'lib/resources/war3-abilities';
+import { ABILITY_ArchMageMassTeleport, ABILITY_StaffOTeleportation } from 'lib/resources/war3-abilities';
+import { SummonManager } from 'lib/systems/summon_manager';
 import {
-  buildTrigger, getTimeS, setIntervalIndefinite, setTimeout,
+  buildTrigger, getTimeS, onChatLocal, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
 import { GetUnitsInRangeOfXYMatching } from 'lib/unit';
 import { shuffleArray } from 'lib/utils';
 import {
-  Item,
+  MapPlayer,
   Unit,
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
-import { BaseAiObserver } from './base_ai_observer';
+import { getSkillBuilds } from './ai_skill_builds';
+import { BaseAiObserver, InterestingEventType } from './base_ai_observer';
 
 const debug = false;
 
@@ -35,7 +38,7 @@ const defaultConfig: Config = {
   siegeEnemyHeroes: true,
   siegeEnemyBases: true,
   retreatWhenAlone: true,
-  firstAttackDelay: 60,
+  firstAttackDelay: 1,
 };
 
 export class BaseAi {
@@ -48,6 +51,10 @@ export class BaseAi {
   thinkFastCycle: number = 0;
 
   thinkSlowCycle: number = 0;
+
+  summons: Unit[] = [];
+
+  skillBuildOrder: number[];
 
   constructor(protected hero: Unit, protected observer = new BaseAiObserver(hero), config?: Partial<Config>) {
     this.config = {
@@ -67,6 +74,19 @@ export class BaseAi {
       setIntervalIndefinite(GetRandomReal(0.3, 0.6), () => this.thinkFast());
       setIntervalIndefinite(GetRandomReal(1.8, 2.2), () => this.thinkSlow());
     });
+
+    this.skillBuildOrder = getSkillBuilds(this.hero);
+
+    this.registerSummons();
+    this.buildSkills();
+
+    onChatLocal('-u', true, (s) => {
+      log(s);
+      if (this.hero.isSelected(MapPlayer.fromLocal())) {
+        log('lvlup', this.hero.name);
+        this.hero.setHeroLevel(this.hero.level + 1, true);
+      }
+    });
   }
 
   isPaused() {
@@ -82,7 +102,7 @@ export class BaseAi {
 
     this.thinkFastCycle++;
 
-    const retreatLifeThreshold = Math.max(400, this.hero.maxLife / 4);
+    const retreatLifeThreshold = Math.max(300, this.hero.maxLife / 5);
     const retreatManaThreshold = 150;
     const attackLifeThreshold = this.hero.maxLife * 0.85;
     const attackManaThreshold = this.hero.maxMana * 0.85;
@@ -122,7 +142,7 @@ export class BaseAi {
       default:
     }
 
-    this.tryBookOfTeleport();
+    this.tryTeleport();
 
     this.thinkSlowExtra();
   }
@@ -162,8 +182,8 @@ export class BaseAi {
     const locs = [
       ...interestingUnitsLocs,
       ...this.observer.getRecentInterestingEvents(40)
-        .filter((t) => this.config.defendAllyBases && t.type === 'ally_building_attacked'
-          || this.config.followAllyHeroes && t.type === 'ally_hero_attack')
+        .filter((t) => this.config.defendAllyBases && t.type === InterestingEventType.AllyBuildingAttacked
+          || this.config.followAllyHeroes && t.type === InterestingEventType.AllyHeroAttack)
         .map((event) => event.location),
     ];
     shuffleArray(locs);
@@ -194,6 +214,11 @@ export class BaseAi {
     if (this.observer.getDistanceToDestination() > this.observer.getAcquisitionRange()) {
       const destinationLoc = this.observer.getDestination();
       this.hero.issueOrderAt(shouldRetreatToAllies ? OrderId.Move : OrderId.Attack, destinationLoc.x, destinationLoc.y);
+      for (const unit of this.summons) {
+        if (unit.isAlive()) {
+          unit.issueOrderAt(shouldRetreatToAllies ? OrderId.Move : OrderId.Attack, destinationLoc.x, destinationLoc.y);
+        }
+      }
     }
   }
 
@@ -219,11 +244,21 @@ export class BaseAi {
     }
   }
 
-  protected tryBookOfTeleport() {
+  protected tryTeleport() {
     // const itemTypeId = FourCC('stel');
+    const teleportAbilities = [
+      FourCC(ABILITY_StaffOTeleportation.code),
+      FourCC(ABILITY_ArchMageMassTeleport.code),
+    ];
 
-    const abilityId = FourCC(ABILITY_StaffOTeleportation.code);
-    if (!this.observer.getCanCastSpellNow(abilityId)) {
+    let abilityId: number = -1;
+
+    for (const candidateAbility of teleportAbilities) {
+      if (!this.observer.getCanCastSpellNow(candidateAbility)) {
+        abilityId = candidateAbility;
+      }
+    }
+    if (abilityId === -1) {
       return;
     }
 
@@ -236,22 +271,55 @@ export class BaseAi {
         && !Unit.fromFilter().isHero()
         && !Unit.fromFilter().isUnitType(UNIT_TYPE_FLYING));
       if (nearbyAllies.length > 0) {
-        for (let i = 0; i < 6; i++) {
-          const _item = UnitItemInSlot(this.hero.handle, i + 1);
-          if (_item == null) continue;
-
-          const item = Item.fromHandle(_item);
-
-          const ability = item.getAbility(abilityId);
-          if (ability == null) continue;
-
-          this.hero.useItemAt(item, loc.x, loc.y);
-          this.setPause(true);
-          const delay = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_CASTING_DELAY, 0);
-          setTimeout(delay + 0.1, () => this.setPause(false));
-          break;
-        }
+        this.hero.issueOrderAt(OrderId.Massteleport, loc.x, loc.y);
+        this.setPause(true);
+        const ability = this.hero.getAbility(abilityId);
+        const delay = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_CASTING_DELAY, 0);
+        setTimeout(delay + 0.1, () => this.setPause(false));
       }
     }
+  }
+
+  protected registerSummons() {
+    SummonManager.subscribe((summoner, summoned) => {
+      if (summoner !== this.hero) return;
+      this.summons.push(summoned);
+      summoned.color = getGlobalUnitColor(summoner);
+    });
+
+    setTimeout(GetRandomReal(0, 10), () => setIntervalIndefinite(10, () => {
+      for (let i = 0; i < this.summons.length; i++) {
+        if (!this.summons[i].isAlive()) {
+          this.summons[i] = this.summons[this.summons.length - 1];
+          this.summons.pop();
+        }
+      }
+    }));
+  }
+
+  protected buildSkills() {
+    const tryLearnSkills = () => {
+      const skillCounts: Record<number, number> = {};
+
+      for (let i = 0; i < Math.min(this.hero.level, this.skillBuildOrder.length); i++) {
+        const abilityId = this.skillBuildOrder[i];
+
+        // Update the skill count for the current ability
+        if (!skillCounts[abilityId]) {
+          skillCounts[abilityId] = 0;
+        }
+        skillCounts[abilityId]++;
+
+        if (this.hero.getAbilityLevel(abilityId) < skillCounts[abilityId]) {
+          this.hero.selectSkill(abilityId);
+        }
+      }
+    };
+
+    buildTrigger((t) => {
+      t.registerUnitEvent(this.hero, EVENT_UNIT_HERO_LEVEL);
+      t.addAction(() => tryLearnSkills());
+    });
+    tryLearnSkills();
   }
 }

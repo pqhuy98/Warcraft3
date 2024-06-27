@@ -1,3 +1,4 @@
+import { k0, k1 } from 'lib/debug/key_counter';
 import { fromTempLocation, PolarProjection } from 'lib/location';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
@@ -57,11 +58,17 @@ export class MulticastPoint {
           dummy.issueOrderAt(order, newLoc.x, newLoc.y);
 
           // eslint-disable-next-line no-loop-func
+          k0('mcpt');
           buildTrigger((t2) => {
             t2.registerUnitEvent(dummy, EVENT_UNIT_SPELL_ENDCAST);
             t2.addAction(() => {
               t2.destroy();
-              fadeUnit(dummy, 255, 255, 0, 128, 128 / 1, () => false, () => dummy.destroy());
+              k1('mcpt');
+              k0('mcpt-f');
+              fadeUnit(dummy, 255, 255, 0, 128, 128 / 1, () => false, () => {
+                dummy.destroy();
+                k1('mcpt-f');
+              });
             });
             if (OrderId2String(order) === 'forceofnature'
               || OrderId2String(order) === 'blink') {

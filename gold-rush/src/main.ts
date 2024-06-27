@@ -28,10 +28,12 @@ import {
   ABILITY_ID_THUNDER_BLINK,
   ABILITY_ID_WRATH_OF_THE_LICH_KING,
   globalUnits,
-  registerUnits,
+  registerGlobalUnits,
 } from 'lib/constants';
-import { DamageObserver } from 'lib/data_structures/damage_observer';
-import { daemonTempCleanUp, fromTempLocation, PolarProjection } from 'lib/location';
+import { logDiscrepancy } from 'lib/debug/key_counter';
+import {
+  daemonTempCleanUp, fromTempLocation, PolarProjection, temp,
+} from 'lib/location';
 import { isComputer } from 'lib/player';
 import {
   ABILITY_ArchMageBlizzard, ABILITY_ArchMageWaterElemental, ABILITY_BladeMasterBladestorm,
@@ -40,7 +42,7 @@ import {
   ABILITY_BloodMageSiphonMana,
   ABILITY_ChieftainShockWave,
   ABILITY_ChieftainWarStomp,
-  ABILITY_DeathKnightDeathCoil, ABILITY_FarseerChainLightning, ABILITY_FarseerEarthquake, ABILITY_LichFrostNova,
+  ABILITY_FarseerChainLightning, ABILITY_FarseerEarthquake,
   ABILITY_MountainKingThunderBolt,
   ABILITY_MountainKingThunderClap,
   ABILITY_PaladinHolyLight,
@@ -49,20 +51,31 @@ import {
 } from 'lib/resources/war3-abilities';
 import { UNIT_Abomination, UNIT_Ghoul } from 'lib/resources/war3-units';
 import { registerDialogues } from 'lib/sound';
+import { DamageObserver } from 'lib/systems/damage_observer';
+import { SummonManager } from 'lib/systems/summon_manager';
 import {
-  getTimeS, setIntervalIndefinite, setTimeout, trackElapsedGameTime,
+  getTimeS, onChatLocal, setIntervalIndefinite, setTimeout, trackElapsedGameTime,
 } from 'lib/trigger';
-import { daemonDamageSourceMaster, daemonTieUnitToUnit, growUnit } from 'lib/unit';
-import { Group, MapPlayer, Unit } from 'w3ts';
+import { daemonDummyMaster, daemonTieUnitToUnit, growUnit } from 'lib/unit';
+import {
+  Force, Group, MapPlayer, Unit,
+} from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
 import { UNIT_CryptFiend } from './lib/resources/war3-units';
 
+const mainPlayerForce: 'light' | 'dark' = 'light';
+// const mainPlayerForce: 'light' | 'dark' = 'dark';
+
 function tsMain() {
-  registerUnits();
+  UnlockGameSpeedBJ();
+  SetGameSpeed(MAP_SPEED_FASTEST);
+  LockGameSpeedBJ();
+  registerGlobalUnits();
   // Player settings
   removeStartingUnit(Player(0));
   removeStartingUnit(Player(5));
+  removeStartingUnit(Player(6));
   configurePlayerSettings();
   registerDialogues();
   upgradeTownHallAllPlayers();
@@ -71,20 +84,17 @@ function tsMain() {
   useReforgedIcons();
   trackElapsedGameTime();
   daemonTieUnitToUnit();
-  daemonDamageSourceMaster();
+  daemonDummyMaster();
   daemonTempCleanUp();
 
   // Miscs
   // new CreepSpawn(Unit.fromHandle(heroZeus));
   new PeriodBuff(globalUnits.heroZeus);
 
+  SummonManager.register();
   DamageObserver.register();
   Weather.changeWeather();
   LichKingEvents.register(globalUnits.heroLichKing);
-
-  setIntervalIndefinite(1, () => {
-    MapPlayer.fromLocal().setState(PLAYER_STATE_RESOURCE_LUMBER, getTimeS());
-  });
 
   // Abilities
 
@@ -110,18 +120,44 @@ function tsMain() {
   MulticastNoTarget.register(FourCC(ABILITY_BloodMagePhoenix.code));
 
   MulticastNoTarget.register(FourCC(ABILITY_ChieftainWarStomp.code));
-  MulticastUnit.register(FourCC(ABILITY_ChieftainShockWave.code));
-  MulticastPoint.register(FourCC(ABILITY_ChieftainShockWave.code));
+  // MulticastUnit.register(FourCC(ABILITY_ChieftainShockWave.code));
+  // MulticastPoint.register(FourCC(ABILITY_ChieftainShockWave.code));
   MulticastUnit.register(FourCC(ABILITY_ShadowHunterHex.code));
   MulticastUnit.register(FourCC(ABILITY_ShadowHunterHealingWave.code));
-  MulticastUnit.register(FourCC(ABILITY_FarseerChainLightning.code));
+  MulticastUnit.register(FourCC(ABILITY_FarseerChainLightning.code), globalUnits.heroThrall);
   MulticastPoint.register(FourCC(ABILITY_FarseerEarthquake.code));
   MulticastNoTarget.register(FourCC(ABILITY_BladeMasterBladestorm.code));
+
+  onChatLocal('-clear', true, () => {
+    ClearTextMessagesBJ(Force.fromPlayer(MapPlayer.fromLocal()).handle);
+  });
+
+  onChatLocal('-k', true, () => {
+    ClearTextMessagesBJ(Force.fromPlayer(MapPlayer.fromLocal()).handle);
+    logDiscrepancy();
+  });
 }
 
 function configurePlayerSettings() {
+  const mainPlayer = MapPlayer.fromIndex(0);
+  SetReservedLocalHeroButtons(0);
+
   const lightForceBoss = globalUnits.heroZeus;
   const darkForceBoss = globalUnits.heroLichKing;
+
+  const lightForce = Force.create();
+  for (const i of [5, 1, 2, 3, 4]) lightForce.addPlayer(MapPlayer.fromIndex(i));
+  const darkForce = Force.create();
+  for (const i of [6, 7, 8, 9, 10, 11, 12]) darkForce.addPlayer(MapPlayer.fromIndex(i));
+
+  const lightChampionPlayer = MapPlayer.fromIndex(5);
+  const darkChampionPlayer = MapPlayer.fromIndex(6);
+
+  const heroOnlyPlayers = [
+    mainPlayer,
+    lightChampionPlayer,
+    darkChampionPlayer,
+  ];
 
   const colorPreservedUnits: unit[] = [
     globalUnits.fountainLight,
@@ -135,69 +171,83 @@ function configurePlayerSettings() {
   ].map((u) => u.handle);
 
   for (let i = 0; i < 24; i++) {
-    const player = Player(i);
-    if (IsPlayerSlotState(player, PLAYER_SLOT_STATE_EMPTY)) {
+    const player = MapPlayer.fromIndex(i);
+    if (player.slotState === PLAYER_SLOT_STATE_EMPTY) {
       continue;
     }
-    if (i !== 0) {
-      SetPlayerState(player, PLAYER_STATE_RESOURCE_GOLD, 100000000);
-      SetPlayerState(player, PLAYER_STATE_RESOURCE_LUMBER, 100000000);
-      SetPlayerState(player, PLAYER_STATE_RESOURCE_FOOD_CAP, 300);
+
+    if (heroOnlyPlayers.includes(player)) {
+      player.setState(PLAYER_STATE_RESOURCE_GOLD, 1000);
+      player.setState(PLAYER_STATE_RESOURCE_LUMBER, 0);
+      player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, 60);
+
+      setIntervalIndefinite(1, () => {
+        player.setState(PLAYER_STATE_RESOURCE_LUMBER, getTimeS());
+      });
+    } else {
+      player.setState(PLAYER_STATE_RESOURCE_GOLD, 1000000);
+      player.setState(PLAYER_STATE_RESOURCE_LUMBER, 1000000);
+      player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, 150);
     }
-    switch (GetPlayerRace(player)) {
+
+    switch (player.race) {
       case RACE_HUMAN:
-        SetPlayerColorBJ(player, PLAYER_COLOR_LIGHT_BLUE, false);
-        SetPlayerName(player, 'Human Alliances');
+        SetPlayerColorBJ(player.handle, PLAYER_COLOR_LIGHT_BLUE, false);
+        SetPlayerName(player.handle, 'Human Alliance');
         break;
       case RACE_ORC:
-        SetPlayerColorBJ(player, PLAYER_COLOR_RED, false);
-        SetPlayerName(player, 'Orcish Horde');
+        SetPlayerColorBJ(player.handle, PLAYER_COLOR_RED, false);
+        player.name = 'Orcish Horde';
         break;
       case RACE_NIGHTELF:
-        SetPlayerColorBJ(player, PLAYER_COLOR_CYAN, false);
-        SetPlayerName(player, 'Night Elf Sentinels');
+        SetPlayerColorBJ(player.handle, PLAYER_COLOR_CYAN, false);
+        player.name = 'Night Elf Sentinels';
         break;
       case RACE_UNDEAD:
-        SetPlayerColorBJ(player, PLAYER_COLOR_PURPLE, false);
-        SetPlayerName(player, 'Undead Scourge');
+        SetPlayerColorBJ(player.handle, PLAYER_COLOR_PURPLE, false);
+        player.name = 'Undead Scourge';
         break;
       default:
     }
-    const playerColor = GetPlayerColor(player);
-    const allUnitsOfPlayer = GetUnitsInRectOfPlayer(GetPlayableMapRect(), player);
+    const playerColor = player.color;
+    const allUnitsOfPlayer = GetUnitsInRectOfPlayer(GetPlayableMapRect(), player.handle);
 
-    Group.fromHandle(allUnitsOfPlayer).for(() => {
+    temp(Group.fromHandle(allUnitsOfPlayer)).for(() => {
       const u = Unit.fromEnum();
       if (!colorPreservedUnits.includes(u.handle)) {
         u.color = playerColor;
       }
     });
-    DestroyGroup(allUnitsOfPlayer);
 
-    if (player === darkForceBoss.owner.handle && isComputer(player)) {
-      StartCampaignAI(player, 'war3mapImported\\undead-heroes.ai');
+    if (heroOnlyPlayers.includes(player) && isComputer(player.handle)) {
+      StartCampaignAI(player.handle, 'war3mapImported\\champions.ai');
+    }
+
+    player.handicapXp = 3;
+    if (player === darkChampionPlayer) {
+      player.handicapXp = 4.5;
     }
 
     // Undead strong
-    if (IsPlayerEnemy(player, lightForceBoss.owner.handle)) {
+    if (darkForce.hasPlayer(player)) {
       let handicap = 1;
       const maxHpHandicap = 2;
-      const maxDamageHandicap = 2;
-      SetPlayerHandicap(player, handicap);
+      const maxDamageHandicap = 1.5;
+      SetPlayerHandicap(player.handle, handicap);
       let oldScale: number;
       setIntervalIndefinite(14, () => {
         handicap = Math.min(handicap * 1.01, Math.max(maxHpHandicap, maxDamageHandicap));
-        SetPlayerHandicap(player, Math.min(handicap, maxHpHandicap));
-        SetPlayerHandicapDamage(player, Math.min(Math.max(1, handicap), maxDamageHandicap));
-        if (player === GetOwningPlayer(darkForceBoss.handle)) {
-          const newScale = Math.max(1.4, Math.sqrt(darkForceBoss.owner.handicap));
+        SetPlayerHandicap(player.handle, Math.min(handicap, maxHpHandicap));
+        SetPlayerHandicapDamage(player.handle, Math.min(Math.max(1, handicap), maxDamageHandicap));
+        if (player === darkForceBoss.owner) {
+          const newScale = Math.max(1.6, 0.1 + Math.sqrt(darkForceBoss.owner.handicap));
           growUnit(darkForceBoss, newScale, 2, oldScale);
           oldScale = newScale;
-          darkForceBoss.selectionScale = 1.4 + Math.sqrt(darkForceBoss.owner.handicap);
+          darkForceBoss.selectionScale = 1.5 + Math.sqrt(darkForceBoss.owner.handicap);
         }
       });
 
-      if (!noUnitPlayers.includes(player)) {
+      if (!noUnitPlayers.includes(player.handle)) {
         const startingUnits: Record<string, number> = {
           [UNIT_Abomination.code]: 2,
           [UNIT_Ghoul.code]: 10,
@@ -205,14 +255,44 @@ function configurePlayerSettings() {
         };
         for (const [code, count] of Object.entries(startingUnits)) {
           for (let i = 0; i < count; i++) {
-            const loc = PolarProjection(fromTempLocation(GetPlayerStartLocationLoc(player)), GetRandomReal(500, 700), GetRandomDirectionDeg());
-            Unit.create(MapPlayer.fromHandle(player), FourCC(code), loc.x, loc.y);
+            const loc = PolarProjection(fromTempLocation(player.startLocationPoint), GetRandomReal(500, 700), GetRandomDirectionDeg());
+            Unit.create(player, FourCC(code), loc.x, loc.y);
           }
         }
       }
     }
+
+    // Ally/enemy
+    if (mainPlayerForce === 'light' && lightForce.hasPlayer(player)
+      || mainPlayerForce === 'dark' && darkForce.hasPlayer(player)) {
+      const p1 = mainPlayer.handle;
+      const p2 = player.handle;
+      SetPlayerAlliance(p1, p2, ALLIANCE_PASSIVE, true);
+      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_REQUEST, true);
+      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_RESPONSE, true);
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_XP, true);
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_SPELLS, true);
+      SetPlayerAlliance(p2, p1, ALLIANCE_PASSIVE, true);
+      SetPlayerAlliance(p2, p1, ALLIANCE_HELP_REQUEST, true);
+      SetPlayerAlliance(p2, p1, ALLIANCE_HELP_RESPONSE, true);
+      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_XP, true);
+      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_SPELLS, true);
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_VISION, true);
+      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_VISION, true);
+
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_CONTROL, true);
+      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_CONTROL, true);
+    }
   }
   MeleeStartingAI();
+
+  if (mainPlayerForce === 'light') {
+    SetCameraPositionForPlayer(mainPlayer.handle, lightForceBoss.x, lightForceBoss.y);
+    SetPlayerAlliance(lightChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
+  } else if (mainPlayerForce === 'dark') {
+    SetCameraPositionForPlayer(mainPlayer.handle, darkForceBoss.x, darkForceBoss.y);
+    SetPlayerAlliance(darkChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
+  }
 }
 
 function registerAi() {

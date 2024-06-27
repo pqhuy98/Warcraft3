@@ -27,7 +27,7 @@ export class TimestampedQueue<T> {
       this.startIdx++;
     }
 
-    if (this.startIdx > this.queue.length / 2) {
+    if (this.startIdx > Math.min(400, this.queue.length / 2)) {
       this.queue = this.queue.slice(this.startIdx);
       this.startIdx = 0;
     }
@@ -45,5 +45,13 @@ export class TimestampedQueue<T> {
       return items.slice(-limit);
     }
     return items;
+  }
+
+  getTrueLength(): number {
+    return this.queue.length;
+  }
+
+  getValidLength(): number {
+    return this.queue.length - this.startIdx;
   }
 }

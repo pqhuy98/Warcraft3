@@ -175,9 +175,9 @@ endfunction
 // Selects hero IDs for three possible heroes
 //===========================================================================
 function SelectHeroes takes nothing returns nothing
-    local integer roll = GetRandomInt(1,100)
-    call SetHero( 1, 'H001' )
-    call SetHero( 2, 'U000' )
+    // local integer roll = GetRandomInt(1,100)
+    // call SetHero( 1, 'H001' )
+    // call SetHero( 2, 'U000' )
 endfunction
 
 //===========================================================================
@@ -414,7 +414,7 @@ endfunction
 function main takes nothing returns nothing
     call InitAI(  )
     call InitOptions(  )
-    call SelectHeroes(  )
+    // call SelectHeroes(  )
     // call CreateCaptains(  )
     // call SetHeroLevels( function ChooseHeroSkill )
 

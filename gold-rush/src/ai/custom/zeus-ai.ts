@@ -2,6 +2,7 @@ import BladeDance from 'abilities/blade_dance/blade_dance';
 import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
 import { LightForceAi } from 'ai/light_force_ai';
 import { ABILITY_ID_THUNDER_BLINK } from 'lib/constants';
+import { k1 } from 'lib/debug/key_counter';
 import { findBestCircleCoverMostUnits } from 'lib/maths/circle_cover_most_points';
 import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
 import {
@@ -32,6 +33,7 @@ export class ZeusAi extends LightForceAi {
             this.setPause(false);
             timer.pause();
             timer.destroy();
+            k1('setitv');
           }
         });
       });

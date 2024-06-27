@@ -1,3 +1,4 @@
+import { k0, k1 } from 'lib/debug/key_counter';
 import { pickRandom } from 'lib/utils';
 import { Rectangle, Timer, WeatherEffect } from 'w3ts';
 
@@ -35,6 +36,8 @@ export class Weather {
   static activeTimer = Timer.create();
 
   static changeWeather(chosenWeatherType: typeof weathers[number] = pickRandom(weathers), duration: number = 60, noWeatherDelay: number = 10) {
+    k0('cw0');
+    k0('cw1');
     Weather.delayTimer.pause();
     Weather.activeTimer.pause();
 
@@ -48,10 +51,12 @@ export class Weather {
       }
       Weather.currentWeather = WeatherEffect.create(Rectangle.getWorldBounds(), FourCC(chosenWeatherType.effectId));
       Weather.currentWeather.enable(true);
+      k1('cw0');
     });
 
     Weather.activeTimer.start(duration + noWeatherDelay, false, () => {
       Weather.changeWeather();
+      k1('cw1');
     });
   }
 }

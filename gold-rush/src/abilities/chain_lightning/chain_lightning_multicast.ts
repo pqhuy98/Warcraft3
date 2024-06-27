@@ -13,9 +13,9 @@ export class ChainLightningMulticast {
   private static dummies: Group;
 
   static Data = {
-    targetMatching: (caster: Unit, originalTargeT: Unit, matchingUnit: Unit) => matchingUnit.isAlive()
+    targetMatching: (caster: Unit, originalTarget: Unit, matchingUnit: Unit) => matchingUnit.isAlive()
       && matchingUnit.isEnemy(caster.owner)
-      && matchingUnit.handle !== originalTargeT.handle
+      && matchingUnit !== originalTarget
       && !isBuilding(matchingUnit),
   };
 

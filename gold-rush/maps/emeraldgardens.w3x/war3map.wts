@@ -1,14 +1,4 @@
-﻿STRING 7
-{
-Player 6
-}
-
-STRING 8
-{
-Player 7
-}
-
-STRING 9
+﻿STRING 9
 {
 Player 8
 }
@@ -167,40 +157,10 @@ STRING 41
 R
 }
 
-STRING 42
-// Abilities: A001 (Wind Walk), Tip (Tooltip - Normal)
-{
-|cffffcc00W|rind Walk - [|cffffcc00Level 4|r]
-}
-
-STRING 43
-// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
-{
-Allows the Blademaster to become invisible, and move 110% faster for <AOwk,Dur4> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 400 bonus damage.
-}
-
 STRING 44
 // Abilities: A001 (Wind Walk), Researchubertip (Tooltip - Learn - Extended)
 {
 Allows the Blademaster to become invisible, and move faster for a set amount of time. When the Blademaster attacks a unit to break invisibility, he will deal bonus damage. |n|n|cffffcc00Level 1|r - <AOwk,DataB1,%>% move, 100 bonus damage, <AOwk,Dur1> seconds. |n|cffffcc00Level 2|r - <AOwk,DataB2,%>% move, 200 bonus damage, <AOwk,Dur2> seconds. |n|cffffcc00Level 3|r - <AOwk,DataB3,%>% move, 300 bonus damage, <AOwk,Dur3> seconds. |n|cffffcc00Level 4|r - 110% move, 400 bonus damage, 80 seconds.
-}
-
-STRING 45
-// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
-{
-Allows the Blademaster to become invisible, and move <AOwk,DataB1,%>% faster for <AOwk,Dur1> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 100 bonus damage.
-}
-
-STRING 46
-// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
-{
-Allows the Blademaster to become invisible, and move <AOwk,DataB2,%>% faster for <AOwk,Dur2> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 200 bonus damage.
-}
-
-STRING 47
-// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
-{
-Allows the Blademaster to become invisible, and move <AOwk,DataB3,%>% faster for <AOwk,Dur3> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do 300 bonus damage.
 }
 
 STRING 48
@@ -221,98 +181,20 @@ STRING 50
 Critical Strike - [|cffffcc00Level 4|r]
 }
 
-STRING 51
-// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
-{
-Gives a 60% chance to do 2.5 times normal damage on an attack.
-}
-
-STRING 52
-// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
-{
-Gives a 15% chance to do 2.5 times normal damage on an attack.
-}
-
-STRING 53
-// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
-{
-Gives a 30% chance to do 2.5 times normal damage on an attack.
-}
-
-STRING 54
-// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
-{
-Gives a 45% chance to do 2.5 times normal damage on an attack.
-}
-
 STRING 55
 // Abilities: A002 (Critical Strike), Researchhotkey (Hotkey - Learn)
 {
 E
 }
 
-STRING 59
-// Abilities: A009 (Gravity), Name (Name)
-{
-Gravity
-}
-
 STRING 60
-// Abilities: A009 (Gravity), Hotkey (Hotkey - Normal)
+// Abilities: A00B (Thunder Blink), Researchhotkey (Hotkey - Learn)
 {
 W
 }
 
-STRING 61
-// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
-{
-Gravity - [|cffffcc00Level 1|r]
-}
-
-STRING 62
-// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
-{
-Pull all nearby units.
-}
-
-STRING 63
-// Abilities: A009 (Gravity), Researchubertip (Tooltip - Learn - Extended)
-{
-Pull all nearby units.
-}
-
-STRING 64
-// Abilities: A009 (Gravity), Researchtip (Tooltip - Learn)
-{
-Gravity
-}
-
-STRING 65
-// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
-{
-Gravity - [|cffffcc00Level 2|r]
-}
-
-STRING 66
-// Abilities: A009 (Gravity), Tip (Tooltip - Normal)
-{
-Gravity - [|cffffcc00Level 3|r]
-}
-
-STRING 67
-// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
-{
-Pull all nearby units.
-}
-
-STRING 68
-// Abilities: A009 (Gravity), Ubertip (Tooltip - Normal - Extended)
-{
-Pull all nearby units.
-}
-
 STRING 69
-// Abilities: A009 (Gravity), Researchhotkey (Hotkey - Learn)
+// Abilities: A00B (Thunder Blink), Hotkey (Hotkey - Normal)
 {
 W
 }
@@ -476,13 +358,13 @@ Teleports Zeus up to <A00B:AEbl,DataA2> range to the target location, dealing <A
 }
 
 STRING 96
-// Abilities: A00B (Thunder Blink), Researchhotkey (Hotkey - Learn)
+// Abilities: A00J (Frost Nova), Researchhotkey (Hotkey - Learn)
 {
 W
 }
 
 STRING 97
-// Abilities: A00B (Thunder Blink), Hotkey (Hotkey - Normal)
+// Abilities: A00J (Frost Nova), Hotkey (Hotkey - Normal)
 {
 W
 }
@@ -609,16 +491,6 @@ STRING 120
 Player 13
 }
 
-STRING 121
-{
-Player 14
-}
-
-STRING 122
-{
-Player 15
-}
-
 STRING 133
 // Units: h003 (Elite Guard Tower), Name (Name)
 {
@@ -647,11 +519,6 @@ STRING 137
 // Destructibles: B001 (Massive Ruined Gate), EditorSuffix (Editor Suffix)
 {
 (East)
-}
-
-STRING 138
-{
-Player 1
 }
 
 STRING 139
@@ -1239,18 +1106,6 @@ STRING 263
 (Lich King)
 }
 
-STRING 264
-// Abilities: A00J (Frost Nova), Researchhotkey (Hotkey - Learn)
-{
-W
-}
-
-STRING 265
-// Abilities: A00J (Frost Nova), Hotkey (Hotkey - Normal)
-{
-W
-}
-
 STRING 266
 // Abilities: A00I (Death Coil), Researchhotkey (Hotkey - Learn)
 {
@@ -1418,5 +1273,97 @@ STRING 298
 {
 |cffff8c00Artifact|r|nThis powerful blade collects the soul of each enemy it kills. Each soul heals the Lich King for a percentage of his maximum life, allowing him to sustain himself and remain powerful in battle.
  |n|cffffcc00History|r|n|cffffdeadFrostmourne was the mourneblade of the Lich King. A fearsome, rune-inscribed two-handed longsword, it possessed the power to shatter and imprison the souls of its victims and could remake the living into mindless undead. Frostmourne was thrust from the Frozen Throne by the Lich King Ner'zhul and was taken up by Arthas Menethil in the wastes of Northrend during the Third War. The blade spilled the blood of kings, destroyed nations, and inflicted scars on the world that remain to this day. Few weapons have shaped modern history as much as Frostmourne.|r|n|n|cffc0c0c0Whomsoever takes up this blade shall wield power eternal. Just as the blade rends flesh, so must power scar the spirit.|r
+}
+
+STRING 299
+{
+Player
+}
+
+STRING 300
+{
+Light Force's Champions
+}
+
+STRING 301
+{
+Dark Force's Champions
+}
+
+STRING 302
+{
+Force 1
+}
+
+STRING 303
+// Abilities: A00K (Book of Teleport), Name (Name)
+{
+Book of Teleport
+}
+
+STRING 304
+// Abilities: A001 (Wind Walk), EditorSuffix (Editor Suffix)
+{
+(Samuro)
+}
+
+STRING 305
+// Abilities: A002 (Critical Strike), EditorSuffix (Editor Suffix)
+{
+(Samuro)
+}
+
+STRING 306
+// Abilities: A001 (Wind Walk), Tip (Tooltip - Normal)
+{
+Wind Walk - [|cffffcc00Level 4|r]
+}
+
+STRING 307
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <A004:AOwk,DataB4,%>% faster for <A004:AOwk,Dur4> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do <A004:AOwk,DataC4> bonus damage.
+}
+
+STRING 308
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <A002:AOwk,DataB2,%>% faster for <A002:AOwk,Dur2> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do <A002:AOwk,DataC2> bonus damage.
+}
+
+STRING 309
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <A003:AOwk,DataB3,%>% faster for <A003:AOwk,Dur3> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do <A003:AOwk,DataC3> bonus damage.
+}
+
+STRING 310
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <A001:AOwk,DataB1,%>% faster for <A001:AOwk,Dur1> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do <A001:AOwk,DataC1> bonus damage.
+}
+
+STRING 311
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a <A002:AOcr,DataA4>% chance to do <A002:AOcr,DataB4> times normal damage on an attack.
+}
+
+STRING 312
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a <A002:AOcr,DataA2>% chance to do <A002:AOcr,DataB2> times normal damage on an attack.
+}
+
+STRING 313
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a <A002:AOcr,DataA3>% chance to do <A002:AOcr,DataB3> times normal damage on an attack.
+}
+
+STRING 314
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a <A002:AOcr,DataA1>% chance to do <A002:AOcr,DataB1> times normal damage on an attack.
 }
 

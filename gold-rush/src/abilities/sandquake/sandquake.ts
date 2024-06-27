@@ -1,3 +1,4 @@
+import { k0, k1 } from 'lib/debug/key_counter';
 import {
   AngleBetweenLocs,
   DistanceBetweenLocs, fromTempLocation, getUnitXY, Loc,
@@ -94,6 +95,7 @@ export default class Sandquake {
     targetLocation: Loc,
     abilityLevel: number,
   ) {
+    k0('sndq');
     let tgloc = targetLocation;
     if (targetUnit && !tgloc) {
       tgloc = getUnitXY(Unit.fromHandle(targetUnit));
@@ -184,12 +186,15 @@ export default class Sandquake {
         DestroyEffect(sandstormEffect2);
         timer.pause();
         timer.destroy();
+        k1('setitv');
+
         affectedEnemies.clear();
 
         if (caster.isAlive()) {
           caster.setAnimation('morph alternate');
           caster.queueAnimation('stand');
         }
+        k1('sndq');
       }
     });
   }

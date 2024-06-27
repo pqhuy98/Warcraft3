@@ -1185,6 +1185,36 @@ bj_lastDyingWidget = nil
 DestroyTrigger(GetTriggeringTrigger())
 end
 
+function Unit000184_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_CHARGED, 5), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
 function Unit000186_DropItems()
 local trigWidget = nil
 local trigUnit = nil
@@ -1555,6 +1585,36 @@ bj_lastDyingWidget = nil
 DestroyTrigger(GetTriggeringTrigger())
 end
 
+function Unit000253_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_POWERUP, 2), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
 function Unit000311_DropItems()
 local trigWidget = nil
 local trigUnit = nil
@@ -1675,6 +1735,546 @@ bj_lastDyingWidget = nil
 DestroyTrigger(GetTriggeringTrigger())
 end
 
+function Unit000366_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_POWERUP, 2), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000367_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_CHARGED, 5), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000371_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_POWERUP, 2), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000372_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_CHARGED, 5), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000376_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_POWERUP, 2), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000377_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_CHARGED, 5), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000381_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_POWERUP, 2), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000382_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_CHARGED, 5), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000386_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_POWERUP, 2), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000387_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_CHARGED, 5), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000391_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_POWERUP, 2), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000392_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_CHARGED, 5), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000395_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_POWERUP, 2), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000396_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_CHARGED, 5), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000400_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_POWERUP, 2), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000401_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_CHARGED, 5), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000405_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_POWERUP, 2), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
+function Unit000406_DropItems()
+local trigWidget = nil
+local trigUnit = nil
+local itemID = 0
+local canDrop = true
+
+trigWidget = bj_lastDyingWidget
+if (trigWidget == nil) then
+trigUnit = GetTriggerUnit()
+end
+if (trigUnit ~= nil) then
+canDrop = not IsUnitHidden(trigUnit)
+if (canDrop and GetChangingUnit() ~= nil) then
+canDrop = (GetChangingUnitPrevOwner() == Player(PLAYER_NEUTRAL_AGGRESSIVE))
+end
+end
+if (canDrop) then
+RandomDistReset()
+RandomDistAddItem(ChooseRandomItemEx(ITEM_TYPE_CHARGED, 5), 100)
+itemID = RandomDistChoose()
+if (trigUnit ~= nil) then
+UnitDropItem(trigUnit, itemID)
+else
+WidgetDropItem(trigWidget, itemID)
+end
+end
+bj_lastDyingWidget = nil
+DestroyTrigger(GetTriggeringTrigger())
+end
+
 function InitSounds()
 gg_snd_WotLK_main_title = "war3mapImported/WotLK_main_title.mp3"
 gg_snd_11__Invincible = "war3mapImported/11. Invincible.mp3"
@@ -1712,16 +2312,6 @@ SetSoundDuration(gg_snd_lichking_frostmourne_hungers, 5276)
 SetSoundChannel(gg_snd_lichking_frostmourne_hungers, 0)
 SetSoundVolume(gg_snd_lichking_frostmourne_hungers, 127)
 SetSoundPitch(gg_snd_lichking_frostmourne_hungers, 1.0)
-end
-
-function CreateBuildingsForPlayer0()
-local p = Player(0)
-local u
-local unitID
-local t
-local life
-
-gg_unit_nfoh_0003 = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -192.0, -448.0, 270.000, FourCC("nfnp"))
 end
 
 function CreateBuildingsForPlayer1()
@@ -1764,32 +2354,6 @@ u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 768.0, -2304.0, 270.000, FourCC("hh
 u = BlzCreateUnitWithSkin(p, FourCC("hvlt"), 576.0, 256.0, 270.000, FourCC("hvlt"))
 end
 
-function CreateUnitsForPlayer1()
-local p = Player(1)
-local u
-local unitID
-local t
-local life
-
-gg_unit_Hjai_0327 = BlzCreateUnitWithSkin(p, FourCC("Hjai"), 1189.7, 1139.5, 247.280, FourCC("Hjai"))
-SetHeroLevel(gg_unit_Hjai_0327, 15, false)
-SelectHeroSkill(gg_unit_Hjai_0327, FourCC("AHbz"))
-SelectHeroSkill(gg_unit_Hjai_0327, FourCC("AHbz"))
-SelectHeroSkill(gg_unit_Hjai_0327, FourCC("AHbz"))
-SelectHeroSkill(gg_unit_Hjai_0327, FourCC("AHwe"))
-SelectHeroSkill(gg_unit_Hjai_0327, FourCC("AHwe"))
-SelectHeroSkill(gg_unit_Hjai_0327, FourCC("AHwe"))
-SelectHeroSkill(gg_unit_Hjai_0327, FourCC("AHab"))
-SelectHeroSkill(gg_unit_Hjai_0327, FourCC("AHab"))
-SelectHeroSkill(gg_unit_Hjai_0327, FourCC("AHab"))
-SelectHeroSkill(gg_unit_Hjai_0327, FourCC("AHmt"))
-UnitAddItemToSlotById(gg_unit_Hjai_0327, FourCC("schl"), 0)
-UnitAddItemToSlotById(gg_unit_Hjai_0327, FourCC("gvsm"), 1)
-UnitAddItemToSlotById(gg_unit_Hjai_0327, FourCC("mnsf"), 3)
-UnitAddItemToSlotById(gg_unit_Hjai_0327, FourCC("frgd"), 4)
-UnitAddItemToSlotById(gg_unit_Hjai_0327, FourCC("shhn"), 5)
-end
-
 function CreateBuildingsForPlayer2()
 local p = Player(2)
 local u
@@ -1800,7 +2364,7 @@ local life
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 2112.0, -256.0, 270.000, FourCC("hhou"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 1984.0, -256.0, 270.000, FourCC("hhou"))
 u = BlzCreateUnitWithSkin(p, FourCC("hctw"), 128.0, -1280.0, 270.000, FourCC("hctw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgra"), 1344.0, -1152.0, 270.000, FourCC("hgra"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgra"), 1280.0, -1088.0, 270.000, FourCC("hgra"))
 u = BlzCreateUnitWithSkin(p, FourCC("h003"), 2016.0, -416.0, 270.000, FourCC("h003"))
 u = BlzCreateUnitWithSkin(p, FourCC("h003"), 224.0, -2848.0, 270.000, FourCC("h003"))
 u = BlzCreateUnitWithSkin(p, FourCC("halt"), 160.0, -800.0, 270.000, FourCC("halt"))
@@ -1810,7 +2374,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 64.0, -2944.0, 270.000, FourCC("hho
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 256.0, -2624.0, 270.000, FourCC("hhou"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 64.0, -2816.0, 270.000, FourCC("hhou"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 128.0, -2688.0, 270.000, FourCC("hhou"))
-u = BlzCreateUnitWithSkin(p, FourCC("hlum"), 1696.0, -1248.0, 270.000, FourCC("hlum"))
+u = BlzCreateUnitWithSkin(p, FourCC("hlum"), 1696.0, -1184.0, 270.000, FourCC("hlum"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 0.0, -3584.0, 270.000, FourCC("hgtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), 2688.0, -128.0, 270.000, FourCC("hgtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hbar"), 64.0, -1792.0, 270.000, FourCC("hbar"))
@@ -1831,45 +2395,6 @@ u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 64.0, -1408.0, 270.000, FourCC("hho
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 192.0, -1408.0, 270.000, FourCC("hhou"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 576.0, -2368.0, 270.000, FourCC("hhou"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), 448.0, -2368.0, 270.000, FourCC("hhou"))
-end
-
-function CreateUnitsForPlayer2()
-local p = Player(2)
-local u
-local unitID
-local t
-local life
-
-gg_unit_H002_0191 = BlzCreateUnitWithSkin(p, FourCC("H002"), 921.4, -1729.0, 228.740, FourCC("H002"))
-SetHeroLevel(gg_unit_H002_0191, 24, false)
-SetUnitState(gg_unit_H002_0191, UNIT_STATE_MANA, 1410)
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A003"))
-IssueImmediateOrder(gg_unit_H002_0191, "")
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A00B"))
-IssueImmediateOrder(gg_unit_H002_0191, "")
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
-SelectHeroSkill(gg_unit_H002_0191, FourCC("A004"))
-IssueImmediateOrder(gg_unit_H002_0191, "")
-UnitAddItemToSlotById(gg_unit_H002_0191, FourCC("stel"), 5)
 end
 
 function CreateBuildingsForPlayer3()
@@ -1907,38 +2432,6 @@ u = BlzCreateUnitWithSkin(p, FourCC("otrb"), -2016.0, -608.0, 270.000, FourCC("o
 u = BlzCreateUnitWithSkin(p, FourCC("ovln"), -960.0, -832.0, 270.000, FourCC("ovln"))
 end
 
-function CreateUnitsForPlayer3()
-local p = Player(3)
-local u
-local unitID
-local t
-local life
-
-gg_unit_Osam_0326 = BlzCreateUnitWithSkin(p, FourCC("Osam"), -1700.8, -1500.5, 344.259, FourCC("Osam"))
-SetHeroLevel(gg_unit_Osam_0326, 16, false)
-SetUnitState(gg_unit_Osam_0326, UNIT_STATE_MANA, 705)
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOwk"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOwk"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOwk"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOmi"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOmi"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOmi"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOcr"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOcr"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOcr"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("A000"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("A000"))
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("A000"))
-IssueImmediateOrder(gg_unit_Osam_0326, "")
-SelectHeroSkill(gg_unit_Osam_0326, FourCC("AOww"))
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("fwss"), 0)
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("klmm"), 1)
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("bfhr"), 2)
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("arsh"), 3)
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("shdt"), 4)
-UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("stel"), 5)
-end
-
 function CreateBuildingsForPlayer4()
 local p = Player(4)
 local u
@@ -1973,34 +2466,6 @@ u = BlzCreateUnitWithSkin(p, FourCC("otrb"), -480.0, 992.0, 270.000, FourCC("otr
 u = BlzCreateUnitWithSkin(p, FourCC("ovln"), -1088.0, -64.0, 270.000, FourCC("ovln"))
 end
 
-function CreateUnitsForPlayer4()
-local p = Player(4)
-local u
-local unitID
-local t
-local life
-
-gg_unit_Othr_0324 = BlzCreateUnitWithSkin(p, FourCC("Othr"), -1524.9, 1076.7, 256.220, FourCC("Othr"))
-SetHeroLevel(gg_unit_Othr_0324, 18, false)
-SetUnitState(gg_unit_Othr_0324, UNIT_STATE_MANA, 690)
-SelectHeroSkill(gg_unit_Othr_0324, FourCC("AOcl"))
-SelectHeroSkill(gg_unit_Othr_0324, FourCC("AOcl"))
-SelectHeroSkill(gg_unit_Othr_0324, FourCC("AOcl"))
-SelectHeroSkill(gg_unit_Othr_0324, FourCC("AOfs"))
-SelectHeroSkill(gg_unit_Othr_0324, FourCC("AOfs"))
-SelectHeroSkill(gg_unit_Othr_0324, FourCC("AOfs"))
-SelectHeroSkill(gg_unit_Othr_0324, FourCC("AOsf"))
-SelectHeroSkill(gg_unit_Othr_0324, FourCC("AOsf"))
-SelectHeroSkill(gg_unit_Othr_0324, FourCC("AOsf"))
-SelectHeroSkill(gg_unit_Othr_0324, FourCC("AOeq"))
-UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("crdt"), 0)
-UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("btst"), 1)
-UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("shcw"), 2)
-UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("fwss"), 3)
-UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("spsh"), 4)
-UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("stel"), 5)
-end
-
 function CreateBuildingsForPlayer5()
 local p = Player(5)
 local u
@@ -2008,15 +2473,7 @@ local unitID
 local t
 local life
 
-gg_unit_nfoh_0321 = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -6272.0, 5312.0, 270.000, FourCC("nbfl"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -2816.0, 5824.0, 270.000, FourCC("nbfl"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 4544.0, 5056.0, 270.000, FourCC("nbfl"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 5376.0, 1984.0, 270.000, FourCC("nbfl"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 5952.0, -5120.0, 270.000, FourCC("nbfl"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 2688.0, -5952.0, 270.000, FourCC("nbfl"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -768.0, -6400.0, 270.000, FourCC("nbfl"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -6528.0, -3456.0, 270.000, FourCC("nbfl"))
-u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -5888.0, 1536.0, 270.000, FourCC("nbfl"))
+gg_unit_nfoh_0003 = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -192.0, -448.0, 270.000, FourCC("nfnp"))
 end
 
 function CreateUnitsForPlayer5()
@@ -2026,11 +2483,56 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("uabo"), -3163.2, 5803.0, 147.650, FourCC("uabo"))
-u = BlzCreateUnitWithSkin(p, FourCC("uabo"), -3106.0, 5559.7, 102.275, FourCC("uabo"))
-gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -5478.1, 1490.4, 264.827, FourCC("H001"))
-SetHeroLevel(gg_unit_H001_0320, 30, false)
-SetUnitState(gg_unit_H001_0320, UNIT_STATE_MANA, 1290)
+gg_unit_H002_0191 = BlzCreateUnitWithSkin(p, FourCC("H002"), 921.4, -1729.0, 270.720, FourCC("H002"))
+SetUnitState(gg_unit_H002_0191, UNIT_STATE_MANA, 375)
+UnitAddItemToSlotById(gg_unit_H002_0191, FourCC("stel"), 5)
+gg_unit_Othr_0324 = BlzCreateUnitWithSkin(p, FourCC("Othr"), -1524.9, 1076.7, 256.220, FourCC("Othr"))
+SetUnitState(gg_unit_Othr_0324, UNIT_STATE_MANA, 285)
+UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("crdt"), 0)
+UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("btst"), 1)
+UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("shcw"), 2)
+UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("fwss"), 3)
+UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("spsh"), 4)
+UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("stel"), 5)
+gg_unit_Osam_0326 = BlzCreateUnitWithSkin(p, FourCC("Osam"), -1700.8, -1500.5, 344.260, FourCC("Osam"))
+SetUnitState(gg_unit_Osam_0326, UNIT_STATE_MANA, 240)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("fwss"), 0)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("klmm"), 1)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("bfhr"), 2)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("arsh"), 3)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("shdt"), 4)
+UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("stel"), 5)
+gg_unit_Hjai_0327 = BlzCreateUnitWithSkin(p, FourCC("Hjai"), 1189.7, 1139.5, 247.280, FourCC("Hjai"))
+UnitAddItemToSlotById(gg_unit_Hjai_0327, FourCC("schl"), 0)
+UnitAddItemToSlotById(gg_unit_Hjai_0327, FourCC("gvsm"), 1)
+UnitAddItemToSlotById(gg_unit_Hjai_0327, FourCC("ssil"), 2)
+UnitAddItemToSlotById(gg_unit_Hjai_0327, FourCC("shhn"), 3)
+UnitAddItemToSlotById(gg_unit_Hjai_0327, FourCC("frgd"), 4)
+end
+
+function CreateBuildingsForPlayer6()
+local p = Player(6)
+local u
+local unitID
+local t
+local life
+
+gg_unit_nfoh_0321 = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -6272.0, 5312.0, 270.000, FourCC("nbfl"))
+u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 2688.0, -5952.0, 270.000, FourCC("nbfl"))
+u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -768.0, -6400.0, 270.000, FourCC("nbfl"))
+u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -2944.0, 5760.0, 270.000, FourCC("nbfl"))
+end
+
+function CreateUnitsForPlayer6()
+local p = Player(6)
+local u
+local unitID
+local t
+local life
+
+gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -6511.4, 5166.5, 339.040, FourCC("H001"))
+SetHeroLevel(gg_unit_H001_0320, 4, false)
+SetUnitState(gg_unit_H001_0320, UNIT_STATE_MANA, 510)
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))
@@ -2041,38 +2543,13 @@ SelectHeroSkill(gg_unit_H001_0320, FourCC("ANht"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("ANht"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("ANht"))
 IssueImmediateOrder(gg_unit_H001_0320, "")
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00A"))
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00A"))
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00A"))
-IssueImmediateOrder(gg_unit_H001_0320, "")
-IssueImmediateOrder(gg_unit_H001_0320, "")
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00G"))
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00G"))
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00G"))
-IssueImmediateOrder(gg_unit_H001_0320, "")
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00H"))
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00H"))
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00H"))
-IssueImmediateOrder(gg_unit_H001_0320, "")
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00I"))
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00I"))
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00I"))
-IssueImmediateOrder(gg_unit_H001_0320, "")
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00J"))
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00J"))
-SelectHeroSkill(gg_unit_H001_0320, FourCC("A00J"))
 IssueImmediateOrder(gg_unit_H001_0320, "")
 UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("I000"), 0)
 UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("lgdh"), 1)
 UnitAddItemToSlotById(gg_unit_H001_0320, FourCC("stel"), 5)
-gg_unit_U000_0322 = BlzCreateUnitWithSkin(p, FourCC("U000"), -5957.0, 5336.7, 271.890, FourCC("U000"))
-SetHeroLevel(gg_unit_U000_0322, 20, false)
-SetUnitState(gg_unit_U000_0322, UNIT_STATE_MANA, 660)
-SelectHeroSkill(gg_unit_U000_0322, FourCC("A006"))
-SelectHeroSkill(gg_unit_U000_0322, FourCC("A006"))
-SelectHeroSkill(gg_unit_U000_0322, FourCC("A006"))
-SelectHeroSkill(gg_unit_U000_0322, FourCC("A006"))
-IssueImmediateOrder(gg_unit_U000_0322, "")
+gg_unit_U000_0322 = BlzCreateUnitWithSkin(p, FourCC("U000"), -5957.0, 5336.7, 294.890, FourCC("U000"))
+SetHeroLevel(gg_unit_U000_0322, 3, false)
+SetUnitState(gg_unit_U000_0322, UNIT_STATE_MANA, 210)
 end
 
 function CreateNeutralHostile()
@@ -2082,6 +2559,8 @@ local unitID
 local t
 local life
 
+u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), -1515.0, -6327.9, 32.888, FourCC("nlsn"))
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -1668.5, -6146.5, 13.655, FourCC("nltc"))
 u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), 7421.0, 8667.5, 253.340, FourCC("nlsn"))
 u = BlzCreateUnitWithSkin(p, FourCC("nlds"), 7054.4, 8886.0, 234.850, FourCC("nlds"))
 t = CreateTrigger()
@@ -2145,6 +2624,11 @@ TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
 TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
 TriggerAddAction(t, Unit000072_DropItems)
 u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 9518.0, -3651.7, 186.476, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlds"), -1541.0, -5963.1, 1.003, FourCC("nlds"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000366_DropItems)
 u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), 9512.2, 2276.1, 175.747, FourCC("nlsn"))
 u = BlzCreateUnitWithSkin(p, FourCC("nlds"), 9576.1, 2715.3, 157.257, FourCC("nlds"))
 t = CreateTrigger()
@@ -2321,6 +2805,11 @@ u = BlzCreateUnitWithSkin(p, FourCC("nmbg"), 4278.9, 9676.9, 255.889, FourCC("nm
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("nmtw"), 4299.7, 9557.5, 231.393, FourCC("nmtw"))
 SetUnitAcquireRange(u, 200.0)
+u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), -1343.2, -6054.2, 12.145, FourCC("nlkl"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000367_DropItems)
 u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), 7285.7, 8888.4, 257.950, FourCC("nlkl"))
 t = CreateTrigger()
 TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
@@ -2405,8 +2894,9 @@ u = BlzCreateUnitWithSkin(p, FourCC("nmtw"), -7022.7, 9299.6, 263.982, FourCC("n
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("nmtw"), -1508.5, 9488.1, 239.437, FourCC("nmtw"))
 SetUnitAcquireRange(u, 200.0)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -1347.3, -6364.3, 57.182, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), 2155.1, -5865.5, 32.888, FourCC("nlsn"))
 u = BlzCreateUnitWithSkin(p, FourCC("Hpal"), -8608.1, 6606.3, 259.250, FourCC("Hpal"))
-SetHeroLevel(u, 15, false)
 life = GetUnitState(u, UNIT_STATE_LIFE)
 SetUnitState(u, UNIT_STATE_LIFE, 0.01 * life)
 u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -96.4, 5668.8, 288.962, FourCC("nltc"))
@@ -2564,6 +3054,20 @@ u = BlzCreateUnitWithSkin(p, FourCC("nmcf"), 3448.1, 8143.5, 357.182, FourCC("nm
 SetUnitAcquireRange(u, 200.0)
 u = BlzCreateUnitWithSkin(p, FourCC("nmcf"), 3459.8, 7998.2, 19.376, FourCC("nmcf"))
 SetUnitAcquireRange(u, 200.0)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 2001.6, -5684.0, 13.655, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlds"), 2129.1, -5500.7, 1.003, FourCC("nlds"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000371_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), 2326.9, -5591.7, 12.145, FourCC("nlkl"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000372_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 2322.8, -5901.9, 57.182, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), -6172.3, -3121.7, 32.888, FourCC("nlsn"))
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -6325.8, -2940.3, 13.655, FourCC("nltc"))
 u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -5542.1, -5670.4, 13.655, FourCC("nltc"))
 u = BlzCreateUnitWithSkin(p, FourCC("nlds"), -5414.6, -5487.0, 1.003, FourCC("nlds"))
 t = CreateTrigger()
@@ -2577,6 +3081,108 @@ TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
 TriggerAddAction(t, Unit000317_DropItems)
 u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -5220.9, -5888.2, 57.182, FourCC("nltc"))
 u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), -5388.6, -5851.8, 32.888, FourCC("nlsn"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), 4165.2, 4863.8, 228.396, FourCC("nlsn"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlds"), -6198.3, -2756.9, 1.003, FourCC("nlds"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000376_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), -6000.5, -2848.0, 12.145, FourCC("nlkl"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000377_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -6004.6, -3158.2, 57.182, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), -5870.8, 667.3, 32.888, FourCC("nlsn"))
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -6024.3, 848.7, 13.655, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlds"), -5896.8, 1032.1, 1.003, FourCC("nlds"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000381_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), -5699.0, 941.0, 12.145, FourCC("nlkl"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000382_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -5703.1, 630.8, 57.182, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), -6548.1, 4349.3, 32.888, FourCC("nlsn"))
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -6701.6, 4530.7, 13.655, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlds"), -6574.1, 4714.0, 1.003, FourCC("nlds"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000386_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), -6376.3, 4623.0, 12.145, FourCC("nlkl"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000387_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -6380.4, 4312.8, 57.182, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), -3481.6, 5219.5, 32.888, FourCC("nlsn"))
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -3635.1, 5400.9, 13.655, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlds"), -3507.6, 5584.2, 1.003, FourCC("nlds"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000391_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), -3309.8, 5493.2, 12.145, FourCC("nlkl"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000392_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), -3313.9, 5183.0, 57.182, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 4011.7, 5045.2, 248.734, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlds"), 4139.3, 5228.6, 245.383, FourCC("nlds"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000395_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), 4337.0, 5137.5, 231.711, FourCC("nlkl"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000396_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 4333.0, 4827.3, 216.071, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), 5389.7, 2018.9, 191.985, FourCC("nlsn"))
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 5236.2, 2200.3, 212.856, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlds"), 5363.7, 2383.6, 218.954, FourCC("nlds"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000400_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), 5561.5, 2292.6, 206.657, FourCC("nlkl"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000401_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 5557.4, 1982.4, 187.057, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), 5527.3, -2078.5, 167.552, FourCC("nlsn"))
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 5373.8, -1897.1, 176.110, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlds"), 5501.3, -1713.7, 186.144, FourCC("nlds"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000405_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), 5699.1, -1804.8, 181.182, FourCC("nlkl"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000406_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 5695.0, -2115.0, 167.575, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlsn"), 4963.1, -5390.7, 120.225, FourCC("nlsn"))
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 4809.6, -5209.3, 117.622, FourCC("nltc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nlds"), 4937.1, -5026.0, 131.423, FourCC("nlds"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000253_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nlkl"), 5134.9, -5117.0, 136.313, FourCC("nlkl"))
+t = CreateTrigger()
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_DEATH)
+TriggerRegisterUnitEvent(t, u, EVENT_UNIT_CHANGE_OWNER)
+TriggerAddAction(t, Unit000184_DropItems)
+u = BlzCreateUnitWithSkin(p, FourCC("nltc"), 5130.8, -5427.2, 125.968, FourCC("nltc"))
 end
 
 function CreateNeutralPassiveBuildings()
@@ -2664,7 +3270,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("ntav"), -192.0, -4800.0, 270.000, FourCC("n
 SetUnitColor(u, ConvertPlayerColor(0))
 u = BlzCreateUnitWithSkin(p, FourCC("ntav"), 2880.0, 2752.0, 270.000, FourCC("ntav"))
 SetUnitColor(u, ConvertPlayerColor(0))
-u = BlzCreateUnitWithSkin(p, FourCC("ntav"), -6528.0, 2176.0, 270.000, FourCC("ntav"))
+u = BlzCreateUnitWithSkin(p, FourCC("ntav"), -7104.0, 2432.0, 270.000, FourCC("ntav"))
 SetUnitColor(u, ConvertPlayerColor(0))
 u = BlzCreateUnitWithSkin(p, FourCC("ngme"), -1856.0, 2240.0, 270.000, FourCC("ngme"))
 u = BlzCreateUnitWithSkin(p, FourCC("nmrk"), 640.0, 2368.0, 270.000, FourCC("nmrk"))
@@ -2678,20 +3284,17 @@ SetUnitColor(u, ConvertPlayerColor(0))
 end
 
 function CreatePlayerBuildings()
-CreateBuildingsForPlayer0()
 CreateBuildingsForPlayer1()
 CreateBuildingsForPlayer2()
 CreateBuildingsForPlayer3()
 CreateBuildingsForPlayer4()
 CreateBuildingsForPlayer5()
+CreateBuildingsForPlayer6()
 end
 
 function CreatePlayerUnits()
-CreateUnitsForPlayer1()
-CreateUnitsForPlayer2()
-CreateUnitsForPlayer3()
-CreateUnitsForPlayer4()
 CreateUnitsForPlayer5()
+CreateUnitsForPlayer6()
 end
 
 function CreateAllUnits()
@@ -2725,8 +3328,6 @@ MeleeStartingResources()
 MeleeClearExcessUnits()
 MeleeStartingUnits()
 MeleeInitVictoryDefeat()
-PanCameraToTimedLocForPlayer(Player(0), GetUnitLoc(gg_unit_nfoh_0003), 0)
-PanCameraToTimedLocForPlayer(Player(5), GetUnitLoc(gg_unit_nfoh_0321), 0)
 end
 
 function InitTrig_Melee_Initialization()
@@ -2764,7 +3365,7 @@ SetPlayerTechResearched(Player(0), FourCC("Rhfc"), 1)
 SetPlayerTechResearched(Player(0), FourCC("Rhfs"), 1)
 SetPlayerTechResearched(Player(0), FourCC("Rhcd"), 1)
 SetPlayerTechResearched(Player(0), FourCC("Rhsb"), 1)
-SetPlayerTechResearched(Player(0), FourCC("Rosp"), 2)
+SetPlayerTechResearched(Player(0), FourCC("Rosp"), 3)
 SetPlayerTechResearched(Player(0), FourCC("Rorb"), 1)
 SetPlayerTechResearched(Player(0), FourCC("Rome"), 3)
 SetPlayerTechResearched(Player(0), FourCC("Rora"), 3)
@@ -2786,6 +3387,31 @@ SetPlayerTechMaxAllowed(Player(0), FourCC("Ropm"), 0)
 SetPlayerTechMaxAllowed(Player(0), FourCC("Rhpm"), 0)
 SetPlayerTechResearched(Player(0), FourCC("Rgfo"), 3)
 SetPlayerTechResearched(Player(0), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(0), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(0), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(0), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(0), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(0), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(0), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(0), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(0), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(0), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(0), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(0), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(0), FourCC("Rnam"), 3)
 end
 
 function InitUpgrades_Player1()
@@ -2810,7 +3436,7 @@ SetPlayerTechResearched(Player(1), FourCC("Rhfc"), 1)
 SetPlayerTechResearched(Player(1), FourCC("Rhfs"), 1)
 SetPlayerTechResearched(Player(1), FourCC("Rhcd"), 1)
 SetPlayerTechResearched(Player(1), FourCC("Rhsb"), 1)
-SetPlayerTechResearched(Player(1), FourCC("Rosp"), 2)
+SetPlayerTechResearched(Player(1), FourCC("Rosp"), 3)
 SetPlayerTechResearched(Player(1), FourCC("Rorb"), 1)
 SetPlayerTechResearched(Player(1), FourCC("Rome"), 3)
 SetPlayerTechResearched(Player(1), FourCC("Rora"), 3)
@@ -2832,6 +3458,31 @@ SetPlayerTechMaxAllowed(Player(1), FourCC("Ropm"), 0)
 SetPlayerTechMaxAllowed(Player(1), FourCC("Rhpm"), 0)
 SetPlayerTechResearched(Player(1), FourCC("Rgfo"), 3)
 SetPlayerTechResearched(Player(1), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(1), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(1), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(1), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(1), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(1), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(1), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(1), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(1), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(1), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(1), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(1), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(1), FourCC("Rnam"), 3)
 end
 
 function InitUpgrades_Player2()
@@ -2856,7 +3507,7 @@ SetPlayerTechResearched(Player(2), FourCC("Rhfc"), 1)
 SetPlayerTechResearched(Player(2), FourCC("Rhfs"), 1)
 SetPlayerTechResearched(Player(2), FourCC("Rhcd"), 1)
 SetPlayerTechResearched(Player(2), FourCC("Rhsb"), 1)
-SetPlayerTechResearched(Player(2), FourCC("Rosp"), 2)
+SetPlayerTechResearched(Player(2), FourCC("Rosp"), 3)
 SetPlayerTechResearched(Player(2), FourCC("Rorb"), 1)
 SetPlayerTechResearched(Player(2), FourCC("Rome"), 3)
 SetPlayerTechResearched(Player(2), FourCC("Rora"), 3)
@@ -2878,6 +3529,31 @@ SetPlayerTechMaxAllowed(Player(2), FourCC("Ropm"), 0)
 SetPlayerTechMaxAllowed(Player(2), FourCC("Rhpm"), 0)
 SetPlayerTechResearched(Player(2), FourCC("Rgfo"), 3)
 SetPlayerTechResearched(Player(2), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(2), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(2), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(2), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(2), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(2), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(2), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(2), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(2), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(2), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(2), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(2), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(2), FourCC("Rnam"), 3)
 end
 
 function InitUpgrades_Player3()
@@ -2902,7 +3578,7 @@ SetPlayerTechResearched(Player(3), FourCC("Rhfc"), 1)
 SetPlayerTechResearched(Player(3), FourCC("Rhfs"), 1)
 SetPlayerTechResearched(Player(3), FourCC("Rhcd"), 1)
 SetPlayerTechResearched(Player(3), FourCC("Rhsb"), 1)
-SetPlayerTechResearched(Player(3), FourCC("Rosp"), 2)
+SetPlayerTechResearched(Player(3), FourCC("Rosp"), 3)
 SetPlayerTechResearched(Player(3), FourCC("Rorb"), 1)
 SetPlayerTechResearched(Player(3), FourCC("Rome"), 3)
 SetPlayerTechResearched(Player(3), FourCC("Rora"), 3)
@@ -2924,6 +3600,31 @@ SetPlayerTechMaxAllowed(Player(3), FourCC("Ropm"), 0)
 SetPlayerTechMaxAllowed(Player(3), FourCC("Rhpm"), 0)
 SetPlayerTechResearched(Player(3), FourCC("Rgfo"), 3)
 SetPlayerTechResearched(Player(3), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(3), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(3), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(3), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(3), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(3), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(3), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(3), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(3), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(3), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(3), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(3), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(3), FourCC("Rnam"), 3)
 end
 
 function InitUpgrades_Player4()
@@ -2948,7 +3649,7 @@ SetPlayerTechResearched(Player(4), FourCC("Rhfc"), 1)
 SetPlayerTechResearched(Player(4), FourCC("Rhfs"), 1)
 SetPlayerTechResearched(Player(4), FourCC("Rhcd"), 1)
 SetPlayerTechResearched(Player(4), FourCC("Rhsb"), 1)
-SetPlayerTechResearched(Player(4), FourCC("Rosp"), 2)
+SetPlayerTechResearched(Player(4), FourCC("Rosp"), 3)
 SetPlayerTechResearched(Player(4), FourCC("Rorb"), 1)
 SetPlayerTechResearched(Player(4), FourCC("Rome"), 3)
 SetPlayerTechResearched(Player(4), FourCC("Rora"), 3)
@@ -2970,6 +3671,457 @@ SetPlayerTechMaxAllowed(Player(4), FourCC("Ropm"), 0)
 SetPlayerTechMaxAllowed(Player(4), FourCC("Rhpm"), 0)
 SetPlayerTechResearched(Player(4), FourCC("Rgfo"), 3)
 SetPlayerTechResearched(Player(4), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(4), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(4), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(4), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(4), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(4), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(4), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(4), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(4), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(4), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(4), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(4), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(4), FourCC("Rnam"), 3)
+end
+
+function InitUpgrades_Player5()
+SetPlayerTechResearched(Player(5), FourCC("Rhme"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rhra"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rhhb"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhar"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rhgb"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhac"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rhde"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhan"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhpt"), 2)
+SetPlayerTechResearched(Player(5), FourCC("Rhst"), 2)
+SetPlayerTechResearched(Player(5), FourCC("Rhla"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rhri"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhlh"), 2)
+SetPlayerTechResearched(Player(5), FourCC("Rhfl"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhse"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhss"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhrt"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhfc"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhfs"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhcd"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rhsb"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rosp"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rorb"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rome"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rora"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Roar"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rwdm"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Ropg"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Robs"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rows"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rovs"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Roen"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rowd"), 2)
+SetPlayerTechResearched(Player(5), FourCC("Rost"), 2)
+SetPlayerTechResearched(Player(5), FourCC("Rotr"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rolf"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rowt"), 2)
+SetPlayerTechResearched(Player(5), FourCC("Robk"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Robf"), 1)
+SetPlayerTechMaxAllowed(Player(5), FourCC("Ropm"), 0)
+SetPlayerTechMaxAllowed(Player(5), FourCC("Rhpm"), 0)
+SetPlayerTechResearched(Player(5), FourCC("Rgfo"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(5), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(5), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(5), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(5), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(5), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(5), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(5), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(5), FourCC("Rnam"), 3)
+end
+
+function InitUpgrades_Player6()
+SetPlayerTechResearched(Player(6), FourCC("Rhme"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rhra"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rhhb"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhar"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rhgb"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhac"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rhde"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhan"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhpt"), 2)
+SetPlayerTechResearched(Player(6), FourCC("Rhst"), 2)
+SetPlayerTechResearched(Player(6), FourCC("Rhla"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rhri"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhlh"), 2)
+SetPlayerTechResearched(Player(6), FourCC("Rhfl"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhse"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhss"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhrt"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhfc"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhfs"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhcd"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rhsb"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rosp"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rorb"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rome"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rora"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Roar"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rwdm"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Ropg"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Robs"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rows"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rovs"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Roen"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rowd"), 2)
+SetPlayerTechResearched(Player(6), FourCC("Rost"), 2)
+SetPlayerTechResearched(Player(6), FourCC("Rotr"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rolf"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rowt"), 2)
+SetPlayerTechResearched(Player(6), FourCC("Robk"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Robf"), 1)
+SetPlayerTechMaxAllowed(Player(6), FourCC("Ropm"), 0)
+SetPlayerTechMaxAllowed(Player(6), FourCC("Rhpm"), 0)
+SetPlayerTechResearched(Player(6), FourCC("Rgfo"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(6), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(6), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(6), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(6), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(6), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(6), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(6), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(6), FourCC("Rnam"), 3)
+end
+
+function InitUpgrades_Player7()
+SetPlayerTechResearched(Player(7), FourCC("Rhme"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rhra"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rhhb"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhar"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rhgb"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhac"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rhde"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhan"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhpt"), 2)
+SetPlayerTechResearched(Player(7), FourCC("Rhst"), 2)
+SetPlayerTechResearched(Player(7), FourCC("Rhla"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rhri"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhlh"), 2)
+SetPlayerTechResearched(Player(7), FourCC("Rhfl"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhse"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhss"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhrt"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhfc"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhfs"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhcd"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rhsb"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rosp"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rorb"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rome"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rora"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Roar"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rwdm"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Ropg"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Robs"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rows"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rovs"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Roen"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rowd"), 2)
+SetPlayerTechResearched(Player(7), FourCC("Rost"), 2)
+SetPlayerTechResearched(Player(7), FourCC("Rotr"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rolf"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rowt"), 2)
+SetPlayerTechResearched(Player(7), FourCC("Robk"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Robf"), 1)
+SetPlayerTechMaxAllowed(Player(7), FourCC("Ropm"), 0)
+SetPlayerTechMaxAllowed(Player(7), FourCC("Rhpm"), 0)
+SetPlayerTechResearched(Player(7), FourCC("Rgfo"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(7), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(7), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(7), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(7), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(7), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(7), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(7), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(7), FourCC("Rnam"), 3)
+end
+
+function InitUpgrades_Player8()
+SetPlayerTechResearched(Player(8), FourCC("Rhme"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rhra"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rhhb"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhar"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rhgb"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhac"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rhde"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhan"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhpt"), 2)
+SetPlayerTechResearched(Player(8), FourCC("Rhst"), 2)
+SetPlayerTechResearched(Player(8), FourCC("Rhla"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rhri"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhlh"), 2)
+SetPlayerTechResearched(Player(8), FourCC("Rhfl"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhse"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhss"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhrt"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhfc"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhfs"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhcd"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rhsb"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rosp"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rorb"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rome"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rora"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Roar"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rwdm"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Ropg"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Robs"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rows"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rovs"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Roen"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rowd"), 2)
+SetPlayerTechResearched(Player(8), FourCC("Rost"), 2)
+SetPlayerTechResearched(Player(8), FourCC("Rotr"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rolf"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rowt"), 2)
+SetPlayerTechResearched(Player(8), FourCC("Robk"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Robf"), 1)
+SetPlayerTechMaxAllowed(Player(8), FourCC("Ropm"), 0)
+SetPlayerTechMaxAllowed(Player(8), FourCC("Rhpm"), 0)
+SetPlayerTechResearched(Player(8), FourCC("Rgfo"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(8), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(8), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(8), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(8), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(8), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(8), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(8), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(8), FourCC("Rnam"), 3)
+end
+
+function InitUpgrades_Player9()
+SetPlayerTechResearched(Player(9), FourCC("Rhme"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rhra"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rhhb"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhar"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rhgb"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhac"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rhde"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhan"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhpt"), 2)
+SetPlayerTechResearched(Player(9), FourCC("Rhst"), 2)
+SetPlayerTechResearched(Player(9), FourCC("Rhla"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rhri"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhlh"), 2)
+SetPlayerTechResearched(Player(9), FourCC("Rhfl"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhse"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhss"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhrt"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhfc"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhfs"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhcd"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rhsb"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rosp"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rorb"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rome"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rora"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Roar"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rwdm"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Ropg"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Robs"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rows"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rovs"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Roen"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rowd"), 2)
+SetPlayerTechResearched(Player(9), FourCC("Rost"), 2)
+SetPlayerTechResearched(Player(9), FourCC("Rotr"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rolf"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rowt"), 2)
+SetPlayerTechResearched(Player(9), FourCC("Robk"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Robf"), 1)
+SetPlayerTechMaxAllowed(Player(9), FourCC("Ropm"), 0)
+SetPlayerTechMaxAllowed(Player(9), FourCC("Rhpm"), 0)
+SetPlayerTechResearched(Player(9), FourCC("Rgfo"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(9), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(9), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(9), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(9), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(9), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(9), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(9), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(9), FourCC("Rnam"), 3)
+end
+
+function InitUpgrades_Player10()
+SetPlayerTechResearched(Player(10), FourCC("Rhme"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rhra"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rhhb"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhar"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rhgb"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhac"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rhde"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhan"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhpt"), 2)
+SetPlayerTechResearched(Player(10), FourCC("Rhst"), 2)
+SetPlayerTechResearched(Player(10), FourCC("Rhla"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rhri"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhlh"), 2)
+SetPlayerTechResearched(Player(10), FourCC("Rhfl"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhse"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhss"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhrt"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhfc"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhfs"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhcd"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rhsb"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rosp"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rorb"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rome"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rora"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Roar"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rwdm"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Ropg"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Robs"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rows"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rovs"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Roen"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rowd"), 2)
+SetPlayerTechResearched(Player(10), FourCC("Rost"), 2)
+SetPlayerTechResearched(Player(10), FourCC("Rotr"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rolf"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rowt"), 2)
+SetPlayerTechResearched(Player(10), FourCC("Robk"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Robf"), 1)
+SetPlayerTechMaxAllowed(Player(10), FourCC("Ropm"), 0)
+SetPlayerTechMaxAllowed(Player(10), FourCC("Rhpm"), 0)
+SetPlayerTechResearched(Player(10), FourCC("Rgfo"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rguv"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rume"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rura"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Ruar"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Ruac"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rugf"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Ruwb"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rusf"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rune"), 2)
+SetPlayerTechResearched(Player(10), FourCC("Ruba"), 2)
+SetPlayerTechResearched(Player(10), FourCC("Rufb"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rucr"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rusl"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rupc"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rusm"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rubu"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rusp"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Ruex"), 1)
+SetPlayerTechMaxAllowed(Player(10), FourCC("Rupm"), 0)
+SetPlayerTechMaxAllowed(Player(10), FourCC("Roch"), 0)
+SetPlayerTechResearched(Player(10), FourCC("Rnat"), 3)
+SetPlayerTechResearched(Player(10), FourCC("Rnsb"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rnsw"), 2)
+SetPlayerTechResearched(Player(10), FourCC("Rnsi"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rnen"), 1)
+SetPlayerTechResearched(Player(10), FourCC("Rnam"), 3)
 end
 
 function InitUpgrades()
@@ -2978,6 +4130,12 @@ InitUpgrades_Player1()
 InitUpgrades_Player2()
 InitUpgrades_Player3()
 InitUpgrades_Player4()
+InitUpgrades_Player5()
+InitUpgrades_Player6()
+InitUpgrades_Player7()
+InitUpgrades_Player8()
+InitUpgrades_Player9()
+InitUpgrades_Player10()
 end
 
 function InitCustomPlayerSlots()
@@ -3014,7 +4172,7 @@ SetPlayerController(Player(4), MAP_CONTROL_COMPUTER)
 SetPlayerStartLocation(Player(5), 5)
 ForcePlayerStartLocation(Player(5), 5)
 SetPlayerColor(Player(5), ConvertPlayerColor(5))
-SetPlayerRacePreference(Player(5), RACE_PREF_UNDEAD)
+SetPlayerRacePreference(Player(5), RACE_PREF_HUMAN)
 SetPlayerRaceSelectable(Player(5), false)
 SetPlayerController(Player(5), MAP_CONTROL_COMPUTER)
 SetPlayerStartLocation(Player(6), 6)
@@ -3059,23 +4217,9 @@ SetPlayerColor(Player(12), ConvertPlayerColor(12))
 SetPlayerRacePreference(Player(12), RACE_PREF_UNDEAD)
 SetPlayerRaceSelectable(Player(12), false)
 SetPlayerController(Player(12), MAP_CONTROL_COMPUTER)
-SetPlayerStartLocation(Player(13), 13)
-ForcePlayerStartLocation(Player(13), 13)
-SetPlayerColor(Player(13), ConvertPlayerColor(13))
-SetPlayerRacePreference(Player(13), RACE_PREF_UNDEAD)
-SetPlayerRaceSelectable(Player(13), false)
-SetPlayerController(Player(13), MAP_CONTROL_COMPUTER)
-SetPlayerStartLocation(Player(14), 14)
-ForcePlayerStartLocation(Player(14), 14)
-SetPlayerColor(Player(14), ConvertPlayerColor(14))
-SetPlayerRacePreference(Player(14), RACE_PREF_UNDEAD)
-SetPlayerRaceSelectable(Player(14), false)
-SetPlayerController(Player(14), MAP_CONTROL_COMPUTER)
 end
 
 function InitCustomTeams()
-SetPlayerTeam(Player(0), 0)
-SetPlayerState(Player(0), PLAYER_STATE_ALLIED_VICTORY, 1)
 SetPlayerTeam(Player(1), 0)
 SetPlayerState(Player(1), PLAYER_STATE_ALLIED_VICTORY, 1)
 SetPlayerTeam(Player(2), 0)
@@ -3084,68 +4228,48 @@ SetPlayerTeam(Player(3), 0)
 SetPlayerState(Player(3), PLAYER_STATE_ALLIED_VICTORY, 1)
 SetPlayerTeam(Player(4), 0)
 SetPlayerState(Player(4), PLAYER_STATE_ALLIED_VICTORY, 1)
-SetPlayerAllianceStateAllyBJ(Player(0), Player(1), true)
-SetPlayerAllianceStateAllyBJ(Player(0), Player(2), true)
-SetPlayerAllianceStateAllyBJ(Player(0), Player(3), true)
-SetPlayerAllianceStateAllyBJ(Player(0), Player(4), true)
-SetPlayerAllianceStateAllyBJ(Player(1), Player(0), true)
+SetPlayerTeam(Player(5), 0)
+SetPlayerState(Player(5), PLAYER_STATE_ALLIED_VICTORY, 1)
 SetPlayerAllianceStateAllyBJ(Player(1), Player(2), true)
 SetPlayerAllianceStateAllyBJ(Player(1), Player(3), true)
 SetPlayerAllianceStateAllyBJ(Player(1), Player(4), true)
-SetPlayerAllianceStateAllyBJ(Player(2), Player(0), true)
+SetPlayerAllianceStateAllyBJ(Player(1), Player(5), true)
 SetPlayerAllianceStateAllyBJ(Player(2), Player(1), true)
 SetPlayerAllianceStateAllyBJ(Player(2), Player(3), true)
 SetPlayerAllianceStateAllyBJ(Player(2), Player(4), true)
-SetPlayerAllianceStateAllyBJ(Player(3), Player(0), true)
+SetPlayerAllianceStateAllyBJ(Player(2), Player(5), true)
 SetPlayerAllianceStateAllyBJ(Player(3), Player(1), true)
 SetPlayerAllianceStateAllyBJ(Player(3), Player(2), true)
 SetPlayerAllianceStateAllyBJ(Player(3), Player(4), true)
-SetPlayerAllianceStateAllyBJ(Player(4), Player(0), true)
+SetPlayerAllianceStateAllyBJ(Player(3), Player(5), true)
 SetPlayerAllianceStateAllyBJ(Player(4), Player(1), true)
 SetPlayerAllianceStateAllyBJ(Player(4), Player(2), true)
 SetPlayerAllianceStateAllyBJ(Player(4), Player(3), true)
-SetPlayerAllianceStateVisionBJ(Player(0), Player(1), true)
-SetPlayerAllianceStateVisionBJ(Player(0), Player(2), true)
-SetPlayerAllianceStateVisionBJ(Player(0), Player(3), true)
-SetPlayerAllianceStateVisionBJ(Player(0), Player(4), true)
-SetPlayerAllianceStateVisionBJ(Player(1), Player(0), true)
+SetPlayerAllianceStateAllyBJ(Player(4), Player(5), true)
+SetPlayerAllianceStateAllyBJ(Player(5), Player(1), true)
+SetPlayerAllianceStateAllyBJ(Player(5), Player(2), true)
+SetPlayerAllianceStateAllyBJ(Player(5), Player(3), true)
+SetPlayerAllianceStateAllyBJ(Player(5), Player(4), true)
 SetPlayerAllianceStateVisionBJ(Player(1), Player(2), true)
 SetPlayerAllianceStateVisionBJ(Player(1), Player(3), true)
 SetPlayerAllianceStateVisionBJ(Player(1), Player(4), true)
-SetPlayerAllianceStateVisionBJ(Player(2), Player(0), true)
+SetPlayerAllianceStateVisionBJ(Player(1), Player(5), true)
 SetPlayerAllianceStateVisionBJ(Player(2), Player(1), true)
 SetPlayerAllianceStateVisionBJ(Player(2), Player(3), true)
 SetPlayerAllianceStateVisionBJ(Player(2), Player(4), true)
-SetPlayerAllianceStateVisionBJ(Player(3), Player(0), true)
+SetPlayerAllianceStateVisionBJ(Player(2), Player(5), true)
 SetPlayerAllianceStateVisionBJ(Player(3), Player(1), true)
 SetPlayerAllianceStateVisionBJ(Player(3), Player(2), true)
 SetPlayerAllianceStateVisionBJ(Player(3), Player(4), true)
-SetPlayerAllianceStateVisionBJ(Player(4), Player(0), true)
+SetPlayerAllianceStateVisionBJ(Player(3), Player(5), true)
 SetPlayerAllianceStateVisionBJ(Player(4), Player(1), true)
 SetPlayerAllianceStateVisionBJ(Player(4), Player(2), true)
 SetPlayerAllianceStateVisionBJ(Player(4), Player(3), true)
-SetPlayerAllianceStateControlBJ(Player(0), Player(1), true)
-SetPlayerAllianceStateControlBJ(Player(0), Player(2), true)
-SetPlayerAllianceStateControlBJ(Player(0), Player(3), true)
-SetPlayerAllianceStateControlBJ(Player(0), Player(4), true)
-SetPlayerAllianceStateControlBJ(Player(1), Player(0), true)
-SetPlayerAllianceStateControlBJ(Player(1), Player(2), true)
-SetPlayerAllianceStateControlBJ(Player(1), Player(3), true)
-SetPlayerAllianceStateControlBJ(Player(1), Player(4), true)
-SetPlayerAllianceStateControlBJ(Player(2), Player(0), true)
-SetPlayerAllianceStateControlBJ(Player(2), Player(1), true)
-SetPlayerAllianceStateControlBJ(Player(2), Player(3), true)
-SetPlayerAllianceStateControlBJ(Player(2), Player(4), true)
-SetPlayerAllianceStateControlBJ(Player(3), Player(0), true)
-SetPlayerAllianceStateControlBJ(Player(3), Player(1), true)
-SetPlayerAllianceStateControlBJ(Player(3), Player(2), true)
-SetPlayerAllianceStateControlBJ(Player(3), Player(4), true)
-SetPlayerAllianceStateControlBJ(Player(4), Player(0), true)
-SetPlayerAllianceStateControlBJ(Player(4), Player(1), true)
-SetPlayerAllianceStateControlBJ(Player(4), Player(2), true)
-SetPlayerAllianceStateControlBJ(Player(4), Player(3), true)
-SetPlayerTeam(Player(5), 1)
-SetPlayerState(Player(5), PLAYER_STATE_ALLIED_VICTORY, 1)
+SetPlayerAllianceStateVisionBJ(Player(4), Player(5), true)
+SetPlayerAllianceStateVisionBJ(Player(5), Player(1), true)
+SetPlayerAllianceStateVisionBJ(Player(5), Player(2), true)
+SetPlayerAllianceStateVisionBJ(Player(5), Player(3), true)
+SetPlayerAllianceStateVisionBJ(Player(5), Player(4), true)
 SetPlayerTeam(Player(6), 1)
 SetPlayerState(Player(6), PLAYER_STATE_ALLIED_VICTORY, 1)
 SetPlayerTeam(Player(7), 1)
@@ -3160,308 +4284,117 @@ SetPlayerTeam(Player(11), 1)
 SetPlayerState(Player(11), PLAYER_STATE_ALLIED_VICTORY, 1)
 SetPlayerTeam(Player(12), 1)
 SetPlayerState(Player(12), PLAYER_STATE_ALLIED_VICTORY, 1)
-SetPlayerTeam(Player(13), 1)
-SetPlayerState(Player(13), PLAYER_STATE_ALLIED_VICTORY, 1)
-SetPlayerTeam(Player(14), 1)
-SetPlayerState(Player(14), PLAYER_STATE_ALLIED_VICTORY, 1)
-SetPlayerAllianceStateAllyBJ(Player(5), Player(6), true)
-SetPlayerAllianceStateAllyBJ(Player(5), Player(7), true)
-SetPlayerAllianceStateAllyBJ(Player(5), Player(8), true)
-SetPlayerAllianceStateAllyBJ(Player(5), Player(9), true)
-SetPlayerAllianceStateAllyBJ(Player(5), Player(10), true)
-SetPlayerAllianceStateAllyBJ(Player(5), Player(11), true)
-SetPlayerAllianceStateAllyBJ(Player(5), Player(12), true)
-SetPlayerAllianceStateAllyBJ(Player(5), Player(13), true)
-SetPlayerAllianceStateAllyBJ(Player(5), Player(14), true)
-SetPlayerAllianceStateAllyBJ(Player(6), Player(5), true)
 SetPlayerAllianceStateAllyBJ(Player(6), Player(7), true)
 SetPlayerAllianceStateAllyBJ(Player(6), Player(8), true)
 SetPlayerAllianceStateAllyBJ(Player(6), Player(9), true)
 SetPlayerAllianceStateAllyBJ(Player(6), Player(10), true)
 SetPlayerAllianceStateAllyBJ(Player(6), Player(11), true)
 SetPlayerAllianceStateAllyBJ(Player(6), Player(12), true)
-SetPlayerAllianceStateAllyBJ(Player(6), Player(13), true)
-SetPlayerAllianceStateAllyBJ(Player(6), Player(14), true)
-SetPlayerAllianceStateAllyBJ(Player(7), Player(5), true)
 SetPlayerAllianceStateAllyBJ(Player(7), Player(6), true)
 SetPlayerAllianceStateAllyBJ(Player(7), Player(8), true)
 SetPlayerAllianceStateAllyBJ(Player(7), Player(9), true)
 SetPlayerAllianceStateAllyBJ(Player(7), Player(10), true)
 SetPlayerAllianceStateAllyBJ(Player(7), Player(11), true)
 SetPlayerAllianceStateAllyBJ(Player(7), Player(12), true)
-SetPlayerAllianceStateAllyBJ(Player(7), Player(13), true)
-SetPlayerAllianceStateAllyBJ(Player(7), Player(14), true)
-SetPlayerAllianceStateAllyBJ(Player(8), Player(5), true)
 SetPlayerAllianceStateAllyBJ(Player(8), Player(6), true)
 SetPlayerAllianceStateAllyBJ(Player(8), Player(7), true)
 SetPlayerAllianceStateAllyBJ(Player(8), Player(9), true)
 SetPlayerAllianceStateAllyBJ(Player(8), Player(10), true)
 SetPlayerAllianceStateAllyBJ(Player(8), Player(11), true)
 SetPlayerAllianceStateAllyBJ(Player(8), Player(12), true)
-SetPlayerAllianceStateAllyBJ(Player(8), Player(13), true)
-SetPlayerAllianceStateAllyBJ(Player(8), Player(14), true)
-SetPlayerAllianceStateAllyBJ(Player(9), Player(5), true)
 SetPlayerAllianceStateAllyBJ(Player(9), Player(6), true)
 SetPlayerAllianceStateAllyBJ(Player(9), Player(7), true)
 SetPlayerAllianceStateAllyBJ(Player(9), Player(8), true)
 SetPlayerAllianceStateAllyBJ(Player(9), Player(10), true)
 SetPlayerAllianceStateAllyBJ(Player(9), Player(11), true)
 SetPlayerAllianceStateAllyBJ(Player(9), Player(12), true)
-SetPlayerAllianceStateAllyBJ(Player(9), Player(13), true)
-SetPlayerAllianceStateAllyBJ(Player(9), Player(14), true)
-SetPlayerAllianceStateAllyBJ(Player(10), Player(5), true)
 SetPlayerAllianceStateAllyBJ(Player(10), Player(6), true)
 SetPlayerAllianceStateAllyBJ(Player(10), Player(7), true)
 SetPlayerAllianceStateAllyBJ(Player(10), Player(8), true)
 SetPlayerAllianceStateAllyBJ(Player(10), Player(9), true)
 SetPlayerAllianceStateAllyBJ(Player(10), Player(11), true)
 SetPlayerAllianceStateAllyBJ(Player(10), Player(12), true)
-SetPlayerAllianceStateAllyBJ(Player(10), Player(13), true)
-SetPlayerAllianceStateAllyBJ(Player(10), Player(14), true)
-SetPlayerAllianceStateAllyBJ(Player(11), Player(5), true)
 SetPlayerAllianceStateAllyBJ(Player(11), Player(6), true)
 SetPlayerAllianceStateAllyBJ(Player(11), Player(7), true)
 SetPlayerAllianceStateAllyBJ(Player(11), Player(8), true)
 SetPlayerAllianceStateAllyBJ(Player(11), Player(9), true)
 SetPlayerAllianceStateAllyBJ(Player(11), Player(10), true)
 SetPlayerAllianceStateAllyBJ(Player(11), Player(12), true)
-SetPlayerAllianceStateAllyBJ(Player(11), Player(13), true)
-SetPlayerAllianceStateAllyBJ(Player(11), Player(14), true)
-SetPlayerAllianceStateAllyBJ(Player(12), Player(5), true)
 SetPlayerAllianceStateAllyBJ(Player(12), Player(6), true)
 SetPlayerAllianceStateAllyBJ(Player(12), Player(7), true)
 SetPlayerAllianceStateAllyBJ(Player(12), Player(8), true)
 SetPlayerAllianceStateAllyBJ(Player(12), Player(9), true)
 SetPlayerAllianceStateAllyBJ(Player(12), Player(10), true)
 SetPlayerAllianceStateAllyBJ(Player(12), Player(11), true)
-SetPlayerAllianceStateAllyBJ(Player(12), Player(13), true)
-SetPlayerAllianceStateAllyBJ(Player(12), Player(14), true)
-SetPlayerAllianceStateAllyBJ(Player(13), Player(5), true)
-SetPlayerAllianceStateAllyBJ(Player(13), Player(6), true)
-SetPlayerAllianceStateAllyBJ(Player(13), Player(7), true)
-SetPlayerAllianceStateAllyBJ(Player(13), Player(8), true)
-SetPlayerAllianceStateAllyBJ(Player(13), Player(9), true)
-SetPlayerAllianceStateAllyBJ(Player(13), Player(10), true)
-SetPlayerAllianceStateAllyBJ(Player(13), Player(11), true)
-SetPlayerAllianceStateAllyBJ(Player(13), Player(12), true)
-SetPlayerAllianceStateAllyBJ(Player(13), Player(14), true)
-SetPlayerAllianceStateAllyBJ(Player(14), Player(5), true)
-SetPlayerAllianceStateAllyBJ(Player(14), Player(6), true)
-SetPlayerAllianceStateAllyBJ(Player(14), Player(7), true)
-SetPlayerAllianceStateAllyBJ(Player(14), Player(8), true)
-SetPlayerAllianceStateAllyBJ(Player(14), Player(9), true)
-SetPlayerAllianceStateAllyBJ(Player(14), Player(10), true)
-SetPlayerAllianceStateAllyBJ(Player(14), Player(11), true)
-SetPlayerAllianceStateAllyBJ(Player(14), Player(12), true)
-SetPlayerAllianceStateAllyBJ(Player(14), Player(13), true)
-SetPlayerAllianceStateVisionBJ(Player(5), Player(6), true)
-SetPlayerAllianceStateVisionBJ(Player(5), Player(7), true)
-SetPlayerAllianceStateVisionBJ(Player(5), Player(8), true)
-SetPlayerAllianceStateVisionBJ(Player(5), Player(9), true)
-SetPlayerAllianceStateVisionBJ(Player(5), Player(10), true)
-SetPlayerAllianceStateVisionBJ(Player(5), Player(11), true)
-SetPlayerAllianceStateVisionBJ(Player(5), Player(12), true)
-SetPlayerAllianceStateVisionBJ(Player(5), Player(13), true)
-SetPlayerAllianceStateVisionBJ(Player(5), Player(14), true)
-SetPlayerAllianceStateVisionBJ(Player(6), Player(5), true)
 SetPlayerAllianceStateVisionBJ(Player(6), Player(7), true)
 SetPlayerAllianceStateVisionBJ(Player(6), Player(8), true)
 SetPlayerAllianceStateVisionBJ(Player(6), Player(9), true)
 SetPlayerAllianceStateVisionBJ(Player(6), Player(10), true)
 SetPlayerAllianceStateVisionBJ(Player(6), Player(11), true)
 SetPlayerAllianceStateVisionBJ(Player(6), Player(12), true)
-SetPlayerAllianceStateVisionBJ(Player(6), Player(13), true)
-SetPlayerAllianceStateVisionBJ(Player(6), Player(14), true)
-SetPlayerAllianceStateVisionBJ(Player(7), Player(5), true)
 SetPlayerAllianceStateVisionBJ(Player(7), Player(6), true)
 SetPlayerAllianceStateVisionBJ(Player(7), Player(8), true)
 SetPlayerAllianceStateVisionBJ(Player(7), Player(9), true)
 SetPlayerAllianceStateVisionBJ(Player(7), Player(10), true)
 SetPlayerAllianceStateVisionBJ(Player(7), Player(11), true)
 SetPlayerAllianceStateVisionBJ(Player(7), Player(12), true)
-SetPlayerAllianceStateVisionBJ(Player(7), Player(13), true)
-SetPlayerAllianceStateVisionBJ(Player(7), Player(14), true)
-SetPlayerAllianceStateVisionBJ(Player(8), Player(5), true)
 SetPlayerAllianceStateVisionBJ(Player(8), Player(6), true)
 SetPlayerAllianceStateVisionBJ(Player(8), Player(7), true)
 SetPlayerAllianceStateVisionBJ(Player(8), Player(9), true)
 SetPlayerAllianceStateVisionBJ(Player(8), Player(10), true)
 SetPlayerAllianceStateVisionBJ(Player(8), Player(11), true)
 SetPlayerAllianceStateVisionBJ(Player(8), Player(12), true)
-SetPlayerAllianceStateVisionBJ(Player(8), Player(13), true)
-SetPlayerAllianceStateVisionBJ(Player(8), Player(14), true)
-SetPlayerAllianceStateVisionBJ(Player(9), Player(5), true)
 SetPlayerAllianceStateVisionBJ(Player(9), Player(6), true)
 SetPlayerAllianceStateVisionBJ(Player(9), Player(7), true)
 SetPlayerAllianceStateVisionBJ(Player(9), Player(8), true)
 SetPlayerAllianceStateVisionBJ(Player(9), Player(10), true)
 SetPlayerAllianceStateVisionBJ(Player(9), Player(11), true)
 SetPlayerAllianceStateVisionBJ(Player(9), Player(12), true)
-SetPlayerAllianceStateVisionBJ(Player(9), Player(13), true)
-SetPlayerAllianceStateVisionBJ(Player(9), Player(14), true)
-SetPlayerAllianceStateVisionBJ(Player(10), Player(5), true)
 SetPlayerAllianceStateVisionBJ(Player(10), Player(6), true)
 SetPlayerAllianceStateVisionBJ(Player(10), Player(7), true)
 SetPlayerAllianceStateVisionBJ(Player(10), Player(8), true)
 SetPlayerAllianceStateVisionBJ(Player(10), Player(9), true)
 SetPlayerAllianceStateVisionBJ(Player(10), Player(11), true)
 SetPlayerAllianceStateVisionBJ(Player(10), Player(12), true)
-SetPlayerAllianceStateVisionBJ(Player(10), Player(13), true)
-SetPlayerAllianceStateVisionBJ(Player(10), Player(14), true)
-SetPlayerAllianceStateVisionBJ(Player(11), Player(5), true)
 SetPlayerAllianceStateVisionBJ(Player(11), Player(6), true)
 SetPlayerAllianceStateVisionBJ(Player(11), Player(7), true)
 SetPlayerAllianceStateVisionBJ(Player(11), Player(8), true)
 SetPlayerAllianceStateVisionBJ(Player(11), Player(9), true)
 SetPlayerAllianceStateVisionBJ(Player(11), Player(10), true)
 SetPlayerAllianceStateVisionBJ(Player(11), Player(12), true)
-SetPlayerAllianceStateVisionBJ(Player(11), Player(13), true)
-SetPlayerAllianceStateVisionBJ(Player(11), Player(14), true)
-SetPlayerAllianceStateVisionBJ(Player(12), Player(5), true)
 SetPlayerAllianceStateVisionBJ(Player(12), Player(6), true)
 SetPlayerAllianceStateVisionBJ(Player(12), Player(7), true)
 SetPlayerAllianceStateVisionBJ(Player(12), Player(8), true)
 SetPlayerAllianceStateVisionBJ(Player(12), Player(9), true)
 SetPlayerAllianceStateVisionBJ(Player(12), Player(10), true)
 SetPlayerAllianceStateVisionBJ(Player(12), Player(11), true)
-SetPlayerAllianceStateVisionBJ(Player(12), Player(13), true)
-SetPlayerAllianceStateVisionBJ(Player(12), Player(14), true)
-SetPlayerAllianceStateVisionBJ(Player(13), Player(5), true)
-SetPlayerAllianceStateVisionBJ(Player(13), Player(6), true)
-SetPlayerAllianceStateVisionBJ(Player(13), Player(7), true)
-SetPlayerAllianceStateVisionBJ(Player(13), Player(8), true)
-SetPlayerAllianceStateVisionBJ(Player(13), Player(9), true)
-SetPlayerAllianceStateVisionBJ(Player(13), Player(10), true)
-SetPlayerAllianceStateVisionBJ(Player(13), Player(11), true)
-SetPlayerAllianceStateVisionBJ(Player(13), Player(12), true)
-SetPlayerAllianceStateVisionBJ(Player(13), Player(14), true)
-SetPlayerAllianceStateVisionBJ(Player(14), Player(5), true)
-SetPlayerAllianceStateVisionBJ(Player(14), Player(6), true)
-SetPlayerAllianceStateVisionBJ(Player(14), Player(7), true)
-SetPlayerAllianceStateVisionBJ(Player(14), Player(8), true)
-SetPlayerAllianceStateVisionBJ(Player(14), Player(9), true)
-SetPlayerAllianceStateVisionBJ(Player(14), Player(10), true)
-SetPlayerAllianceStateVisionBJ(Player(14), Player(11), true)
-SetPlayerAllianceStateVisionBJ(Player(14), Player(12), true)
-SetPlayerAllianceStateVisionBJ(Player(14), Player(13), true)
-SetPlayerAllianceStateControlBJ(Player(5), Player(6), true)
-SetPlayerAllianceStateControlBJ(Player(5), Player(7), true)
-SetPlayerAllianceStateControlBJ(Player(5), Player(8), true)
-SetPlayerAllianceStateControlBJ(Player(5), Player(9), true)
-SetPlayerAllianceStateControlBJ(Player(5), Player(10), true)
-SetPlayerAllianceStateControlBJ(Player(5), Player(11), true)
-SetPlayerAllianceStateControlBJ(Player(5), Player(12), true)
-SetPlayerAllianceStateControlBJ(Player(5), Player(13), true)
-SetPlayerAllianceStateControlBJ(Player(5), Player(14), true)
-SetPlayerAllianceStateControlBJ(Player(6), Player(5), true)
-SetPlayerAllianceStateControlBJ(Player(6), Player(7), true)
-SetPlayerAllianceStateControlBJ(Player(6), Player(8), true)
-SetPlayerAllianceStateControlBJ(Player(6), Player(9), true)
-SetPlayerAllianceStateControlBJ(Player(6), Player(10), true)
-SetPlayerAllianceStateControlBJ(Player(6), Player(11), true)
-SetPlayerAllianceStateControlBJ(Player(6), Player(12), true)
-SetPlayerAllianceStateControlBJ(Player(6), Player(13), true)
-SetPlayerAllianceStateControlBJ(Player(6), Player(14), true)
-SetPlayerAllianceStateControlBJ(Player(7), Player(5), true)
-SetPlayerAllianceStateControlBJ(Player(7), Player(6), true)
-SetPlayerAllianceStateControlBJ(Player(7), Player(8), true)
-SetPlayerAllianceStateControlBJ(Player(7), Player(9), true)
-SetPlayerAllianceStateControlBJ(Player(7), Player(10), true)
-SetPlayerAllianceStateControlBJ(Player(7), Player(11), true)
-SetPlayerAllianceStateControlBJ(Player(7), Player(12), true)
-SetPlayerAllianceStateControlBJ(Player(7), Player(13), true)
-SetPlayerAllianceStateControlBJ(Player(7), Player(14), true)
-SetPlayerAllianceStateControlBJ(Player(8), Player(5), true)
-SetPlayerAllianceStateControlBJ(Player(8), Player(6), true)
-SetPlayerAllianceStateControlBJ(Player(8), Player(7), true)
-SetPlayerAllianceStateControlBJ(Player(8), Player(9), true)
-SetPlayerAllianceStateControlBJ(Player(8), Player(10), true)
-SetPlayerAllianceStateControlBJ(Player(8), Player(11), true)
-SetPlayerAllianceStateControlBJ(Player(8), Player(12), true)
-SetPlayerAllianceStateControlBJ(Player(8), Player(13), true)
-SetPlayerAllianceStateControlBJ(Player(8), Player(14), true)
-SetPlayerAllianceStateControlBJ(Player(9), Player(5), true)
-SetPlayerAllianceStateControlBJ(Player(9), Player(6), true)
-SetPlayerAllianceStateControlBJ(Player(9), Player(7), true)
-SetPlayerAllianceStateControlBJ(Player(9), Player(8), true)
-SetPlayerAllianceStateControlBJ(Player(9), Player(10), true)
-SetPlayerAllianceStateControlBJ(Player(9), Player(11), true)
-SetPlayerAllianceStateControlBJ(Player(9), Player(12), true)
-SetPlayerAllianceStateControlBJ(Player(9), Player(13), true)
-SetPlayerAllianceStateControlBJ(Player(9), Player(14), true)
-SetPlayerAllianceStateControlBJ(Player(10), Player(5), true)
-SetPlayerAllianceStateControlBJ(Player(10), Player(6), true)
-SetPlayerAllianceStateControlBJ(Player(10), Player(7), true)
-SetPlayerAllianceStateControlBJ(Player(10), Player(8), true)
-SetPlayerAllianceStateControlBJ(Player(10), Player(9), true)
-SetPlayerAllianceStateControlBJ(Player(10), Player(11), true)
-SetPlayerAllianceStateControlBJ(Player(10), Player(12), true)
-SetPlayerAllianceStateControlBJ(Player(10), Player(13), true)
-SetPlayerAllianceStateControlBJ(Player(10), Player(14), true)
-SetPlayerAllianceStateControlBJ(Player(11), Player(5), true)
-SetPlayerAllianceStateControlBJ(Player(11), Player(6), true)
-SetPlayerAllianceStateControlBJ(Player(11), Player(7), true)
-SetPlayerAllianceStateControlBJ(Player(11), Player(8), true)
-SetPlayerAllianceStateControlBJ(Player(11), Player(9), true)
-SetPlayerAllianceStateControlBJ(Player(11), Player(10), true)
-SetPlayerAllianceStateControlBJ(Player(11), Player(12), true)
-SetPlayerAllianceStateControlBJ(Player(11), Player(13), true)
-SetPlayerAllianceStateControlBJ(Player(11), Player(14), true)
-SetPlayerAllianceStateControlBJ(Player(12), Player(5), true)
-SetPlayerAllianceStateControlBJ(Player(12), Player(6), true)
-SetPlayerAllianceStateControlBJ(Player(12), Player(7), true)
-SetPlayerAllianceStateControlBJ(Player(12), Player(8), true)
-SetPlayerAllianceStateControlBJ(Player(12), Player(9), true)
-SetPlayerAllianceStateControlBJ(Player(12), Player(10), true)
-SetPlayerAllianceStateControlBJ(Player(12), Player(11), true)
-SetPlayerAllianceStateControlBJ(Player(12), Player(13), true)
-SetPlayerAllianceStateControlBJ(Player(12), Player(14), true)
-SetPlayerAllianceStateControlBJ(Player(13), Player(5), true)
-SetPlayerAllianceStateControlBJ(Player(13), Player(6), true)
-SetPlayerAllianceStateControlBJ(Player(13), Player(7), true)
-SetPlayerAllianceStateControlBJ(Player(13), Player(8), true)
-SetPlayerAllianceStateControlBJ(Player(13), Player(9), true)
-SetPlayerAllianceStateControlBJ(Player(13), Player(10), true)
-SetPlayerAllianceStateControlBJ(Player(13), Player(11), true)
-SetPlayerAllianceStateControlBJ(Player(13), Player(12), true)
-SetPlayerAllianceStateControlBJ(Player(13), Player(14), true)
-SetPlayerAllianceStateControlBJ(Player(14), Player(5), true)
-SetPlayerAllianceStateControlBJ(Player(14), Player(6), true)
-SetPlayerAllianceStateControlBJ(Player(14), Player(7), true)
-SetPlayerAllianceStateControlBJ(Player(14), Player(8), true)
-SetPlayerAllianceStateControlBJ(Player(14), Player(9), true)
-SetPlayerAllianceStateControlBJ(Player(14), Player(10), true)
-SetPlayerAllianceStateControlBJ(Player(14), Player(11), true)
-SetPlayerAllianceStateControlBJ(Player(14), Player(12), true)
-SetPlayerAllianceStateControlBJ(Player(14), Player(13), true)
+SetPlayerTeam(Player(0), 2)
 end
 
 function InitAllyPriorities()
-SetStartLocPrioCount(1, 3)
+SetStartLocPrioCount(1, 4)
 SetStartLocPrio(1, 0, 0, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(1, 1, 2, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(1, 2, 4, MAP_LOC_PRIO_LOW)
+SetStartLocPrio(1, 3, 11, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrioCount(1, 2)
+SetEnemyStartLocPrio(1, 0, 11, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(1, 1, 12, MAP_LOC_PRIO_LOW)
 SetStartLocPrioCount(2, 3)
 SetStartLocPrio(2, 0, 0, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(2, 1, 13, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(2, 2, 14, MAP_LOC_PRIO_HIGH)
-SetStartLocPrioCount(3, 5)
+SetStartLocPrio(2, 1, 11, MAP_LOC_PRIO_LOW)
+SetStartLocPrio(2, 2, 12, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrioCount(2, 2)
+SetEnemyStartLocPrio(2, 0, 11, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(2, 1, 12, MAP_LOC_PRIO_LOW)
+SetStartLocPrioCount(3, 3)
 SetStartLocPrio(3, 0, 0, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(3, 1, 2, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(3, 2, 4, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(3, 3, 13, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(3, 4, 14, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrioCount(3, 1)
-SetEnemyStartLocPrio(3, 0, 14, MAP_LOC_PRIO_LOW)
-SetStartLocPrioCount(4, 6)
+SetStartLocPrioCount(4, 3)
 SetStartLocPrio(4, 0, 0, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(4, 1, 1, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(4, 2, 3, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(4, 3, 12, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(4, 4, 13, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(4, 5, 14, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrioCount(4, 1)
-SetEnemyStartLocPrio(4, 0, 12, MAP_LOC_PRIO_HIGH)
 SetStartLocPrioCount(6, 2)
 SetStartLocPrio(6, 0, 5, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(6, 1, 7, MAP_LOC_PRIO_HIGH)
@@ -3474,71 +4407,15 @@ SetStartLocPrio(7, 4, 8, MAP_LOC_PRIO_HIGH)
 SetStartLocPrioCount(8, 2)
 SetStartLocPrio(8, 0, 7, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(8, 1, 9, MAP_LOC_PRIO_HIGH)
-SetStartLocPrioCount(9, 5)
+SetStartLocPrioCount(9, 3)
 SetStartLocPrio(9, 0, 8, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(9, 1, 10, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(9, 2, 12, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(9, 3, 13, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(9, 4, 14, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrioCount(9, 3)
-SetEnemyStartLocPrio(9, 0, 12, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(9, 1, 13, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(9, 2, 14, MAP_LOC_PRIO_LOW)
-SetStartLocPrioCount(10, 5)
+SetStartLocPrio(9, 2, 12, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrioCount(9, 1)
+SetEnemyStartLocPrio(9, 0, 12, MAP_LOC_PRIO_HIGH)
+SetStartLocPrioCount(10, 2)
 SetStartLocPrio(10, 0, 9, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(10, 1, 11, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(10, 2, 12, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(10, 3, 13, MAP_LOC_PRIO_HIGH)
-SetStartLocPrio(10, 4, 14, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrioCount(10, 3)
-SetEnemyStartLocPrio(10, 0, 12, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrio(10, 1, 13, MAP_LOC_PRIO_HIGH)
-SetEnemyStartLocPrio(10, 2, 14, MAP_LOC_PRIO_HIGH)
-SetStartLocPrioCount(11, 1)
-SetStartLocPrio(11, 0, 10, MAP_LOC_PRIO_HIGH)
-SetStartLocPrioCount(12, 12)
-SetStartLocPrio(12, 0, 3, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(12, 1, 4, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(12, 2, 5, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(12, 3, 6, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(12, 4, 7, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(12, 5, 8, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(12, 6, 9, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(12, 7, 10, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(12, 8, 11, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(12, 9, 13, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(12, 10, 14, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrioCount(12, 12)
-SetEnemyStartLocPrio(12, 0, 3, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(12, 1, 4, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(12, 2, 5, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(12, 3, 6, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(12, 4, 7, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(12, 5, 8, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(12, 6, 9, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(12, 7, 10, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(12, 8, 11, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(12, 9, 13, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(12, 10, 14, MAP_LOC_PRIO_LOW)
-SetStartLocPrioCount(13, 10)
-SetStartLocPrio(13, 0, 4, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(13, 1, 5, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(13, 2, 7, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(13, 3, 8, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(13, 4, 9, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(13, 5, 10, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(13, 6, 11, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(13, 7, 12, MAP_LOC_PRIO_LOW)
-SetStartLocPrio(13, 8, 14, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrioCount(13, 6)
-SetEnemyStartLocPrio(13, 0, 4, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(13, 1, 5, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(13, 2, 7, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(13, 3, 8, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(13, 4, 9, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrio(13, 5, 10, MAP_LOC_PRIO_LOW)
-SetStartLocPrioCount(14, 1)
-SetStartLocPrio(14, 0, 3, MAP_LOC_PRIO_HIGH)
+SetStartLocPrio(10, 1, 12, MAP_LOC_PRIO_HIGH)
 end
 
 function main()
@@ -3562,24 +4439,22 @@ end
 function config()
 SetMapName("TRIGSTR_014")
 SetMapDescription("TRIGSTR_016")
-SetPlayers(15)
-SetTeams(15)
+SetPlayers(13)
+SetTeams(13)
 SetGamePlacement(MAP_PLACEMENT_USE_MAP_SETTINGS)
-DefineStartLocation(0, -192.0, -512.0)
+DefineStartLocation(0, 12160.0, 11328.0)
 DefineStartLocation(1, 896.0, 768.0)
 DefineStartLocation(2, 704.0, -1344.0)
 DefineStartLocation(3, -1280.0, -1536.0)
 DefineStartLocation(4, -1344.0, 640.0)
-DefineStartLocation(5, -6016.0, 7360.0)
-DefineStartLocation(6, -6464.0, 4352.0)
-DefineStartLocation(7, -5888.0, 832.0)
-DefineStartLocation(8, -6144.0, -2880.0)
-DefineStartLocation(9, 3904.0, 5184.0)
+DefineStartLocation(5, 12224.0, 11712.0)
+DefineStartLocation(6, 12160.0, 11584.0)
+DefineStartLocation(7, -6336.0, 4480.0)
+DefineStartLocation(8, -3392.0, 5312.0)
+DefineStartLocation(9, 2176.0, -5568.0)
 DefineStartLocation(10, -1600.0, -6208.0)
-DefineStartLocation(11, 1984.0, -5696.0)
-DefineStartLocation(12, 5184.0, -5120.0)
-DefineStartLocation(13, -3328.0, 5312.0)
-DefineStartLocation(14, 5376.0, 2624.0)
+DefineStartLocation(11, 5056.0, -1984.0)
+DefineStartLocation(12, -5888.0, -2688.0)
 InitCustomPlayerSlots()
 InitCustomTeams()
 InitAllyPriorities()
