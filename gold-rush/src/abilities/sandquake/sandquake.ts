@@ -35,7 +35,7 @@ export default class Sandquake {
       && !isWard(unit),
   };
 
-  static unitDestination = new Map<unit, Loc>();
+  static unitDestination = new Map<Unit, Loc>();
 
   static register(abilityId: number) {
     Sandquake.Data.ABILITY_IDS.push(abilityId);
@@ -46,7 +46,7 @@ export default class Sandquake {
         new Sandquake(
           GetSpellAbilityId(),
           Unit.fromHandle(GetSpellAbilityUnit()),
-          GetSpellTargetUnit(),
+          Unit.fromHandle(GetSpellTargetUnit()),
           fromTempLocation(GetSpellTargetLoc()),
           GetUnitAbilityLevel(GetSpellAbilityUnit(), GetSpellAbilityId()),
         );
@@ -77,8 +77,8 @@ export default class Sandquake {
 
         if (!locXY) return;
 
-        if (Sandquake.unitDestination.has(caster.handle)) {
-          Sandquake.unitDestination.set(caster.handle, locXY);
+        if (Sandquake.unitDestination.has(caster)) {
+          Sandquake.unitDestination.set(caster, locXY);
         } else {
           BlzUnitForceStopOrder(caster.handle, true);
           caster.endAbilityCooldown(abilityId);
@@ -91,20 +91,21 @@ export default class Sandquake {
   constructor(
     abilityId: number,
     caster: Unit,
-    targetUnit: unit,
+    targetUnit: Unit,
     targetLocation: Loc,
     abilityLevel: number,
   ) {
     k0('sndq');
     let tgloc = targetLocation;
     if (targetUnit && !tgloc) {
-      tgloc = getUnitXY(Unit.fromHandle(targetUnit));
+      tgloc = getUnitXY(targetUnit);
     }
-    Sandquake.unitDestination.set(caster.handle, tgloc);
+    Sandquake.unitDestination.set(caster, tgloc);
 
     caster.setVertexColor(255, 255, 255, 0);
     caster.setPathing(false);
     caster.invulnerable = true;
+    caster.disableAbility(abilityId, true, false);
 
     const radius = Sandquake.Data.RADIUS;
     const intervalS = 0.03;
@@ -112,7 +113,7 @@ export default class Sandquake {
     const speed = BlzGetAbilityIntegerField(ability, ABILITY_IF_MISSILE_SPEED);
     const distancePerStep = speed * intervalS;
 
-    const affectedEnemies = new Set<unit>();
+    const affectedEnemies = new Set<Unit>();
 
     const sandstormEffect = AddSpecialEffect(MODEL_Sand_Tornado, caster.x, caster.y);
     BlzSetSpecialEffectMatrixScale(sandstormEffect, 2, 2, 2);
@@ -123,7 +124,7 @@ export default class Sandquake {
     BlzSetSpecialEffectTimeScale(sandstormEffect2, 1);
 
     const timer = setIntervalIndefinite(intervalS, (idx) => {
-      const targetLoc = Sandquake.unitDestination.get(caster.handle);
+      const targetLoc = Sandquake.unitDestination.get(caster);
       if (!targetLoc) {
         log('Error: Sandquake cannot find destination for caster. This should not happen');
         return;
@@ -161,8 +162,8 @@ export default class Sandquake {
         );
 
         for (const enumUnit of nearbyEnemies) {
-          if (affectedEnemies.has(enumUnit.handle)) return;
-          const dummy = createDummy('Sandquake-impale', caster.owner, enumUnit.x, enumUnit.y, caster, 1);
+          if (affectedEnemies.has(enumUnit)) return;
+          const dummy = createDummy(caster.owner, enumUnit.x, enumUnit.y, caster, 0.1);
           dummy.addAbility(SUPPORT_ABILITY_ID_SANDQUAKE_IMPALE);
           dummy.setAbilityLevel(SUPPORT_ABILITY_ID_SANDQUAKE_IMPALE, abilityLevel);
           dummy.issueTargetOrder(OrderId.Impale, enumUnit);
@@ -170,18 +171,20 @@ export default class Sandquake {
 
         affectedEnemies.clear();
         for (const enumUnit of nearbyEnemies) {
-          affectedEnemies.add(enumUnit.handle);
+          affectedEnemies.add(enumUnit);
         }
       }
 
-      if (!caster.isAlive() || DistanceBetweenLocs(newLoc, targetLoc) < distancePerStep) {
+      if (!caster.isAlive() || DistanceBetweenLocs(caster, targetLoc) < distancePerStep) {
         caster.setVertexColor(255, 255, 255, 255);
         caster.setPathing(true);
         caster.invulnerable = false;
+        caster.disableAbility(abilityId, false, false);
         caster.endAbilityCooldown(abilityId);
-        SetUnitPosition(caster.handle, targetLoc.x, targetLoc.y);
 
-        Sandquake.unitDestination.delete(caster.handle);
+        caster.setPosition(targetLoc.x, targetLoc.y);
+
+        Sandquake.unitDestination.delete(caster);
         DestroyEffect(sandstormEffect);
         DestroyEffect(sandstormEffect2);
         timer.pause();
@@ -197,5 +200,9 @@ export default class Sandquake {
         k1('sndq');
       }
     });
+  }
+
+  static isCasting(unit: Unit) {
+    return this.unitDestination.has(unit);
   }
 }

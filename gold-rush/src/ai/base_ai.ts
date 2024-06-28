@@ -1,16 +1,16 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-empty-function */
-import { getGlobalUnitColor } from 'lib/constants';
+import { ABILITY_ID_BOOK_OF_TELEPORTATION, getGlobalUnitColor } from 'lib/constants';
 import { getUnitXY } from 'lib/location';
 import { log } from 'lib/log';
 import { findBestCircleCoverMostLocations } from 'lib/maths/circle_cover_most_points';
 import { isComputer } from 'lib/player';
-import { ABILITY_ArchMageMassTeleport, ABILITY_StaffOTeleportation } from 'lib/resources/war3-abilities';
+import { ABILITY_ArchMageMassTeleport, ABILITY_ItemTownPortal } from 'lib/resources/war3-abilities';
 import { SummonManager } from 'lib/systems/summon_manager';
 import {
   buildTrigger, getTimeS, onChatLocal, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
-import { GetUnitsInRangeOfXYMatching } from 'lib/unit';
+import { GetUnitsInRangeOfXYMatching, orderUnitUseItemAbilityAtLoc } from 'lib/unit';
 import { shuffleArray } from 'lib/utils';
 import {
   MapPlayer,
@@ -38,7 +38,7 @@ const defaultConfig: Config = {
   siegeEnemyHeroes: true,
   siegeEnemyBases: true,
   retreatWhenAlone: true,
-  firstAttackDelay: 1,
+  firstAttackDelay: 60,
 };
 
 export class BaseAi {
@@ -103,7 +103,7 @@ export class BaseAi {
     this.thinkFastCycle++;
 
     const retreatLifeThreshold = Math.max(300, this.hero.maxLife / 5);
-    const retreatManaThreshold = 150;
+    const retreatManaThreshold = 100;
     const attackLifeThreshold = this.hero.maxLife * 0.85;
     const attackManaThreshold = this.hero.maxMana * 0.85;
 
@@ -158,8 +158,6 @@ export class BaseAi {
   }
 
   private tryAttack() {
-    if (getTimeS() < this.config.firstAttackDelay) return;
-
     if (![OrderId.Standdown, OrderId.Move, 0].includes(this.observer.getCurrentOrder())) return;
 
     debug && log('Hero is idle, find new target');
@@ -169,13 +167,15 @@ export class BaseAi {
 
     const shouldRetreatToAllies = nearbyAllyHeroesCount === 0 && allyHeroes.length > 0 && this.config.retreatWhenAlone;
 
-    const enemiesHeroes = !shouldRetreatToAllies && this.config.siegeEnemyHeroes ? this.observer.getGlobalEnemyHeroes() : [];
+    const canAssault = getTimeS() > this.config.firstAttackDelay;
 
-    const enemiesTownHalls = this.config.siegeEnemyBases ? this.observer.getGlobalEnemyTownHalls() : [];
+    const enemiesHeroes = canAssault && !shouldRetreatToAllies && this.config.siegeEnemyHeroes ? this.observer.getGlobalEnemyHeroes() : [];
+
+    const enemiesTownHalls = canAssault && this.config.siegeEnemyBases ? this.observer.getGlobalEnemyTownHalls() : [];
 
     const interestingUnitsLocs = [
-      ...enemiesTownHalls,
       ...allyHeroes,
+      ...enemiesTownHalls,
       ...enemiesHeroes,
     ].map((u) => getUnitXY(u));
 
@@ -245,38 +245,38 @@ export class BaseAi {
   }
 
   protected tryTeleport() {
-    // const itemTypeId = FourCC('stel');
-    const teleportAbilities = [
-      FourCC(ABILITY_StaffOTeleportation.code),
-      FourCC(ABILITY_ArchMageMassTeleport.code),
-    ];
+    if (this.observer.getState() !== 'retreat' && this.thinkSlowCycle % 3 !== 0) return;
+    if (this.observer.getDistanceToDestination() < 4000) return;
 
-    let abilityId: number = -1;
+    let abilityId: number | null = null;
+    let isAbilityItem: boolean = false;
 
-    for (const candidateAbility of teleportAbilities) {
-      if (!this.observer.getCanCastSpellNow(candidateAbility)) {
+    for (const { id: candidateAbility, isItem } of teleportAbilities) {
+      if (this.observer.getCanCastSpellNow(candidateAbility)) {
         abilityId = candidateAbility;
+        isAbilityItem = isItem;
+        break;
       }
     }
-    if (abilityId === -1) {
+    if (abilityId === null) {
       return;
     }
 
-    if (this.observer.getState() !== 'retreat' && this.thinkSlowCycle % 3 !== 0) return;
-
-    if (this.observer.getDistanceToDestination() > 2500) {
-      const loc = this.observer.getDestination();
-      const nearbyAllies = GetUnitsInRangeOfXYMatching(800, loc, () => Unit.fromFilter().isAlly(this.hero.owner)
+    const loc = this.observer.getDestination();
+    const nearbyAllies = GetUnitsInRangeOfXYMatching(800, loc, () => Unit.fromFilter().isAlly(this.hero.owner)
         && Unit.fromFilter().isAlive()
         && !Unit.fromFilter().isHero()
         && !Unit.fromFilter().isUnitType(UNIT_TYPE_FLYING));
-      if (nearbyAllies.length > 0) {
+    if (nearbyAllies.length > 0) {
+      if (isAbilityItem) {
+        orderUnitUseItemAbilityAtLoc(this.hero, abilityId, loc);
+      } else {
         this.hero.issueOrderAt(OrderId.Massteleport, loc.x, loc.y);
-        this.setPause(true);
-        const ability = this.hero.getAbility(abilityId);
-        const delay = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_CASTING_DELAY, 0);
-        setTimeout(delay + 0.1, () => this.setPause(false));
       }
+      this.setPause(true);
+      const ability = this.hero.getAbility(abilityId);
+      const delay = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_CASTING_DELAY, 0);
+      setTimeout(delay + 0.1, () => this.setPause(false));
     }
   }
 
@@ -323,3 +323,9 @@ export class BaseAi {
     tryLearnSkills();
   }
 }
+
+const teleportAbilities = [
+  { id: ABILITY_ID_BOOK_OF_TELEPORTATION, isItem: true },
+  { id: FourCC(ABILITY_ItemTownPortal.code), isItem: true },
+  { id: FourCC(ABILITY_ArchMageMassTeleport.code), isItem: false },
+];

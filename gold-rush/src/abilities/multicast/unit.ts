@@ -49,7 +49,7 @@ export class MulticastUnit {
         const backSwing = caster.getField(UNIT_RF_CAST_BACK_SWING) as number;
 
         enumUnitsWithDelay(nearby, (unit) => {
-          const dummy = createDummy('MulticastUnit', caster.owner, caster.x, caster.y, caster, 0.5, caster.facing);
+          const dummy = createDummy(caster.owner, caster.x, caster.y, caster, 0.25, caster.facing);
           dummy.addAbility(abiId);
           dummy.setAbilityLevel(abiId, abiLevel);
           const scale = (caster.getField(UNIT_RF_SCALING_VALUE) as number);

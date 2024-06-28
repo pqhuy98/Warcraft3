@@ -107,7 +107,7 @@ function InitOptions takes nothing returns nothing
     call SetGroupsFlee( false )
     call SetWatchMegaTargets( true )
     call SetIgnoreInjured( false )
-    call SetHeroesTakeItems( true )
+    call SetHeroesTakeItems( false )
     call SetSlowChopping( false )
     call SetCaptainChanges( false )
     call SetSmartArtillery( true )

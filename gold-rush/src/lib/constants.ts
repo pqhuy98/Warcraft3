@@ -27,6 +27,7 @@ export const ABILITY_ID_DOMINATION_AURA = FourCC('A00G:AUau');
 export const ABILITY_ID_FROST_BOLT_LICH_KING = FourCC('A00H:ACcb');
 
 export const ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION = FourCC('A00F:AIcb');
+export const ABILITY_ID_BOOK_OF_TELEPORTATION = FourCC('A00K:AHmt');
 
 export const MODEL_Sand_Tornado = 'SandTornado.mdx';
 export const MODEL_Water_Tornado = 'WaterTornado.mdx';
@@ -43,7 +44,7 @@ export const globalUnits = {
   heroScortah: <Unit>undefined,
 };
 
-const globalUnitColors = new Map<unit, playercolor>();
+const globalUnitColors = new Map<Unit, playercolor>();
 
 export function registerGlobalUnits() {
   globalUnits.heroZeus = Unit.fromHandle(gg_unit_H002_0191);
@@ -56,20 +57,20 @@ export function registerGlobalUnits() {
   globalUnits.heroScortah = Unit.fromHandle(gg_unit_U000_0322);
 
   setTimeout(0, () => {
-    globalUnitColors.set(globalUnits.fountainLight.handle, PLAYER_COLOR_BLUE);
-    globalUnitColors.set(globalUnits.fountainDark.handle, PLAYER_COLOR_GREEN);
-    globalUnitColors.set(globalUnits.heroLichKing.handle, PLAYER_COLOR_AQUA);
-    globalUnitColors.set(globalUnits.heroScortah.handle, PLAYER_COLOR_BROWN);
-    globalUnitColors.set(globalUnits.heroZeus.handle, PLAYER_COLOR_AQUA);
-    globalUnitColors.set(globalUnits.heroThrall.handle, PLAYER_COLOR_RED);
-    globalUnitColors.set(globalUnits.heroSamuro.handle, PLAYER_COLOR_ORANGE);
-    globalUnitColors.set(globalUnits.heroJaina.handle, PLAYER_COLOR_BLUE);
+    globalUnitColors.set(globalUnits.fountainLight, PLAYER_COLOR_BLUE);
+    globalUnitColors.set(globalUnits.fountainDark, PLAYER_COLOR_GREEN);
+    globalUnitColors.set(globalUnits.heroLichKing, PLAYER_COLOR_AQUA);
+    globalUnitColors.set(globalUnits.heroScortah, PLAYER_COLOR_BROWN);
+    globalUnitColors.set(globalUnits.heroZeus, PLAYER_COLOR_AQUA);
+    globalUnitColors.set(globalUnits.heroThrall, PLAYER_COLOR_RED);
+    globalUnitColors.set(globalUnits.heroSamuro, PLAYER_COLOR_ORANGE);
+    globalUnitColors.set(globalUnits.heroJaina, PLAYER_COLOR_BLUE);
     for (const [unit, color] of globalUnitColors) {
-      SetUnitColor(unit, color);
+      unit.color = color;
     }
   });
 }
 
 export function getGlobalUnitColor(unit: Unit) {
-  return globalUnitColors.get(unit.handle) ?? PLAYER_COLOR_COAL;
+  return globalUnitColors.get(unit) ?? PLAYER_COLOR_COAL;
 }

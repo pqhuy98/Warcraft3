@@ -3,11 +3,11 @@ import {
   tempLocation,
 } from 'lib/location';
 import {
-  Group, MapPlayer, Timer, Unit,
+  Group, Item, MapPlayer, Timer, Unit,
 } from 'w3ts';
 
 import { k0, k1 } from './debug/key_counter';
-import { getTimeS, setIntervalForDuration, setIntervalIndefinite } from './trigger';
+import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
 export const ABILITY_ID_LOCUST = FourCC('Aloc');
 export const BUFF_ID_GENERIC = FourCC('BTLF');
@@ -94,12 +94,12 @@ export function growUnit(u: Unit, targetScale: number, duration: number, initial
   });
 }
 
-const unitTies = new Map<unit, unit>();
+const unitTies = new Map<Unit, Unit>();
 
-export function tieUnitToUnit(tiedunit: unit, targetunit: unit) {
+export function tieUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
   k0('tu2u');
-  unitTies.set(tiedunit, targetunit);
-  relocateUnitToUnit(tiedunit, targetunit);
+  unitTies.set(tiedUnit, targetUnit);
+  relocateUnitToUnit(tiedUnit, targetUnit);
 }
 
 export function daemonTieUnitToUnit() {
@@ -110,16 +110,14 @@ export function daemonTieUnitToUnit() {
   });
 }
 
-function relocateUnitToUnit(tiedunit: unit, targetunit: unit) {
-  if (tiedunit == null || targetunit == null) {
-    unitTies.delete(tiedunit);
+function relocateUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
+  if (tiedUnit == null || targetUnit == null) {
+    unitTies.delete(tiedUnit);
     return;
   }
 
-  const tiedUnit = Unit.fromHandle(tiedunit);
-  const targetUnit = Unit.fromHandle(targetunit);
   if (!tiedUnit.isAlive()) {
-    unitTies.delete(tiedunit);
+    unitTies.delete(tiedUnit);
     k1('tu2u');
   } else {
     tiedUnit.x = targetUnit.x;
@@ -158,32 +156,32 @@ export function enumUnitsWithDelay(
   });
 }
 
-const dummyMaster = new Map<unit, unit>();
+const dummyMaster = new Map<Unit, Unit>();
 
-export function getDummyMaster(dummy: unit) {
-  return dummyMaster.get(dummy) ?? dummy;
+export function getDummyMaster(dummy: unit): Unit {
+  const u = Unit.fromHandle(dummy);
+  return dummyMaster.get(u) ?? u;
 }
 
 export function daemonDummyMaster() {
   setIntervalIndefinite(5, () => {
     for (const dummy of dummyMaster.keys()) {
-      if (dummy == null || !IsUnitAliveBJ(dummy)) {
+      if (!dummy.isAlive()) {
         dummyMaster.delete(dummy);
       }
     }
   });
 }
 
-export function createDummy(usecase: string, owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
+export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
   const dummy = Unit.create(owner, UNIT_ID_DUMMY, locX, locY, facing);
   if (timespan > 0) {
     dummy.applyTimedLife(BUFF_ID_GENERIC, timespan);
   }
-  dummy.name = `${usecase} ${dummy.name} ${getTimeS()}`;
   dummy.addAbility(ABILITY_ID_LOCUST);
   dummy.invulnerable = true;
   dummy.setPathing(false);
-  dummyMaster.set(dummy.handle, master.handle);
+  dummyMaster.set(dummy, master);
   return dummy;
 }
 
@@ -206,4 +204,17 @@ export function GetUnitsInRangeOfXYMatching(range: number, loc: Loc, filter: () 
   const units = getUnitsFromGroup(group);
   DestroyGroup(group);
   return units;
+}
+
+export function orderUnitUseItemAbilityAtLoc(unit: Unit, abilityId: number, loc: Loc) {
+  for (let i = 0; i < 6; i++) {
+    const itm = UnitItemInSlot(unit.handle, i + 1);
+    if (itm == null) continue;
+
+    const item = Item.fromHandle(itm);
+    const ability = item.getAbility(abilityId);
+    if (ability == null) continue;
+    unit.useItemAt(item, loc.x, loc.y);
+    break;
+  }
 }

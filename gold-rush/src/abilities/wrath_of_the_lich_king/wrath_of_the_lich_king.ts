@@ -27,7 +27,7 @@ const musicDuration = 44.721;
 export default class WrathOfTheLichKing {
   static Data = {
     ABILITY_IDS: <number[]>[],
-    STUN_RANGE: 1500, // hard-coded
+    EFFECT_RANGE: 1500, // hard-coded
     targetMatching: (caster: Unit, unit: Unit) => unit.isAlive()
       && unit.isEnemy(caster.getOwner())
       && unit.isUnitType(UNIT_TYPE_GROUND)
@@ -111,13 +111,17 @@ export default class WrathOfTheLichKing {
         });
 
         setTimeout(animationDurationSwordUp + animationDurationSwordSlam + 1, () => {
-          playSpeech(caster, gg_snd_lichking_frostmourne_hungers);
-          k1('wotlk5');
+          if (caster.isAlive()) {
+            playSpeech(caster, gg_snd_lichking_frostmourne_hungers);
+            k1('wotlk5');
+          }
         });
 
         setTimeout(totalAnimationDuration, () => {
           caster.setTimeScale(1);
-          caster.queueAnimation('stand');
+          if (caster.isAlive()) {
+            caster.queueAnimation('stand');
+          }
           k1('wotlk6');
         });
       });
@@ -141,12 +145,12 @@ export default class WrathOfTheLichKing {
     const effectDurationS = musicDuration - animationDurationSwordUp - animationDurationSwordSlam - 1;
     const casterLoc = getUnitXY(caster);
 
-    const dummy1 = createDummy('WotLK-stun', caster.owner, casterLoc.x, casterLoc.y, caster, 0.5);
+    const dummy1 = createDummy(caster.owner, casterLoc.x, casterLoc.y, caster, 0.5);
     dummy1.addAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN);
     dummy1.setAbilityLevel(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN, abilityLevel);
     dummy1.issueImmediateOrder(OrderId.Stomp);
 
-    const dummy2 = createDummy('WotLK-blizzard', caster.owner, casterLoc.x, casterLoc.y, caster, effectDurationS);
+    const dummy2 = createDummy(caster.owner, casterLoc.x, casterLoc.y, caster, effectDurationS);
     dummy2.addAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD);
     dummy2.setAbilityLevel(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, abilityLevel);
 

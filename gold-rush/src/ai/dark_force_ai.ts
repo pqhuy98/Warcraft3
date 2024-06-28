@@ -20,7 +20,6 @@ export class DarkForceAi extends BaseAi {
   constructor(hero: Unit) {
     super(hero, undefined, {
       retreatWhenAlone: false,
-      followAllyHeroes: false,
     });
     const loc = getUnitXY(globalUnits.fountainDark);
     this.observer.setHome(loc);

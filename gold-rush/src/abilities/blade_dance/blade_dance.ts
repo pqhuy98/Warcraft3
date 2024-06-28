@@ -1,7 +1,7 @@
 import {
   AngleBetweenLocs, getUnitXY, Loc, PolarProjection,
 } from 'lib/location';
-import { ABILITY_BladeMasterBladestorm } from 'lib/resources/war3-abilities';
+import { ABILITY_BladeMasterBladestorm, ABILITY_BladeMasterMirrorImage } from 'lib/resources/war3-abilities';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
   angleBetweenUnits, getAttackRange, GetUnitsInRangeOfXYMatching, isWard, setAttackRange,
@@ -132,6 +132,7 @@ export default class BladeDance {
 
     BladeDance.unitsInCast.addUnit(this.caster);
     this.caster.disableAbility(FourCC(ABILITY_BladeMasterBladestorm.code), true, false);
+    this.caster.disableAbility(FourCC(ABILITY_BladeMasterMirrorImage.code), true, false);
   }
 
   setTarget(newTarget: Unit) {
@@ -197,6 +198,7 @@ export default class BladeDance {
     }
     BladeDance.unitsInCast.removeUnit(this.caster);
     this.caster.disableAbility(FourCC(ABILITY_BladeMasterBladestorm.code), false, false);
+    this.caster.disableAbility(FourCC(ABILITY_BladeMasterMirrorImage.code), false, false);
     setTimeout(1, () => DestroyEffect(this.weaponEffect));
   }
 

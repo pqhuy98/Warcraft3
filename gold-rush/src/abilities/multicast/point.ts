@@ -13,14 +13,14 @@ export class MulticastPoint {
     FACING_OFFSET: [0, -90, -90, 360 / 3],
   };
 
-  static register(abilityId?: number, caster?: unit) {
+  static register(abilityId?: number, specificCaster?: Unit) {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       if (abilityId) {
         t.addCondition(() => GetSpellAbilityId() === abilityId);
       }
-      if (caster) {
-        t.addCondition(() => GetSpellAbilityUnit() === caster);
+      if (specificCaster) {
+        t.addCondition(() => GetSpellAbilityUnit() === specificCaster.handle);
       }
       t.addCondition(() => !isDummy(Unit.fromHandle(GetSpellAbilityUnit()))
         && getSpellType().onPoint);
@@ -40,7 +40,7 @@ export class MulticastPoint {
           const offsetAngle = phase + i * 360.0 / this.Data.REPEAT_CAST;
           const dummyLoc = unitPolarProjection(caster, 150, offsetAngle);
 
-          const dummy = createDummy('MulticastPoint', caster.owner, dummyLoc.x, dummyLoc.y, caster, 999, caster.facing);
+          const dummy = createDummy(caster.owner, dummyLoc.x, dummyLoc.y, caster, 999, caster.facing);
           dummy.setPathing(false);
           dummy.setflyHeight(caster.getflyHeight(), 0);
           dummy.skin = caster.skin;

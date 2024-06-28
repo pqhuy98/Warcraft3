@@ -170,7 +170,7 @@ export class PeriodBuff {
     const targetLoc = getUnitXY(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy('PeriodBuff-unit-target', this.target.owner, targetLoc.x, targetLoc.y, this.target, 1);
+    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, 0.25);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     dummy.issueTargetOrder(orderId, this.target);
@@ -191,7 +191,7 @@ export class PeriodBuff {
     const targetLoc = getUnitXY(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy('PeriodBuff-no-target', this.target.owner, targetLoc.x, targetLoc.y, this.target, 1);
+    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, 0.25);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     dummy.issueImmediateOrder(orderId);
@@ -204,7 +204,7 @@ export class PeriodBuff {
   }
 
   buffAuraAbility({
-    ability, specialEffect, attachmentPoint = 'origin', periodS,
+    ability, periodS,
   }: AuraAbility) {
     if (this.auraMap.has(ability.code)) {
       return;
@@ -214,23 +214,22 @@ export class PeriodBuff {
     const targetLoc = getUnitXY(this.target);
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy('PeriodBuff-aura', this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
+    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
+    const scale = this.target.getField(UNIT_RF_SCALING_VALUE) as number;
+    dummy.setScale(scale, scale, scale);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
-    tieUnitToUnit(dummy.handle, this.target.handle);
-
-    const effect = AddSpecialEffectTarget(specialEffect, this.target.handle, attachmentPoint);
+    tieUnitToUnit(dummy, this.target);
 
     this.auraMap.add(ability.code);
     setTimeout(periodS, () => {
       this.auraMap.delete(ability.code);
-      DestroyEffect(effect);
       k1('pb-a');
     });
   }
 
   buffActiveAuraAbility({
-    ability, orderId, periodS, specialEffect, attachmentPoint = 'origin',
+    ability, orderId, periodS,
   }: ActiveAuraTargetAbility) {
     if (this.auraMap.has(ability.code)) {
       return;
@@ -241,18 +240,17 @@ export class PeriodBuff {
 
     const abilityId = FourCC(ability.code);
 
-    const dummy = createDummy('PeriodBuff-active', this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
+    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
     dummy.addAbility(abilityId);
+    const scale = this.target.getField(UNIT_RF_SCALING_VALUE) as number;
+    dummy.setScale(scale, scale, scale);
     dummy.setAbilityLevel(abilityId, ability.levels);
-    tieUnitToUnit(dummy.handle, this.target.handle);
+    tieUnitToUnit(dummy, this.target);
     dummy.issueImmediateOrder(orderId);
-
-    const effect = AddSpecialEffectTarget(specialEffect, this.target.handle, attachmentPoint);
 
     this.auraMap.add(ability.code);
     setTimeout(periodS, () => {
       this.auraMap.delete(ability.code);
-      DestroyEffect(effect);
       k1('pb-aa');
     });
   }

@@ -29,11 +29,11 @@ export class ChainLightningAttack {
     target: Unit,
     abilityLevel: number,
   ) {
-    const dummy = createDummy('ChainLightning-attack', attacker.owner, target.x, target.y, attacker, 1);
+    const dummy = createDummy(attacker.owner, target.x, target.y, attacker, 1);
     ChainLightningMulticast.blackListCaster(dummy);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, abilityLevel);
-    tieUnitToUnit(dummy.handle, target.handle);
+    tieUnitToUnit(dummy, target);
     dummy.issueTargetOrder(ORDER_chainlightning, target);
   }
 }

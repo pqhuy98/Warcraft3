@@ -21,7 +21,7 @@ export class MulticastNoTarget {
     REPEAT_CAST: 3,
   };
 
-  static register(abilityId?: number, caster?: unit) {
+  static register(abilityId?: number, specificCaster?: Unit) {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       t.addCondition(() => !isDummy(Unit.fromHandle(GetSpellAbilityUnit()))
@@ -31,8 +31,8 @@ export class MulticastNoTarget {
       if (abilityId) {
         t.addCondition(() => GetSpellAbilityId() === abilityId);
       }
-      if (caster) {
-        t.addCondition(() => GetSpellAbilityUnit() === caster);
+      if (specificCaster) {
+        t.addCondition(() => GetSpellAbilityUnit() === specificCaster.handle);
       }
       t.addAction(() => {
         k0('mcnt');
@@ -45,7 +45,7 @@ export class MulticastNoTarget {
         const castPoint = caster.getField(UNIT_RF_CAST_POINT) as number;
         const castBackSwing = caster.getField(UNIT_RF_CAST_BACK_SWING) as number;
 
-        const dummy = createDummy('MulticastNoTarget', caster.owner, caster.x, caster.y, caster, 999, caster.facing);
+        const dummy = createDummy(caster.owner, caster.x, caster.y, caster, 999, caster.facing);
         dummy.setflyHeight(caster.getflyHeight(), 0);
         dummy.skin = caster.skin;
         const scale = (caster.getField(UNIT_RF_SCALING_VALUE) as number);

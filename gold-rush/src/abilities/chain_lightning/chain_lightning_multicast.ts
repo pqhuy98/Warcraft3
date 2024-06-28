@@ -61,12 +61,12 @@ export class ChainLightningMulticast {
 
     const durationPerStep = Math.min(0.1, 1.0 / nearby.length);
     enumUnitsWithDelay(nearby, (enumUnit) => {
-      const dummy = createDummy('ChainLightning-multicast', caster.owner, caster.x, caster.y, caster, 1);
+      const dummy = createDummy(caster.owner, caster.x, caster.y, caster, 1);
       ChainLightningMulticast.dummies.addUnit(dummy);
       dummy.addAbility(abilityId);
       dummy.setAbilityLevel(abilityId, abilityLevel);
       dummy.issueTargetOrder(order, enumUnit);
-      tieUnitToUnit(dummy.handle, caster.handle);
+      tieUnitToUnit(dummy, caster);
     }, durationPerStep);
   }
 

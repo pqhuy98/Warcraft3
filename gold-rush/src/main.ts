@@ -10,8 +10,8 @@ import Sandquake from 'abilities/sandquake/sandquake';
 import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
 import WrathOfTheLichKing from 'abilities/wrath_of_the_lich_king/wrath_of_the_lich_king';
 import { LichKingAi } from 'ai/custom/lich-king-ai';
+import { ScortahAi } from 'ai/custom/scortah-ai';
 import { ZeusAi } from 'ai/custom/zeus-ai';
-import { DarkForceAi } from 'ai/dark_force_ai';
 import { LightForceAi } from 'ai/light_force_ai';
 import { LichKingEvents } from 'events/lich_king/lich_king_events';
 import { PeriodBuff } from 'events/period_buff/period_buff';
@@ -40,7 +40,6 @@ import {
   ABILITY_BloodMageFlameStrike,
   ABILITY_BloodMagePhoenix,
   ABILITY_BloodMageSiphonMana,
-  ABILITY_ChieftainShockWave,
   ABILITY_ChieftainWarStomp,
   ABILITY_FarseerChainLightning, ABILITY_FarseerEarthquake,
   ABILITY_MountainKingThunderBolt,
@@ -49,7 +48,7 @@ import {
   ABILITY_ShadowHunterHealingWave,
   ABILITY_ShadowHunterHex,
 } from 'lib/resources/war3-abilities';
-import { UNIT_Abomination, UNIT_Ghoul } from 'lib/resources/war3-units';
+import { UNIT_Abomination, UNIT_FrostWyrm, UNIT_Ghoul } from 'lib/resources/war3-units';
 import { registerDialogues } from 'lib/sound';
 import { DamageObserver } from 'lib/systems/damage_observer';
 import { SummonManager } from 'lib/systems/summon_manager';
@@ -136,6 +135,7 @@ function tsMain() {
     ClearTextMessagesBJ(Force.fromPlayer(MapPlayer.fromLocal()).handle);
     logDiscrepancy();
   });
+  ClearTextMessages();
 }
 
 function configurePlayerSettings() {
@@ -159,7 +159,7 @@ function configurePlayerSettings() {
     darkChampionPlayer,
   ];
 
-  const colorPreservedUnits: unit[] = [
+  const colorPreservedUnits: Unit[] = [
     globalUnits.fountainLight,
     globalUnits.fountainDark,
     globalUnits.heroZeus,
@@ -168,7 +168,7 @@ function configurePlayerSettings() {
     globalUnits.heroJaina,
     globalUnits.heroLichKing,
     globalUnits.heroScortah,
-  ].map((u) => u.handle);
+  ];
 
   for (let i = 0; i < 24; i++) {
     const player = MapPlayer.fromIndex(i);
@@ -214,7 +214,7 @@ function configurePlayerSettings() {
 
     temp(Group.fromHandle(allUnitsOfPlayer)).for(() => {
       const u = Unit.fromEnum();
-      if (!colorPreservedUnits.includes(u.handle)) {
+      if (!colorPreservedUnits.includes(u)) {
         u.color = playerColor;
       }
     });
@@ -225,14 +225,14 @@ function configurePlayerSettings() {
 
     player.handicapXp = 3;
     if (player === darkChampionPlayer) {
-      player.handicapXp = 4.5;
+      player.handicapXp = 6;
     }
 
     // Undead strong
     if (darkForce.hasPlayer(player)) {
       let handicap = 1;
       const maxHpHandicap = 2;
-      const maxDamageHandicap = 1.5;
+      const maxDamageHandicap = 1.6;
       SetPlayerHandicap(player.handle, handicap);
       let oldScale: number;
       setIntervalIndefinite(14, () => {
@@ -251,7 +251,8 @@ function configurePlayerSettings() {
         const startingUnits: Record<string, number> = {
           [UNIT_Abomination.code]: 2,
           [UNIT_Ghoul.code]: 10,
-          [UNIT_CryptFiend.code]: 3,
+          [UNIT_CryptFiend.code]: 4,
+          [UNIT_FrostWyrm.code]: 3,
         };
         for (const [code, count] of Object.entries(startingUnits)) {
           for (let i = 0; i < count; i++) {
@@ -301,7 +302,7 @@ function registerAi() {
 
   // Undead bosses
   LichKingAi.register(globalUnits.heroLichKing.owner.handle, globalUnits.heroLichKing.typeId);
-  DarkForceAi.register(globalUnits.heroScortah.owner.handle, globalUnits.heroScortah.typeId);
+  ScortahAi.register(globalUnits.heroScortah.owner.handle, globalUnits.heroScortah.typeId);
 
   // Orc bosses
   LightForceAi.register(globalUnits.heroThrall.owner.handle, globalUnits.heroThrall.typeId);

@@ -149,6 +149,7 @@ export class BaseAiObserver {
   }
 
   getCanCastSpellNow(abilityId: number) {
+    if (!this.hero.isAlive()) return false;
     const level = this.hero.getAbilityLevel(abilityId) - 1;
     if (level < 0) {
       return false;
@@ -156,7 +157,7 @@ export class BaseAiObserver {
 
     const cooldown = this.hero.getAbilityCooldownRemaining(abilityId);
     const manaCost = this.hero.getAbilityManaCost(abilityId, level);
-    if (cooldown > 0 && this.hero.mana < manaCost) {
+    if (cooldown > 0 || this.hero.mana < manaCost) {
       return false;
     }
 
