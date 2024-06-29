@@ -9,7 +9,9 @@ import {
 import {
   ABILITY_ArchMageBlizzard, ABILITY_ArchMageBrillianceAura, ABILITY_ArchMageMassTeleport, ABILITY_ArchMageWaterElemental,
   ABILITY_BladeMasterBladestorm, ABILITY_BladeMasterMirrorImage, ABILITY_CryptLordSpikedCarapace, ABILITY_FarseerChainLightning,
-  ABILITY_FarseerEarthquake, ABILITY_FarseerFarSight, ABILITY_FarseerSpiritWolf,
+  ABILITY_FarseerEarthquake, ABILITY_FarseerSpiritWolf,
+  ABILITY_KeeperEntanglingRoots,
+  ABILITY_SeaWitchForkedLightning,
 } from 'lib/resources/war3-abilities';
 import { Unit } from 'w3ts';
 
@@ -96,14 +98,17 @@ export function getSkillBuilds(unit: Unit): number[] {
   if (unit === globalUnits.heroThrall) {
     const skills = [
       FourCC(ABILITY_FarseerChainLightning.code),
+      FourCC(ABILITY_SeaWitchForkedLightning.code),
+      FourCC(ABILITY_KeeperEntanglingRoots.code),
       FourCC(ABILITY_FarseerSpiritWolf.code),
       FourCC(ABILITY_FarseerChainLightning.code),
-      FourCC(ABILITY_FarseerFarSight.code),
+      FourCC(ABILITY_SeaWitchForkedLightning.code),
+      FourCC(ABILITY_KeeperEntanglingRoots.code),
+      FourCC(ABILITY_FarseerSpiritWolf.code),
       FourCC(ABILITY_FarseerChainLightning.code),
+      FourCC(ABILITY_SeaWitchForkedLightning.code),
+      FourCC(ABILITY_KeeperEntanglingRoots.code),
       FourCC(ABILITY_FarseerSpiritWolf.code),
-      FourCC(ABILITY_FarseerSpiritWolf.code),
-      FourCC(ABILITY_FarseerFarSight.code),
-      FourCC(ABILITY_FarseerFarSight.code),
     ];
     skills.splice(5, 0, FourCC(ABILITY_FarseerEarthquake.code));
     return skills;

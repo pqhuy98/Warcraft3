@@ -31,7 +31,9 @@ export class LichKingAi extends DarkForceAi {
     const maxRange = WrathOfTheLichKing.Data.EFFECT_RANGE / 2;
 
     const nearbyEnemies = observer.getUnitsInRangeMatching(maxRange, (u) => WrathOfTheLichKing.Data.targetMatching(this.hero, u));
-    const nearbyEnemyHeroes = observer.getUnitsInRangeMatching(maxRange, (u) => u.isHero() && WrathOfTheLichKing.Data.targetMatching(this.hero, u));
+    const nearbyEnemyHeroes = observer.getUnitsInRangeMatching(maxRange, (u) => u.isHero()
+      && WrathOfTheLichKing.Data.targetMatching(this.hero, u)
+      && !u.isIllusion());
     if (nearbyEnemies.length >= 8 || nearbyEnemyHeroes.length >= 3) {
       this.hero.issueImmediateOrder(OrderId.Stomp);
     }

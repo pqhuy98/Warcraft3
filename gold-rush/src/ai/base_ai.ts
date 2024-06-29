@@ -7,6 +7,7 @@ import { findBestCircleCoverMostLocations } from 'lib/maths/circle_cover_most_po
 import { isComputer } from 'lib/player';
 import { ABILITY_ArchMageMassTeleport, ABILITY_ItemTownPortal } from 'lib/resources/war3-abilities';
 import { SummonManager } from 'lib/systems/summon_manager';
+import { systemConfig } from 'lib/systems/system-config';
 import {
   buildTrigger, getTimeS, onChatLocal, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
@@ -22,6 +23,7 @@ import { getSkillBuilds } from './ai_skill_builds';
 import { BaseAiObserver, InterestingEventType } from './base_ai_observer';
 
 const debug = false;
+const playerControllBufferTimeS = 3;
 
 export interface Config {
   followAllyHeroes: boolean
@@ -80,8 +82,7 @@ export class BaseAi {
     this.registerSummons();
     this.buildSkills();
 
-    onChatLocal('-u', true, (s) => {
-      log(s);
+    onChatLocal('-u', true, () => {
       if (this.hero.isSelected(MapPlayer.fromLocal())) {
         log('lvlup', this.hero.name);
         this.hero.setHeroLevel(this.hero.level + 1, true);
@@ -97,8 +98,23 @@ export class BaseAi {
     this._isPaused = isPaused;
   }
 
+  private lastControlledTimeS: number = -99;
+
+  protected isPlayerControlled() {
+    if (systemConfig.autoPlay) return false;
+
+    const isControlledNow = this.hero.isSelected(MapPlayer.fromLocal())
+      && this.hero.owner.compareAlliance(MapPlayer.fromLocal(), ALLIANCE_SHARED_ADVANCED_CONTROL);
+
+    if (isControlledNow) {
+      this.lastControlledTimeS = getTimeS();
+    }
+
+    return isControlledNow || getTimeS() - this.lastControlledTimeS < playerControllBufferTimeS;
+  }
+
   protected thinkFast() {
-    if (this.isPaused()) return;
+    if (this.isPaused() || this.isPlayerControlled()) return;
 
     this.thinkFastCycle++;
 
@@ -121,10 +137,12 @@ export class BaseAi {
     this.thinkFastExtra();
   }
 
-  protected thinkFastExtra() { }
+  protected thinkFastExtra() {
+    // to be inherited by children classes
+  }
 
   protected thinkSlow() {
-    if (this.isPaused()) return;
+    if (this.isPaused() || this.isPlayerControlled()) return;
 
     this.thinkSlowCycle++;
 
@@ -147,7 +165,9 @@ export class BaseAi {
     this.thinkSlowExtra();
   }
 
-  protected thinkSlowExtra() { }
+  protected thinkSlowExtra() {
+    // to be inherited by children classes
+  }
 
   protected tryRetreat() {
     debug && log('Hero is retreating to home.');

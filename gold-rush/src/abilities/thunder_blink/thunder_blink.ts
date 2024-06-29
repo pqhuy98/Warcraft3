@@ -22,6 +22,7 @@ export class ThunderBlink {
   static Data = {
     EFFECT_RADIUS: 600,
     targetMatching: (caster: Unit, matchingUnit: Unit) => matchingUnit.isAlive()
+      && !matchingUnit.invulnerable
       && matchingUnit.isEnemy(caster.getOwner())
       && !isBuilding(matchingUnit)
       && !isWard(matchingUnit),

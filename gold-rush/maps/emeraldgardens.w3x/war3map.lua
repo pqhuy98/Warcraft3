@@ -2483,8 +2483,8 @@ local unitID
 local t
 local life
 
-gg_unit_H002_0191 = BlzCreateUnitWithSkin(p, FourCC("H002"), 318.9, -1032.5, 270.720, FourCC("H002"))
-SetHeroLevel(gg_unit_H002_0191, 3, false)
+gg_unit_H002_0191 = BlzCreateUnitWithSkin(p, FourCC("H002"), 238.9, -1095.5, 270.720, FourCC("H002"))
+SetHeroLevel(gg_unit_H002_0191, 6, false)
 SetUnitState(gg_unit_H002_0191, UNIT_STATE_MANA, 375)
 UnitAddItemToSlotById(gg_unit_H002_0191, FourCC("stel"), 5)
 gg_unit_Othr_0324 = BlzCreateUnitWithSkin(p, FourCC("Othr"), -1524.9, 1076.7, 256.220, FourCC("Othr"))
@@ -2497,7 +2497,7 @@ UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("fwss"), 3)
 UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("spsh"), 4)
 UnitAddItemToSlotById(gg_unit_Othr_0324, FourCC("stel"), 5)
 gg_unit_Osam_0326 = BlzCreateUnitWithSkin(p, FourCC("Osam"), -1700.8, -1500.5, 344.260, FourCC("Osam"))
-SetHeroLevel(gg_unit_Osam_0326, 6, false)
+SetHeroLevel(gg_unit_Osam_0326, 7, false)
 SetUnitState(gg_unit_Osam_0326, UNIT_STATE_MANA, 240)
 UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("fwss"), 0)
 UnitAddItemToSlotById(gg_unit_Osam_0326, FourCC("klmm"), 1)
@@ -2525,6 +2525,8 @@ gg_unit_nfoh_0321 = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -6272.0, 5312.0, 27
 u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 2688.0, -5952.0, 270.000, FourCC("nbfl"))
 u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -768.0, -6400.0, 270.000, FourCC("nbfl"))
 u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -2944.0, 5760.0, 270.000, FourCC("nbfl"))
+u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), -6272.0, -2048.0, 270.000, FourCC("nbfl"))
+u = BlzCreateUnitWithSkin(p, FourCC("nfoh"), 5824.0, -2624.0, 270.000, FourCC("nbfl"))
 end
 
 function CreateUnitsForPlayer6()
@@ -2535,7 +2537,7 @@ local t
 local life
 
 gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -6571.9, 5315.2, 339.040, FourCC("H001"))
-SetHeroLevel(gg_unit_H001_0320, 4, false)
+SetHeroLevel(gg_unit_H001_0320, 6, false)
 SetUnitState(gg_unit_H001_0320, UNIT_STATE_MANA, 510)
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))

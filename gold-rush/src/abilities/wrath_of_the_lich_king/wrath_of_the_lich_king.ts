@@ -1,3 +1,4 @@
+import Frostmourne from 'abilities/frostmourne/frostmourne';
 import { Weather, weatherBlizzard } from 'events/weather/weather';
 import {
   MODEL_Shadow_Tornado,
@@ -10,7 +11,8 @@ import {
   buildTrigger, setIntervalForDuration, setTimeout,
 } from 'lib/trigger';
 import {
-  createDummy, isBuilding,
+  createDummy, GetUnitsInRangeOfXYMatching,
+  isBuilding,
   isWard,
 } from 'lib/unit';
 import {
@@ -30,7 +32,7 @@ export default class WrathOfTheLichKing {
     EFFECT_RANGE: 1500, // hard-coded
     targetMatching: (caster: Unit, unit: Unit) => unit.isAlive()
       && unit.isEnemy(caster.getOwner())
-      && unit.isUnitType(UNIT_TYPE_GROUND)
+      && !unit.invulnerable
       && !isBuilding(unit)
       && !isWard(unit),
   };
@@ -72,6 +74,19 @@ export default class WrathOfTheLichKing {
           VolumeGroupReset();
           SetMusicVolume(100);
         };
+
+        setTimeout(0.2, () => {
+          if (caster.isAlive() && Frostmourne.Data.ABILITY_IDS.some((id) => caster.getAbilityLevel(id) > 0)) {
+            const deadUnits = GetUnitsInRangeOfXYMatching(
+              WrathOfTheLichKing.Data.EFFECT_RANGE,
+              caster,
+              () => Frostmourne.Data.targetMatching(caster, Unit.fromFilter()),
+            );
+            for (const victim of deadUnits) {
+              Frostmourne.collectSoul(caster, victim);
+            }
+          }
+        });
 
         setTimeout(animationDurationSwordUp, () => {
           if (!caster.isAlive()) {
@@ -158,9 +173,10 @@ export default class WrathOfTheLichKing {
     for (let i = 1; i <= 2; i++) {
       const eff = AddSpecialEffect(i === 1 ? MODEL_Shadow_Tornado : MODEL_Water_Tornado, caster.x, caster.y);
       const scaleXy = 3.3 * i;
-      BlzSetSpecialEffectMatrixScale(eff, scaleXy, scaleXy, 2);
+      BlzSetSpecialEffectMatrixScale(eff, scaleXy, scaleXy, 3);
       BlzSetSpecialEffectTime(eff, 0.51);
-      BlzSetSpecialEffectTimeScale(eff, 0.10 + (2 - i) * 0.10);
+      BlzSetSpecialEffectTimeScale(eff, 0.15 + (2 - i) * 0.10);
+      BlzSetSpecialEffectHeight(eff, 500);
       effects.push(eff);
     }
 

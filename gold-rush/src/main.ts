@@ -24,6 +24,7 @@ import {
   ABILITY_ID_DIVINE_FURY,
   ABILITY_ID_FROST_NOVA_LICH_KING,
   ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION,
+  ABILITY_ID_MONSOON_THRALL,
   ABILITY_ID_SANDQUAKE,
   ABILITY_ID_THUNDER_BLINK,
   ABILITY_ID_WRATH_OF_THE_LICH_KING,
@@ -40,11 +41,14 @@ import {
   ABILITY_BloodMageFlameStrike,
   ABILITY_BloodMagePhoenix,
   ABILITY_BloodMageSiphonMana,
+  ABILITY_ChieftainShockWave,
   ABILITY_ChieftainWarStomp,
   ABILITY_FarseerChainLightning, ABILITY_FarseerEarthquake,
+  ABILITY_KeeperEntanglingRoots,
   ABILITY_MountainKingThunderBolt,
   ABILITY_MountainKingThunderClap,
   ABILITY_PaladinHolyLight,
+  ABILITY_SeaWitchForkedLightning,
   ABILITY_ShadowHunterHealingWave,
   ABILITY_ShadowHunterHex,
 } from 'lib/resources/war3-abilities';
@@ -52,6 +56,7 @@ import { UNIT_Abomination, UNIT_FrostWyrm, UNIT_Ghoul } from 'lib/resources/war3
 import { registerDialogues } from 'lib/sound';
 import { DamageObserver } from 'lib/systems/damage_observer';
 import { SummonManager } from 'lib/systems/summon_manager';
+import { systemConfig } from 'lib/systems/system-config';
 import {
   getTimeS, onChatLocal, setIntervalIndefinite, setTimeout, trackElapsedGameTime,
 } from 'lib/trigger';
@@ -112,19 +117,22 @@ function tsMain() {
   MulticastUnit.register(FourCC(ABILITY_PaladinHolyLight.code));
   MulticastUnit.register(FourCC(ABILITY_MountainKingThunderBolt.code));
   MulticastNoTarget.register(FourCC(ABILITY_MountainKingThunderClap.code));
-  MulticastPoint.register(FourCC(ABILITY_ArchMageBlizzard.code));
+  MulticastPoint.register(FourCC(ABILITY_ArchMageBlizzard.code), globalUnits.heroJaina);
   MulticastNoTarget.register(FourCC(ABILITY_ArchMageWaterElemental.code));
   MulticastPoint.register(FourCC(ABILITY_BloodMageFlameStrike.code));
   MulticastUnit.register(FourCC(ABILITY_BloodMageSiphonMana.code));
   MulticastNoTarget.register(FourCC(ABILITY_BloodMagePhoenix.code));
 
   MulticastNoTarget.register(FourCC(ABILITY_ChieftainWarStomp.code));
-  // MulticastUnit.register(FourCC(ABILITY_ChieftainShockWave.code));
-  // MulticastPoint.register(FourCC(ABILITY_ChieftainShockWave.code));
+  MulticastUnit.register(FourCC(ABILITY_ChieftainShockWave.code));
+  MulticastPoint.register(FourCC(ABILITY_ChieftainShockWave.code));
   MulticastUnit.register(FourCC(ABILITY_ShadowHunterHex.code));
   MulticastUnit.register(FourCC(ABILITY_ShadowHunterHealingWave.code));
   MulticastUnit.register(FourCC(ABILITY_FarseerChainLightning.code), globalUnits.heroThrall);
   MulticastPoint.register(FourCC(ABILITY_FarseerEarthquake.code));
+  MulticastUnit.register(FourCC(ABILITY_KeeperEntanglingRoots.code));
+  MulticastUnit.register(FourCC(ABILITY_SeaWitchForkedLightning.code));
+  MulticastPoint.register(ABILITY_ID_MONSOON_THRALL);
   MulticastNoTarget.register(FourCC(ABILITY_BladeMasterBladestorm.code));
 
   onChatLocal('-clear', true, () => {
@@ -135,6 +143,16 @@ function tsMain() {
     ClearTextMessagesBJ(Force.fromPlayer(MapPlayer.fromLocal()).handle);
     logDiscrepancy();
   });
+
+  onChatLocal('-wtf', true, () => {
+    temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer()))).for(() => {
+      Unit.fromEnum().resetCooldown();
+    });
+  });
+
+  onChatLocal('-autoplay 0', true, () => { systemConfig.autoPlay = false; });
+  onChatLocal('-autoplay 1', true, () => { systemConfig.autoPlay = true; });
+
   ClearTextMessages();
 }
 
@@ -225,7 +243,8 @@ function configurePlayerSettings() {
 
     player.handicapXp = 3;
     if (player === darkChampionPlayer) {
-      player.handicapXp = 6;
+      SetPlayerColorBJ(player.handle, PLAYER_COLOR_GREEN, false);
+      player.handicapXp = 12;
     }
 
     // Undead strong

@@ -1,4 +1,5 @@
 import { k0, k1 } from 'lib/debug/key_counter';
+import { PolarProjection } from 'lib/location';
 import { ABILITY_BladeMasterBladestorm } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
@@ -67,9 +68,13 @@ export class MulticastNoTarget {
         let castRemain = this.Data.REPEAT_CAST;
         dummyCast();
 
-        let tLimitDuration = 2 * (castPoint + castBackSwing);
+        const fadeDuration = (castPoint + castBackSwing + 0.1);
+        let tLimitDuration = 2 * (castPoint + castBackSwing) - fadeDuration;
         if (abiId === FourCC(ABILITY_BladeMasterBladestorm.code)) {
           tLimitDuration = BlzGetAbilityRealLevelField(caster.getAbility(abiId), ABILITY_RLF_DURATION_NORMAL, abiLevel - 1);
+          dummy.moveSpeed = caster.defaultMoveSpeed;
+          const patrolLoc = PolarProjection(dummy, 500, dummy.facing);
+          dummy.issueOrderAt(OrderId.Patrol, patrolLoc.x, patrolLoc.y);
         }
 
         buildTrigger((t2) => {
@@ -80,7 +85,7 @@ export class MulticastNoTarget {
             tLimit.destroy();
             RemoveLocation(targetLoc);
             k0('mcnt-f');
-            fadeUnit(dummy, 255, 255, 0, 128, 128 / (castPoint + castBackSwing + 0.1), () => false, () => {
+            fadeUnit(dummy, 255, 255, 0, 128, 128 / fadeDuration, () => false, () => {
               dummy.destroy();
               k1('mcnt-f');
             });

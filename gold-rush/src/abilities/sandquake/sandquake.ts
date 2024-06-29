@@ -31,6 +31,7 @@ export default class Sandquake {
     RADIUS: 500,
     targetMatching: (caster: Unit, unit: Unit) => unit.isAlive()
       && unit.isEnemy(caster.getOwner())
+      && !unit.invulnerable
       && !isBuilding(unit)
       && !isWard(unit),
   };

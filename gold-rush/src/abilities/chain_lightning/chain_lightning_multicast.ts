@@ -15,6 +15,7 @@ export class ChainLightningMulticast {
   static Data = {
     targetMatching: (caster: Unit, originalTarget: Unit, matchingUnit: Unit) => matchingUnit.isAlive()
       && matchingUnit.isEnemy(caster.owner)
+      && !matchingUnit.invulnerable
       && matchingUnit !== originalTarget
       && !isBuilding(matchingUnit),
   };

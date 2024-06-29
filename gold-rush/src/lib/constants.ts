@@ -28,6 +28,7 @@ export const ABILITY_ID_FROST_BOLT_LICH_KING = FourCC('A00H:ACcb');
 
 export const ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION = FourCC('A00F:AIcb');
 export const ABILITY_ID_BOOK_OF_TELEPORTATION = FourCC('A00K:AHmt');
+export const ABILITY_ID_MONSOON_THRALL = FourCC('A00L:ACmo');
 
 export const MODEL_Sand_Tornado = 'SandTornado.mdx';
 export const MODEL_Water_Tornado = 'WaterTornado.mdx';

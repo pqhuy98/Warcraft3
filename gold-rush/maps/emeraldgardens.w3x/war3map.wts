@@ -146,13 +146,13 @@ By the greatest skill in using blade, Samuro danced around the battlefield, slas
 }
 
 STRING 40
-// Abilities: A000 (Blade Dance), Researchhotkey (Hotkey - Learn)
+// Abilities: AOeq (Earthquake), Researchhotkey (Hotkey - Learn)
 {
 R
 }
 
 STRING 41
-// Abilities: A000 (Blade Dance), Hotkey (Hotkey - Normal)
+// Abilities: AOeq (Earthquake), Hotkey (Hotkey - Normal)
 {
 R
 }
@@ -164,13 +164,13 @@ Allows the Blademaster to become invisible, and move faster for a set amount of 
 }
 
 STRING 48
-// Abilities: A001 (Wind Walk), Researchhotkey (Hotkey - Learn)
+// Abilities: AOcl (Chain Lightning), Researchhotkey (Hotkey - Learn)
 {
 Q
 }
 
 STRING 49
-// Abilities: A001 (Wind Walk), Hotkey (Hotkey - Normal)
+// Abilities: AOcl (Chain Lightning), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -182,31 +182,31 @@ Critical Strike - [|cffffcc00Level 4|r]
 }
 
 STRING 55
-// Abilities: A002 (Critical Strike), Researchhotkey (Hotkey - Learn)
+// Abilities: AOsf (Feral Spirit), Researchhotkey (Hotkey - Learn)
 {
 E
 }
 
 STRING 60
-// Abilities: A00B (Thunder Blink), Researchhotkey (Hotkey - Learn)
+// Abilities: AEer (Entangling Roots), Hotkey (Hotkey - Normal)
 {
 W
 }
 
 STRING 69
-// Abilities: A00B (Thunder Blink), Hotkey (Hotkey - Normal)
+// Abilities: AEer (Entangling Roots), Researchhotkey (Hotkey - Learn)
 {
 W
 }
 
 STRING 70
-// Abilities: A003 (Chain Lightning), Researchhotkey (Hotkey - Learn)
+// Abilities: A001 (Wind Walk), Researchhotkey (Hotkey - Learn)
 {
 Q
 }
 
 STRING 71
-// Abilities: A003 (Chain Lightning), Hotkey (Hotkey - Normal)
+// Abilities: A001 (Wind Walk), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -358,13 +358,13 @@ Teleports Zeus up to <A00B:AEbl,DataA2> range to the target location, dealing <A
 }
 
 STRING 96
-// Abilities: A00J (Frost Nova), Researchhotkey (Hotkey - Learn)
+// Abilities: A00B (Thunder Blink), Researchhotkey (Hotkey - Learn)
 {
 W
 }
 
 STRING 97
-// Abilities: A00J (Frost Nova), Hotkey (Hotkey - Normal)
+// Abilities: A00B (Thunder Blink), Hotkey (Hotkey - Normal)
 {
 W
 }
@@ -601,13 +601,13 @@ With a surge of celestial energy, Zeus channels the power of the heavens, attack
 }
 
 STRING 154
-// Abilities: A004 (Divine Fury), Researchhotkey (Hotkey - Learn)
+// Abilities: A000 (Blade Dance), Researchhotkey (Hotkey - Learn)
 {
 R
 }
 
 STRING 155
-// Abilities: A004 (Divine Fury), Hotkey (Hotkey - Normal)
+// Abilities: A000 (Blade Dance), Hotkey (Hotkey - Normal)
 {
 R
 }
@@ -710,13 +710,13 @@ Sandquake
 }
 
 STRING 172
-// Abilities: A006 (Sandquake), Researchhotkey (Hotkey - Learn)
+// Abilities: A003 (Chain Lightning), Researchhotkey (Hotkey - Learn)
 {
 Q
 }
 
 STRING 173
-// Abilities: A006 (Sandquake), Hotkey (Hotkey - Normal)
+// Abilities: A003 (Chain Lightning), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -790,13 +790,13 @@ Army of the Dead
 }
 
 STRING 185
-// Abilities: A007 (Army of the Dead), Researchhotkey (Hotkey - Learn)
+// Abilities: A004 (Divine Fury), Researchhotkey (Hotkey - Learn)
 {
 R
 }
 
 STRING 186
-// Abilities: A00A (Wrath of the Lich King), Hotkey (Hotkey - Normal)
+// Abilities: A004 (Divine Fury), Hotkey (Hotkey - Normal)
 {
 R
 }
@@ -1107,13 +1107,13 @@ STRING 263
 }
 
 STRING 266
-// Abilities: A00I (Death Coil), Researchhotkey (Hotkey - Learn)
+// Abilities: A006 (Sandquake), Researchhotkey (Hotkey - Learn)
 {
 Q
 }
 
 STRING 267
-// Abilities: A00I (Death Coil), Hotkey (Hotkey - Normal)
+// Abilities: A006 (Sandquake), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -1125,7 +1125,7 @@ F
 }
 
 STRING 270
-// Abilities: A00H (Frost Bolt), Hotkey (Hotkey - Normal)
+// Abilities: AOsf (Feral Spirit), Hotkey (Hotkey - Normal)
 {
 E
 }
@@ -1179,7 +1179,7 @@ Throws a magical shard of ice at a target enemy unit, dealing <A00H:ACcb,DataA3>
 }
 
 STRING 282
-// Abilities: A00H (Frost Bolt), Researchhotkey (Hotkey - Learn)
+// Abilities: A002 (Critical Strike), Researchhotkey (Hotkey - Learn)
 {
 E
 }
@@ -1233,7 +1233,7 @@ X
 }
 
 STRING 291
-// Abilities: A00A (Wrath of the Lich King), Researchhotkey (Hotkey - Learn)
+// Abilities: A007 (Army of the Dead), Researchhotkey (Hotkey - Learn)
 {
 R
 }
@@ -1365,5 +1365,83 @@ STRING 315
 {
 |cffff8c00Artifact|r|nThis powerful blade collects the soul of each enemy it kills. Each soul heals the Lich King for a percentage of his maximum life, allowing him to sustain himself and remain powerful in battle.
  |n|cffffcc00History|r|n|cffffdeadFrostmourne was the mourneblade of the Lich King. A fearsome, rune-inscribed two-handed longsword, it possessed the power to shatter and imprison the souls of its victims and could remake the living into mindless undead. Frostmourne was thrust from the Frozen Throne by the Lich King Ner'zhul and was taken up by Arthas Menethil in the wastes of Northrend during the Third War. The blade spilled the blood of kings, destroyed nations, and inflicted scars on the world that remain to this day. Few weapons have shaped modern history as much as Frostmourne.|r|n|n|cffc0c0c0"Whomsoever takes up this blade shall wield power eternal. Just as the blade rends flesh, so must power scar the spirit."|r
+}
+
+STRING 316
+// Abilities: A009 (Far Sight), EditorSuffix (Editor Suffix)
+{
+(unit)
+}
+
+STRING 317
+// Abilities: A00L (Monsoon), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down a storm of lightning to strike enemy units for <A00L:ACmo,DataA1> damage in a small target area. |nLasts <A00L:ACmo,Dur1> seconds.
+}
+
+STRING 318
+// Abilities: A00L (Monsoon), EditorSuffix (Editor Suffix)
+{
+(Thrall)
+}
+
+STRING 319
+// Abilities: A00L (Monsoon), Hotkey (Hotkey - Normal)
+{
+D
+}
+
+STRING 320
+// Abilities: A00H (Frost Bolt), Hotkey (Hotkey - Normal)
+{
+E
+}
+
+STRING 321
+// Abilities: A00H (Frost Bolt), Researchhotkey (Hotkey - Learn)
+{
+E
+}
+
+STRING 322
+// Abilities: A00I (Death Coil), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 323
+// Abilities: A00I (Death Coil), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 324
+// Abilities: A00J (Frost Nova), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 325
+// Abilities: A00J (Frost Nova), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 327
+// Abilities: A009 (Far Sight), Hotkey (Hotkey - Normal)
+{
+X
+}
+
+STRING 328
+// Abilities: A00A (Wrath of the Lich King), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 329
+// Abilities: A00A (Wrath of the Lich King), Researchhotkey (Hotkey - Learn)
+{
+R
 }
 

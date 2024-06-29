@@ -1,4 +1,4 @@
-import { Group, Point, Unit } from 'w3ts';
+import { Point, Unit } from 'w3ts';
 
 import { setIntervalIndefinite } from './trigger';
 
@@ -9,7 +9,10 @@ export interface Loc {
   y: number
 }
 
-type Destroyable = Point | Group
+interface Destroyable {
+  destroy(): void
+}
+
 let temps: Destroyable[] = [];
 let nextTemps: Destroyable[] = [];
 

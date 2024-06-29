@@ -1,5 +1,5 @@
 import { k0, k1 } from 'lib/debug/key_counter';
-import { fromTempLocation, PolarProjection } from 'lib/location';
+import { AngleBetweenLocs, fromTempLocation, PolarProjection } from 'lib/location';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
@@ -30,6 +30,8 @@ export class MulticastPoint {
         const abiLevel = caster.getAbilityLevel(abiId);
         const order = caster.currentOrder;
 
+        const targetLoc = fromTempLocation(GetSpellTargetLoc());
+
         const castPoint = caster.getField(UNIT_RF_CAST_POINT) as number;
 
         const aoe = BlzGetAbilityRealLevelField(caster.getAbility(abiId), ABILITY_RLF_AREA_OF_EFFECT, abiLevel - 1);
@@ -39,8 +41,9 @@ export class MulticastPoint {
         for (let i = 0; i < this.Data.REPEAT_CAST; i++) {
           const offsetAngle = phase + i * 360.0 / this.Data.REPEAT_CAST;
           const dummyLoc = unitPolarProjection(caster, 150, offsetAngle);
+          const dummyCastLoc = PolarProjection(targetLoc, offsetDistance, offsetAngle);
 
-          const dummy = createDummy(caster.owner, dummyLoc.x, dummyLoc.y, caster, 999, caster.facing);
+          const dummy = createDummy(caster.owner, dummyLoc.x, dummyLoc.y, caster, 999, AngleBetweenLocs(dummyLoc, dummyCastLoc));
           dummy.setPathing(false);
           dummy.setflyHeight(caster.getflyHeight(), 0);
           dummy.skin = caster.skin;
@@ -53,9 +56,7 @@ export class MulticastPoint {
           dummy.setAbilityCooldown(abiId, abiLevel, 0);
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 99999);
 
-          const targetLoc = fromTempLocation(GetSpellTargetLoc());
-          const newLoc = PolarProjection(targetLoc, offsetDistance, offsetAngle);
-          dummy.issueOrderAt(order, newLoc.x, newLoc.y);
+          dummy.issueOrderAt(order, dummyCastLoc.x, dummyCastLoc.y);
 
           // eslint-disable-next-line no-loop-func
           k0('mcpt');
