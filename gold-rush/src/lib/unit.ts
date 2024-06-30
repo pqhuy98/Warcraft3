@@ -7,9 +7,10 @@ import {
 } from 'w3ts';
 
 import { k0, k1 } from './debug/key_counter';
+import { ABILITY_Locust } from './resources/war3-abilities';
 import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
-export const ABILITY_ID_LOCUST = FourCC('Aloc');
+export const ABILITY_ID_LOCUST = FourCC(ABILITY_Locust.code);
 export const BUFF_ID_GENERIC = FourCC('BTLF');
 export const UNIT_ID_DUMMY = FourCC('h000:hfoo');
 

@@ -208,22 +208,38 @@ function configurePlayerSettings() {
       player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, 150);
     }
 
+    if (heroOnlyPlayers.includes(player) && isComputer(player.handle)) {
+      StartCampaignAI(player.handle, 'war3mapImported\\champions.ai');
+    }
+
     switch (player.race) {
       case RACE_HUMAN:
         SetPlayerColorBJ(player.handle, PLAYER_COLOR_LIGHT_BLUE, false);
         SetPlayerName(player.handle, 'Human Alliance');
+        if (isComputer(player.handle)) {
+          StartMeleeAI(player.handle, 'AIScripts\\human.ai');
+        }
         break;
       case RACE_ORC:
         SetPlayerColorBJ(player.handle, PLAYER_COLOR_RED, false);
         player.name = 'Orcish Horde';
+        if (isComputer(player.handle)) {
+          StartMeleeAI(player.handle, 'AIScripts\\orc.ai');
+        }
         break;
       case RACE_NIGHTELF:
         SetPlayerColorBJ(player.handle, PLAYER_COLOR_CYAN, false);
         player.name = 'Night Elf Sentinels';
+        if (isComputer(player.handle)) {
+          StartMeleeAI(player.handle, 'AIScripts\\elf.ai');
+        }
         break;
       case RACE_UNDEAD:
         SetPlayerColorBJ(player.handle, PLAYER_COLOR_PURPLE, false);
         player.name = 'Undead Scourge';
+        if (isComputer(player.handle)) {
+          StartMeleeAI(player.handle, 'AIScripts\\undead.ai');
+        }
         break;
       default:
     }
@@ -237,14 +253,10 @@ function configurePlayerSettings() {
       }
     });
 
-    if (heroOnlyPlayers.includes(player) && isComputer(player.handle)) {
-      StartCampaignAI(player.handle, 'war3mapImported\\champions.ai');
-    }
-
     player.handicapXp = 3;
     if (player === darkChampionPlayer) {
       SetPlayerColorBJ(player.handle, PLAYER_COLOR_GREEN, false);
-      player.handicapXp = 12;
+      player.handicapXp = 6;
     }
 
     // Undead strong
@@ -259,10 +271,10 @@ function configurePlayerSettings() {
         SetPlayerHandicap(player.handle, Math.min(handicap, maxHpHandicap));
         SetPlayerHandicapDamage(player.handle, Math.min(Math.max(1, handicap), maxDamageHandicap));
         if (player === darkForceBoss.owner) {
-          const newScale = Math.max(1.6, 0.1 + Math.sqrt(darkForceBoss.owner.handicap));
+          const newScale = Math.max(1.4, Math.sqrt(darkForceBoss.owner.handicap));
           growUnit(darkForceBoss, newScale, 2, oldScale);
           oldScale = newScale;
-          darkForceBoss.selectionScale = 1.5 + Math.sqrt(darkForceBoss.owner.handicap);
+          darkForceBoss.selectionScale = 1.4 + Math.sqrt(darkForceBoss.owner.handicap);
         }
       });
 
@@ -302,9 +314,12 @@ function configurePlayerSettings() {
 
       SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_CONTROL, true);
       SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_CONTROL, true);
+
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
+      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
     }
   }
-  MeleeStartingAI();
+  // MeleeStartingAI();
 
   if (mainPlayerForce === 'light') {
     SetCameraPositionForPlayer(mainPlayer.handle, lightForceBoss.x, lightForceBoss.y);

@@ -4,6 +4,7 @@ import {
   temp,
 } from 'lib/location';
 import { MODEL_ZigguratMissile } from 'lib/resources/war3-models';
+import { checkUnitFlag, Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
 import {
   buildTrigger, setIntervalIndefinite,
   setTimeout,
@@ -94,7 +95,10 @@ export default class Frostmourne {
   }
 
   static collectSoul(killer: Unit, victim: Unit) {
+    if (checkUnitFlag(victim, Flag.FROSTMOURNE_SOUL_HARVESTED)) return;
+
     k0('fstm');
+    setUnitFlag(victim, Flag.FROSTMOURNE_SOUL_HARVESTED, true);
     const scale = Math.min(2, victim.level / 5);
     setTimeout(GetRandomReal(0, scale), () => {
       const soul = createDummy(killer.owner, victim.x, victim.y, killer, 0);

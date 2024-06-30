@@ -1,4 +1,5 @@
 import { getUnitXY } from 'lib/location';
+import { ABILITY_BloodMageSiphonMana } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger } from 'lib/trigger';
 import {
@@ -48,8 +49,12 @@ export class MulticastUnit {
 
         const backSwing = caster.getField(UNIT_RF_CAST_BACK_SWING) as number;
 
+        const dummyDuration = abilityId === FourCC(ABILITY_BloodMageSiphonMana.code)
+          ? BlzGetAbilityRealLevelField(caster.getAbility(abilityId), ABILITY_RLF_DURATION_NORMAL, abiLevel - 1)
+          : 0.25;
+
         enumUnitsWithDelay(nearby, (unit) => {
-          const dummy = createDummy(caster.owner, caster.x, caster.y, caster, 0.25, caster.facing);
+          const dummy = createDummy(caster.owner, caster.x, caster.y, caster, dummyDuration, caster.facing);
           dummy.addAbility(abiId);
           dummy.setAbilityLevel(abiId, abiLevel);
           const scale = (caster.getField(UNIT_RF_SCALING_VALUE) as number);

@@ -105,7 +105,6 @@ export default class Sandquake {
 
     caster.setVertexColor(255, 255, 255, 0);
     caster.setPathing(false);
-    caster.invulnerable = true;
     caster.disableAbility(abilityId, true, false);
 
     const radius = Sandquake.Data.RADIUS;
@@ -150,12 +149,14 @@ export default class Sandquake {
         DestroyEffect(AddSpecialEffect(MODEL_AncientProtectorMissile_classic, loc.x, loc.y));
       }
 
-      if (idx % 8 === 0) {
+      if (idx % 6 === 0) {
         TerrainDeformationRandomBJ(0.5, tempLocation(newLoc).handle, radius, -30, 30, 0.15);
         const effect = AddSpecialEffect(MODEL_EarthquakeTarget_classic, newLoc.x, newLoc.y);
         BlzSetSpecialEffectYaw(effect, Math.random() * 2 * Math.PI);
         setTimeout(0.95, () => DestroyEffect(effect));
+      }
 
+      if (idx % 3 === 0) {
         const nearbyEnemies = GetUnitsInRangeOfXYMatching(
           radius,
           casterLoc,
@@ -179,7 +180,6 @@ export default class Sandquake {
       if (!caster.isAlive() || DistanceBetweenLocs(caster, targetLoc) < distancePerStep) {
         caster.setVertexColor(255, 255, 255, 255);
         caster.setPathing(true);
-        caster.invulnerable = false;
         caster.disableAbility(abilityId, false, false);
         caster.endAbilityCooldown(abilityId);
 

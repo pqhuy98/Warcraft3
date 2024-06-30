@@ -28,7 +28,7 @@ export class LichKingAi extends DarkForceAi {
       return;
     }
 
-    const maxRange = WrathOfTheLichKing.Data.EFFECT_RANGE / 2;
+    const maxRange = WrathOfTheLichKing.Data.EFFECT_RANGE * 0.75;
 
     const nearbyEnemies = observer.getUnitsInRangeMatching(maxRange, (u) => WrathOfTheLichKing.Data.targetMatching(this.hero, u));
     const nearbyEnemyHeroes = observer.getUnitsInRangeMatching(maxRange, (u) => u.isHero()

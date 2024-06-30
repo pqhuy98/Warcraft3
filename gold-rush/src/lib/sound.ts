@@ -10,7 +10,7 @@ export function registerDialogues() {
   SetDialogueTextKey(gg_snd_lichking_death3, 'This is not over...');
   SetDialogueSpeakerNameKey(gg_snd_lichking_death3, 'Lich King');
 
-  SetDialogueTextKey(gg_snd_lichking_frostmourne_hungers, 'Frostmourne hunger...');
+  SetDialogueTextKey(gg_snd_lichking_frostmourne_hungers, 'Frostmourne hungers...');
   SetDialogueSpeakerNameKey(gg_snd_lichking_frostmourne_hungers, 'Lich King');
 }
 
