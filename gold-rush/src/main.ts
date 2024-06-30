@@ -217,28 +217,28 @@ function configurePlayerSettings() {
         SetPlayerColorBJ(player.handle, PLAYER_COLOR_LIGHT_BLUE, false);
         SetPlayerName(player.handle, 'Human Alliance');
         if (isComputer(player.handle)) {
-          StartMeleeAI(player.handle, 'AIScripts\\human.ai');
+          StartCampaignAI(player.handle, 'AIScripts\\human.ai');
         }
         break;
       case RACE_ORC:
         SetPlayerColorBJ(player.handle, PLAYER_COLOR_RED, false);
         player.name = 'Orcish Horde';
         if (isComputer(player.handle)) {
-          StartMeleeAI(player.handle, 'AIScripts\\orc.ai');
+          StartCampaignAI(player.handle, 'AIScripts\\orc.ai');
         }
         break;
       case RACE_NIGHTELF:
         SetPlayerColorBJ(player.handle, PLAYER_COLOR_CYAN, false);
         player.name = 'Night Elf Sentinels';
         if (isComputer(player.handle)) {
-          StartMeleeAI(player.handle, 'AIScripts\\elf.ai');
+          StartCampaignAI(player.handle, 'AIScripts\\elf.ai');
         }
         break;
       case RACE_UNDEAD:
         SetPlayerColorBJ(player.handle, PLAYER_COLOR_PURPLE, false);
         player.name = 'Undead Scourge';
         if (isComputer(player.handle)) {
-          StartMeleeAI(player.handle, 'AIScripts\\undead.ai');
+          StartCampaignAI(player.handle, 'AIScripts\\undead.ai');
         }
         break;
       default:
@@ -315,8 +315,8 @@ function configurePlayerSettings() {
       SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_CONTROL, true);
       SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_CONTROL, true);
 
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
-      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
+      // SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
+      // SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
     }
   }
   // MeleeStartingAI();

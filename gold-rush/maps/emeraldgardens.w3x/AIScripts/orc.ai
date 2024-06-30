@@ -408,16 +408,11 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit(  1, ORC_BARRACKS     )
         call SetBuildUnit(  1, FORGE            )
         call SetBuildUnit( 14, PEON             )
-        call SetBuildUnit(  1, GRUNT            )
         call SetBuildUpgr(  1, UPG_ORC_MELEE    )
-        call SetBuildUnit(  2, GRUNT            )
         call SetBuildUnit(  3, BURROW           )
-        call SetBuildUnit(  1, HEAD_HUNTER      )
         call SetBuildUnit(  1, VOODOO_LOUNGE    )
         call SetBuildUpgr(  1, UPG_ORC_RANGED   )
-        call SetBuildUnit(  3, HEAD_HUNTER      )
         call SetBuildUpgr(  1, UPG_ORC_ARMOR    )
-        call SetBuildUnit(  4, GRUNT            )
 
         call BasicExpansion( c_mines < 2, GREAT_HALL )
 
@@ -427,7 +422,6 @@ function build_sequence takes nothing returns nothing
         endif
 
         call SetBuildUnit(  4, BURROW           )
-        call SetBuildUnit(  6, GRUNT            )
         call SetBuildUnit(  1, STRONGHOLD       )
         call SetBuildUpgr(  1, UPG_ORC_SPIKES   )
 
@@ -436,10 +430,8 @@ function build_sequence takes nothing returns nothing
         endif
 
         call SetBuildUnit(  5, BURROW           )
-        call SetBuildUnit(  1, CATAPULT         )
         call SetBuildUpgr(  2, UPG_ORC_MELEE    )
         call SetBuildUpgr(  1, UPG_ORC_PILLAGE  )
-        call SetBuildUnit(  2, CATAPULT         )
         return
     endif
 
@@ -492,7 +484,13 @@ function build_sequence takes nothing returns nothing
     //
     if c_altar_done >= 1 then
         if b_hero1_done and MeleeDifficulty() != MELEE_NEWBIE then
-            call SetBuildUnit( 1, hero_id2 )
+            if b_hero2_done then
+                if b_hero3_done or c_fortress_done >= 1 then
+                    call SetBuildUnit( 1, hero_id3 )
+                endif
+            else
+                call SetBuildUnit( 1, hero_id2 )
+            endif
         else
             call SetBuildUnit( 1, hero_id )
         endif
@@ -500,37 +498,19 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit( 1, ORC_ALTAR )
     endif
 
-    // minimum melee defense
-    //
-    if c_totem_done >= 1 then
-        call SetBuildUnit( 2, TAUREN        )
-    else
-        call SetBuildUnit( 1, ORC_BARRACKS  )
-        call SetBuildUnit( 3, GRUNT         )
-    endif
+    // Final force
+    call SetBuildUnit( 3, GRUNT )
+    call SetBuildUnit( 2, HEAD_HUNTER )
+    call SetBuildUnit( 2, BERSERKER )
+    call SetBuildUnit( 2, TAUREN )
+    call SetBuildUnit( 2, WYVERN )
+    call SetBuildUnit( 2, RAIDER )
+    call SetBuildUnit( 2, BATRIDER )
+    call SetBuildUnit( 2, CATAPULT )
+    call SetBuildUnit( 1, KODO_BEAST )
+    call SetBuildUnit( 2, SHAMAN )
+    call SetBuildUnit( 2, WITCH_DOCTOR )
 
-    // minimum ranged/air defense and siege units
-    //
-    if c_bestiary_done >= 1 then
-        if c_fortress_done >= 1 then
-            call SetBuildUnit( 2, WYVERN )
-        elseif b_ensnare then
-            call SetBuildUnit( 2, RAIDER )
-        else
-            call SetBuildUnit( 1, ORC_BARRACKS  )
-            call SetBuildUnit( 3, hunter_code   )
-        endif
-
-        if c_voodoo_done >= 1 and c_fortress_done >= 1 then
-            call SetBuildUnit( 2, BATRIDER  )
-        else
-            call SetBuildUnit( 3, RAIDER    )
-        endif
-    else
-        call SetBuildUnit( 1, ORC_BARRACKS  )
-        call SetBuildUnit( 3, hunter_code   )
-        call SetBuildUnit( 2, CATAPULT      )
-    endif
 
     // if we have a lot of gold then advance the tech tree
     //
@@ -554,13 +534,6 @@ function build_sequence takes nothing returns nothing
 
         call do_upgrades()
 
-        if c_gold > 2000 then
-            call BuildFactory( ORC_BARRACKS )
-            call BuildFactory( LODGE        )
-            call BuildFactory( BESTIARY     )
-            call BuildFactory( TOTEM        )
-        endif
-
     elseif c_food_used >= UPKEEP_TIER1 then
         call do_upgrades()
     endif
@@ -571,47 +544,13 @@ function build_sequence takes nothing returns nothing
         call GuardSecondary( 1, 2, ORC_WATCH_TOWER )
     endif
 
-    if c_food_used >= UPKEEP_TIER2 - 10 and c_gold < 2000 then
-        return
-    endif
-
-    // full up with more troops in general
-    //
-    if c_totem_done >= 1 then
-        call SetBuildNext( 4, TAUREN    )
-    else
-        call SetBuildNext( 6, GRUNT     )
-    endif
-
-    if c_bestiary_done >= 1 then
-        if c_fortress_done >= 1 then
-            call SetBuildNext( 3, WYVERN )
-        elseif b_ensnare then
-            call SetBuildNext( 4, RAIDER )
-        endif
-        if c_forge_done >= 1 then
-            call SetBuildUnit( 1, KODO_BEAST )
-        endif
-    endif
-
-    if c_lodge_done >= 1 then
-        call SetBuildUnit( 1, SHAMAN        )
-        call SetBuildUnit( 1, WITCH_DOCTOR  )
-        call SetBuildUnit( 1, SPIRIT_WALKER )
-        call SetBuildNext( 4, SHAMAN        )
-        call SetBuildNext( 2, WITCH_DOCTOR  )
-    endif
 
     if c_gold_owned < 10000 then
         call BasicExpansion( c_mines < 3, GREAT_HALL )
         if MeleeDifficulty() != MELEE_NEWBIE then
             call GuardSecondary( 2, 1, BURROW )
-            call GuardSecondary( 2, 2, ORC_WATCH_TOWER )
+            call GuardSecondary( 6, 2, ORC_WATCH_TOWER )
         endif
-    endif
-
-    if c_food_used >= 60 and c_zep < 3 then
-        call GetZeppelin()
     endif
 endfunction
 
