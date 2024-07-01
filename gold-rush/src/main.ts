@@ -68,8 +68,9 @@ import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
 import { UNIT_CryptFiend } from './lib/resources/war3-units';
 
-const mainPlayerForce: 'light' | 'dark' = 'light';
-// const mainPlayerForce: 'light' | 'dark' = 'dark';
+// const mainPlayerForce: 'light' | 'dark' | 'observer' = 'observer';
+// const mainPlayerForce: 'light' | 'dark' | 'observer' = 'light';
+const mainPlayerForce: 'light' | 'dark' | 'observer' = 'dark';
 
 function tsMain() {
   UnlockGameSpeedBJ();
@@ -261,15 +262,17 @@ function configurePlayerSettings() {
 
     // Undead strong
     if (darkForce.hasPlayer(player)) {
-      let handicap = 1;
+      let handicapHp = 1;
+      let handicapDamage = 1;
       const maxHpHandicap = 2;
-      const maxDamageHandicap = 1.6;
-      SetPlayerHandicap(player.handle, handicap);
+      const maxDamageHandicap = 1.5;
+      SetPlayerHandicap(player.handle, handicapHp);
       let oldScale: number;
       setIntervalIndefinite(14, () => {
-        handicap = Math.min(handicap * 1.01, Math.max(maxHpHandicap, maxDamageHandicap));
-        SetPlayerHandicap(player.handle, Math.min(handicap, maxHpHandicap));
-        SetPlayerHandicapDamage(player.handle, Math.min(Math.max(1, handicap), maxDamageHandicap));
+        handicapHp = Math.min(handicapHp * 1.01, maxHpHandicap);
+        handicapDamage = Math.min(handicapHp * 1.01, maxDamageHandicap);
+        SetPlayerHandicap(player.handle, handicapHp);
+        SetPlayerHandicapDamage(player.handle, handicapDamage);
         if (player === darkForceBoss.owner) {
           const newScale = Math.max(1.4, Math.sqrt(darkForceBoss.owner.handicap));
           growUnit(darkForceBoss, newScale, 2, oldScale);
@@ -296,7 +299,8 @@ function configurePlayerSettings() {
 
     // Ally/enemy
     if (mainPlayerForce === 'light' && lightForce.hasPlayer(player)
-      || mainPlayerForce === 'dark' && darkForce.hasPlayer(player)) {
+      || mainPlayerForce === 'dark' && darkForce.hasPlayer(player)
+      || mainPlayerForce === 'observer') {
       const p1 = mainPlayer.handle;
       const p2 = player.handle;
       SetPlayerAlliance(p1, p2, ALLIANCE_PASSIVE, true);
@@ -321,10 +325,11 @@ function configurePlayerSettings() {
   }
   // MeleeStartingAI();
 
-  if (mainPlayerForce === 'light') {
+  if (mainPlayerForce === 'light' || mainPlayerForce === 'observer') {
     SetCameraPositionForPlayer(mainPlayer.handle, lightForceBoss.x, lightForceBoss.y);
     SetPlayerAlliance(lightChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
-  } else if (mainPlayerForce === 'dark') {
+  }
+  if (mainPlayerForce === 'dark' || mainPlayerForce === 'observer') {
     SetCameraPositionForPlayer(mainPlayer.handle, darkForceBoss.x, darkForceBoss.y);
     SetPlayerAlliance(darkChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
   }

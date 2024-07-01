@@ -100,7 +100,9 @@ export class MulticastNoTarget {
             tLimit = Timer.create();
             tLimit.start(tLimitDuration, false, () => startCleanUp());
             castRemain--;
-            setTimeout(0, () => dummyCast());
+            if (castRemain > 0) {
+              setTimeout(0, () => dummyCast());
+            }
             if (castRemain <= 1) {
               startCleanUp();
             }
