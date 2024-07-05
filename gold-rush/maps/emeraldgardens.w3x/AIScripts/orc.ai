@@ -586,7 +586,6 @@ function build_sequence takes nothing returns nothing
     if c_lodge_done >= 1 then
         call SetBuildUnit( 1, SHAMAN        )
         call SetBuildUnit( 1, WITCH_DOCTOR  )
-        call SetBuildUnit( 1, SPIRIT_WALKER )
         call SetBuildNext( 4, SHAMAN        )
         call SetBuildNext( 2, WITCH_DOCTOR  )
     endif

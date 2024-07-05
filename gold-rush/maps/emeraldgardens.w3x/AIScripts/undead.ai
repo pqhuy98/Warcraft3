@@ -589,18 +589,11 @@ function build_sequence takes nothing returns nothing
     //
     if c_citadel_done >= 1 and c_tomb_done >= 1 then
         call SetBuildUnit( 1, OBS_STATUE )
-        if b_sphinx_ok then
-            call SetBuildUnit( 1, BLK_SPHINX )
-        endif
     endif
 
     if c_temple_done >= 1 then
         call SetBuildUnit( 4, NECRO     )
         call SetBuildUnit( 2, BANSHEE   )
-    endif
-
-    if c_citadel_done >= 1 and c_tomb_done >= 1 and b_sphinx_ok then
-        call SetBuildUnit( 2, BLK_SPHINX )
     endif
 
     call undead_mine(2)
