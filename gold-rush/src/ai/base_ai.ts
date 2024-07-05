@@ -20,7 +20,8 @@ import {
 import { OrderId } from 'w3ts/globals';
 
 import { getSkillBuilds } from './ai_skill_builds';
-import { BaseAiObserver, InterestingEventType } from './base_ai_observer';
+import { BaseAiObserver } from './observer/base_ai_observer';
+import { InterestingEventType } from './observer/interesting_events/interesting_events.model';
 
 const debug = false;
 const playerControllBufferTimeS = 3;

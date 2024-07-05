@@ -455,6 +455,10 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit( 1, ACOLYTE )
     endif
 
+    if c_neclis_done + c_halls_done + c_citadel_done < 1 and c_acolyte > 0 then
+        call SetBuildUnit( 1, NECROPOLIS_1 )
+    endif
+
     // keep producing mines and acolytes to get gold
     //
     call undead_mine(0)

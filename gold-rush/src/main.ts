@@ -1,5 +1,3 @@
-/* eslint-disable unused-imports/no-unused-imports */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import BladeDance from 'abilities/blade_dance/blade_dance';
 import { ChainLightning } from 'abilities/chain_lightning/chain_lightning';
 import Frostmourne from 'abilities/frostmourne/frostmourne';
@@ -13,6 +11,7 @@ import { LichKingAi } from 'ai/custom/lich-king-ai';
 import { ScortahAi } from 'ai/custom/scortah-ai';
 import { ZeusAi } from 'ai/custom/zeus-ai';
 import { LightForceAi } from 'ai/light_force_ai';
+import { FactionInterestingEvents } from 'ai/observer/interesting_events/faction_interesting_events';
 import { LichKingEvents } from 'events/lich_king/lich_king_events';
 import { PeriodBuff } from 'events/period_buff/period_buff';
 import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
@@ -58,7 +57,7 @@ import { DamageObserver } from 'lib/systems/damage_observer';
 import { SummonManager } from 'lib/systems/summon_manager';
 import { systemConfig } from 'lib/systems/system-config';
 import {
-  getTimeS, onChatLocal, setIntervalIndefinite, setTimeout, trackElapsedGameTime,
+  getTimeS, onChatLocal, setIntervalIndefinite, trackElapsedGameTime,
 } from 'lib/trigger';
 import { daemonDummyMaster, daemonTieUnitToUnit, growUnit } from 'lib/unit';
 import {
@@ -100,6 +99,7 @@ function tsMain() {
   DamageObserver.register();
   Weather.changeWeather();
   LichKingEvents.register(globalUnits.heroLichKing);
+  FactionInterestingEvents.register();
 
   // Abilities
 
@@ -153,6 +153,13 @@ function tsMain() {
 
   onChatLocal('-autoplay 0', true, () => { systemConfig.autoPlay = false; });
   onChatLocal('-autoplay 1', true, () => { systemConfig.autoPlay = true; });
+  onChatLocal('-kill', true, () => {
+    temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer())))
+      .for(() => Unit.fromEnum().kill());
+  });
+
+  temp(Group.fromHandle(GetUnitsOfPlayerAll(Player(PLAYER_NEUTRAL_AGGRESSIVE))))
+    .for(() => Unit.fromEnum().destroy());
 
   ClearTextMessages();
 }

@@ -1,11 +1,8 @@
-import { TimestampedQueue } from 'lib/data_structures/timestamped_queue';
 import {
   DistanceBetweenLocs,
   getUnitXY, Loc,
 } from 'lib/location';
-import { log } from 'lib/log';
-import { DamageObserver } from 'lib/systems/damage_observer';
-import { getTimeS, onChatLocal, setIntervalIndefinite } from 'lib/trigger';
+import { setIntervalIndefinite } from 'lib/trigger';
 import {
   getUnitsFromGroup,
   GetUnitsInRangeOfXYMatching,
@@ -15,17 +12,10 @@ import {
   MapPlayer, Unit,
 } from 'w3ts';
 
+import { FactionInterestingEvents } from './interesting_events/faction_interesting_events';
+import { InterestingEvent } from './interesting_events/interesting_events.model';
+
 type State = 'retreat' | 'attack'
-
-export enum InterestingEventType {
-  AllyHeroAttack = 0,
-  AllyBuildingAttacked = 1
-}
-
-interface InterestingEvent {
-  location: Loc
-  type: InterestingEventType
-}
 
 export class BaseAiObserver {
   private state: State = 'attack';
@@ -37,10 +27,6 @@ export class BaseAiObserver {
   private allies: MapPlayer[] = [];
 
   private enemies: MapPlayer[] = [];
-
-  private recentInterestingEvents: TimestampedQueue<InterestingEvent> = new TimestampedQueue({
-    itemExpireS: 10,
-  });
 
   private destination: Loc;
 
@@ -67,37 +53,9 @@ export class BaseAiObserver {
       }
     }
 
-    DamageObserver.subscribeBuildingDamaged((victim) => {
-      if (victim.owner.isPlayerAlly(this.owner)) {
-        this.recentInterestingEvents.push({
-          timestamp: getTimeS(),
-          value: {
-            location: getUnitXY(victim),
-            type: InterestingEventType.AllyBuildingAttacked,
-          },
-        });
-      }
-    });
-
-    DamageObserver.subscribeHeroDamaging((_victim, attacker) => {
-      if (attacker.owner.isPlayerAlly(this.owner) && attacker !== this.hero) {
-        this.recentInterestingEvents.push({
-          timestamp: getTimeS(),
-          value: {
-            location: getUnitXY(attacker),
-            type: InterestingEventType.AllyHeroAttack,
-          },
-        });
-      }
-    });
-
     // Bookkeeping
     setIntervalIndefinite(0.5, () => {
       this.heroLoc = getUnitXY(this.hero);
-    });
-
-    onChatLocal('-qs', true, () => {
-      log('Queue size:', this.recentInterestingEvents.getValidLength(), this.recentInterestingEvents.getTrueLength());
     });
   }
 
@@ -169,7 +127,7 @@ export class BaseAiObserver {
   }
 
   getRecentInterestingEvents(limit?: number): InterestingEvent[] {
-    return this.recentInterestingEvents.get(limit).map((item) => item.value);
+    return FactionInterestingEvents.getRecentInterestingEvents(this.owner, limit);
   }
 
   getHome() {

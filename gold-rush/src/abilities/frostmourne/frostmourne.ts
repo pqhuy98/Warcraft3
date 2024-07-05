@@ -34,6 +34,7 @@ export default class Frostmourne {
       && !victim.isIllusion()
       && !isBuilding(victim)
       && !isWard(victim)
+      && victim.getField(UNIT_BF_RAISABLE) as boolean
       && victim !== killer,
   };
 
