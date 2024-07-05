@@ -141,9 +141,11 @@ endfunction
 //--------------------------------------------------------------------------------------------------
 function force_level takes nothing returns integer
     local integer level = 4 // basic hero
-    set level = level + 2 * (c_footman_done + c_priest_done + c_sorceress_done + c_breaker_done)
-    set level = level + 3 * (c_rifleman_done + c_gryphon_done + c_hawk_done)
-    set level = level + 5 * (c_hero3_done + c_knight_done)
+    set level = level + 1 * (c_gyro_done)
+    set level = level + 2 * (c_footman_done + c_priest_done + c_sorceress_done)
+    set level = level + 3 * (c_rifleman_done + c_breaker_done + c_hawk_done + c_knight_done + c_mortar_done)
+    set level = level + 4 * (c_gryphon_done)
+    set level = level + 5 * (c_hero3_done)
     set level = level + 6 *  c_hero2_done
     return level
 endfunction
@@ -161,10 +163,6 @@ function attack_sequence takes nothing returns nothing
         exitwhen c_hero1_done > 0 and c_footman_done >= 2
         call Sleep(2)
     endloop
-
-    if MeleeDifficulty() == MELEE_NEWBIE then
-        call Sleep(240)
-    endif
 
     call StaggerSleep(0,2)
     loop
@@ -188,10 +186,6 @@ function attack_sequence takes nothing returns nothing
         set allow_air_creeps = (c_rifleman_done + c_hawk_done + 2*c_gyro_done + c_gryphon_done) >= 3
 
         call SingleMeleeAttack(needs_exp,has_siege,false,air_units)
-
-        if MeleeDifficulty() == MELEE_NEWBIE then
-            call Sleep(60)
-        endif
     endloop
 endfunction
 
@@ -242,7 +236,7 @@ function init_vars takes nothing returns nothing
     set b_hero3_done        = GetUnitCountDone(hero_id3) >= 1
     set b_knights_ok        = c_castle_done>=1 and c_mill_done>=1 and c_smith_done>=1
 
-    if basic_opening and (b_hero2_done or (MeleeDifficulty() == MELEE_NEWBIE and c_castle_done >= 1)) then
+    if basic_opening and b_hero2_done then
         set basic_opening = false
     endif
 endfunction
@@ -407,14 +401,12 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit(  4, RIFLEMAN     )
         call SetBuildUnit(  1, LUMBER_MILL  )
 
-        if MeleeDifficulty() != MELEE_NEWBIE then
-            call GuardSecondary( 1, 2, WATCH_TOWER  )
-            if c_mill_done >= 1 then
-                call GuardSecondary( 1, 1, GUARD_TOWER  )
-            endif
-            if c_watch_done >= 1 then
-                call GuardSecondary( 1, 1, ARCANE_TOWER )
-            endif
+        call GuardSecondary( 1, 2, WATCH_TOWER  )
+        if c_mill_done >= 1 then
+            call GuardSecondary( 1, 1, GUARD_TOWER  )
+        endif
+        if c_watch_done >= 1 then
+            call GuardSecondary( 1, 1, ARCANE_TOWER )
         endif
 
         call SetBuildUnit(  1, KEEP         )
@@ -429,9 +421,7 @@ function build_sequence takes nothing returns nothing
 
         call SetBuildUnit(  1, WORKSHOP     )
 
-        if MeleeDifficulty() != MELEE_NEWBIE then
-            call SetBuildUnit(  1, hero_id2 )
-        endif
+        call SetBuildUnit(  1, hero_id2 )
 
         call SetBuildUnit(  1, CASTLE       )
 
@@ -486,12 +476,10 @@ function build_sequence takes nothing returns nothing
     //
     if c_gold_owned < 2000 then
         call BasicExpansion( c_mines < 2, TOWN_HALL )
-        if MeleeDifficulty() != MELEE_NEWBIE then
-            call GuardSecondary( 1, 2, WATCH_TOWER  )
-            if c_watch >= 2 then
-                call GuardSecondary( 1, 1, GUARD_TOWER  )
-                call GuardSecondary( 1, 1, ARCANE_TOWER )
-            endif
+        call GuardSecondary( 1, 2, WATCH_TOWER  )
+        if c_watch >= 2 then
+            call GuardSecondary( 1, 1, GUARD_TOWER  )
+            call GuardSecondary( 1, 1, ARCANE_TOWER )
         endif
     endif
 
@@ -504,7 +492,7 @@ function build_sequence takes nothing returns nothing
     // always rebuild heroes for defense
     //
     if c_altar_done >= 1 then
-        if b_hero1_done and MeleeDifficulty() != MELEE_NEWBIE then
+        if b_hero1_done then
             if b_hero2_done then
                 if b_hero3_done or c_castle_done >= 1 then
                     call SetBuildUnit( 1, hero_id3 )
@@ -561,8 +549,6 @@ function build_sequence takes nothing returns nothing
 
         if c_gold > 2000 then
             call BuildFactory( BARRACKS     )
-            call BuildFactory( SANCTUM      )
-            call BuildFactory( AVIARY       )
         endif
 
         call SetBuildUpgr( 1, UPG_SENTINEL  )
@@ -572,6 +558,12 @@ function build_sequence takes nothing returns nothing
     endif
 
     call BasicExpansion( c_mines < 2, TOWN_HALL )
+    call GuardSecondary( 1, 2, WATCH_TOWER  )
+    if c_watch >= 2 then
+        call GuardSecondary( 1, 1, GUARD_TOWER  )
+        call GuardSecondary( 1, 1, ARCANE_TOWER )
+    endif
+
 
     if c_food_used >= UPKEEP_TIER2-10 and c_gold < 2000 then
         return
@@ -601,13 +593,13 @@ function build_sequence takes nothing returns nothing
         call SetBuildNext( 1, SPELL_BREAKER )
     endif
 
-    if c_gold_owned < 10000 then
-        call BasicExpansion( c_mines < 3, TOWN_HALL )
+    call BasicExpansion( c_mines < 3, TOWN_HALL )
+    call GuardSecondary( 2, 2, WATCH_TOWER  )
+    if c_watch >= 2 then
+        call GuardSecondary( 2, 1, GUARD_TOWER  )
+        call GuardSecondary( 2, 1, ARCANE_TOWER )
     endif
 
-    if c_food_used >= 60 and c_zep < 3 then
-        call GetZeppelin()
-    endif
 endfunction
 
 //--------------------------------------------------------------------------------------------------

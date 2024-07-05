@@ -201,10 +201,6 @@ function attack_sequence takes nothing returns nothing
         call Sleep(2)
     endloop
 
-    if MeleeDifficulty() == MELEE_NEWBIE then
-        call Sleep(240)
-    endif
-
     call StaggerSleep(0,2)
     loop
         loop
@@ -246,10 +242,6 @@ function attack_sequence takes nothing returns nothing
 
         set AG = 0
         set WG = c_ghoul_done
-
-        if MeleeDifficulty() == MELEE_NEWBIE then
-            call Sleep(60)
-        endif
     endloop
 endfunction
 
@@ -314,7 +306,7 @@ function init_vars takes nothing returns nothing
         set c_web_fiend_done = 0
     endif
 
-    if basic_opening and (b_hero2_done or (MeleeDifficulty() == MELEE_NEWBIE and c_tomb_done >= 1)) then
+    if basic_opening and b_hero2_done then
         set basic_opening = false
     endif
 endfunction
@@ -449,9 +441,7 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit(  3, CRYPT_FIEND      )
         call SetBuildUpgr(  1, UPG_FIEND_WEB    )
 
-        if MeleeDifficulty() != MELEE_NEWBIE then
-            call SetBuildUnit(  1, hero_id2     )
-        endif
+        call SetBuildUnit(  1, hero_id2     )
 
         call undead_mine(1)
         call BasicExpansion( c_mines < 2, UNDEAD_MINE )
@@ -488,12 +478,9 @@ function build_sequence takes nothing returns nothing
     //
     if c_gold_owned < 2000 or (c_mines < 2 and c_acolyte > 5) then
         call BasicExpansion( c_mines < 2, UNDEAD_MINE )
-
-        if MeleeDifficulty() != MELEE_NEWBIE then
-            call GuardSecondary( 1, 2, ZIGGURAT_1 )
-            if c_grave_done >= 1 then
-                call GuardSecondary( 1, 2, ZIGGURAT_2 )
-            endif
+        call GuardSecondary( 1, 2, ZIGGURAT_1 )
+        if c_grave_done >= 1 then
+            call GuardSecondary( 1, 2, ZIGGURAT_2 )
         endif
     endif
 
@@ -506,7 +493,7 @@ function build_sequence takes nothing returns nothing
     // always rebuild heroes for defense
     //
     if c_altar_done >= 1 then
-        if b_hero1_done and MeleeDifficulty() != MELEE_NEWBIE then
+        if b_hero1_done then
             if b_hero2_done then
                 if b_hero3_done or c_citadel_done >= 1 then
                     call SetBuildUnit( 1, hero_id3 )
@@ -548,12 +535,12 @@ function build_sequence takes nothing returns nothing
     elseif c_slaughter_done >= 1 then
         call SetBuildNext( 2, MEAT_WAGON )
     else
-        call MeleeTownHall( 0, NECROPOLIS_1 )
-        call SetBuildUnit ( 1, NECROPOLIS_1 )
+    call MeleeTownHall( 0, NECROPOLIS_1 )
+    call SetBuildUnit ( 1, NECROPOLIS_1 )
 
-        call SetBuildUnit( 1, NECROPOLIS_2      )
-        call SetBuildUnit( 1, SLAUGHTERHOUSE    )
-        call SetBuildNext( 2, MEAT_WAGON        )
+    call SetBuildUnit( 1, NECROPOLIS_2      )
+    call SetBuildUnit( 1, SLAUGHTERHOUSE    )
+    call SetBuildNext( 2, MEAT_WAGON        )
     endif
 
     // if we have a lot of gold then advance the tech tree
@@ -616,16 +603,11 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit( 2, BLK_SPHINX )
     endif
 
-    if c_gold_owned < 10000 then
-        call undead_mine(2)
-        call BasicExpansion( c_mines < 3, UNDEAD_MINE )
-        call MeleeTownHall( 2, NECROPOLIS_1     )
-        call GuardSecondary( 2, 2, ZIGGURAT_1   )
-    endif
-
-    if c_food_used >= 60 and c_zep < 3 then
-        call GetZeppelin()
-    endif
+    call undead_mine(2)
+    call BasicExpansion( c_mines < 3, UNDEAD_MINE )
+    call MeleeTownHall( 2, NECROPOLIS_1     )
+    call GuardSecondary( 2, 2, ZIGGURAT_1   )
+    call GuardSecondary( 1, 2, ZIGGURAT_2 )
 endfunction
 
 //--------------------------------------------------------------------------------------------------
