@@ -9,7 +9,7 @@ import { log } from 'lib/log';
 import {
   MODEL_AncientProtectorMissile, MODEL_EarthquakeTarget, MODEL_Tornado,
 } from 'lib/resources/war3-models';
-import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
+import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
 import {
   createDummy, GetUnitsInRangeOfXYMatching, isBuilding,
   isWard,
@@ -89,6 +89,8 @@ export default class Sandquake {
     });
   }
 
+  affectedEnemies = new Set<Unit>();
+
   constructor(
     abilityId: number,
     caster: Unit,
@@ -112,8 +114,6 @@ export default class Sandquake {
     const ability = caster.getAbility(abilityId);
     const speed = BlzGetAbilityIntegerField(ability, ABILITY_IF_MISSILE_SPEED);
     const distancePerStep = speed * intervalS;
-
-    const affectedEnemies = new Set<Unit>();
 
     const sandstormEffect = AddSpecialEffect(MODEL_Sand_Tornado, caster.x, caster.y);
     BlzSetSpecialEffectMatrixScale(sandstormEffect, 2, 2, 2);
@@ -149,14 +149,15 @@ export default class Sandquake {
         DestroyEffect(AddSpecialEffect(MODEL_AncientProtectorMissile_classic, loc.x, loc.y));
       }
 
-      if (idx % 6 === 0) {
+      if (idx % 8 === 0) {
         TerrainDeformationRandomBJ(0.5, tempLocation(newLoc).handle, radius, -30, 30, 0.15);
-        const effect = AddSpecialEffect(MODEL_EarthquakeTarget_classic, newLoc.x, newLoc.y);
-        BlzSetSpecialEffectYaw(effect, Math.random() * 2 * Math.PI);
-        setTimeout(0.95, () => DestroyEffect(effect));
+        DestroyEffect(AddSpecialEffect(MODEL_EarthquakeTarget_classic, newLoc.x, newLoc.y));
+        // const effect = AddSpecialEffect(MODEL_EarthquakeTarget_classic, newLoc.x, newLoc.y);
+        // BlzSetSpecialEffectYaw(effect, Math.random() * 2 * Math.PI);
+        // setTimeout(0.55, () => DestroyEffect(effect));
       }
 
-      if (idx % 3 === 0) {
+      if (idx % 6 === 0) {
         const nearbyEnemies = GetUnitsInRangeOfXYMatching(
           radius,
           casterLoc,
@@ -164,16 +165,16 @@ export default class Sandquake {
         );
 
         for (const enumUnit of nearbyEnemies) {
-          if (affectedEnemies.has(enumUnit)) return;
+          if (this.affectedEnemies.has(enumUnit)) return;
           const dummy = createDummy(caster.owner, enumUnit.x, enumUnit.y, caster, 0.1);
           dummy.addAbility(SUPPORT_ABILITY_ID_SANDQUAKE_IMPALE);
           dummy.setAbilityLevel(SUPPORT_ABILITY_ID_SANDQUAKE_IMPALE, abilityLevel);
           dummy.issueTargetOrder(OrderId.Impale, enumUnit);
         }
 
-        affectedEnemies.clear();
+        this.affectedEnemies.clear();
         for (const enumUnit of nearbyEnemies) {
-          affectedEnemies.add(enumUnit);
+          this.affectedEnemies.add(enumUnit);
         }
       }
 
@@ -192,7 +193,7 @@ export default class Sandquake {
         timer.destroy();
         k1('setitv');
 
-        affectedEnemies.clear();
+        this.affectedEnemies.clear();
 
         if (caster.isAlive()) {
           caster.setAnimation('morph alternate');

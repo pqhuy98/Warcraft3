@@ -472,16 +472,6 @@ function build_sequence takes nothing returns nothing
         call SetBuildNext( 20, PEASANT )
     endif
 
-    // if we have low gold in our mines then we need to expand
-    //
-    if c_gold_owned < 2000 then
-        call BasicExpansion( c_mines < 2, TOWN_HALL )
-        call GuardSecondary( 1, 2, WATCH_TOWER  )
-        if c_watch >= 2 then
-            call GuardSecondary( 1, 1, GUARD_TOWER  )
-            call GuardSecondary( 1, 1, ARCANE_TOWER )
-        endif
-    endif
 
     // get enough burrows to handle current food demand
     //
@@ -512,19 +502,19 @@ function build_sequence takes nothing returns nothing
     call SetBuildUnit( 1, BARRACKS )
     if b_knights_ok then
         call SetBuildUnit( 2, KNIGHT    )
-    else
-        call SetBuildUnit( 4, FOOTMAN   )
     endif
+
+    call SetBuildUnit( 3, FOOTMAN   )
 
     // minimum ranged/air defense
     //
     if c_aviary_done >= 1 then
-        call SetBuildUnit( 3, GRYPHON    )
-    else
-        call SetBuildUnit( 1, BLACKSMITH )
-        if c_smith_done >= 1 or c_gold < 1000 then
-            call SetBuildUnit( 4, RIFLEMEN   )
-        endif
+        call SetBuildUnit( 2, GRYPHON    )
+    endif
+
+    call SetBuildUnit( 1, BLACKSMITH )
+    if c_smith_done >= 1 then
+        call SetBuildUnit( 3, RIFLEMEN   )
     endif
 
     // siege attackers
@@ -533,8 +523,25 @@ function build_sequence takes nothing returns nothing
     call SetBuildUnit( 1, WORKSHOP  )
     call SetBuildUnit( 2, MORTAR    )
 
-    call SetBuildUnit( c_watch_done - c_arcane, GUARD_TOWER )
     
+    call SetBuildUnit( 1, SANCTUM )
+    call SetBuildNext( 2, PRIEST        )
+    call SetBuildNext( 2, SORCERESS     )
+
+    call BasicExpansion( c_mines < 2, TOWN_HALL )
+    call GuardSecondary( 1, 2, WATCH_TOWER  )
+    if c_watch >= 2 then
+        call GuardSecondary( 1, 1, GUARD_TOWER  )
+        call GuardSecondary( 1, 1, ARCANE_TOWER )
+    endif
+
+    call BasicExpansion( c_mines < 3, TOWN_HALL )
+    call GuardSecondary( 2, 2, WATCH_TOWER  )
+    if c_watch >= 2 then
+        call GuardSecondary( 2, 1, GUARD_TOWER  )
+        call GuardSecondary( 2, 1, ARCANE_TOWER )
+    endif
+
     // if we have a lot of gold then advance the tech tree
     //
     if c_gold > 1000 then
@@ -557,48 +564,29 @@ function build_sequence takes nothing returns nothing
         call do_upgrades()
     endif
 
-    call BasicExpansion( c_mines < 2, TOWN_HALL )
-    call GuardSecondary( 1, 2, WATCH_TOWER  )
-    if c_watch >= 2 then
-        call GuardSecondary( 1, 1, GUARD_TOWER  )
-        call GuardSecondary( 1, 1, ARCANE_TOWER )
-    endif
-
-
-    if c_food_used >= UPKEEP_TIER2-10 and c_gold < 2000 then
-        return
-    endif
-
     // full up with more troops in general
     //
-    if b_knights_ok then
-        call SetBuildNext( 4, KNIGHT )
-    endif
 
     if c_sanctum_done >= 1 then
         call SetBuildNext( 2, PRIEST        )
-        call SetBuildNext( 1, SORCERESS     )
-        call SetBuildNext( 1, SPELL_BREAKER )
-
-        if c_aviary_done >= 1 then
-            call SetBuildNext( 4, GRYPHON           )
-            call SetBuildNext( 2, HUMAN_DRAGON_HAWK )
-        endif
-
-        if c_workshop_done >= 1 then
-            call SetBuildNext( 2, COPTER )
-        endif
-
         call SetBuildNext( 2, SORCERESS     )
-        call SetBuildNext( 1, SPELL_BREAKER )
+        call SetBuildNext( 2, SPELL_BREAKER )
     endif
 
-    call BasicExpansion( c_mines < 3, TOWN_HALL )
-    call GuardSecondary( 2, 2, WATCH_TOWER  )
-    if c_watch >= 2 then
-        call GuardSecondary( 2, 1, GUARD_TOWER  )
-        call GuardSecondary( 2, 1, ARCANE_TOWER )
+    if b_knights_ok then
+        call SetBuildNext( 2, KNIGHT )
     endif
+
+    if c_aviary_done >= 1 then
+        call SetBuildNext( 2, GRYPHON           )
+        call SetBuildNext( 2, HUMAN_DRAGON_HAWK )
+    endif
+
+    if c_workshop_done >= 1 then
+        call SetBuildNext( 2, COPTER )
+    endif
+
+    call SetBuildUnit( c_watch_done - c_arcane, GUARD_TOWER )
 
 endfunction
 

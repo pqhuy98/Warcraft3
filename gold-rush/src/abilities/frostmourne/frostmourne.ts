@@ -63,7 +63,10 @@ export default class Frostmourne {
     });
 
     const interval = 0.03;
+
     setIntervalIndefinite(interval, () => {
+      const worldBound = temp(Rectangle.getWorldBounds());
+
       for (const soul of this.soulTarget.keys()) {
         const target = this.soulTarget.get(soul);
         if (!target || DistanceBetweenLocs(soul, target) < Frostmourne.Data.SOUL_RETURN_SPEED * interval) {
@@ -73,16 +76,16 @@ export default class Frostmourne {
             target.mana += target.maxMana * (0.25 + scale) * Frostmourne.Data.MANA_PERCENT_RESTORED_PER_SOUL;
           }
 
-          const worldBound = temp(Rectangle.getWorldBounds());
           soul.x = worldBound.maxX - 1;
           soul.y = worldBound.maxY - 1;
 
-          this.soulEffect.get(soul).destroy();
-          soul.kill();
-
+          const eff = this.soulEffect.get(soul);
           this.soulTarget.delete(soul);
           this.soulEffect.delete(soul);
           this.soulScale.delete(soul);
+
+          eff.destroy();
+          soul.destroy();
 
           k1('fstm');
           k1('fstm2');

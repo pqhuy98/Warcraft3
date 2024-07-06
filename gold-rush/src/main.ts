@@ -51,7 +51,9 @@ import {
   ABILITY_ShadowHunterHealingWave,
   ABILITY_ShadowHunterHex,
 } from 'lib/resources/war3-abilities';
-import { UNIT_Abomination, UNIT_FrostWyrm, UNIT_Ghoul } from 'lib/resources/war3-units';
+import {
+  UNIT_Abomination, UNIT_FrostWyrm, UNIT_Ghoul, UNIT_GoldMine,
+} from 'lib/resources/war3-units';
 import { registerDialogues } from 'lib/sound';
 import { DamageObserver } from 'lib/systems/damage_observer';
 import { SummonManager } from 'lib/systems/summon_manager';
@@ -67,9 +69,9 @@ import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
 import { UNIT_CryptFiend } from './lib/resources/war3-units';
 
-// const mainPlayerForce: 'light' | 'dark' | 'observer' = 'observer';
+const mainPlayerForce: 'light' | 'dark' | 'observer' = 'observer';
 // const mainPlayerForce: 'light' | 'dark' | 'observer' = 'light';
-const mainPlayerForce: 'light' | 'dark' | 'observer' = 'dark';
+// const mainPlayerForce: 'light' | 'dark' | 'observer' = 'dark';
 
 function tsMain() {
   UnlockGameSpeedBJ();
@@ -121,18 +123,18 @@ function tsMain() {
   MulticastPoint.register(FourCC(ABILITY_ArchMageBlizzard.code), globalUnits.heroJaina);
   MulticastNoTarget.register(FourCC(ABILITY_ArchMageWaterElemental.code));
   MulticastPoint.register(FourCC(ABILITY_BloodMageFlameStrike.code));
-  MulticastUnit.register(FourCC(ABILITY_BloodMageSiphonMana.code));
+  MulticastUnit.register(FourCC(ABILITY_BloodMageSiphonMana.code), undefined, false);
   MulticastNoTarget.register(FourCC(ABILITY_BloodMagePhoenix.code));
 
   MulticastNoTarget.register(FourCC(ABILITY_ChieftainWarStomp.code));
   MulticastUnit.register(FourCC(ABILITY_ChieftainShockWave.code));
   MulticastPoint.register(FourCC(ABILITY_ChieftainShockWave.code));
   MulticastUnit.register(FourCC(ABILITY_ShadowHunterHex.code));
-  MulticastUnit.register(FourCC(ABILITY_ShadowHunterHealingWave.code));
-  MulticastUnit.register(FourCC(ABILITY_FarseerChainLightning.code), globalUnits.heroThrall);
+  MulticastUnit.register(FourCC(ABILITY_ShadowHunterHealingWave.code), undefined, false);
+  MulticastUnit.register(FourCC(ABILITY_FarseerChainLightning.code), globalUnits.heroThrall, false);
   MulticastPoint.register(FourCC(ABILITY_FarseerEarthquake.code));
-  MulticastUnit.register(FourCC(ABILITY_KeeperEntanglingRoots.code));
-  MulticastUnit.register(FourCC(ABILITY_SeaWitchForkedLightning.code));
+  MulticastUnit.register(FourCC(ABILITY_KeeperEntanglingRoots.code), undefined, false);
+  MulticastUnit.register(FourCC(ABILITY_SeaWitchForkedLightning.code), undefined, false);
   MulticastPoint.register(ABILITY_ID_MONSOON_THRALL);
   MulticastNoTarget.register(FourCC(ABILITY_BladeMasterBladestorm.code));
 
@@ -158,8 +160,17 @@ function tsMain() {
       .for(() => Unit.fromEnum().kill());
   });
 
+  // Remove neutral creeps
   temp(Group.fromHandle(GetUnitsOfPlayerAll(Player(PLAYER_NEUTRAL_AGGRESSIVE))))
     .for(() => Unit.fromEnum().destroy());
+
+  // Reveal gold mines
+  temp(Group.fromHandle(GetUnitsOfPlayerAndTypeId(Player(PLAYER_NEUTRAL_PASSIVE), FourCC(UNIT_GoldMine.code))))
+    .for(() => {
+      const goldMine = Unit.fromEnum();
+      SetFogStateRadius(globalUnits.fountainLight.owner.handle, FOG_OF_WAR_FOGGED, goldMine.x, goldMine.y, 600, true);
+      SetFogStateRadius(globalUnits.fountainDark.owner.handle, FOG_OF_WAR_FOGGED, goldMine.x, goldMine.y, 600, true);
+    });
 
   ClearTextMessages();
 }
@@ -269,9 +280,9 @@ function configurePlayerSettings() {
 
     // Undead strong
     if (darkForce.hasPlayer(player)) {
-      let handicapHp = 1;
-      let handicapDamage = 1;
-      const maxHpHandicap = 2;
+      let handicapHp = 0.75;
+      let handicapDamage = 0.75;
+      const maxHpHandicap = 1.5;
       const maxDamageHandicap = 1.5;
       SetPlayerHandicap(player.handle, handicapHp);
       let oldScale: number;
@@ -292,7 +303,7 @@ function configurePlayerSettings() {
         const startingUnits: Record<string, number> = {
           [UNIT_Abomination.code]: 2,
           [UNIT_Ghoul.code]: 10,
-          [UNIT_CryptFiend.code]: 4,
+          [UNIT_CryptFiend.code]: 3,
           [UNIT_FrostWyrm.code]: 3,
         };
         for (const [code, count] of Object.entries(startingUnits)) {

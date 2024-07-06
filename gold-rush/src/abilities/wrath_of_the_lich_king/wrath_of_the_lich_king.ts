@@ -128,8 +128,8 @@ export default class WrathOfTheLichKing {
         setTimeout(animationDurationSwordUp + animationDurationSwordSlam + 1, () => {
           if (caster.isAlive()) {
             playSpeech(caster, gg_snd_lichking_frostmourne_hungers);
-            k1('wotlk5');
           }
+          k1('wotlk5');
         });
 
         setTimeout(totalAnimationDuration, () => {

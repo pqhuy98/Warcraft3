@@ -51,6 +51,7 @@ module.exports = {
     'no-await-in-loop': 'off',
     'no-unused-expressions': 'off',
     'class-methods-use-this': 'off',
+    'no-nested-ternary': 'off',
     'max-len': [
       'error',
       {

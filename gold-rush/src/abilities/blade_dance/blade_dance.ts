@@ -119,7 +119,7 @@ export default class BladeDance {
     this.timerIdle2 = Timer.create();
     // these timer will be extended each attack, so if no attack happens then they will run.
     this.timerIdle1.start(0.75, false, () => this.handleTargetUnattackable());
-    this.timerIdle2.start(1.5, false, () => this.endSpell());
+    this.timerIdle2.start(3, false, () => this.endSpell());
 
     this.timerAttack = Timer.create();
     this.timerAttack.start(0.1, true, () => {
@@ -150,7 +150,7 @@ export default class BladeDance {
     this.timerIdle2 = Timer.create();
     // these timer will be extended each attack, so if no attack happens then they will run.
     this.timerIdle1.start(0.75, false, () => this.handleTargetUnattackable());
-    this.timerIdle2.start(1.5, false, () => this.endSpell());
+    this.timerIdle2.start(3, false, () => this.endSpell());
 
     const effect = AddSpellEffectTargetById(this.abilityId, EFFECT_TYPE_TARGET, this.target.handle, 'chest');
     BlzSetSpecialEffectScale(effect, 1);

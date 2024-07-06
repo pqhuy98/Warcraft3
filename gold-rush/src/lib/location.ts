@@ -1,6 +1,7 @@
 import { Point, Unit } from 'w3ts';
 
-import { setIntervalIndefinite } from './trigger';
+import { log } from './log';
+import { onChatLocal, setIntervalIndefinite } from './trigger';
 
 export const RAD_TO_ANGLE = 180 / Math.PI;
 
@@ -14,10 +15,9 @@ interface Destroyable {
 }
 
 let temps: Destroyable[] = [];
-let nextTemps: Destroyable[] = [];
 
 export function temp<T extends Destroyable>(obj: T): T {
-  nextTemps.push(obj);
+  temps.push(obj);
   return obj;
 }
 
@@ -26,12 +26,15 @@ export function tempLocation(loc: Loc) {
 }
 
 export function daemonTempCleanUp() {
-  setIntervalIndefinite(0.1, () => {
+  onChatLocal('-temp', true, () => {
+    log('Temp destroyable:', temps.length);
+  });
+
+  setIntervalIndefinite(0.03, () => {
     for (const obj of temps) {
       obj.destroy();
     }
-    temps = nextTemps;
-    nextTemps = [];
+    temps = [];
   });
 }
 

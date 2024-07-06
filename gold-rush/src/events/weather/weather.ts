@@ -1,4 +1,5 @@
 import { k0, k1 } from 'lib/debug/key_counter';
+import { temp } from 'lib/location';
 import { pickRandom } from 'lib/utils';
 import { Rectangle, Timer, WeatherEffect } from 'w3ts';
 
@@ -49,7 +50,7 @@ export class Weather {
       if (Weather.currentWeather) {
         Weather.currentWeather.destroy();
       }
-      Weather.currentWeather = WeatherEffect.create(Rectangle.getWorldBounds(), FourCC(chosenWeatherType.effectId));
+      Weather.currentWeather = WeatherEffect.create(temp(Rectangle.getWorldBounds()), FourCC(chosenWeatherType.effectId));
       Weather.currentWeather.enable(true);
       k1('cw0');
     });

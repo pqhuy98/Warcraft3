@@ -1,6 +1,6 @@
 import { k0, k1 } from 'lib/debug/key_counter';
 import { PolarProjection } from 'lib/location';
-import { ABILITY_ArchMageWaterElemental, ABILITY_BladeMasterBladestorm } from 'lib/resources/war3-abilities';
+import { ABILITY_BladeMasterBladestorm } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
@@ -65,7 +65,7 @@ export class MulticastNoTarget {
           dummy.issueImmediateOrder(order);
         };
 
-        let castRemain = abilityId === FourCC(ABILITY_ArchMageWaterElemental.code) ? 1 : this.Data.REPEAT_CAST;
+        let castRemain = this.Data.REPEAT_CAST;
         dummyCast();
 
         const fadeDuration = (castPoint + castBackSwing + 0.1);

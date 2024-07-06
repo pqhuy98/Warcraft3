@@ -1,3 +1,3 @@
 export const systemConfig = {
-  autoPlay: false,
+  autoPlay: true,
 };

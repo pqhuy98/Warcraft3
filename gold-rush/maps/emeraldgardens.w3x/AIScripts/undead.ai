@@ -187,6 +187,36 @@ function force_level takes nothing returns integer
     return level
 endfunction
 
+
+function AttackMoveKillSuicide takes unit target returns nothing
+    if target == null then
+        call SuicideSleep(3)
+        return
+    endif
+
+    debug call Trace("AttackMoveKillA\n")
+    call AttackMoveKill(target)
+    // call SleepInCombat()
+endfunction
+
+function AnyPlayerSuicide takes nothing returns nothing
+    local unit hall
+
+    set hall = GetEnemyExpansion()
+    if hall == null then
+        call StartGetEnemyBase()
+        loop
+            exitwhen not WaitGetEnemyBase()
+            call SuicideSleep(1)
+        endloop
+        set hall = GetEnemyBase()
+    endif
+
+    call SetAllianceTarget(hall)
+    call FormGroup(3,true)
+    call AttackMoveKillSuicide(hall)
+endfunction
+
 //--------------------------------------------------------------------------------------------------
 //  attack_sequence
 //--------------------------------------------------------------------------------------------------
@@ -238,7 +268,7 @@ function attack_sequence takes nothing returns nothing
         set air_units        = c_garg_done > 0 or c_sphinx_done > 0 or c_wyrm_done > 0
         set allow_air_creeps = (3*c_garg_done + 6*c_wyrm_done + 2*c_web_fiend_done) >= 6
 
-        call SingleMeleeAttack(needs_exp,has_siege,false,air_units)
+        call AnyPlayerSuicide()
 
         set AG = 0
         set WG = c_ghoul_done
@@ -516,35 +546,34 @@ function build_sequence takes nothing returns nothing
     //
     if c_slaughter_done >= 1 and c_citadel_done >= 1 then
         call SetBuildNext( 2, ABOMINATION )
-    else
-        call SetBuildUnit(     1, CRYPT )
-        call SetBuildNext( WG2+6, GHOUL )
     endif
 
+    call SetBuildUnit( 1, CRYPT )
+    call SetBuildNext( WG2+6, GHOUL )
+    call SetBuildUnit( 1, GRAVEYARD )
+    call SetBuildNext( 2, CRYPT_FIEND   )
+    
     // minimum ranged/air defense
     //
-    call SetBuildUnit( 1, GRAVEYARD )
     if c_citadel_done >= 1 then
-        call SetBuildNext( 4, GARGOYLE )
-    else
-        call SetBuildUnit( 1, CRYPT         )
-        call SetBuildNext( 3, CRYPT_FIEND   )
+        call SetBuildNext( 2, GARGOYLE )
     endif
 
     // siege attackers
     //
     if c_boneyard_done >= 1 then
-        call SetBuildNext( 2, FROST_WYRM )
+        call SetBuildNext( 1, FROST_WYRM )
+    endif
 
-    elseif c_slaughter_done >= 1 then
+    if c_slaughter_done >= 1 then
         call SetBuildNext( 2, MEAT_WAGON )
     else
-    call MeleeTownHall( 0, NECROPOLIS_1 )
-    call SetBuildUnit ( 1, NECROPOLIS_1 )
+        call MeleeTownHall( 0, NECROPOLIS_1 )
+        call SetBuildUnit ( 1, NECROPOLIS_1 )
 
-    call SetBuildUnit( 1, NECROPOLIS_2      )
-    call SetBuildUnit( 1, SLAUGHTERHOUSE    )
-    call SetBuildNext( 2, MEAT_WAGON        )
+        call SetBuildUnit( 1, NECROPOLIS_2      )
+        call SetBuildUnit( 1, SLAUGHTERHOUSE    )
+        call SetBuildNext( 2, MEAT_WAGON        )
     endif
 
     // if we have a lot of gold then advance the tech tree
@@ -591,13 +620,18 @@ function build_sequence takes nothing returns nothing
 
     // extra troops
     //
+    if c_temple_done >= 1 then
+        call SetBuildUnit( 2, NECRO     )
+        call SetBuildUnit( 2, BANSHEE   )
+    endif
+    if c_slaughter_done >= 1 and c_citadel_done >= 1 then
+        call SetBuildNext( 1, ABOMINATION )
+    endif
+    if c_boneyard_done >= 1 then
+        call SetBuildNext( 1, FROST_WYRM )
+    endif
     if c_citadel_done >= 1 and c_tomb_done >= 1 then
         call SetBuildUnit( 1, OBS_STATUE )
-    endif
-
-    if c_temple_done >= 1 then
-        call SetBuildUnit( 4, NECRO     )
-        call SetBuildUnit( 2, BANSHEE   )
     endif
 
     call undead_mine(2)
@@ -644,6 +678,10 @@ set trace_on = GetAiPlayer()==1//xxx
     call PickMeleeHero(RACE_UNDEAD)
     call set_skills()
     call StandardAI(function SkillArrays, function peon_assignment, function attack_sequence)
+    call SetGroupsFlee(false)
+    call SetHeroesFlee(false)
+    call SetUnitsFlee(false)
+
     call StartThread(function set_vars)
     call PlayGame()
 endfunction

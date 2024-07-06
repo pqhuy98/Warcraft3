@@ -12,7 +12,7 @@ export class MulticastUnit {
   static Data = {
   };
 
-  static register(abilityId?: number, caster?: Unit) {
+  static register(abilityId?: number, caster?: Unit, singleDummy: boolean = true) {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       if (abilityId) {
@@ -51,9 +51,9 @@ export class MulticastUnit {
 
         const dummyDuration = abilityId === FourCC(ABILITY_BloodMageSiphonMana.code)
           ? BlzGetAbilityRealLevelField(caster.getAbility(abilityId), ABILITY_RLF_DURATION_NORMAL, abiLevel - 1)
-          : 0.25;
+          : (singleDummy ? Math.max(0.3 * nearby.length, backSwing) + 0.25 : 0.25);
 
-        enumUnitsWithDelay(nearby, (unit) => {
+        const createDummyWithAbility = () => {
           const dummy = createDummy(caster.owner, caster.x, caster.y, caster, dummyDuration, caster.facing);
           dummy.addAbility(abiId);
           dummy.setAbilityLevel(abiId, abiLevel);
@@ -61,6 +61,19 @@ export class MulticastUnit {
           dummy.setScale(scale, scale, scale);
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_COOLDOWN, abiLevel - 1, 0);
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 999999);
+          return dummy;
+        };
+
+        let dummy: Unit;
+        if (singleDummy) {
+          dummy = createDummyWithAbility();
+        }
+
+        enumUnitsWithDelay(nearby, (unit) => {
+          if (!singleDummy || !dummy) {
+            dummy = createDummyWithAbility();
+          }
+
           dummy.issueTargetOrder(order, unit);
         }, Math.min(0.3, backSwing / nearby.length));
       });

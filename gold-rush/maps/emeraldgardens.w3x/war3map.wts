@@ -536,11 +536,6 @@ STRING 141
 Player 4
 }
 
-STRING 142
-{
-Player 5
-}
-
 STRING 143
 {
 Light Force
@@ -1443,5 +1438,10 @@ STRING 329
 // Abilities: A00A (Wrath of the Lich King), Researchhotkey (Hotkey - Learn)
 {
 R
+}
+
+STRING 330
+{
+Player 5
 }
 
