@@ -1,5 +1,6 @@
 import {
   AngleBetweenLocs, DistanceBetweenLocs, getUnitXY, Loc, PolarProjection,
+  temp,
   tempLocation,
 } from 'lib/location';
 import {
@@ -7,10 +8,9 @@ import {
 } from 'w3ts';
 
 import { k0, k1 } from './debug/key_counter';
-import { ABILITY_Locust } from './resources/war3-abilities';
-import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
+import { log } from './log';
+import { onChatLocal, setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
-export const ABILITY_ID_LOCUST = FourCC(ABILITY_Locust.code);
 export const BUFF_ID_GENERIC = FourCC('BTLF');
 export const UNIT_ID_DUMMY = FourCC('h000:hfoo');
 
@@ -109,6 +109,8 @@ export function daemonTieUnitToUnit() {
       relocateUnitToUnit(tied, target);
     }
   });
+
+  onChatLocal('-tu2u', true, () => { log('unitTies', unitTies.size); });
 }
 
 function relocateUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
@@ -164,25 +166,30 @@ export function getDummyMaster(dummy: unit): Unit {
   return dummyMaster.get(u) ?? u;
 }
 
+let dummyCreatedCount = 0;
+
 export function daemonDummyMaster() {
   setIntervalIndefinite(5, () => {
     for (const dummy of dummyMaster.keys()) {
       if (!dummy.isAlive()) {
         dummyMaster.delete(dummy);
+        temp(dummy);
       }
     }
   });
+
+  onChatLocal('-dm', true, () => { log('dummyMaster', dummyMaster.size); });
+  onChatLocal('-dmc', true, () => { log('dummy created count', dummyCreatedCount); });
 }
 
 export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
+  dummyCreatedCount++;
   const dummy = Unit.create(owner, UNIT_ID_DUMMY, locX, locY, facing);
   if (timespan > 0) {
     dummy.applyTimedLife(BUFF_ID_GENERIC, timespan);
   }
-  dummy.addAbility(ABILITY_ID_LOCUST);
-  dummy.invulnerable = true;
-  dummy.setPathing(false);
   dummyMaster.set(dummy, master);
+  dummy.setPathing(false);
   return dummy;
 }
 

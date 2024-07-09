@@ -1,3 +1,5 @@
+/* eslint-disable unused-imports/no-unused-imports */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import BladeDance from 'abilities/blade_dance/blade_dance';
 import { ChainLightning } from 'abilities/chain_lightning/chain_lightning';
 import Frostmourne from 'abilities/frostmourne/frostmourne';
@@ -161,7 +163,7 @@ function tsMain() {
   });
 
   // Remove neutral creeps
-  temp(Group.fromHandle(GetUnitsOfPlayerAll(Player(PLAYER_NEUTRAL_AGGRESSIVE))))
+  false && temp(Group.fromHandle(GetUnitsOfPlayerAll(Player(PLAYER_NEUTRAL_AGGRESSIVE))))
     .for(() => Unit.fromEnum().destroy());
 
   // Reveal gold mines

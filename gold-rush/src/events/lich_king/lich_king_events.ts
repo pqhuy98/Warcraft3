@@ -1,3 +1,4 @@
+import { globalUnits } from 'lib/constants';
 import { playSpeech } from 'lib/sound';
 import { buildTrigger, getTimeS } from 'lib/trigger';
 import { pickRandom } from 'lib/utils';
@@ -21,6 +22,16 @@ export class LichKingEvents {
         if (diff > 10 * 60 || GetRandomInt(1, 3) === 1) {
           playSpeech(lichKing, pickRandom(deathSounds));
         }
+      });
+    });
+
+    CampaignMinimapIconUnitBJ(globalUnits.heroLichKing.handle, bj_CAMPPINGSTYLE_BOSS);
+
+    buildTrigger((t) => {
+      t.registerUnitEvent(globalUnits.heroLichKing, EVENT_UNIT_HERO_REVIVE_FINISH);
+      t.addAction(() => {
+        // Create minimap boss icon
+        CampaignMinimapIconUnitBJ(globalUnits.heroLichKing.handle, bj_CAMPPINGSTYLE_BOSS);
       });
     });
   }

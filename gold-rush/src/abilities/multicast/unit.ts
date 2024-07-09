@@ -34,11 +34,9 @@ export class MulticastUnit {
         const abiLevel = caster.getAbilityLevel(abiId);
         const order = caster.currentOrder;
 
-        const ability = caster.getAbility(abiId);
-        const castRange = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_CAST_RANGE, abiLevel - 1);
         const loc = getUnitXY(target);
 
-        const nearby = GetUnitsInRangeOfXYMatching(Math.min(500, castRange), loc, () => {
+        const nearby = GetUnitsInRangeOfXYMatching(500, loc, () => {
           const u = Unit.fromFilter();
           return u.isAlive()
             && u !== caster
@@ -53,30 +51,30 @@ export class MulticastUnit {
           ? BlzGetAbilityRealLevelField(caster.getAbility(abilityId), ABILITY_RLF_DURATION_NORMAL, abiLevel - 1)
           : (singleDummy ? Math.max(0.3 * nearby.length, backSwing) + 0.25 : 0.25);
 
-        const createDummyWithAbility = () => {
-          const dummy = createDummy(caster.owner, caster.x, caster.y, caster, dummyDuration, caster.facing);
-          dummy.addAbility(abiId);
-          dummy.setAbilityLevel(abiId, abiLevel);
-          const scale = (caster.getField(UNIT_RF_SCALING_VALUE) as number);
-          dummy.setScale(scale, scale, scale);
-          BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_COOLDOWN, abiLevel - 1, 0);
-          BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 999999);
-          return dummy;
-        };
-
         let dummy: Unit;
         if (singleDummy) {
-          dummy = createDummyWithAbility();
+          dummy = this.createDummyWithAbility(caster, dummyDuration, abiId, abiLevel);
         }
 
         enumUnitsWithDelay(nearby, (unit) => {
           if (!singleDummy || !dummy) {
-            dummy = createDummyWithAbility();
+            dummy = this.createDummyWithAbility(caster, dummyDuration, abiId, abiLevel);
           }
 
           dummy.issueTargetOrder(order, unit);
         }, Math.min(0.3, backSwing / nearby.length));
       });
     });
+  }
+
+  private static createDummyWithAbility(caster: Unit, duration: number, abiId: number, abiLevel: number) {
+    const dummy = createDummy(caster.owner, caster.x, caster.y, caster, duration, caster.facing);
+    dummy.addAbility(abiId);
+    dummy.setAbilityLevel(abiId, abiLevel);
+    const scale = (caster.getField(UNIT_RF_SCALING_VALUE) as number);
+    dummy.setScale(scale, scale, scale);
+    BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_COOLDOWN, abiLevel - 1, 0);
+    BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 999999);
+    return dummy;
   }
 }
