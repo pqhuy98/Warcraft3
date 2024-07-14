@@ -2,8 +2,8 @@ import { globalUnits } from 'lib/constants';
 import { TimestampedQueue } from 'lib/data_structures/timestamped_queue';
 import { getUnitXY } from 'lib/location';
 import { log } from 'lib/log';
-import { DamageObserver } from 'lib/systems/damage_observer';
-import { getTimeS, onChatLocal } from 'lib/trigger';
+import { DamageStochasticObserver } from 'lib/systems/damage_observer';
+import { getTimeS, onChatCommand } from 'lib/trigger';
 import { MapPlayer } from 'w3ts';
 
 import { InterestingEvent, InterestingEventType } from './interesting_events.model';
@@ -11,17 +11,19 @@ import { InterestingEvent, InterestingEventType } from './interesting_events.mod
 export class FactionInterestingEvents {
   private static recentInterestingEventsLight: TimestampedQueue<InterestingEvent> = new TimestampedQueue({
     itemExpireS: 10,
+    capacity: 40,
   });
 
   private static recentInterestingEventsDark: TimestampedQueue<InterestingEvent> = new TimestampedQueue({
     itemExpireS: 10,
+    capacity: 40,
   });
 
   static register() {
     const playerLight = globalUnits.fountainLight.owner;
     const playerDark = globalUnits.fountainDark.owner;
 
-    DamageObserver.subscribeBuildingDamaged((victim) => {
+    DamageStochasticObserver.subscribeBuildingDamaged((victim) => {
       let queue: TimestampedQueue<InterestingEvent>;
       if (victim.getOwner().isPlayerAlly(playerLight)) queue = this.recentInterestingEventsLight;
       if (victim.getOwner().isPlayerAlly(playerDark)) queue = this.recentInterestingEventsDark;
@@ -36,7 +38,7 @@ export class FactionInterestingEvents {
       });
     });
 
-    DamageObserver.subscribeHeroDamaging((_victim, attacker) => {
+    DamageStochasticObserver.subscribeHeroDamaging((_victim, attacker) => {
       let queue: TimestampedQueue<InterestingEvent>;
       if (attacker.getOwner().isPlayerAlly(playerLight)) queue = this.recentInterestingEventsLight;
       if (attacker.getOwner().isPlayerAlly(playerDark)) queue = this.recentInterestingEventsDark;
@@ -51,20 +53,20 @@ export class FactionInterestingEvents {
       });
     });
 
-    onChatLocal('-qs', true, () => {
+    onChatCommand('-qs', true, () => {
       log('Queue size (light):', this.recentInterestingEventsLight.getValidLength(), this.recentInterestingEventsLight.getTrueLength());
       log('Queue size (dark):', this.recentInterestingEventsDark.getValidLength(), this.recentInterestingEventsDark.getTrueLength());
-    });
+    }, 'Print current size of AI\'s interesting events queue.');
   }
 
-  static getRecentInterestingEvents(player: MapPlayer, limit?: number): InterestingEvent[] {
+  static getRecentInterestingEvents(player: MapPlayer): InterestingEvent[] {
     const playerLight = globalUnits.fountainLight.owner;
     const playerDark = globalUnits.fountainDark.owner;
     if (player.isPlayerAlly(playerLight)) {
-      return this.recentInterestingEventsLight.get(limit).map((item) => item.value);
+      return this.recentInterestingEventsLight.get().map((item) => item.value);
     }
     if (player.isPlayerAlly(playerDark)) {
-      return this.recentInterestingEventsDark.get(limit).map((item) => item.value);
+      return this.recentInterestingEventsDark.get().map((item) => item.value);
     }
     return [];
   }

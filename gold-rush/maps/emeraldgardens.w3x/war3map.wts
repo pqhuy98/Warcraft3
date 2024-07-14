@@ -1445,3 +1445,33 @@ STRING 330
 Player 5
 }
 
+STRING 331
+// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <A00J:AUfn,DataB1> damage to the target, and <A00J:AUfn,DataA1> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur1> seconds.
+}
+
+STRING 332
+// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <A00J:AUfn,DataB2> damage to the target, and <A00J:AUfn,DataA2> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur2> seconds.
+}
+
+STRING 333
+// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <A00J:AUfn,DataB3> damage to the target, and <A00J:AUfn,DataA3> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur3> seconds.
+}
+
+STRING 334
+// Units: h000 (Dummy), Tip (Tooltip - Basic)
+{
+Dummy
+}
+
+STRING 335
+// Units: h000 (Dummy), Ubertip (Tooltip - Extended)
+{
+Dummy
+}
+

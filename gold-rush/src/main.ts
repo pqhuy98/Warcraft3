@@ -14,8 +14,13 @@ import { ScortahAi } from 'ai/custom/scortah-ai';
 import { ZeusAi } from 'ai/custom/zeus-ai';
 import { LightForceAi } from 'ai/light_force_ai';
 import { FactionInterestingEvents } from 'ai/observer/interesting_events/faction_interesting_events';
+import { BuildingSelectionCircle } from 'events/building_selection_circle/building_selection_circle';
+import { registerChatCommands } from 'events/chat_commands/chat_commands';
 import { LichKingEvents } from 'events/lich_king/lich_king_events';
 import { PeriodBuff } from 'events/period_buff/period_buff';
+import {
+  SmallUnitModel,
+} from 'events/small_unit_model/small_unit_model';
 import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
 import { Weather } from 'events/weather/weather';
 import {
@@ -32,7 +37,6 @@ import {
   globalUnits,
   registerGlobalUnits,
 } from 'lib/constants';
-import { logDiscrepancy } from 'lib/debug/key_counter';
 import {
   daemonTempCleanUp, fromTempLocation, PolarProjection, temp,
 } from 'lib/location';
@@ -57,29 +61,34 @@ import {
   UNIT_Abomination, UNIT_FrostWyrm, UNIT_Ghoul, UNIT_GoldMine,
 } from 'lib/resources/war3-units';
 import { registerDialogues } from 'lib/sound';
-import { DamageObserver } from 'lib/systems/damage_observer';
+import { DamageStochasticObserver } from 'lib/systems/damage_observer';
 import { SummonManager } from 'lib/systems/summon_manager';
-import { systemConfig } from 'lib/systems/system-config';
 import {
-  getTimeS, onChatLocal, setIntervalIndefinite, trackElapsedGameTime,
+  getTimeS, onChatCommand, setIntervalIndefinite, setTimeout, trackElapsedGameTime,
 } from 'lib/trigger';
-import { daemonDummyMaster, daemonTieUnitToUnit, growUnit } from 'lib/unit';
 import {
+  daemonDummyMaster, daemonTieUnitToUnit,
+} from 'lib/unit';
+import {
+  Camera,
   Force, Group, MapPlayer, Unit,
 } from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
 import { UNIT_CryptFiend } from './lib/resources/war3-units';
 
-const mainPlayerForce: 'light' | 'dark' | 'observer' = 'observer';
-// const mainPlayerForce: 'light' | 'dark' | 'observer' = 'light';
-// const mainPlayerForce: 'light' | 'dark' | 'observer' = 'dark';
+type MainPlayerFaction = 'light' | 'dark' | 'observer'
+
+const useCustomAI = true;
 
 function tsMain() {
+  // Cheat('warpten');
   UnlockGameSpeedBJ();
   SetGameSpeed(MAP_SPEED_FASTEST);
   LockGameSpeedBJ();
   registerGlobalUnits();
+  SmallUnitModel.register();
+
   // Player settings
   removeStartingUnit(Player(0));
   removeStartingUnit(Player(5));
@@ -100,10 +109,11 @@ function tsMain() {
   new PeriodBuff(globalUnits.heroZeus);
 
   SummonManager.register();
-  DamageObserver.register();
+  DamageStochasticObserver.register();
   Weather.changeWeather();
   LichKingEvents.register(globalUnits.heroLichKing);
   FactionInterestingEvents.register();
+  BuildingSelectionCircle.register();
 
   // Abilities
 
@@ -140,28 +150,6 @@ function tsMain() {
   MulticastPoint.register(ABILITY_ID_MONSOON_THRALL);
   MulticastNoTarget.register(FourCC(ABILITY_BladeMasterBladestorm.code));
 
-  onChatLocal('-clear', true, () => {
-    ClearTextMessagesBJ(Force.fromPlayer(MapPlayer.fromLocal()).handle);
-  });
-
-  onChatLocal('-k', true, () => {
-    ClearTextMessagesBJ(Force.fromPlayer(MapPlayer.fromLocal()).handle);
-    logDiscrepancy();
-  });
-
-  onChatLocal('-wtf', true, () => {
-    temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer()))).for(() => {
-      Unit.fromEnum().resetCooldown();
-    });
-  });
-
-  onChatLocal('-autoplay 0', true, () => { systemConfig.autoPlay = false; });
-  onChatLocal('-autoplay 1', true, () => { systemConfig.autoPlay = true; });
-  onChatLocal('-kill', true, () => {
-    temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer())))
-      .for(() => Unit.fromEnum().kill());
-  });
-
   // Remove neutral creeps
   false && temp(Group.fromHandle(GetUnitsOfPlayerAll(Player(PLAYER_NEUTRAL_AGGRESSIVE))))
     .for(() => Unit.fromEnum().destroy());
@@ -174,7 +162,9 @@ function tsMain() {
       SetFogStateRadius(globalUnits.fountainDark.owner.handle, FOG_OF_WAR_FOGGED, goldMine.x, goldMine.y, 600, true);
     });
 
-  ClearTextMessages();
+  registerChatCommands();
+
+  setTimeout(0.1, () => Camera.setSmoothingFactor(10));
 }
 
 function configurePlayerSettings() {
@@ -226,7 +216,6 @@ function configurePlayerSettings() {
     } else {
       player.setState(PLAYER_STATE_RESOURCE_GOLD, 1000000);
       player.setState(PLAYER_STATE_RESOURCE_LUMBER, 1000000);
-      player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, 150);
     }
 
     if (heroOnlyPlayers.includes(player) && isComputer(player.handle)) {
@@ -235,30 +224,30 @@ function configurePlayerSettings() {
 
     switch (player.race) {
       case RACE_HUMAN:
-        SetPlayerColorBJ(player.handle, PLAYER_COLOR_LIGHT_BLUE, false);
+        SetPlayerColor(player.handle, PLAYER_COLOR_LIGHT_BLUE);
         SetPlayerName(player.handle, 'Human Alliance');
-        if (isComputer(player.handle)) {
+        if (isComputer(player.handle) && useCustomAI) {
           StartCampaignAI(player.handle, 'AIScripts\\human.ai');
         }
         break;
       case RACE_ORC:
-        SetPlayerColorBJ(player.handle, PLAYER_COLOR_RED, false);
+        SetPlayerColor(player.handle, PLAYER_COLOR_RED);
         player.name = 'Orcish Horde';
-        if (isComputer(player.handle)) {
+        if (isComputer(player.handle) && useCustomAI) {
           StartCampaignAI(player.handle, 'AIScripts\\orc.ai');
         }
         break;
       case RACE_NIGHTELF:
-        SetPlayerColorBJ(player.handle, PLAYER_COLOR_CYAN, false);
+        SetPlayerColor(player.handle, PLAYER_COLOR_CYAN);
         player.name = 'Night Elf Sentinels';
-        if (isComputer(player.handle)) {
+        if (isComputer(player.handle) && useCustomAI) {
           StartCampaignAI(player.handle, 'AIScripts\\elf.ai');
         }
         break;
       case RACE_UNDEAD:
-        SetPlayerColorBJ(player.handle, PLAYER_COLOR_PURPLE, false);
+        SetPlayerColor(player.handle, PLAYER_COLOR_PURPLE);
         player.name = 'Undead Scourge';
-        if (isComputer(player.handle)) {
+        if (isComputer(player.handle) && useCustomAI) {
           StartCampaignAI(player.handle, 'AIScripts\\undead.ai');
         }
         break;
@@ -276,37 +265,35 @@ function configurePlayerSettings() {
 
     player.handicapXp = 3;
     if (player === darkChampionPlayer) {
-      SetPlayerColorBJ(player.handle, PLAYER_COLOR_GREEN, false);
+      SetPlayerColor(player.handle, PLAYER_COLOR_GREEN);
       player.handicapXp = 6;
     }
 
     // Undead strong
     if (darkForce.hasPlayer(player)) {
-      let handicapHp = 0.75;
-      let handicapDamage = 0.75;
-      const maxHpHandicap = 1.5;
-      const maxDamageHandicap = 1.5;
-      SetPlayerHandicap(player.handle, handicapHp);
-      let oldScale: number;
-      setIntervalIndefinite(14, () => {
+      const initialHandicapHp = 1.5;
+      const initialHandicapDamage = 1;
+
+      const maxHpHandicap = 3;
+      const maxDamageHandicap = 2;
+      const upgradePeriodS = 14;
+
+      let handicapHp = initialHandicapHp;
+      let handicapDamage = initialHandicapDamage;
+
+      setIntervalIndefinite(upgradePeriodS, () => {
         handicapHp = Math.min(handicapHp * 1.01, maxHpHandicap);
         handicapDamage = Math.min(handicapHp * 1.01, maxDamageHandicap);
         SetPlayerHandicap(player.handle, handicapHp);
         SetPlayerHandicapDamage(player.handle, handicapDamage);
-        if (player === darkForceBoss.owner) {
-          const newScale = Math.max(1.4, Math.sqrt(darkForceBoss.owner.handicap));
-          growUnit(darkForceBoss, newScale, 2, oldScale);
-          oldScale = newScale;
-          darkForceBoss.selectionScale = 1.4 + Math.sqrt(darkForceBoss.owner.handicap);
-        }
       });
 
       if (!noUnitPlayers.includes(player.handle)) {
         const startingUnits: Record<string, number> = {
-          [UNIT_Abomination.code]: 2,
-          [UNIT_Ghoul.code]: 10,
-          [UNIT_CryptFiend.code]: 3,
-          [UNIT_FrostWyrm.code]: 3,
+          [UNIT_Abomination.code]: 1,
+          [UNIT_Ghoul.code]: 6,
+          [UNIT_CryptFiend.code]: 1,
+          [UNIT_FrostWyrm.code]: 1,
         };
         for (const [code, count] of Object.entries(startingUnits)) {
           for (let i = 0; i < count; i++) {
@@ -316,43 +303,77 @@ function configurePlayerSettings() {
         }
       }
     }
+  }
 
-    // Ally/enemy
-    if (mainPlayerForce === 'light' && lightForce.hasPlayer(player)
+  if (!useCustomAI) {
+    MeleeStartingAI();
+  }
+
+  function setMainPlayerAlliance(mainPlayerForce: MainPlayerFaction) {
+    for (let i = 0; i < 24; i++) {
+      const player = MapPlayer.fromIndex(i);
+      if (player.slotState === PLAYER_SLOT_STATE_EMPTY) {
+        continue;
+      }
+
+      const isAlly = (mainPlayerForce === 'light' && lightForce.hasPlayer(player)
       || mainPlayerForce === 'dark' && darkForce.hasPlayer(player)
-      || mainPlayerForce === 'observer') {
+      || mainPlayerForce === 'observer');
+
       const p1 = mainPlayer.handle;
       const p2 = player.handle;
-      SetPlayerAlliance(p1, p2, ALLIANCE_PASSIVE, true);
-      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_REQUEST, true);
-      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_RESPONSE, true);
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_XP, true);
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_SPELLS, true);
-      SetPlayerAlliance(p2, p1, ALLIANCE_PASSIVE, true);
-      SetPlayerAlliance(p2, p1, ALLIANCE_HELP_REQUEST, true);
-      SetPlayerAlliance(p2, p1, ALLIANCE_HELP_RESPONSE, true);
-      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_XP, true);
-      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_SPELLS, true);
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_VISION, true);
-      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_VISION, true);
+      SetPlayerAlliance(p1, p2, ALLIANCE_PASSIVE, isAlly);
+      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_REQUEST, isAlly);
+      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_RESPONSE, isAlly);
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_XP, isAlly);
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_SPELLS, isAlly);
+      SetPlayerAlliance(p2, p1, ALLIANCE_PASSIVE, isAlly);
+      SetPlayerAlliance(p2, p1, ALLIANCE_HELP_REQUEST, isAlly);
+      SetPlayerAlliance(p2, p1, ALLIANCE_HELP_RESPONSE, isAlly);
+      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_XP, isAlly);
+      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_SPELLS, isAlly);
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_VISION, isAlly);
+      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_VISION, isAlly);
 
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_CONTROL, true);
-      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_CONTROL, true);
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_CONTROL, isAlly);
+      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_CONTROL, isAlly);
 
       // SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
       // SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
     }
-  }
-  // MeleeStartingAI();
 
-  if (mainPlayerForce === 'light' || mainPlayerForce === 'observer') {
-    SetCameraPositionForPlayer(mainPlayer.handle, lightForceBoss.x, lightForceBoss.y);
-    SetPlayerAlliance(lightChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
+    SetPlayerAlliance(lightChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, false);
+    SetPlayerAlliance(darkChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, false);
+
+    if (mainPlayerForce === 'light' || mainPlayerForce === 'observer') {
+      SetCameraPositionForPlayer(mainPlayer.handle, lightForceBoss.x, lightForceBoss.y);
+      SetPlayerAlliance(lightChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
+    }
+    if (mainPlayerForce === 'dark' || mainPlayerForce === 'observer') {
+      SetCameraPositionForPlayer(mainPlayer.handle, darkForceBoss.x, darkForceBoss.y);
+      SetPlayerAlliance(darkChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
+    }
+    ClearTextMessages();
   }
-  if (mainPlayerForce === 'dark' || mainPlayerForce === 'observer') {
-    SetCameraPositionForPlayer(mainPlayer.handle, darkForceBoss.x, darkForceBoss.y);
-    SetPlayerAlliance(darkChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
-  }
+  setMainPlayerAlliance('observer');
+  onChatCommand('-faction $1', false, (msg) => {
+    const faction = msg.split(' ')[1];
+    switch (faction) {
+      case 'dark': {
+        setMainPlayerAlliance('dark');
+        break;
+      }
+      case 'light': {
+        setMainPlayerAlliance('light');
+        break;
+      }
+      case 'observer': {
+        setMainPlayerAlliance('observer');
+        break;
+      }
+      default:
+    }
+  }, 'Change your faction. Valid values for $1 are "light", "dark", "observer".');
 }
 
 function registerAi() {

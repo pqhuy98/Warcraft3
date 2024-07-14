@@ -1,6 +1,5 @@
 import {
   AngleBetweenLocs, DistanceBetweenLocs, getUnitXY, Loc, PolarProjection,
-  temp,
   tempLocation,
 } from 'lib/location';
 import {
@@ -9,7 +8,7 @@ import {
 
 import { k0, k1 } from './debug/key_counter';
 import { log } from './log';
-import { onChatLocal, setIntervalForDuration, setIntervalIndefinite } from './trigger';
+import { onChatCommand, setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
 export const BUFF_ID_GENERIC = FourCC('BTLF');
 export const UNIT_ID_DUMMY = FourCC('h000:hfoo');
@@ -18,8 +17,16 @@ export function getAttackRange(unit: Unit, weaponIndex:number):number {
   return BlzGetUnitWeaponRealField(unit.handle, UNIT_WEAPON_RF_ATTACK_RANGE, weaponIndex);
 }
 
-export function setAttackRange(unit: Unit, weaponIndex:number, value:number) {
-  BlzSetUnitWeaponRealField(unit.handle, UNIT_WEAPON_RF_ATTACK_RANGE, weaponIndex, value);
+export function setAttackRange(unit: Unit, weaponIndex: number, value:number) {
+  const currentRange = getAttackRange(unit, weaponIndex); // index is correct, returned range is correct.
+  const secondRange = getAttackRange(unit, weaponIndex + 1); // yes, we should get the 2nd attack range and count it too
+
+  BlzSetUnitWeaponRealField(
+    unit.handle,
+    UNIT_WEAPON_RF_ATTACK_RANGE,
+    weaponIndex + 1,
+    value - currentRange + secondRange,
+  );
 }
 
 /**
@@ -89,6 +96,7 @@ export function growUnit(u: Unit, targetScale: number, duration: number, initial
   const startingScale = initialScale ?? (u.getField(UNIT_RF_SCALING_VALUE) as number);
   setIntervalForDuration(0.1, duration, (i, repeat) => {
     const scale = i / repeat * (targetScale - startingScale) + startingScale;
+    u.setField(UNIT_RF_SCALING_VALUE, scale);
     u.setScale(scale, 0, 0);
   }, () => {
     k1('grwu');
@@ -110,7 +118,7 @@ export function daemonTieUnitToUnit() {
     }
   });
 
-  onChatLocal('-tu2u', true, () => { log('unitTies', unitTies.size); });
+  onChatCommand('-tu2u', true, () => { log('unitTies', unitTies.size); }, 'Print number of units that are tied to another unit.');
 }
 
 function relocateUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
@@ -173,13 +181,12 @@ export function daemonDummyMaster() {
     for (const dummy of dummyMaster.keys()) {
       if (!dummy.isAlive()) {
         dummyMaster.delete(dummy);
-        temp(dummy);
       }
     }
   });
 
-  onChatLocal('-dm', true, () => { log('dummyMaster', dummyMaster.size); });
-  onChatLocal('-dmc', true, () => { log('dummy created count', dummyCreatedCount); });
+  onChatCommand('-dm', true, () => { log('dummyMaster', dummyMaster.size); }, 'Print number of current active dummies.');
+  onChatCommand('-dmc', true, () => { log('dummy created count', dummyCreatedCount); }, 'Print number of dummies ever created.');
 }
 
 export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
@@ -191,6 +198,11 @@ export function createDummy(owner: MapPlayer, locX: number, locY: number, master
   dummyMaster.set(dummy, master);
   dummy.setPathing(false);
   return dummy;
+}
+
+export function safeRemoveDummy(dummy: Unit) {
+  dummy.kill();
+  dummy.show = false;
 }
 
 export function isBuilding(unit: Unit) {

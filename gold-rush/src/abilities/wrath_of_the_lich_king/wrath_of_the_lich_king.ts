@@ -1,12 +1,12 @@
 import Frostmourne from 'abilities/frostmourne/frostmourne';
+import { setAbilityEffectRange, toScale as _toScale } from 'events/small_unit_model/small_unit_model.constant';
 import { Weather, weatherBlizzard } from 'events/weather/weather';
-import {
-  MODEL_Shadow_Tornado,
-  MODEL_Water_Tornado, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN,
-} from 'lib/constants';
+import { SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN } from 'lib/constants';
 import { k0, k1 } from 'lib/debug/key_counter';
 import { getUnitXY, PolarProjection } from 'lib/location';
+import { MODEL_FreezingBreathMissile, MODEL_FrostNovaTarget } from 'lib/resources/war3-models';
 import { playSoundIsolate, playSpeech } from 'lib/sound';
+import { MovingTerrainEffect } from 'lib/systems/moving_terrain_effect';
 import {
   buildTrigger, setIntervalForDuration, setTimeout,
 } from 'lib/trigger';
@@ -14,28 +14,58 @@ import {
   createDummy, GetUnitsInRangeOfXYMatching,
   isBuilding,
   isWard,
+  safeRemoveDummy,
 } from 'lib/unit';
 import {
+  Effect,
   Ubersplat,
   Unit,
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
+
+const shouldScaleAbility = true;
+function toScale(value: number) {
+  return shouldScaleAbility ? _toScale(value) : value;
+}
 
 const animationDurationSwordUp = 2;
 const animationDurationSwordSlam = 0.45;
 const totalAnimationDuration = 5;
 const musicDuration = 44.721;
 
+const snowyTerrainTypes = [
+  // FourCC('Wsnw'),
+
+  // FourCC('Nice'),
+  // FourCC('Nsnw'),
+
+  // FourCC('Isnw'),
+  // FourCC('Isnw'),
+  // FourCC('Isnw'),
+  // FourCC('Isnw'),
+  // FourCC('Isnw'),
+  // FourCC('Iice'),
+
+  FourCC('Iice'),
+  FourCC('Iice'),
+  FourCC('Iice'),
+  FourCC('Iice'),
+  FourCC('Iice'),
+  FourCC('Idki'),
+];
+
 export default class WrathOfTheLichKing {
   static Data = {
     ABILITY_IDS: <number[]>[],
-    EFFECT_RANGE: 1500, // hard-coded
+    getEffectRadius: () => toScale(1500),
     targetMatching: (caster: Unit, unit: Unit) => unit.isAlive()
       && unit.isEnemy(caster.getOwner())
       && !unit.invulnerable
       && !isBuilding(unit)
       && !isWard(unit),
   };
+
+  static lastCachedEffectRange: number;
 
   static register(abilityId: number) {
     WrathOfTheLichKing.Data.ABILITY_IDS.push(abilityId);
@@ -44,6 +74,8 @@ export default class WrathOfTheLichKing {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       t.addCondition(() => GetSpellAbilityId() === abilityId);
       t.addAction(() => {
+        const radius = WrathOfTheLichKing.Data.getEffectRadius();
+
         k0('wotlk');
         k0('wotlk1');
         k0('wotlk2');
@@ -78,7 +110,7 @@ export default class WrathOfTheLichKing {
         setTimeout(0.2, () => {
           if (caster.isAlive() && Frostmourne.Data.ABILITY_IDS.some((id) => caster.getAbilityLevel(id) > 0)) {
             const deadUnits = GetUnitsInRangeOfXYMatching(
-              WrathOfTheLichKing.Data.EFFECT_RANGE,
+              radius,
               caster,
               () => Frostmourne.Data.targetMatching(caster, Unit.fromFilter()),
             );
@@ -106,7 +138,7 @@ export default class WrathOfTheLichKing {
             k1('wotlk4');
             return;
           }
-          const loc = PolarProjection(caster, 125, caster.facing);
+          const loc = PolarProjection(caster, toScale(125), caster.facing);
           const ub = Ubersplat.create(loc.x, loc.y, 'THND', 255, 255, 255, 255, true, false);
           ub.render(true, true);
           ub.show(true);
@@ -157,28 +189,44 @@ export default class WrathOfTheLichKing {
     caster: Unit,
     abilityLevel: number,
   ) {
+    const radius = WrathOfTheLichKing.Data.getEffectRadius();
+
     const effectDurationS = musicDuration - animationDurationSwordUp - animationDurationSwordSlam - 1;
     const casterLoc = getUnitXY(caster);
 
     const dummy1 = createDummy(caster.owner, casterLoc.x, casterLoc.y, caster, 0.5);
     dummy1.addAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN);
     dummy1.setAbilityLevel(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN, abilityLevel);
+    setAbilityEffectRange(dummy1, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN, abilityLevel, radius);
     dummy1.issueImmediateOrder(OrderId.Stomp);
 
     const dummy2 = createDummy(caster.owner, casterLoc.x, casterLoc.y, caster, effectDurationS);
     dummy2.addAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD);
     dummy2.setAbilityLevel(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, abilityLevel);
+    setAbilityEffectRange(dummy2, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, abilityLevel, radius);
 
-    const effects: effect[] = [];
-    for (let i = 1; i <= 2; i++) {
-      const eff = AddSpecialEffect(i === 1 ? MODEL_Shadow_Tornado : MODEL_Water_Tornado, caster.x, caster.y);
-      const scaleXy = 3.3 * i;
-      BlzSetSpecialEffectMatrixScale(eff, scaleXy, scaleXy, 3);
-      BlzSetSpecialEffectTime(eff, 0.51);
-      BlzSetSpecialEffectTimeScale(eff, 0.15 + (2 - i) * 0.10);
-      BlzSetSpecialEffectHeight(eff, 500);
-      effects.push(eff);
-    }
+    const movingTerrainEffect = new MovingTerrainEffect({
+      unit: caster,
+      radius,
+      durationS: 3,
+      terrainTypes: snowyTerrainTypes,
+      onSetTile: (x, y) => Effect.create(MODEL_FrostNovaTarget, x, y).destroy(),
+      onUnsetTile: (x, y) => {
+        const eff = Effect.create(MODEL_FreezingBreathMissile, x, y);
+        setTimeout(0.01, () => eff.destroy());
+      },
+    });
+
+    // const effects: effect[] = [];
+    // for (let i = 3; i <= 2; i++) {
+    //   const eff = AddSpecialEffect(i === 1 ? MODEL_Shadow_Tornado : MODEL_Water_Tornado, caster.x, caster.y);
+    //   const scaleXy = 3.3 * i;
+    //   BlzSetSpecialEffectMatrixScale(eff, scaleXy, scaleXy, 3);
+    //   BlzSetSpecialEffectTime(eff, 0.51);
+    //   BlzSetSpecialEffectTimeScale(eff, 0.15 + (2 - i) * 0.10);
+    //   BlzSetSpecialEffectHeight(eff, 500);
+    //   effects.push(eff);
+    // }
 
     let cleanUp: () => void;
 
@@ -186,9 +234,9 @@ export default class WrathOfTheLichKing {
     const t1 = setIntervalForDuration(0.05, effectDurationS, () => {
       if (caster.isAlive()) {
         const loc = getUnitXY(caster);
-        for (const eff of effects) {
-          BlzSetSpecialEffectPosition(eff, loc.x, loc.y, 100);
-        }
+        // for (const eff of effects) {
+        //   BlzSetSpecialEffectPosition(eff, loc.x, loc.y, 100);
+        // }
         dummy2.x = loc.x;
         dummy2.y = loc.y;
       } else {
@@ -209,13 +257,14 @@ export default class WrathOfTheLichKing {
     });
 
     cleanUp = () => {
-      setTimeout(1, () => {
-        for (const eff of effects) {
-          DestroyEffect(eff);
-        }
-      });
+      movingTerrainEffect.destroy();
+      // setTimeout(1, () => {
+      //   for (const eff of effects) {
+      //     DestroyEffect(eff);
+      //   }
+      // });
       StopSoundBJ(gg_snd_lich_king_stab_out, true);
-      dummy2.kill();
+      safeRemoveDummy(dummy2);
       Weather.changeWeather();
       VolumeGroupReset();
       SetMusicVolume(100);

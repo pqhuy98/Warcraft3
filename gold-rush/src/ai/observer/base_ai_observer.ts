@@ -1,8 +1,6 @@
 import {
-  DistanceBetweenLocs,
-  getUnitXY, Loc,
+  DistanceBetweenLocs, getUnitXY, Loc,
 } from 'lib/location';
-import { setIntervalIndefinite } from 'lib/trigger';
 import {
   getUnitsFromGroup,
   GetUnitsInRangeOfXYMatching,
@@ -30,8 +28,6 @@ export class BaseAiObserver {
 
   private destination: Loc;
 
-  private heroLoc: Loc;
-
   constructor(protected readonly hero: Unit) {
     this.owner = this.hero.getOwner();
     this.homeLoc = {
@@ -52,11 +48,6 @@ export class BaseAiObserver {
         this.enemies.push(player);
       }
     }
-
-    // Bookkeeping
-    setIntervalIndefinite(0.5, () => {
-      this.heroLoc = getUnitXY(this.hero);
-    });
   }
 
   getState() {
@@ -68,11 +59,11 @@ export class BaseAiObserver {
   }
 
   getDistanceToHome() {
-    return DistanceBetweenLocs(this.heroLoc, this.homeLoc);
+    return DistanceBetweenLocs(getUnitXY(this.hero), this.homeLoc);
   }
 
   getDistanceToDestination() {
-    return DistanceBetweenLocs(this.heroLoc, this.destination);
+    return DistanceBetweenLocs(getUnitXY(this.hero), this.destination);
   }
 
   getCurrentOrder() {
@@ -84,7 +75,7 @@ export class BaseAiObserver {
   }
 
   getNearbyAllyHeroes() {
-    return GetUnitsInRangeOfXYMatching(this.getAcquisitionRange() + 500, this.heroLoc, () => {
+    return GetUnitsInRangeOfXYMatching(this.getAcquisitionRange() + 500, getUnitXY(this.hero), () => {
       const unit = Unit.fromFilter();
       return unit.isAlly(this.owner)
         && unit.isHero()
@@ -123,11 +114,11 @@ export class BaseAiObserver {
   }
 
   getUnitsInRangeMatching(range: number, filter: (u: Unit) => boolean) {
-    return GetUnitsInRangeOfXYMatching(range, this.heroLoc, () => filter(Unit.fromFilter()));
+    return GetUnitsInRangeOfXYMatching(range, getUnitXY(this.hero), () => filter(Unit.fromFilter()));
   }
 
-  getRecentInterestingEvents(limit?: number): InterestingEvent[] {
-    return FactionInterestingEvents.getRecentInterestingEvents(this.owner, limit);
+  getRecentInterestingEvents(): InterestingEvent[] {
+    return FactionInterestingEvents.getRecentInterestingEvents(this.owner);
   }
 
   getHome() {
@@ -144,10 +135,6 @@ export class BaseAiObserver {
 
   setDestination(loc: Loc) {
     this.destination = loc;
-  }
-
-  getHeroLocation() {
-    return this.heroLoc;
   }
 }
 

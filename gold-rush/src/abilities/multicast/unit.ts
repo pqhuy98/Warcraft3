@@ -1,3 +1,4 @@
+import { syncDummyAbilityEffectRange, toScale as _toScale } from 'events/small_unit_model/small_unit_model.constant';
 import { getUnitXY } from 'lib/location';
 import { ABILITY_BloodMageSiphonMana } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
@@ -8,8 +9,14 @@ import {
 } from 'lib/unit';
 import { Unit } from 'w3ts';
 
+const shouldScaleAbility = false;
+function toScale(value: number) {
+  return shouldScaleAbility ? _toScale(value) : value;
+}
+
 export class MulticastUnit {
   static Data = {
+    getEffectRadius: () => toScale(500),
   };
 
   static register(abilityId?: number, caster?: Unit, singleDummy: boolean = true) {
@@ -28,6 +35,8 @@ export class MulticastUnit {
           && !IsUnitOwnedByPlayer(caster, Player(PLAYER_NEUTRAL_AGGRESSIVE));
       });
       t.addAction(() => {
+        const radius = this.Data.getEffectRadius();
+
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
         const target = Unit.fromHandle(GetSpellTargetUnit());
         const abiId = GetSpellAbilityId();
@@ -36,7 +45,7 @@ export class MulticastUnit {
 
         const loc = getUnitXY(target);
 
-        const nearby = GetUnitsInRangeOfXYMatching(500, loc, () => {
+        const nearby = GetUnitsInRangeOfXYMatching(radius, loc, () => {
           const u = Unit.fromFilter();
           return u.isAlive()
             && u !== caster
@@ -72,9 +81,10 @@ export class MulticastUnit {
     dummy.addAbility(abiId);
     dummy.setAbilityLevel(abiId, abiLevel);
     const scale = (caster.getField(UNIT_RF_SCALING_VALUE) as number);
-    dummy.setScale(scale, scale, scale);
+    dummy.setScale(scale, 0, 0);
     BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_COOLDOWN, abiLevel - 1, 0);
     BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 999999);
+    syncDummyAbilityEffectRange(dummy, caster, abiId, abiLevel);
     return dummy;
   }
 }

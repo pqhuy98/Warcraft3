@@ -1,3 +1,4 @@
+import { toScale as _toScale } from 'events/small_unit_model/small_unit_model.constant';
 import {
   AngleBetweenLocs, getUnitXY, Loc, PolarProjection,
 } from 'lib/location';
@@ -12,14 +13,21 @@ import {
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals/order';
 
+const shouldScaleAbility = false;
+function toScale(value: number) {
+  return shouldScaleAbility ? _toScale(value) : value;
+}
+
 export default class BladeDance {
   static Data = {
     ABILITY_IDS: <number[]>[],
     ATTACK_SPEED_SCALING: 8,
     ATTACKS_PER_LEVEL: 10,
-    ATTACK_MELEE_DISTANCE: 150,
-    EXTRA_ATTACK_RANGE: 99999,
-    IS_INVULNERABLE_DURING_CAST: true,
+    getMeleeAttackDistance: () => _toScale(150),
+    getExtraAttackRange: () => toScale(2000),
+    getFindNextRadius: () => toScale(700),
+    getFindIllusionRadius: () => toScale(700),
+    IS_INVULNERABLE_DURING_CAST: false,
   };
 
   static unitsInCast = Group.create();
@@ -30,12 +38,32 @@ export default class BladeDance {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       t.addCondition(() => GetSpellAbilityId() === abilityId);
       t.addAction(() => {
-        new BladeDance(
-          GetSpellAbilityId(),
-          Unit.fromHandle(GetSpellAbilityUnit()),
-          Unit.fromHandle(GetSpellTargetUnit()),
-          GetUnitAbilityLevel(GetSpellAbilityUnit(), GetSpellAbilityId()),
+        const caster = Unit.fromHandle(GetSpellAbilityUnit());
+        const target = Unit.fromHandle(GetSpellTargetUnit());
+        const abilityId = GetSpellAbilityId();
+        const abilityLevel = caster.getAbilityLevel(abilityId);
+
+        const nearbyCasterIllusions = GetUnitsInRangeOfXYMatching(
+          this.Data.getFindIllusionRadius(),
+          getUnitXY(caster),
+          () => Unit.fromFilter().typeId === caster.typeId
+            && Unit.fromFilter().owner === caster.owner
+            && Unit.fromFilter().isIllusion(),
         );
+
+        const attackers: Unit[] = [
+          caster,
+          ...nearbyCasterIllusions,
+        ];
+
+        for (const attacker of attackers) {
+          new BladeDance(
+            abilityId,
+            attacker,
+            target,
+            abilityLevel,
+          );
+        }
       });
     });
   }
@@ -50,9 +78,9 @@ export default class BladeDance {
 
   private attackCount = 0;
 
-  private onAttack: Trigger;
+  private onAttackTrigger: Trigger;
 
-  private onTargetDeath: Trigger;
+  private onTargetDeathTrigger: Trigger;
 
   private timerAttack: Timer;
 
@@ -87,7 +115,7 @@ export default class BladeDance {
     for (let weaponIndex = 0; weaponIndex < 2; weaponIndex++) {
       this.caster.setAttackCooldown(this.caster.getAttackCooldown(weaponIndex) / BladeDance.Data.ATTACK_SPEED_SCALING, weaponIndex);
       const currentAttackRange = getAttackRange(this.caster, weaponIndex);
-      setAttackRange(this.caster, weaponIndex, currentAttackRange + BladeDance.Data.EXTRA_ATTACK_RANGE);
+      setAttackRange(this.caster, weaponIndex, currentAttackRange + BladeDance.Data.getExtraAttackRange());
     }
     this.isCasterMeleeUnit = this.caster.isUnitType(UNIT_TYPE_MELEE_ATTACKER);
 
@@ -102,13 +130,13 @@ export default class BladeDance {
     BlzSetSpecialEffectScale(this.weaponEffect, 1);
 
     // watch for each attack
-    this.onAttack = buildTrigger((t) => {
+    this.onAttackTrigger = buildTrigger((t) => {
       t.addCondition(() => GetEventDamageSource() === caster.handle && BlzGetEventDamageType() === DAMAGE_TYPE_NORMAL);
       t.addAction(() => this.onEachAttack());
     });
 
     // watch for when target is dead
-    this.onTargetDeath = buildTrigger((t) => {
+    this.onTargetDeathTrigger = buildTrigger((t) => {
       t.addAction(() => this.handleTargetUnattackable());
     });
 
@@ -137,8 +165,8 @@ export default class BladeDance {
 
   setTarget(newTarget: Unit) {
     this.target = newTarget;
-    this.onAttack.registerUnitEvent(this.target, EVENT_UNIT_DAMAGED);
-    this.onTargetDeath.registerUnitEvent(this.target, EVENT_UNIT_DEATH);
+    this.onAttackTrigger.registerUnitEvent(this.target, EVENT_UNIT_DAMAGED);
+    this.onTargetDeathTrigger.registerUnitEvent(this.target, EVENT_UNIT_DEATH);
   }
 
   onEachAttack() {
@@ -167,7 +195,7 @@ export default class BladeDance {
       let newLoc: Loc;
       if (this.isCasterMeleeUnit) {
         const angle = AngleBetweenLocs(casterLoc, targetLoc) + GetRandomReal(-30, 30);
-        newLoc = PolarProjection(targetLoc, BladeDance.Data.ATTACK_MELEE_DISTANCE, angle);
+        newLoc = PolarProjection(targetLoc, BladeDance.Data.getMeleeAttackDistance(), angle);
       } else {
         newLoc = PolarProjection(casterLoc, GetRandomReal(0, 50), GetRandomDirectionDeg());
       }
@@ -178,8 +206,8 @@ export default class BladeDance {
   }
 
   endSpell() {
-    this.onAttack.destroy();
-    this.onTargetDeath.destroy();
+    this.onAttackTrigger.destroy();
+    this.onTargetDeathTrigger.destroy();
     this.timerAttack.destroy();
     this.timerIdle1.pause();
     this.timerIdle1.destroy();
@@ -190,7 +218,7 @@ export default class BladeDance {
     for (let weaponIndex = 0; weaponIndex < 2; weaponIndex++) {
       this.caster.setAttackCooldown(this.caster.getAttackCooldown(weaponIndex) * BladeDance.Data.ATTACK_SPEED_SCALING, weaponIndex);
       const currentAttackRange = getAttackRange(this.caster, weaponIndex);
-      setAttackRange(this.caster, weaponIndex, currentAttackRange - BladeDance.Data.EXTRA_ATTACK_RANGE);
+      setAttackRange(this.caster, weaponIndex, currentAttackRange - BladeDance.Data.getExtraAttackRange());
     }
     this.caster.setPathing(true);
     if (BladeDance.Data.IS_INVULNERABLE_DURING_CAST) {
@@ -214,7 +242,7 @@ export default class BladeDance {
   }
 
   findNextTarget(loc: Loc): Unit {
-    const candidates = GetUnitsInRangeOfXYMatching(500, loc, () => {
+    const candidates = GetUnitsInRangeOfXYMatching(toScale(BladeDance.Data.getFindNextRadius()), loc, () => {
       const matchingUnit = Group.getFilterUnit();
       return (
         matchingUnit.isAlive()

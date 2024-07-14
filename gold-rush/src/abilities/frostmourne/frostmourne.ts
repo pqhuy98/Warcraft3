@@ -1,7 +1,7 @@
+import { toScale as _toScale } from 'events/small_unit_model/small_unit_model.constant';
 import { k0, k1 } from 'lib/debug/key_counter';
 import {
   AngleBetweenLocs, DistanceBetweenLocs, PolarProjection,
-  temp,
 } from 'lib/location';
 import { MODEL_ZigguratMissile } from 'lib/resources/war3-models';
 import { checkUnitFlag, Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
@@ -14,6 +14,7 @@ import {
   getDummyMaster,
   isBuilding,
   isWard,
+  safeRemoveDummy,
 } from 'lib/unit';
 import {
   Effect,
@@ -21,14 +22,19 @@ import {
   Unit,
 } from 'w3ts';
 
+const shouldScaleAbility = true;
+function toScale(value: number) {
+  return shouldScaleAbility ? _toScale(value) : value;
+}
+
 export default class Frostmourne {
   static Data = {
     ABILITY_IDS: <number[]>[],
-    SOUL_RETURN_SPEED: 700,
     SOUL_MODEL: MODEL_ZigguratMissile,
     LIFE_PERCENT_RESTORED_PER_SOUL: 0.02,
     MANA_PERCENT_RESTORED_PER_SOUL: 0.01,
-    SOUL_EFFECT_FINAL_HEIGHT: 150,
+    getSoulReturnSpeed: () => toScale(700),
+    getSoulEffectFinalHeight: () => toScale(150),
     targetMatching: (killer: Unit, victim: Unit) => !victim.isAlive()
       && !victim.isUnitType(UNIT_TYPE_MECHANICAL)
       && !victim.isIllusion()
@@ -62,14 +68,17 @@ export default class Frostmourne {
       });
     });
 
-    const interval = 0.03;
+    const worldBound = Rectangle.getWorldBounds();
 
+    const interval = 0.03;
     setIntervalIndefinite(interval, () => {
-      const worldBound = temp(Rectangle.getWorldBounds());
+      if (this.soulTarget.size === 0) return;
+
+      const distancePerStep = Frostmourne.Data.getSoulReturnSpeed() * interval;
 
       for (const soul of this.soulTarget.keys()) {
         const target = this.soulTarget.get(soul);
-        if (!target || DistanceBetweenLocs(soul, target) < Frostmourne.Data.SOUL_RETURN_SPEED * interval) {
+        if (!target || DistanceBetweenLocs(soul, target) < distancePerStep) {
           if (target.isAlive()) {
             const scale = this.soulScale.get(soul) ?? 1;
             target.life += target.maxLife * (0.25 + scale) * Frostmourne.Data.LIFE_PERCENT_RESTORED_PER_SOUL;
@@ -85,12 +94,12 @@ export default class Frostmourne {
           this.soulScale.delete(soul);
 
           eff.destroy();
-          soul.destroy();
+          safeRemoveDummy(soul);
 
           k1('fstm');
           k1('fstm2');
         } else {
-          const newLoc = PolarProjection(soul, Frostmourne.Data.SOUL_RETURN_SPEED * interval, AngleBetweenLocs(soul, target));
+          const newLoc = PolarProjection(soul, distancePerStep, AngleBetweenLocs(soul, target));
           soul.x = newLoc.x;
           soul.y = newLoc.y;
         }
@@ -106,16 +115,17 @@ export default class Frostmourne {
     const scale = Math.min(2, victim.level / 5);
     setTimeout(GetRandomReal(0, scale), () => {
       const soul = createDummy(killer.owner, victim.x, victim.y, killer, 0);
-      soul.setScale(scale, scale, scale);
+      soul.setScale(toScale(scale), 0, 0);
       this.soulScale.set(soul, scale);
       const effect = Effect.createAttachment(Frostmourne.Data.SOUL_MODEL, soul, 'origin');
 
       this.soulTarget.set(soul, killer);
       this.soulEffect.set(soul, effect);
 
-      const estimatedReturnTime = DistanceBetweenLocs(victim, killer) / Frostmourne.Data.SOUL_RETURN_SPEED;
-      const speed = Frostmourne.Data.SOUL_EFFECT_FINAL_HEIGHT / estimatedReturnTime;
-      soul.setflyHeight(Frostmourne.Data.SOUL_EFFECT_FINAL_HEIGHT, speed);
+      const estimatedReturnTime = DistanceBetweenLocs(victim, killer) / Frostmourne.Data.getSoulReturnSpeed();
+      const finalHeight = Frostmourne.Data.getSoulEffectFinalHeight();
+      const speed = finalHeight / estimatedReturnTime;
+      soul.setflyHeight(finalHeight, speed);
       k0('fstm2');
     });
   }

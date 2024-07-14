@@ -1,4 +1,5 @@
 import { ChainLightningMulticast } from 'abilities/chain_lightning/chain_lightning_multicast';
+import { setAbilityEffectRange, toScale as _toScale } from 'events/small_unit_model/small_unit_model.constant';
 import { ABILITY_ID_CHAIN_LIGHTNING, SUPPORT_ABILITY_ID_THUNDER_CLAP } from 'lib/constants';
 import {
   fromTempLocation,
@@ -15,12 +16,17 @@ import {
 import { classic } from 'lib/utils';
 import { Unit } from 'w3ts';
 
+const shouldScaleAbility = true;
+function toScale(value: number) {
+  return shouldScaleAbility ? _toScale(value) : value;
+}
+
 const MODEL_ThunderclapCaster_classic = classic(MODEL_ThunderclapCaster);
 const MODEL_BoltImpact_classic = classic(MODEL_BoltImpact);
 
 export class ThunderBlink {
   static Data = {
-    EFFECT_RADIUS: 600,
+    getEffectRadius: () => toScale(600),
     targetMatching: (caster: Unit, matchingUnit: Unit) => matchingUnit.isAlive()
       && !matchingUnit.invulnerable
       && matchingUnit.isEnemy(caster.getOwner())
@@ -50,18 +56,23 @@ export class ThunderBlink {
     abilityLevel: number,
   ) {
     const casterLoc = getUnitXY(caster);
-    const radius = ThunderBlink.Data.EFFECT_RADIUS;
+    const casterScale = caster.getField(UNIT_RF_SCALING_VALUE) as number;
+    const radius = ThunderBlink.Data.getEffectRadius();
 
     // Thunder Clap in place
     const dummy1 = createDummy(caster.owner, casterLoc.x, casterLoc.y, caster, 1);
+    dummy1.setScale(casterScale, 0, 0);
     dummy1.addAbility(SUPPORT_ABILITY_ID_THUNDER_CLAP);
     dummy1.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel);
+    setAbilityEffectRange(dummy1, SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel, radius);
     dummy1.issueImmediateOrder(ORDER_thunderclap);
 
     // Thunder Clap at target
     const dummy2 = createDummy(caster.owner, targetLoc.x, targetLoc.y, caster, 1);
+    dummy2.setScale(casterScale, 0, 0);
     dummy2.addAbility(SUPPORT_ABILITY_ID_THUNDER_CLAP);
     dummy2.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel);
+    setAbilityEffectRange(dummy2, SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel, radius);
     dummy2.issueImmediateOrder(ORDER_thunderclap);
 
     const blinkEffect1 = AddSpecialEffect(MODEL_ThunderclapCaster_classic, casterLoc.x, casterLoc.y);
@@ -81,17 +92,19 @@ export class ThunderBlink {
     const anglePhase = GetRandomDirectionDeg();
 
     const numberEffects = GetRandomInt(4, 6);
-    const layers = Math.max(1, Math.floor(radius / 250));
-    const effectStep = (radius - 125) / layers;
+    const layers = 2;
+    const effectStep = (radius - toScale(125)) / layers;
     for (let j = 0; j < layers; j++) {
       for (let i = 0; i < (j + 1) * numberEffects; i++) {
         const loc1 = PolarProjection(targetLoc, (j + 1) * effectStep, i * 360 / numberEffects + j * anglePhase);
         const effect1 = AddSpecialEffect(MODEL_ThunderclapCaster_classic, loc1.x, loc1.y);
+        BlzSetSpecialEffectScale(effect1, toScale(1));
         BlzSetSpecialEffectColor(effect1, 255, 0, 0);
         DestroyEffect(effect1);
 
         const loc2 = PolarProjection(targetLoc, (j + 1) * effectStep, i * 360 / numberEffects + j * anglePhase * 2);
         const effect2 = AddSpecialEffect(MODEL_BoltImpact_classic, loc2.x, loc2.y);
+        BlzSetSpecialEffectScale(effect2, toScale(1));
         BlzSetSpecialEffectColor(effect2, 255, 0, 0);
         DestroyEffect(effect2);
       }
@@ -141,12 +154,13 @@ export class ThunderBlink {
 
     const durationPerStep = Math.min(0.1, 2.0 / nearby.length);
     enumUnitsWithDelay(nearby, (enumUnit) => {
-      const dummy2 = createDummy(caster.owner, caster.x, caster.y, caster, 1);
-      ChainLightningMulticast.blackListCaster(dummy2);
-      dummy2.addAbility(ABILITY_ID_CHAIN_LIGHTNING);
-      dummy2.setAbilityLevel(ABILITY_ID_CHAIN_LIGHTNING, abilityLevel);
-      dummy2.issueTargetOrder(ORDER_chainlightning, enumUnit);
-      tieUnitToUnit(dummy2, caster);
+      const dummyCl = createDummy(caster.owner, caster.x, caster.y, caster, 1);
+      dummyCl.setScale(caster.getField(UNIT_RF_SCALING_VALUE) as number, 0, 0);
+      ChainLightningMulticast.blackListCaster(dummyCl);
+      dummyCl.addAbility(ABILITY_ID_CHAIN_LIGHTNING);
+      dummyCl.setAbilityLevel(ABILITY_ID_CHAIN_LIGHTNING, abilityLevel);
+      dummyCl.issueTargetOrder(ORDER_chainlightning, enumUnit);
+      tieUnitToUnit(dummyCl, caster);
     }, durationPerStep);
   }
 }

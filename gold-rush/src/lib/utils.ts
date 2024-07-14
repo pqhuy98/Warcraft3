@@ -40,14 +40,17 @@ export const debounce = <A extends unknown[], B>(
   };
 };
 
-export function shuffleArray<T>(array: T[]): void {
+export function shuffleArray<T>(array: T[], coefficient: number = 1): T[] {
   for (let i = array.length - 1; i > 0; i--) {
-    // Generate a random number between 0 and i (inclusive)
-    const j = Math.floor(Math.random() * (i + 1));
+    if (Math.random() < coefficient) {
+      // Generate a random number between 0 and i (inclusive)
+      const j = Math.floor(Math.random() * (i + 1));
 
-    // Swap the elements at indices i and j
-    [array[i], array[j]] = [array[j], array[i]];
+      // Swap the elements at indices i and j
+      [array[i], array[j]] = [array[j], array[i]];
+    }
   }
+  return array;
 }
 
 export function classic(resourcePath: string) {

@@ -9,7 +9,7 @@ import { ABILITY_ArchMageMassTeleport, ABILITY_ItemTownPortal } from 'lib/resour
 import { SummonManager } from 'lib/systems/summon_manager';
 import { systemConfig } from 'lib/systems/system-config';
 import {
-  buildTrigger, getTimeS, onChatLocal, setIntervalIndefinite, setTimeout,
+  buildTrigger, getTimeS, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
 import { GetUnitsInRangeOfXYMatching, orderUnitUseItemAbilityAtLoc } from 'lib/unit';
 import { shuffleArray } from 'lib/utils';
@@ -82,13 +82,6 @@ export class BaseAi {
 
     this.registerSummons();
     this.buildSkills();
-
-    onChatLocal('-u', true, () => {
-      if (this.hero.isSelected(MapPlayer.fromLocal())) {
-        log('lvlup', this.hero.name);
-        this.hero.setHeroLevel(this.hero.level + 1, true);
-      }
-    });
   }
 
   isPaused() {
@@ -202,7 +195,7 @@ export class BaseAi {
 
     const locs = [
       ...interestingUnitsLocs,
-      ...this.observer.getRecentInterestingEvents(40)
+      ...this.observer.getRecentInterestingEvents()
         .filter((t) => this.config.defendAllyBases && t.type === InterestingEventType.AllyBuildingAttacked
           || this.config.followAllyHeroes && t.type === InterestingEventType.AllyHeroAttack)
         .map((event) => event.location),
@@ -319,34 +312,34 @@ export class BaseAi {
   }
 
   protected buildSkills() {
-    const tryLearnSkills = () => {
-      const skillCounts: Record<number, number> = {};
+    setIntervalIndefinite(1, () => this.tryLearnSkills());
+  }
 
-      for (let i = 0; i < Math.min(this.hero.level, this.skillBuildOrder.length); i++) {
-        const abilityId = this.skillBuildOrder[i];
+  private tryLearnSkills() {
+    const skillCounts: Record<number, number> = {};
 
-        // Update the skill count for the current ability
-        if (!skillCounts[abilityId]) {
-          skillCounts[abilityId] = 0;
-        }
-        skillCounts[abilityId]++;
-
-        if (this.hero.getAbilityLevel(abilityId) < skillCounts[abilityId]) {
-          this.hero.selectSkill(abilityId);
-        }
+    for (let i = 0; i < Math.min(this.hero.level, this.skillBuildOrder.length); i++) {
+      if (this.hero.skillPoints <= 0) {
+        break;
       }
-    };
 
-    buildTrigger((t) => {
-      t.registerUnitEvent(this.hero, EVENT_UNIT_HERO_LEVEL);
-      t.addAction(() => tryLearnSkills());
-    });
-    tryLearnSkills();
+      const abilityId = this.skillBuildOrder[i];
+
+      // Update the skill count for the current ability
+      if (!skillCounts[abilityId]) {
+        skillCounts[abilityId] = 0;
+      }
+      skillCounts[abilityId]++;
+
+      if (this.hero.getAbilityLevel(abilityId) < skillCounts[abilityId]) {
+        this.hero.selectSkill(abilityId);
+      }
+    }
   }
 }
 
 const teleportAbilities = [
   { id: ABILITY_ID_BOOK_OF_TELEPORTATION, isItem: true },
-  { id: FourCC(ABILITY_ItemTownPortal.code), isItem: true },
   { id: FourCC(ABILITY_ArchMageMassTeleport.code), isItem: false },
+  { id: FourCC(ABILITY_ItemTownPortal.code), isItem: true },
 ];

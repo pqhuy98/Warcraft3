@@ -28,12 +28,15 @@ export class LichKingAi extends DarkForceAi {
       return;
     }
 
-    const maxRange = WrathOfTheLichKing.Data.EFFECT_RANGE * 0.75;
+    const maxRange = WrathOfTheLichKing.Data.getEffectRadius() * 0.75;
 
-    const nearbyEnemies = observer.getUnitsInRangeMatching(maxRange, (u) => WrathOfTheLichKing.Data.targetMatching(this.hero, u));
+    const nearbyEnemies = observer.getUnitsInRangeMatching(maxRange, (u) => WrathOfTheLichKing.Data.targetMatching(this.hero, u)
+      && !u.isUnitType(UNIT_TYPE_PEON));
+
     const nearbyEnemyHeroes = observer.getUnitsInRangeMatching(maxRange, (u) => u.isHero()
       && WrathOfTheLichKing.Data.targetMatching(this.hero, u)
       && !u.isIllusion());
+
     if (nearbyEnemies.length >= 8 || nearbyEnemyHeroes.length >= 3) {
       this.hero.issueImmediateOrder(OrderId.Stomp);
     }

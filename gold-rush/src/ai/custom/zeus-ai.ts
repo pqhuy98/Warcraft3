@@ -78,7 +78,7 @@ export class ZeusAi extends LightForceAi {
       } else {
         const nearbyEnemies = observer.getUnitsInRangeMatching(maxRange, (u) => ThunderBlink.Data.targetMatching(this.hero, u));
         if (nearbyEnemies.length > 0) {
-          const targetLoc = findBestCircleCoverMostUnits(nearbyEnemies, ThunderBlink.Data.EFFECT_RADIUS);
+          const targetLoc = findBestCircleCoverMostUnits(nearbyEnemies, ThunderBlink.Data.getEffectRadius());
           this.hero.issueOrderAt(OrderId.Blink, targetLoc.x, targetLoc.y);
         }
       }

@@ -1,6 +1,8 @@
 import { globalUnits } from 'lib/constants';
 import { playSpeech } from 'lib/sound';
-import { buildTrigger, getTimeS } from 'lib/trigger';
+import {
+  buildTrigger, getTimeS,
+} from 'lib/trigger';
 import { pickRandom } from 'lib/utils';
 import { Unit } from 'w3ts';
 
@@ -32,6 +34,14 @@ export class LichKingEvents {
       t.addAction(() => {
         // Create minimap boss icon
         CampaignMinimapIconUnitBJ(globalUnits.heroLichKing.handle, bj_CAMPPINGSTYLE_BOSS);
+
+        // try to give town portal scroll
+        for (let i = 0; i < 6; i++) {
+          const itm = UnitItemInSlot(globalUnits.heroLichKing.handle, i + 1);
+          if (itm != null) continue;
+          globalUnits.heroLichKing.addItemById(FourCC('stwp'));
+          break;
+        }
       });
     });
   }

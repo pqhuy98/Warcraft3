@@ -123,9 +123,7 @@ export class PeriodBuff {
   private auraMap: Set<string> = new Set();
 
   constructor(private target: Unit) {
-    setIntervalIndefinite(10, () => {
-      this.buffTarget();
-    });
+    setIntervalIndefinite(10, () => this.buffTarget());
   }
 
   buffTarget() {
@@ -216,7 +214,7 @@ export class PeriodBuff {
 
     const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
     const scale = this.target.getField(UNIT_RF_SCALING_VALUE) as number;
-    dummy.setScale(scale, scale, scale);
+    dummy.setScale(scale, 0, 0);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     tieUnitToUnit(dummy, this.target);
@@ -243,7 +241,7 @@ export class PeriodBuff {
     const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
     dummy.addAbility(abilityId);
     const scale = this.target.getField(UNIT_RF_SCALING_VALUE) as number;
-    dummy.setScale(scale, scale, scale);
+    dummy.setScale(scale, 0, 0);
     dummy.setAbilityLevel(abilityId, ability.levels);
     tieUnitToUnit(dummy, this.target);
     dummy.issueImmediateOrder(orderId);

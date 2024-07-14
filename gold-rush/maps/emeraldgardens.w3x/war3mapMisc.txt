@@ -15,6 +15,7 @@ MaxGuardDistance=100000.0
 MaxHeroLevel=10000
 MaxLevelHeroesDrainExp=0
 MaxUnitSpeed=522.0
+MinUnitSpeed=0.0
 PawnItemRange=1000.0
 StrAttackBonus=1.5
 UpkeepGoldTax=0.00

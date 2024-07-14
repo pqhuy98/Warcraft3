@@ -8,6 +8,8 @@ declare var gg_snd_lichking_death3: sound;
 declare var gg_snd_lich_king_stab_out: sound;
 declare var gg_snd_lichking_frostmourne_hungers: sound;
 declare var gg_trg_Melee_Initialization: trigger;
+declare var gg_trg_Untitled_Trigger_001: trigger;
+declare var gg_trg_Untitled_Trigger_002: trigger;
 declare var gg_unit_nfoh_0003: unit;
 declare var gg_unit_H002_0191: unit;
 declare var gg_unit_nfoh_0321: unit;

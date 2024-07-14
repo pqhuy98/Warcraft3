@@ -1,9 +1,10 @@
+import { syncDummyAbilityEffectRange } from 'events/small_unit_model/small_unit_model.constant';
 import { k0, k1 } from 'lib/debug/key_counter';
 import { AngleBetweenLocs, fromTempLocation, PolarProjection } from 'lib/location';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
-  createDummy, fadeUnit, isDummy, unitPolarProjection,
+  createDummy, fadeUnit, isDummy, safeRemoveDummy, unitPolarProjection,
 } from 'lib/unit';
 import { Unit } from 'w3ts';
 
@@ -48,13 +49,14 @@ export class MulticastPoint {
           dummy.setflyHeight(caster.getflyHeight(), 0);
           dummy.skin = caster.skin;
           const scale = (caster.getField(UNIT_RF_SCALING_VALUE) as number);
-          dummy.setScale(scale, scale, scale);
+          dummy.setScale(scale, 0, 0);
           dummy.setVertexColor(255, 255, 0, 128);
           dummy.setField(UNIT_RF_CAST_POINT, castPoint);
           dummy.addAbility(abiId);
           dummy.setAbilityLevel(abiId, abiLevel);
           dummy.setAbilityCooldown(abiId, abiLevel, 0);
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 99999);
+          syncDummyAbilityEffectRange(dummy, caster, abiId, abiLevel);
 
           dummy.issueOrderAt(order, dummyCastLoc.x, dummyCastLoc.y);
 
@@ -67,7 +69,7 @@ export class MulticastPoint {
               k1('mcpt');
               k0('mcpt-f');
               fadeUnit(dummy, 255, 255, 0, 128, 128 / 1, () => false, () => {
-                dummy.destroy();
+                safeRemoveDummy(dummy);
                 k1('mcpt-f');
               });
             });

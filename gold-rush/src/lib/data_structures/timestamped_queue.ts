@@ -1,4 +1,5 @@
-import { getTimeS } from 'lib/trigger';
+import { getTimeS, setIntervalIndefinite } from 'lib/trigger';
+import { Timer } from 'w3ts';
 
 export class TimestampedQueue<T> {
   private queue: Array<{ timestamp: number, value: T }> = [];
@@ -7,43 +8,62 @@ export class TimestampedQueue<T> {
 
   private itemExpireS: number;
 
+  private capacity: number;
+
   private cleanUp?: (t: T) => void;
 
-  constructor({ itemExpireS, cleanUp }: { itemExpireS: number, cleanUp?: (t: T) => void }) {
+  private checkExpiredItemsTimer: Timer;
+
+  private destroyed = false;
+
+  constructor({ itemExpireS, capacity = 9999999999, cleanUp }: { itemExpireS: number, capacity?: number, cleanUp?: (t: T) => void }) {
     this.itemExpireS = itemExpireS;
+    this.capacity = capacity;
     this.cleanUp = cleanUp;
+    this.checkExpiredItemsTimer = setIntervalIndefinite(0.5, () => this.checkExpiredItems());
   }
 
-  private currentTimeS(): number {
-    return getTimeS();
+  destroy() {
+    this.destroyed = true;
   }
 
-  private removeExpiredItems(currentTimeS: number): void {
+  private checkExpiredItems(): void {
+    const currentTimeS = getTimeS();
+    const oldStartIdx = this.startIdx;
     while (
       this.startIdx < this.queue.length
-      && (currentTimeS - this.queue[this.startIdx].timestamp) > this.itemExpireS
+      && (
+        (currentTimeS - this.queue[this.startIdx].timestamp) > this.itemExpireS
+        || this.queue.length - this.startIdx > this.capacity
+      )
     ) {
-      this.cleanUp?.(this.queue[this.startIdx].value);
       this.startIdx++;
+    }
+
+    for (let i = oldStartIdx; i < this.startIdx; i++) {
+      this.cleanUp?.(this.queue[i].value);
     }
 
     if (this.startIdx > Math.min(400, this.queue.length / 2)) {
       this.queue = this.queue.slice(this.startIdx);
       this.startIdx = 0;
     }
+
+    if (this.destroyed && this.startIdx === this.queue.length) {
+      this.checkExpiredItemsTimer.pause();
+      this.checkExpiredItemsTimer.destroy();
+      this.queue = [];
+      this.cleanUp = undefined;
+    }
   }
 
   push(item: { timestamp: number, value: T }): void {
-    this.removeExpiredItems(this.currentTimeS());
     this.queue.push(item);
   }
 
-  get(limit?: number): { timestamp: number, value: T }[] {
-    this.removeExpiredItems(this.currentTimeS());
+  get(): { timestamp: number, value: T }[] {
+    this.checkExpiredItems();
     const items = this.queue.slice(this.startIdx);
-    if (limit !== undefined && limit > 0) {
-      return items.slice(-limit);
-    }
     return items;
   }
 

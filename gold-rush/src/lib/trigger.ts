@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { MapPlayer, Timer, Trigger } from 'w3ts';
 
+import { colorize } from './colorize';
 import { k0, k1 } from './debug/key_counter';
 
 export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
@@ -9,7 +10,7 @@ export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
   return t;
 }
 
-export function setTimeout(durationS: number, callback: () => void): Timer {
+export function setTimeout(durationS: number, callback: () => unknown): Timer {
   const t = Timer.create();
   k0('setto');
   t.start(durationS, false, () => {
@@ -23,9 +24,9 @@ export function setTimeout(durationS: number, callback: () => void): Timer {
 
 function setInterval(
   intervalS: number,
-  callback: (index: number, repeat: number) => void | Promise<void>,
+  callback: (index: number, repeat: number) => unknown,
   repeat?: number,
-  cleanup?: () => void | Promise<void>,
+  cleanup?: () => unknown,
 ): Timer {
   k0('setitv');
   const timer = Timer.create();
@@ -60,7 +61,7 @@ function setInterval(
 
 export function setIntervalIndefinite(
   intervalS: number,
-  callback: (index: number, repeat: number) => void | Promise<void>,
+  callback: (index: number, repeat: number) => unknown,
 ): Timer {
   return setInterval(intervalS, callback);
 }
@@ -68,8 +69,8 @@ export function setIntervalIndefinite(
 export function setIntervalFixedCount(
   intervalS: number,
   repeatCount: number,
-  callback: (index: number, repeat: number) => void,
-  cleanup?: () => void,
+  callback: (index: number, repeat: number) => unknown,
+  cleanup?: () => unknown,
 ): Timer {
   return setInterval(intervalS, callback, repeatCount, cleanup);
 }
@@ -77,8 +78,8 @@ export function setIntervalFixedCount(
 export function setIntervalForDuration(
   intervalS: number,
   durationS: number,
-  callback: (index: number, repeat: number) => void,
-  cleanup?: () => void,
+  callback: (index: number, repeat: number) => unknown,
+  cleanup?: () => unknown,
 ): Timer {
   return setInterval(intervalS, callback, durationS / intervalS, cleanup);
 }
@@ -102,9 +103,20 @@ export function getTimeS() {
   return 0;
 }
 
-export function onChatLocal(text: string, exactMatch: boolean, callback: (text: string) => void) {
-  buildTrigger((t) => {
-    t.registerPlayerChatEvent(MapPlayer.fromLocal(), text, exactMatch);
+const commandHelp = new Map<string, string>();
+
+export function onChatCommand(text: string, exactMatch: boolean, callback: (text: string) => unknown, description: string): Trigger {
+  commandHelp.set(text, `${exactMatch ? '(exact)' : '(substring)'} ${description}`);
+  return buildTrigger((t) => {
+    t.registerPlayerChatEvent(MapPlayer.fromLocal(), exactMatch ? text : text.split(' ')[0], exactMatch);
     t.addAction(() => callback(GetEventPlayerChatString()));
   });
+}
+
+export function getHelpMessage() {
+  const result: string[] = [];
+  for (const key of commandHelp.keys()) {
+    result.push(`${colorize.yellow(key)}|n${commandHelp.get(key)}`);
+  }
+  return result;
 }

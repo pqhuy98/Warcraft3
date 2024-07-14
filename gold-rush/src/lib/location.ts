@@ -1,7 +1,7 @@
 import { Point, Unit } from 'w3ts';
 
 import { log } from './log';
-import { onChatLocal, setIntervalIndefinite } from './trigger';
+import { onChatCommand, setIntervalIndefinite } from './trigger';
 
 export const RAD_TO_ANGLE = 180 / Math.PI;
 
@@ -15,9 +15,10 @@ interface Destroyable {
 }
 
 let temps: Destroyable[] = [];
+let nextTemps: Destroyable[] = [];
 
 export function temp<T extends Destroyable>(obj: T): T {
-  temps.push(obj);
+  nextTemps.push(obj);
   return obj;
 }
 
@@ -26,15 +27,16 @@ export function tempLocation(loc: Loc) {
 }
 
 export function daemonTempCleanUp() {
-  onChatLocal('-temp', true, () => {
-    log('Temp destroyable:', temps.length);
-  });
+  onChatCommand('-temp', true, () => {
+    log('Temp destroyable:', temps.length + nextTemps.length);
+  }, 'Print how many pending leakable destroys.');
 
-  setIntervalIndefinite(0.03, () => {
+  setIntervalIndefinite(0.5, () => {
     for (const obj of temps) {
       obj.destroy();
     }
-    temps = [];
+    temps = nextTemps;
+    nextTemps = [];
   });
 }
 

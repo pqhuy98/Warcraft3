@@ -1,6 +1,6 @@
-//================================================================================================== 
-//  $Id: human.ai,v 1.15 2003/04/23 19:26:00 bfitch Exp $ 
-//================================================================================================== 
+//==================================================================================================                                       
+//  $Id: human.ai,v 1.15 2003/04/23 19:26:00 bfitch Exp $                                       
+//==================================================================================================                                       
 globals 
     boolean basic_opening = true 
 
@@ -47,9 +47,9 @@ globals
     integer c_zep = 0 
 endglobals 
 
-//-------------------------------------------------------------------------------------------------- 
-//  set_skills 
-//-------------------------------------------------------------------------------------------------- 
+//--------------------------------------------------------------------------------------------------                                       
+//  set_skills                                       
+//--------------------------------------------------------------------------------------------------                                       
 function set_skills takes nothing returns nothing 
 
     set skill[1] = HOLY_BOLT 
@@ -113,9 +113,9 @@ function set_skills takes nothing returns nothing
     call SetSkillArray(3, BLOOD_MAGE) 
 endfunction 
 
-//-------------------------------------------------------------------------------------------------- 
-//  setup_force 
-//-------------------------------------------------------------------------------------------------- 
+//--------------------------------------------------------------------------------------------------                                       
+//  setup_force                                       
+//--------------------------------------------------------------------------------------------------                                       
 function setup_force takes nothing returns nothing 
     call AwaitMeleeHeroes() 
     call InitMeleeGroup() 
@@ -136,11 +136,11 @@ function setup_force takes nothing returns nothing
     call SetInitialWave(10) 
 endfunction 
 
-//-------------------------------------------------------------------------------------------------- 
-//  force_level 
-//-------------------------------------------------------------------------------------------------- 
+//--------------------------------------------------------------------------------------------------                                       
+//  force_level                                       
+//--------------------------------------------------------------------------------------------------                                       
 function force_level takes nothing returns integer 
-    local integer level = 4 // basic hero 
+    local integer level = 4 // basic hero                                       
     set level = level + 1 * (c_gyro_done) 
     set level = level + 2 * (c_footman_done + c_priest_done + c_sorceress_done) 
     set level = level + 3 * (c_rifleman_done + c_breaker_done + c_hawk_done + c_knight_done + c_mortar_done) 
@@ -150,9 +150,9 @@ function force_level takes nothing returns integer
     return level 
 endfunction 
 
-//-------------------------------------------------------------------------------------------------- 
-//  attack_sequence 
-//-------------------------------------------------------------------------------------------------- 
+//--------------------------------------------------------------------------------------------------                                       
+//  attack_sequence                                       
+//--------------------------------------------------------------------------------------------------                                       
 function attack_sequence takes nothing returns nothing 
     local boolean needs_exp 
     local boolean has_siege 
@@ -189,9 +189,9 @@ function attack_sequence takes nothing returns nothing
     endloop 
 endfunction 
 
-//-------------------------------------------------------------------------------------------------- 
-//  init_vars 
-//-------------------------------------------------------------------------------------------------- 
+//--------------------------------------------------------------------------------------------------                                       
+//  init_vars                                       
+//--------------------------------------------------------------------------------------------------                                       
 function init_vars takes nothing returns nothing 
 
     set c_altar_done = GetUnitCountDone(HUMAN_ALTAR) 
@@ -241,9 +241,9 @@ function init_vars takes nothing returns nothing
     endif 
 endfunction 
 
-//-------------------------------------------------------------------------------------------------- 
-//  set_vars 
-//-------------------------------------------------------------------------------------------------- 
+//--------------------------------------------------------------------------------------------------                                       
+//  set_vars                                       
+//--------------------------------------------------------------------------------------------------                                       
 function set_vars takes nothing returns nothing 
     loop 
         call init_vars() 
@@ -251,9 +251,9 @@ function set_vars takes nothing returns nothing
     endloop 
 endfunction 
 
-//-------------------------------------------------------------------------------------------------- 
-//  do_upgrades 
-//-------------------------------------------------------------------------------------------------- 
+//--------------------------------------------------------------------------------------------------                                       
+//  do_upgrades                                       
+//--------------------------------------------------------------------------------------------------                                       
 function do_upgrades takes nothing returns nothing 
 
     if c_keep_done >= 1 then 
@@ -352,13 +352,18 @@ function do_upgrades takes nothing returns nothing
     endif 
 endfunction 
 
-//-------------------------------------------------------------------------------------------------- 
-//  build_sequence 
-//-------------------------------------------------------------------------------------------------- 
+//--------------------------------------------------------------------------------------------------                                       
+//  build_sequence                                       
+//--------------------------------------------------------------------------------------------------                                       
 function build_sequence takes nothing returns nothing 
     local integer peasants 
 
     call InitBuildArray() 
+
+    // get enough burrows to handle current food demand                                      
+    if c_peasant_done >= 1 and c_food_used + 5 >= c_food_made then 
+        call SetBuildUnit(c_house_done + 1, HOUSE) 
+    endif 
 
     if basic_opening then 
 
@@ -387,12 +392,8 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit(16, PEASANT) 
         call SetBuildUnit(5, FOOTMAN) 
         call SetBuildUnit(1, BLACKSMITH) 
-        call SetBuildUnit(6, FOOTMAN) 
-        call SetBuildUnit(5, HOUSE) 
         call SetBuildUnit(8, FOOTMAN) 
-        call SetBuildUnit(6, HOUSE) 
         call SetBuildUnit(2, RIFLEMAN) 
-        call SetBuildUnit(7, HOUSE) 
         call SetBuildUnit(3, RIFLEMAN) 
         call SetBuildUnit(1, ARCANE_VAULT) 
 
@@ -412,7 +413,6 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit(1, KEEP) 
         call SetBuildUpgr(1, UPG_DEFEND) 
         call SetBuildUpgr(1, UPG_ARMOR) 
-        call SetBuildUnit(7, HOUSE) 
         call SetBuildUpgr(1, UPG_MELEE) 
 
         if c_keep_done < 1 then 
@@ -442,8 +442,7 @@ function build_sequence takes nothing returns nothing
         return 
     endif 
 
-    // need a peasant or nothing will get built 
-    // 
+    // need a peasant or nothing will get built                                       
     if c_hall_done >= 1 then 
         set peasants = 6 - GetWood() / 200 
         if peasants < 3 then 
@@ -460,8 +459,7 @@ function build_sequence takes nothing returns nothing
         call SetBuildNext(peasants, PEASANT) 
     endif 
 
-    // need a hall or we can't resource and make more peasants 
-    // 
+    // need a hall or we can't resource and make more peasants                                       
     if c_hall < 1 and c_peasant_done >= 1 then 
         call MeleeTownHall(0, TOWN_HALL) 
         call MeleeTownHall(1, TOWN_HALL) 
@@ -473,14 +471,7 @@ function build_sequence takes nothing returns nothing
     endif 
 
 
-    // get enough burrows to handle current food demand 
-    // 
-    if c_food_used + 5 >= c_food_made then 
-        call SetBuildUnit(c_house_done + 1, HOUSE) 
-    endif 
-
-    // always rebuild heroes for defense 
-    // 
+    // always rebuild heroes for defense                                       
     if c_altar_done >= 1 then 
         if b_hero1_done then 
             if b_hero2_done then 
@@ -497,36 +488,33 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit(1, HUMAN_ALTAR) 
     endif 
 
-    // minimum melee defense 
-    // 
+    // minimum melee defense                                       
     call SetBuildUnit(1, BARRACKS) 
     if b_knights_ok then 
         call SetBuildUnit(2, KNIGHT) 
     endif 
 
-    call SetBuildUnit(3, FOOTMAN) 
+    call SetBuildUnit(4, FOOTMAN) 
 
-    // minimum ranged/air defense 
-    // 
+    // minimum ranged/air defense                                       
     if c_aviary_done >= 1 then 
-        call SetBuildUnit(2, GRYPHON) 
+        call SetBuildUnit(1, GRYPHON) 
     endif 
 
     call SetBuildUnit(1, BLACKSMITH) 
     if c_smith_done >= 1 then 
-        call SetBuildUnit(3, RIFLEMEN) 
+        call SetBuildUnit(2, RIFLEMEN) 
     endif 
 
-    // siege attackers 
-    // 
+    // siege attackers                                       
     call SetBuildUnit(1, KEEP) 
     call SetBuildUnit(1, WORKSHOP) 
-    call SetBuildUnit(2, MORTAR) 
+    call SetBuildUnit(1, MORTAR) 
 
     
     call SetBuildUnit(1, SANCTUM) 
-    call SetBuildNext(2, PRIEST) 
-    call SetBuildNext(2, SORCERESS) 
+    call SetBuildNext(1, PRIEST) 
+    call SetBuildNext(1, SORCERESS) 
 
     call BasicExpansion(c_mines < 2, TOWN_HALL) 
     call GuardSecondary(1, 2, WATCH_TOWER) 
@@ -542,8 +530,7 @@ function build_sequence takes nothing returns nothing
         call GuardSecondary(2, 1, ARCANE_TOWER) 
     endif 
 
-    // if we have a lot of gold then advance the tech tree 
-    // 
+    // if we have a lot of gold then advance the tech tree                                       
     if c_gold > 1000 then 
         call SetBuildUnit(1, ARCANE_VAULT) 
         call SetBuildUnit(1, BLACKSMITH) 
@@ -564,12 +551,11 @@ function build_sequence takes nothing returns nothing
         call do_upgrades() 
     endif 
 
-    // full up with more troops in general 
-    // 
+    // full up with more troops in general                                       
 
     if c_sanctum_done >= 1 then 
-        call SetBuildNext(2, PRIEST) 
-        call SetBuildNext(2, SORCERESS) 
+        call SetBuildNext(1, PRIEST) 
+        call SetBuildNext(1, SORCERESS) 
         call SetBuildNext(2, SPELL_BREAKER) 
     endif 
 
@@ -578,7 +564,7 @@ function build_sequence takes nothing returns nothing
     endif 
 
     if c_aviary_done >= 1 then 
-        call SetBuildNext(2, GRYPHON) 
+        call SetBuildNext(1, GRYPHON) 
         call SetBuildNext(2, HUMAN_DRAGON_HAWK) 
     endif 
 
@@ -590,9 +576,9 @@ function build_sequence takes nothing returns nothing
 
 endfunction 
 
-//-------------------------------------------------------------------------------------------------- 
-//  peon_assignment 
-//-------------------------------------------------------------------------------------------------- 
+//--------------------------------------------------------------------------------------------------                                       
+//  peon_assignment                                       
+//--------------------------------------------------------------------------------------------------                                       
 function peon_assignment takes nothing returns nothing 
     local integer T 
     loop 
@@ -617,9 +603,9 @@ function peon_assignment takes nothing returns nothing
     endloop 
 endfunction 
 
-//-------------------------------------------------------------------------------------------------- 
-//	main 
-//-------------------------------------------------------------------------------------------------- 
+//--------------------------------------------------------------------------------------------------                                       
+//	main                                       
+//--------------------------------------------------------------------------------------------------                                       
 function main takes nothing returns nothing 
     call PickMeleeHero(RACE_HUMAN) 
     call set_skills() 

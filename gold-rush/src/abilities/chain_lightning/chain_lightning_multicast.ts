@@ -1,3 +1,4 @@
+import { syncDummyAbilityEffectRange, toScale as _toScale } from 'events/small_unit_model/small_unit_model.constant';
 import { getUnitXY } from 'lib/location';
 import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
 import {
@@ -9,10 +10,16 @@ import {
   Group, Unit,
 } from 'w3ts';
 
+const shouldScaleAbility = true;
+function toScale(value: number) {
+  return shouldScaleAbility ? _toScale(value) : value;
+}
+
 export class ChainLightningMulticast {
   private static dummies: Group;
 
   static Data = {
+    getEffectRadius: () => toScale(500),
     targetMatching: (caster: Unit, originalTarget: Unit, matchingUnit: Unit) => matchingUnit.isAlive()
       && matchingUnit.isEnemy(caster.owner)
       && !matchingUnit.invulnerable
@@ -55,7 +62,7 @@ export class ChainLightningMulticast {
     const order = caster.currentOrder;
 
     const nearby = GetUnitsInRangeOfXYMatching(
-      500,
+      ChainLightningMulticast.Data.getEffectRadius(),
       targetLoc,
       () => ChainLightningMulticast.Data.targetMatching(caster, target, Unit.fromFilter()),
     );
@@ -66,6 +73,7 @@ export class ChainLightningMulticast {
       ChainLightningMulticast.dummies.addUnit(dummy);
       dummy.addAbility(abilityId);
       dummy.setAbilityLevel(abilityId, abilityLevel);
+      syncDummyAbilityEffectRange(dummy, caster, abilityId, abilityLevel);
       dummy.issueTargetOrder(order, enumUnit);
       tieUnitToUnit(dummy, caster);
     }, durationPerStep);
