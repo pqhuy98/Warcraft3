@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { MapPlayer, Timer, Trigger } from 'w3ts';
+import { Timer, Trigger } from 'w3ts';
 
-import { colorize } from './colorize';
 import { k0, k1 } from './debug/key_counter';
 
 export function buildTrigger(wrapper: (t: Trigger) => void): Trigger {
@@ -101,22 +100,4 @@ export function getTimeS() {
     return infiniteTimer.elapsed;
   }
   return 0;
-}
-
-const commandHelp = new Map<string, string>();
-
-export function onChatCommand(text: string, exactMatch: boolean, callback: (text: string) => unknown, description: string): Trigger {
-  commandHelp.set(text, `${exactMatch ? '(exact)' : '(substring)'} ${description}`);
-  return buildTrigger((t) => {
-    t.registerPlayerChatEvent(MapPlayer.fromLocal(), exactMatch ? text : text.split(' ')[0], exactMatch);
-    t.addAction(() => callback(GetEventPlayerChatString()));
-  });
-}
-
-export function getHelpMessage() {
-  const result: string[] = [];
-  for (const key of commandHelp.keys()) {
-    result.push(`${colorize.yellow(key)}|n${commandHelp.get(key)}`);
-  }
-  return result;
 }

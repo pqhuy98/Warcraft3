@@ -1,3 +1,4 @@
+import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import {
   AngleBetweenLocs, DistanceBetweenLocs, getUnitXY, Loc, PolarProjection,
   tempLocation,
@@ -8,7 +9,7 @@ import {
 
 import { k0, k1 } from './debug/key_counter';
 import { log } from './log';
-import { onChatCommand, setIntervalForDuration, setIntervalIndefinite } from './trigger';
+import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
 export const BUFF_ID_GENERIC = FourCC('BTLF');
 export const UNIT_ID_DUMMY = FourCC('h000:hfoo');
@@ -118,7 +119,7 @@ export function daemonTieUnitToUnit() {
     }
   });
 
-  onChatCommand('-tu2u', true, () => { log('unitTies', unitTies.size); }, 'Print number of units that are tied to another unit.');
+  onChatCommand('-tu2u', true, () => { log('unitTies', unitTies.size); }, 'Debug', 'Print number of units that are tied to another unit.');
 }
 
 function relocateUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
@@ -185,8 +186,8 @@ export function daemonDummyMaster() {
     }
   });
 
-  onChatCommand('-dm', true, () => { log('dummyMaster', dummyMaster.size); }, 'Print number of current active dummies.');
-  onChatCommand('-dmc', true, () => { log('dummy created count', dummyCreatedCount); }, 'Print number of dummies ever created.');
+  onChatCommand('-dm', true, () => { log('dummyMaster', dummyMaster.size); }, 'Debug', 'Print number of current active dummies.');
+  onChatCommand('-dmc', true, () => { log('dummy created count', dummyCreatedCount); }, 'Debug', 'Print number of dummies ever created.');
 }
 
 export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {

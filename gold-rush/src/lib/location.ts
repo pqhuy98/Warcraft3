@@ -1,7 +1,8 @@
+import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { Point, Unit } from 'w3ts';
 
 import { log } from './log';
-import { onChatCommand, setIntervalIndefinite } from './trigger';
+import { setIntervalIndefinite } from './trigger';
 
 export const RAD_TO_ANGLE = 180 / Math.PI;
 
@@ -29,7 +30,7 @@ export function tempLocation(loc: Loc) {
 export function daemonTempCleanUp() {
   onChatCommand('-temp', true, () => {
     log('Temp destroyable:', temps.length + nextTemps.length);
-  }, 'Print how many pending leakable destroys.');
+  }, 'Debug', 'Print how many pending leakable destroys.');
 
   setIntervalIndefinite(0.5, () => {
     for (const obj of temps) {

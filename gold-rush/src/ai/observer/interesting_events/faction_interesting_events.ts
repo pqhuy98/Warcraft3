@@ -1,9 +1,10 @@
+import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { globalUnits } from 'lib/constants';
 import { TimestampedQueue } from 'lib/data_structures/timestamped_queue';
 import { getUnitXY } from 'lib/location';
 import { log } from 'lib/log';
 import { DamageStochasticObserver } from 'lib/systems/damage_observer';
-import { getTimeS, onChatCommand } from 'lib/trigger';
+import { getTimeS } from 'lib/trigger';
 import { MapPlayer } from 'w3ts';
 
 import { InterestingEvent, InterestingEventType } from './interesting_events.model';
@@ -56,7 +57,7 @@ export class FactionInterestingEvents {
     onChatCommand('-qs', true, () => {
       log('Queue size (light):', this.recentInterestingEventsLight.getValidLength(), this.recentInterestingEventsLight.getTrueLength());
       log('Queue size (dark):', this.recentInterestingEventsDark.getValidLength(), this.recentInterestingEventsDark.getTrueLength());
-    }, 'Print current size of AI\'s interesting events queue.');
+    }, 'Debug', 'Print current size of AI\'s interesting events queue.');
   }
 
   static getRecentInterestingEvents(player: MapPlayer): InterestingEvent[] {

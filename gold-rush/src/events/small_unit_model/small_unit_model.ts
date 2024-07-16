@@ -1,8 +1,9 @@
 import BladeDance from 'abilities/blade_dance/blade_dance';
+import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { temp } from 'lib/location';
 import { log } from 'lib/log';
 import {
-  buildTrigger, onChatCommand, setIntervalIndefinite,
+  buildTrigger, setIntervalIndefinite,
 } from 'lib/trigger';
 import {
   getAttackRange, isBuilding, isDummy, setAttackRange,
@@ -22,7 +23,7 @@ export class SmallUnitModel {
     && !isDummy(unit);
 
   static register() {
-    onChatCommand('-scale', true, () => log('scalingFactor', constants.scalingFactor), "Print current global unit's scaling factor.");
+    onChatCommand('-scale', true, () => log('scalingFactor', constants.scalingFactor), 'UI & scaling', "Print current global unit's scaling factor.");
     onChatCommand('-scale $1', false, (msg) => {
       const factor = Math.max(0.5, Math.min(1.5, parseFloat(msg.split(' ')[1])));
       constants.scalingFactor = factor;
@@ -35,7 +36,7 @@ export class SmallUnitModel {
           this.updateUnit(Unit.fromEnum());
         }
       });
-    }, 'Set global unit\'s scaling factor, e.g. "-scale 0.5"');
+    }, 'UI & scaling', 'Set global unit\'s scaling factor, e.g. "-scale 0.5"');
 
     temp(Group.fromHandle(GetUnitsInRectAll(GetWorldBounds()))).for(() => {
       if (this.filterCondition(Unit.fromEnum())) {
@@ -60,7 +61,7 @@ export class SmallUnitModel {
         SetCameraField(CAMERA_FIELD_TARGET_DISTANCE, initialCameraDistance * constants.cameraDistanceFactor, 0.1);
       }
     });
-    onChatCommand('-camlock', true, () => { isCameraFixed = !isCameraFixed; }, 'Toggle camera height lock.');
+    onChatCommand('-camlock', true, () => { isCameraFixed = !isCameraFixed; }, 'UI & scaling', 'Toggle camera height lock.');
   }
 
   private static updateUnit(unit: Unit) {

@@ -16,6 +16,7 @@ import { LightForceAi } from 'ai/light_force_ai';
 import { FactionInterestingEvents } from 'ai/observer/interesting_events/faction_interesting_events';
 import { BuildingSelectionCircle } from 'events/building_selection_circle/building_selection_circle';
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
+import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { LichKingEvents } from 'events/lich_king/lich_king_events';
 import { PeriodBuff } from 'events/period_buff/period_buff';
 import {
@@ -64,7 +65,7 @@ import { registerDialogues } from 'lib/sound';
 import { DamageStochasticObserver } from 'lib/systems/damage_observer';
 import { SummonManager } from 'lib/systems/summon_manager';
 import {
-  getTimeS, onChatCommand, setIntervalIndefinite, setTimeout, trackElapsedGameTime,
+  getTimeS, setIntervalIndefinite, setTimeout, trackElapsedGameTime,
 } from 'lib/trigger';
 import {
   daemonDummyMaster, daemonTieUnitToUnit,
@@ -373,7 +374,7 @@ function configurePlayerSettings() {
       }
       default:
     }
-  }, 'Change your faction. Valid values for $1 are "light", "dark", "observer".');
+  }, 'GameControl', 'Change your faction. Valid values for $1 are "light", "dark", "observer".');
 }
 
 function registerAi() {

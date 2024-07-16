@@ -1,6 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
+import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { log } from 'lib/log';
-import { buildTrigger, onChatCommand, setIntervalIndefinite } from 'lib/trigger';
+import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
 import { getDummyMaster, isBuilding } from 'lib/unit';
 import { Force, MapPlayer, Unit } from 'w3ts';
 
@@ -62,7 +63,7 @@ export class DamageStochasticObserver {
     onChatCommand('-dmg', true, () => {
       log('Building damage observer - actual rate', buildingDmgRateTracker.averageRate, 'enqueue rate', buildingDmgRateTracker.averageRate);
       log('Hero damage observer - actual rate', heroDmgRateTracker.averageRate, 'enqueue rate', heroEnqueueRateTracker.averageRate);
-    }, 'Print damage observer statstics.');
+    }, 'Debug', 'Print damage observer statstics.');
   }
 }
 

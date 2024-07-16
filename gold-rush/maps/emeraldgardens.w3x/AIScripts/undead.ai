@@ -1,6 +1,6 @@
-//==================================================================================================                                                
-//  Undead Melee Strategic AI                                                
-//==================================================================================================                                                
+//==================================================================================================                                                    
+//  Undead Melee Strategic AI                                                    
+//==================================================================================================                                                    
 globals 
     boolean basic_opening = true 
 
@@ -9,12 +9,13 @@ globals
     boolean b_hero3_done = false 
     boolean b_sphinx_ok = false 
 
-    integer AG = 0 // attacking ghouls                                                
-    integer WG = 0 // wood ghouls                                                
+    integer AG = 0 // attacking ghouls                                                    
+    integer WG = 0 // wood ghouls                                                    
 
     integer c_abom = 0 
     integer c_abom_done = 0 
     integer c_acolyte = 0 
+    integer c_acolyte_done = 0 
     integer c_altar_done = 0 
     integer c_banshee = 0 
     integer c_banshee_done = 0 
@@ -58,9 +59,9 @@ globals
     integer c_zig_done = 0 
 endglobals 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  set_skills                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  set_skills                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function set_skills takes nothing returns nothing 
 
     set skill[1] = FROST_NOVA 
@@ -148,9 +149,9 @@ function set_skills takes nothing returns nothing
     call SetSkillArray(3, CRYPT_LORD) 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  setup_force                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  setup_force                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function setup_force takes nothing returns nothing 
     call AwaitMeleeHeroes() 
     call InitMeleeGroup() 
@@ -175,11 +176,11 @@ function setup_force takes nothing returns nothing
     call SetInitialWave(10) 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  force_level                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  force_level                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function force_level takes nothing returns integer 
-    local integer level = 4 // basic hero                                                
+    local integer level = 4 // basic hero                                                    
     set level = level + 2 * (AG + c_necro_done + c_banshee_done + c_statue_done) 
     set level = level + 3 * (c_fiend_done + c_garg_done + c_sphinx_done) 
     set level = level + 4 * c_abom_done 
@@ -197,7 +198,7 @@ function AttackMoveKillSuicide takes unit target returns nothing
 
     debug call Trace("AttackMoveKillA\n") 
     call AttackMoveKill(target) 
-    // call SleepInCombat()                                                
+    // call SleepInCombat()                                                    
 endfunction 
 
 function AnyPlayerSuicide takes nothing returns nothing 
@@ -219,9 +220,9 @@ function AnyPlayerSuicide takes nothing returns nothing
     set hall = null 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  attack_sequence                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  attack_sequence                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function attack_sequence takes nothing returns nothing 
     local boolean needs_exp 
     local boolean has_siege 
@@ -277,14 +278,15 @@ function attack_sequence takes nothing returns nothing
     endloop 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  init_vars                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  init_vars                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function init_vars takes nothing returns nothing 
 
     set c_abom = GetUnitCount(ABOMINATION) 
     set c_abom_done = GetUnitCountDone(ABOMINATION) 
     set c_acolyte = GetUnitCount(ACOLYTE) 
+    set c_acolyte_done = GetUnitCountDone(ACOLYTE) 
     set c_altar_done = GetUnitCountDone(UNDEAD_ALTAR) 
     set c_banshee = GetUnitCount(BANSHEE) 
     set c_banshee_done = GetUnitCountDone(BANSHEE) 
@@ -344,9 +346,9 @@ function init_vars takes nothing returns nothing
     endif 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  set_vars                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  set_vars                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function set_vars takes nothing returns nothing 
     loop 
         call init_vars() 
@@ -354,18 +356,18 @@ function set_vars takes nothing returns nothing
     endloop 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  undead_mine                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  undead_mine                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function undead_mine takes integer townid returns nothing 
     if c_gold < 1000 and TownHasMine(townid) then 
         call SecondaryTown(townid, 1, UNDEAD_MINE) 
     endif 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  do_upgrades                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  do_upgrades                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function do_upgrades takes nothing returns nothing 
 
     if c_halls_done >= 1 and c_fiend >= 1 then 
@@ -440,16 +442,16 @@ function do_upgrades takes nothing returns nothing
     endif 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  build_sequence                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  build_sequence                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function build_sequence takes nothing returns nothing 
     local integer WG2 
 
     call InitBuildArray() 
 
-    // get enough burrows to handle current food demand                                                
-    if c_food_used + 7 >= c_food_made then 
+    // get enough burrows to handle current food demand                                                    
+    if c_acolyte_done >= 1 and c_food_used + 7 >= c_food_made then 
         call SetBuildUnit(c_zig_done + 1, ZIGGURAT_1) 
     endif 
 
@@ -491,12 +493,12 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit(1, NECROPOLIS_1) 
     endif 
 
-    // need an acolyte or nothing will get built                                                
+    // need an acolyte or nothing will get built                                                    
     if c_neclis_done >= 1 then 
         call SetBuildUnit(1, ACOLYTE) 
     endif 
 
-    // keep producing mines and acolytes to get gold                                                
+    // keep producing mines and acolytes to get gold                                                    
     call undead_mine(0) 
     call undead_mine(1) 
 
@@ -506,14 +508,14 @@ function build_sequence takes nothing returns nothing
         call SetBuildNext(5, ACOLYTE) 
     endif 
 
-    // ghouls collect lumber                                                
+    // ghouls collect lumber                                                    
     set WG2 = Max(0, 10 - c_wood / 120) 
     if WG2 > 0 then 
         call SetBuildUnit(1, CRYPT) 
         call SetBuildNext(WG2, GHOUL) 
     endif 
 
-    // if we have low gold in our mines then we need to expand                                                
+    // if we have low gold in our mines then we need to expand                                                    
     if c_gold_owned < 2000 or(c_mines < 2 and c_acolyte > 5) then 
         call BasicExpansion(c_mines < 2, UNDEAD_MINE) 
         call GuardSecondary(1, 2, ZIGGURAT_1) 
@@ -522,7 +524,7 @@ function build_sequence takes nothing returns nothing
         endif 
     endif 
 
-    // always rebuild heroes for defense                                                
+    // always rebuild heroes for defense                                                    
     if c_altar_done >= 1 then 
         if b_hero1_done then 
             if b_hero2_done then 
@@ -539,7 +541,7 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit(1, UNDEAD_ALTAR) 
     endif 
 
-    // minimum melee defense                                                
+    // minimum melee defense                                                    
     if c_slaughter_done >= 1 and c_citadel_done >= 1 then 
         call SetBuildNext(1, ABOMINATION) 
     endif 
@@ -549,12 +551,12 @@ function build_sequence takes nothing returns nothing
     call SetBuildUnit(1, GRAVEYARD) 
     call SetBuildNext(2, CRYPT_FIEND) 
     
-    // minimum ranged/air defense                                                
+    // minimum ranged/air defense                                                    
     if c_citadel_done >= 1 then 
         call SetBuildNext(2, GARGOYLE) 
     endif 
 
-    // siege attackers                                                
+    // siege attackers                                                    
     if c_boneyard_done >= 1 then 
         call SetBuildNext(1, FROST_WYRM) 
     endif 
@@ -570,7 +572,7 @@ function build_sequence takes nothing returns nothing
         call SetBuildNext(1, MEAT_WAGON) 
     endif 
 
-    // if we have a lot of gold then advance the tech tree                                                
+    // if we have a lot of gold then advance the tech tree                                                    
     if c_gold > 1000 then 
 
         call MeleeTownHall(0, NECROPOLIS_1) 
@@ -616,7 +618,7 @@ function build_sequence takes nothing returns nothing
         return 
     endif 
 
-    // extra troops                                                
+    // extra troops                                                    
     if c_temple_done >= 1 then 
         call SetBuildNext(1, NECRO) 
         call SetBuildNext(1, BANSHEE) 
@@ -640,18 +642,18 @@ function build_sequence takes nothing returns nothing
     call GuardSecondary(1, 2, ZIGGURAT_2) 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  harvest_gold                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  harvest_gold                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function harvest_gold takes integer townid returns nothing 
     if TownHasMine(townid) then 
         call HarvestGold(townid, 5) 
     endif 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//  peon_asignment                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//  peon_asignment                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function peon_assignment takes nothing returns nothing 
     loop 
         call ClearHarvestAI() 
@@ -669,11 +671,11 @@ function peon_assignment takes nothing returns nothing
     endloop 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                                
-//	main                                                
-//--------------------------------------------------------------------------------------------------                                                
+//--------------------------------------------------------------------------------------------------                                                    
+//	main                                                    
+//--------------------------------------------------------------------------------------------------                                                    
 function main takes nothing returns nothing 
-    set trace_on = GetAiPlayer() == 1 //xxx                                                
+    set trace_on = GetAiPlayer() == 1 //xxx                                                    
     call PickMeleeHero(RACE_UNDEAD) 
     call set_skills() 
     call StandardAI(function SkillArrays, function peon_assignment, function attack_sequence) 

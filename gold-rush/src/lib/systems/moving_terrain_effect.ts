@@ -1,9 +1,10 @@
+import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { TimestampedQueue } from 'lib/data_structures/timestamped_queue';
 import { DistanceBetweenLocs, Loc } from 'lib/location';
 import { log } from 'lib/log';
 import { getCircleCoordinates } from 'lib/maths/geometric_coordinates';
 import {
-  getTimeS, onChatCommand, setIntervalIndefinite, setTimeout,
+  getTimeS, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
 import { pickRandom, shuffleArray } from 'lib/utils';
 import { Timer, Trigger, Unit } from 'w3ts';
@@ -57,8 +58,8 @@ export class MovingTerrainEffect {
       },
     });
 
-    this.chatTrigger1 = onChatCommand('-tcc', true, () => log('circleCoordinates', circleCoordinates.length), 'Show number of circle coordinates.');
-    this.chatTrigger2 = onChatCommand('-tqs', true, () => log('titleQueue', this.tileQueue.getValidLength(), this.tileQueue.getTrueLength()), 'Show number of tiles in queue.');
+    this.chatTrigger1 = onChatCommand('-tcc', true, () => log('circleCoordinates', circleCoordinates.length), 'Debug', 'Show number of circle coordinates.');
+    this.chatTrigger2 = onChatCommand('-tqs', true, () => log('titleQueue', this.tileQueue.getValidLength(), this.tileQueue.getTrueLength()), 'Debug', 'Show number of tiles in queue.');
 
     this.timer = setIntervalIndefinite(0.05, () => {
       if (!unit.isAlive()) return;

@@ -2,32 +2,35 @@ import { logDiscrepancy } from 'lib/debug/key_counter';
 import { temp } from 'lib/location';
 import { log } from 'lib/log';
 import { systemConfig } from 'lib/systems/system-config';
-import { getHelpMessage, onChatCommand, setTimeout } from 'lib/trigger';
 import { isBuilding } from 'lib/unit';
-import { Group, Quest, Unit } from 'w3ts';
+import {
+  Group, Unit,
+} from 'w3ts';
+
+import { createCommandHelpQuests, onChatCommand } from './chat_commands.model';
 
 export function registerChatCommands() {
   onChatCommand('-clear', true, () => {
     ClearTextMessages();
-  }, 'Clear all messages.');
+  }, 'UI & scaling', 'Clear all messages.');
 
   onChatCommand('-k', true, () => {
     ClearTextMessages();
     logDiscrepancy();
-  }, 'Show start/end effect discrepancy, for debugging memory leak.');
+  }, 'Debug', 'Show start/end effect discrepancy, for debugging memory leak.');
 
   onChatCommand('-wtf', true, () => {
     temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer()))).for(() => {
       Unit.fromEnum().resetCooldown();
     });
-  }, 'Refresh cooldown of selected unit.');
+  }, 'GameControl', 'Refresh cooldown of selected unit.');
 
-  onChatCommand('-autoplay 1', true, () => { systemConfig.autoPlay = false; }, 'Auto-play AI heroes even when they are selected.');
-  onChatCommand('-autoplay 0', true, () => { systemConfig.autoPlay = true; }, 'Does not auto-play AI heroes when they are selected.');
+  onChatCommand('-autoplay 1', true, () => { systemConfig.autoPlay = false; }, 'GameControl', 'Auto-play AI heroes even when they are selected.');
+  onChatCommand('-autoplay 0', true, () => { systemConfig.autoPlay = true; }, 'GameControl', 'Does not auto-play AI heroes when they are selected.');
   onChatCommand('-kill', true, () => {
     temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer())))
       .for(() => Unit.fromEnum().kill());
-  }, 'Kill all selected units.');
+  }, 'GameControl', 'Kill all selected units.');
 
   onChatCommand('-killall', true, () => {
     let count = 0;
@@ -39,7 +42,7 @@ export function registerChatCommands() {
         count++;
       });
     log('Killed units', count);
-  }, 'Kill all fighter units on map.');
+  }, 'GameControl', 'Kill all fighter units on map.');
 
   onChatCommand('-lvlup', true, () => {
     temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer())))
@@ -48,20 +51,7 @@ export function registerChatCommands() {
           Unit.fromEnum().setHeroLevel(Unit.fromEnum().level + 1, true);
         }
       });
-  }, 'Level up selected units.');
+  }, 'GameControl', 'Level up selected units.');
 
-  setTimeout(0.1, () => {
-    const helpQuest = Quest.create();
-    helpQuest.setTitle('Chat commands');
-    helpQuest.setIcon('ReplaceableTextures\\CommandButtons\\BTNSelectHeroOn.blp');
-    helpQuest.setDescription(
-      [
-        'All usable chat commands in the map:',
-        ...getHelpMessage(),
-      ].join('|n|n'),
-    );
-    helpQuest.discovered = true;
-    helpQuest.enabled = true;
-    helpQuest.required = false;
-  });
+  createCommandHelpQuests();
 }
