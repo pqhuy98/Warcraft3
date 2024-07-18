@@ -124,9 +124,9 @@ function tsMain() {
 
   ThunderBlink.register(ABILITY_ID_THUNDER_BLINK);
   ChainLightning.register(ABILITY_ID_CHAIN_LIGHTNING);
-  BladeDance.register(ABILITY_ID_BLADE_DANCE);
-  BladeDance.register(ABILITY_ID_DIVINE_FURY);
-  // Sandquake.register(ABILITY_ID_SANDQUAKE);
+  // BladeDance.register(ABILITY_ID_BLADE_DANCE);
+  // BladeDance.register(ABILITY_ID_DIVINE_FURY);
+  Sandquake.register(ABILITY_ID_SANDQUAKE);
   // WrathOfTheLichKing.register(ABILITY_ID_WRATH_OF_THE_LICH_KING);
   // Frostmourne.register(ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION);
 
