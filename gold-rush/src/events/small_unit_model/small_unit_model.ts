@@ -31,7 +31,7 @@ export class SmallUnitModel {
       constants.scalingFactor = factor;
       constants.selectionScalingFactor = factor;
       constants.movingFactor = factor;
-      constants.cameraDistanceFactor = factor * factor;
+      constants.cameraDistanceFactor = factor;
 
       temp(Group.fromHandle(GetUnitsInRectAll(GetWorldBounds()))).for(() => {
         if (this.filterCondition(Unit.fromEnum())) {
