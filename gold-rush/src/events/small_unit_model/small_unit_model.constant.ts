@@ -1,6 +1,6 @@
 import { Unit } from 'w3ts';
 
-const defaultFactor = 0.7;
+const defaultFactor = 0.5;
 
 export const constants = {
   scalingFactor: defaultFactor,

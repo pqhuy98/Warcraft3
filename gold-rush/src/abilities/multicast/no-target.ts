@@ -5,8 +5,9 @@ import { ABILITY_BladeMasterBladestorm } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
-  createDummy, fadeUnit, growUnit, isDummy,
+  createDummy, fadeUnit, getUnitScale, growUnit, isDummy,
   safeRemoveDummy,
+  setUnitScale,
 } from 'lib/unit';
 import { Timer, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
@@ -52,8 +53,8 @@ export class MulticastNoTarget {
         const dummy = createDummy(caster.owner, caster.x, caster.y, caster, 999, caster.facing);
         dummy.setflyHeight(caster.getflyHeight(), 0);
         dummy.skin = caster.skin;
-        const scale = (caster.getField(UNIT_RF_SCALING_VALUE) as number);
-        dummy.setScale(scale, 0, 0);
+        const scale = getUnitScale(caster);
+        setUnitScale(dummy, scale);
         dummy.setVertexColor(255, 255, 0, 128);
         dummy.setField(UNIT_RF_CAST_POINT, castPoint);
         dummy.addAbility(abiId);
@@ -75,7 +76,7 @@ export class MulticastNoTarget {
         const fadeDuration = (castPoint + castBackSwing + 0.1);
         let tLimitDuration = 2 * (castPoint + castBackSwing) - fadeDuration;
         if (abiId === FourCC(ABILITY_BladeMasterBladestorm.code)) {
-          tLimitDuration = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_DURATION_NORMAL, abiLevel - 1);
+          tLimitDuration = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_DURATION_NORMAL, abiLevel - 1) - fadeDuration;
           dummy.moveSpeed = 522;
           const patrolLoc = PolarProjection(dummy, 7 * 522 / 3, dummy.facing);
           dummy.issueOrderAt(OrderId.Patrol, patrolLoc.x, patrolLoc.y);

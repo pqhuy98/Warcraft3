@@ -6,7 +6,8 @@ import {
   buildTrigger, setIntervalIndefinite,
 } from 'lib/trigger';
 import {
-  getAttackRange, isBuilding, isDummy, setAttackRange,
+  getAttackRange, getUnitScale, isBuilding, isDummy, setAttackRange,
+  setUnitScale,
 } from 'lib/unit';
 import { Group, Unit } from 'w3ts';
 
@@ -16,27 +17,28 @@ import {
 
 const shouldScaleRangerAttackRange = true;
 const shouldScaleStandardAbility = false;
+const minScale = 0.3;
+const maxScale = 1;
 
 export class SmallUnitModel {
   static filterCondition = (unit: Unit) => !isBuilding(unit)
-    && !(unit.isUnitType(UNIT_TYPE_MECHANICAL) && unit.isUnitType(UNIT_TYPE_GROUND))
     && !isDummy(unit);
 
   static register() {
     onChatCommand('-scale', true, () => log('scalingFactor', constants.scalingFactor), 'UI & scaling', "Print current global unit's scaling factor.");
     onChatCommand('-scale $1', false, (msg) => {
-      const factor = Math.max(0.5, Math.min(1.5, parseFloat(msg.split(' ')[1])));
+      const factor = Math.max(minScale, Math.min(maxScale, parseFloat(msg.split(' ')[1])));
       constants.scalingFactor = factor;
       constants.selectionScalingFactor = factor;
       constants.movingFactor = factor;
-      constants.cameraDistanceFactor = factor;
+      constants.cameraDistanceFactor = factor * factor;
 
       temp(Group.fromHandle(GetUnitsInRectAll(GetWorldBounds()))).for(() => {
         if (this.filterCondition(Unit.fromEnum())) {
           this.updateUnit(Unit.fromEnum());
         }
       });
-    }, 'UI & scaling', 'Set global unit\'s scaling factor, e.g. "-scale 0.5"');
+    }, 'UI & scaling', `Set global unit's scaling factor, e.g. "-scale 0.5". Input is from ${minScale} to ${maxScale}. Default setting is 0.6.`);
 
     temp(Group.fromHandle(GetUnitsInRectAll(GetWorldBounds()))).for(() => {
       if (this.filterCondition(Unit.fromEnum())) {
@@ -74,7 +76,7 @@ export class SmallUnitModel {
   private static updateUnitScale(unit: Unit) {
     if (!originalScaleMap.has(unit.typeId)) {
       originalScaleMap.set(unit.typeId, {
-        scale: unit.getField(UNIT_RF_SCALING_VALUE) as number,
+        scale: getUnitScale(unit),
         selectionScale: unit.getField(UNIT_RF_SELECTION_SCALE) as number,
         flyHeight: unit.getField(UNIT_RF_FLY_HEIGHT) as number,
         speed: unit.getField(UNIT_RF_SPEED) as number,
@@ -86,10 +88,18 @@ export class SmallUnitModel {
 
     const original = originalScaleMap.get(unit.typeId);
 
+    // movement
+    unit.setField(UNIT_RF_SPEED, original.speed * constants.movingFactor);
+    // unit.setField(UNIT_RF_ANIMATION_WALK_SPEED, original.speedWalk / constants.movingFactor);
+    // unit.setField(UNIT_RF_ANIMATION_RUN_SPEED, original.speedRun / constants.movingFactor);
+
+    if (unit.isUnitType(UNIT_TYPE_MECHANICAL) && unit.isUnitType(UNIT_TYPE_GROUND)) {
+      return;
+    }
+
     // model size
     const scale = original.scale * constants.scalingFactor;
-    unit.setScale(scale, 0, 0);
-    unit.setField(UNIT_RF_SCALING_VALUE, scale);
+    setUnitScale(unit, scale);
 
     for (let i = 0; i < 2; i++) {
       if (BladeDance.isUnitCasting(unit)) continue;
@@ -104,11 +114,6 @@ export class SmallUnitModel {
 
     // height
     unit.setField(UNIT_RF_FLY_HEIGHT, original.flyHeight * constants.movingFactor);
-
-    // movement
-    unit.setField(UNIT_RF_SPEED, original.speed * constants.movingFactor);
-    // unit.setField(UNIT_RF_ANIMATION_WALK_SPEED, original.speedWalk / constants.movingFactor);
-    // unit.setField(UNIT_RF_ANIMATION_RUN_SPEED, original.speedRun / constants.movingFactor);
   }
 
   private static updateUnitStandardAbilityScale(unit: Unit) {

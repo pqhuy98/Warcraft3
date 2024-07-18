@@ -1,3 +1,4 @@
+import { Impale } from 'abilities/impale/impale';
 import { toScale as _toScale } from 'events/small_unit_model/small_unit_model.constant';
 import { k0, k1 } from 'lib/debug/key_counter';
 import {
@@ -8,12 +9,13 @@ import {
 } from 'lib/location';
 import { log } from 'lib/log';
 import {
-  MODEL_AncientProtectorMissile, MODEL_EarthquakeTarget, MODEL_Tornado,
+  MODEL_AncientProtectorMissile, MODEL_EarthquakeTarget, MODEL_ImpaleHitTarget, MODEL_Tornado,
 } from 'lib/resources/war3-models';
 import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import {
-  createDummy, GetUnitsInRangeOfXYMatching, isBuilding,
+  GetUnitsInRangeOfXYMatching, isBuilding,
   isWard,
+  makeFlyable,
 } from 'lib/unit';
 import { classic } from 'lib/utils';
 import {
@@ -21,7 +23,7 @@ import {
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
-import { MODEL_Sand_Tornado, SUPPORT_ABILITY_ID_SANDQUAKE_IMPALE } from '../../lib/constants';
+import { MODEL_Sand_Tornado } from '../../lib/constants';
 
 const shouldScaleAbility = true;
 function toScale(value: number) {
@@ -39,6 +41,7 @@ export default class Sandquake {
       && unit.isEnemy(caster.getOwner())
       && !unit.invulnerable
       && !isBuilding(unit)
+      && !unit.isUnitType(UNIT_TYPE_FLYING)
       && !isWard(unit),
   };
 
@@ -111,6 +114,9 @@ export default class Sandquake {
     }
     Sandquake.unitDestination.set(caster, tgloc);
 
+    makeFlyable(caster);
+    caster.setflyHeight(-300, 0);
+
     caster.setVertexColor(255, 255, 255, 0);
     caster.setPathing(false);
     caster.disableAbility(abilityId, true, false);
@@ -169,15 +175,28 @@ export default class Sandquake {
         const nearbyEnemies = GetUnitsInRangeOfXYMatching(
           radius,
           casterLoc,
-          () => Sandquake.Data.targetMatching(caster, Unit.fromFilter()),
+          () => Sandquake.Data.targetMatching(caster, Unit.fromFilter()) && !this.affectedEnemies.has(Unit.fromFilter()),
         );
 
         for (const enumUnit of nearbyEnemies) {
           if (this.affectedEnemies.has(enumUnit)) return;
-          const dummy = createDummy(caster.owner, enumUnit.x, enumUnit.y, caster, 0.1);
-          dummy.addAbility(SUPPORT_ABILITY_ID_SANDQUAKE_IMPALE);
-          dummy.setAbilityLevel(SUPPORT_ABILITY_ID_SANDQUAKE_IMPALE, abilityLevel);
-          dummy.issueTargetOrder(OrderId.Impale, enumUnit);
+          Impale.create({
+            caster,
+            target: enumUnit,
+            tossDurationS: 0.8,
+            maxHeight: _toScale(400),
+            stunDurationS: 1,
+            onStart: () => {
+              enumUnit.paused = true;
+              const eff = AddSpecialEffect(classic(MODEL_ImpaleHitTarget), enumUnit.x, enumUnit.y);
+              BlzSetSpecialEffectScale(eff, _toScale(1));
+              DestroyEffect(eff);
+            },
+            onComplete: () => {
+              enumUnit.paused = false;
+              caster.damageTarget(enumUnit.handle, 75 + abilityLevel * 25, false, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_FORCE, WEAPON_TYPE_WHOKNOWS);
+            },
+          });
         }
 
         this.affectedEnemies.clear();
@@ -191,6 +210,7 @@ export default class Sandquake {
         caster.setPathing(true);
         caster.disableAbility(abilityId, false, false);
         caster.endAbilityCooldown(abilityId);
+        caster.setflyHeight(caster.defaultFlyHeight, 0);
 
         caster.setPosition(targetLoc.x, targetLoc.y);
 

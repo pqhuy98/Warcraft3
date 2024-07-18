@@ -10,7 +10,9 @@ import {
   MODEL_Brilliance, MODEL_CommandAura, MODEL_DevotionAura, MODEL_DrumsCasterHeal, MODEL_ImmolationREDTarget, MODEL_TrueshotAura, MODEL_UnholyAura, MODEL_VampiricAura,
 } from 'lib/resources/war3-models';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
-import { createDummy, tieUnitToUnit } from 'lib/unit';
+import {
+  createDummy, getUnitScale, setUnitScale, tieUnitToUnit,
+} from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import { Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals/order';
@@ -213,8 +215,8 @@ export class PeriodBuff {
     const abilityId = FourCC(ability.code);
 
     const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
-    const scale = this.target.getField(UNIT_RF_SCALING_VALUE) as number;
-    dummy.setScale(scale, 0, 0);
+    const scale = getUnitScale(this.target);
+    setUnitScale(dummy, scale);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     tieUnitToUnit(dummy, this.target);
@@ -240,8 +242,8 @@ export class PeriodBuff {
 
     const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
     dummy.addAbility(abilityId);
-    const scale = this.target.getField(UNIT_RF_SCALING_VALUE) as number;
-    dummy.setScale(scale, 0, 0);
+    const scale = getUnitScale(this.target);
+    setUnitScale(dummy, scale);
     dummy.setAbilityLevel(abilityId, ability.levels);
     tieUnitToUnit(dummy, this.target);
     dummy.issueImmediateOrder(orderId);

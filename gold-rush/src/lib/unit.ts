@@ -1,6 +1,6 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import {
-  AngleBetweenLocs, DistanceBetweenLocs, getUnitXY, Loc, PolarProjection,
+  DistanceBetweenLocs, getUnitXY, Loc, PolarProjection,
   tempLocation,
 } from 'lib/location';
 import {
@@ -9,6 +9,7 @@ import {
 
 import { k0, k1 } from './debug/key_counter';
 import { log } from './log';
+import { ABILITY_RavenFormMedivh } from './resources/war3-abilities';
 import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
 export const BUFF_ID_GENERIC = FourCC('BTLF');
@@ -28,16 +29,6 @@ export function setAttackRange(unit: Unit, weaponIndex: number, value:number) {
     weaponIndex + 1,
     value - currentRange + secondRange,
   );
-}
-
-/**
- * @returns angle in degree
- */
-export function angleBetweenUnits(u1: Unit, u2:Unit) {
-  const l1 = getUnitXY(u1);
-  const l2 = getUnitXY(u2);
-  const result = AngleBetweenLocs(l1, l2);
-  return result;
 }
 
 export function distanceBetweenUnits(u1: Unit, u2:Unit) {
@@ -92,13 +83,21 @@ export function fadeUnit(
   });
 }
 
+export function setUnitScale(u: Unit, scale: number) {
+  u.setField(UNIT_RF_SCALING_VALUE, scale);
+  u.setScale(scale, 0, 0);
+}
+
+export function getUnitScale(u: Unit) {
+  return u.getField(UNIT_RF_SCALING_VALUE) as number;
+}
+
 export function growUnit(u: Unit, targetScale: number, duration: number, initialScale?: number) {
   k0('grwu');
-  const startingScale = initialScale ?? (u.getField(UNIT_RF_SCALING_VALUE) as number);
+  const startingScale = initialScale ?? getUnitScale(u);
   setIntervalForDuration(0.1, duration, (i, repeat) => {
     const scale = i / repeat * (targetScale - startingScale) + startingScale;
-    u.setField(UNIT_RF_SCALING_VALUE, scale);
-    u.setScale(scale, 0, 0);
+    setUnitScale(u, scale);
   }, () => {
     k1('grwu');
   });
@@ -134,7 +133,7 @@ function relocateUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
   } else {
     tiedUnit.x = targetUnit.x;
     tiedUnit.y = targetUnit.y;
-    tiedUnit.setflyHeight(targetUnit.getflyHeight(), 9999);
+    tiedUnit.setflyHeight(targetUnit.getflyHeight(), 0);
   }
 }
 
@@ -193,10 +192,13 @@ export function daemonDummyMaster() {
 export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
   dummyCreatedCount++;
   const dummy = Unit.create(owner, UNIT_ID_DUMMY, locX, locY, facing);
+  makeFlyable(dummy);
   if (timespan > 0) {
     dummy.applyTimedLife(BUFF_ID_GENERIC, timespan);
   }
-  dummyMaster.set(dummy, master);
+  if (master) {
+    dummyMaster.set(dummy, master);
+  }
   dummy.setPathing(false);
   return dummy;
 }
@@ -237,5 +239,13 @@ export function orderUnitUseItemAbilityAtLoc(unit: Unit, abilityId: number, loc:
     if (ability == null) continue;
     unit.useItemAt(item, loc.x, loc.y);
     break;
+  }
+}
+
+const crowFormAbilityId = FourCC(ABILITY_RavenFormMedivh.code);
+export function makeFlyable(unit: Unit) {
+  if (unit.getAbilityLevel(crowFormAbilityId) === 0) {
+    unit.addAbility(crowFormAbilityId);
+    unit.removeAbility(crowFormAbilityId);
   }
 }

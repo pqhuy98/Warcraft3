@@ -4,8 +4,9 @@ import { ABILITY_BloodMageSiphonMana } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger } from 'lib/trigger';
 import {
-  createDummy, enumUnitsWithDelay, GetUnitsInRangeOfXYMatching, isBuilding, isDummy,
+  createDummy, enumUnitsWithDelay, getUnitScale, GetUnitsInRangeOfXYMatching, isBuilding, isDummy,
   isWard,
+  setUnitScale,
 } from 'lib/unit';
 import { Unit } from 'w3ts';
 
@@ -39,8 +40,8 @@ export class MulticastUnit {
 
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
         const target = Unit.fromHandle(GetSpellTargetUnit());
-        const abiId = GetSpellAbilityId();
-        const abiLevel = caster.getAbilityLevel(abiId);
+        const abilityId = GetSpellAbilityId();
+        const abilityLevel = caster.getAbilityLevel(abilityId);
         const order = caster.currentOrder;
 
         const loc = getUnitXY(target);
@@ -56,22 +57,24 @@ export class MulticastUnit {
 
         const backSwing = caster.getField(UNIT_RF_CAST_BACK_SWING) as number;
 
-        const dummyDuration = abilityId === FourCC(ABILITY_BloodMageSiphonMana.code)
-          ? BlzGetAbilityRealLevelField(caster.getAbility(abilityId), ABILITY_RLF_DURATION_NORMAL, abiLevel - 1)
-          : (singleDummy ? Math.max(0.3 * nearby.length, backSwing) + 0.25 : 0.25);
+        const dummyCastDuration = abilityId === FourCC(ABILITY_BloodMageSiphonMana.code)
+          ? BlzGetAbilityRealLevelField(caster.getAbility(abilityId), ABILITY_RLF_DURATION_NORMAL, abilityLevel - 1)
+          : 0.25;
+
+        const delayPerCast = nearby.length > 0 ? Math.max(0.05, Math.min(0.3, backSwing / nearby.length)) : 0.3;
 
         let dummy: Unit;
         if (singleDummy) {
-          dummy = this.createDummyWithAbility(caster, dummyDuration, abiId, abiLevel);
+          dummy = this.createDummyWithAbility(caster, Math.max(dummyCastDuration, delayPerCast * nearby.length + 0.25), abilityId, abilityLevel);
         }
 
         enumUnitsWithDelay(nearby, (unit) => {
           if (!singleDummy || !dummy) {
-            dummy = this.createDummyWithAbility(caster, dummyDuration, abiId, abiLevel);
+            dummy = this.createDummyWithAbility(caster, dummyCastDuration, abilityId, abilityLevel);
           }
 
           dummy.issueTargetOrder(order, unit);
-        }, Math.min(0.3, backSwing / nearby.length));
+        }, delayPerCast);
       });
     });
   }
@@ -80,8 +83,7 @@ export class MulticastUnit {
     const dummy = createDummy(caster.owner, caster.x, caster.y, caster, duration, caster.facing);
     dummy.addAbility(abiId);
     dummy.setAbilityLevel(abiId, abiLevel);
-    const scale = (caster.getField(UNIT_RF_SCALING_VALUE) as number);
-    dummy.setScale(scale, 0, 0);
+    setUnitScale(dummy, getUnitScale(caster));
     BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_COOLDOWN, abiLevel - 1, 0);
     BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 999999);
     syncDummyAbilityEffectRange(dummy, caster, abiId, abiLevel);

@@ -687,18 +687,6 @@ Revive Desert's Wrath
 }
 
 STRING 169
-// Abilities: A005 (Sandquake), Name (Name)
-{
-Sandquake
-}
-
-STRING 170
-// Abilities: A005 (Sandquake), EditorSuffix (Editor Suffix)
-{
-(Impale)
-}
-
-STRING 171
 // Abilities: A006 (Sandquake), Name (Name)
 {
 Sandquake
@@ -1473,5 +1461,17 @@ STRING 335
 // Units: h000 (Dummy), Ubertip (Tooltip - Extended)
 {
 Dummy
+}
+
+STRING 336
+// Abilities: A00M (Stun), Name (Name)
+{
+Stun
+}
+
+STRING 337
+// Abilities: A00M (Stun), EditorSuffix (Editor Suffix)
+{
+(System)
 }
 

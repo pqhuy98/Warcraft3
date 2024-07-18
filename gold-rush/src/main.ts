@@ -3,6 +3,7 @@
 import BladeDance from 'abilities/blade_dance/blade_dance';
 import { ChainLightning } from 'abilities/chain_lightning/chain_lightning';
 import Frostmourne from 'abilities/frostmourne/frostmourne';
+import { Impale } from 'abilities/impale/impale';
 import { MulticastNoTarget } from 'abilities/multicast/no-target';
 import { MulticastPoint } from 'abilities/multicast/point';
 import { MulticastUnit } from 'abilities/multicast/unit';
@@ -22,6 +23,7 @@ import { PeriodBuff } from 'events/period_buff/period_buff';
 import {
   SmallUnitModel,
 } from 'events/small_unit_model/small_unit_model';
+import { PrototypeUnits } from 'events/special_units/prototype_units';
 import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
 import { Weather } from 'events/weather/weather';
 import {
@@ -72,7 +74,7 @@ import {
 } from 'lib/unit';
 import {
   Camera,
-  Force, Group, MapPlayer, Unit,
+  Force, Group, MapPlayer, Rectangle, Unit,
 } from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
@@ -83,12 +85,11 @@ type MainPlayerFaction = 'light' | 'dark' | 'observer'
 const useCustomAI = true;
 
 function tsMain() {
-  // Cheat('warpten');
+  Cheat('warpten');
   UnlockGameSpeedBJ();
   SetGameSpeed(MAP_SPEED_FASTEST);
   LockGameSpeedBJ();
   registerGlobalUnits();
-  SmallUnitModel.register();
 
   // Player settings
   removeStartingUnit(Player(0));
@@ -115,6 +116,9 @@ function tsMain() {
   LichKingEvents.register(globalUnits.heroLichKing);
   FactionInterestingEvents.register();
   BuildingSelectionCircle.register();
+  PrototypeUnits.register();
+  SmallUnitModel.register();
+  Impale.register();
 
   // Abilities
 
@@ -152,15 +156,15 @@ function tsMain() {
   MulticastNoTarget.register(FourCC(ABILITY_BladeMasterBladestorm.code));
 
   // Remove neutral creeps
-  false && temp(Group.fromHandle(GetUnitsOfPlayerAll(Player(PLAYER_NEUTRAL_AGGRESSIVE))))
+  temp(Group.fromHandle(GetUnitsOfPlayerAll(Player(PLAYER_NEUTRAL_AGGRESSIVE))))
     .for(() => Unit.fromEnum().destroy());
 
   // Reveal gold mines
-  temp(Group.fromHandle(GetUnitsOfPlayerAndTypeId(Player(PLAYER_NEUTRAL_PASSIVE), FourCC(UNIT_GoldMine.code))))
+  false && temp(Group.fromHandle(GetUnitsOfPlayerAndTypeId(Player(PLAYER_NEUTRAL_PASSIVE), FourCC(UNIT_GoldMine.code))))
     .for(() => {
       const goldMine = Unit.fromEnum();
-      SetFogStateRadius(globalUnits.fountainLight.owner.handle, FOG_OF_WAR_FOGGED, goldMine.x, goldMine.y, 600, true);
-      SetFogStateRadius(globalUnits.fountainDark.owner.handle, FOG_OF_WAR_FOGGED, goldMine.x, goldMine.y, 600, true);
+      SetFogStateRadius(globalUnits.fountainLight.owner.handle, FOG_OF_WAR_FOGGED, goldMine.x, goldMine.y, 300, true);
+      SetFogStateRadius(globalUnits.fountainDark.owner.handle, FOG_OF_WAR_FOGGED, goldMine.x, goldMine.y, 300, true);
     });
 
   registerChatCommands();
@@ -220,7 +224,7 @@ function configurePlayerSettings() {
     }
 
     if (heroOnlyPlayers.includes(player) && isComputer(player.handle)) {
-      StartCampaignAI(player.handle, 'war3mapImported\\champions.ai');
+      StartCampaignAI(player.handle, 'AIScripts\\champions.ai');
     }
 
     switch (player.race) {
@@ -272,12 +276,12 @@ function configurePlayerSettings() {
 
     // Undead strong
     if (darkForce.hasPlayer(player)) {
-      const initialHandicapHp = 1.5;
+      const initialHandicapHp = 1;
       const initialHandicapDamage = 1;
 
-      const maxHpHandicap = 3;
+      const maxHpHandicap = 2;
       const maxDamageHandicap = 2;
-      const upgradePeriodS = 14;
+      const upgradePeriodS = 30;
 
       let handicapHp = initialHandicapHp;
       let handicapDamage = initialHandicapDamage;
@@ -355,6 +359,7 @@ function configurePlayerSettings() {
       SetPlayerAlliance(darkChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
     }
     ClearTextMessages();
+    setTimeout(0, () => SetFogStateRect(mainPlayer.handle, FOG_OF_WAR_MASKED, temp(Rectangle.getWorldBounds()).handle, true));
   }
   setMainPlayerAlliance('observer');
   onChatCommand('-faction $1', false, (msg) => {

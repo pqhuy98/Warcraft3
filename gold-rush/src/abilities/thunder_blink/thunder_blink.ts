@@ -10,8 +10,8 @@ import { MODEL_BoltImpact, MODEL_ThunderclapCaster } from 'lib/resources/war3-mo
 import { ORDER_chainlightning, ORDER_thunderclap } from 'lib/resources/war3-orders';
 import { buildTrigger, setIntervalForDuration } from 'lib/trigger';
 import {
-  createDummy, enumUnitsWithDelay, GetUnitsInRangeOfXYMatching,
-  isBuilding, isWard, tieUnitToUnit,
+  createDummy, enumUnitsWithDelay, getUnitScale, GetUnitsInRangeOfXYMatching,
+  isBuilding, isWard, setUnitScale, tieUnitToUnit,
 } from 'lib/unit';
 import { classic } from 'lib/utils';
 import { Unit } from 'w3ts';
@@ -56,12 +56,12 @@ export class ThunderBlink {
     abilityLevel: number,
   ) {
     const casterLoc = getUnitXY(caster);
-    const casterScale = caster.getField(UNIT_RF_SCALING_VALUE) as number;
+    const casterScale = getUnitScale(caster);
     const radius = ThunderBlink.Data.getEffectRadius();
 
     // Thunder Clap in place
     const dummy1 = createDummy(caster.owner, casterLoc.x, casterLoc.y, caster, 1);
-    dummy1.setScale(casterScale, 0, 0);
+    setUnitScale(dummy1, casterScale);
     dummy1.addAbility(SUPPORT_ABILITY_ID_THUNDER_CLAP);
     dummy1.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel);
     setAbilityEffectRange(dummy1, SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel, radius);
@@ -69,7 +69,7 @@ export class ThunderBlink {
 
     // Thunder Clap at target
     const dummy2 = createDummy(caster.owner, targetLoc.x, targetLoc.y, caster, 1);
-    dummy2.setScale(casterScale, 0, 0);
+    setUnitScale(dummy2, casterScale);
     dummy2.addAbility(SUPPORT_ABILITY_ID_THUNDER_CLAP);
     dummy2.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel);
     setAbilityEffectRange(dummy2, SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel, radius);
@@ -155,7 +155,7 @@ export class ThunderBlink {
     const durationPerStep = Math.min(0.1, 2.0 / nearby.length);
     enumUnitsWithDelay(nearby, (enumUnit) => {
       const dummyCl = createDummy(caster.owner, caster.x, caster.y, caster, 1);
-      dummyCl.setScale(caster.getField(UNIT_RF_SCALING_VALUE) as number, 0, 0);
+      setUnitScale(dummyCl, getUnitScale(caster));
       ChainLightningMulticast.blackListCaster(dummyCl);
       dummyCl.addAbility(ABILITY_ID_CHAIN_LIGHTNING);
       dummyCl.setAbilityLevel(ABILITY_ID_CHAIN_LIGHTNING, abilityLevel);

@@ -5,7 +5,7 @@ import {
 import { ABILITY_BladeMasterBladestorm, ABILITY_BladeMasterMirrorImage } from 'lib/resources/war3-abilities';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
-  angleBetweenUnits, getAttackRange, GetUnitsInRangeOfXYMatching, isWard, setAttackRange,
+  getAttackRange, GetUnitsInRangeOfXYMatching, isWard, setAttackRange,
 } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import {
@@ -154,7 +154,7 @@ export default class BladeDance {
       if (this.target.invulnerable || !this.caster.isAlive()) {
         this.handleTargetUnattackable();
       }
-      this.caster.setFacingEx(angleBetweenUnits(this.caster, this.target));
+      this.caster.setFacingEx(AngleBetweenLocs(this.caster, this.target));
       this.caster.issueTargetOrder(OrderId.Attack, this.target);
     });
 

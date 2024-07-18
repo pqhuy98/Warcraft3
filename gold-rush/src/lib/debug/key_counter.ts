@@ -15,6 +15,7 @@ export function logDiscrepancy() {
   for (const key of Object.keys(k)) {
     if (k[key] > 0) {
       log('Key', key, k[key]);
+    } else {
       zeroCount++;
     }
   }

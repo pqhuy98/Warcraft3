@@ -32,7 +32,8 @@ export class DamageStochasticObserver {
         buildingDmgRateTracker.increase();
         // can randomly skip some events if too many happened recently.
         // but must make sure average of handled events is around `desiredEventPerSec`
-        if (GetRandomReal(0, 1) > desiredEventsPerSec / buildingDmgRateTracker.averageRate) return;
+        // random(0, 1) > desiredEventsPerSec / buildingDmgRateTracker.averageRate
+        if (GetRandomReal(0, 1) * buildingDmgRateTracker.averageRate > desiredEventsPerSec) return;
         buildingEnqueueRateTracker.increase();
 
         for (const subscriber of this.subscribers) {
@@ -51,7 +52,8 @@ export class DamageStochasticObserver {
       t.addCondition(() => getDummyMaster(GetEventDamageSource()).isHero() && GetEventDamage() > 0);
       t.addAction(() => {
         heroDmgRateTracker.increase();
-        if (GetRandomReal(0, 1) > desiredEventsPerSec / heroDmgRateTracker.averageRate) return;
+        // random(0, 1) > desiredEventsPerSec / buildingDmgRateTracker.averageRate
+        if (GetRandomReal(0, 1) * heroDmgRateTracker.averageRate > desiredEventsPerSec) return;
         heroEnqueueRateTracker.increase();
 
         for (const subscriber of this.subscribers) {

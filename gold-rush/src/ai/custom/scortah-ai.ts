@@ -1,4 +1,5 @@
 import { DarkForceAi } from 'ai/dark_force_ai';
+import { toScale } from 'events/small_unit_model/small_unit_model.constant';
 import { PolarProjection } from 'lib/location';
 import {
   Group,
@@ -21,7 +22,7 @@ export class ScortahAi extends DarkForceAi {
     const dest = this.observer.getDestination();
     if (![OrderId.Move, OrderId.Shockwave].includes(this.hero.currentOrder)) {
       // && !Sandquake.isCasting(this.hero)) {
-      const loc = PolarProjection(dest, 1000, GetRandomDirectionDeg());
+      const loc = PolarProjection(dest, toScale(1000), GetRandomDirectionDeg());
       this.hero.issueOrderAt(OrderId.Attack, loc.x, loc.y);
     }
   }

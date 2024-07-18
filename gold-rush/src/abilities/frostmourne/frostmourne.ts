@@ -15,6 +15,7 @@ import {
   isBuilding,
   isWard,
   safeRemoveDummy,
+  setUnitScale,
 } from 'lib/unit';
 import {
   Effect,
@@ -68,7 +69,7 @@ export default class Frostmourne {
       });
     });
 
-    const worldBound = Rectangle.getWorldBounds();
+    const worldBounds = Rectangle.getWorldBounds();
 
     const interval = 0.03;
     setIntervalIndefinite(interval, () => {
@@ -85,8 +86,8 @@ export default class Frostmourne {
             target.mana += target.maxMana * (0.25 + scale) * Frostmourne.Data.MANA_PERCENT_RESTORED_PER_SOUL;
           }
 
-          soul.x = worldBound.maxX - 1;
-          soul.y = worldBound.maxY - 1;
+          soul.x = worldBounds.maxX - 1;
+          soul.y = worldBounds.maxY - 1;
 
           const eff = this.soulEffect.get(soul);
           this.soulTarget.delete(soul);
@@ -115,7 +116,7 @@ export default class Frostmourne {
     const scale = Math.min(2, victim.level / 5);
     setTimeout(GetRandomReal(0, scale), () => {
       const soul = createDummy(killer.owner, victim.x, victim.y, killer, 0);
-      soul.setScale(toScale(scale), 0, 0);
+      setUnitScale(soul, toScale(scale * 1.5));
       this.soulScale.set(soul, scale);
       const effect = Effect.createAttachment(Frostmourne.Data.SOUL_MODEL, soul, 'origin');
 
