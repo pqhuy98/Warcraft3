@@ -110,11 +110,11 @@ function tsMain() {
   // new CreepSpawn(Unit.fromHandle(heroZeus));
   new PeriodBuff(globalUnits.heroZeus);
 
-  // SummonManager.register();
-  // DamageStochasticObserver.register();
-  // Weather.changeWeather();
-  // LichKingEvents.register(globalUnits.heroLichKing);
-  // FactionInterestingEvents.register();
+  SummonManager.register();
+  DamageStochasticObserver.register();
+  Weather.changeWeather();
+  LichKingEvents.register(globalUnits.heroLichKing);
+  FactionInterestingEvents.register();
   BuildingSelectionCircle.register();
   PrototypeUnits.register();
   SmallUnitModel.register();
