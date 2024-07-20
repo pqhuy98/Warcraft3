@@ -1,5 +1,4 @@
 [CustomSkin]
 CommandAttack=ReplaceableTextures\CommandButtonsDisabled\DISBTNAttack.blp
 CommandStop=ReplaceableTextures\CommandButtonsDisabled\DISBTNStop.blp
-TargetPointConfirm=
 

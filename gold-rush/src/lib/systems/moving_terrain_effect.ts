@@ -45,11 +45,13 @@ export class MovingTerrainEffect {
       itemExpireS: durationS,
       cleanUp: (v) => {
         if (!this.destroyed && unit.isAlive() && DistanceBetweenLocs(unit, v.loc) <= radius) {
+          log('delay tile');
           this.tileQueue.push({
             timestamp: getTimeS(),
             value: v,
           });
         } else {
+          log('restore tile');
           setTimeout(GetRandomReal(0.1, 1), () => {
             SetTerrainType(v.loc.x, v.loc.y, v.typeId, -1, 1, 1);
             onUnsetTile?.(v.loc.x, v.loc.y);

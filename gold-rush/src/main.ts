@@ -253,7 +253,7 @@ function configurePlayerSettings() {
         SetPlayerColor(player.handle, PLAYER_COLOR_PURPLE);
         player.name = 'Undead Scourge';
         if (isComputer(player.handle) && useCustomAI) {
-          StartCampaignAI(player.handle, 'AIScripts\\undead.ai');
+          // StartCampaignAI(player.handle, 'AIScripts\\undead.ai');
         }
         break;
       default:
@@ -310,9 +310,7 @@ function configurePlayerSettings() {
     }
   }
 
-  if (!useCustomAI) {
-    MeleeStartingAI();
-  }
+  MeleeStartingAI();
 
   function setMainPlayerAlliance(mainPlayerForce: MainPlayerFaction) {
     for (let i = 0; i < 24; i++) {

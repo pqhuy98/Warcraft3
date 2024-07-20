@@ -639,7 +639,7 @@ function build_sequence takes nothing returns nothing
     call BasicExpansion(c_mines < 3, UNDEAD_MINE) 
     call MeleeTownHall(2, NECROPOLIS_1) 
     call GuardSecondary(2, 2, ZIGGURAT_1) 
-    call GuardSecondary(1, 2, ZIGGURAT_2) 
+    call GuardSecondary(2, 2, ZIGGURAT_2) 
 endfunction 
 
 //--------------------------------------------------------------------------------------------------                                                    
