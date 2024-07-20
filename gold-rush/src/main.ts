@@ -124,36 +124,36 @@ function tsMain() {
 
   ThunderBlink.register(ABILITY_ID_THUNDER_BLINK);
   ChainLightning.register(ABILITY_ID_CHAIN_LIGHTNING);
-  // BladeDance.register(ABILITY_ID_BLADE_DANCE);
-  // BladeDance.register(ABILITY_ID_DIVINE_FURY);
+  BladeDance.register(ABILITY_ID_BLADE_DANCE);
+  BladeDance.register(ABILITY_ID_DIVINE_FURY);
   Sandquake.register(ABILITY_ID_SANDQUAKE);
-  // WrathOfTheLichKing.register(ABILITY_ID_WRATH_OF_THE_LICH_KING);
-  // Frostmourne.register(ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION);
+  WrathOfTheLichKing.register(ABILITY_ID_WRATH_OF_THE_LICH_KING);
+  Frostmourne.register(ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION);
 
   // Multicasts
-  // MulticastUnit.register(ABILITY_ID_DEATH_COIL_LICH_KING);
-  // MulticastUnit.register(ABILITY_ID_FROST_NOVA_LICH_KING);
+  MulticastUnit.register(ABILITY_ID_DEATH_COIL_LICH_KING);
+  MulticastUnit.register(ABILITY_ID_FROST_NOVA_LICH_KING);
 
-  // MulticastUnit.register(FourCC(ABILITY_PaladinHolyLight.code));
-  // MulticastUnit.register(FourCC(ABILITY_MountainKingThunderBolt.code));
-  // MulticastNoTarget.register(FourCC(ABILITY_MountainKingThunderClap.code));
-  // MulticastPoint.register(FourCC(ABILITY_ArchMageBlizzard.code), globalUnits.heroJaina);
-  // MulticastNoTarget.register(FourCC(ABILITY_ArchMageWaterElemental.code));
-  // MulticastPoint.register(FourCC(ABILITY_BloodMageFlameStrike.code));
-  // MulticastUnit.register(FourCC(ABILITY_BloodMageSiphonMana.code), undefined, false);
-  // MulticastNoTarget.register(FourCC(ABILITY_BloodMagePhoenix.code));
+  MulticastUnit.register(FourCC(ABILITY_PaladinHolyLight.code));
+  MulticastUnit.register(FourCC(ABILITY_MountainKingThunderBolt.code));
+  MulticastNoTarget.register(FourCC(ABILITY_MountainKingThunderClap.code));
+  MulticastPoint.register(FourCC(ABILITY_ArchMageBlizzard.code), globalUnits.heroJaina);
+  MulticastNoTarget.register(FourCC(ABILITY_ArchMageWaterElemental.code));
+  MulticastPoint.register(FourCC(ABILITY_BloodMageFlameStrike.code));
+  MulticastUnit.register(FourCC(ABILITY_BloodMageSiphonMana.code), undefined, false);
+  MulticastNoTarget.register(FourCC(ABILITY_BloodMagePhoenix.code));
 
-  // MulticastNoTarget.register(FourCC(ABILITY_ChieftainWarStomp.code));
-  // MulticastUnit.register(FourCC(ABILITY_ChieftainShockWave.code));
-  // MulticastPoint.register(FourCC(ABILITY_ChieftainShockWave.code));
-  // MulticastUnit.register(FourCC(ABILITY_ShadowHunterHex.code));
-  // MulticastUnit.register(FourCC(ABILITY_ShadowHunterHealingWave.code), undefined, false);
-  // MulticastUnit.register(FourCC(ABILITY_FarseerChainLightning.code), globalUnits.heroThrall, false);
-  // MulticastPoint.register(FourCC(ABILITY_FarseerEarthquake.code));
-  // MulticastUnit.register(FourCC(ABILITY_KeeperEntanglingRoots.code), undefined, false);
-  // MulticastUnit.register(FourCC(ABILITY_SeaWitchForkedLightning.code), undefined, false);
-  // MulticastPoint.register(ABILITY_ID_MONSOON_THRALL);
-  // MulticastNoTarget.register(FourCC(ABILITY_BladeMasterBladestorm.code));
+  MulticastNoTarget.register(FourCC(ABILITY_ChieftainWarStomp.code));
+  MulticastUnit.register(FourCC(ABILITY_ChieftainShockWave.code));
+  MulticastPoint.register(FourCC(ABILITY_ChieftainShockWave.code));
+  MulticastUnit.register(FourCC(ABILITY_ShadowHunterHex.code));
+  MulticastUnit.register(FourCC(ABILITY_ShadowHunterHealingWave.code), undefined, false);
+  MulticastUnit.register(FourCC(ABILITY_FarseerChainLightning.code), globalUnits.heroThrall, false);
+  MulticastPoint.register(FourCC(ABILITY_FarseerEarthquake.code));
+  MulticastUnit.register(FourCC(ABILITY_KeeperEntanglingRoots.code), undefined, false);
+  MulticastUnit.register(FourCC(ABILITY_SeaWitchForkedLightning.code), undefined, false);
+  MulticastPoint.register(ABILITY_ID_MONSOON_THRALL);
+  MulticastNoTarget.register(FourCC(ABILITY_BladeMasterBladestorm.code));
 
   // Remove neutral creeps
   temp(Group.fromHandle(GetUnitsOfPlayerAll(Player(PLAYER_NEUTRAL_AGGRESSIVE))))
@@ -322,8 +322,8 @@ function configurePlayerSettings() {
       }
 
       const isAlly = (mainPlayerForce === 'light' && lightForce.hasPlayer(player)
-      || mainPlayerForce === 'dark' && darkForce.hasPlayer(player)
-      || mainPlayerForce === 'observer');
+        || mainPlayerForce === 'dark' && darkForce.hasPlayer(player)
+        || mainPlayerForce === 'observer');
 
       const p1 = mainPlayer.handle;
       const p2 = player.handle;
