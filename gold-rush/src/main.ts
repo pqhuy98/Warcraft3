@@ -82,7 +82,7 @@ import { UNIT_CryptFiend } from './lib/resources/war3-units';
 
 type MainPlayerFaction = 'light' | 'dark' | 'observer'
 
-const useCustomAI = false;
+const useCustomAI = true;
 
 function tsMain() {
   Cheat('warpten');
