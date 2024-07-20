@@ -82,7 +82,6 @@ import { UNIT_CryptFiend } from './lib/resources/war3-units';
 
 type MainPlayerFaction = 'light' | 'dark' | 'observer'
 
-const useCustomAI = true;
 
 function tsMain() {
   Cheat('warpten');
@@ -231,28 +230,29 @@ function configurePlayerSettings() {
       case RACE_HUMAN:
         SetPlayerColor(player.handle, PLAYER_COLOR_LIGHT_BLUE);
         SetPlayerName(player.handle, 'Human Alliance');
-        if (isComputer(player.handle) && useCustomAI) {
+        if (isComputer(player.handle)) {
           StartCampaignAI(player.handle, 'AIScripts\\human.ai');
         }
         break;
       case RACE_ORC:
         SetPlayerColor(player.handle, PLAYER_COLOR_RED);
         player.name = 'Orcish Horde';
-        if (isComputer(player.handle) && useCustomAI) {
+        if (isComputer(player.handle)) {
           StartCampaignAI(player.handle, 'AIScripts\\orc.ai');
         }
         break;
       case RACE_NIGHTELF:
         SetPlayerColor(player.handle, PLAYER_COLOR_CYAN);
         player.name = 'Night Elf Sentinels';
-        if (isComputer(player.handle) && useCustomAI) {
+        if (isComputer(player.handle)) {
           StartCampaignAI(player.handle, 'AIScripts\\elf.ai');
         }
         break;
       case RACE_UNDEAD:
-        SetPlayerColor(player.handle, PLAYER_COLOR_PURPLE);
+        SetPlayerColor(player.handle, PLAYER_COLOR_GREEN);
+        // SetPlayerColor(player.handle, PLAYER_COLOR_PURPLE);
         player.name = 'Undead Scourge';
-        if (isComputer(player.handle) && useCustomAI) {
+        if (isComputer(player.handle)) {
           // StartCampaignAI(player.handle, 'AIScripts\\undead.ai');
         }
         break;
@@ -310,6 +310,7 @@ function configurePlayerSettings() {
     }
   }
 
+  // Start AI for other players with no custom script.
   MeleeStartingAI();
 
   function setMainPlayerAlliance(mainPlayerForce: MainPlayerFaction) {

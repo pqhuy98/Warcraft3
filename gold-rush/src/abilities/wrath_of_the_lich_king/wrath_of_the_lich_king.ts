@@ -213,7 +213,7 @@ export default class WrathOfTheLichKing {
       onSetTile: (x, y) => Effect.create(MODEL_FrostNovaTarget, x, y).destroy(),
       onUnsetTile: (x, y) => {
         const eff = Effect.create(MODEL_FreezingBreathMissile, x, y);
-        setTimeout(0.01, () => eff.destroy());
+        setTimeout(0.02, () => eff.destroy());
       },
     });
 

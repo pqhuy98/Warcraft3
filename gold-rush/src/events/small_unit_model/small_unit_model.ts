@@ -14,11 +14,20 @@ import { Group, Unit } from 'w3ts';
 import {
   constants, originalAbilityDataMap, originalScaleMap, toAbilityKey,
 } from './small_unit_model.constant';
+import { UNIT_Demolisher, UNIT_Infernal, UNIT_MeatWagon, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded } from 'lib/resources/war3-units';
 
 const shouldScaleRangerAttackRange = true;
 const shouldScaleStandardAbility = false;
 const minScale = 0.3;
 const maxScale = 1;
+
+const unitsRetainSize = new Set([
+  UNIT_SiegeEngine,
+  UNIT_SiegeEngineUpgraded,
+  UNIT_Demolisher,
+  UNIT_MeatWagon,
+  UNIT_Infernal
+].map(u => FourCC(u.code)))
 
 export class SmallUnitModel {
   static filterCondition = (unit: Unit) => !isBuilding(unit)
@@ -93,7 +102,7 @@ export class SmallUnitModel {
     // unit.setField(UNIT_RF_ANIMATION_WALK_SPEED, original.speedWalk / constants.movingFactor);
     // unit.setField(UNIT_RF_ANIMATION_RUN_SPEED, original.speedRun / constants.movingFactor);
 
-    if (unit.isUnitType(UNIT_TYPE_MECHANICAL) && unit.isUnitType(UNIT_TYPE_GROUND)) {
+    if (unitsRetainSize.has(unit.typeId)) {
       return;
     }
 
