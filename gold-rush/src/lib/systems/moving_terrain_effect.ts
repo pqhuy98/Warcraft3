@@ -4,7 +4,8 @@ import { DistanceBetweenLocs, Loc } from 'lib/location';
 import { log } from 'lib/log';
 import { getCircleCoordinates } from 'lib/maths/geometric_coordinates';
 import {
-  getTimeS, setIntervalIndefinite, setTimeout,
+  getTimeS, setIntervalIndefinite,
+  setTimeout,
 } from 'lib/trigger';
 import { pickRandom, shuffleArray } from 'lib/utils';
 import { Timer, Trigger, Unit } from 'w3ts';
@@ -14,12 +15,12 @@ interface Props {
   radius: number,
   durationS: number,
   terrainTypes: number[],
-  onSetTile?: (x:number, y:number) => unknown,
-  onUnsetTile?: (x:number, y:number) => unknown
+  onSetTile?: (x: number, y: number) => unknown,
+  onUnsetTile?: (x: number, y: number) => unknown
 }
 
 export class MovingTerrainEffect {
-  private tileQueue: TimestampedQueue<{loc: Loc, typeId: number}>;
+  private tileQueue: TimestampedQueue<{ loc: Loc, typeId: number }>;
 
   private timer: Timer;
 
@@ -41,17 +42,16 @@ export class MovingTerrainEffect {
     );
     let idx = 0;
 
-    this.tileQueue = new TimestampedQueue<{loc: Loc, typeId: number}>({
+    this.tileQueue = new TimestampedQueue<{ loc: Loc, typeId: number }>({
+      debugName: 'terrain',
       itemExpireS: durationS,
       cleanUp: (v) => {
         if (!this.destroyed && unit.isAlive() && DistanceBetweenLocs(unit, v.loc) <= radius) {
-          log('delay tile');
           this.tileQueue.push({
             timestamp: getTimeS(),
             value: v,
           });
         } else {
-          log('restore tile');
           setTimeout(GetRandomReal(0.1, 1), () => {
             SetTerrainType(v.loc.x, v.loc.y, v.typeId, -1, 1, 1);
             onUnsetTile?.(v.loc.x, v.loc.y);

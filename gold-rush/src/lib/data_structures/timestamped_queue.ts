@@ -1,7 +1,17 @@
+import { log } from 'lib/log';
 import { getTimeS, setIntervalIndefinite } from 'lib/trigger';
 import { Timer } from 'w3ts';
 
+interface Props<T> {
+  debugName?: string
+  itemExpireS: number,
+  capacity?: number,
+  cleanUp?: (t: T) => void
+}
+
 export class TimestampedQueue<T> {
+  private debugName: string
+
   private queue: Array<{ timestamp: number, value: T }> = [];
 
   private startIdx: number = 0;
@@ -16,7 +26,8 @@ export class TimestampedQueue<T> {
 
   private destroyed = false;
 
-  constructor({ itemExpireS, capacity, cleanUp }: { itemExpireS: number, capacity?: number, cleanUp?: (t: T) => void }) {
+  constructor({ debugName = "", itemExpireS, capacity, cleanUp }: Props<T>) {
+    this.debugName = debugName;
     this.itemExpireS = itemExpireS;
     this.capacity = capacity;
     this.cleanUp = cleanUp;
@@ -33,8 +44,8 @@ export class TimestampedQueue<T> {
     while (
       this.startIdx < this.queue.length
       && (
-        (currentTimeS - this.queue[this.startIdx].timestamp) > this.itemExpireS
-        || (this.capacity > 0 && this.queue.length - this.startIdx > this.capacity)
+        currentTimeS - this.queue[this.startIdx].timestamp > this.itemExpireS
+        || (this.capacity != null && this.queue.length - this.startIdx > this.capacity)
       )
     ) {
       this.startIdx++;
