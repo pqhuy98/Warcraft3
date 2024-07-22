@@ -2538,7 +2538,7 @@ local unitID
 local t
 local life
 
-gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -6554.5, 5170.2, 339.040, FourCC("H001"))
+gg_unit_H001_0320 = BlzCreateUnitWithSkin(p, FourCC("H001"), -6586.0, 5258.5, -85.308, FourCC("H001"))
 SetHeroLevel(gg_unit_H001_0320, 15, false)
 SetUnitState(gg_unit_H001_0320, UNIT_STATE_MANA, 1155)
 SelectHeroSkill(gg_unit_H001_0320, FourCC("AUfn"))

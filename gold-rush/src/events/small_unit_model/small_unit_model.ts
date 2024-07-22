@@ -14,11 +14,11 @@ import { Group, Unit } from 'w3ts';
 import {
   constants, originalAbilityDataMap, originalScaleMap, toAbilityKey,
 } from './small_unit_model.constant';
-import { UNIT_Demolisher, UNIT_Infernal, UNIT_MeatWagon, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded } from 'lib/resources/war3-units';
+import { UNIT_Demolisher, UNIT_Infernal, UNIT_MeatWagon, UNIT_Phoenix, UNIT_PhoenixEgg, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded } from 'lib/resources/war3-units';
 
 const shouldScaleRangerAttackRange = true;
 const shouldScaleStandardAbility = false;
-const minScale = 0.3;
+const minScale = 0.5;
 const maxScale = 1;
 
 const unitsRetainSize = new Set([
@@ -26,7 +26,9 @@ const unitsRetainSize = new Set([
   UNIT_SiegeEngineUpgraded,
   UNIT_Demolisher,
   UNIT_MeatWagon,
-  UNIT_Infernal
+  UNIT_Infernal,
+  UNIT_Phoenix,
+  UNIT_PhoenixEgg
 ].map(u => FourCC(u.code)))
 
 export class SmallUnitModel {

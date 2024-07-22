@@ -1,4 +1,5 @@
 [CustomSkin]
 CommandAttack=ReplaceableTextures\CommandButtonsDisabled\DISBTNAttack.blp
 CommandStop=ReplaceableTextures\CommandButtonsDisabled\DISBTNStop.blp
+TargetPointConfirm=war3mapImported/Confirmation.mdx
 

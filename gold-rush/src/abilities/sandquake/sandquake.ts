@@ -187,15 +187,11 @@ export default class Sandquake {
             maxHeight: _toScale(400),
             stunDurationS: 1,
             onStart: () => {
-              enumUnit.paused = true;
               const eff = AddSpecialEffect(classic(MODEL_ImpaleHitTarget), enumUnit.x, enumUnit.y);
               BlzSetSpecialEffectScale(eff, _toScale(1));
               DestroyEffect(eff);
             },
-            onComplete: () => {
-              enumUnit.paused = false;
-              caster.damageTarget(enumUnit.handle, 75 + abilityLevel * 25, false, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_FORCE, WEAPON_TYPE_WHOKNOWS);
-            },
+            onComplete: () => caster.damageTarget(enumUnit.handle, 75 + abilityLevel * 25, false, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_FORCE, WEAPON_TYPE_WHOKNOWS)
           });
         }
 

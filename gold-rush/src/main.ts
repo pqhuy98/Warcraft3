@@ -249,11 +249,10 @@ function configurePlayerSettings() {
         }
         break;
       case RACE_UNDEAD:
-        SetPlayerColor(player.handle, PLAYER_COLOR_GREEN);
-        // SetPlayerColor(player.handle, PLAYER_COLOR_PURPLE);
+        SetPlayerColor(player.handle, PLAYER_COLOR_PURPLE);
         player.name = 'Undead Scourge';
         if (isComputer(player.handle)) {
-          // StartCampaignAI(player.handle, 'AIScripts\\undead.ai');
+          StartCampaignAI(player.handle, 'AIScripts\\undead.ai')
         }
         break;
       default:

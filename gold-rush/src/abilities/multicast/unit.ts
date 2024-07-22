@@ -7,6 +7,7 @@ import {
   createDummy, enumUnitsWithDelay, getUnitScale, GetUnitsInRangeOfXYMatching, isBuilding, isDummy,
   isWard,
   setUnitScale,
+  tieUnitToUnit,
 } from 'lib/unit';
 import { Unit } from 'w3ts';
 
@@ -66,6 +67,7 @@ export class MulticastUnit {
         let dummy: Unit;
         if (singleDummy) {
           dummy = this.createDummyWithAbility(caster, Math.max(dummyCastDuration, delayPerCast * nearby.length + 0.25), abilityId, abilityLevel);
+          tieUnitToUnit(dummy, caster)
         }
 
         enumUnitsWithDelay(nearby, (unit) => {
