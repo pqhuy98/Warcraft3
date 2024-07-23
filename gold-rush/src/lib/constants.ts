@@ -1,4 +1,4 @@
-import { Unit } from 'w3ts';
+import { MapPlayer, Unit } from 'w3ts';
 
 import { setTimeout } from './trigger';
 
@@ -32,6 +32,10 @@ export const ABILITY_ID_MONSOON_THRALL = FourCC('A00L:ACmo');
 export const MODEL_Sand_Tornado = 'SandTornado.mdx';
 export const MODEL_Water_Tornado = 'WaterTornado.mdx';
 export const MODEL_Shadow_Tornado = 'ShadowTornado.mdx';
+
+export const mainPlayer = MapPlayer.fromIndex(0);
+export const lightChampionPlayer = MapPlayer.fromIndex(5);
+export const darkChampionPlayer = MapPlayer.fromIndex(6);
 
 export const globalUnits = {
   fountainLight: <Unit>undefined,

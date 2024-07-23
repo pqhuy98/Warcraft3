@@ -15,6 +15,7 @@ import { ScortahAi } from 'ai/custom/scortah-ai';
 import { ZeusAi } from 'ai/custom/zeus-ai';
 import { LightForceAi } from 'ai/light_force_ai';
 import { FactionInterestingEvents } from 'ai/observer/interesting_events/faction_interesting_events';
+import { AutoPanCamera } from 'events/autopan_camera/autopan_camera';
 import { BuildingSelectionCircle } from 'events/building_selection_circle/building_selection_circle';
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
@@ -37,7 +38,10 @@ import {
   ABILITY_ID_SANDQUAKE,
   ABILITY_ID_THUNDER_BLINK,
   ABILITY_ID_WRATH_OF_THE_LICH_KING,
+  darkChampionPlayer,
   globalUnits,
+  lightChampionPlayer,
+  mainPlayer,
   registerGlobalUnits,
 } from 'lib/constants';
 import {
@@ -82,7 +86,6 @@ import { UNIT_CryptFiend } from './lib/resources/war3-units';
 
 type MainPlayerFaction = 'light' | 'dark' | 'observer'
 
-
 function tsMain() {
   Cheat('warpten');
   UnlockGameSpeedBJ();
@@ -118,6 +121,14 @@ function tsMain() {
   PrototypeUnits.register();
   SmallUnitModel.register();
   Impale.register();
+  AutoPanCamera.register([
+    globalUnits.heroLichKing,
+    globalUnits.heroScortah,
+    globalUnits.heroZeus,
+    globalUnits.heroSamuro,
+    globalUnits.heroThrall,
+    globalUnits.heroJaina,
+  ]);
 
   // Abilities
 
@@ -172,7 +183,6 @@ function tsMain() {
 }
 
 function configurePlayerSettings() {
-  const mainPlayer = MapPlayer.fromIndex(0);
   SetReservedLocalHeroButtons(0);
 
   const lightForceBoss = globalUnits.heroZeus;
@@ -182,9 +192,6 @@ function configurePlayerSettings() {
   for (const i of [5, 1, 2, 3, 4]) lightForce.addPlayer(MapPlayer.fromIndex(i));
   const darkForce = Force.create();
   for (const i of [6, 7, 8, 9, 10, 11, 12]) darkForce.addPlayer(MapPlayer.fromIndex(i));
-
-  const lightChampionPlayer = MapPlayer.fromIndex(5);
-  const darkChampionPlayer = MapPlayer.fromIndex(6);
 
   const heroOnlyPlayers = [
     mainPlayer,
@@ -252,7 +259,7 @@ function configurePlayerSettings() {
         SetPlayerColor(player.handle, PLAYER_COLOR_PURPLE);
         player.name = 'Undead Scourge';
         if (isComputer(player.handle)) {
-          StartCampaignAI(player.handle, 'AIScripts\\undead.ai')
+          StartCampaignAI(player.handle, 'AIScripts\\undead.ai');
         }
         break;
       default:

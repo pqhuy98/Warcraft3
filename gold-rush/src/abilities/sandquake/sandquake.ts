@@ -15,7 +15,6 @@ import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import {
   GetUnitsInRangeOfXYMatching, isBuilding,
   isWard,
-  makeFlyable,
 } from 'lib/unit';
 import { classic } from 'lib/utils';
 import {
@@ -114,9 +113,6 @@ export default class Sandquake {
     }
     Sandquake.unitDestination.set(caster, tgloc);
 
-    makeFlyable(caster);
-    caster.setflyHeight(-300, 0);
-
     caster.setVertexColor(255, 255, 255, 0);
     caster.setPathing(false);
     caster.disableAbility(abilityId, true, false);
@@ -191,7 +187,7 @@ export default class Sandquake {
               BlzSetSpecialEffectScale(eff, _toScale(1));
               DestroyEffect(eff);
             },
-            onComplete: () => caster.damageTarget(enumUnit.handle, 75 + abilityLevel * 25, false, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_FORCE, WEAPON_TYPE_WHOKNOWS)
+            onComplete: () => caster.damageTarget(enumUnit.handle, 75 + abilityLevel * 25, false, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_FORCE, WEAPON_TYPE_WHOKNOWS),
           });
         }
 
@@ -206,7 +202,6 @@ export default class Sandquake {
         caster.setPathing(true);
         caster.disableAbility(abilityId, false, false);
         caster.endAbilityCooldown(abilityId);
-        caster.setflyHeight(caster.defaultFlyHeight, 0);
 
         caster.setPosition(targetLoc.x, targetLoc.y);
 

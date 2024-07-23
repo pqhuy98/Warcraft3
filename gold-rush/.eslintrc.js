@@ -47,6 +47,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-new': 'off',
     'no-plusplus': 'off',
+    'prefer-destructuring': 'off',
     '@typescript-eslint/no-unsafe-enum-comparison': 'off',
     'no-await-in-loop': 'off',
     'no-unused-expressions': 'off',

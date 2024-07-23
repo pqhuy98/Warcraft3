@@ -3,6 +3,9 @@ import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { temp } from 'lib/location';
 import { log } from 'lib/log';
 import {
+  UNIT_Demolisher, UNIT_Infernal, UNIT_MeatWagon, UNIT_Phoenix, UNIT_PhoenixEgg, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded,
+} from 'lib/resources/war3-units';
+import {
   buildTrigger, setIntervalIndefinite,
 } from 'lib/trigger';
 import {
@@ -14,7 +17,6 @@ import { Group, Unit } from 'w3ts';
 import {
   constants, originalAbilityDataMap, originalScaleMap, toAbilityKey,
 } from './small_unit_model.constant';
-import { UNIT_Demolisher, UNIT_Infernal, UNIT_MeatWagon, UNIT_Phoenix, UNIT_PhoenixEgg, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded } from 'lib/resources/war3-units';
 
 const shouldScaleRangerAttackRange = true;
 const shouldScaleStandardAbility = false;
@@ -28,8 +30,8 @@ const unitsRetainSize = new Set([
   UNIT_MeatWagon,
   UNIT_Infernal,
   UNIT_Phoenix,
-  UNIT_PhoenixEgg
-].map(u => FourCC(u.code)))
+  UNIT_PhoenixEgg,
+].map((u) => FourCC(u.code)));
 
 export class SmallUnitModel {
   static filterCondition = (unit: Unit) => !isBuilding(unit)
@@ -112,11 +114,12 @@ export class SmallUnitModel {
     const scale = original.scale * constants.scalingFactor;
     setUnitScale(unit, scale);
 
-    for (let i = 0; i < 2; i++) {
-      if (BladeDance.isUnitCasting(unit)) continue;
-      const originalAttackRange = original.attackRange[i];
-      if (originalAttackRange < 200 || shouldScaleRangerAttackRange) {
-        setAttackRange(unit, i, originalAttackRange * constants.scalingFactor);
+    if (!BladeDance.isUnitCasting(unit)) {
+      for (let i = 0; i < 2; i++) {
+        const originalAttackRange = original.attackRange[i];
+        if (originalAttackRange < 200 || shouldScaleRangerAttackRange) {
+          setAttackRange(unit, i, originalAttackRange * constants.scalingFactor);
+        }
       }
     }
 
