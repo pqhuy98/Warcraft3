@@ -121,14 +121,7 @@ function tsMain() {
   PrototypeUnits.register();
   SmallUnitModel.register();
   Impale.register();
-  AutoPanCamera.register([
-    globalUnits.heroLichKing,
-    globalUnits.heroScortah,
-    globalUnits.heroZeus,
-    globalUnits.heroSamuro,
-    globalUnits.heroThrall,
-    globalUnits.heroJaina,
-  ]);
+  AutoPanCamera.register();
 
   // Abilities
 

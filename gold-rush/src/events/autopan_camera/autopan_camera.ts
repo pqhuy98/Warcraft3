@@ -1,10 +1,13 @@
 // eslint-disable-next-line max-classes-per-file
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { mainPlayer } from 'lib/constants';
+import { temp } from 'lib/location';
 import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
-import { GetUnitsInRangeOfXYMatching } from 'lib/unit';
+import { getUnitsFromGroup, GetUnitsInRangeOfXYMatching } from 'lib/unit';
 import { shuffleArray } from 'lib/utils';
-import { Frame, Timer, Unit } from 'w3ts';
+import {
+  Frame, Rectangle, Timer, Unit,
+} from 'w3ts';
 
 function getScore(unit: Unit): number {
   if (!unit.isAlive()) return 0;
@@ -31,7 +34,7 @@ export class AutoPanCamera {
 
   static timer: Timer = null;
 
-  static register(units: Unit[]) {
+  static register() {
     const button = new ToggleButton(
       Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0),
       this.enabled,
@@ -47,10 +50,17 @@ export class AutoPanCamera {
     onChatCommand('-autocam 1', true, () => button.change(true), 'UI & scaling', 'Enable automatic camera control.');
     onChatCommand('-autocam 0', true, () => button.change(false), 'UI & scaling', 'Disable automatic camera control.');
 
-    this.bestUnit = units[0];
-
     setIntervalIndefinite(10, () => {
-      shuffleArray(units);
+      const heroes = GetUnitsInRectMatching(
+        temp(Rectangle.getWorldBounds()).handle,
+        Condition(() => Unit.fromFilter().isHero()
+          && Unit.fromFilter().isAlive()
+          && !Unit.fromFilter().isIllusion()),
+      );
+
+      const units = shuffleArray(getUnitsFromGroup(heroes));
+      DestroyGroup(heroes);
+
       this.bestUnit = units[0];
       let bestScore = getScore(this.bestUnit);
 
