@@ -10,10 +10,12 @@
     "build": "ts-node --transpile-only scripts/build.ts",
     "dev": "npm-watch",
     "build:defs": "ts-node scripts/dev",
-    "lint": "eslint src/**/*.ts --fix"
+    "lint": "eslint src/**/*.ts --fix",
+    "sandbox": "ts-node --transpile-only scripts/sandbox.ts"
   },
   "dependencies": {
-    "w3ts": "^3.0.2"
+    "w3ts": "^3.0.2",
+    "wc3maptranslator": "^4.0.4"
   },
   "devDependencies": {
     "@types/fs-extra": "8.1.1",
