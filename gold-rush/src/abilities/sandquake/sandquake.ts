@@ -203,7 +203,9 @@ export default class Sandquake {
         caster.disableAbility(abilityId, false, false);
         caster.endAbilityCooldown(abilityId);
 
-        caster.setPosition(targetLoc.x, targetLoc.y);
+        if (caster.isAlive()) {
+          caster.setPosition(targetLoc.x, targetLoc.y);
+        }
 
         Sandquake.unitDestination.delete(caster);
         DestroyEffect(sandstormEffect);

@@ -40,6 +40,7 @@ globals
     integer c_neclis_done = 0 
     integer c_necro = 0 
     integer c_necro_done = 0 
+    integer c_crypt_done = 0 
     integer c_slaughter_done = 0 
     integer c_sphinx_done = 0 
     integer c_spirit_done = 0 
@@ -200,8 +201,7 @@ function AnyPlayerSuicide takes nothing returns nothing
         set hall = GetEnemyBase() 
     endif 
 
-    call SetAllianceTarget(hall) 
-    call FormGroup(3, true) 
+    call FormGroup(6, true) 
     call AttackMoveKillSuicide(hall) 
     set hall = null 
 endfunction 
@@ -231,7 +231,7 @@ function attack_sequence takes nothing returns nothing
             set WG = c_ghoul_done - AG 
         else 
             loop 
-                set WG = Max(0, Min(10 - c_wood / 120, c_ghoul_done)) 
+                set WG = 3
                 set AG = c_ghoul_done - WG 
                 exitwhen(AG + 2 * c_abom_done) >= 4 
                 call Sleep(1) 
@@ -281,6 +281,7 @@ function init_vars takes nothing returns nothing
     set c_necro = GetUnitCount(NECRO) 
     set c_necro_done = GetUnitCountDone(NECRO) 
     set c_slaughter_done = GetUnitCountDone(SLAUGHTERHOUSE) 
+    set c_crypt_done = GetUnitCountDone(CRYPT)
     set c_sphinx_done = GetUnitCountDone(BLK_SPHINX) 
     set c_spirit_done = GetUnitCountDone(ZIGGURAT_2) 
     set c_frost_tower_done = GetUnitCountDone(ZIGGURAT_FROST) 
@@ -414,13 +415,21 @@ endfunction
 //--------------------------------------------------------------------------------------------------                                                                                            
 //  build_sequence                                                                                            
 //--------------------------------------------------------------------------------------------------                                                                                            
+function SetBuildBulk takes integer qty, integer unitid, integer builderQty returns nothing
+    local integer has = GetUnitCount(unitid)
+    if has >= qty then
+        return
+    endif
+    call SetBuildAll(BUILD_UNIT, Min(GetUnitCountDone(unitid)+builderQty, qty), unitid, -1)
+endfunction
+
 function build_sequence takes nothing returns nothing 
     local integer WG2 
 
     call InitBuildArray() 
 
     // get enough burrows to handle current food demand                                                                                            
-    if c_acolyte_done >= 1 and c_food_used + 7 >= c_food_made then 
+    if c_acolyte_done >= 1 and c_food_used + 10 >= c_food_made then 
         call SetBuildUnit(c_zig_done + 1, ZIGGURAT_1) 
     endif 
 
@@ -478,10 +487,10 @@ function build_sequence takes nothing returns nothing
     endif 
 
     // ghouls collect lumber                                                                                            
-    set WG2 = Max(0, 10 - c_wood / 120) 
+    set WG2 = 3 
     if WG2 > 0 then 
         call SetBuildUnit(1, CRYPT) 
-        call SetBuildNext(WG2, GHOUL) 
+        call SetBuildBulk(WG2, GHOUL, c_crypt_done) 
     endif 
 
     // if we have low gold in our mines then we need to expand                                                                                            
@@ -510,35 +519,46 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit(1, UNDEAD_ALTAR) 
     endif 
 
-    // minimum melee defense                                                                                            
+    // minimum melee defense
     if c_slaughter_done >= 1 and c_citadel_done >= 1 then 
-        call SetBuildNext(2, ABOMINATION) 
-    endif 
-
-    call SetBuildUnit(1, CRYPT) 
-    call SetBuildNext(WG2 + 6, GHOUL) 
-    call SetBuildUnit(1, GRAVEYARD) 
-    call SetBuildNext(2, CRYPT_FIEND) 
-    
-    // minimum ranged/air defense                                                                                            
-    if c_citadel_done >= 1 then 
-        call SetBuildNext(2, GARGOYLE) 
-    endif 
-
-    // siege attackers                                                                                            
-    if c_boneyard_done >= 1 then 
-        call SetBuildNext(2, FROST_WYRM) 
-    endif 
-
-    if c_slaughter_done >= 1 then 
-        call SetBuildNext(2, MEAT_WAGON) 
+        call SetBuildBulk(4, ABOMINATION, c_slaughter_done) 
+        call SetBuildBulk(2, MEAT_WAGON, c_slaughter_done) 
     else 
         call MeleeTownHall(0, NECROPOLIS_1) 
         call SetBuildUnit(1, NECROPOLIS_1) 
 
         call SetBuildUnit(1, NECROPOLIS_2) 
         call SetBuildUnit(1, SLAUGHTERHOUSE) 
-        call SetBuildNext(2, MEAT_WAGON) 
+    endif 
+
+    // minimum ranged/air defense
+
+    if c_crypt_done > 0 then
+        call SetBuildBulk(WG2 + 6, GHOUL, c_crypt_done) 
+        if c_citadel_done >= 1 then 
+            call SetBuildBulk(4, GARGOYLE, c_crypt_done) 
+        endif 
+        if c_grave_done > 0 then
+            call SetBuildBulk(2, CRYPT_FIEND, c_crypt_done)
+        else
+            call SetBuildUnit(1, GRAVEYARD) 
+        endif
+    else
+        call SetBuildUnit(1, CRYPT) 
+    endif
+
+    // siege attackers                                                                                            
+    if c_boneyard_done >= 1 then 
+        call SetBuildBulk(2, FROST_WYRM, c_boneyard_done) 
+    endif 
+
+    // spell casters
+    if c_slaughter_done >= 1 and c_tomb_done >= 1 then 
+        call SetBuildBulk(1, OBS_STATUE, c_slaughter_done) 
+    endif 
+    if c_temple_done >= 1 then 
+        call SetBuildBulk(2, NECRO, c_temple_done) 
+        call SetBuildBulk(2, BANSHEE, c_temple_done) 
     endif 
 
     // if we have a lot of gold then advance the tech tree                                                                                            
@@ -589,25 +609,6 @@ function build_sequence takes nothing returns nothing
 
     if c_food_used >= UPKEEP_TIER2 - 10 and c_gold < 2000 then 
         return 
-    endif 
-
-    // extra troops                                                                                            
-    if c_temple_done >= 1 then 
-        call SetBuildNext(1, NECRO) 
-        call SetBuildNext(1, BANSHEE) 
-    endif 
-    if c_slaughter_done >= 1 and c_citadel_done >= 1 then 
-        call SetBuildNext(2, ABOMINATION) 
-    endif 
-    if c_boneyard_done >= 1 then 
-        call SetBuildNext(2, FROST_WYRM) 
-    endif 
-    if c_citadel_done >= 1 and c_tomb_done >= 1 then 
-        call SetBuildUnit(1, OBS_STATUE) 
-    endif 
-    if c_temple_done >= 1 then 
-        call SetBuildNext(1, NECRO) 
-        call SetBuildNext(1, BANSHEE) 
     endif 
 
     call undead_mine(2) 

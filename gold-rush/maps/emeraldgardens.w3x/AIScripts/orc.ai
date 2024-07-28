@@ -377,13 +377,21 @@ endfunction
 //--------------------------------------------------------------------------------------------------                    
 //  build_sequence                    
 //--------------------------------------------------------------------------------------------------                    
+function SetBuildBulk takes integer qty, integer unitid, integer builderQty returns nothing
+    local integer has = GetUnitCount(unitid)
+    if has >= qty then
+        return
+    endif
+    call SetBuildAll(BUILD_UNIT, Min(GetUnitCountDone(unitid)+builderQty, qty), unitid, -1)
+endfunction
+
 function build_sequence takes nothing returns nothing 
     local integer peons 
 
     call InitBuildArray() 
 
     // get enough burrows to handle current food demand                  
-    if c_peon_done >= 1 and c_food_used + 5 >= c_food_made then 
+    if c_peon_done >= 1 and c_food_used + 10 >= c_food_made then 
         call SetBuildUnit(c_burrow_done + 1, BURROW) 
     endif 
 
@@ -418,7 +426,7 @@ function build_sequence takes nothing returns nothing
         call BasicExpansion(c_mines < 2, GREAT_HALL) 
 
         call GuardSecondary(1, 1, BURROW) 
-        call GuardSecondary(1, 2, ORC_WATCH_TOWER) 
+        call GuardSecondary(1, 3, ORC_WATCH_TOWER) 
 
         call SetBuildUnit(4, BURROW) 
         call SetBuildUnit(6, GRUNT) 
@@ -482,35 +490,49 @@ function build_sequence takes nothing returns nothing
 
     // minimum melee defense                    
     if c_totem_done >= 1 then 
-        call SetBuildUnit(1, TAUREN) 
+        call SetBuildBulk(2, TAUREN, c_totem_done) 
     endif 
 
     call SetBuildUnit(1, ORC_BARRACKS) 
-    call SetBuildUnit(2, GRUNT) 
-    call SetBuildUnit(2, hunter_code) 
-    call SetBuildUnit(1, CATAPULT) 
+    call SetBuildBulk(4, GRUNT, c_barracks_done) 
+    call SetBuildUnit(1, FORGE) 
+    call SetBuildBulk(4, hunter_code, c_barracks_done) 
+    call SetBuildUnit(1, STRONGHOLD) 
+    call SetBuildBulk(2, CATAPULT, c_barracks_done) 
 
     // minimum ranged/air defense and siege units                    
     if c_bestiary_done >= 1 then 
         if c_fortress_done >= 1 then 
-            call SetBuildUnit(1, WYVERN) 
+            call SetBuildBulk(2, WYVERN, c_bestiary_done) 
         endif 
         if b_ensnare then 
-            call SetBuildUnit(2, RAIDER) 
+            call SetBuildBulk(4, RAIDER, c_bestiary_done) 
         endif 
+        if c_forge_done >= 1 then 
+            call SetBuildBulk(1, KODO_BEAST, c_bestiary_done) 
+        endif 
+        if c_voodoo_done >= 1 and c_fortress_done >= 1 then 
+            call SetBuildBulk(2, BATRIDER, c_bestiary_done) 
+        endif 
+    else
+        call SetBuildUnit(1, BESTIARY) 
     endif 
 
-    if c_voodoo_done >= 1 and c_fortress_done >= 1 then 
-        call SetBuildUnit(1, BATRIDER) 
+    
+    if c_lodge_done >= 1 then 
+        call SetBuildBulk(2, SHAMAN, c_lodge_done) 
+        call SetBuildBulk(2, WITCH_DOCTOR, c_lodge_done) 
+    else
+        call SetBuildUnit(1, LODGE) 
     endif 
 
     call BasicExpansion(c_mines < 2, GREAT_HALL) 
     call GuardSecondary(1, 1, BURROW) 
-    call GuardSecondary(1, 2, ORC_WATCH_TOWER) 
+    call GuardSecondary(1, 3, ORC_WATCH_TOWER) 
 
     call BasicExpansion(c_mines < 3, GREAT_HALL) 
     call GuardSecondary(2, 1, BURROW) 
-    call GuardSecondary(2, 2, ORC_WATCH_TOWER) 
+    call GuardSecondary(2, 3, ORC_WATCH_TOWER) 
 
     // if we have a lot of gold then advance the tech tree                    
     if c_gold > 1000 then 
@@ -539,41 +561,6 @@ function build_sequence takes nothing returns nothing
         call do_upgrades() 
     endif 
 
-    call BasicExpansion(c_mines < 2, GREAT_HALL) 
-    call GuardSecondary(1, 1, BURROW) 
-    call GuardSecondary(1, 2, ORC_WATCH_TOWER) 
-
-    // full up with more troops in general                    
-    if c_totem_done >= 1 then 
-        call SetBuildNext(1, TAUREN) 
-    endif 
-
-    call SetBuildNext(2, GRUNT) 
-    call SetBuildNext(2, hunter_code) 
-    call SetBuildNext(1, CATAPULT) 
-
-    if c_bestiary_done >= 1 then 
-        if c_fortress_done >= 1 then 
-            call SetBuildNext(1, WYVERN) 
-        endif 
-        if b_ensnare then 
-            call SetBuildNext(2, RAIDER) 
-        endif 
-        if c_forge_done >= 1 then 
-            call SetBuildNext(1, KODO_BEAST) 
-        endif 
-    endif 
-
-    if c_voodoo_done >= 1 and c_fortress_done >= 1 then 
-        call SetBuildNext(1, BATRIDER) 
-    endif 
-
-    if c_lodge_done >= 1 then 
-        call SetBuildUnit(1, SHAMAN) 
-        call SetBuildUnit(1, WITCH_DOCTOR) 
-        call SetBuildNext(1, SHAMAN) 
-        call SetBuildNext(1, WITCH_DOCTOR) 
-    endif 
 endfunction 
 
 //--------------------------------------------------------------------------------------------------                    

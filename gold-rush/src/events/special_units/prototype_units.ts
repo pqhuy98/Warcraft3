@@ -77,7 +77,7 @@ const conversionData: ConversionData[] = [
     baseUnit: UNIT_HeroDreadLord, newUnit: UNIT_Varimathras, chance: 0.2,
   },
   {
-    baseUnit: UNIT_Abomination, newUnit: UNIT_FleshGolem, chance: 0.2,
+    baseUnit: UNIT_Abomination, newUnit: UNIT_FleshGolem, chance: 0.15,
   },
   {
     baseUnit: UNIT_FrostWyrm, newUnit: UNIT_UndeadAzurelore, chance: 0.1,
@@ -119,12 +119,7 @@ export class PrototypeUnits {
   }
 
   static replaceUnit(unit: Unit) {
-    const validNewUnits = conversionMap.get(unit.typeId)
-      .filter((data) => {
-        const typeId = FourCC(data.newUnit.code);
-        return !IsHeroUnitId(typeId)
-          || temp(Group.fromHandle(GetUnitsOfTypeIdAll(typeId))).size <= 1; // including 1 proto
-      });
+    const validNewUnits = conversionMap.get(unit.typeId);
 
     const randomResult = chooseRandom(validNewUnits);
     if (!randomResult) return;

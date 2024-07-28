@@ -2,6 +2,7 @@
 AgiDefenseBonus=0.14
 AllowMultiBounce=1
 BoneDecayTime=15.0
+DamageBonusSpells=1.00,1.00,1.00,0.30,1.00,0.75,0.05,1.00
 DecayTime=2.0
 DisplayEnemyInventory=1
 FoodCeiling=150

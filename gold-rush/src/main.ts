@@ -141,7 +141,7 @@ function tsMain() {
   MulticastUnit.register(FourCC(ABILITY_MountainKingThunderBolt.code));
   MulticastNoTarget.register(FourCC(ABILITY_MountainKingThunderClap.code));
   MulticastPoint.register(FourCC(ABILITY_ArchMageBlizzard.code), globalUnits.heroJaina);
-  MulticastNoTarget.register(FourCC(ABILITY_ArchMageWaterElemental.code));
+  MulticastNoTarget.register(FourCC(ABILITY_ArchMageWaterElemental.code), globalUnits.heroJaina);
   MulticastPoint.register(FourCC(ABILITY_BloodMageFlameStrike.code));
   MulticastUnit.register(FourCC(ABILITY_BloodMageSiphonMana.code), undefined, false);
   MulticastNoTarget.register(FourCC(ABILITY_BloodMagePhoenix.code));
@@ -163,11 +163,10 @@ function tsMain() {
     .for(() => Unit.fromEnum().destroy());
 
   // Reveal gold mines
-  false && temp(Group.fromHandle(GetUnitsOfPlayerAndTypeId(Player(PLAYER_NEUTRAL_PASSIVE), FourCC(UNIT_GoldMine.code))))
+  temp(Group.fromHandle(GetUnitsOfPlayerAndTypeId(Player(PLAYER_NEUTRAL_PASSIVE), FourCC(UNIT_GoldMine.code))))
     .for(() => {
       const goldMine = Unit.fromEnum();
       SetFogStateRadius(globalUnits.fountainLight.owner.handle, FOG_OF_WAR_FOGGED, goldMine.x, goldMine.y, 300, true);
-      SetFogStateRadius(globalUnits.fountainDark.owner.handle, FOG_OF_WAR_FOGGED, goldMine.x, goldMine.y, 300, true);
     });
 
   registerChatCommands();
@@ -310,7 +309,6 @@ function configurePlayerSettings() {
   }
 
   // Start AI for other players with no custom script.
-  MeleeStartingAI();
 
   function setMainPlayerAlliance(mainPlayerForce: MainPlayerFaction) {
     for (let i = 0; i < 24; i++) {
@@ -357,7 +355,7 @@ function configurePlayerSettings() {
       SetPlayerAlliance(darkChampionPlayer.handle, mainPlayer.handle, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
     }
     ClearTextMessages();
-    setTimeout(0, () => SetFogStateRect(mainPlayer.handle, FOG_OF_WAR_MASKED, temp(Rectangle.getWorldBounds()).handle, true));
+    setTimeout(0, () => SetFogStateRect(mainPlayer.handle, FOG_OF_WAR_MASKED, temp(Rectangle.getWorldBounds()).handle, false));
   }
   setMainPlayerAlliance('observer');
   onChatCommand('-faction $1', false, (msg) => {

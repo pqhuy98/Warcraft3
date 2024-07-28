@@ -2,6 +2,7 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { mainPlayer } from 'lib/constants';
 import { temp } from 'lib/location';
+import { systemConfig } from 'lib/systems/system-config';
 import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
 import { getUnitsFromGroup, GetUnitsInRangeOfXYMatching } from 'lib/unit';
 import { shuffleArray } from 'lib/utils';
@@ -28,9 +29,9 @@ function getScore(unit: Unit): number {
 }
 
 export class AutoPanCamera {
-  static bestUnit: Unit;
+  static selectedUnit: Unit;
 
-  static enabled = true;
+  static enabled = systemConfig.defaultAutoPanCamera;
 
   static timer: Timer = null;
 
@@ -50,6 +51,13 @@ export class AutoPanCamera {
     onChatCommand('-autocam 1', true, () => button.change(true), 'UI & scaling', 'Enable automatic camera control.');
     onChatCommand('-autocam 0', true, () => button.change(false), 'UI & scaling', 'Disable automatic camera control.');
 
+    buildTrigger((t) => {
+      t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SELECTED);
+      t.addAction(() => {
+        this.selectedUnit = Unit.fromEvent();
+      });
+    });
+
     setIntervalIndefinite(10, () => {
       const heroes = GetUnitsInRectMatching(
         temp(Rectangle.getWorldBounds()).handle,
@@ -61,18 +69,24 @@ export class AutoPanCamera {
       const units = shuffleArray(getUnitsFromGroup(heroes));
       DestroyGroup(heroes);
 
-      this.bestUnit = units[0];
-      let bestScore = getScore(this.bestUnit);
+      let bestUnit = units[0];
+      let bestScore = getScore(bestUnit);
 
       for (const unit of units) {
         const unitScore = getScore(unit);
         if (bestScore < unitScore) {
-          this.bestUnit = unit;
+          bestUnit = unit;
           bestScore = unitScore;
         }
       }
       if (this.enabled) {
-        SelectUnitForPlayerSingle(this.bestUnit.handle, mainPlayer.handle);
+        if (this.selectedUnit !== bestUnit) {
+          this.selectedUnit = bestUnit;
+          SetCameraField(CAMERA_FIELD_ROTATION, GetRandomDirectionDeg(), 0.5);
+          PanCameraToTimedForPlayer(mainPlayer.handle, this.selectedUnit.x, this.selectedUnit.y, 0.5);
+        }
+
+        SelectUnitForPlayerSingle(this.selectedUnit.handle, mainPlayer.handle);
       }
     });
 
@@ -83,14 +97,18 @@ export class AutoPanCamera {
 
   static enable() {
     this.enabled = true;
-    SelectUnitForPlayerSingle(this.bestUnit.handle, mainPlayer.handle);
+    if (this.selectedUnit) {
+      SelectUnitForPlayerSingle(this.selectedUnit.handle, mainPlayer.handle);
+    }
 
     if (this.timer) {
       this.timer.pause();
       this.timer.destroy();
     }
     this.timer = setIntervalIndefinite(0.5, () => {
-      PanCameraToTimedForPlayer(mainPlayer.handle, this.bestUnit.x, this.bestUnit.y, 1);
+      if (this.selectedUnit) {
+        PanCameraToTimedForPlayer(mainPlayer.handle, this.selectedUnit.x, this.selectedUnit.y, 0.75);
+      }
     });
   }
 

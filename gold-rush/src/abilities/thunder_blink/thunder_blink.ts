@@ -155,7 +155,7 @@ export class ThunderBlink {
     const durationPerStep = Math.min(0.1, 2.0 / nearby.length);
     enumUnitsWithDelay(nearby, (enumUnit) => {
       const dummyCl = createDummy(caster.owner, caster.x, caster.y, caster, 1);
-      setUnitScale(dummyCl, getUnitScale(caster));
+      setUnitScale(dummyCl, toScale(1));
       ChainLightningMulticast.blackListCaster(dummyCl);
       dummyCl.addAbility(ABILITY_ID_CHAIN_LIGHTNING);
       dummyCl.setAbilityLevel(ABILITY_ID_CHAIN_LIGHTNING, abilityLevel);

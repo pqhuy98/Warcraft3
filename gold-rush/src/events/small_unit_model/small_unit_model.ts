@@ -3,8 +3,9 @@ import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { temp } from 'lib/location';
 import { log } from 'lib/log';
 import {
-  UNIT_Demolisher, UNIT_Infernal, UNIT_MeatWagon, UNIT_Phoenix, UNIT_PhoenixEgg, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded,
+  UNIT_Demolisher, UNIT_Destroyer, UNIT_Infernal, UNIT_MeatWagon, UNIT_Militia, UNIT_ObsidianStatue, UNIT_Phoenix, UNIT_PhoenixEgg, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded,
 } from 'lib/resources/war3-units';
+import { systemConfig } from 'lib/systems/system-config';
 import {
   buildTrigger, setIntervalIndefinite,
 } from 'lib/trigger';
@@ -31,6 +32,9 @@ const unitsRetainSize = new Set([
   UNIT_Infernal,
   UNIT_Phoenix,
   UNIT_PhoenixEgg,
+  UNIT_ObsidianStatue,
+  UNIT_Destroyer,
+  UNIT_Militia,
 ].map((u) => FourCC(u.code)));
 
 export class SmallUnitModel {
@@ -63,13 +67,14 @@ export class SmallUnitModel {
       TriggerRegisterEnterRectSimple(t.handle, GetEntireMapRect());
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_ORDER);
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SELECTED);
+      t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_FINISH);
       t.addCondition(() => this.filterCondition(Unit.fromEvent()));
       t.addAction(() => {
         this.updateUnit(Unit.fromEvent());
       });
     });
 
-    let isCameraFixed = true;
+    let isCameraFixed = systemConfig.defaultCamLock;
     const initialCameraDistance = GetCameraField(CAMERA_FIELD_TARGET_DISTANCE);
     setIntervalIndefinite(0.1, () => {
       if (isCameraFixed) {

@@ -44,6 +44,7 @@ globals
     integer c_watch = 0 
     integer c_watch_done = 0 
     integer c_workshop_done = 0 
+    integer c_barrack_done = 0
     integer c_zep = 0 
 endglobals 
 
@@ -229,6 +230,7 @@ function init_vars takes nothing returns nothing
     set c_watch = TownCount(WATCH_TOWER) 
     set c_watch_done = TownCountDone(WATCH_TOWER) 
     set c_workshop_done = GetUnitCountDone(WORKSHOP) 
+    set c_barrack_done = GetUnitCountDone(BARRACKS) 
     set c_zep = GetUnitCount(ZEPPELIN) 
 
     set b_hero1_done = GetUnitCountDone(hero_id) >= 1 
@@ -355,13 +357,21 @@ endfunction
 //--------------------------------------------------------------------------------------------------                                          
 //  build_sequence                                          
 //--------------------------------------------------------------------------------------------------                                          
+function SetBuildBulk takes integer qty, integer unitid, integer builderQty returns nothing
+    local integer has = GetUnitCount(unitid)
+    if has >= qty then
+        return
+    endif
+    call SetBuildAll(BUILD_UNIT, Min(GetUnitCountDone(unitid)+builderQty, qty), unitid, -1)
+endfunction
+
 function build_sequence takes nothing returns nothing 
     local integer peasants 
 
     call InitBuildArray() 
 
     // get enough burrows to handle current food demand                                         
-    if c_peasant_done >= 1 and c_food_used + 5 >= c_food_made then 
+    if c_peasant_done >= 1 and c_food_used + 10 >= c_food_made then 
         call SetBuildUnit(c_house_done + 1, HOUSE) 
     endif 
 
@@ -491,43 +501,50 @@ function build_sequence takes nothing returns nothing
     // minimum melee defense                                          
     call SetBuildUnit(1, BARRACKS) 
     if b_knights_ok then 
-        call SetBuildUnit(2, KNIGHT) 
+        call SetBuildBulk(4, KNIGHT, c_barrack_done) 
     endif 
 
-    call SetBuildUnit(4, FOOTMAN) 
+    call SetBuildBulk(4, FOOTMAN, c_barrack_done) 
 
     // minimum ranged/air defense                                          
     if c_aviary_done >= 1 then 
-        call SetBuildUnit(1, GRYPHON) 
+        call SetBuildBulk(2, GRYPHON, c_aviary_done) 
+        call SetBuildBulk(2, HUMAN_DRAGON_HAWK, c_aviary_done) 
     endif 
 
     call SetBuildUnit(1, BLACKSMITH) 
     if c_smith_done >= 1 then 
-        call SetBuildUnit(2, RIFLEMEN) 
+        call SetBuildBulk(2, RIFLEMEN, c_barrack_done) 
     endif 
 
     // siege attackers                                          
     call SetBuildUnit(1, KEEP) 
     call SetBuildUnit(1, WORKSHOP) 
-    call SetBuildUnit(1, MORTAR) 
-
+    if c_workshop_done >= 1 then 
+        call SetBuildBulk(2, MORTAR, c_workshop_done) 
+        call SetBuildBulk(2, COPTER, c_workshop_done) 
+        call SetBuildBulk(2, ROCKET_TANK, c_workshop_done) 
+    endif 
     
     call SetBuildUnit(1, SANCTUM) 
-    call SetBuildNext(1, PRIEST) 
-    call SetBuildNext(1, SORCERESS) 
+    if c_sanctum_done >= 1 then 
+        call SetBuildBulk(2, PRIEST, c_sanctum_done) 
+        call SetBuildBulk(2, SORCERESS, c_sanctum_done) 
+        call SetBuildBulk(2, SPELL_BREAKER, c_sanctum_done) 
+    endif 
 
     call BasicExpansion(c_mines < 2, TOWN_HALL) 
-    call GuardSecondary(1, 2, WATCH_TOWER) 
+    call GuardSecondary(1, 4, WATCH_TOWER) 
     if c_watch >= 2 then 
-        call GuardSecondary(1, 1, GUARD_TOWER) 
-        call GuardSecondary(1, 1, ARCANE_TOWER) 
+        call GuardSecondary(1, 2, GUARD_TOWER) 
+        call GuardSecondary(1, 2, ARCANE_TOWER) 
     endif 
 
     call BasicExpansion(c_mines < 3, TOWN_HALL) 
-    call GuardSecondary(2, 2, WATCH_TOWER) 
+    call GuardSecondary(2, 4, WATCH_TOWER) 
     if c_watch >= 2 then 
-        call GuardSecondary(2, 1, GUARD_TOWER) 
-        call GuardSecondary(2, 1, ARCANE_TOWER) 
+        call GuardSecondary(2, 2, GUARD_TOWER) 
+        call GuardSecondary(2, 2, ARCANE_TOWER) 
     endif 
 
     // if we have a lot of gold then advance the tech tree                                          
@@ -549,28 +566,6 @@ function build_sequence takes nothing returns nothing
 
     elseif c_food_used >= UPKEEP_TIER1 then 
         call do_upgrades() 
-    endif 
-
-    // full up with more troops in general                                          
-
-    if c_sanctum_done >= 1 then 
-        call SetBuildNext(1, PRIEST) 
-        call SetBuildNext(1, SORCERESS) 
-        call SetBuildNext(2, SPELL_BREAKER) 
-    endif 
-
-    if b_knights_ok then 
-        call SetBuildNext(2, KNIGHT) 
-    endif 
-
-    if c_aviary_done >= 1 then 
-        call SetBuildNext(1, GRYPHON) 
-        call SetBuildNext(2, HUMAN_DRAGON_HAWK) 
-    endif 
-
-    if c_workshop_done >= 1 then 
-        call SetBuildNext(2, COPTER) 
-        call SetBuildNext(2, ROCKET_TANK) 
     endif 
 
     call SetBuildUnit(c_watch_done - c_arcane, GUARD_TOWER) 
