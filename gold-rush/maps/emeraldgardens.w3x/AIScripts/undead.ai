@@ -521,7 +521,7 @@ function build_sequence takes nothing returns nothing
 
     // minimum melee defense
     if c_slaughter_done >= 1 and c_citadel_done >= 1 then 
-        call SetBuildBulk(4, ABOMINATION, c_slaughter_done) 
+        call SetBuildBulk(3, ABOMINATION, c_slaughter_done) 
         call SetBuildBulk(2, MEAT_WAGON, c_slaughter_done) 
     else 
         call MeleeTownHall(0, NECROPOLIS_1) 
@@ -534,9 +534,9 @@ function build_sequence takes nothing returns nothing
     // minimum ranged/air defense
 
     if c_crypt_done > 0 then
-        call SetBuildBulk(WG2 + 6, GHOUL, c_crypt_done) 
+        call SetBuildBulk(WG2 + 3, GHOUL, c_crypt_done) 
         if c_citadel_done >= 1 then 
-            call SetBuildBulk(4, GARGOYLE, c_crypt_done) 
+            call SetBuildBulk(2, GARGOYLE, c_crypt_done) 
         endif 
         if c_grave_done > 0 then
             call SetBuildBulk(2, CRYPT_FIEND, c_crypt_done)

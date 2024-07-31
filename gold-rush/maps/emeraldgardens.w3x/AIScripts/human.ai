@@ -501,10 +501,10 @@ function build_sequence takes nothing returns nothing
     // minimum melee defense                                          
     call SetBuildUnit(1, BARRACKS) 
     if b_knights_ok then 
-        call SetBuildBulk(4, KNIGHT, c_barrack_done) 
+        call SetBuildBulk(3, KNIGHT, c_barrack_done) 
     endif 
 
-    call SetBuildBulk(4, FOOTMAN, c_barrack_done) 
+    call SetBuildBulk(3, FOOTMAN, c_barrack_done) 
 
     // minimum ranged/air defense                                          
     if c_aviary_done >= 1 then 

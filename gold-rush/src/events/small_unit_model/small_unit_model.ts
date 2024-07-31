@@ -3,7 +3,7 @@ import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { temp } from 'lib/location';
 import { log } from 'lib/log';
 import {
-  UNIT_Demolisher, UNIT_Destroyer, UNIT_Infernal, UNIT_MeatWagon, UNIT_Militia, UNIT_ObsidianStatue, UNIT_Phoenix, UNIT_PhoenixEgg, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded,
+  UNIT_Demolisher, UNIT_Destroyer, UNIT_Infernal, UNIT_MeatWagon, UNIT_Militia, UNIT_ObsidianStatue, UNIT_Peasant, UNIT_Phoenix, UNIT_PhoenixEgg, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded,
 } from 'lib/resources/war3-units';
 import { systemConfig } from 'lib/systems/system-config';
 import {
@@ -34,6 +34,7 @@ const unitsRetainSize = new Set([
   UNIT_PhoenixEgg,
   UNIT_ObsidianStatue,
   UNIT_Destroyer,
+  UNIT_Peasant,
   UNIT_Militia,
 ].map((u) => FourCC(u.code)));
 
