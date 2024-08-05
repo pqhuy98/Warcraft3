@@ -1,3 +1,4 @@
+import { UNIT_TirionFordring } from 'lib/constants';
 import { temp } from 'lib/location';
 import {
   UNIT_Abomination,
@@ -30,7 +31,7 @@ const conversionData: ConversionData[] = [
     baseUnit: UNIT_Footman, newUnit: UNIT_TheCaptain, chance: 0.25,
   },
   {
-    baseUnit: UNIT_Raider, newUnit: UNIT_Nazgrel, chance: 0.25,
+    baseUnit: UNIT_HeroPaladin, newUnit: UNIT_TirionFordring, chance: 0.15,
   },
   {
     baseUnit: UNIT_HeroPaladin, newUnit: UNIT_DagrenTheOrcslayer, chance: 0.15,
@@ -48,6 +49,9 @@ const conversionData: ConversionData[] = [
     baseUnit: UNIT_HeroPaladin, newUnit: UNIT_PaladinBoss2, chance: 0.15,
   },
   // Orc
+  {
+    baseUnit: UNIT_Raider, newUnit: UNIT_Nazgrel, chance: 0.25,
+  },
   {
     baseUnit: UNIT_HeroTaurenChieftain, newUnit: UNIT_CairneBloodhoof, chance: 0.5,
   },

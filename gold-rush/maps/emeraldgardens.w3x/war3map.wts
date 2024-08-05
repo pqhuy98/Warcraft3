@@ -1475,3 +1475,21 @@ STRING 337
 (System)
 }
 
+STRING 338
+// Doodads: D001 (asd), Name (Name)
+{
+asd
+}
+
+STRING 339
+// Units: H004 (Highlord of the Argent Crusade), Name (Name)
+{
+Highlord of the Argent Crusade
+}
+
+STRING 340
+// Units: H004 (Highlord of the Argent Crusade), Propernames (Proper Names)
+{
+Tirion Fordring
+}
+

@@ -65,7 +65,13 @@ import {
   ABILITY_ShadowHunterHex,
 } from 'lib/resources/war3-abilities';
 import {
-  UNIT_Abomination, UNIT_FrostWyrm, UNIT_Ghoul, UNIT_GoldMine,
+  UNIT_Abomination, UNIT_AltarofDarkness, UNIT_Boneyard, UNIT_Crypt, UNIT_FrostWyrm, UNIT_Ghoul, UNIT_GoldMine,
+  UNIT_Graveyard,
+  UNIT_SacrificialPit,
+  UNIT_Slaughterhouse,
+  UNIT_TempleoftheDamned,
+  UNIT_TombOfRelics,
+  UNIT_Ziggurat,
 } from 'lib/resources/war3-units';
 import { registerDialogues } from 'lib/sound';
 import { DamageStochasticObserver } from 'lib/systems/damage_observer';
@@ -292,18 +298,31 @@ function configurePlayerSettings() {
       });
 
       if (!noUnitPlayers.includes(player.handle)) {
-        const startingUnits: Record<string, number> = {
-          [UNIT_Abomination.code]: 1,
-          [UNIT_Ghoul.code]: 6,
-          [UNIT_CryptFiend.code]: 1,
-          [UNIT_FrostWyrm.code]: 1,
-        };
-        for (const [code, count] of Object.entries(startingUnits)) {
-          for (let i = 0; i < count; i++) {
-            const loc = PolarProjection(fromTempLocation(player.startLocationPoint), GetRandomReal(500, 700), GetRandomDirectionDeg());
-            Unit.create(player, FourCC(code), loc.x, loc.y);
+        setTimeout(0, () => {
+          const startingUnits: Record<string, number> = {
+            [UNIT_Abomination.code]: 1,
+            [UNIT_Ghoul.code]: 6,
+            [UNIT_CryptFiend.code]: 1,
+            [UNIT_FrostWyrm.code]: 1,
+
+            // Full base
+            // [UNIT_AltarofDarkness.code]: 1,
+            // [UNIT_Crypt.code]: 2,
+            // [UNIT_Slaughterhouse.code]: 2,
+            // [UNIT_TempleoftheDamned.code]: 2,
+            // [UNIT_Boneyard.code]: 2,
+            // [UNIT_Graveyard.code]: 1,
+            // [UNIT_TombOfRelics.code]: 1,
+            // [UNIT_SacrificialPit.code]: 1,
+            // [UNIT_Ziggurat.code]: 5,
+          };
+          for (const [code, count] of Object.entries(startingUnits)) {
+            for (let i = 0; i < count; i++) {
+              const loc = PolarProjection(fromTempLocation(player.startLocationPoint), GetRandomReal(500, 700), GetRandomDirectionDeg());
+              Unit.create(player, FourCC(code), loc.x, loc.y);
+            }
           }
-        }
+        });
       }
     }
   }

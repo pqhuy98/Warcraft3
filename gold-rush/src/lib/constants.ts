@@ -29,9 +29,11 @@ export const ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION = FourCC('A00F:AIcb');
 export const ABILITY_ID_BOOK_OF_TELEPORTATION = FourCC('A00K:AHmt');
 export const ABILITY_ID_MONSOON_THRALL = FourCC('A00L:ACmo');
 
-export const MODEL_Sand_Tornado = 'SandTornado.mdx';
-export const MODEL_Water_Tornado = 'WaterTornado.mdx';
-export const MODEL_Shadow_Tornado = 'ShadowTornado.mdx';
+export const MODEL_Sand_Tornado = 'Models\\Tornado\\SandTornado.mdx';
+export const MODEL_Water_Tornado = 'Models\\Tornado\\WaterTornado.mdx';
+export const MODEL_Shadow_Tornado = 'Models\\Tornado\\ShadowTornado.mdx';
+
+export const UNIT_TirionFordring = { code: 'H004' };
 
 export const mainPlayer = MapPlayer.fromIndex(0);
 export const lightChampionPlayer = MapPlayer.fromIndex(5);
