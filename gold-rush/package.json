@@ -11,6 +11,7 @@
     "dev": "npm-watch",
     "build:defs": "ts-node scripts/dev",
     "lint": "eslint src/**/*.ts --fix",
+    "sandbox-terrain": "ts-node --transpile-only scripts/sandbox-terrain.ts",
     "sandbox": "ts-node --transpile-only scripts/sandbox.ts"
   },
   "dependencies": {

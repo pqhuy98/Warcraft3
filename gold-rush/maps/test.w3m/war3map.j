@@ -30,6 +30,64 @@ endfunction
 
 //***************************************************************************
 //*
+//*  Unit Creation
+//*
+//***************************************************************************
+
+//===========================================================================
+function CreateBuildingsForPlayer0 takes nothing returns nothing
+    local player p = Player(0)
+    local unit u
+    local integer unitID
+    local trigger t
+    local real life
+
+    set u = BlzCreateUnitWithSkin( p, 'hgtw', 3264.0, -14592.0, 270.000, 'hgtw' )
+    set u = BlzCreateUnitWithSkin( p, 'hgtw', 2688.0, -13248.0, 270.000, 'hgtw' )
+    set u = BlzCreateUnitWithSkin( p, 'hgtw', 3776.0, -13376.0, 270.000, 'hgtw' )
+    set u = BlzCreateUnitWithSkin( p, 'hgtw', 3008.0, -13376.0, 270.000, 'hgtw' )
+    set u = BlzCreateUnitWithSkin( p, 'hbar', 3648.0, -13888.0, 270.000, 'hbar' )
+    set u = BlzCreateUnitWithSkin( p, 'harm', 3136.0, -13888.0, 270.000, 'harm' )
+    set u = BlzCreateUnitWithSkin( p, 'owtw', 4864.0, -10496.0, 270.000, 'owtw' )
+    set u = BlzCreateUnitWithSkin( p, 'owtw', 5440.0, -11776.0, 270.000, 'owtw' )
+    set u = BlzCreateUnitWithSkin( p, 'otrb', 4576.0, -10976.0, 270.000, 'otrb' )
+    set u = BlzCreateUnitWithSkin( p, 'obar', 4736.0, -11392.0, 270.000, 'obar' )
+    set u = BlzCreateUnitWithSkin( p, 'owtw', 4928.0, -11904.0, 270.000, 'owtw' )
+    set u = BlzCreateUnitWithSkin( p, 'obea', 5248.0, -11072.0, 270.000, 'obea' )
+endfunction
+
+//===========================================================================
+function CreateUnitsForPlayer0 takes nothing returns nothing
+    local player p = Player(0)
+    local unit u
+    local integer unitID
+    local trigger t
+    local real life
+
+    set u = BlzCreateUnitWithSkin( p, 'ocat', 4399.9, -11716.2, 193.206, 'ocat' )
+    set u = BlzCreateUnitWithSkin( p, 'ocat', 5321.3, -10471.5, 178.588, 'ocat' )
+    set u = BlzCreateUnitWithSkin( p, 'umtw', 3762.5, -10224.5, 226.286, 'umtw' )
+    set u = BlzCreateUnitWithSkin( p, 'umtw', 3971.4, -10415.8, 204.411, 'umtw' )
+endfunction
+
+//===========================================================================
+function CreatePlayerBuildings takes nothing returns nothing
+    call CreateBuildingsForPlayer0(  )
+endfunction
+
+//===========================================================================
+function CreatePlayerUnits takes nothing returns nothing
+    call CreateUnitsForPlayer0(  )
+endfunction
+
+//===========================================================================
+function CreateAllUnits takes nothing returns nothing
+    call CreatePlayerBuildings(  )
+    call CreatePlayerUnits(  )
+endfunction
+
+//***************************************************************************
+//*
 //*  Triggers
 //*
 //***************************************************************************
@@ -97,12 +155,13 @@ endfunction
 
 //===========================================================================
 function main takes nothing returns nothing
-    call SetCameraBounds( -7424.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -7680.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 7424.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 7168.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -7424.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 7168.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 7424.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -7680.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM) )
+    call SetCameraBounds( -9472.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -15872.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 9472.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 15360.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -9472.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 15360.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 9472.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -15872.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM) )
     call SetDayNightModels( "Environment\\DNC\\DNCLordaeron\\DNCLordaeronTerrain\\DNCLordaeronTerrain.mdl", "Environment\\DNC\\DNCLordaeron\\DNCLordaeronUnit\\DNCLordaeronUnit.mdl" )
     call NewSoundEnvironment( "Default" )
     call SetAmbientDaySound( "IceCrownDay" )
     call SetAmbientNightSound( "IceCrownNight" )
     call SetMapMusic( "Music", true, 0 )
+    call CreateAllUnits(  )
     call InitBlizzard(  )
     call InitGlobals(  )
     call InitCustomTriggers(  )
@@ -123,7 +182,7 @@ function config takes nothing returns nothing
     call SetTeams( 1 )
     call SetGamePlacement( MAP_PLACEMENT_USE_MAP_SETTINGS )
 
-    call DefineStartLocation( 0, 5810.3, -1788.4 )
+    call DefineStartLocation( 0, 6272.0, 9408.0 )
 
     // Player setup
     call InitCustomPlayerSlots(  )

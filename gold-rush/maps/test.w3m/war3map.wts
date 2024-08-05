@@ -8,3 +8,9 @@ STRING 2
 Force 1
 }
 
+STRING 3
+// Doodads: D000 (Wrathgate), Name (Name)
+{
+Wrathgate
+}
+
