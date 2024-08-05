@@ -12,6 +12,16 @@ globals
     integer AG = 0 // attacking ghouls                                                                                            
     integer WG = 0 // wood ghouls                                                                                            
 
+    integer c_ghoul_max = 6
+    integer c_fiend_max = 2 
+    integer c_abom_max = 3
+    integer c_wagon_max = 2 
+    integer c_necro_max = 2 
+    integer c_banshee_max = 2 
+    integer c_wyrm_max = 2
+    integer c_garg_max = 2 
+    integer c_statue_max = 1 
+
     integer c_abom = 0 
     integer c_abom_done = 0 
     integer c_acolyte = 0 
@@ -210,41 +220,45 @@ endfunction
 //  attack_sequence                                                                                            
 //--------------------------------------------------------------------------------------------------                                                                                            
 function attack_sequence takes nothing returns nothing 
-    local boolean needs_exp 
-    local boolean has_siege 
-    local boolean air_units 
-    local integer level 
+    local boolean full_troop
 
-    loop 
-        exitwhen c_hero1_done >= 1 
-        call Sleep(2) 
-    endloop 
+    loop
+        loop 
+            set full_troop = c_hero1_done >= 1
+            set full_troop = full_troop and c_hero2_done >= 1
+            set full_troop = full_troop and c_hero3_done >= 1
+            set full_troop = full_troop and c_ghoul_done >= c_ghoul_max 
+            set full_troop = full_troop and c_fiend_done >= c_fiend_max 
+            set full_troop = full_troop and c_abom_done >= c_abom_max
+            set full_troop = full_troop and c_wagon_done >= c_wagon_max
+            set full_troop = full_troop and c_necro_done >= c_necro_max 
+            set full_troop = full_troop and c_banshee_done >= c_banshee_max 
+            set full_troop = full_troop and c_wyrm_done >= c_wyrm_max
+            set full_troop = full_troop and c_garg_done >= c_garg_max 
+            set full_troop = full_troop and c_statue_done >= c_statue_max 
+            exitwhen full_troop
+            call Sleep(3) 
+        endloop 
 
-    call StaggerSleep(0, 2) 
-    loop 
-        if basic_opening then 
-            loop 
-                exitwhen c_ghoul_done >= 6 
-                call Sleep(1) 
-            endloop 
-            set AG = 6 
-            set WG = c_ghoul_done - AG 
-        else 
-            loop 
-                set WG = 3
-                set AG = c_ghoul_done - WG 
-                exitwhen(AG + 2 * c_abom_done) >= 4 
-                call Sleep(1) 
-            endloop 
-        endif 
+        call PrepFullSuicide()
+        call SuicideUnit(c_hero1_done, hero_id) 
+        call SuicideUnit(c_hero2_done, hero_id2) 
+        call SuicideUnit(c_hero3_done, hero_id3) 
+        call SuicideUnit(c_ghoul_done, GHOUL) 
+        call SuicideUnit(c_fiend_done, CRYPT_FIEND) 
+        call SuicideUnit(c_abom_done, ABOMINATION) 
+        call SuicideUnit(c_wagon_done, MEAT_WAGON) 
+        call SuicideUnit(c_necro_done, NECRO) 
+        call SuicideUnit(c_banshee_done, BANSHEE) 
+        call SuicideUnit(c_wyrm_done, FROST_WYRM) 
+        call SuicideUnit(c_garg_done, GARGOYLE) 
+        call SuicideUnit(c_statue_done, OBS_STATUE)
 
-        call setup_force() 
-
-        call AnyPlayerSuicide() 
-
-        set AG = 0 
-        set WG = c_ghoul_done 
-    endloop 
+        loop 
+            call Sleep(3) 
+            exitwhen CaptainIsEmpty()
+        endloop 
+    endloop
 endfunction 
 
 //--------------------------------------------------------------------------------------------------                                                                                            
@@ -521,8 +535,8 @@ function build_sequence takes nothing returns nothing
 
     // minimum melee defense
     if c_slaughter_done >= 1 and c_citadel_done >= 1 then 
-        call SetBuildBulk(3, ABOMINATION, c_slaughter_done) 
-        call SetBuildBulk(2, MEAT_WAGON, c_slaughter_done) 
+        call SetBuildBulk(c_abom_max, ABOMINATION, c_slaughter_done) 
+        call SetBuildBulk(c_wagon_max, MEAT_WAGON, c_slaughter_done) 
     else 
         call MeleeTownHall(0, NECROPOLIS_1) 
         call SetBuildUnit(1, NECROPOLIS_1) 
@@ -534,12 +548,12 @@ function build_sequence takes nothing returns nothing
     // minimum ranged/air defense
 
     if c_crypt_done > 0 then
-        call SetBuildBulk(WG2 + 3, GHOUL, c_crypt_done) 
+        call SetBuildBulk(c_ghoul_max, GHOUL, c_crypt_done) 
         if c_citadel_done >= 1 then 
-            call SetBuildBulk(2, GARGOYLE, c_crypt_done) 
+            call SetBuildBulk(c_garg_max, GARGOYLE, c_crypt_done) 
         endif 
         if c_grave_done > 0 then
-            call SetBuildBulk(2, CRYPT_FIEND, c_crypt_done)
+            call SetBuildBulk(c_fiend_max, CRYPT_FIEND, c_crypt_done)
         else
             call SetBuildUnit(1, GRAVEYARD) 
         endif
@@ -549,16 +563,16 @@ function build_sequence takes nothing returns nothing
 
     // siege attackers                                                                                            
     if c_boneyard_done >= 1 then 
-        call SetBuildBulk(2, FROST_WYRM, c_boneyard_done) 
+        call SetBuildBulk(c_wyrm_max, FROST_WYRM, c_boneyard_done) 
     endif 
 
     // spell casters
     if c_slaughter_done >= 1 and c_tomb_done >= 1 then 
-        call SetBuildBulk(1, OBS_STATUE, c_slaughter_done) 
+        call SetBuildBulk(c_statue_max, OBS_STATUE, c_slaughter_done) 
     endif 
     if c_temple_done >= 1 then 
-        call SetBuildBulk(2, NECRO, c_temple_done) 
-        call SetBuildBulk(2, BANSHEE, c_temple_done) 
+        call SetBuildBulk(c_necro_max, NECRO, c_temple_done) 
+        call SetBuildBulk(c_banshee_max, BANSHEE, c_temple_done) 
     endif 
 
     // if we have a lot of gold then advance the tech tree                                                                                            
