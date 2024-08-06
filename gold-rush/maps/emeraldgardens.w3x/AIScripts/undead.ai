@@ -489,7 +489,7 @@ function build_sequence takes nothing returns nothing
             call SetBuildBulk(c_abom_max, ABOMINATION, c_slaughter_done)
         endif
         call SetBuildBulk(c_wagon_max, MEAT_WAGON, c_slaughter_done)
-        if c_tomb_done >= 1 then
+        if c_tomb_done > 0 then
             call SetBuildBulk(c_statue_max, OBS_STATUE, c_slaughter_done)
             if b_sphinx_ok then
                 call Conversions(Min(c_sphinx_done + 1, c_sphinx_max), BLK_SPHINX)
@@ -499,10 +499,10 @@ function build_sequence takes nothing returns nothing
 
     if c_crypt_done > 0 then
         call SetBuildBulk(c_ghoul_max, GHOUL, c_crypt_done)
-        if c_citadel_done > 0 then
-            call SetBuildBulk(c_garg_max, GARGOYLE, c_crypt_done)
-        endif
         if c_grave_done > 0 then
+            if c_citadel_done > 0 then
+                call SetBuildBulk(c_garg_max, GARGOYLE, c_crypt_done)
+            endif
             call SetBuildBulk(c_fiend_max, CRYPT_FIEND, c_crypt_done)
         endif
     endif
@@ -528,10 +528,12 @@ function build_sequence takes nothing returns nothing
 
     call SetBuildNext(Min(c_neclis_done, c_halls_done + 1), NECROPOLIS_2)
 
-    if c_spirit_done < c_frost_tower_done * 2 then
-        call SetBuildNext(Min(c_zig_done, c_spirit_done + 1), ZIGGURAT_2)
-    else
-        call SetBuildNext(Min(c_zig_done, c_frost_tower_done + 1), ZIGGURAT_FROST)
+    if c_frost_tower_done + c_spirit_done < c_zig_done then
+        if c_spirit_done < c_frost_tower_done * 2 then
+            call SetBuildNext(Min(c_zig_done, c_spirit_done + 1), ZIGGURAT_2)
+        else
+            call SetBuildNext(Min(c_zig_done, c_frost_tower_done + 1), ZIGGURAT_FROST)
+        endif
     endif
 
     call SetBuildUnit(1, SLAUGHTERHOUSE)
