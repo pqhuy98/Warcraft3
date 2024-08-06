@@ -110,7 +110,10 @@ const conversionData: ConversionData[] = [
     baseUnit: UNIT_SkeletalMage, newUnit: UNIT_SkeletalMarksman, chance: 0.33,
   },
   {
-    baseUnit: UNIT_Ghoul, newUnit: UNIT_Zombie, chance: 0.5,
+    baseUnit: UNIT_Ghoul, newUnit: UNIT_Zombie, chance: 0.25,
+  },
+  {
+    baseUnit: UNIT_Ghoul, newUnit: { code: 'nzof' }, chance: 0.25, // Zombie female
   },
 ];
 
