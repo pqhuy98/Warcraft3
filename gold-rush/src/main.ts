@@ -300,10 +300,10 @@ function configurePlayerSettings() {
       if (!noUnitPlayers.includes(player.handle)) {
         setTimeout(0, () => {
           const startingUnits: Record<string, number> = {
-            [UNIT_Abomination.code]: 1,
-            [UNIT_Ghoul.code]: 6,
-            [UNIT_CryptFiend.code]: 1,
-            [UNIT_FrostWyrm.code]: 1,
+            // [UNIT_Abomination.code]: 1,
+            // [UNIT_Ghoul.code]: 6,
+            // [UNIT_CryptFiend.code]: 1,
+            // [UNIT_FrostWyrm.code]: 1,
 
             // Full base
             // [UNIT_AltarofDarkness.code]: 1,
@@ -439,7 +439,10 @@ function upgradeTownHallAllPlayers() {
     htow: 'hcas', ogre: 'ofrt', unpl: 'unp2', etol: 'etoe',
   };
 
-  ['ogre', 'htow', 'unpl', 'etol'].forEach((townTypeId) => {
+  [
+    'ogre', 'htow',
+    // 'unpl', 'etol',
+  ].forEach((townTypeId) => {
     const townHalls = GetUnitsOfTypeIdAll(FourCC(townTypeId));
     Group.fromHandle(townHalls).for(() => {
       if (!IsUnitHidden(GetEnumUnit())) {

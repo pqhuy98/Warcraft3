@@ -4,11 +4,12 @@ import {
   UNIT_Abomination,
   UNIT_AnubArak,
   UNIT_Balnazzar,
-  UNIT_CairneBloodhoof, UNIT_DagrenTheOrcslayer, UNIT_Dethecus, UNIT_DrekThar, UNIT_FleshGolem,
-  UNIT_Footman, UNIT_FrostWyrm, UNIT_GromHellscream, UNIT_HalahkTheLifebringer, UNIT_HeroBladeMaster,
+  UNIT_CairneBloodhoof, UNIT_DagrenTheOrcslayer, UNIT_DarkMinion3, UNIT_Dethecus, UNIT_DrekThar, UNIT_FleshGolem,
+  UNIT_Footman, UNIT_FrostWyrm, UNIT_GiantSkeletonWarrior, UNIT_GromHellscream, UNIT_HalahkTheLifebringer, UNIT_HeroBladeMaster,
   UNIT_HeroCryptLord, UNIT_HeroDreadLord, UNIT_HeroFarSeer, UNIT_HeroLich, UNIT_HeroPaladin,
   UNIT_HeroTaurenChieftain, UNIT_Kelthuzadlich, UNIT_MagrothTheDefender, UNIT_Nazgrel, UNIT_PaladinBoss1,
-  UNIT_PaladinBoss2, UNIT_Raider, UNIT_TheCaptain,
+  UNIT_PaladinBoss2, UNIT_Raider, UNIT_SkeletalArcher, UNIT_SkeletalMage, UNIT_SkeletalMarksman,
+  UNIT_SkeletalOrc, UNIT_SkeletalOrcChampion, UNIT_SkeletalOrcGrunt, UNIT_SkeletonWarrior, UNIT_TheCaptain,
   UNIT_TYPE,
   UNIT_UndeadAzurelore,
   UNIT_Varimathras,
@@ -86,6 +87,27 @@ const conversionData: ConversionData[] = [
   {
     baseUnit: UNIT_FrostWyrm, newUnit: UNIT_UndeadAzurelore, chance: 0.1,
   },
+  {
+    baseUnit: UNIT_SkeletonWarrior, newUnit: UNIT_GiantSkeletonWarrior, chance: 0.16,
+  },
+  {
+    baseUnit: UNIT_SkeletonWarrior, newUnit: UNIT_DarkMinion3, chance: 0.16,
+  },
+  {
+    baseUnit: UNIT_SkeletonWarrior, newUnit: UNIT_SkeletalOrc, chance: 0.16,
+  },
+  {
+    baseUnit: UNIT_SkeletonWarrior, newUnit: UNIT_SkeletalOrcGrunt, chance: 0.16,
+  },
+  {
+    baseUnit: UNIT_SkeletonWarrior, newUnit: UNIT_SkeletalOrcChampion, chance: 0.16,
+  },
+  {
+    baseUnit: UNIT_SkeletalMage, newUnit: UNIT_SkeletalArcher, chance: 0.33,
+  },
+  {
+    baseUnit: UNIT_SkeletalMage, newUnit: UNIT_SkeletalMarksman, chance: 0.33,
+  },
 ];
 
 const conversionMap = new Map<number, ConversionData[]>();
@@ -120,6 +142,14 @@ export class PrototypeUnits {
         this.replaceUnit(Unit.fromHandle(GetTrainedUnit()));
       });
     });
+
+    buildTrigger((t) => {
+      t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON);
+      t.addCondition(() => conversionMap.has(GetUnitTypeId(GetSummonedUnit())));
+      t.addAction(() => {
+        this.replaceUnit(Unit.fromHandle(GetSummonedUnit()));
+      });
+    });
   }
 
   static replaceUnit(unit: Unit) {
@@ -137,9 +167,10 @@ export class PrototypeUnits {
       unit.nameProper = proto.nameProper;
     }
     for (let i = 0; i < 2; i++) {
-      unit.setBaseDamage(unit.getBaseDamage(i) * 2, i);
+      const damage = Math.max(unit.getBaseDamage(i) * 2, proto.getBaseDamage(i));
+      unit.setBaseDamage(damage, i);
     }
-    unit.maxLife *= 2;
+    unit.maxLife = Math.max(unit.life * 2, proto.life);
     unit.life = unit.maxLife;
     unit.setflyHeight(proto.getflyHeight(), 0);
   }
