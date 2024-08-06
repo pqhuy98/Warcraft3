@@ -1,5 +1,5 @@
 export const systemConfig = {
   autoPlay: true,
-  defaultAutoPanCamera: false,
+  defaultAutoPanCamera: 'off',
   defaultCamLock: false,
 };

@@ -1,5 +1,4 @@
 // eslint-disable-next-line max-classes-per-file
-import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { mainPlayer } from 'lib/constants';
 import { temp } from 'lib/location';
 import { systemConfig } from 'lib/systems/system-config';
@@ -28,28 +27,30 @@ function getScore(unit: Unit): number {
   return nearbyEnemies * 2 + nearbyAllies * 1;
 }
 
+type State = 'off' | 'follow-one' | 'follow-random'
+
 export class AutoPanCamera {
   static selectedUnit: Unit;
 
-  static enabled = systemConfig.defaultAutoPanCamera;
+  static state: State = systemConfig.defaultAutoPanCamera as State;
 
   static timer: Timer = null;
 
   static register() {
-    const button = new ToggleButton(
+    new ToggleButton(
       Frame.fromOrigin(ORIGIN_FRAME_GAME_UI, 0),
-      this.enabled,
-      (isEnabled) => {
-        if (isEnabled) {
-          this.enable();
-        } else {
-          this.disable();
+      this.state,
+      (state) => {
+        if (state === 'off') {
+          this.updateState('follow-random');
+        } else if (state === 'follow-random') {
+          this.updateState('follow-one');
+        } else if (state === 'follow-one') {
+          this.updateState('off');
         }
+        return this.state;
       },
     );
-
-    onChatCommand('-autocam 1', true, () => button.change(true), 'UI & scaling', 'Enable automatic camera control.');
-    onChatCommand('-autocam 0', true, () => button.change(false), 'UI & scaling', 'Disable automatic camera control.');
 
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SELECTED);
@@ -79,7 +80,7 @@ export class AutoPanCamera {
           bestScore = unitScore;
         }
       }
-      if (this.enabled) {
+      if (this.state === 'follow-random') {
         if (this.selectedUnit !== bestUnit) {
           this.selectedUnit = bestUnit;
           SetCameraField(CAMERA_FIELD_ROTATION, GetRandomDirectionDeg(), 0.5);
@@ -90,74 +91,63 @@ export class AutoPanCamera {
       }
     });
 
-    if (this.enabled) {
-      this.enable();
-    }
+    this.updateState(this.state);
   }
 
-  static enable() {
-    this.enabled = true;
-    if (this.selectedUnit) {
+  static updateState(state: State) {
+    this.state = state;
+    if (this.state !== 'off' && this.selectedUnit) {
       SelectUnitForPlayerSingle(this.selectedUnit.handle, mainPlayer.handle);
     }
 
     if (this.timer) {
       this.timer.pause();
       this.timer.destroy();
-    }
-    this.timer = setIntervalIndefinite(0.5, () => {
-      if (this.selectedUnit) {
-        PanCameraToTimedForPlayer(mainPlayer.handle, this.selectedUnit.x, this.selectedUnit.y, 0.75);
-      }
-    });
-  }
-
-  static disable() {
-    this.enabled = false;
-    if (this.timer) {
-      this.timer.pause();
-      this.timer.destroy();
       this.timer = null;
     }
-    ResetToGameCamera(1);
+    if (this.state !== 'off') {
+      this.timer = setIntervalIndefinite(0.5, () => {
+        if (this.selectedUnit) {
+          PanCameraToTimedForPlayer(mainPlayer.handle, this.selectedUnit.x, this.selectedUnit.y, 0.75);
+        }
+      });
+    } else {
+      ResetToGameCamera(1);
+    }
   }
 }
 
 class ToggleButton {
   private button: Frame;
 
-  constructor(parent: Frame, private isActive: boolean, private onChange: (newValue: boolean) => unknown) {
+  constructor(parent: Frame, private state: State, private onClick: (newValue: State) => State) {
     // Create a button frame
     this.button = Frame.createType('ToggleButton', parent, 0, 'GLUETEXTBUTTON', 'ScriptDialogButton');
     this.button.setAbsPoint(FRAMEPOINT_TOPLEFT, 0, 0.575);
     this.button.setSize(0.037, 0.0325);
-    this.button.setText(isActive ? 'ON' : 'OFF');
+    this.updateButtonText();
 
     // Create a trigger for the button click event
     buildTrigger((t) => {
       t.triggerRegisterFrameEvent(this.button, FRAMEEVENT_CONTROL_CLICK);
-      t.addAction(() => this.onClick());
+      t.addAction(() => this.click());
     });
   }
 
-  change(newValue: boolean) {
-    this.isActive = newValue;
-    this.updateButtonText();
-    this.onChange(this.isActive);
-  }
-
   // Handle the button click event
-  private onClick(): void {
-    this.isActive = !this.isActive;
-    this.change(this.isActive);
+  private click(): void {
+    this.state = this.onClick(this.state);
+    this.updateButtonText();
   }
 
   // Update the button text based on its state
   private updateButtonText(): void {
-    if (this.isActive) {
-      this.button.setText('ON');
-    } else {
+    if (this.state === 'off') {
       this.button.setText('OFF');
+    } else if (this.state === 'follow-one') {
+      this.button.setText('ON');
+    } else if (this.state === 'follow-random') {
+      this.button.setText('ON?');
     }
   }
 }

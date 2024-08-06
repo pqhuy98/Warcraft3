@@ -82,7 +82,7 @@ const conversionData: ConversionData[] = [
     baseUnit: UNIT_HeroDreadLord, newUnit: UNIT_Varimathras, chance: 0.2,
   },
   {
-    baseUnit: UNIT_Abomination, newUnit: UNIT_FleshGolem, chance: 0.15,
+    baseUnit: UNIT_Abomination, newUnit: UNIT_FleshGolem, chance: 0.12,
   },
   {
     baseUnit: UNIT_FrostWyrm, newUnit: UNIT_UndeadAzurelore, chance: 0.1,
