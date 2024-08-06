@@ -314,7 +314,7 @@ function configurePlayerSettings() {
             // [UNIT_Graveyard.code]: 1,
             // [UNIT_TombOfRelics.code]: 1,
             // [UNIT_SacrificialPit.code]: 1,
-            // [UNIT_Ziggurat.code]: 5,
+            // [UNIT_Ziggurat.code]: 9,
           };
           for (const [code, count] of Object.entries(startingUnits)) {
             for (let i = 0; i < count; i++) {

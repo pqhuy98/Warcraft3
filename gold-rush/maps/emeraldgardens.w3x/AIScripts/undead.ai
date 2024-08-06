@@ -1,12 +1,9 @@
 globals
-    boolean basic_opening = false
-
     boolean b_hero1_done = false
     boolean b_hero2_done = false
     boolean b_hero3_done = false
     boolean b_sphinx_ok = false
 
-    integer AG = 0  // attacking ghouls
     integer c_ghoul_max = 6
     integer c_fiend_max = 2
     integer c_abom_max = 3
@@ -16,6 +13,7 @@ globals
     integer c_wyrm_max = 2
     integer c_garg_max = 2
     integer c_statue_max = 1
+    integer c_sphinx_max = 2
 
     integer c_abom = 0
     integer c_abom_done = 0
@@ -151,11 +149,100 @@ function set_skills takes nothing returns nothing
     call SetSkillArray(2, CRYPT_LORD)
     call SetSkillArray(3, CRYPT_LORD)
 endfunction
-                                                                       
+                                
+function switch_army_build takes nothing returns nothing
+    local integer buildId = GetRandomInt(1, 5)
+
+    // Builds that didn't work:
+    // Mass banshee: not casting any Possession
+
+    if buildId == 1 then
+        // Balanced build
+        set c_ghoul_max = 6 // 12+
+        set c_fiend_max = 2 // 6+
+        set c_abom_max = 3 // 12+
+        set c_wagon_max = 2 // 8+
+        set c_necro_max = 2 // 4+
+        set c_banshee_max = 2 // 4+
+        set c_wyrm_max = 2 // 14+
+        set c_garg_max = 2 // 2+
+        set c_statue_max = 1 // 3+
+        set c_sphinx_max = 2 // 10+
+        // 75
+    elseif buildId == 2 then
+        // Abom and frost wyrm
+        set c_ghoul_max = 0 // 0+
+        set c_fiend_max = 0 // 0+
+        set c_abom_max = 7 // 28+
+        set c_wagon_max = 0 // 0+
+        set c_necro_max = 0 // 0+
+        set c_banshee_max = 0 // 0+
+        set c_wyrm_max = 6 // 42+
+        set c_garg_max = 0 // 0+
+        set c_statue_max = 1 // 3+
+        set c_sphinx_max = 0 // 0+
+        // 73 foods
+    elseif buildId == 3 then
+        // Mass air
+        set c_ghoul_max = 0 // 0+
+        set c_fiend_max = 0 // 0+
+        set c_abom_max = 0 // 0+
+        set c_wagon_max = 0 // 0+
+        set c_necro_max = 0 // 0+
+        set c_banshee_max = 0 // 0+
+        set c_wyrm_max = 5 // 35+
+        set c_garg_max = 5 // 10+
+        set c_statue_max = 0 // 9+
+        set c_sphinx_max = 4 // 20+
+        // 74 foods
+    elseif buildId == 4 then
+        // Mass necro
+        set c_ghoul_max = 8 // 16+
+        set c_fiend_max = 3 // 9+
+        set c_abom_max = 0 // 0+
+        set c_wagon_max = 3 // 12+
+        set c_necro_max = 14 // 28+
+        set c_banshee_max = 3 // 6+
+        set c_wyrm_max = 0 // 0+
+        set c_garg_max = 0 // 0+
+        set c_statue_max = 1 // 3+
+        set c_sphinx_max = 0 // 0+
+        // 74 foods
+    elseif buildId == 5 then
+        // Frost wyrm only
+        set c_ghoul_max = 0 // 0+
+        set c_fiend_max = 0 // 0+
+        set c_abom_max = 0 // 0+
+        set c_wagon_max = 0 // 0+
+        set c_necro_max = 0 // 0+
+        set c_banshee_max = 0 // 0+
+        set c_wyrm_max = 11 // 77+
+        set c_garg_max = 0 // 0+
+        set c_statue_max = 0 // 0+
+        set c_sphinx_max = 0 // 0+
+        // 77 foods
+    endif
+endfunction
+
+function stop_army_build takes nothing returns nothing
+    set c_ghoul_max = 0
+    set c_fiend_max = 0
+    set c_abom_max = 0
+    set c_wagon_max = 0
+    set c_necro_max = 0
+    set c_banshee_max = 0
+    set c_wyrm_max = 0
+    set c_garg_max = 0
+    set c_statue_max = 0
+    set c_sphinx_max = 0
+endfunction
+
 function attack_sequence takes nothing returns nothing
     local boolean full_troop
 
     loop
+        call switch_army_build()
+
         loop
             set full_troop = c_hero1_done >= 1
             set full_troop = full_troop and c_hero2_done >= 1
@@ -169,27 +256,31 @@ function attack_sequence takes nothing returns nothing
             set full_troop = full_troop and c_wyrm_done >= c_wyrm_max
             set full_troop = full_troop and c_garg_done >= c_garg_max
             set full_troop = full_troop and c_statue_done >= c_statue_max
+            set full_troop = full_troop and c_sphinx_done >= c_sphinx_max
             exitwhen full_troop
             call Sleep(3)
         endloop
 
+        call stop_army_build()
+
         call PrepFullSuicide()
-        call SuicideUnit(c_hero1_done, hero_id)
-        call SuicideUnit(c_hero2_done, hero_id2)
-        call SuicideUnit(c_hero3_done, hero_id3)
-        call SuicideUnit(c_ghoul_done, GHOUL)
-        call SuicideUnit(c_fiend_done, CRYPT_FIEND)
-        call SuicideUnit(c_abom_done, ABOMINATION)
-        call SuicideUnit(c_wagon_done, MEAT_WAGON)
-        call SuicideUnit(c_necro_done, NECRO)
-        call SuicideUnit(c_banshee_done, BANSHEE)
-        call SuicideUnit(c_wyrm_done, FROST_WYRM)
-        call SuicideUnit(c_garg_done, GARGOYLE)
-        call SuicideUnit(c_statue_done, OBS_STATUE)
+        call SuicideUnit(GetUnitCountDone(hero_id), hero_id)
+        call SuicideUnit(GetUnitCountDone(hero_id2), hero_id2)
+        call SuicideUnit(GetUnitCountDone(hero_id3), hero_id3)
+        call SuicideUnit(GetUnitCountDone(GHOUL), GHOUL)
+        call SuicideUnit(GetUnitCountDone(CRYPT_FIEND), CRYPT_FIEND)
+        call SuicideUnit(GetUnitCountDone(ABOMINATION), ABOMINATION)
+        call SuicideUnit(GetUnitCountDone(MEAT_WAGON), MEAT_WAGON)
+        call SuicideUnit(GetUnitCountDone(NECRO), NECRO)
+        call SuicideUnit(GetUnitCountDone(BANSHEE), BANSHEE)
+        call SuicideUnit(GetUnitCountDone(FROST_WYRM), FROST_WYRM)
+        call SuicideUnit(GetUnitCountDone(GARGOYLE), GARGOYLE)
+        call SuicideUnit(GetUnitCountDone(OBS_STATUE), OBS_STATUE)
+        call SuicideUnit(GetUnitCountDone(BLK_SPHINX), BLK_SPHINX)
 
         loop
             call Sleep(3)
-            exitwhen CaptainIsEmpty()
+            exitwhen FoodUsed() < c_acolyte + 15 + 10 // 15: heroes food, 10: buffer 
         endloop
     endloop
 endfunction
@@ -251,10 +342,6 @@ function init_vars takes nothing returns nothing
         set c_web_fiend_done = c_fiend_done
     else
         set c_web_fiend_done = 0
-    endif
-
-    if basic_opening and b_hero2_done then
-        set basic_opening = false
     endif
 endfunction
 
@@ -362,40 +449,6 @@ function build_sequence takes nothing returns nothing
         call SetBuildUnit(c_zig_done + 1, ZIGGURAT_1)
     endif
 
-    if basic_opening then
-        call MeleeTownHall(0, NECROPOLIS_1)
-
-        call SetBuildUnit(1, ACOLYTE)
-        call SetBuildUnit(1, UNDEAD_MINE)
-        call SetBuildNext(5, ACOLYTE)
-        call SetBuildUnit(1, CRYPT)
-        call SetBuildUnit(1, GHOUL)
-        call SetBuildUnit(1, ZIGGURAT_1)
-        call SetBuildUnit(1, UNDEAD_ALTAR)
-        call SetBuildUnit(2, GHOUL)
-        call SetBuildUnit(2, ZIGGURAT_1)
-        call SetBuildUnit(3, GHOUL)
-        call SetBuildUnit(1, hero_id)
-        call SetBuildUnit(6, GHOUL)
-        call SetBuildUpgr(1, UPG_CANNIBALIZE)
-        call SetBuildUnit(1, GRAVEYARD)
-        call SetBuildUnit(7, GHOUL)
-        call SetBuildUnit(1, NECROPOLIS_2)
-        call SetBuildUnit(3, ZIGGURAT_1)
-        call SetBuildUnit(8, GHOUL)
-        call SetBuildUnit(2, CRYPT_FIEND)
-        call SetBuildUnit(1, TOMB_OF_RELICS)
-        call SetBuildUnit(3, CRYPT_FIEND)
-        call SetBuildUpgr(1, UPG_FIEND_WEB)
-
-        call SetBuildUnit(1, hero_id2)
-
-        call undead_mine(1)
-        call BasicExpansion(c_mines < 2, UNDEAD_MINE)
-
-        return
-    endif
-
     if c_neclis_done + c_halls_done + c_citadel_done < 1 and c_acolyte > 0 then
         call SetBuildUnit(1, NECROPOLIS_1)
     endif
@@ -431,8 +484,8 @@ function build_sequence takes nothing returns nothing
     endif
 
     // build army
-    if c_slaughter_done >= 1 and c_citadel_done >= 1 then
-        if c_citadel_done >= 1 then
+    if c_slaughter_done > 0 then
+        if c_citadel_done > 0 then
             call SetBuildBulk(c_abom_max, ABOMINATION, c_slaughter_done)
         endif
         call SetBuildBulk(c_wagon_max, MEAT_WAGON, c_slaughter_done)
@@ -441,9 +494,13 @@ function build_sequence takes nothing returns nothing
         endif
     endif
 
+    if b_sphinx_ok then
+        call Conversions(Min(c_sphinx_done + 1, c_sphinx_max), BLK_SPHINX)
+    endif
+
     if c_crypt_done > 0 then
         call SetBuildBulk(c_ghoul_max, GHOUL, c_crypt_done)
-        if c_citadel_done >= 1 then
+        if c_citadel_done > 0 then
             call SetBuildBulk(c_garg_max, GARGOYLE, c_crypt_done)
         endif
         if c_grave_done > 0 then
@@ -451,11 +508,11 @@ function build_sequence takes nothing returns nothing
         endif
     endif
 
-    if c_boneyard_done >= 1 then
+    if c_boneyard_done > 0 then
         call SetBuildBulk(c_wyrm_max, FROST_WYRM, c_boneyard_done)
     endif
 
-    if c_temple_done >= 1 then
+    if c_temple_done > 0 then
         call SetBuildBulk(c_necro_max, NECRO, c_temple_done)
         call SetBuildBulk(c_banshee_max, BANSHEE, c_temple_done)
     endif
@@ -468,6 +525,7 @@ function build_sequence takes nothing returns nothing
     call SetBuildUnit(1, GRAVEYARD)
     call SetBuildUnit(1, TOMB_OF_RELICS)
     call SetBuildUnit(1, NECROPOLIS_2)
+    call SetBuildUnit(1, NECROPOLIS_3)
 
     call SetBuildNext(Min(c_neclis_done, c_halls_done + 1), NECROPOLIS_2)
 
@@ -479,44 +537,27 @@ function build_sequence takes nothing returns nothing
 
     call SetBuildUnit(1, SLAUGHTERHOUSE)
     call SetBuildUnit(1, DAMNED_TEMPLE)
-    call SetBuildUnit(1, NECROPOLIS_3)
     call SetBuildUnit(1, SAC_PIT)
     call SetBuildUnit(1, BONEYARD)
 
-    if c_gold > 2000 then
-        call BuildFactory(CRYPT)
-        call BuildFactory(DAMNED_TEMPLE)
-        call BuildFactory(SLAUGHTERHOUSE)
-        call BuildFactory(BONEYARD)
-    endif
-
-    call do_upgrades()
+    call BuildFactory(CRYPT)
+    call BuildFactory(DAMNED_TEMPLE)
+    call BuildFactory(SLAUGHTERHOUSE)
+    call BuildFactory(BONEYARD)
 
     call undead_mine(1)
     call BasicExpansion(c_mines < 2, UNDEAD_MINE)
     call MeleeTownHall(1, NECROPOLIS_1)
     call GuardSecondary(1, 2, ZIGGURAT_1)
-    if c_grave_done >= 1 then
-        call GuardSecondary(1, 2, ZIGGURAT_2)
-    endif
-    call GuardSecondary(1, 1, CRYPT)
-    call GuardSecondary(1, 1, SLAUGHTERHOUSE)
-    call GuardSecondary(1, 1, DAMNED_TEMPLE)
-    call GuardSecondary(1, 1, BONEYARD)
-
-    if c_food_used >= UPKEEP_TIER2 - 10 and c_gold < 2000 then
-        return
-    endif
+    call GuardSecondary(1, 2, ZIGGURAT_2)
 
     call undead_mine(2)
     call BasicExpansion(c_mines < 3, UNDEAD_MINE)
     call MeleeTownHall(2, NECROPOLIS_1)
     call GuardSecondary(2, 2, ZIGGURAT_1)
     call GuardSecondary(2, 2, ZIGGURAT_2)
-    call GuardSecondary(2, 1, CRYPT)
-    call GuardSecondary(2, 1, SLAUGHTERHOUSE)
-    call GuardSecondary(2, 1, DAMNED_TEMPLE)
-    call GuardSecondary(2, 1, BONEYARD)
+
+    call do_upgrades()
 endfunction
 
 function harvest_gold takes integer townid returns nothing

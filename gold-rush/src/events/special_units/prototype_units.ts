@@ -5,7 +5,7 @@ import {
   UNIT_AnubArak,
   UNIT_Balnazzar,
   UNIT_CairneBloodhoof, UNIT_DagrenTheOrcslayer, UNIT_DarkMinion3, UNIT_Dethecus, UNIT_DrekThar, UNIT_FleshGolem,
-  UNIT_Footman, UNIT_FrostWyrm, UNIT_GiantSkeletonWarrior, UNIT_GromHellscream, UNIT_HalahkTheLifebringer, UNIT_HeroBladeMaster,
+  UNIT_Footman, UNIT_FrostWyrm, UNIT_Ghoul, UNIT_GiantSkeletonWarrior, UNIT_GromHellscream, UNIT_HalahkTheLifebringer, UNIT_HeroBladeMaster,
   UNIT_HeroCryptLord, UNIT_HeroDreadLord, UNIT_HeroFarSeer, UNIT_HeroLich, UNIT_HeroPaladin,
   UNIT_HeroTaurenChieftain, UNIT_Kelthuzadlich, UNIT_MagrothTheDefender, UNIT_Nazgrel, UNIT_PaladinBoss1,
   UNIT_PaladinBoss2, UNIT_Raider, UNIT_SkeletalArcher, UNIT_SkeletalMage, UNIT_SkeletalMarksman,
@@ -14,6 +14,7 @@ import {
   UNIT_UndeadAzurelore,
   UNIT_Varimathras,
   UNIT_Vengyr,
+  UNIT_Zombie,
 } from 'lib/resources/war3-units';
 import { buildTrigger } from 'lib/trigger';
 import {
@@ -107,6 +108,9 @@ const conversionData: ConversionData[] = [
   },
   {
     baseUnit: UNIT_SkeletalMage, newUnit: UNIT_SkeletalMarksman, chance: 0.33,
+  },
+  {
+    baseUnit: UNIT_Ghoul, newUnit: UNIT_Zombie, chance: 0.5,
   },
 ];
 
