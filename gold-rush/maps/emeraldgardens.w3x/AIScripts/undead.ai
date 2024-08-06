@@ -491,11 +491,10 @@ function build_sequence takes nothing returns nothing
         call SetBuildBulk(c_wagon_max, MEAT_WAGON, c_slaughter_done)
         if c_tomb_done >= 1 then
             call SetBuildBulk(c_statue_max, OBS_STATUE, c_slaughter_done)
+            if b_sphinx_ok then
+                call Conversions(Min(c_sphinx_done + 1, c_sphinx_max), BLK_SPHINX)
+            endif
         endif
-    endif
-
-    if b_sphinx_ok then
-        call Conversions(Min(c_sphinx_done + 1, c_sphinx_max), BLK_SPHINX)
     endif
 
     if c_crypt_done > 0 then
