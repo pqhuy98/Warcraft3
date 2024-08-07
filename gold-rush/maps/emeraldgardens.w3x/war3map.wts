@@ -491,12 +491,6 @@ STRING 120
 Player 13
 }
 
-STRING 133
-// Units: h003 (Elite Guard Tower), Name (Name)
-{
-Elite Guard Tower
-}
-
 STRING 134
 // Destructibles: ZTsx (Massive Ruined Gate), EditorSuffix (Editor Suffix)
 {
@@ -539,12 +533,6 @@ Player 4
 STRING 143
 {
 Light Force
-}
-
-STRING 144
-// Units: o000 (Elite Watch Tower), Name (Name)
-{
-Elite Watch Tower
 }
 
 STRING 146
@@ -1491,5 +1479,17 @@ STRING 340
 // Units: H004 (Highlord of the Argent Crusade), Propernames (Proper Names)
 {
 Tirion Fordring
+}
+
+STRING 341
+// Units: h003 (Grand Guard Tower), Name (Name)
+{
+Grand Guard Tower
+}
+
+STRING 342
+// Units: o000 (Grand Watch Tower), Name (Name)
+{
+Grand Watch Tower
 }
 

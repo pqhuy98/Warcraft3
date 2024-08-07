@@ -284,7 +284,7 @@ function configurePlayerSettings() {
       const initialHandicapDamage = 1;
 
       const maxHpHandicap = 2;
-      const maxDamageHandicap = 2;
+      const maxDamageHandicap = 1.5;
       const upgradePeriodS = 30;
 
       let handicapHp = initialHandicapHp;
