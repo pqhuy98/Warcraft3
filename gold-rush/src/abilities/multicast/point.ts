@@ -45,7 +45,6 @@ export class MulticastPoint {
           const dummyCastLoc = PolarProjection(targetLoc, offsetDistance, offsetAngle);
 
           const dummy = createDummy(caster.owner, dummyLoc.x, dummyLoc.y, caster, 999, AngleBetweenLocs(dummyLoc, dummyCastLoc));
-          dummy.setPathing(false);
           dummy.setflyHeight(caster.getflyHeight(), 0);
           dummy.skin = caster.skin;
           setUnitScale(dummy, getUnitScale(caster));

@@ -29,3 +29,7 @@ function main() {
 }
 
 main();
+
+process.on("exit", () => {
+  logger.info("Exiting script...");
+});

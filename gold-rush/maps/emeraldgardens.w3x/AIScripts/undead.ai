@@ -239,6 +239,7 @@ endfunction
 
 function attack_sequence takes nothing returns nothing
     local boolean full_troop
+    call Sleep(GetRandomReal(0, 10))
 
     loop
         call switch_army_build()
@@ -264,22 +265,22 @@ function attack_sequence takes nothing returns nothing
         call stop_army_build()
 
         call PrepFullSuicide()
-        call SuicideUnit(GetUnitCountDone(hero_id), hero_id)
-        call SuicideUnit(GetUnitCountDone(hero_id2), hero_id2)
-        call SuicideUnit(GetUnitCountDone(hero_id3), hero_id3)
-        call SuicideUnit(GetUnitCountDone(GHOUL), GHOUL)
-        call SuicideUnit(GetUnitCountDone(CRYPT_FIEND), CRYPT_FIEND)
-        call SuicideUnit(GetUnitCountDone(ABOMINATION), ABOMINATION)
-        call SuicideUnit(GetUnitCountDone(MEAT_WAGON), MEAT_WAGON)
-        call SuicideUnit(GetUnitCountDone(NECRO), NECRO)
-        call SuicideUnit(GetUnitCountDone(BANSHEE), BANSHEE)
-        call SuicideUnit(GetUnitCountDone(FROST_WYRM), FROST_WYRM)
-        call SuicideUnit(GetUnitCountDone(GARGOYLE), GARGOYLE)
-        call SuicideUnit(GetUnitCountDone(OBS_STATUE), OBS_STATUE)
-        call SuicideUnit(GetUnitCountDone(BLK_SPHINX), BLK_SPHINX)
-
         loop
-            call Sleep(3)
+            call SuicideUnit(GetUnitCountDone(hero_id), hero_id)
+            call SuicideUnit(GetUnitCountDone(hero_id2), hero_id2)
+            call SuicideUnit(GetUnitCountDone(hero_id3), hero_id3)
+            call SuicideUnit(GetUnitCountDone(GHOUL), GHOUL)
+            call SuicideUnit(GetUnitCountDone(CRYPT_FIEND), CRYPT_FIEND)
+            call SuicideUnit(GetUnitCountDone(ABOMINATION), ABOMINATION)
+            call SuicideUnit(GetUnitCountDone(MEAT_WAGON), MEAT_WAGON)
+            call SuicideUnit(GetUnitCountDone(NECRO), NECRO)
+            call SuicideUnit(GetUnitCountDone(BANSHEE), BANSHEE)
+            call SuicideUnit(GetUnitCountDone(FROST_WYRM), FROST_WYRM)
+            call SuicideUnit(GetUnitCountDone(GARGOYLE), GARGOYLE)
+            call SuicideUnit(GetUnitCountDone(OBS_STATUE), OBS_STATUE)
+            call SuicideUnit(GetUnitCountDone(BLK_SPHINX), BLK_SPHINX)
+
+            call Sleep(10)
             exitwhen FoodUsed() < c_acolyte + 15 + 10 // 15: heroes food, 10: buffer 
         endloop
     endloop

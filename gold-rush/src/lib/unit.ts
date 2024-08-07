@@ -192,7 +192,6 @@ export function daemonDummyMaster() {
 export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
   dummyCreatedCount++;
   const dummy = Unit.create(owner, UNIT_ID_DUMMY, locX, locY, facing);
-  makeFlyable(dummy);
   if (timespan > 0) {
     dummy.applyTimedLife(BUFF_ID_GENERIC, timespan);
   }

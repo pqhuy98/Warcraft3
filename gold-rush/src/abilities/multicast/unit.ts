@@ -67,7 +67,7 @@ export class MulticastUnit {
         let dummy: Unit;
         if (singleDummy) {
           dummy = this.createDummyWithAbility(caster, Math.max(dummyCastDuration, delayPerCast * nearby.length + 0.25), abilityId, abilityLevel);
-          tieUnitToUnit(dummy, caster)
+          tieUnitToUnit(dummy, caster);
         }
 
         enumUnitsWithDelay(nearby, (unit) => {
@@ -83,6 +83,7 @@ export class MulticastUnit {
 
   private static createDummyWithAbility(caster: Unit, duration: number, abiId: number, abiLevel: number) {
     const dummy = createDummy(caster.owner, caster.x, caster.y, caster, duration, caster.facing);
+    dummy.setflyHeight(caster.getflyHeight(), 0);
     dummy.addAbility(abiId);
     dummy.setAbilityLevel(abiId, abiLevel);
     setUnitScale(dummy, getUnitScale(caster));
