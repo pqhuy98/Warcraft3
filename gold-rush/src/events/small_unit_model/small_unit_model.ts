@@ -84,7 +84,7 @@ export class SmallUnitModel {
     onChatCommand('-camlock', true, () => { isCameraFixed = !isCameraFixed; }, 'UI & scaling', 'Toggle camera height lock.');
   }
 
-  private static updateUnit(unit: Unit) {
+  public static updateUnit(unit: Unit) {
     this.updateUnitScale(unit);
     if (shouldScaleStandardAbility) {
       this.updateUnitStandardAbilityScale(unit);

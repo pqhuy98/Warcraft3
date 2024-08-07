@@ -1,3 +1,4 @@
+import { SmallUnitModel } from 'events/small_unit_model/small_unit_model';
 import { UNIT_TirionFordring } from 'lib/constants';
 import { temp } from 'lib/location';
 import {
@@ -7,7 +8,7 @@ import {
   UNIT_CairneBloodhoof, UNIT_DagrenTheOrcslayer, UNIT_DarkMinion3, UNIT_Dethecus, UNIT_DrekThar, UNIT_FleshGolem,
   UNIT_Footman, UNIT_FrostWyrm, UNIT_Ghoul, UNIT_GiantSkeletonWarrior, UNIT_GromHellscream, UNIT_HalahkTheLifebringer, UNIT_HeroBladeMaster,
   UNIT_HeroCryptLord, UNIT_HeroDreadLord, UNIT_HeroFarSeer, UNIT_HeroLich, UNIT_HeroPaladin,
-  UNIT_HeroTaurenChieftain, UNIT_Kelthuzadlich, UNIT_MagrothTheDefender, UNIT_Nazgrel, UNIT_PaladinBoss1,
+  UNIT_HeroTaurenChieftain, UNIT_Kelthuzadlich, UNIT_MagrothTheDefender, UNIT_Nazgrel, UNIT_Necromancer, UNIT_PaladinBoss1,
   UNIT_PaladinBoss2, UNIT_Raider, UNIT_SkeletalArcher, UNIT_SkeletalMage, UNIT_SkeletalMarksman,
   UNIT_SkeletalOrc, UNIT_SkeletalOrcChampion, UNIT_SkeletalOrcGrunt, UNIT_SkeletonWarrior, UNIT_TheCaptain,
   UNIT_TYPE,
@@ -61,7 +62,7 @@ const conversionData: ConversionData[] = [
     baseUnit: UNIT_HeroFarSeer, newUnit: UNIT_DrekThar, chance: 0.5,
   },
   {
-    baseUnit: UNIT_HeroBladeMaster, newUnit: UNIT_GromHellscream, chance: 0.5,
+    baseUnit: UNIT_HeroBladeMaster, newUnit: UNIT_GromHellscream, chance: 1,
   },
   // Undead
   {
@@ -117,6 +118,10 @@ const conversionData: ConversionData[] = [
   },
 ];
 
+const allowedSummoners = [
+  UNIT_Necromancer,
+].map((a) => FourCC(a.code));
+
 const conversionMap = new Map<number, ConversionData[]>();
 const prototypeMap = new Map<number, Unit>();
 
@@ -152,9 +157,41 @@ export class PrototypeUnits {
 
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON);
-      t.addCondition(() => conversionMap.has(GetUnitTypeId(GetSummonedUnit())));
+      t.addCondition(() => allowedSummoners.includes(GetUnitTypeId(GetSummoningUnit()))
+        && !IsUnitIllusion(GetSummonedUnit())
+        && conversionMap.has(GetUnitTypeId(GetSummonedUnit())));
       t.addAction(() => {
-        this.replaceUnit(Unit.fromHandle(GetSummonedUnit()));
+        const summoned = Unit.fromHandle(GetSummonedUnit());
+        this.replaceUnit(summoned);
+        SmallUnitModel.updateUnit(summoned);
+      });
+    });
+
+    // Mirror image
+    buildTrigger((t) => {
+      t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON);
+      t.addCondition(() => {
+        const summoned = Unit.fromHandle(GetSummonedUnit());
+        const summoner = Unit.fromHandle(GetSummoningUnit());
+        return summoned.isIllusion()
+          && summoned.typeId === summoner.typeId
+          && conversionMap.has(summoned.typeId);
+      });
+      t.addAction(() => {
+        const summoned = Unit.fromHandle(GetSummonedUnit());
+        const summoner = Unit.fromHandle(GetSummoningUnit());
+        summoned.skin = summoner.skin;
+        summoned.name = summoner.name;
+        if (summoned.isHero()) {
+          summoned.nameProper = summoner.nameProper;
+        }
+        for (let i = 0; i < 2; i++) {
+          summoned.setBaseDamage(summoner.getBaseDamage(i), i);
+        }
+        if (MapPlayer.fromLocal().isPlayerAlly(summoned.owner)) {
+          summoned.setVertexColor(0, 255, 0, 255);
+        }
+        SmallUnitModel.updateUnit(summoned);
       });
     });
   }
