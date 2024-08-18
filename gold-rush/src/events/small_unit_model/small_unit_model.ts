@@ -3,7 +3,7 @@ import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { temp } from 'lib/location';
 import { log } from 'lib/log';
 import {
-  UNIT_Demolisher, UNIT_Infernal, UNIT_MeatWagon, UNIT_Militia, UNIT_ObsidianStatue, UNIT_Peasant, UNIT_Phoenix, UNIT_PhoenixEgg, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded,
+  UNIT_Demolisher, UNIT_Destroyer, UNIT_Infernal, UNIT_MeatWagon, UNIT_Militia, UNIT_ObsidianStatue, UNIT_Peasant, UNIT_Phoenix, UNIT_PhoenixEgg, UNIT_SiegeEngine, UNIT_SiegeEngineUpgraded,
 } from 'lib/resources/war3-units';
 import { systemConfig } from 'lib/systems/system-config';
 import {
@@ -33,6 +33,7 @@ const unitsRetainSize = new Set([
   UNIT_Phoenix,
   UNIT_PhoenixEgg,
   UNIT_ObsidianStatue,
+  UNIT_Destroyer,
   UNIT_Peasant,
   UNIT_Militia,
 ].map((u) => FourCC(u.code)));
@@ -47,8 +48,8 @@ export class SmallUnitModel {
       const factor = Math.max(minScale, Math.min(maxScale, parseFloat(msg.split(' ')[1])));
       constants.scalingFactor = factor;
       constants.selectionScalingFactor = factor;
-      constants.movingFactor = factor;
-      constants.cameraDistanceFactor = factor;
+      constants.movingFactor = factor * 1.2;
+      constants.cameraDistanceFactor = factor * 1.5;
 
       temp(Group.fromHandle(GetUnitsInRectAll(GetWorldBounds()))).for(() => {
         if (this.filterCondition(Unit.fromEnum())) {
@@ -108,8 +109,6 @@ export class SmallUnitModel {
 
     // movement
     unit.setField(UNIT_RF_SPEED, original.speed * constants.movingFactor);
-    // unit.setField(UNIT_RF_ANIMATION_WALK_SPEED, original.speedWalk / constants.movingFactor);
-    // unit.setField(UNIT_RF_ANIMATION_RUN_SPEED, original.speedRun / constants.movingFactor);
 
     if (unitsRetainSize.has(unit.typeId)) {
       return;

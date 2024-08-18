@@ -25,6 +25,7 @@ import {
   SmallUnitModel,
 } from 'events/small_unit_model/small_unit_model';
 import { PrototypeUnits } from 'events/special_units/prototype_units';
+import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
 import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
 import { Weather } from 'events/weather/weather';
 import {
@@ -88,12 +89,13 @@ import {
 } from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
+import { ABILITY_ID_FROST_BOLT_LICH_KING } from './lib/constants';
 import { UNIT_CryptFiend } from './lib/resources/war3-units';
 
 type MainPlayerFaction = 'light' | 'dark' | 'observer'
 
 function tsMain() {
-  Cheat('warpten');
+  // Cheat('warpten');
   UnlockGameSpeedBJ();
   SetGameSpeed(MAP_SPEED_FASTEST);
   LockGameSpeedBJ();
@@ -128,6 +130,7 @@ function tsMain() {
   SmallUnitModel.register();
   Impale.register();
   AutoPanCamera.register();
+  SummonBirthAnimation.register();
 
   // Abilities
 
@@ -142,6 +145,7 @@ function tsMain() {
   // Multicasts
   MulticastUnit.register(ABILITY_ID_DEATH_COIL_LICH_KING);
   MulticastUnit.register(ABILITY_ID_FROST_NOVA_LICH_KING);
+  MulticastUnit.register(ABILITY_ID_FROST_BOLT_LICH_KING);
 
   MulticastUnit.register(FourCC(ABILITY_PaladinHolyLight.code));
   MulticastUnit.register(FourCC(ABILITY_MountainKingThunderBolt.code));
@@ -149,7 +153,7 @@ function tsMain() {
   MulticastPoint.register(FourCC(ABILITY_ArchMageBlizzard.code), globalUnits.heroJaina);
   MulticastNoTarget.register(FourCC(ABILITY_ArchMageWaterElemental.code), globalUnits.heroJaina);
   MulticastPoint.register(FourCC(ABILITY_BloodMageFlameStrike.code));
-  MulticastUnit.register(FourCC(ABILITY_BloodMageSiphonMana.code), undefined, false);
+  // MulticastUnit.register(FourCC(ABILITY_BloodMageSiphonMana.code), undefined, false);
   MulticastNoTarget.register(FourCC(ABILITY_BloodMagePhoenix.code));
 
   MulticastNoTarget.register(FourCC(ABILITY_ChieftainWarStomp.code));
@@ -283,7 +287,7 @@ function configurePlayerSettings() {
       const initialHandicapHp = 1;
       const initialHandicapDamage = 1;
 
-      const maxHpHandicap = 2;
+      const maxHpHandicap = 1.5;
       const maxDamageHandicap = 1.5;
       const upgradePeriodS = 30;
 
@@ -314,7 +318,7 @@ function configurePlayerSettings() {
             // [UNIT_Graveyard.code]: 1,
             // [UNIT_TombOfRelics.code]: 1,
             // [UNIT_SacrificialPit.code]: 1,
-            // [UNIT_Ziggurat.code]: 9,
+            // [UNIT_Ziggurat.code]: 13,
           };
           for (const [code, count] of Object.entries(startingUnits)) {
             for (let i = 0; i < count; i++) {

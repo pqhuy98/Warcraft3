@@ -458,14 +458,7 @@ function build_sequence takes nothing returns nothing
         if peasants < 3 then 
             set peasants = 3 
         endif 
-        if c_mines < 2 then 
-            set peasants = peasants + 5 
-        else 
-            set peasants = peasants + 10 
-        endif 
-        if peasants > 15 then 
-            set peasants = 15 
-        endif 
+        set peasants = peasants + c_mines * 5
         call SetBuildNext(peasants, PEASANT) 
     endif 
 
@@ -572,9 +565,12 @@ function build_sequence takes nothing returns nothing
 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                                          
-//  peon_assignment                                          
-//--------------------------------------------------------------------------------------------------                                          
+function harvest_gold takes integer townid returns nothing
+    if TownHasMine(townid) then
+        call HarvestGold(townid, 5)
+    endif
+endfunction
+
 function peon_assignment takes nothing returns nothing 
     local integer T 
     loop 
@@ -582,10 +578,11 @@ function peon_assignment takes nothing returns nothing
 
         set T = TownWithMine() 
 
-        call HarvestGold(T, 4) 
-        call HarvestWood(0, 1) 
-        call HarvestGold(T, 1) 
-        call HarvestWood(0, 1) 
+        call harvest_gold(0)
+        call harvest_gold(1)
+        call harvest_gold(2)
+        call harvest_gold(3)
+        call HarvestWood(0, 5) 
 
         if c_hall_done > 1 and c_mines > 1 then 
             call HarvestGold(T + 1, 5) 

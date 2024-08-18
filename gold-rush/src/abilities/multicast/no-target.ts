@@ -62,6 +62,12 @@ export class MulticastNoTarget {
         dummy.setAbilityCooldown(abiId, abiLevel - 1, 0);
         BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 99999);
         syncDummyAbilityEffectRange(dummy, caster, abiId, abiLevel);
+        if (abiId === FourCC(ABILITY_BladeMasterBladestorm.code)) {
+          const damagePerSec = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_DAMAGE_PER_SECOND_OWW1, abiLevel - 1);
+          const areaOfEffect = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_AREA_OF_EFFECT, abiLevel - 1);
+          BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_DAMAGE_PER_SECOND_OWW1, abiLevel - 1, damagePerSec * 2);
+          BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_AREA_OF_EFFECT, abiLevel - 1, areaOfEffect * 2);
+        }
 
         growUnit(dummy, scale * 1.5, this.Data.REPEAT_CAST * castPoint);
         const targetLoc = GetSpellTargetLoc();
@@ -77,8 +83,8 @@ export class MulticastNoTarget {
         let tLimitDuration = 2 * (castPoint + castBackSwing) - fadeDuration;
         if (abiId === FourCC(ABILITY_BladeMasterBladestorm.code)) {
           tLimitDuration = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_DURATION_NORMAL, abiLevel - 1) - fadeDuration;
-          dummy.moveSpeed = 522;
-          const patrolLoc = PolarProjection(dummy, 7 * 522 / 3, dummy.facing);
+          dummy.moveSpeed = caster.defaultMoveSpeed;
+          const patrolLoc = PolarProjection(dummy, 7 * dummy.moveSpeed / 3, dummy.facing);
           dummy.issueOrderAt(OrderId.Patrol, patrolLoc.x, patrolLoc.y);
         }
 

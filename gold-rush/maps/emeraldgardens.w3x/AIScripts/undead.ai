@@ -1,9 +1,12 @@
 globals
+    player user = Player(0)
+
     boolean b_hero1_done = false
     boolean b_hero2_done = false
     boolean b_hero3_done = false
     boolean b_sphinx_ok = false
 
+    boolean b_army_build = true
     integer c_ghoul_max = 6
     integer c_fiend_max = 2
     integer c_abom_max = 3
@@ -149,15 +152,15 @@ function set_skills takes nothing returns nothing
     call SetSkillArray(2, CRYPT_LORD)
     call SetSkillArray(3, CRYPT_LORD)
 endfunction
-                                
+
 function switch_army_build takes nothing returns nothing
     local integer buildId = GetRandomInt(1, 5)
 
     // Builds that didn't work:
     // Mass banshee: not casting any Possession
-
+    // set b_army_build = true
     if buildId == 1 then
-        // Balanced build
+        call log("Balanced build")
         set c_ghoul_max = 6 // 12+
         set c_fiend_max = 2 // 6+
         set c_abom_max = 3 // 12+
@@ -170,7 +173,7 @@ function switch_army_build takes nothing returns nothing
         set c_sphinx_max = 2 // 10+
         // 75
     elseif buildId == 2 then
-        // Abom and frost wyrm
+        call log("Abom and frost wyrm build")
         set c_ghoul_max = 0 // 0+
         set c_fiend_max = 0 // 0+
         set c_abom_max = 7 // 28+
@@ -183,7 +186,7 @@ function switch_army_build takes nothing returns nothing
         set c_sphinx_max = 0 // 0+
         // 73 foods
     elseif buildId == 3 then
-        // Mass air
+        call log("Mass air build")
         set c_ghoul_max = 0 // 0+
         set c_fiend_max = 0 // 0+
         set c_abom_max = 0 // 0+
@@ -196,7 +199,7 @@ function switch_army_build takes nothing returns nothing
         set c_sphinx_max = 4 // 20+
         // 74 foods
     elseif buildId == 4 then
-        // Mass necro
+        call log("Mass necro build")
         set c_ghoul_max = 8 // 16+
         set c_fiend_max = 3 // 9+
         set c_abom_max = 0 // 0+
@@ -209,7 +212,7 @@ function switch_army_build takes nothing returns nothing
         set c_sphinx_max = 0 // 0+
         // 74 foods
     elseif buildId == 5 then
-        // Frost wyrm only
+        call log("Frost wyrm only build")
         set c_ghoul_max = 0 // 0+
         set c_fiend_max = 0 // 0+
         set c_abom_max = 0 // 0+
@@ -225,16 +228,63 @@ function switch_army_build takes nothing returns nothing
 endfunction
 
 function stop_army_build takes nothing returns nothing
-    set c_ghoul_max = 0
-    set c_fiend_max = 0
-    set c_abom_max = 0
-    set c_wagon_max = 0
-    set c_necro_max = 0
-    set c_banshee_max = 0
-    set c_wyrm_max = 0
-    set c_garg_max = 0
-    set c_statue_max = 0
-    set c_sphinx_max = 0
+    // set b_army_build = false
+endfunction
+
+function setup_force takes nothing returns nothing
+    call InitAssault()
+    call AddAssault(c_hero1_done, hero_id)
+    call AddAssault(c_hero2_done, hero_id2)
+    call AddAssault(c_hero3_done, hero_id3)
+    call AddAssault(c_ghoul_done, GHOUL)
+    call AddAssault(c_fiend_done, CRYPT_FIEND)
+    call AddAssault(c_abom_done, ABOMINATION)
+    call AddAssault(c_wagon_done, MEAT_WAGON)
+    call AddAssault(c_necro_done, NECRO)
+    call AddAssault(c_banshee_done, BANSHEE)
+    call AddAssault(c_wyrm_done, FROST_WYRM)
+    call AddAssault(c_garg_done, GARGOYLE)
+    call AddAssault(c_statue_done, OBS_STATUE)
+    call AddAssault(c_sphinx_done, BLK_SPHINX)
+endfunction
+
+function log takes string message returns nothing
+    if trace_on then
+        call DisplayTextToPlayer(user, 0, 0, message)
+    endif
+endfunction
+
+function SingleAttack takes nothing returns nothing
+    local unit      hall
+    local unit      common
+    local boolean   allies
+
+    call log("run SingleAttack")
+
+    // coordinate with allies
+    set allies = GetAllyCount(ai_player) > 0
+    if allies then
+        set common = GetAllianceTarget()
+        if common != null then
+            call log("join ally force")
+            call AttackMoveKill(common)
+            return
+        endif
+    endif
+
+    // attack any player
+    set hall = GetEnemyExpansion()
+    if hall == null then
+        call StartGetEnemyBase()
+        loop
+            exitwhen not WaitGetEnemyBase()
+            call SuicideSleep(1)
+        endloop
+        set hall = GetEnemyBase()
+    endif
+    call SetAllianceTarget(hall)
+    call log("attack any player")
+    call AttackMoveKill(hall)
 endfunction
 
 function attack_sequence takes nothing returns nothing
@@ -258,31 +308,100 @@ function attack_sequence takes nothing returns nothing
             set full_troop = full_troop and c_garg_done >= c_garg_max
             set full_troop = full_troop and c_statue_done >= c_statue_max
             set full_troop = full_troop and c_sphinx_done >= c_sphinx_max
-            exitwhen full_troop
+            exitwhen full_troop or FoodUsed() > 143
             call Sleep(3)
         endloop
 
         call stop_army_build()
 
-        call PrepFullSuicide()
-        loop
-            call SuicideUnit(GetUnitCountDone(hero_id), hero_id)
-            call SuicideUnit(GetUnitCountDone(hero_id2), hero_id2)
-            call SuicideUnit(GetUnitCountDone(hero_id3), hero_id3)
-            call SuicideUnit(GetUnitCountDone(GHOUL), GHOUL)
-            call SuicideUnit(GetUnitCountDone(CRYPT_FIEND), CRYPT_FIEND)
-            call SuicideUnit(GetUnitCountDone(ABOMINATION), ABOMINATION)
-            call SuicideUnit(GetUnitCountDone(MEAT_WAGON), MEAT_WAGON)
-            call SuicideUnit(GetUnitCountDone(NECRO), NECRO)
-            call SuicideUnit(GetUnitCountDone(BANSHEE), BANSHEE)
-            call SuicideUnit(GetUnitCountDone(FROST_WYRM), FROST_WYRM)
-            call SuicideUnit(GetUnitCountDone(GARGOYLE), GARGOYLE)
-            call SuicideUnit(GetUnitCountDone(OBS_STATUE), OBS_STATUE)
-            call SuicideUnit(GetUnitCountDone(BLK_SPHINX), BLK_SPHINX)
+        call setup_force()
 
-            call Sleep(10)
-            exitwhen FoodUsed() < c_acolyte + 15 + 10 // 15: heroes food, 10: buffer 
+        call log("Start SingleAttack loop")
+
+        loop
+            call SingleAttack()
+
+            call log("Waiting for CaptainInCombat or CaptainIsEmpty")
+
+            loop
+                exitwhen CaptainInCombat(true)
+                exitwhen CaptainIsEmpty()
+                call SuicideSleep(1)
+            endloop
+
+            loop
+                exitwhen CaptainInCombat(false)
+                exitwhen CaptainIsEmpty()
+                call SuicideSleep(1)
+            endloop
+
+            call log("not CaptainInCombat or CaptainIsEmpty")
+            call SetAllianceTarget(null)
+            call SuicideSleep(1)
+            exitwhen CaptainIsEmpty()
         endloop
+        call log("Captain is empty, ended attack wave.")
+    endloop
+endfunction
+
+function attack_sequence2 takes nothing returns nothing
+    local boolean full_troop
+    local integer step = 0
+
+    call Sleep(GetRandomReal(0, 10))
+    call switch_army_build()
+
+    call log("Wait until full army")
+    loop
+        set full_troop = c_hero1_done >= 1
+        set full_troop = full_troop and c_hero2_done >= 1
+        set full_troop = full_troop and c_hero3_done >= 1
+        set full_troop = full_troop and c_ghoul_done >= c_ghoul_max
+        set full_troop = full_troop and c_fiend_done >= c_fiend_max
+        set full_troop = full_troop and c_abom_done >= c_abom_max
+        set full_troop = full_troop and c_wagon_done >= c_wagon_max
+        set full_troop = full_troop and c_necro_done >= c_necro_max
+        set full_troop = full_troop and c_banshee_done >= c_banshee_max
+        set full_troop = full_troop and c_wyrm_done >= c_wyrm_max
+        set full_troop = full_troop and c_garg_done >= c_garg_max
+        set full_troop = full_troop and c_statue_done >= c_statue_max
+        set full_troop = full_troop and c_sphinx_done >= c_sphinx_max
+        exitwhen full_troop or FoodUsed() > 143
+        call Sleep(3)
+    endloop
+
+    call log("Suicide all")
+    loop
+        call PrepFullSuicide()
+        call SuicideUnit(GetUnitCountDone(GHOUL), GHOUL)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(ABOMINATION), ABOMINATION)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(hero_id), hero_id)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(hero_id2), hero_id2)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(hero_id3), hero_id3)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(CRYPT_FIEND), CRYPT_FIEND)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(MEAT_WAGON), MEAT_WAGON)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(NECRO), NECRO)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(BANSHEE), BANSHEE)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(FROST_WYRM), FROST_WYRM)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(GARGOYLE), GARGOYLE)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(OBS_STATUE), OBS_STATUE)
+        call Sleep(0.1)
+        call SuicideUnit(GetUnitCountDone(BLK_SPHINX), BLK_SPHINX)
+        call Sleep(0.1)
+
+        call switch_army_build()
+        call Sleep(30)
     endloop
 endfunction
 
@@ -467,60 +586,60 @@ function build_sequence takes nothing returns nothing
         call SetBuildNext(c_undead_mines * 5, ACOLYTE)
     endif
 
-    // always rebuild heroes for defense
-    if c_altar_done >= 1 then
-        if b_hero1_done then
-            if b_hero2_done then
-                if b_hero3_done or c_citadel_done >= 1 then
-                    call SetBuildUnit(1, hero_id3)
+    // build army
+    if b_army_build then
+        if c_altar_done >= 1 then
+            if b_hero1_done then
+                if b_hero2_done then
+                    if b_hero3_done or c_citadel_done >= 1 then
+                        call SetBuildUnit(1, hero_id3)
+                    endif
+                else
+                    call SetBuildUnit(1, hero_id2)
                 endif
             else
-                call SetBuildUnit(1, hero_id2)
-            endif
-        else
-            call SetBuildUnit(1, hero_id)
-        endif
-    else
-        call SetBuildUnit(1, UNDEAD_ALTAR)
-    endif
-
-    // build army
-    if c_slaughter_done > 0 then
-        if c_citadel_done > 0 then
-            call SetBuildBulk(c_abom_max, ABOMINATION, c_slaughter_done)
-        endif
-        call SetBuildBulk(c_wagon_max, MEAT_WAGON, c_slaughter_done)
-        if c_tomb_done > 0 then
-            call SetBuildBulk(c_statue_max, OBS_STATUE, c_slaughter_done)
-            if b_sphinx_ok then
-                call Conversions(Min(c_sphinx_done + 1, c_sphinx_max), BLK_SPHINX)
+                call SetBuildUnit(1, hero_id)
             endif
         endif
-    endif
 
-    if c_crypt_done > 0 then
-        call SetBuildBulk(c_ghoul_max, GHOUL, c_crypt_done)
-        if c_grave_done > 0 then
+        if c_slaughter_done > 0 then
             if c_citadel_done > 0 then
-                call SetBuildBulk(c_garg_max, GARGOYLE, c_crypt_done)
+                call SetBuildBulk(c_abom_max, ABOMINATION, c_slaughter_done)
             endif
-            call SetBuildBulk(c_fiend_max, CRYPT_FIEND, c_crypt_done)
+            call SetBuildBulk(c_wagon_max, MEAT_WAGON, c_slaughter_done)
+            if c_tomb_done > 0 then
+                call SetBuildBulk(c_statue_max, OBS_STATUE, c_slaughter_done)
+                if b_sphinx_ok then
+                    call Conversions(Min(c_sphinx_done + 1, c_sphinx_max), BLK_SPHINX)
+                endif
+            endif
         endif
-    endif
 
-    if c_boneyard_done > 0 then
-        call SetBuildBulk(c_wyrm_max, FROST_WYRM, c_boneyard_done)
-    endif
+        if c_crypt_done > 0 then
+            call SetBuildBulk(c_ghoul_max, GHOUL, c_crypt_done)
+            if c_grave_done > 0 then
+                if c_citadel_done > 0 then
+                    call SetBuildBulk(c_garg_max, GARGOYLE, c_crypt_done)
+                endif
+                call SetBuildBulk(c_fiend_max, CRYPT_FIEND, c_crypt_done)
+            endif
+        endif
 
-    if c_temple_done > 0 then
-        call SetBuildBulk(c_necro_max, NECRO, c_temple_done)
-        call SetBuildBulk(c_banshee_max, BANSHEE, c_temple_done)
+        if c_boneyard_done > 0 then
+            call SetBuildBulk(c_wyrm_max, FROST_WYRM, c_boneyard_done)
+        endif
+
+        if c_temple_done > 0 then
+            call SetBuildBulk(c_necro_max, NECRO, c_temple_done)
+            call SetBuildBulk(c_banshee_max, BANSHEE, c_temple_done)
+        endif
     endif
 
     // build structures
     call MeleeTownHall(0, NECROPOLIS_1)
 
     call SetBuildUnit(1, NECROPOLIS_1)
+    call SetBuildUnit(1, UNDEAD_ALTAR)
     call SetBuildUnit(1, CRYPT)
     call SetBuildUnit(1, GRAVEYARD)
     call SetBuildUnit(1, TOMB_OF_RELICS)
@@ -584,14 +703,31 @@ function peon_assignment takes nothing returns nothing
 endfunction
 
 function main takes nothing returns nothing
-    set trace_on = GetAiPlayer() == 1
+    set trace_on = false// GetAiPlayer() == 7
     call PickMeleeHero(RACE_UNDEAD)
     call set_skills()
-    call StandardAI(function SkillArrays, function peon_assignment, function attack_sequence)
-    call SetGroupsFlee(false)
-    call SetHeroesFlee(false)
-    call SetUnitsFlee(false)
 
+    call InitAI()
+    call SetMeleeAI()
+    call SetGroupsFlee(false)
+    call SetUnitsFlee(false)
+    call SetHeroesFlee(false)
+    call SetDefendPlayer(true)
+    call SetHeroesBuyItems(true)
+    call SetHeroesTakeItems(true)
+    call SetIgnoreInjured(false)
+    call SetPeonsRepair(true)
+    call SetSmartArtillery(true)
+    call SetTargetHeroes(true)
+    call SetWatchMegaTargets(true)
+
+    call CreateCaptains()
+    call SetHeroLevels(function SkillArrays)
+
+    call Sleep(0.1)
+
+    call StartThread(function peon_assignment)
+    call StartThread(function attack_sequence2)
     call StartThread(function set_vars)
     call PlayGame()
 endfunction

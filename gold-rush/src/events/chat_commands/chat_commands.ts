@@ -44,11 +44,12 @@ export function registerChatCommands() {
     log('Killed units', count);
   }, 'GameControl', 'Kill all fighter units on map.');
 
-  onChatCommand('-lvlup', true, () => {
+  onChatCommand('-lvlup $1', false, (msg) => {
+    const extraLvl = parseInt(msg.split(' ')[1] ?? '1', 10);
     temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer())))
       .for(() => {
         if (Unit.fromEnum().isHero()) {
-          Unit.fromEnum().setHeroLevel(Unit.fromEnum().level + 1, true);
+          Unit.fromEnum().setHeroLevel(Unit.fromEnum().level + extraLvl, true);
         }
       });
   }, 'GameControl', 'Level up selected units.');

@@ -448,15 +448,8 @@ function build_sequence takes nothing returns nothing
         set peons = 6 - GetWood() / 200 
         if peons < 3 then 
             set peons = 3 
-        endif 
-        if c_mines < 2 or c_great_hall_done < 2 then 
-            set peons = peons + 5 
-        else 
-            set peons = peons + 10 
-        endif 
-        if peons > 15 then 
-            set peons = 15 
-        endif 
+        endif
+        set peons = peons + c_mines * 5
         call SetBuildNext(peons, PEON) 
     endif 
 
@@ -563,9 +556,12 @@ function build_sequence takes nothing returns nothing
 
 endfunction 
 
-//--------------------------------------------------------------------------------------------------                    
-//  peon_asignment                    
-//--------------------------------------------------------------------------------------------------                    
+function harvest_gold takes integer townid returns nothing
+    if TownHasMine(townid) then
+        call HarvestGold(townid, 5)
+    endif
+endfunction
+
 function peon_assignment takes nothing returns nothing 
     local integer T 
     loop 
@@ -573,16 +569,11 @@ function peon_assignment takes nothing returns nothing
 
         set T = TownWithMine() 
 
-        call HarvestGold(T, 4) 
-        call HarvestWood(0, 1) 
-        call HarvestGold(T, 1) 
-        call HarvestWood(0, 1) 
-
-        if c_great_hall_done > 1 and c_mines > 1 then 
-            call HarvestGold(T + 1, 5) 
-        endif 
-
-        call HarvestWood(0, 10) 
+        call harvest_gold(0)
+        call harvest_gold(1)
+        call harvest_gold(2)
+        call harvest_gold(3)
+        call HarvestWood(0, 5) 
 
         call build_sequence() 
         call Sleep(GetRandomInt(1, 3)) 

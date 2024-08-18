@@ -214,9 +214,42 @@ export class PrototypeUnits {
       const damage = Math.max(unit.getBaseDamage(i) * 2, proto.getBaseDamage(i));
       unit.setBaseDamage(damage, i);
     }
-    unit.maxLife = Math.max(unit.life * 2, proto.life);
+    unit.maxLife = Math.max(unit.maxLife * 2, proto.maxLife);
     unit.life = unit.maxLife;
+    unit.maxMana = Math.max(unit.maxMana * 2, proto.maxMana);
+    unit.mana = unit.maxMana;
     unit.setflyHeight(proto.getflyHeight(), 0);
+
+    if (!unit.isHero()) {
+      this.replaceAbilities(unit, proto);
+    }
+  }
+
+  static replaceAbilities(unit: Unit, prototype: Unit) {
+    for (let i = 0; ; i++) {
+      const ability = unit.getAbilityByIndex(i);
+      const abilityId = BlzGetAbilityId(ability);
+      if (ability) {
+        if (prototype.getAbilityLevel(abilityId) <= 0) {
+          unit.disableAbility(abilityId, true, true);
+        }
+      } else {
+        break;
+      }
+    }
+
+    for (let i = 0; ; i++) {
+      const ability = prototype.getAbilityByIndex(i);
+      const abilityId = BlzGetAbilityId(ability);
+      if (ability) {
+        if (unit.getAbilityLevel(abilityId) <= 0) {
+          unit.addAbility(abilityId);
+          unit.setAbilityLevel(abilityId, prototype.getAbilityLevel(abilityId));
+        }
+      } else {
+        break;
+      }
+    }
   }
 }
 

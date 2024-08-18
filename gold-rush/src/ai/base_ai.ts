@@ -181,9 +181,9 @@ export class BaseAi {
 
     const shouldRetreatToAllies = nearbyAllyHeroesCount === 0 && allyHeroes.length > 0 && this.config.retreatWhenAlone;
 
-    const canAssault = getTimeS() > this.config.firstAttackDelay;
+    const canAssault = getTimeS() > this.config.firstAttackDelay && !shouldRetreatToAllies;
 
-    const enemiesHeroes = canAssault && !shouldRetreatToAllies && this.config.siegeEnemyHeroes ? this.observer.getGlobalEnemyHeroes() : [];
+    const enemiesHeroes = canAssault && this.config.siegeEnemyHeroes ? this.observer.getGlobalEnemyHeroes() : [];
 
     const enemiesTownHalls = canAssault && this.config.siegeEnemyBases ? this.observer.getGlobalEnemyTownHalls() : [];
 

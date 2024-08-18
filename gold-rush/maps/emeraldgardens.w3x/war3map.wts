@@ -1493,3 +1493,15 @@ STRING 342
 Grand Watch Tower
 }
 
+STRING 343
+// Buffs/Effects: X000 (Blizzard), EditorName (Name (Editor Only))
+{
+Blizzard
+}
+
+STRING 344
+// Buffs/Effects: X000 (Blizzard), EditorSuffix (Editor Suffix)
+{
+(Effect) (Lich King)
+}
+

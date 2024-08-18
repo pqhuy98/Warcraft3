@@ -5,8 +5,8 @@ const defaultFactor = 0.5;
 export const constants = {
   scalingFactor: defaultFactor,
   selectionScalingFactor: defaultFactor,
-  movingFactor: defaultFactor,
-  cameraDistanceFactor: defaultFactor,
+  movingFactor: defaultFactor * 1.2,
+  cameraDistanceFactor: defaultFactor * 1.5,
 };
 
 export const originalScaleMap = new Map<number, {
