@@ -1,6 +1,7 @@
 globals
     player user = Player(0)
 
+    boolean enable_log = false
     boolean b_hero1_done = false
     boolean b_hero2_done = false
     boolean b_hero3_done = false
@@ -65,6 +66,12 @@ globals
     integer c_zig = 0
     integer c_zig_done = 0
 endglobals
+
+function log takes string message returns nothing
+    if enable_log then
+        call DisplayTextToPlayer(user, 0, 0, message)
+    endif
+endfunction
 
 function set_skills takes nothing returns nothing
 
@@ -248,12 +255,6 @@ function setup_force takes nothing returns nothing
     call AddAssault(c_sphinx_done, BLK_SPHINX)
 endfunction
 
-function log takes string message returns nothing
-    if trace_on then
-        call DisplayTextToPlayer(user, 0, 0, message)
-    endif
-endfunction
-
 function SingleAttack takes nothing returns nothing
     local unit      hall
     local unit      common
@@ -374,34 +375,34 @@ function attack_sequence2 takes nothing returns nothing
     loop
         call PrepFullSuicide()
         call SuicideUnit(GetUnitCountDone(GHOUL), GHOUL)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(ABOMINATION), ABOMINATION)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(hero_id), hero_id)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(hero_id2), hero_id2)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(hero_id3), hero_id3)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(CRYPT_FIEND), CRYPT_FIEND)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(MEAT_WAGON), MEAT_WAGON)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(NECRO), NECRO)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(BANSHEE), BANSHEE)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(FROST_WYRM), FROST_WYRM)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(GARGOYLE), GARGOYLE)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(OBS_STATUE), OBS_STATUE)
-        call Sleep(0.1)
+        call Sleep(0.5)
         call SuicideUnit(GetUnitCountDone(BLK_SPHINX), BLK_SPHINX)
-        call Sleep(0.1)
+        call Sleep(0.5)
 
         call switch_army_build()
-        call Sleep(30)
+        call Sleep(45)
     endloop
 endfunction
 
@@ -703,7 +704,7 @@ function peon_assignment takes nothing returns nothing
 endfunction
 
 function main takes nothing returns nothing
-    set trace_on = false// GetAiPlayer() == 7
+    set enable_log = false//GetAiPlayer() == 7
     call PickMeleeHero(RACE_UNDEAD)
     call set_skills()
 
