@@ -1,0 +1,1617 @@
+﻿STRING 3
+// Doodads: D000 (Casa), Name (Name)
+{
+Casa
+}
+
+STRING 4
+{
+Silverpine Forest WoW
+}
+
+STRING 5
+{
+Any
+}
+
+STRING 6
+{
+TheGorinR
+}
+
+STRING 7
+// Doodads: D001 (Wall), Name (Name)
+{
+Wall
+}
+
+STRING 8
+// Doodads: D002 (Wall end), Name (Name)
+{
+Wall end
+}
+
+STRING 9
+{
+Silverpine Forest is the border of the kingdom of Lordaeron, and the southernmost point of the capital city. This forest is darkened and wild, characterized by its tall silverbark pines towering over grassy knolls.
+}
+
+STRING 14
+{
+Silverpine Forest
+}
+
+STRING 15
+{
+Silverpine Forest is the border of the kingdom of Lordaeron, and the southernmost point of the capital city. This forest is darkened and wild, characterized by its tall silverbark pines towering over grassy knolls.
+}
+
+STRING 18
+{
+Silverpine
+}
+
+STRING 20
+// Destructibles: B000 (Silverpine Tree), Name (Name)
+{
+Silverpine Tree
+}
+
+STRING 21
+// Doodads: D003 (Barracks), Name (Name)
+{
+Barracks
+}
+
+STRING 22
+// Doodads: D004 (BlackSmith), Name (Name)
+{
+BlackSmith
+}
+
+STRING 23
+// Destructibles: YTcx (Greymane Wall), Name (Name)
+{
+Greymane Wall
+}
+
+STRING 24
+// Doodads: D005 (Gilneas Wall LONG), Name (Name)
+{
+Gilneas Wall LONG
+}
+
+STRING 25
+// Doodads: D006 (Gilneas Wall (Short)), Name (Name)
+{
+Gilneas Wall (Short)
+}
+
+STRING 26
+// Doodads: D007 (GILNEAS PIECE), Name (Name)
+{
+GILNEAS PIECE
+}
+
+STRING 27
+// Doodads: D008 (Wall GILNEAS), Name (Name)
+{
+Wall GILNEAS
+}
+
+STRING 28
+// Doodads: D009 (Wall Endcap G), Name (Name)
+{
+Wall Endcap G
+}
+
+STRING 29
+// Doodads: D00A (TOWN HALL), Name (Name)
+{
+TOWN HALL
+}
+
+STRING 30
+// Doodads: D00B (Farma), Name (Name)
+{
+Farma
+}
+
+STRING 31
+// Doodads: YS08 (City Building (Diagonal 2,Zelena), Name (Name)
+{
+City Building (Diagonal 2,Zelena
+}
+
+STRING 32
+// Doodads: D00C (RocksBIG), Name (Name)
+{
+RocksBIG
+}
+
+STRING 33
+// Doodads: D00D (Archway Ruined ShadowFANG), Name (Name)
+{
+Archway Ruined ShadowFANG
+}
+
+STRING 34
+// Doodads: D00E (Keep Strecha), Name (Name)
+{
+Keep Strecha
+}
+
+STRING 35
+// Doodads: D00F (Moonwell), Name (Name)
+{
+Moonwell
+}
+
+STRING 36
+// Doodads: D00G (TENT), Name (Name)
+{
+TENT
+}
+
+STRING 37
+// Doodads: D00H (TENT2), Name (Name)
+{
+TENT2
+}
+
+STRING 38
+// Doodads: D00I (Lumbermill), Name (Name)
+{
+Lumbermill
+}
+
+STRING 39
+// Doodads: D00J (Sepulcher), Name (Name)
+{
+Sepulcher
+}
+
+STRING 40
+// Doodads: D00K (Tomb of Relic), Name (Name)
+{
+Tomb of Relic
+}
+
+STRING 41
+// Doodads: D00L (Temple of Damn), Name (Name)
+{
+Temple of Damn
+}
+
+STRING 42
+// Doodads: D00M (Graveyard), Name (Name)
+{
+Graveyard
+}
+
+STRING 43
+// Doodads: D00N (Gold Mine), Name (Name)
+{
+Gold Mine
+}
+
+STRING 44
+// Doodads: D00O (Altar of Dark), Name (Name)
+{
+Altar of Dark
+}
+
+STRING 47
+// Doodads: D00P (MURLOC TENT), Name (Name)
+{
+MURLOC TENT
+}
+
+STRING 48
+// Doodads: D00Q (MURLOC TENT 2), Name (Name)
+{
+MURLOC TENT 2
+}
+
+STRING 49
+// Doodads: D00R (MURLOC TENT 3), Name (Name)
+{
+MURLOC TENT 3
+}
+
+STRING 50
+// Doodads: D00S (Gargoyle Nest), Name (Name)
+{
+Gargoyle Nest
+}
+
+STRING 51
+// Doodads: COlg (Log Spravna), Name (Name)
+{
+Log Spravna
+}
+
+STRING 52
+// Doodads: COhs (Stump Hollow PROPER), Name (Name)
+{
+Stump Hollow PROPER
+}
+
+STRING 53
+// Doodads: D00T (WORGEN TENT), Name (Name)
+{
+WORGEN TENT
+}
+
+STRING 54
+{
+Player
+}
+
+STRING 55
+{
+Human Alliance
+}
+
+STRING 56
+{
+Night Elf
+}
+
+STRING 57
+{
+Undead Forsaken
+}
+
+STRING 58
+// Units: e000 (Moon Well), EditorSuffix (Name - Editor Suffix)
+{
+(Big)
+}
+
+STRING 59
+{
+Orcish Horde
+}
+
+STRING 60
+// Units: Obla (Blademaster), Propernames (Proper Names)
+{
+Tojara,Nikoro,Kajind,Mikasa,Akinos,Mazuru,Yozshura,Daisho,Kigami,Arashicage,Moogul the Sly,Jubei
+}
+
+STRING 61
+// Units: h000 (Dummy), Name (Name)
+{
+Dummy
+}
+
+STRING 62
+// Units: h000 (Dummy), Tip (Tooltip - Basic)
+{
+Dummy
+}
+
+STRING 63
+// Units: h000 (Dummy), Ubertip (Tooltip - Extended)
+{
+Dummy
+}
+
+STRING 64
+// Units: H002 (King of Olympus), Name (Name)
+{
+King of Olympus
+}
+
+STRING 65
+// Units: H002 (King of Olympus), Propernames (Proper Names)
+{
+Zeus
+}
+
+STRING 66
+// Units: H002 (King of Olympus), Awakentip (Tooltip - Awaken)
+{
+Revive Zeus
+}
+
+STRING 67
+// Units: H002 (King of Olympus), Tip (Tooltip - Basic)
+{
+Summon Zeus
+}
+
+STRING 68
+// Units: H002 (King of Olympus), Ubertip (Tooltip - Extended)
+{
+Eons ago, Zeus reigned supreme over the gods of Olympus, wielding the sky's fury with his mighty thunderbolts. His dominion was unquestioned, his power unparalleled. Yet, a prophecy whispered through the winds of time spoke of another realm, a world known as Azeroth that would face cataclysmic events that could ripple through the very fabric of existence. Intrigued and slightly alarmed, Zeus decided to descend from his celestial throne to intervene.
+
+Upon his arrival, Zeus found Azeroth embroiled in ceaseless conflict: Humans, Orcs, Elves, and Undead locked in a never-ending battle for survival and supremacy. The intensity of their strife had disturbed the cosmic balance, creating fissures in the fabric of reality itself. Realizing that the prophecy was unfolding before his very eyes, Zeus knew he had to act.
+
+However, Zeus could not reveal his true identity. The gods of Azeroth and Olympus had an ancient pact, forbidding interference in each other's realms. Thus, shrouded in the guise of a wandering mage, Zeus ventured forth to correct the imbalance discreetly. But even in his disguised form, the sheer magnitude of his celestial energy could hardly be contained. Thunderclouds gathered where he walked, and bolts of lightning would strike down his foes, betraying his divine nature.
+
+Driven by a newfound purpose, Zeus seeks to quell the unrest in Azeroth, aware that the fate of his own realm is intrinsically tied to this foreign land. Along the way, he has found unlikely allies, ancient enemies, and a myriad of challenges that even a god had not foreseen. But with every thunderbolt he casts, Zeus sends a clear message to all who dare plunge the world into chaos: The God of Thunder has arrived, and he will tolerate no evil in his quest to restore cosmic balance.
+}
+
+STRING 69
+// Units: H002 (King of Olympus), Revivetip (Tooltip - Revive)
+{
+Revive Zeus
+}
+
+STRING 70
+// Units: h003 (Grand Guard Tower), Name (Name)
+{
+Grand Guard Tower
+}
+
+STRING 71
+// Units: o000 (Grand Watch Tower), Name (Name)
+{
+Grand Watch Tower
+}
+
+STRING 72
+// Units: H001 (Lich King), Name (Name)
+{
+Lich King
+}
+
+STRING 73
+// Units: H001 (Lich King), Propernames (Proper Names)
+{
+Arthas
+}
+
+STRING 74
+// Units: H001 (Lich King), Awakentip (Tooltip - Awaken)
+{
+Revive Lich King
+}
+
+STRING 75
+// Units: H001 (Lich King), Tip (Tooltip - Basic)
+{
+Summon Lich King
+}
+
+STRING 76
+// Units: H001 (Lich King), Ubertip (Tooltip - Extended)
+{
+The Lich King was the master and lord of the Scourge which he ruled telepathically through the Helm of Domination from his Frozen Throne atop Icecrown Citadel.|n|nKil'jaeden the Deceiver created the original Lich King from the spirit of the orc shaman Ner'zhul for the purpose of raising an undead army to weaken Azeroth in preparation for the Burning Legion's invasion. Initially trapped within the Frozen Throne with Frostmourne, the Lich King eventually betrayed Kil'jaeden and merged with the human Arthas Menethil.
+}
+
+STRING 77
+// Units: H001 (Lich King), Revivetip (Tooltip - Revive)
+{
+Revive Lich King
+}
+
+STRING 78
+// Units: U000 (Desert's Wrath), Name (Name)
+{
+Desert's Wrath
+}
+
+STRING 79
+// Units: U000 (Desert's Wrath), Ubertip (Tooltip - Extended)
+{
+Scor'tah, once a revered guardian of the ancient desert kingdom of Aramath, fell from grace in a tragic twist of fate. Born in the searing sands, Scor'tah was a colossal scorpion worshipped by the desert nomads for his strength and cunning. His carapace, glistening like burnished gold, symbolized the sun's relentless power. However, when the Lich King’s shadow fell upon Aramath, Scor'tah was ensnared by dark magic and twisted into a malevolent force. Now a formidable lieutenant, Scor'tah wields his venomous sting and command over sandstorms to spread terror, his once noble spirit forever bound to the Lich King's sinister will.
+
+
+
+
+
+
+
+}
+
+STRING 80
+// Units: U000 (Desert's Wrath), Propernames (Proper Names)
+{
+Scor'tah
+}
+
+STRING 81
+// Units: U000 (Desert's Wrath), Awakentip (Tooltip - Awaken)
+{
+Revive Desert's Wrath
+}
+
+STRING 82
+// Units: U000 (Desert's Wrath), Revivetip (Tooltip - Revive)
+{
+Revive Desert's Wrath
+}
+
+STRING 83
+// Units: H004 (Highlord of the Argent Crusade), Name (Name)
+{
+Highlord of the Argent Crusade
+}
+
+STRING 84
+// Units: H004 (Highlord of the Argent Crusade), Propernames (Proper Names)
+{
+Tirion Fordring
+}
+
+STRING 85
+// Items: stel (Book of Teleportation), Name (Name)
+{
+Book of Teleportation
+}
+
+STRING 86
+// Items: stel (Book of Teleportation), Tip (Tooltip - Basic)
+{
+Purchase Book of Teleportation
+}
+
+STRING 87
+// Items: I000 (|cff0000ffFrostmourne|r), Name (Name)
+{
+|cff0000ffFrostmourne|r
+}
+
+STRING 88
+// Items: I000 (|cff0000ffFrostmourne|r), Ubertip (Tooltip - Extended)
+{
+|cffff8c00Artifact|r|nThis powerful blade collects the soul of each enemy it kills. Each soul heals the Lich King for a percentage of his maximum life, allowing him to sustain himself and remain powerful in battle.
+ |n|cffffcc00History|r|n|cffffdeadFrostmourne was the mourneblade of the Lich King. A fearsome, rune-inscribed two-handed longsword, it possessed the power to shatter and imprison the souls of its victims and could remake the living into mindless undead. Frostmourne was thrust from the Frozen Throne by the Lich King Ner'zhul and was taken up by Arthas Menethil in the wastes of Northrend during the Third War. The blade spilled the blood of kings, destroyed nations, and inflicted scars on the world that remain to this day. Few weapons have shaped modern history as much as Frostmourne.|r|n|n|cffc0c0c0"Whomsoever takes up this blade shall wield power eternal. Just as the blade rends flesh, so must power scar the spirit."|r
+}
+
+STRING 89
+// Items: I000 (|cff0000ffFrostmourne|r), Tip (Tooltip - Basic)
+{
+Claim |cff0000ffFrostmourne|r
+}
+
+STRING 90
+// Destructibles: ZTsx (Massive Ruined Gate), EditorSuffix (Editor Suffix)
+{
+(South)
+}
+
+STRING 91
+// Destructibles: ZTsg (Massive Ruined Gate), EditorSuffix (Editor Suffix)
+{
+(West)
+}
+
+STRING 92
+// Abilities: A000 (Blade Dance), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 93
+// Abilities: A000 (Blade Dance), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 94
+// Abilities: A001 (Wind Walk), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 95
+// Abilities: A001 (Wind Walk), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 96
+// Abilities: A00B (Thunder Blink), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 97
+// Abilities: A00B (Thunder Blink), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 98
+// Abilities: A002 (Critical Strike), Researchhotkey (Hotkey - Learn)
+{
+E
+}
+
+STRING 99
+// Abilities: A00H (Frost Bolt), Hotkey (Hotkey - Normal)
+{
+E
+}
+
+STRING 100
+// Abilities: A000 (Blade Dance), Name (Name)
+{
+Blade Dance
+}
+
+STRING 101
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 1|r] [|cffffcc00R|r]
+}
+
+STRING 102
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 2|r] [|cffffcc00R|r]
+}
+
+STRING 103
+// Abilities: A000 (Blade Dance), Tip (Tooltip - Normal)
+{
+Blade Dance - [|cffffcc00Level 3|r] [|cffffcc00R|r]
+}
+
+STRING 104
+// Abilities: A000 (Blade Dance), Researchtip (Tooltip - Learn)
+{
+Learn Blade Dance - [|cffffcc00Level %d|r] [|cffffcc00R|r]
+}
+
+STRING 105
+// Abilities: A000 (Blade Dance), Researchubertip (Tooltip - Learn - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 106
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 107
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 108
+// Abilities: A000 (Blade Dance), Ubertip (Tooltip - Normal - Extended)
+{
+By the greatest skill in using blade, Samuro danced around the battlefield, slashing his enemies with lightning speed that they cannot attack him.
+}
+
+STRING 109
+// Abilities: A004 (Divine Fury), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 110
+// Abilities: A004 (Divine Fury), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 111
+// Abilities: A001 (Wind Walk), Tip (Tooltip - Normal)
+{
+Wind Walk - [|cffffcc00Level 4|r]
+}
+
+STRING 112
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <A004:AOwk,DataB4,%>% faster for <A004:AOwk,Dur4> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do <A004:AOwk,DataC4> bonus damage.
+}
+
+STRING 113
+// Abilities: A001 (Wind Walk), Researchubertip (Tooltip - Learn - Extended)
+{
+Allows the Blademaster to become invisible, and move faster for a set amount of time. When the Blademaster attacks a unit to break invisibility, he will deal bonus damage. |n|n|cffffcc00Level 1|r - <AOwk,DataB1,%>% move, 100 bonus damage, <AOwk,Dur1> seconds. |n|cffffcc00Level 2|r - <AOwk,DataB2,%>% move, 200 bonus damage, <AOwk,Dur2> seconds. |n|cffffcc00Level 3|r - <AOwk,DataB3,%>% move, 300 bonus damage, <AOwk,Dur3> seconds. |n|cffffcc00Level 4|r - 110% move, 400 bonus damage, 80 seconds.
+}
+
+STRING 114
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <A002:AOwk,DataB2,%>% faster for <A002:AOwk,Dur2> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do <A002:AOwk,DataC2> bonus damage.
+}
+
+STRING 115
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <A003:AOwk,DataB3,%>% faster for <A003:AOwk,Dur3> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do <A003:AOwk,DataC3> bonus damage.
+}
+
+STRING 116
+// Abilities: A003 (Chain Lightning), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 117
+// Abilities: A003 (Chain Lightning), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 118
+// Abilities: A001 (Wind Walk), EditorSuffix (Editor Suffix)
+{
+(Samuro)
+}
+
+STRING 119
+// Abilities: A001 (Wind Walk), Ubertip (Tooltip - Normal - Extended)
+{
+Allows the Blademaster to become invisible, and move <A001:AOwk,DataB1,%>% faster for <A001:AOwk,Dur1> seconds. If the Blademaster attacks a unit to break invisibility, the attack will do <A001:AOwk,DataC1> bonus damage.
+}
+
+STRING 120
+// Abilities: A002 (Critical Strike), Tip (Tooltip - Normal)
+{
+Critical Strike - [|cffffcc00Level 4|r]
+}
+
+STRING 121
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a <A002:AOcr,DataA4>% chance to do <A002:AOcr,DataB4> times normal damage on an attack.
+}
+
+STRING 122
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a <A002:AOcr,DataA2>% chance to do <A002:AOcr,DataB2> times normal damage on an attack.
+}
+
+STRING 123
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a <A002:AOcr,DataA3>% chance to do <A002:AOcr,DataB3> times normal damage on an attack.
+}
+
+STRING 124
+// Abilities: A00H (Frost Bolt), Researchhotkey (Hotkey - Learn)
+{
+E
+}
+
+STRING 125
+// Abilities: A002 (Critical Strike), EditorSuffix (Editor Suffix)
+{
+(Samuro)
+}
+
+STRING 126
+// Abilities: A002 (Critical Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Gives a <A002:AOcr,DataA1>% chance to do <A002:AOcr,DataB1> times normal damage on an attack.
+}
+
+STRING 127
+// Abilities: A006 (Sandquake), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 128
+// Abilities: A006 (Sandquake), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 129
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 4|r]
+}
+
+STRING 130
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 5|r]
+}
+
+STRING 131
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 6|r]
+}
+
+STRING 132
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 7|r]
+}
+
+STRING 133
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 8|r]
+}
+
+STRING 134
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 9|r]
+}
+
+STRING 135
+// Abilities: A003 (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning - [|cffffcc00Level 10|r]
+}
+
+STRING 136
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB1> times, dealing <A003:AOcl,DataA1> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 137
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB2> times, dealing <A003:AOcl,DataA2> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 138
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB3> times, dealing <A003:AOcl,DataA3> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 139
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB4> times, dealing <A003:AOcl,DataA4> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 140
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB5> times, dealing <A003:AOcl,DataA5> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 141
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB6> times, dealing <A003:AOcl,DataA6> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 142
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB7> times, dealing <A003:AOcl,DataA7> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 143
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB8> times, dealing <A003:AOcl,DataA8> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 144
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB9> times, dealing <A003:AOcl,DataA9> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 145
+// Abilities: A003 (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Calls forth a bolt of lightning that bounces up to <A003:AOcl,DataB10> times, dealing <A003:AOcl,DataA10> damage on the primary target. Each jump deals less damage.
+}
+
+STRING 146
+// Abilities: A003 (Chain Lightning), Researchubertip (Tooltip - Learn - Extended)
+{
+Hurls a bolt of damaging lightning at a target enemy that jumps to nearby enemies. Each jump deals less damage.|n|n|cffffcc00Level 1|r - <A003:AOcl,DataA1> damage, jumps <A003:AOcl,DataB1> times. |n|cffffcc00Level 2|r - <A003:AOcl,DataA2> damage, jumps <A003:AOcl,DataB2> times. |n|cffffcc00Level 3|r - <A003:AOcl,DataA3> damage, jumps <A003:AOcl,DataB3> times. |n|cffffcc00Level 4|r - <A003:AOcl,DataA4> damage, jumps <A003:AOcl,DataB4> times. |n|cffffcc00Level 5|r - <A003:AOcl,DataA5> damage, jumps <A003:AOcl,DataB5> times. |n|cffffcc00Level 6|r - <A003:AOcl,DataA6> damage, jumps <A003:AOcl,DataB6> times. |n|cffffcc00Level 7|r - <A003:AOcl,DataA7> damage, jumps <A003:AOcl,DataB7> times. |n|cffffcc00Level 8|r - <A003:AOcl,DataA8> damage, jumps <A003:AOcl,DataB8> times. |n|cffffcc00Level 9|r - <A003:AOcl,DataA9> damage, jumps <A003:AOcl,DataB9> times. |n|cffffcc00Level 10|r - <A003:AOcl,DataA10> damage, jumps <A003:AOcl,DataB10> times.
+}
+
+STRING 147
+// Abilities: A00B (Thunder Blink), Name (Name)
+{
+Thunder Blink
+}
+
+STRING 148
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 1|r]
+}
+
+STRING 149
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 2|r]
+}
+
+STRING 150
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 3|r]
+}
+
+STRING 151
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA1> range to the target location, dealing <A00C:AHtc,DataA1> damage and slowing enemies by <A00C:AHtc,DataD1,%>% for <A00C:AHtc,HeroDur1> seconds (heroes) / <A00C:AHtc,Dur1> seconds (non-heroes) in a <A00C:AHtc,Area1> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool1>
+
+}
+
+STRING 152
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA2> range to the target location, dealing <A00C:AHtc,DataA2> damage and slowing enemies by <A00C:AHtc,DataD2,%>% for <A00C:AHtc,HeroDur2> seconds (heroes) / <A00C:AHtc,Dur2> seconds (non-heroes) in a <A00C:AHtc,Area2> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool2>
+
+}
+
+STRING 153
+// Abilities: A00J (Frost Nova), Researchhotkey (Hotkey - Learn)
+{
+W
+}
+
+STRING 154
+// Abilities: A00J (Frost Nova), Hotkey (Hotkey - Normal)
+{
+W
+}
+
+STRING 155
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 4|r]
+}
+
+STRING 156
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 5|r]
+}
+
+STRING 157
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 6|r]
+}
+
+STRING 158
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 7|r]
+}
+
+STRING 159
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 8|r]
+}
+
+STRING 160
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 9|r]
+}
+
+STRING 161
+// Abilities: A00B (Thunder Blink), Tip (Tooltip - Normal)
+{
+Thunder Blink - [|cffffcc00Level 10|r]
+}
+
+STRING 162
+// Abilities: A00B (Thunder Blink), Researchubertip (Tooltip - Learn - Extended)
+{
+Teleports Zeus to the target location, dealing damage to nearby enemies and slowing them for a short duration. Cast Zeus's current level of Chain Lightning to all affected units. |n|n|cffffcc00Level 1|r - <A00B:AEbl,DataA1> range, <A00B:AEbl,Cool1> cooldown, <A00C:AHtc,DataA1> damage, <A00C:AHtc,Area1> radius, <A00C:AHtc,DataD1,%>% slow for <A00C:AHtc,HeroDur1>/<A00C:AHtc,Dur1> seconds. |n|cffffcc00Level 2|r - <A00B:AEbl,DataA2> range, <A00B:AEbl,Cool2> cooldown, <A00C:AHtc,DataA2> damage, <A00C:AHtc,Area2> radius, <A00C:AHtc,DataD2,%>% slow for <A00C:AHtc,HeroDur2>/<A00C:AHtc,Dur2> seconds. |n|cffffcc00Level 3|r - <A00B:AEbl,DataA3> range, <A00B:AEbl,Cool3> cooldown, <A00C:AHtc,DataA3> damage, <A00C:AHtc,Area3> radius, <A00C:AHtc,DataD3,%>% slow for <A00C:AHtc,HeroDur3>/<A00C:AHtc,Dur3> seconds. |n|cffffcc00Level 4|r - <A00B:AEbl,DataA4> range, <A00B:AEbl,Cool4> cooldown, <A00C:AHtc,DataA4> damage, <A00C:AHtc,Area4> radius, <A00C:AHtc,DataD4,%>% slow for <A00C:AHtc,HeroDur4>/<A00C:AHtc,Dur4> seconds. |n|cffffcc00Level 5|r - <A00B:AEbl,DataA5> range, <A00B:AEbl,Cool5> cooldown, <A00C:AHtc,DataA5> damage, <A00C:AHtc,Area5> radius, <A00C:AHtc,DataD5,%>% slow for <A00C:AHtc,HeroDur5>/<A00C:AHtc,Dur5> seconds. |n|cffffcc00Level 6|r - <A00B:AEbl,DataA6> range, <A00B:AEbl,Cool6> cooldown, <A00C:AHtc,DataA6> damage, <A00C:AHtc,Area6> radius, <A00C:AHtc,DataD6,%>% slow for <A00C:AHtc,HeroDur6>/<A00C:AHtc,Dur6> seconds. |n|cffffcc00Level 7|r - <A00B:AEbl,DataA7> range, <A00B:AEbl,Cool7> cooldown, <A00C:AHtc,DataA7> damage, <A00C:AHtc,Area7> radius, <A00C:AHtc,DataD7,%>% slow for <A00C:AHtc,HeroDur7>/<A00C:AHtc,Dur7> seconds. |n|cffffcc00Level 8|r - <A00B:AEbl,DataA8> range, <A00B:AEbl,Cool8> cooldown, <A00C:AHtc,DataA8> damage, <A00C:AHtc,Area8> radius, <A00C:AHtc,DataD8,%>% slow for <A00C:AHtc,HeroDur8>/<A00C:AHtc,Dur8> seconds. |n|cffffcc00Level 9|r - <A00B:AEbl,DataA9> range, <A00B:AEbl,Cool9> cooldown, <A00C:AHtc,DataA9> damage, <A00C:AHtc,Area9> radius, <A00C:AHtc,DataD9,%>% slow for <A00C:AHtc,HeroDur9>/<A00C:AHtc,Dur9> seconds. |n|cffffcc00Level 10|r - <A00B:AEbl,DataA10> range, <A00B:AEbl,Cool10> cooldown, <A00C:AHtc,DataA10> damage, <A00C:AHtc,Area10> radius, <A00C:AHtc,DataD10,%>% slow for <A00C:AHtc,HeroDur10>/<A00C:AHtc,Dur10> seconds.
+
+}
+
+STRING 163
+// Abilities: A00B (Thunder Blink), Researchtip (Tooltip - Learn)
+{
+Learn Thunder Blink - [|cffffcc00Level %d|r]
+}
+
+STRING 164
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA3> range to the target location, dealing <A00C:AHtc,DataA3> damage and slowing enemies by <A00C:AHtc,DataD3,%>% for <A00C:AHtc,HeroDur3> seconds (heroes) / <A00C:AHtc,Dur3> seconds (non-heroes) in a <A00C:AHtc,Area3> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool3>
+
+}
+
+STRING 165
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA4> range to the target location, dealing <A00C:AHtc,DataA4> damage and slowing enemies by <A00C:AHtc,DataD4,%>% for <A00C:AHtc,HeroDur4> seconds (heroes) / <A00C:AHtc,Dur4> seconds (non-heroes) in a <A00C:AHtc,Area4> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool4>
+
+}
+
+STRING 166
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA5> range to the target location, dealing <A00C:AHtc,DataA5> damage and slowing enemies by <A00C:AHtc,DataD5,%>% for <A00C:AHtc,HeroDur5> seconds (heroes) / <A00C:AHtc,Dur5> seconds (non-heroes) in a <A00C:AHtc,Area5> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool5>
+
+}
+
+STRING 167
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA6> range to the target location, dealing <A00C:AHtc,DataA6> damage and slowing enemies by <A00C:AHtc,DataD6,%>% for <A00C:AHtc,HeroDur6> seconds (heroes) / <A00C:AHtc,Dur6> seconds (non-heroes) in a <A00C:AHtc,Area6> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool6>
+
+}
+
+STRING 168
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA7> range to the target location, dealing <A00C:AHtc,DataA7> damage and slowing enemies by <A00C:AHtc,DataD7,%>% for <A00C:AHtc,HeroDur7> seconds (heroes) / <A00C:AHtc,Dur7> seconds (non-heroes) in a <A00C:AHtc,Area7> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool7>
+
+}
+
+STRING 169
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA8> range to the target location, dealing <A00C:AHtc,DataA8> damage and slowing enemies by <A00C:AHtc,DataD8,%>% for <A00C:AHtc,HeroDur8> seconds (heroes) / <A00C:AHtc,Dur8> seconds (non-heroes) in a <A00C:AHtc,Area8> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool8>
+
+}
+
+STRING 170
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA9> range to the target location, dealing <A00C:AHtc,DataA9> damage and slowing enemies by <A00C:AHtc,DataD9,%>% for <A00C:AHtc,HeroDur9> seconds (heroes) / <A00C:AHtc,Dur9> seconds (non-heroes) in a <A00C:AHtc,Area9> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool9>
+
+}
+
+STRING 171
+// Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
+{
+Teleports Zeus up to <A00B:AEbl,DataA10> range to the target location, dealing <A00C:AHtc,DataA10> damage and slowing enemies by <A00C:AHtc,DataD10,%>% for <A00C:AHtc,HeroDur10> seconds (heroes) / <A00C:AHtc,Dur10> seconds (non-heroes) in a <A00C:AHtc,Area10> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool10>
+
+}
+
+STRING 172
+// Abilities: A00C (Thunder Blink (AOE damage)), Name (Name)
+{
+Thunder Blink (AOE damage)
+}
+
+STRING 173
+// Abilities: A004 (Divine Fury), Name (Name)
+{
+Divine Fury
+}
+
+STRING 174
+// Abilities: A004 (Divine Fury), Tip (Tooltip - Normal)
+{
+Divine Fury - [|cffffcc00Level 1|r]
+}
+
+STRING 175
+// Abilities: A004 (Divine Fury), Tip (Tooltip - Normal)
+{
+Divine Fury - [|cffffcc00Level 2|r]
+}
+
+STRING 176
+// Abilities: A004 (Divine Fury), Tip (Tooltip - Normal)
+{
+Divine Fury - [|cffffcc00Level 3|r]
+}
+
+STRING 177
+// Abilities: A004 (Divine Fury), Researchtip (Tooltip - Learn)
+{
+Learn Divine Fury - [|cffffcc00Level %d|r]
+}
+
+STRING 178
+// Abilities: A004 (Divine Fury), Researchubertip (Tooltip - Learn - Extended)
+{
+With a surge of celestial energy, Zeus channels the power of the heavens, attacking enemies with godly speed. Unleashing a storm of strikes, his assault becomes increasingly relentless with each level.
+}
+
+STRING 179
+// Abilities: A004 (Divine Fury), Ubertip (Tooltip - Normal - Extended)
+{
+With a surge of celestial energy, Zeus channels the power of the heavens, attacking enemies with godly speed. Unleashing a storm of strikes, his assault becomes increasingly relentless with each level.
+}
+
+STRING 180
+// Abilities: A004 (Divine Fury), Ubertip (Tooltip - Normal - Extended)
+{
+With a surge of celestial energy, Zeus channels the power of the heavens, attacking enemies with godly speed. Unleashing a storm of strikes, his assault becomes increasingly relentless with each level.
+}
+
+STRING 181
+// Abilities: A004 (Divine Fury), Ubertip (Tooltip - Normal - Extended)
+{
+With a surge of celestial energy, Zeus channels the power of the heavens, attacking enemies with godly speed. Unleashing a storm of strikes, his assault becomes increasingly relentless with each level.
+}
+
+STRING 182
+// Abilities: A007 (Army of the Dead), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 183
+// Abilities: A00A (Wrath of the Lich King), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 184
+// Abilities: A006 (Sandquake), Name (Name)
+{
+Sandquake
+}
+
+STRING 185
+// Abilities: A00I (Death Coil), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 186
+// Abilities: A00I (Death Coil), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 187
+// Abilities: A006 (Sandquake), Researchtip (Tooltip - Learn)
+{
+Learn Sandquake - [|cffffcc00Level %d|r]
+}
+
+STRING 188
+// Abilities: A006 (Sandquake), Researchubertip (Tooltip - Learn - Extended)
+{
+Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
+
+
+}
+
+STRING 189
+// Abilities: A006 (Sandquake), Tip (Tooltip - Normal)
+{
+Sandquake - [|cffffcc00Level 1|r]
+}
+
+STRING 190
+// Abilities: A006 (Sandquake), Tip (Tooltip - Normal)
+{
+Sandquake - [|cffffcc00Level 2|r]
+}
+
+STRING 191
+// Abilities: A006 (Sandquake), Tip (Tooltip - Normal)
+{
+Sandquake - [|cffffcc00Level 3|r]
+}
+
+STRING 192
+// Abilities: A006 (Sandquake), Tip (Tooltip - Normal)
+{
+Sandquake - [|cffffcc00Level 4|r]
+}
+
+STRING 193
+// Abilities: A006 (Sandquake), Ubertip (Tooltip - Normal - Extended)
+{
+Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
+}
+
+STRING 194
+// Abilities: A006 (Sandquake), Ubertip (Tooltip - Normal - Extended)
+{
+Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
+}
+
+STRING 195
+// Abilities: A006 (Sandquake), Ubertip (Tooltip - Normal - Extended)
+{
+Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
+}
+
+STRING 196
+// Abilities: A006 (Sandquake), Ubertip (Tooltip - Normal - Extended)
+{
+Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
+}
+
+STRING 197
+// Abilities: A007 (Army of the Dead), Name (Name)
+{
+Army of the Dead
+}
+
+STRING 198
+// Abilities: A00A (Wrath of the Lich King), Researchhotkey (Hotkey - Learn)
+{
+R
+}
+
+STRING 199
+// Abilities: A007 (Army of the Dead), Researchtip (Tooltip - Learn)
+{
+Learn Army of the Dead
+}
+
+STRING 200
+// Abilities: A007 (Army of the Dead), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King channels dark necromantic power to raise nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for a certain duration before returning to their graves.
+}
+
+STRING 201
+// Abilities: A007 (Army of the Dead), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King channels dark necromantic power to raise nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for a certain duration before returning to their graves.
+}
+
+STRING 202
+// Abilities: A007 (Army of the Dead), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King channels dark necromantic power to raise nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for a certain duration before returning to their graves.
+}
+
+STRING 203
+// Abilities: A007 (Army of the Dead), Tip (Tooltip - Normal)
+{
+Army of the Dead- [|cffffcc00Level 1|r]
+}
+
+STRING 204
+// Abilities: A007 (Army of the Dead), Tip (Tooltip - Normal)
+{
+Army of Death - [|cffffcc00Level 2|r]
+}
+
+STRING 205
+// Abilities: A007 (Army of the Dead), Tip (Tooltip - Normal)
+{
+Army of Death - [|cffffcc00Level 3|r]
+}
+
+STRING 206
+// Abilities: A007 (Army of the Dead), Researchubertip (Tooltip - Learn - Extended)
+{
+The Lich King channels dark necromantic power to raise nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for a certain duration before returning to their graves.
+}
+
+STRING 207
+// Abilities: A007 (Army of the Dead), Hotkey (Hotkey - Normal)
+{
+F
+}
+
+STRING 208
+// Abilities: A008 (Wrath of the Lich King), Name (Name)
+{
+Wrath of the Lich King
+}
+
+STRING 209
+// Abilities: A008 (Wrath of the Lich King), Researchubertip (Tooltip - Learn - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
+}
+
+STRING 210
+// Abilities: A008 (Wrath of the Lich King), Researchtip (Tooltip - Learn)
+{
+Learn Wrath of the Lich King - [|cffffcc00Level %d|r].
+}
+
+STRING 211
+// Abilities: A008 (Wrath of the Lich King), EditorSuffix (Editor Suffix)
+{
+(Stun)
+}
+
+STRING 212
+// Abilities: A00A (Wrath of the Lich King), Name (Name)
+{
+Wrath of the Lich King
+}
+
+STRING 215
+// Abilities: A00A (Wrath of the Lich King), Researchtip (Tooltip - Learn)
+{
+Learn Wrath of the Lich King - [|cffffcc00Level %d|r]
+}
+
+STRING 216
+// Abilities: A00A (Wrath of the Lich King), Researchubertip (Tooltip - Learn - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
+}
+
+STRING 217
+// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 1|r]
+}
+
+STRING 218
+// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
+}
+
+STRING 219
+// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 2|r]
+}
+
+STRING 220
+// Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
+{
+Wrath of the Lich King - [|cffffcc00Level 3|r]
+}
+
+STRING 221
+// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
+}
+
+STRING 222
+// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
+}
+
+STRING 223
+// Abilities: A00D (Wrath of the Lich King), Name (Name)
+{
+Wrath of the Lich King
+}
+
+STRING 224
+// Abilities: A00D (Wrath of the Lich King), EditorSuffix (Editor Suffix)
+{
+(Blizzard)
+}
+
+STRING 225
+// Abilities: A00E (Howl of Terror), Researchubertip (Tooltip - Learn - Extended)
+{
+The Lich King lets loose a terrifying howl that causes nearby enemy units to shiver in fear, reducing their attack damage. |nLasts <ANht,Dur1> seconds. |n|n|cffffcc00Level 1|r - <ANht,DataA1,%>% attack damage reduction. |n|cffffcc00Level 2|r - <ANht,DataA2,%>% attack damage reduction. |n|cffffcc00Level 3|r - <ANht,DataA3,%>% attack damage reduction.
+}
+
+STRING 226
+// Abilities: A00E (Howl of Terror), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King lets loose a terrifying howl that reduces nearby enemy units' attack damage by <A00E:ANht,DataA1,%>% for <A00E:ANht,Dur1> seconds.
+}
+
+STRING 227
+// Abilities: A00E (Howl of Terror), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King lets loose a terrifying howl that reduces nearby enemy units' attack damage by <A00E:ANht,DataA2,%>% for <A00E:ANht,Dur2> seconds.
+}
+
+STRING 228
+// Abilities: A00E (Howl of Terror), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King lets loose a terrifying howl that reduces nearby enemy units' attack damage by <A00E:ANht,DataA3,%>% for <A00E:ANht,Dur3> seconds.
+}
+
+STRING 229
+// Abilities: A00E (Howl of Terror), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 230
+// Abilities: A00E (Howl of Terror), Researchhotkey (Hotkey - Learn)
+{
+V
+}
+
+STRING 231
+// Abilities: A00E (Howl of Terror), Hotkey (Hotkey - Normal)
+{
+D
+}
+
+STRING 232
+// Abilities: A00F (Item Frostmourne Armor Reduction), Name (Name)
+{
+Item Frostmourne Armor Reduction
+}
+
+STRING 233
+// Abilities: A00G (Domination Aura), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 234
+// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
+{
+Slows nearby enemy units' movement speed by <A00G:AUau,DataA1,%>% and removes 3% of their max life per second. Affects enemies with a small area.
+}
+
+STRING 235
+// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
+{
+Slows nearby enemy units' movement speed by <A00G:AUau,DataA2,%>% and removes 3% of their max life per second. Affects enemies with a medium area.
+}
+
+STRING 236
+// Abilities: A00G (Domination Aura), Ubertip (Tooltip - Normal - Extended)
+{
+Slows nearby enemy units' movement speed by <A00G:AUau,DataA3,%>% and removes 3% of their max life per second. Affects enemies with a large area.
+}
+
+STRING 237
+// Abilities: A00G (Domination Aura), Tip (Tooltip - Normal)
+{
+Domination Aura - [|cffffcc00Level 1|r]
+}
+
+STRING 238
+// Abilities: A00G (Domination Aura), Name (Name)
+{
+Domination Aura
+}
+
+STRING 239
+// Abilities: A00G (Domination Aura), Tip (Tooltip - Normal)
+{
+Domination Aura - [|cffffcc00Level 2|r]
+}
+
+STRING 240
+// Abilities: A00G (Domination Aura), Tip (Tooltip - Normal)
+{
+Domination Aura - [|cffffcc00Level 3|r]
+}
+
+STRING 241
+// Abilities: A00G (Domination Aura), Researchubertip (Tooltip - Learn - Extended)
+{
+Decreases nearby enemy units' movement speed and remove some percentage of their max life per second.
+}
+
+STRING 242
+// Abilities: A00G (Domination Aura), Researchtip (Tooltip - Learn)
+{
+Learn Domination Aura - [|cffffcc00Level %d|r]
+}
+
+STRING 243
+// Abilities: A00G (Domination Aura), Researchhotkey (Hotkey - Learn)
+{
+X
+}
+
+STRING 244
+// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
+{
+Throws a magical shard of ice at a target enemy unit, dealing <A00H:ACcb,DataA1> damage and freezing the target for <A00H:ACcb,Dur1> seconds.
+}
+
+STRING 245
+// Abilities: A00H (Frost Bolt), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 247
+// Abilities: A00H (Frost Bolt), Tip (Tooltip - Normal)
+{
+Frost Bolt - [|cffffcc00Level 2|r]
+}
+
+STRING 248
+// Abilities: A00H (Frost Bolt), Tip (Tooltip - Normal)
+{
+Frost Bolt - [|cffffcc00Level 1|r]
+}
+
+STRING 249
+// Abilities: A00H (Frost Bolt), Tip (Tooltip - Normal)
+{
+Frost Bolt - [|cffffcc00Level 3|r]
+}
+
+STRING 250
+// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
+{
+Throws a magical shard of ice at a target enemy unit, dealing <A00H:ACcb,DataA2> damage and freezing the target for <A00H:ACcb,Dur2> seconds.
+}
+
+STRING 251
+// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
+{
+Throws a magical shard of ice at a target enemy unit, dealing <A00H:ACcb,DataA3> damage and freezing the target for <A00H:ACcb,Dur3> seconds.
+}
+
+STRING 253
+// Abilities: A00H (Frost Bolt), Researchtip (Tooltip - Learn)
+{
+Learn Frost Bolt - [|cffffcc00Level %d|r]
+}
+
+STRING 254
+// Abilities: A00H (Frost Bolt), Researchubertip (Tooltip - Learn - Extended)
+{
+Throws a magical shard of ice at a target enemy unit, dealing damage and freezing the target for a long duration.
+}
+
+STRING 257
+// Abilities: A00I (Death Coil), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 260
+// Abilities: A00J (Frost Nova), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 261
+// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <A00J:AUfn,DataB1> damage to the target, and <A00J:AUfn,DataA1> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur1> seconds.
+}
+
+STRING 262
+// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <A00J:AUfn,DataB2> damage to the target, and <A00J:AUfn,DataA2> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur2> seconds.
+}
+
+STRING 263
+// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts enemy units with a wave of frost that deals <A00J:AUfn,DataB3> damage to the target, and <A00J:AUfn,DataA3> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur3> seconds.
+}
+
+STRING 264
+// Abilities: A00K (Book of Teleport), Name (Name)
+{
+Book of Teleport
+}
+
+STRING 265
+// Abilities: A009 (Far Sight), EditorSuffix (Editor Suffix)
+{
+(unit)
+}
+
+STRING 266
+// Abilities: A009 (Far Sight), Hotkey (Hotkey - Normal)
+{
+X
+}
+
+STRING 267
+// Abilities: A00L (Monsoon), Ubertip (Tooltip - Normal - Extended)
+{
+Calls down a storm of lightning to strike enemy units for <A00L:ACmo,DataA1> damage in a small target area. |nLasts <A00L:ACmo,Dur1> seconds.
+}
+
+STRING 268
+// Abilities: A00L (Monsoon), EditorSuffix (Editor Suffix)
+{
+(Thrall)
+}
+
+STRING 269
+// Abilities: A00L (Monsoon), Hotkey (Hotkey - Normal)
+{
+D
+}
+
+STRING 270
+// Abilities: A00M (Stun), Name (Name)
+{
+Stun
+}
+
+STRING 271
+// Abilities: A00M (Stun), EditorSuffix (Editor Suffix)
+{
+(System)
+}
+
+STRING 272
+// Buffs/Effects: B000 (Frozen), EditorName (Name (Editor Only))
+{
+Frozen
+}
+
+STRING 273
+// Buffs/Effects: B000 (Frozen), Buffubertip (Tooltip - Extended)
+{
+This unit is frozen; it cannot move, attack or cast spells.
+}
+
+STRING 274
+// Buffs/Effects: B000 (Frozen), Bufftip (Tooltip)
+{
+Frozen
+}
+
+STRING 275
+// Buffs/Effects: B001 (Blizzard), EditorName (Name (Editor Only))
+{
+Blizzard
+}
+
+STRING 276
+// Buffs/Effects: B001 (Blizzard), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 277
+// Buffs/Effects: B002 (Blizzard (Caster)), EditorSuffix (Editor Suffix)
+{
+(Lich King)
+}
+
+STRING 278
+// Buffs/Effects: B003 (Impale), EditorName (Name (Editor Only))
+{
+Impale
+}
+
+STRING 279
+// Buffs/Effects: B003 (Impale), EditorSuffix (Editor Suffix)
+{
+(Sandquake)
+}
+
+STRING 280
+// Buffs/Effects: B004 (Frostmourne), EditorName (Name (Editor Only))
+{
+Frostmourne
+}
+
+STRING 281
+// Buffs/Effects: B004 (Frostmourne), Bufftip (Tooltip)
+{
+Frostmourne
+}
+
+STRING 282
+// Buffs/Effects: B004 (Frostmourne), Buffubertip (Tooltip - Extended)
+{
+This unit was hit by Frostmourne; its armor is temporarily reduced.
+}
+
+STRING 283
+// Buffs/Effects: B005 (), Bufftip (Tooltip)
+{
+Domination Aura
+}
+
+STRING 284
+// Buffs/Effects: B005 (), Buffubertip (Tooltip - Extended)
+{
+This unit is under the effects of unholy aura; it has an decreased movement speed and slowly loses hit points per second.
+}
+
+STRING 285
+// Buffs/Effects: X000 (Blizzard), EditorName (Name (Editor Only))
+{
+Blizzard
+}
+
+STRING 286
+// Buffs/Effects: X000 (Blizzard), EditorSuffix (Editor Suffix)
+{
+(Effect) (Lich King)
+}
+

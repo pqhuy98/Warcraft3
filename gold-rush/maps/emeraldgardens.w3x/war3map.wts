@@ -503,18 +503,6 @@ STRING 135
 (West)
 }
 
-STRING 136
-// Destructibles: B000 (Massive Ruined Gate), EditorSuffix (Editor Suffix)
-{
-(North)
-}
-
-STRING 137
-// Destructibles: B001 (Massive Ruined Gate), EditorSuffix (Editor Suffix)
-{
-(East)
-}
-
 STRING 139
 {
 Player 2
@@ -1461,12 +1449,6 @@ STRING 337
 // Abilities: A00M (Stun), EditorSuffix (Editor Suffix)
 {
 (System)
-}
-
-STRING 338
-// Doodads: D001 (asd), Name (Name)
-{
-asd
 }
 
 STRING 339
