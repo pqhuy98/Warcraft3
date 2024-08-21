@@ -1,5 +1,5 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { Point, Unit } from 'w3ts';
+import { Point, Rectangle, Unit } from 'w3ts';
 
 import { log } from './log';
 import { setIntervalIndefinite } from './trigger';
@@ -25,6 +25,10 @@ export function temp<T extends Destroyable>(obj: T): T {
 
 export function tempLocation(loc: Loc) {
   return temp(Point.create(loc.x, loc.y));
+}
+
+export function templocation(loc: location) {
+  return temp(Point.fromHandle(loc)).handle;
 }
 
 export function daemonTempCleanUp() {
@@ -80,4 +84,10 @@ export function locX(loc: location): number {
 
 export function locY(loc: location): number {
   return GetLocationY(loc);
+}
+
+export function isLocInRect(loc: Loc, rect: rect) {
+  const Rect = Rectangle.fromHandle(rect);
+  return Rect.minX <= loc.x && loc.x < Rect.maxX
+    && Rect.minY <= loc.y && loc.y < Rect.maxY;
 }

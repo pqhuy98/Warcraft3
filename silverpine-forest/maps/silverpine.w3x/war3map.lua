@@ -33,15 +33,20 @@ gg_rct_Island_weather = nil
 gg_rct_Undead_ruin = nil
 gg_rct_Lumber_mill_corpses_1 = nil
 gg_rct_Lumber_mill_corpses_2 = nil
+gg_rct_Sheeps = nil
 gg_snd_lich_king_stab_out = nil
 gg_snd_lichking_frostmourne_hungers = nil
 gg_trg_Animation = nil
 gg_trg_Doodads = nil
 gg_trg_Unit_miscs = nil
 gg_trg_Lumber_mill_corpses = nil
+gg_trg_Unit_register = nil
 gg_unit_nvl2_0041 = nil
 gg_unit_nvil_0042 = nil
 gg_unit_nvk2_0064 = nil
+gg_unit_ngir_0095 = nil
+gg_unit_ngir_0096 = nil
+gg_unit_ngir_0097 = nil
 gg_unit_hpea_0132 = nil
 gg_unit_hpea_0133 = nil
 gg_unit_hpea_0155 = nil
@@ -63,10 +68,10 @@ gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
-gg_trg_Unit_register = nil
-gg_unit_ngir_0096 = nil
-gg_unit_ngir_0095 = nil
-gg_unit_ngir_0097 = nil
+gg_rct_Sheep_farm_entrance = nil
+gg_rct_LumberMill_road_to_town_1 = nil
+gg_rct_LumberMill_road_to_town_2 = nil
+gg_unit_Hpb1_0145 = nil
 function InitGlobals()
 udg_stand_work_units = CreateGroup()
 udg_stand_work_lumber_units = CreateGroup()
@@ -266,11 +271,11 @@ u = BlzCreateUnitWithSkin(p, FourCC("nvlk"), 8017.1, -7167.2, 61.163, FourCC("nv
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), 8203.9, -7252.6, 308.152, FourCC("nvil"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvk2"), 8045.1, -7014.6, 244.520, FourCC("nvk2"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 8246.9, -7123.8, 324.556, FourCC("nvlw"))
-u = BlzCreateUnitWithSkin(p, FourCC("ngog"), 10175.4, -8725.8, 343.840, FourCC("ngog"))
+u = BlzCreateUnitWithSkin(p, FourCC("ngog"), 8894.4, -7704.9, 343.840, FourCC("ngog"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 8856.0, -7585.3, 2.628, FourCC("nvl2"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), 9044.6, -7435.4, 236.650, FourCC("nvil"))
 gg_unit_nvl2_0041 = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 9108.4, -5322.5, 28.830, FourCC("nvl2"))
-gg_unit_nvil_0042 = BlzCreateUnitWithSkin(p, FourCC("nvil"), 9897.9, -8068.6, 5.003, FourCC("nvil"))
+gg_unit_nvil_0042 = BlzCreateUnitWithSkin(p, FourCC("nvil"), 10771.1, -7712.9, 5.003, FourCC("nvil"))
 gg_unit_nvk2_0064 = BlzCreateUnitWithSkin(p, FourCC("nvk2"), 10209.5, -8599.4, 283.923, FourCC("nvk2"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 8135.5, -8334.2, 260.221, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 7974.7, -8418.1, 247.334, FourCC("hfoo"))
@@ -293,8 +298,8 @@ gg_unit_hpea_0133 = BlzCreateUnitWithSkin(p, FourCC("hpea"), 9970.3, -10579.0, 1
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 8818.3, -11407.4, 180.000, FourCC("hkni"))
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 8833.2, -11546.8, 180.000, FourCC("hkni"))
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 8810.2, -11251.2, 180.000, FourCC("hkni"))
-u = BlzCreateUnitWithSkin(p, FourCC("Hpb1"), 10019.8, -11368.6, 202.304, FourCC("Hpb1"))
-SetUnitState(u, UNIT_STATE_MANA, 255)
+gg_unit_Hpb1_0145 = BlzCreateUnitWithSkin(p, FourCC("Hpb1"), 10019.8, -11368.6, 202.304, FourCC("Hpb1"))
+SetUnitState(gg_unit_Hpb1_0145, UNIT_STATE_MANA, 255)
 u = BlzCreateUnitWithSkin(p, FourCC("hcth"), 9851.7, -11240.8, 181.823, FourCC("hcth"))
 u = BlzCreateUnitWithSkin(p, FourCC("hcth"), 9834.1, -11528.3, 180.000, FourCC("hcth"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 8747.7, -11175.3, 180.000, FourCC("hfoo"))
@@ -587,6 +592,19 @@ local unitID
 local t
 local life
 
+u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 10333.2, -5870.2, 195.880, FourCC("Ewar"))
+SetHeroLevel(u, 10, false)
+SetUnitState(u, UNIT_STATE_MANA, 225)
+SelectHeroSkill(u, FourCC("AEfk"))
+SelectHeroSkill(u, FourCC("AEfk"))
+SelectHeroSkill(u, FourCC("AEfk"))
+SelectHeroSkill(u, FourCC("AEbl"))
+SelectHeroSkill(u, FourCC("AEbl"))
+SelectHeroSkill(u, FourCC("AEbl"))
+SelectHeroSkill(u, FourCC("AEsh"))
+SelectHeroSkill(u, FourCC("AEsh"))
+SelectHeroSkill(u, FourCC("AEsh"))
+SelectHeroSkill(u, FourCC("AEsv"))
 u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 12277.2, -19867.4, 195.880, FourCC("Ewar"))
 SetHeroLevel(u, 10, false)
 SetUnitState(u, UNIT_STATE_MANA, 225)
@@ -665,19 +683,6 @@ SelectHeroSkill(u, FourCC("AEsh"))
 SelectHeroSkill(u, FourCC("AEsh"))
 SelectHeroSkill(u, FourCC("AEsh"))
 SelectHeroSkill(u, FourCC("AEsv"))
-u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 12756.4, -5314.4, 195.880, FourCC("Ewar"))
-SetHeroLevel(u, 10, false)
-SetUnitState(u, UNIT_STATE_MANA, 225)
-SelectHeroSkill(u, FourCC("AEfk"))
-SelectHeroSkill(u, FourCC("AEfk"))
-SelectHeroSkill(u, FourCC("AEfk"))
-SelectHeroSkill(u, FourCC("AEbl"))
-SelectHeroSkill(u, FourCC("AEbl"))
-SelectHeroSkill(u, FourCC("AEbl"))
-SelectHeroSkill(u, FourCC("AEsh"))
-SelectHeroSkill(u, FourCC("AEsh"))
-SelectHeroSkill(u, FourCC("AEsh"))
-SelectHeroSkill(u, FourCC("AEsv"))
 end
 
 function CreateNeutralHostile()
@@ -728,7 +733,7 @@ SetUnitState(u, UNIT_STATE_MANA, 400)
 u = BlzCreateUnitWithSkin(p, FourCC("nogr"), -7346.4, 14320.4, 207.034, FourCC("nogr"))
 u = BlzCreateUnitWithSkin(p, FourCC("nogr"), -7741.7, 14358.6, 311.449, FourCC("nogr"))
 u = BlzCreateUnitWithSkin(p, FourCC("ngnv"), -8591.0, 11501.6, 222.239, FourCC("ngnv"))
-u = BlzCreateUnitWithSkin(p, FourCC("ngnw"), -8864.0, 11597.8, -50.779, FourCC("ngnw"))
+u = BlzCreateUnitWithSkin(p, FourCC("ngnw"), -8864.0, 11597.8, 309.221, FourCC("ngnw"))
 SetUnitState(u, UNIT_STATE_MANA, 300)
 u = BlzCreateUnitWithSkin(p, FourCC("ngnb"), -8546.3, 11178.2, 112.125, FourCC("ngnb"))
 u = BlzCreateUnitWithSkin(p, FourCC("ngno"), -8951.0, 11326.3, 17.997, FourCC("ngno"))
@@ -1001,7 +1006,6 @@ u = BlzCreateUnitWithSkin(p, FourCC("nrac"), 8368.0, -10666.0, 44.320, FourCC("n
 u = BlzCreateUnitWithSkin(p, FourCC("nrac"), 7518.0, -19892.2, 168.898, FourCC("nrac"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10507.0, -8718.2, 209.153, FourCC("nshe"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10451.9, -8882.1, 202.166, FourCC("nshe"))
-u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10389.8, -8716.7, 37.333, FourCC("nshe"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10301.2, -8820.2, 315.328, FourCC("nshe"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10236.9, -8912.2, 267.470, FourCC("nshe"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10349.7, -8897.4, 306.682, FourCC("nshe"))
@@ -1174,6 +1178,10 @@ we = AddWeatherEffect(gg_rct_Undead_ruin, FourCC("FDgl"))
 EnableWeatherEffect(we, true)
 gg_rct_Lumber_mill_corpses_1 = Rect(6176.0, -9984.0, 6944.0, -9728.0)
 gg_rct_Lumber_mill_corpses_2 = Rect(6912.0, -9984.0, 7232.0, -9216.0)
+gg_rct_Sheeps = Rect(10144.0, -9056.0, 10752.0, -8672.0)
+gg_rct_Sheep_farm_entrance = Rect(8640.0, -6720.0, 8704.0, -6624.0)
+gg_rct_LumberMill_road_to_town_1 = Rect(7104.0, -9856.0, 7328.0, -9408.0)
+gg_rct_LumberMill_road_to_town_2 = Rect(8544.0, -11584.0, 8672.0, -11168.0)
 end
 
 function Trig_Animation_Func009A()
@@ -1233,7 +1241,6 @@ end
 function Trig_Unit_miscs_Actions()
 IssueImmediateOrderBJ(gg_unit_opeo_0253, "autoharvestlumber")
 IssueImmediateOrderBJ(gg_unit_opeo_0254, "autoharvestlumber")
-AddSpecialEffectTargetUnitBJ("overhead", gg_unit_nvk2_0064, "Abilities\\Spells\\Undead\\Sleep\\SleepTarget.mdl")
 end
 
 function InitTrig_Unit_miscs()
@@ -1242,6 +1249,9 @@ TriggerAddAction(gg_trg_Unit_miscs, Trig_Unit_miscs_Actions)
 end
 
 function Trig_Lumber_mill_corpses_Actions()
+CreateItemLoc(FourCC("lmbr"), GetRandomLocInRect(gg_rct_Lumber_mill_corpses_1))
+CreateItemLoc(FourCC("lmbr"), GetRandomLocInRect(gg_rct_Lumber_mill_corpses_1))
+CreateItemLoc(FourCC("lmbr"), GetRandomLocInRect(gg_rct_Lumber_mill_corpses_2))
 bj_forLoopAIndex = 1
 bj_forLoopAIndexEnd = 3
 while (true) do
@@ -1271,6 +1281,7 @@ udg_tmp_unit = gg_unit_Ekee_0551
 udg_tmp_unit = gg_unit_ngir_0095
 udg_tmp_unit = gg_unit_ngir_0096
 udg_tmp_unit = gg_unit_ngir_0097
+udg_tmp_unit = gg_unit_Hpb1_0145
 end
 
 function InitTrig_Unit_register()
@@ -1448,7 +1459,7 @@ DefineStartLocation(0, -9472.0, -25152.0)
 DefineStartLocation(1, -9152.0, -25216.0)
 DefineStartLocation(2, -9344.0, -25152.0)
 DefineStartLocation(3, -9600.0, -25088.0)
-DefineStartLocation(4, 12608.0, -19840.0)
+DefineStartLocation(4, 10368.0, -5824.0)
 InitCustomPlayerSlots()
 InitCustomTeams()
 InitAllyPriorities()

@@ -1,5 +1,3 @@
-/* eslint-disable unused-imports/no-unused-imports */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import BladeDance from 'abilities/blade_dance/blade_dance';
 import { ChainLightning } from 'abilities/chain_lightning/chain_lightning';
 import Frostmourne from 'abilities/frostmourne/frostmourne';
@@ -13,9 +11,9 @@ import WrathOfTheLichKing from 'abilities/wrath_of_the_lich_king/wrath_of_the_li
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { MiscEvents } from 'events/misc';
+import { QuestRegistry } from 'events/quests/quest-registry';
 import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
 import { UnitInteraction } from 'events/unit_interaction';
-import { Weather } from 'events/weather/weather';
 import {
   ABILITY_ID_BLADE_DANCE,
   ABILITY_ID_CHAIN_LIGHTNING,
@@ -49,9 +47,8 @@ import {
   ABILITY_ShadowHunterHealingWave,
   ABILITY_ShadowHunterHex,
 } from 'lib/resources/war3-abilities';
-import { registerDialogues } from 'lib/sound';
 import {
-  getTimeS, setIntervalIndefinite, setTimeout, trackElapsedGameTime,
+  setTimeout, trackElapsedGameTime,
 } from 'lib/trigger';
 import {
   daemonDummyMaster, daemonTieUnitToUnit,
@@ -75,7 +72,6 @@ function tsMain() {
 
   // Player settings
   configurePlayerSettings();
-  registerDialogues();
 
   trackElapsedGameTime();
   daemonTieUnitToUnit();
@@ -89,6 +85,9 @@ function tsMain() {
   SummonBirthAnimation.register();
   MiscEvents.register();
   UnitInteraction.register();
+
+  // Quests
+  QuestRegistry.register();
 
   // Abilities
   ThunderBlink.register(ABILITY_ID_THUNDER_BLINK);
@@ -155,13 +154,9 @@ function configurePlayerSettings() {
       player.setState(PLAYER_STATE_RESOURCE_GOLD, 1000);
       player.setState(PLAYER_STATE_RESOURCE_LUMBER, 0);
       player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, 60);
-
-      setIntervalIndefinite(1, () => {
-        player.setState(PLAYER_STATE_RESOURCE_LUMBER, getTimeS());
-      });
     } else {
-      player.setState(PLAYER_STATE_RESOURCE_GOLD, 1000000);
-      player.setState(PLAYER_STATE_RESOURCE_LUMBER, 1000000);
+      player.setState(PLAYER_STATE_RESOURCE_GOLD, GetRandomInt(500000, 999999));
+      player.setState(PLAYER_STATE_RESOURCE_LUMBER, GetRandomInt(100000, 500000));
     }
 
     switch (player.race) {
@@ -220,17 +215,25 @@ function configurePlayerSettings() {
       const p1 = mainPlayer.handle;
       const p2 = player.handle;
       SetPlayerAlliance(p1, p2, ALLIANCE_PASSIVE, isAlly);
-      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_REQUEST, isAlly);
-      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_RESPONSE, isAlly);
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_XP, isAlly);
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_SPELLS, isAlly);
       SetPlayerAlliance(p2, p1, ALLIANCE_PASSIVE, isAlly);
+
+      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_REQUEST, isAlly);
       SetPlayerAlliance(p2, p1, ALLIANCE_HELP_REQUEST, isAlly);
+
+      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_RESPONSE, isAlly);
       SetPlayerAlliance(p2, p1, ALLIANCE_HELP_RESPONSE, isAlly);
+
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_XP, isAlly);
       SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_XP, isAlly);
+
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_SPELLS, isAlly);
       SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_SPELLS, isAlly);
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_VISION, isAlly);
-      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_VISION, isAlly);
+
+      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_VISION, false);
+      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_VISION, false);
+
+      // SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_VISION, isAlly);
+      // SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_VISION, isAlly);
 
       // SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_CONTROL, isAlly);
       // SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_CONTROL, isAlly);

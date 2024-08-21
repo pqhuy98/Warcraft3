@@ -1,6 +1,5 @@
-import { temp } from 'lib/location';
 import { buildTrigger } from 'lib/trigger';
-import { getDummyMaster } from 'lib/unit';
+import { getDummyMaster, getUnitsInRect } from 'lib/unit';
 import { Group, Unit } from 'w3ts';
 
 export class ChainLightningLifesteal {
@@ -27,10 +26,10 @@ export class ChainLightningLifesteal {
       });
     });
 
-    temp(Group.fromHandle(GetUnitsInRectAll(GetWorldBounds()))).for(() => {
-      if (Unit.fromEnum().getAbilityLevel(abilityId) > 0) {
-        trackedUnits.addUnit(Unit.fromEnum());
-        lifestealTrigger.registerUnitEvent(Unit.fromEnum(), EVENT_UNIT_DAMAGED);
+    getUnitsInRect(GetWorldBounds()).forEach((u) => {
+      if (u.getAbilityLevel(abilityId) > 0) {
+        trackedUnits.addUnit(u);
+        lifestealTrigger.registerUnitEvent(u, EVENT_UNIT_DAMAGED);
       }
     });
   }

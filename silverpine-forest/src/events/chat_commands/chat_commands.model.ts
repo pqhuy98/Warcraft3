@@ -2,7 +2,7 @@ import { colorize } from 'lib/colorize';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import { MapPlayer, Quest, Trigger } from 'w3ts';
 
-export const commandCategories = ['GameControl', 'UI & scaling', 'Debug'] as const;
+export const commandCategories = ['GameControl', 'UI', 'Debug'] as const;
 export type CommandCategory = typeof commandCategories[number]
 
 const commandHelpData: Record<CommandCategory, {
@@ -10,7 +10,6 @@ const commandHelpData: Record<CommandCategory, {
   description: string
   icon: string
   map: Map<string, string>
-  questType: 'main' | 'optional'
 
 }> = {
   GameControl: {
@@ -18,21 +17,18 @@ const commandHelpData: Record<CommandCategory, {
     description: "Commands that change game's settings or influence gameplay.",
     icon: 'ReplaceableTextures\\CommandButtons\\BTNEngineeringUpgrade.blp',
     map: new Map(),
-    questType: 'main',
   },
-  'UI & scaling': {
-    name: 'UI & scaling',
-    description: "Commands that change game's unit scaling and UIs. Unit scaling changes some abilities' area of effects.",
+  UI: {
+    name: 'UI',
+    description: "Commands that affect game's UIs.",
     icon: 'ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp',
     map: new Map(),
-    questType: 'main',
   },
   Debug: {
     name: 'Debug',
     description: 'Commands that print debug information useful for the map developer.',
     icon: 'ReplaceableTextures\\CommandButtons\\BTNSelectHeroOn.blp',
     map: new Map(),
-    questType: 'optional',
   },
 };
 
@@ -48,7 +44,7 @@ export function createCommandHelpQuests() {
   setTimeout(0.1, () => {
     for (const category of commandCategories) {
       const {
-        name, description, icon, questType,
+        name, description, icon,
       } = commandHelpData[category];
       const helpQuest = Quest.create();
       helpQuest.setTitle(`${name} chat commands`);
@@ -61,7 +57,7 @@ export function createCommandHelpQuests() {
       );
       helpQuest.discovered = true;
       helpQuest.enabled = true;
-      helpQuest.required = questType === 'main';
+      helpQuest.required = false;
     }
   });
 }

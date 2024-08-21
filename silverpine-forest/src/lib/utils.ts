@@ -1,4 +1,4 @@
-import { getElapsedTime } from 'w3ts';
+import { getElapsedTime, sleep } from 'w3ts';
 
 export function pickRandom<T>(bag: T[]): T {
   return bag[GetRandomInt(0, bag.length - 1)];
@@ -63,4 +63,19 @@ export function reforged(resourcePath: string) {
 
 export function isReforgedForcefully(resourcePath: string) {
   return resourcePath.startsWith('_hd.w3mod:');
+}
+
+/**
+ * @returns true if predicate happened, false if timed out.
+ */
+export async function waitUntil(interval: number, predicate: () => boolean, timeout?: number): Promise<boolean> {
+  let duration = 0;
+  while (!predicate()) {
+    await sleep(interval);
+    duration += interval;
+    if (timeout && duration > timeout) {
+      return false;
+    }
+  }
+  return true;
 }

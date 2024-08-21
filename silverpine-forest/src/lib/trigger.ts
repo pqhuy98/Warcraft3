@@ -36,7 +36,7 @@ function setInterval(
       timer.destroy();
       return timer;
     }
-    callback(idx++, repeat);
+    setTimeout(0, () => callback(idx++, repeat));
     timer.start(intervalS, true, () => {
       if (idx >= repeat) {
         timer.pause();
@@ -49,7 +49,7 @@ function setInterval(
     });
   } else {
     let index = 0;
-    callback(index, -1);
+    setTimeout(0, () => callback(index, -1));
     timer.start(intervalS, true, () => {
       index++;
       callback(index, -1);

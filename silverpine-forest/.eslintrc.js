@@ -49,6 +49,7 @@ module.exports = {
     'no-plusplus': 'off',
     'prefer-destructuring': 'off',
     '@typescript-eslint/no-unsafe-enum-comparison': 'off',
+    '@typescript-eslint/no-floating-promises': 'off',
     'no-await-in-loop': 'off',
     'no-unused-expressions': 'off',
     'class-methods-use-this': 'off',

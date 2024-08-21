@@ -2,8 +2,12 @@ import { mainPlayer } from 'lib/constants';
 import {
   AngleBetweenLocs, PolarProjection,
 } from 'lib/location';
+import { disableQuestMarker, enableQuestMarker } from 'lib/quest';
+import { getUnitSounds } from 'lib/resources/unit-sounds';
+import { checkUnitFlag, Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
 import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
-import { distanceBetweenUnits, isBuilding } from 'lib/unit';
+import { distanceBetweenUnits, isOrganic, isUnitIdle } from 'lib/unit';
+import { pickRandom } from 'lib/utils';
 import { MapPlayer, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
@@ -12,7 +16,13 @@ const targets = new Map<Unit, {
   oldFacing: number
 }>();
 
+const throttleSet = new Set<Unit>();
+
 const nearDistance = 400;
+
+type Subscriber = (unit: Unit, target: Unit) => unknown
+
+const onceSubscribers = new Map<Unit, Subscriber[]>();
 
 export class UnitInteraction {
   static register() {
@@ -23,33 +33,37 @@ export class UnitInteraction {
         return Unit.fromEvent().owner === mainPlayer
           && Unit.fromEvent().currentOrder === OrderId.Smart
           && target.owner.isPlayerAlly(Unit.fromEvent().owner)
-          && target.isAlive()
-          && !isBuilding(target)
-          && !target.isUnitType(UNIT_TYPE_MECHANICAL);
+          && target.isAlive();
       });
       t.addAction(() => {
         const unit = Unit.fromEvent();
         const target = Unit.fromHandle(GetOrderTargetUnit());
-        if (distanceBetweenUnits(unit, target) < nearDistance && [OrderId.Stop, 0].includes(target.currentOrder)) {
+        if (distanceBetweenUnits(unit, target) < nearDistance) {
+          this.playRandomSound(unit, target);
+
           // neutral critters run away from you
           if (target.owner === MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE) && target.maxLife <= 15) {
             const runDest = PolarProjection(target, 400, AngleBetweenLocs(unit, target));
             target.issueOrderAt(OrderId.Move, runDest.x, runDest.y);
-            const oldMoveSpeed = target.moveSpeed;
-            target.moveSpeed *= 3;
+            target.moveSpeed = target.defaultMoveSpeed * 3;
             setTimeout(400 / target.moveSpeed, () => {
-              target.moveSpeed = oldMoveSpeed;
+              target.moveSpeed = target.defaultMoveSpeed;
             });
             return;
           }
 
-          // Other allies face towards you
-          const oldFacing = targets.get(target)?.oldFacing ?? target.facing;
-          targets.set(target, {
-            facingToUnit: unit,
-            oldFacing,
-          });
-          ResetUnitAnimation(target.handle);
+          // Other allies face towards you if idle
+          if (isUnitIdle(target) && isOrganic(target)) {
+            this.setAttention(target, unit);
+          }
+
+          if (onceSubscribers.has(target)) {
+            const callbacks = onceSubscribers.get(target);
+            for (const callback of callbacks) {
+              callback(unit, target);
+            }
+            onceSubscribers.delete(target);
+          }
         }
       });
     });
@@ -57,7 +71,7 @@ export class UnitInteraction {
     const interval = 0.5;
     setIntervalIndefinite(interval, () => {
       for (const [unit, { facingToUnit, oldFacing }] of targets) {
-        const isIdle = [OrderId.Stop, 0].includes(unit.currentOrder);
+        const isIdle = isUnitIdle(unit);
         const shouldFace = distanceBetweenUnits(unit, facingToUnit) < nearDistance && isIdle && unit.isAlive();
         if (!shouldFace) {
           targets.delete(unit);
@@ -70,4 +84,60 @@ export class UnitInteraction {
       }
     });
   }
+
+  static setAttention(unitFrom: Unit, unitTo: Unit) {
+    unitFrom.issueImmediateOrder(OrderId.Stop);
+    const oldFacing = targets.get(unitFrom)?.oldFacing ?? unitFrom.facing;
+    targets.set(unitFrom, {
+      facingToUnit: unitTo,
+      oldFacing,
+    });
+    ResetUnitAnimation(unitFrom.handle);
+  }
+
+  static playRandomSound(unit: Unit, target: Unit) {
+    if (unit.owner === MapPlayer.fromLocal() && !checkUnitFlag(target, Flag.MUTE_INTERACTION_SOUND)) {
+      if (throttleSet.has(target)) return;
+      throttleSet.add(target);
+      setTimeout(1, () => {
+        throttleSet.delete(target);
+      });
+
+      const sounds = getUnitSounds(target.typeId, 'What');
+      if (sounds.length) {
+        const soundPath = pickRandom(sounds);
+        const snd = CreateSound(soundPath, false, true, true, 1, 1, 'DefaultEAXON');
+        SetSoundChannel(snd, 1);
+        PlaySoundOnUnitBJ(snd, 90, target.handle);
+        KillSoundWhenDone(snd);
+      }
+    }
+  }
+
+  static onStartOnce(unit: Unit, callback: Subscriber) {
+    if (onceSubscribers.has(unit)) {
+      onceSubscribers.get(unit).push(callback);
+    } else {
+      onceSubscribers.set(unit, [callback]);
+    }
+    return callback;
+  }
+
+  static waitUntilQuestTalk(target: Unit) {
+    enableQuestMarker(target);
+    return new Promise<{ unit: Unit, target: Unit }>((resolve) => {
+      this.onStartOnce(target, (unit, target) => {
+        disableQuestMarker(target);
+        resolve({ unit, target });
+      });
+    });
+  }
+}
+
+export function enableInteractSound(unit: Unit) {
+  setUnitFlag(unit, Flag.MUTE_INTERACTION_SOUND, false);
+}
+
+export function disableInteractSound(unit: Unit) {
+  setUnitFlag(unit, Flag.MUTE_INTERACTION_SOUND, true);
 }

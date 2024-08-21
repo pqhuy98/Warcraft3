@@ -1615,3 +1615,9 @@ STRING 286
 (Effect) (Lich King)
 }
 
+STRING 287
+// Abilities: A00N (Harvest), EditorSuffix (Editor Suffix)
+{
+(Villager)
+}
+

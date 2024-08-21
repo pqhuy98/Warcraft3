@@ -6,6 +6,7 @@ import {
 import {
   Group, Item, MapPlayer, Timer, Unit,
 } from 'w3ts';
+import { OrderId } from 'w3ts/globals';
 
 import { k0, k1 } from './debug/key_counter';
 import { log } from './log';
@@ -215,6 +216,10 @@ export function isWard(unit: Unit) {
   return ConvertTargetFlag(unit.getField(UNIT_IF_TARGETED_AS) as number) === TARGET_FLAG_WARD;
 }
 
+export function isOrganic(unit: Unit) {
+  return !isBuilding(unit) && !unit.isUnitType(UNIT_TYPE_MECHANICAL) && !isWard(unit);
+}
+
 export function isDummy(unit: Unit) {
   return unit.typeId === UNIT_ID_DUMMY;
 }
@@ -247,4 +252,25 @@ export function makeFlyable(unit: Unit) {
     unit.addAbility(crowFormAbilityId);
     unit.removeAbility(crowFormAbilityId);
   }
+}
+
+export function getUnitsInRect(rect: rect, filter?: (u: Unit) => boolean) {
+  let group: group;
+  let condition: conditionfunc;
+  if (filter) {
+    condition = Condition(() => filter(Unit.fromFilter()));
+    group = GetUnitsInRectMatching(rect, condition);
+  } else {
+    group = GetUnitsInRectAll(rect);
+  }
+  const results = getUnitsFromGroup(group);
+  if (filter) {
+    DestroyBoolExpr(condition);
+  }
+  DestroyGroup(group);
+  return results;
+}
+
+export function isUnitIdle(unit: Unit) {
+  return unit.currentOrder === OrderId.Stop || unit.currentOrder === 0;
 }

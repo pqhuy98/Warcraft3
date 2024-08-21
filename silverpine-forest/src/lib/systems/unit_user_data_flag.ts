@@ -2,7 +2,8 @@ import { Unit } from 'w3ts';
 
 /* eslint-disable no-bitwise */
 export enum Flag {
-  FROSTMOURNE_SOUL_HARVESTED = 1 << 0
+  FROSTMOURNE_SOUL_HARVESTED = 1 << 0,
+  MUTE_INTERACTION_SOUND = 1 << 1
 }
 
 export function checkUnitFlag(unit: Unit, flag: Flag): boolean {
