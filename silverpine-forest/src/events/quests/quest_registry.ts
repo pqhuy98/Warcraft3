@@ -14,6 +14,7 @@ export class QuestRegistry {
     setTimeout(0, () => {
       // GatherSheeps
       const gatherSheeps = new GatherSheeps({
+        name: 'Gather Sheeps',
         sheepBoy: Unit.fromHandle(gg_unit_nvk2_0064),
         grassRects: [
           gg_rct_Sheeps,
@@ -28,6 +29,7 @@ export class QuestRegistry {
 
       // RabbitHunt
       const rabbitHunt = new RabbitHunt({
+        name: 'Rabbit Hunt',
         jacob: Unit.fromHandle(gg_unit_nvil_0035),
         wheatFieldRects: [
           gg_rct_Wheat_field,
@@ -40,22 +42,24 @@ export class QuestRegistry {
 
       // LumberMill
       const lumberMill1 = new LumberMill({
+        name: 'Lumber Mill 1',
         john: Unit.fromHandle(gg_unit_nvl2_0413),
-        peter: Unit.fromHandle(gg_unit_nvl2_0414),
+        peter: Unit.fromHandle(gg_unit_nvil_0414),
         lumberMillCorpse1Rect: gg_rct_Lumber_mill_corpses_1,
         lumberMillCorpse2Rect: gg_rct_Lumber_mill_corpses_2,
         townRect1: gg_rct_LumberMill_road_to_town_1,
         townRect2: gg_rct_LumberMill_road_to_town_2,
         townKnight: Unit.fromHandle(gg_unit_hkni_0134),
-        dependencies: [],
+        dependencies: [rabbitHunt],
         cheatName: 'lm1',
       });
       lumberMill1.register();
 
       // LumberMillPart2
       const lumberMill2 = new LumberMillPart2({
+        name: 'Lumber Mill 2',
         john: Unit.fromHandle(gg_unit_nvl2_0413),
-        peter: Unit.fromHandle(gg_unit_nvl2_0414),
+        peter: Unit.fromHandle(gg_unit_nvil_0414),
         knight: Unit.fromHandle(gg_unit_hkni_0134),
         mayor: Unit.fromHandle(gg_unit_Hpb1_0145),
         footmen: [
@@ -77,6 +81,7 @@ export class QuestRegistry {
 
       // StrikeBack
       const strikeBack = new StrikeBack({
+        name: 'Strike Back',
         knight: Unit.fromHandle(gg_unit_hkni_0134),
         mayor: Unit.fromHandle(gg_unit_Hpb1_0145),
         undeadBaseRect: gg_rct_Undead_ruin,

@@ -2,7 +2,7 @@ import { mainPlayer } from 'lib/constants';
 import {
   AngleBetweenLocs, PolarProjection,
 } from 'lib/location';
-import { disableQuestMarker, enableQuestMarker } from 'lib/quest_helpers';
+import { disableQuestMarker, enableQuestMarker } from 'lib/quests/utils';
 import { getUnitSounds, SoundType } from 'lib/resources/unit-sounds';
 import { checkUnitFlag, Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
 import {

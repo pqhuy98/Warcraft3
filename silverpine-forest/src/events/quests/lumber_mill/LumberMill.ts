@@ -1,3 +1,4 @@
+import { TalkGroup } from 'events/talk_group';
 import { mainPlayer, playerForsaken } from 'lib/constants';
 import {
   AngleBetweenLocs,
@@ -7,14 +8,13 @@ import {
   templocation,
 } from 'lib/location';
 import { setAllianceState2Way } from 'lib/player';
+import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
-  createDialogSound,
   QuestLog,
-} from 'lib/quest_helpers';
+} from 'lib/quests/quest_log';
 import { UNIT_Ghoul, UNIT_Peasant } from 'lib/resources/war3-units';
-import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition, pauseGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
-import { disableInteractSound, setAttention, UnitInteraction } from 'lib/systems/unit_interaction';
+import { setAttention } from 'lib/systems/unit_interaction';
 import { setTimeout } from 'lib/trigger';
 import { waitUntil } from 'lib/utils';
 import {
@@ -36,8 +36,10 @@ const rewardXp = 600;
 
 let johnIntro: sound;
 let peterIntro: sound;
-let peterOutro: sound;
-let johnOutro: sound;
+let peterOutro1: sound;
+let johnOutro1: sound;
+let peterOutro2: sound;
+let johnOutro2: sound;
 
 export class LumberMill extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
@@ -63,15 +65,26 @@ export class LumberMill extends BaseQuest {
       "Something's not right. Could you head southwest to the lumber mill and see what's taking so long? We really need that wood.",
     );
 
-    peterOutro = createDialogSound(
-      'QuestSounds\\lumber-mill\\lumber-mill-peter-outro.mp3',
+    peterOutro1 = createDialogSound(
+      'QuestSounds\\lumber-mill\\lumber-mill-peter-outro-1.mp3',
       'Villager Peter',
       "What?! The lumberjacks are dead and there's an undead base nearby? Forget the wheelbarrow, we need to report this to the army!",
     );
-    johnOutro = createDialogSound(
-      'QuestSounds\\lumber-mill\\lumber-mill-john-outro.mp3',
+    johnOutro1 = createDialogSound(
+      'QuestSounds\\lumber-mill\\lumber-mill-john-outro-1.mp3',
       'Villager John',
       "Thank you for bringing the lumber, but this is far more urgent. We're heading to town right away.",
+    );
+
+    johnOutro2 = createDialogSound(
+      'QuestSounds\\lumber-mill\\lumber-mill-john-outro-2.mp3',
+      'Villager John',
+      'Oh my... Peter,... look at all the bodies!',
+    );
+    peterOutro2 = createDialogSound(
+      'QuestSounds\\lumber-mill\\lumber-mill-peter-outro-2.mp3',
+      'Villager Peter',
+      'This... this is a massacre... We need to get out of here ... before they come back!',
     );
   }
 
@@ -87,8 +100,7 @@ export class LumberMill extends BaseQuest {
     john.name = 'Villager John';
     peter.name = 'Villager Peter';
 
-    await waitUntil(3, () => this.requiredQuestsDone());
-    disableInteractSound(john, peter);
+    await this.waitDependenciesDone();
 
     // Wait to start
     const traveler = await this.talkToQuestGiver(john);
@@ -121,8 +133,11 @@ export class LumberMill extends BaseQuest {
 
     getCloserToTraveler(john);
     getCloserToTraveler(peter);
-    await playSpeech(john, johnIntro, traveler);
-    await playSpeech(peter, peterIntro, traveler);
+
+    const talkGroup = new TalkGroup([john, peter, traveler]);
+    await talkGroup.speak(john, johnIntro, traveler);
+    await talkGroup.speak(peter, peterIntro, traveler);
+    talkGroup.finish();
 
     pauseGuardPosition([john, peter], false);
 
@@ -146,15 +161,17 @@ export class LumberMill extends BaseQuest {
     await questLog.completeItem(1);
 
     // Wait player to return
-    await UnitInteraction.waitUntilQuestTalk(peter);
+    await this.waitForTurnIn(peter);
     ghouls.forEach((u) => { u.isAlive() && u.destroy(); });
     setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
 
     // John and Peter's dialogues after hearing the news
     getCloserToTraveler(john);
     getCloserToTraveler(peter);
-    await playSpeech(peter, peterOutro, traveler);
-    await playSpeech(john, johnOutro, traveler);
+    await talkGroup.speak(peter, peterOutro1, traveler);
+    await talkGroup.speak(john, johnOutro1, traveler);
+    talkGroup.finish();
+
     await sleep(0.5);
     setAttention(john, peter);
     setAttention(peter, john);
@@ -170,26 +187,24 @@ export class LumberMill extends BaseQuest {
       const dest = centerLocRect(rect);
       setGuardPosition(unit, dest, AngleBetweenLocs(dest, facingLoc));
       await waitUntil(1, () => isLocInRect(unit, rect));
-      guardCurrentPosition(unit, AngleBetweenLocs(unit, facingLoc));
+      setGuardPosition(unit, unit, AngleBetweenLocs(unit, facingLoc));
     }
 
-    const lumberMillLoc = {
-      x: GetRectCenterX(lumberMillCorpse2Rect),
-      y: GetRectCenterY(lumberMillCorpse2Rect),
-    };
+    const lumberMillLoc = centerLocRect(lumberMillCorpse2Rect);
 
     await Promise.all([
       travelToRect(john, townRect1, lumberMillLoc),
       travelToRect(peter, townRect1, lumberMillLoc),
     ]);
-    await sleep(3);
+    await talkGroup.speak(john, johnOutro2, undefined, false);
+    await talkGroup.speak(peter, peterOutro2, undefined, false);
+    talkGroup.finish();
 
     // Continue to travel to town
     await Promise.all([
       travelToRect(john, townRect2, townKnight),
       travelToRect(peter, townRect2, townKnight),
     ]);
-
     this.complete();
   }
 
@@ -218,7 +233,6 @@ export class LumberMill extends BaseQuest {
       townKnight,
     } = this.globals;
 
-    UnitInteraction.removeAllQuestTalks(john);
     const loc = randomLocRect(townRect2);
     john.setPosition(loc.x, loc.y);
     peter.setPosition(loc.x, loc.y);

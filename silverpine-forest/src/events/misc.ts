@@ -1,6 +1,5 @@
 import { getDestructablesInRect } from 'lib/destructable';
 import { currentLoc, isLocInRect, PolarProjection } from 'lib/location';
-import { log } from 'lib/log';
 import { isComputer } from 'lib/player';
 import { ABILITY_Wander } from 'lib/resources/war3-abilities';
 import { MODEL_InnerFireTarget } from 'lib/resources/war3-models';
@@ -59,10 +58,7 @@ export class MiscEvents {
     });
 
     // Villagers chopping woods
-    getUnitsInRect(gg_rct_Farm_villagers_working, (u) => [
-      UNIT_VillagerMan,
-      UNIT_VillagerMan2,
-    ].map((unitType) => FourCC(unitType.code)).includes(u.typeId))
+    getUnitsInRect(gg_rct_Farm_villagers_working, (u) => isUnitType(u, UNIT_VillagerMan) || isUnitType(u, UNIT_VillagerMan2))
       .forEach((u) => guardCurrentPosition(u, defaultGuardDistance, 'stand work'));
 
     // Peasants repairing broken wheelbarrow
@@ -104,9 +100,7 @@ export class MiscEvents {
     this.footmanPractice();
 
     // Shadowfang gate open
-    log('getting shadowfangGateBlockers');
     const shadowfangGateBlockers = getDestructablesInRect(gg_rct_Shadowfang_gate_sight_blocker);
-    log('shadowfangGateBlockers', shadowfangGateBlockers.length);
     onChatCommand('-open', true, () => {
       ModifyGateBJ(bj_GATEOPERATION_OPEN, gg_dest_LTg3_4633);
       shadowfangGateBlockers.forEach((d) => d.kill());
@@ -161,7 +155,7 @@ export class MiscEvents {
     onChatCommand('-ttf $1', false, (msg) => {
       fadepoint = parseFloat(msg.split(' ')[1]);
     });
-    AddSpecialEffectTarget(MODEL_InnerFireTarget, trainingFootmen[0].handle, 'overhead');
+    const leaderEffect = AddSpecialEffectTarget(MODEL_InnerFireTarget, trainingFootmen[0].handle, 'overhead');
 
     const timer = setIntervalIndefinite((50 / 200 + 0.5) + 1, (i) => {
       if (trainingFootmen.every((u) => isLocInRect(u, gg_rct_Shadowfang_soldier_training))) {
@@ -196,6 +190,7 @@ export class MiscEvents {
           tt.setPermanent(false);
         });
       } else {
+        DestroyEffect(leaderEffect);
         timer.pause();
         timer.destroy();
       }

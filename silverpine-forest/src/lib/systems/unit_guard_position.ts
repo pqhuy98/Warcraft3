@@ -28,7 +28,6 @@ const unitPositions = new Map<Unit, GuardPositonData>();
 
 export function setGuardPosition(u: Unit, loc: Loc, facing: number, maxRadius: number = 9999999, animation = '') {
   if (isBuilding(u)) return;
-  u.removeGuardPosition();
   removeGuardPosition(u);
   unitPositions.set(u, {
     position: loc,
@@ -42,6 +41,7 @@ export function setGuardPosition(u: Unit, loc: Loc, facing: number, maxRadius: n
 }
 
 export function guardCurrentPosition(unit: Unit, radius?: number, animation?: string) {
+  unit.issueImmediateOrder(OrderId.Stop);
   setGuardPosition(unit, currentLoc(unit), unit.facing, radius, animation);
 }
 
@@ -71,7 +71,7 @@ export function daemonGuardPosition() {
   //   }, 7 / units.length);
   // });
 
-  const unitsPerIteration = 25;
+  const unitsPerIteration = 50;
   let shuffledUnits: Unit[] = [];
   let currentIndex = 0;
 
@@ -121,8 +121,11 @@ function updateUnit(unit: Unit, data: GuardPositonData, now: number) {
     // unit is at guard position
     const angleDiff = angleDifference(unit.facing, angle);
     if (angleDiff > 1) {
+      const isUnitAttending = !isAttending(unit);
       if (isUnitIdle(unit) && !isAttending(unit)) {
-        data.lastBusyTimeS = now;
+        if (isUnitAttending) {
+          data.lastBusyTimeS = now;
+        }
         setUnitFacingWithRate(unit, angle);
       }
     } else {

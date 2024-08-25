@@ -437,18 +437,6 @@ STRING 84
 Tirion Fordring
 }
 
-STRING 85
-// Items: stel (Book of Teleportation), Name (Name)
-{
-Book of Teleportation
-}
-
-STRING 86
-// Items: stel (Book of Teleportation), Tip (Tooltip - Basic)
-{
-Purchase Book of Teleportation
-}
-
 STRING 87
 // Items: I000 (|cff0000ffFrostmourne|r), Name (Name)
 {
@@ -1625,5 +1613,23 @@ STRING 288
 // Destructibles: B001 (Townhall of Ambermill), Name (Name)
 {
 Townhall of Ambermill
+}
+
+STRING 293
+// Abilities: A00O (Town Portal Scroll), Name (Name)
+{
+Town Portal Scroll
+}
+
+STRING 294
+// Abilities: A00O (Town Portal Scroll), EditorSuffix (Editor Suffix)
+{
+(custom)
+}
+
+STRING 295
+// Items: stwp (Scroll of Town Portal), Ubertip (Tooltip - Extended)
+{
+Teleports the Hero and any of its nearby troops to a target friendly building.
 }
 

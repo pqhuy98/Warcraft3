@@ -1,13 +1,12 @@
 import {
-  PolarProjection,
   randomLocRect,
 } from 'lib/location';
+import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
-  createDialogSound,
   QuestLog,
-} from 'lib/quest_helpers';
+} from 'lib/quests/quest_log';
+import { giveItemReward } from 'lib/quests/utils';
 import { playSpeech } from 'lib/sound';
-import { disableInteractSound, UnitInteraction } from 'lib/systems/unit_interaction';
 import { setIntervalFixedCount } from 'lib/trigger';
 import { getUnitsInRect } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
@@ -26,7 +25,7 @@ const questItems = [
 ];
 
 const rabbitTypeId = FourCC('necr');
-const rewardTypeId = FourCC('manh'); // Manual of Health
+const rewardItem = FourCC('manh'); // Manual of Health
 const rewardXp = 300;
 
 let jacobIntro: sound;
@@ -55,8 +54,7 @@ export class RabbitHunt extends BaseQuest {
     const { jacob, wheatFieldRects } = this.globals;
     jacob.name = 'Villager Jacob';
 
-    await waitUntil(3, () => this.requiredQuestsDone());
-    disableInteractSound(jacob);
+    await this.waitDependenciesDone();
 
     const traveler = await this.talkToQuestGiver(jacob);
     jacob.shareVision(traveler.owner, true);
@@ -95,16 +93,23 @@ export class RabbitHunt extends BaseQuest {
     await questLog.completeItem(0);
 
     // Wait player to return
-    await UnitInteraction.waitUntilQuestTalk(jacob);
+    await this.waitForTurnIn(jacob);
 
     // Thanks and reward
     await playSpeech(jacob, jacobOutro, traveler);
-    const itemLoc = PolarProjection(jacob, 100, jacob.facing);
-    const item = CreateItem(rewardTypeId, itemLoc.x, itemLoc.y);
     traveler.addExperience(rewardXp, true);
     await questLog.completeWithRewards([
-      GetItemName(item),
+      giveItemReward(jacob, rewardItem).name,
       `${rewardXp} experience`,
     ]);
+    this.complete();
+  }
+
+  onForceComplete(): void {
+    const { wheatFieldRects } = this.globals;
+    wheatFieldRects
+      .flatMap((r) => getUnitsInRect(r))
+      .filter((u) => u.typeId === rabbitTypeId && u.isAlive())
+      .forEach((u) => u.kill());
   }
 }

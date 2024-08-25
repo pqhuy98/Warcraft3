@@ -55,6 +55,7 @@ module.exports = {
     'no-unused-expressions': 'off',
     'class-methods-use-this': 'off',
     'no-nested-ternary': 'off',
+    'no-return-assign': 'off',
     'max-len': [
       'error',
       {

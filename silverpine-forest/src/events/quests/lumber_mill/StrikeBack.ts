@@ -4,15 +4,15 @@ import { TalkGroup } from 'events/talk_group';
 import { mainPlayer, playerForsaken, playerHumanAlliance } from 'lib/constants';
 import { centerLocRect, randomLocRect } from 'lib/location';
 import { setAllianceState2Way } from 'lib/player';
+import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
-  createDialogSound,
   QuestLog,
-} from 'lib/quest_helpers';
+} from 'lib/quests/quest_log';
+import { giveItemReward, setMinimapIconUnit } from 'lib/quests/utils';
 import {
   UNIT_Abomination, UNIT_CryptFiend, UNIT_Gargoyle, UNIT_Ghoul, UNIT_MeatWagon, UNIT_Zombie,
 } from 'lib/resources/war3-units';
 import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
-import { disableInteractSound, UnitInteraction } from 'lib/systems/unit_interaction';
 import { getUnitsInRangeOfXYMatching, getUnitsInRect, isBuilding } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
@@ -31,12 +31,15 @@ const questItems = [
 const knightName = 'Knight Gareth';
 const mayorName = 'Mayor Darius Crowley';
 
+const rewardItem = FourCC('stwp'); // Town portal scroll
 const rewardXp = 1200;
 
 let knightIntro1: sound;
 let mayorIntro1: sound;
 let mayorIntro2: sound;
 let knightIntro2: sound;
+let mayorOutro1: sound;
+let mayorOutro2: sound;
 
 export class StrikeBack extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
@@ -67,6 +70,16 @@ export class StrikeBack extends BaseQuest {
       knightName,
       'Understood, Mayor. We will avenge our fallen brothers and ensure this threat is eliminated.',
     );
+    mayorOutro1 = createDialogSound(
+      'QuestSounds\\strike-back\\strike-back-mayor-outro-1.mp3',
+      mayorName,
+      'Well done, hero! You\'ve saved Ambermill town from a dire threat. As a token of our gratitude, I grant you vision of Ambermill and a town portal scroll—it will allow you to travel here instantly.',
+    );
+    mayorOutro2 = createDialogSound(
+      'QuestSounds\\strike-back\\strike-back-mayor-outro-2.mp3',
+      mayorName,
+      'Additionally, I have written you a recommendation letter. Show this to the leader of Shadowfang City for access and recognition if you ever find yourself there. Your bravery shall not be forgotten.',
+    );
   }
 
   async register() {
@@ -80,22 +93,21 @@ export class StrikeBack extends BaseQuest {
     mayor.nameProper = mayorName;
     mayor.name = 'Mayor of Ambermill Town';
 
-    await waitUntil(3, () => this.requiredQuestsDone());
-    disableInteractSound(knight, mayor);
+    await this.waitDependenciesDone();
 
     const traveler = await this.talkToQuestGiver(knight);
 
     mayor.shareVision(traveler.owner, true);
 
-    const talkers = [
+    const talkGroup = new TalkGroup([
       knight, mayor,
       ...getUnitsInRangeOfXYMatching(500, mayor, () => !isBuilding(Unit.fromFilter())),
-    ];
-    const talkGroup = new TalkGroup(talkers);
+    ]);
     await talkGroup.speak(knight, knightIntro1, mayor);
     await talkGroup.speak(mayor, mayorIntro1, knight);
     await talkGroup.speak(mayor, mayorIntro2, knight);
     await talkGroup.speak(knight, knightIntro2, mayor);
+    talkGroup.finish();
 
     const questLog = await QuestLog.create({
       name: questName,
@@ -118,12 +130,12 @@ export class StrikeBack extends BaseQuest {
 
     // Prepare undead base
     const undeadQuota = {
-      [FourCC(UNIT_Ghoul.code)]: 10,
-      [FourCC(UNIT_Abomination.code)]: 6,
-      [FourCC(UNIT_Zombie.code)]: 10,
-      [FourCC(UNIT_CryptFiend.code)]: 4,
-      [FourCC(UNIT_Gargoyle.code)]: 4,
-      [FourCC(UNIT_MeatWagon.code)]: 3,
+      [FourCC(UNIT_Ghoul.code)]: 8,
+      [FourCC(UNIT_Abomination.code)]: 4,
+      [FourCC(UNIT_Zombie.code)]: 8,
+      [FourCC(UNIT_CryptFiend.code)]: 3,
+      [FourCC(UNIT_Gargoyle.code)]: 3,
+      [FourCC(UNIT_MeatWagon.code)]: 2,
     };
     const undeads = getUnitsInRect(undeadBaseRect, (u) => u.owner === playerForsaken && u.isAlive());
     undeads.forEach((u) => {
@@ -155,7 +167,7 @@ export class StrikeBack extends BaseQuest {
     removeGuardPosition(...undeads);
     undeads.forEach((u) => {
       u.life = u.maxLife;
-      u.shareVision(traveler.owner, true);
+      setMinimapIconUnit(u, 'enemyStatic');
     });
     waitUntil(3, () => {
       // wait until some undead is attacked
@@ -191,17 +203,24 @@ export class StrikeBack extends BaseQuest {
       setAllianceState2Way(playerForsaken, playerHumanAlliance, 'neutral');
       setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
 
+      await this.waitForTurnIn(mayor);
+      const talkGroup = new TalkGroup([mayor, traveler]);
+      await talkGroup.speak(mayor, mayorOutro1, traveler);
+      await talkGroup.speak(mayor, mayorOutro2, traveler);
+
       // grant vision of buildings
       getUnitsInRect(humanBaseRect, (u) => isBuilding(u) && u.owner === mayor.owner)
         .forEach((u) => u.shareVision(traveler.owner, true));
-
       traveler.addExperience(rewardXp, true);
       await questLog.completeWithRewards([
+        giveItemReward(mayor, rewardItem).name,
         `${rewardXp} experience`,
         'Town\'s vision',
       ]);
+      this.complete();
     } else {
       questLog.fail();
+      this.fail();
     }
   }
 
@@ -210,8 +229,6 @@ export class StrikeBack extends BaseQuest {
       knight, mayor,
       undeadBaseRect, humanBaseRect, knightRectAfterQuest,
     } = this.globals;
-
-    UnitInteraction.removeAllQuestTalks(knight);
 
     const undeads = getUnitsInRect(undeadBaseRect, (u) => u.owner === playerForsaken && u.isAlive());
     undeads.forEach((u) => u.kill());

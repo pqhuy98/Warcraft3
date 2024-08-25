@@ -11,7 +11,7 @@ import WrathOfTheLichKing from 'abilities/wrath_of_the_lich_king/wrath_of_the_li
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { MiscEvents } from 'events/misc';
-import { QuestRegistry } from 'events/quests/quest-registry';
+import { QuestRegistry } from 'events/quests/quest_registry';
 import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
 import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
 import {
@@ -32,7 +32,7 @@ import {
   daemonTempCleanUp, temp,
 } from 'lib/location';
 import { isComputer, setAllianceState2Way } from 'lib/player';
-import { daemonQuestMarker } from 'lib/quest_helpers';
+import { daemonQuestMarker } from 'lib/quests/utils';
 import {
   ABILITY_ArchMageBlizzard, ABILITY_ArchMageWaterElemental, ABILITY_BladeMasterBladestorm,
   ABILITY_BloodMageFlameStrike,

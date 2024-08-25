@@ -51,6 +51,7 @@ gg_rct_Town_peasants_repair_wheelbarrow = nil
 gg_rct_Farm_villagers_working = nil
 gg_rct_Shadowfang_peasants_lumber = nil
 gg_rct_Shadowfang_soldier_training = nil
+gg_rct_Shadowfang_gate_sight_blocker = nil
 gg_snd_lich_king_stab_out = nil
 gg_snd_lichking_frostmourne_hungers = nil
 gg_trg_Doodads = nil
@@ -72,7 +73,6 @@ gg_unit_hfoo_0151 = nil
 gg_unit_hpea_0132 = nil
 gg_unit_hpea_0133 = nil
 gg_unit_hpea_0155 = nil
-gg_unit_nvl2_0414 = nil
 gg_unit_ugho_0190 = nil
 gg_unit_ugho_0194 = nil
 gg_unit_nvl2_0412 = nil
@@ -81,11 +81,11 @@ gg_unit_ugho_0209 = nil
 gg_unit_ugho_0210 = nil
 gg_unit_nvl2_0413 = nil
 gg_unit_Ekee_0551 = nil
+gg_unit_nvil_0414 = nil
 gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
-gg_rct_Shadowfang_gate_sight_blocker = nil
 function InitGlobals()
 end
 
@@ -394,12 +394,12 @@ u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -9728.0, -17536.0, 270.000, FourCC(
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -8832.0, -17536.0, 270.000, FourCC("hhou"))
 u = BlzCreateUnitWithSkin(p, FourCC("harm"), -12096.0, -16000.0, 270.000, FourCC("harm"))
 u = BlzCreateUnitWithSkin(p, FourCC("hbar"), -13632.0, -16896.0, 270.000, FourCC("hbar"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgra"), -15168.0, -16896.0, 270.000, FourCC("hgra"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgra"), -13952.0, -15872.0, 270.000, FourCC("hgra"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -13376.0, -16128.0, 270.000, FourCC("hgtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -12032.0, -17152.0, 270.000, FourCC("hgtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -12032.0, -17664.0, 270.000, FourCC("hgtw"))
-u = BlzCreateUnitWithSkin(p, FourCC("hvlt"), -14976.0, -16128.0, 270.000, FourCC("hvlt"))
-u = BlzCreateUnitWithSkin(p, FourCC("hars"), -14080.0, -15936.0, 270.000, FourCC("hars"))
+u = BlzCreateUnitWithSkin(p, FourCC("hvlt"), -14848.0, -16064.0, 270.000, FourCC("hvlt"))
+u = BlzCreateUnitWithSkin(p, FourCC("hars"), -15296.0, -16960.0, 270.000, FourCC("hars"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -12928.0, -15616.0, 270.000, FourCC("hhou"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -13120.0, -15616.0, 270.000, FourCC("hhou"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -15616.0, -17472.0, 270.000, FourCC("hhou"))
@@ -410,7 +410,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hctw"), -10944.0, -15296.0, 270.000, FourCC
 u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -10112.0, -17024.0, 270.000, FourCC("hgtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("halt"), -12832.0, -14880.0, 270.000, FourCC("halt"))
 u = BlzCreateUnitWithSkin(p, FourCC("hbla"), -11712.0, -18112.0, 270.000, FourCC("hbla"))
-u = BlzCreateUnitWithSkin(p, FourCC("hlum"), -6560.0, -16224.0, 270.000, FourCC("hlum"))
+u = BlzCreateUnitWithSkin(p, FourCC("hlum"), -6624.0, -16288.0, 270.000, FourCC("hlum"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -6464.0, -16640.0, 270.000, FourCC("hgtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhou"), -15040.0, -17472.0, 270.000, FourCC("hhou"))
 end
@@ -508,7 +508,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 8485.8, -6201.5, 160.508, FourCC("h
 IssueImmediateOrder(u, "repairon")
 gg_unit_nvl2_0412 = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 9838.4, -5480.3, 22.537, FourCC("nvl2"))
 gg_unit_nvl2_0413 = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 9507.8, -7179.9, 42.612, FourCC("nvl2"))
-gg_unit_nvl2_0414 = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 9681.1, -7084.2, 203.421, FourCC("nvl2"))
+gg_unit_nvil_0414 = BlzCreateUnitWithSkin(p, FourCC("nvil"), 9712.5, -7071.7, 187.750, FourCC("nvil"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvlk"), 9721.3, -7286.4, 115.749, FourCC("nvlk"))
 u = BlzCreateUnitWithSkin(p, FourCC("nhem"), 10357.5, -14517.9, 240.179, FourCC("nhem"))
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), -8318.9, -15763.8, 0.000, FourCC("hkni"))
@@ -563,10 +563,10 @@ u = BlzCreateUnitWithSkin(p, FourCC("hrif"), -11171.7, -15789.1, 142.443, FourCC
 u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), -11470.8, -15891.8, 81.811, FourCC("hmtm"))
 u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), -11134.2, -15663.5, 168.863, FourCC("hmtm"))
 u = BlzCreateUnitWithSkin(p, FourCC("Ntin"), -11381.6, -15629.5, 251.717, FourCC("Ntin"))
-u = BlzCreateUnitWithSkin(p, FourCC("hpea"), -6333.4, -16413.8, 107.845, FourCC("hpea"))
-u = BlzCreateUnitWithSkin(p, FourCC("hpea"), -6328.8, -16241.2, 225.897, FourCC("hpea"))
-u = BlzCreateUnitWithSkin(p, FourCC("hpea"), -6367.0, -16148.4, 196.090, FourCC("hpea"))
-u = BlzCreateUnitWithSkin(p, FourCC("hpea"), -6242.4, -16444.1, 86.421, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("hpea"), -6239.6, -16505.5, 38.405, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("hpea"), -6484.1, -16103.8, 121.237, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("hpea"), -6212.0, -16095.2, 61.768, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("hpea"), -6229.8, -16386.6, 337.712, FourCC("hpea"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -13044.1, -16477.3, 0.000, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -13040.1, -16603.8, 0.000, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hmtt"), -11870.7, -15915.0, 329.420, FourCC("hmtt"))
@@ -596,10 +596,10 @@ u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -11334.1, -14459.5, 282.017, FourCC
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -11423.1, -14623.3, 352.080, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -11365.9, -14794.9, 351.337, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -11419.6, -14494.1, 317.430, FourCC("hfoo"))
-u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), -15189.9, -16253.4, 29.674, FourCC("hmpr"))
-u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), -14782.5, -15994.4, 215.484, FourCC("hmpr"))
-u = BlzCreateUnitWithSkin(p, FourCC("hsor"), -14803.4, -16304.1, 133.459, FourCC("hsor"))
-u = BlzCreateUnitWithSkin(p, FourCC("hsor"), -15109.7, -15982.5, 313.776, FourCC("hsor"))
+u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), -14933.0, -16249.2, 71.740, FourCC("hmpr"))
+u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), -14678.7, -15926.9, 214.927, FourCC("hmpr"))
+u = BlzCreateUnitWithSkin(p, FourCC("hsor"), -14675.4, -16240.1, 117.117, FourCC("hsor"))
+u = BlzCreateUnitWithSkin(p, FourCC("hsor"), -14937.0, -15871.2, 260.385, FourCC("hsor"))
 u = BlzCreateUnitWithSkin(p, FourCC("hmtt"), -11938.7, -16193.1, 210.953, FourCC("hmtt"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -13182.7, -16482.9, 0.000, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -13044.9, -16332.0, 0.000, FourCC("hfoo"))
@@ -631,7 +631,7 @@ SelectHeroSkill(u, FourCC("AHre"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -12913.0, -16335.6, 0.000, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -12911.7, -16468.3, 0.000, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -12904.6, -16609.5, 0.000, FourCC("hfoo"))
-u = BlzCreateUnitWithSkin(p, FourCC("Hamg"), -15020.4, -16420.9, 81.300, FourCC("Hamg"))
+u = BlzCreateUnitWithSkin(p, FourCC("Hamg"), -15082.9, -16070.9, 3.733, FourCC("Hamg"))
 SetHeroLevel(u, 70, false)
 SetUnitState(u, UNIT_STATE_MANA, 3585)
 SelectHeroSkill(u, FourCC("AHbz"))
@@ -644,9 +644,9 @@ SelectHeroSkill(u, FourCC("AHab"))
 SelectHeroSkill(u, FourCC("AHab"))
 SelectHeroSkill(u, FourCC("AHab"))
 SelectHeroSkill(u, FourCC("AHmt"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -15344.8, -16758.6, 62.885, FourCC("hgry"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -15039.2, -16965.8, 51.717, FourCC("hgry"))
-u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -15073.4, -16696.2, 47.495, FourCC("hgry"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -14118.0, -15804.4, 261.405, FourCC("hgry"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -13957.4, -15925.6, 292.237, FourCC("hgry"))
+u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -13830.1, -15723.4, 295.607, FourCC("hgry"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -13764.7, -16847.0, 11.701, FourCC("hgry"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -12937.2, -15642.8, 26.324, FourCC("hgry"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -11071.1, -15368.1, 346.761, FourCC("hgry"))
@@ -775,19 +775,14 @@ u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 5392.2, -10310.8, 165.605, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 5444.6, -9576.7, 348.620, FourCC("nzom"))
 u = BlzCreateUnitWithSkin(p, FourCC("umtw"), 4547.0, -9151.3, 248.936, FourCC("umtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("Ulic"), 4975.6, -9341.5, 245.350, FourCC("Ulic"))
-SetHeroLevel(u, 10, false)
+SetHeroLevel(u, 5, false)
 SetUnitState(u, UNIT_STATE_MANA, 300)
 SelectHeroSkill(u, FourCC("AUfn"))
 SelectHeroSkill(u, FourCC("AUfn"))
 SelectHeroSkill(u, FourCC("AUfn"))
 SelectHeroSkill(u, FourCC("AUfu"))
-SelectHeroSkill(u, FourCC("AUfu"))
-SelectHeroSkill(u, FourCC("AUfu"))
 IssueImmediateOrder(u, "frostarmoron")
 SelectHeroSkill(u, FourCC("AUdr"))
-SelectHeroSkill(u, FourCC("AUdr"))
-SelectHeroSkill(u, FourCC("AUdr"))
-SelectHeroSkill(u, FourCC("AUdd"))
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), 5540.0, -9493.1, 312.204, FourCC("uabo"))
 u = BlzCreateUnitWithSkin(p, FourCC("umtw"), -9852.4, 13613.6, 179.487, FourCC("umtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("umtw"), -11461.7, 13979.1, 0.000, FourCC("umtw"))
@@ -907,12 +902,15 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), -7906.8, -15470.2, 195.880, FourCC("Ewar"))
+u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 12637.2, -5358.2, 195.880, FourCC("Ewar"))
 SetHeroLevel(u, 5, false)
 SetUnitState(u, UNIT_STATE_MANA, 345)
 SelectHeroSkill(u, FourCC("AEfk"))
 SelectHeroSkill(u, FourCC("AEbl"))
+SelectHeroSkill(u, FourCC("AEbl"))
+SelectHeroSkill(u, FourCC("AEbl"))
 SelectHeroSkill(u, FourCC("AEsh"))
+UnitAddItemToSlotById(u, FourCC("stwp"), 0)
 end
 
 function CreateNeutralHostile()
@@ -1457,9 +1455,10 @@ end
 function Trig_Doodads_Actions()
 SetTimeOfDay(12)
 SetSkyModel("Environment\\Sky\\LordaeronFallSky\\LordaeronFallSky.mdl")
+SetDestructableInvulnerableBJ(gg_dest_LTg3_4633, true)
+SetDestructableInvulnerableBJ(gg_dest_LTg3_8382, true)
 SetDestructableInvulnerableBJ(gg_dest_YTcx_0001, true)
 SetDestructableInvulnerableBJ(gg_dest_YTcx_0002, true)
-SetDestructableInvulnerableBJ(gg_dest_LTg3_8382, true)
 end
 
 function InitTrig_Doodads()
@@ -1482,7 +1481,7 @@ udg_tmp_unit = gg_unit_hfoo_0150
 udg_tmp_unit = gg_unit_hfoo_0151
 udg_tmp_unit = gg_unit_nvl2_0412
 udg_tmp_unit = gg_unit_nvl2_0413
-udg_tmp_unit = gg_unit_nvl2_0414
+udg_tmp_unit = gg_unit_nvil_0414
 udg_tmp_unit = gg_unit_nvl2_0041
 udg_tmp_unit = gg_unit_nvil_0042
 udg_tmp_unit = gg_unit_hpea_0132
@@ -1656,7 +1655,7 @@ DefineStartLocation(0, -9472.0, -25152.0)
 DefineStartLocation(1, -9152.0, -25216.0)
 DefineStartLocation(2, -9344.0, -25152.0)
 DefineStartLocation(3, -9600.0, -25088.0)
-DefineStartLocation(4, -7872.0, -15424.0)
+DefineStartLocation(4, 12672.0, -5312.0)
 InitCustomPlayerSlots()
 InitCustomTeams()
 InitAllyPriorities()

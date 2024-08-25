@@ -1,22 +1,25 @@
 /* eslint-disable max-len */
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
+import { TalkGroup } from 'events/talk_group';
 import { mainPlayer } from 'lib/constants';
 import {
   AngleBetweenLocs, centerLocRect, DistanceBetweenLocs, isLocInRect, PolarProjection,
   randomLocRect,
 } from 'lib/location';
+import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
-  createDialogSound, createMinimapIconUnit,
-  disableQuestMarker,
-  enableQuestMarker,
   QuestLog,
-} from 'lib/quest_helpers';
+} from 'lib/quests/quest_log';
+import {
+  disableQuestMarker, enableQuestMarker, giveItemReward, removeMinimapIcon,
+  setMinimapIconUnit,
+} from 'lib/quests/utils';
 import { MODEL_SleepTarget } from 'lib/resources/war3-models';
 import { UNIT_Sheep } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
 import { removeGuardPosition } from 'lib/systems/unit_guard_position';
 import {
-  disableInteractSound, enableInteractSound, setAttention,
+  enableInteractSound, setAttention,
 } from 'lib/systems/unit_interaction';
 import {
   enumUnitsWithDelay, getUnitsInRect, isUnitIdle, isUnitType, setUnitFacingWithRate,
@@ -28,6 +31,7 @@ import { OrderId } from 'w3ts/globals';
 import { BaseQuest, BaseQuestProps } from '../base_quest';
 
 const gatherRadius = 400;
+const minimapIconMinRadius = 1500;
 
 const scatterRadiuses: Record<number, number> = {
   1: 600,
@@ -109,8 +113,8 @@ export class GatherSheeps extends BaseQuest {
       sheeps.forEach((u) => { u.owner = mainPlayer; });
     }, 'GameControl', "Grant control of all Timmy's sheeps.");
 
-    await waitUntil(3, () => this.requiredQuestsDone());
-    disableInteractSound(sheepBoy);
+    await this.waitDependenciesDone();
+
     removeGuardPosition(sheepBoy);
 
     const maxLevel = 3;
@@ -122,11 +126,16 @@ export class GatherSheeps extends BaseQuest {
       sheeps = sheeps.filter((u) => u.isAlive());
 
       // If quest available
-      if (level <= maxLevel) {
+      if (level <= maxLevel && !this.isFailed()) {
         const sleepEffect = AddSpecialEffectTarget(MODEL_SleepTarget, sheepBoy.handle, 'overhead');
         // mimic sleep animation
         let canSleep = false;
         waitUntil(5, () => {
+          if (!sheepBoy.isAlive()) {
+            sheepBoy.setTimeScale(1);
+            DestroyEffect(sleepEffect);
+            return true;
+          }
           if (!canSleep) {
             ResetUnitAnimation(sheepBoy.handle);
             sheepBoy.setAnimation('decay flesh');
@@ -139,6 +148,7 @@ export class GatherSheeps extends BaseQuest {
         const traveler = await this.talkToQuestGiver(sheepBoy);
         canSleep = true;
 
+        // wake up
         ResetUnitAnimation(sheepBoy.handle);
         sheepBoy.setTimeScale(1);
         DestroyEffect(sleepEffect);
@@ -146,24 +156,29 @@ export class GatherSheeps extends BaseQuest {
         await this.runQuest(sheepBoy, sheeps, traveler, level);
 
         // Quest done, now go home
-        playSpeech(sheepBoy, goHomeSound, traveler)
-          .then(() => enableInteractSound(sheepBoy));
+        if (!this.isFailed()) {
+          playSpeech(sheepBoy, goHomeSound, traveler)
+            .then(() => enableInteractSound(sheepBoy));
+        }
+
+        if (level === maxLevel) {
+          this.complete();
+        }
         await sleep(1);
         sheeps = sheeps.filter((u) => u.isAlive());
-        await this.goHome(sheepBoy, sheeps);
+        await this.sheepBoyGoHome(sheepBoy, sheeps);
       } else {
         // Quest is not available, wait until dark then go home
         await waitUntil(10, () => GetTimeOfDay() >= 17 && GetTimeOfDay() < 6);
-        await this.goHome(sheepBoy, sheeps);
+        await this.sheepBoyGoHome(sheepBoy, sheeps);
       }
 
       // sleep awhile then leave home in the morning
-      await sleep(GetRandomReal(5, 10));
-      // await sleep(GetRandomReal(60, 90));
-      // await waitUntil(10, () => GetTimeOfDay() >= 6 && GetTimeOfDay() <= 13);
+      await sleep(GetRandomReal(60, 90));
+      await waitUntil(10, () => GetTimeOfDay() >= 6 && GetTimeOfDay() <= 13);
       sheeps = sheeps.filter((u) => u.isAlive());
 
-      await this.leaveHome(sheepBoy, sheeps);
+      await this.sheepBoyLeaveHome(sheepBoy, sheeps);
     }
   }
 
@@ -194,9 +209,11 @@ export class GatherSheeps extends BaseQuest {
       }
     }, 4.2 / sheeps.length);
 
-    await playSpeech(sheepBoy, introSounds[level]);
+    const talkGroup = new TalkGroup([sheepBoy, traveler]);
+    await talkGroup.speak(sheepBoy, introSounds[level]);
+    talkGroup.finish();
 
-    const minimapIcon = createMinimapIconUnit(sheepBoy, 'neutralActive');
+    setMinimapIconUnit(sheepBoy, 'allyStatic');
     const questLog = await QuestLog.create({
       name: questNames[level],
       description: questDescriptions[level],
@@ -210,11 +227,17 @@ export class GatherSheeps extends BaseQuest {
     await waitUntil(0.5, () => {
       let outCnt = 0;
       for (const sheep of sheeps) {
+        if (!sheep.isAlive()) return true;
         if (sheep.isAlive() && DistanceBetweenLocs(sheep, sheepBoy) > (gatherRadius)) {
           outCnt++;
           enableQuestMarker(sheep);
         } else {
           disableQuestMarker(sheep);
+        }
+        if (sheep.isAlive() && DistanceBetweenLocs(sheep, sheepBoy) > minimapIconMinRadius) {
+          setMinimapIconUnit(sheep, 'neutralActive');
+        } else {
+          removeMinimapIcon(sheep);
         }
       }
       return outCnt === 0;
@@ -224,24 +247,32 @@ export class GatherSheeps extends BaseQuest {
     for (const sheep of sheeps) {
       sheep.moveSpeed = 100;
       sheep.shareVision(traveler.owner, false);
+      removeMinimapIcon(sheep);
+      disableQuestMarker(sheep);
     }
-    DestroyMinimapIcon(minimapIcon);
-    await playSpeech(sheepBoy, outroSounds[level]);
+    removeMinimapIcon(sheepBoy);
 
-    const itemLoc = PolarProjection(sheepBoy, 100, sheepBoy.facing);
-    const item = CreateItem(FourCC(rewards[level]), itemLoc.x, itemLoc.y);
-    traveler.addExperience(rewardsXp[level], true);
-    await questLog.completeWithRewards([
-      GetItemName(item),
-      `${rewardsXp[level]} experience`,
-    ]);
+    if (sheeps.every((u) => u.isAlive())) {
+      await talkGroup.speak(sheepBoy, outroSounds[level]);
+      talkGroup.finish();
+
+      traveler.addExperience(rewardsXp[level], true);
+      await questLog.completeWithRewards([
+        giveItemReward(sheepBoy, FourCC(rewards[level])).name,
+        `${rewardsXp[level]} experience`,
+      ]);
+    } else {
+      await questLog.fail();
+      this.fail();
+    }
   }
 
-  async goHome(sheepBoy: Unit, sheeps: Unit[]) {
+  // not part of the quest's requirment
+  async sheepBoyGoHome(sheepBoy: Unit, sheeps: Unit[]) {
     const homeRect = this.globals.homeRect;
     const homeLoc = centerLocRect(homeRect);
 
-    this.updateMovespeed(sheepBoy, sheeps);
+    this.updateHerdMovespeed(sheepBoy, sheeps);
 
     await waitUntil(0.5, () => {
       let notHomeSheeps = 0;
@@ -287,7 +318,8 @@ export class GatherSheeps extends BaseQuest {
     });
   }
 
-  async leaveHome(sheepBoy: Unit, sheeps: Unit[]) {
+  // not part of the quest's requirment
+  async sheepBoyLeaveHome(sheepBoy: Unit, sheeps: Unit[]) {
     if (!sheepBoy.isAlive()) return;
 
     const grassRect = pickRandom(this.globals.grassRects);
@@ -297,7 +329,7 @@ export class GatherSheeps extends BaseQuest {
     if (sheeps.length < 10) {
       sheeps.push(Unit.create(sheepBoy.owner, FourCC(UNIT_Sheep.code), homeLoc.x, homeLoc.y));
     }
-    this.updateMovespeed(sheepBoy, sheeps);
+    this.updateHerdMovespeed(sheepBoy, sheeps);
 
     // Everyone gathers initally at front yard
     const frontYard = PolarProjection(homeLoc, 500, AngleBetweenLocs(homeLoc, centerLocRect(grassRect)));
@@ -359,7 +391,7 @@ export class GatherSheeps extends BaseQuest {
     setUnitFacingWithRate(sheepBoy, AngleBetweenLocs(sheepBoy, grassCenter));
   }
 
-  updateMovespeed(sheepBoy: Unit, sheeps: Unit[]) {
+  updateHerdMovespeed(sheepBoy: Unit, sheeps: Unit[]) {
     sheepBoy.moveSpeed = Math.max(200, 20 * sheeps.length);
     for (const sheep of sheeps) {
       sheep.moveSpeed = Math.max(100, 10 * sheeps.length);
