@@ -1,5 +1,5 @@
 import { logDiscrepancy } from 'lib/debug/key_counter';
-import { temp } from 'lib/location';
+import { cameraCenter, temp } from 'lib/location';
 import { log } from 'lib/log';
 import { getUnitsInRect, isBuilding } from 'lib/unit';
 import {
@@ -53,14 +53,13 @@ export function registerChatCommands() {
   }, 'GameControl', 'Level up selected units.');
 
   onChatCommand('-tp', true, () => {
-    const x = GetCameraEyePositionX();
-    const y = GetCameraEyePositionY() + 800;
+    const teleportLoc = cameraCenter();
 
     temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer())))
       .for(() => {
         if (Unit.fromEnum().isHero()) {
-          Unit.fromEnum().x = x;
-          Unit.fromEnum().y = y;
+          Unit.fromEnum().x = teleportLoc.x;
+          Unit.fromEnum().y = teleportLoc.y;
         }
       });
   }, 'GameControl', 'Teleport all selected units to center of camera.');

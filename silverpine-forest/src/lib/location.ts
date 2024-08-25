@@ -106,3 +106,10 @@ export function isLocInRect(loc: Loc, rect: rect) {
   return Rect.minX - 10 <= loc.x && loc.x < Rect.maxX + 10
     && Rect.minY - 10 <= loc.y && loc.y < Rect.maxY + 10;
 }
+
+export function cameraCenter() {
+  return {
+    x: GetCameraEyePositionX(),
+    y: GetCameraEyePositionY() + 850,
+  };
+}

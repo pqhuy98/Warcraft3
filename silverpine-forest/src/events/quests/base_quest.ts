@@ -56,6 +56,7 @@ export class BaseQuest {
 
   async waitDependenciesDone() {
     await waitUntil(2, () => this.dependencies.every((q) => q.isCompleted()));
+    if (this.isCompleted()) throw new Error('quest has been force completed during the time.');
   }
 
   complete() {

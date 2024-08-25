@@ -213,7 +213,6 @@ export class GatherSheeps extends BaseQuest {
     await talkGroup.speak(sheepBoy, introSounds[level]);
     talkGroup.finish();
 
-    setMinimapIconUnit(sheepBoy, 'allyStatic');
     const questLog = await QuestLog.create({
       name: questNames[level],
       description: questDescriptions[level],

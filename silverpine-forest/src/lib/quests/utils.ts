@@ -1,3 +1,5 @@
+import { onChatCommand } from 'events/chat_commands/chat_commands.model';
+import { log } from 'lib/log';
 import { Item, Unit } from 'w3ts';
 
 import { Loc, PolarProjection, tempLocation } from '../location';
@@ -63,6 +65,43 @@ export function disableQuestMarker(unit: Unit) {
 }
 
 export function daemonQuestMarker() {
+  let r = 255;
+  let g = 255;
+  let b = 255;
+  let icon: minimapicon;
+
+  onChatCommand('-qmc $1 $1 $1', false, (msg) => {
+    r = parseInt(msg.split(' ')[1], 10);
+    g = parseInt(msg.split(' ')[2], 10);
+    b = parseInt(msg.split(' ')[3], 10);
+  });
+
+  onChatCommand('-qm $1', false, (msg) => {
+    const id = parseInt(msg.split(' ')[1], 10);
+    const path = [
+      'UI\\Minimap\\MiniMap-Goldmine.mdl', // gold mine, yellow circle
+      'UI\\Minimap\\MiniMap-Item.mdl', // red question mark, low resolution
+      'UI\\Minimap\\MiniMap-NeutralBuilding.mdl', // house icon, e.g. fountain
+      'UI\\Minimap\\MiniMap-Hero.mdl', // hero icon, diamond shap
+      'UI\\Minimap\\Minimap-Ping.mdl', // ping icon, very noticable
+      'UI\\Minimap\\Minimap-Waypoint.mdl', // green square shrinking in
+      'UI\\Minimap\\MiniMap-CreepLoc-Small.mdl', // small green square, stationary
+      'UI\\Minimap\\MiniMap-CreepLoc-Large.mdl', // big circle
+      'UI\\Minimap\\MiniMap-QuestGiver.mdl', // exclamation mark with circle outside
+      'UI\\Minimap\\Minimap-QuestObjectivePrimary.mdl', // exclamation mark with circle outside (save as above)
+      'UI\\Minimap\\Minimap-QuestObjectiveBonus.mdl', // exclamation mark with circle outside (save as above)
+      'UI\\Minimap\\Minimap-QuestTurnIn.mdl', // question mark with circle outside
+      'UI\\Minimap\\MiniMap-Boss.mdl', // big skull icon
+      'UI\\Minimap\\MiniMap-ControlPoint.mdl', // exclamation mark with circle outside (breathing visibly)
+    ][id];
+    if (icon) {
+      DestroyMinimapIcon(icon);
+    }
+    icon = CreateMinimapIcon(0, 0, r, g, b, path, FOG_OF_WAR_MASKED);
+    ClearTextMessages();
+    log(path);
+  });
+
   setIntervalIndefinite(1.132, () => {
     if (questMarker.size === 0) return;
     for (const [unit, effect] of questMarker) {
