@@ -19,6 +19,7 @@ import {
 import {
   Effect,
   Rectangle,
+  Timer,
   Unit,
 } from 'w3ts';
 
@@ -45,6 +46,10 @@ export default class Frostmourne {
 
   static soulScale = new Map<Unit, number>();
 
+  static timer: Timer;
+
+  static isTimerPaused = false;
+
   static register(abilityId: number) {
     Frostmourne.Data.ABILITY_IDS.push(abilityId);
 
@@ -66,8 +71,11 @@ export default class Frostmourne {
     const worldBounds = Rectangle.getWorldBounds();
 
     const interval = 0.03;
-    setIntervalIndefinite(interval, () => {
-      if (this.soulTarget.size === 0) return;
+    this.timer = setIntervalIndefinite(interval, () => {
+      if (this.soulTarget.size === 0) {
+        this.timer.pause();
+        this.isTimerPaused = true;
+      }
 
       const distancePerStep = Frostmourne.Data.getSoulReturnSpeed() * interval;
 
@@ -116,12 +124,15 @@ export default class Frostmourne {
 
       this.soulTarget.set(soul, killer);
       this.soulEffect.set(soul, effect);
-
       const estimatedReturnTime = DistanceBetweenLocs(victim, killer) / Frostmourne.Data.getSoulReturnSpeed();
       const finalHeight = Frostmourne.Data.getSoulEffectFinalHeight();
       const speed = finalHeight / estimatedReturnTime;
       soul.setflyHeight(finalHeight, speed);
       k0('fstm2');
+      if (this.isTimerPaused) {
+        this.isTimerPaused = false;
+        this.timer.resume();
+      }
     });
   }
 }

@@ -32,8 +32,10 @@ const commandHelpData: Record<CommandCategory, {
   },
 };
 
-export function onChatCommand(text: string, exactMatch: boolean, callback: (text: string) => unknown, catetegory: CommandCategory, description: string): Trigger {
-  commandHelpData[catetegory].map.set(text, `${exactMatch ? '(exact)' : '(substring)'} ${description}`);
+export function onChatCommand(text: string, exactMatch: boolean, callback: (text: string) => unknown, catetegory?: CommandCategory, description?: string): Trigger {
+  if (catetegory && description) {
+    commandHelpData[catetegory].map.set(text, `${exactMatch ? '(exact)' : '(substring)'} ${description}`);
+  }
   return buildTrigger((t) => {
     t.registerPlayerChatEvent(MapPlayer.fromLocal(), exactMatch ? text : text.split(' ')[0], exactMatch);
     t.addAction(() => callback(GetEventPlayerChatString()));

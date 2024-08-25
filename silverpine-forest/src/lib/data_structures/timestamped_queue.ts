@@ -1,4 +1,3 @@
-import { log } from 'lib/log';
 import { getTimeS, setIntervalIndefinite } from 'lib/trigger';
 import { Timer } from 'w3ts';
 
@@ -10,7 +9,7 @@ interface Props<T> {
 }
 
 export class TimestampedQueue<T> {
-  private debugName: string
+  private debugName: string;
 
   private queue: Array<{ timestamp: number, value: T }> = [];
 
@@ -26,7 +25,9 @@ export class TimestampedQueue<T> {
 
   private destroyed = false;
 
-  constructor({ debugName = "", itemExpireS, capacity, cleanUp }: Props<T>) {
+  constructor({
+    debugName = '', itemExpireS, capacity, cleanUp,
+  }: Props<T>) {
     this.debugName = debugName;
     this.itemExpireS = itemExpireS;
     this.capacity = capacity;

@@ -1621,3 +1621,9 @@ STRING 287
 (Villager)
 }
 
+STRING 288
+// Destructibles: B001 (Townhall of Ambermill), Name (Name)
+{
+Townhall of Ambermill
+}
+

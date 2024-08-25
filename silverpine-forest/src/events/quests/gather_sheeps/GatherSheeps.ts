@@ -1,19 +1,31 @@
 /* eslint-disable max-len */
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { disableInteractSound, enableInteractSound, UnitInteraction } from 'events/unit_interaction';
 import { mainPlayer } from 'lib/constants';
-import { AngleBetweenLocs, DistanceBetweenLocs, PolarProjection } from 'lib/location';
 import {
-  completeQuest, createDialogSound, createMinimapIconUnit, createQuest,
+  AngleBetweenLocs, centerLocRect, DistanceBetweenLocs, isLocInRect, PolarProjection,
+  randomLocRect,
+} from 'lib/location';
+import {
+  createDialogSound, createMinimapIconUnit,
   disableQuestMarker,
   enableQuestMarker,
-} from 'lib/quest';
+  QuestLog,
+} from 'lib/quest_helpers';
 import { MODEL_SleepTarget } from 'lib/resources/war3-models';
+import { UNIT_Sheep } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
-import { getUnitsInRect, isUnitIdle } from 'lib/unit';
-import { waitUntil } from 'lib/utils';
-import { MapPlayer, sleep, Unit } from 'w3ts';
+import { removeGuardPosition } from 'lib/systems/unit_guard_position';
+import {
+  disableInteractSound, enableInteractSound, setAttention,
+} from 'lib/systems/unit_interaction';
+import {
+  enumUnitsWithDelay, getUnitsInRect, isUnitIdle, isUnitType, setUnitFacingWithRate,
+} from 'lib/unit';
+import { pickRandom, waitUntil } from 'lib/utils';
+import { sleep, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
+
+import { BaseQuest, BaseQuestProps } from '../base_quest';
 
 const gatherRadius = 400;
 
@@ -58,62 +70,109 @@ const rewards: Record<number, string> = {
   3: 'tcas', // Tiny Castle
 };
 
+const rewardsXp: Record<number, number> = {
+  1: 600, // Portion of Healing
+  2: 900, // Tome of Experience
+  3: 1200, // Tiny Castle
+};
+
 const introSounds: Record<number, sound> = {};
 const outroSounds: Record<number, sound> = {};
 let goHomeSound: sound;
 
-export class GatherSheeps {
-  static sheeps: Unit[] = [];
+export class GatherSheeps extends BaseQuest {
+  constructor(public globals: BaseQuestProps & {
+    sheepBoy: Unit,
+    grassRects: rect[],
+    homeRect: rect,
+  }) {
+    super(globals);
+    // Timmy: ElevanLabs - Gigi
+    introSounds[1] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-intro-1.mp3', 'Timmy', introDialogues[1]);
+    introSounds[2] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-intro-2.mp3', 'Timmy', introDialogues[2]);
+    introSounds[3] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-intro-3.mp3', 'Timmy', introDialogues[3]);
 
-  static async register() {
-    introSounds[1] = createDialogSound('Sounds\\gather-sheeps-timmy-intro-1.mp3', 'Timmy', introDialogues[1]);
-    introSounds[2] = createDialogSound('Sounds\\gather-sheeps-timmy-intro-2.mp3', 'Timmy', introDialogues[2]);
-    introSounds[3] = createDialogSound('Sounds\\gather-sheeps-timmy-intro-3.mp3', 'Timmy', introDialogues[3]);
+    outroSounds[1] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-outro-1.mp3', 'Timmy', outroDialogues[1]);
+    outroSounds[2] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-outro-2.mp3', 'Timmy', outroDialogues[2]);
+    outroSounds[3] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-outro-3.mp3', 'Timmy', outroDialogues[3]);
 
-    outroSounds[1] = createDialogSound('Sounds\\gather-sheeps-timmy-outro-1.mp3', 'Timmy', outroDialogues[1]);
-    outroSounds[2] = createDialogSound('Sounds\\gather-sheeps-timmy-outro-2.mp3', 'Timmy', outroDialogues[2]);
-    outroSounds[3] = createDialogSound('Sounds\\gather-sheeps-timmy-outro-3.mp3', 'Timmy', outroDialogues[3]);
-
-    goHomeSound = createDialogSound('Sounds\\gather-sheeps-timmy-go-home.mp3', 'Timmy', goHomeDialogue);
-
-    this.sheeps = getUnitsInRect(gg_rct_Sheeps);
-    const sheepBoy = Unit.fromHandle(gg_unit_nvk2_0064);
-
-    onChatCommand('-cheat sheep', true, () => {
-      this.sheeps.forEach((u) => { u.owner = mainPlayer; });
-    }, 'GameControl', "Cheat quest 'Gathering Sheeps'");
-
-    const maxLevel = 3;
-    for (let level = 1; level <= maxLevel; level++) {
-      disableInteractSound(sheepBoy);
-      sheepBoy.setAnimation('death');
-      const sleepEffect = AddSpecialEffectTarget(MODEL_SleepTarget, sheepBoy.handle, 'overhead');
-      await sleep(1);
-
-      const { unit: traveler } = await UnitInteraction.waitUntilQuestTalk(sheepBoy);
-      ResetUnitAnimation(sheepBoy.handle);
-      DestroyEffect(sleepEffect);
-
-      await this.runQuest(sheepBoy, traveler.owner, level);
-      enableInteractSound(sheepBoy);
-
-      if (level < maxLevel) {
-        await sleep(GetRandomInt(45, 90));
-      }
-    }
-
-    // All 3 levels completed
-    await sleep(2);
-    this.goHome(sheepBoy, this.sheeps);
+    goHomeSound = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-go-home.mp3', 'Timmy', goHomeDialogue);
   }
 
-  static async runQuest(sheepBoy: Unit, player: MapPlayer, level: number) {
-    const sheeps = GatherSheeps.sheeps;
-    sheepBoy.shareVision(player, true);
+  async register() {
+    const { sheepBoy, grassRects } = this.globals;
+    let sheeps = grassRects
+      .flatMap((rect) => getUnitsInRect(rect))
+      .filter((u) => isUnitType(u, UNIT_Sheep));
+    sheepBoy.name = 'Timmy';
+    onChatCommand('-cheat gs', true, () => {
+      sheeps.forEach((u) => { u.owner = mainPlayer; });
+    }, 'GameControl', "Grant control of all Timmy's sheeps.");
+
+    await waitUntil(3, () => this.requiredQuestsDone());
+    disableInteractSound(sheepBoy);
+    removeGuardPosition(sheepBoy);
+
+    const maxLevel = 3;
+    for (let level = 1; ; level++) {
+      if (!sheepBoy.isAlive() || !sheeps.some((sheep) => sheep.isAlive())) {
+        break;
+      }
+
+      sheeps = sheeps.filter((u) => u.isAlive());
+
+      // If quest available
+      if (level <= maxLevel) {
+        const sleepEffect = AddSpecialEffectTarget(MODEL_SleepTarget, sheepBoy.handle, 'overhead');
+        // mimic sleep animation
+        let canSleep = false;
+        waitUntil(5, () => {
+          if (!canSleep) {
+            ResetUnitAnimation(sheepBoy.handle);
+            sheepBoy.setAnimation('decay flesh');
+            sheepBoy.setTimeScale(0.1);
+            return false;
+          }
+          return true;
+        });
+
+        const traveler = await this.talkToQuestGiver(sheepBoy);
+        canSleep = true;
+
+        ResetUnitAnimation(sheepBoy.handle);
+        sheepBoy.setTimeScale(1);
+        DestroyEffect(sleepEffect);
+
+        await this.runQuest(sheepBoy, sheeps, traveler, level);
+
+        // Quest done, now go home
+        playSpeech(sheepBoy, goHomeSound, traveler)
+          .then(() => enableInteractSound(sheepBoy));
+        await sleep(1);
+        sheeps = sheeps.filter((u) => u.isAlive());
+        await this.goHome(sheepBoy, sheeps);
+      } else {
+        // Quest is not available, wait until dark then go home
+        await waitUntil(10, () => GetTimeOfDay() >= 17 && GetTimeOfDay() < 6);
+        await this.goHome(sheepBoy, sheeps);
+      }
+
+      // sleep awhile then leave home in the morning
+      await sleep(GetRandomReal(5, 10));
+      // await sleep(GetRandomReal(60, 90));
+      // await waitUntil(10, () => GetTimeOfDay() >= 6 && GetTimeOfDay() <= 13);
+      sheeps = sheeps.filter((u) => u.isAlive());
+
+      await this.leaveHome(sheepBoy, sheeps);
+    }
+  }
+
+  async runQuest(sheepBoy: Unit, sheeps: Unit[], traveler: Unit, level: number) {
+    sheepBoy.shareVision(traveler.owner, true);
 
     // Sheep initial scattering
     for (const sheep of sheeps) {
-      sheep.shareVision(player, true);
+      sheep.shareVision(traveler.owner, true);
       const loc = PolarProjection(
         sheep,
         Math.max(GetRandomReal(gatherRadius + 100, scatterRadiuses[level]), DistanceBetweenLocs(sheep, sheepBoy)),
@@ -123,9 +182,22 @@ export class GatherSheeps {
       sheep.moveSpeed = 50 + 50 * level;
     }
 
+    // sheep boy looks around at scattering sheeps
+    enumUnitsWithDelay(sheeps, (sheep, i) => {
+      const randomSheep = pickRandom(sheeps.filter((s) => s.isAlive()));
+      if (randomSheep) {
+        const dest = PolarProjection(sheepBoy, GetRandomReal(0, 25), AngleBetweenLocs(sheepBoy, randomSheep));
+        sheepBoy.issueOrderAt(OrderId.Move, dest.x, dest.y);
+      }
+      if (i === sheeps.length - 1) {
+        setAttention(sheepBoy, traveler);
+      }
+    }, 4.2 / sheeps.length);
+
     await playSpeech(sheepBoy, introSounds[level]);
 
-    const quest = createQuest({
+    const minimapIcon = createMinimapIconUnit(sheepBoy, 'neutralActive');
+    const questLog = await QuestLog.create({
       name: questNames[level],
       description: questDescriptions[level],
       icon: questIcon,
@@ -134,10 +206,8 @@ export class GatherSheeps {
       ],
     });
 
-    const minimapIcon = createMinimapIconUnit(sheepBoy, 'neutralActive');
-
     // wait until all sheeps gathered
-    await waitUntil(1.43, () => {
+    await waitUntil(0.5, () => {
       let outCnt = 0;
       for (const sheep of sheeps) {
         if (sheep.isAlive() && DistanceBetweenLocs(sheep, sheepBoy) > (gatherRadius)) {
@@ -153,37 +223,36 @@ export class GatherSheeps {
     // quest completed
     for (const sheep of sheeps) {
       sheep.moveSpeed = 100;
+      sheep.shareVision(traveler.owner, false);
     }
-    completeQuest(quest);
     DestroyMinimapIcon(minimapIcon);
     await playSpeech(sheepBoy, outroSounds[level]);
 
-    const itemLoc = PolarProjection(sheepBoy, 150, sheepBoy.facing);
-    CreateItem(FourCC(rewards[level]), itemLoc.x, itemLoc.y);
+    const itemLoc = PolarProjection(sheepBoy, 100, sheepBoy.facing);
+    const item = CreateItem(FourCC(rewards[level]), itemLoc.x, itemLoc.y);
+    traveler.addExperience(rewardsXp[level], true);
+    await questLog.completeWithRewards([
+      GetItemName(item),
+      `${rewardsXp[level]} experience`,
+    ]);
   }
 
-  static async goHome(sheepBoy: Unit, sheeps: Unit[]) {
-    sheepBoy.shareVision(mainPlayer, true);
+  async goHome(sheepBoy: Unit, sheeps: Unit[]) {
+    const homeRect = this.globals.homeRect;
+    const homeLoc = centerLocRect(homeRect);
 
-    playSpeech(sheepBoy, goHomeSound);
-    const homeLoc = { x: GetRectCenterX(gg_rct_Sheep_farm_entrance), y: GetRectCenterY(gg_rct_Sheep_farm_entrance) };
-
-    sheepBoy.moveSpeed = 200;
-    for (const sheep of sheeps) {
-      sheep.moveSpeed = 100;
-    }
+    this.updateMovespeed(sheepBoy, sheeps);
 
     await waitUntil(0.5, () => {
       let notHomeSheeps = 0;
       // The sheeps go home if they are near sheep boy, else stop
       for (const sheep of sheeps) {
         if (!sheep.isAlive()) continue;
-        const distance = DistanceBetweenLocs(sheep, homeLoc);
-        if (distance > 50) {
+        if (!isLocInRect(sheep, homeRect)) {
           notHomeSheeps++;
-          if (DistanceBetweenLocs(sheepBoy, sheep) < 300 && (isUnitIdle(sheep) || GetRandomInt(1, 4) === 1)) {
+          if (DistanceBetweenLocs(sheepBoy, sheep) < 300 && (isUnitIdle(sheep) || GetRandomInt(1, 8) === 1)) {
             sheep.issueOrderAt(OrderId.Move, homeLoc.x, homeLoc.y);
-            sheep.moveSpeed = sheep.defaultMoveSpeed * 1.5;
+            sheep.moveSpeed = sheep.defaultMoveSpeed * 1.25;
           } else if (GetRandomInt(0, 8) === 0) {
             sheep.issueImmediateOrder(OrderId.Stop);
             sheep.moveSpeed = sheep.defaultMoveSpeed;
@@ -191,13 +260,15 @@ export class GatherSheeps {
         } else {
           // enter house
           sheep.show = false;
+          sheep.setPathing(false);
+          sheep.setPosition(homeLoc.x, homeLoc.y);
         }
       }
 
       // Sheep boy tries to chase the furthest sheep back to home
-      const sheepBoyDistance = DistanceBetweenLocs(sheepBoy, homeLoc);
-      if (notHomeSheeps === 0 && sheepBoyDistance < 50) {
+      if (notHomeSheeps === 0 && isLocInRect(sheepBoy, homeRect)) {
         sheepBoy.show = false;
+        sheepBoy.setPosition(homeLoc.x, homeLoc.y);
         return true;
       }
       if (!sheepBoy.isAlive()) {
@@ -205,14 +276,93 @@ export class GatherSheeps {
       }
 
       const furthestSheep = sheeps.reduce(
-        (best, current) => (best && DistanceBetweenLocs(best, homeLoc) > DistanceBetweenLocs(current, homeLoc) ? best : current),
+        (best, current) => (best && DistanceBetweenLocs(best, homeLoc) > DistanceBetweenLocs(current, homeLoc) || !current.isAlive()
+          ? best
+          : current),
         null,
       );
       const dest = notHomeSheeps > 0 ? PolarProjection(furthestSheep, 50, AngleBetweenLocs(homeLoc, furthestSheep)) : homeLoc;
       sheepBoy.issueOrderAt(OrderId.Move, dest.x, dest.y);
       return false;
     });
+  }
 
-    sheepBoy.shareVision(mainPlayer, false);
+  async leaveHome(sheepBoy: Unit, sheeps: Unit[]) {
+    if (!sheepBoy.isAlive()) return;
+
+    const grassRect = pickRandom(this.globals.grassRects);
+    const grassCenter = centerLocRect(grassRect);
+    const homeLoc = centerLocRect(this.globals.homeRect);
+
+    if (sheeps.length < 10) {
+      sheeps.push(Unit.create(sheepBoy.owner, FourCC(UNIT_Sheep.code), homeLoc.x, homeLoc.y));
+    }
+    this.updateMovespeed(sheepBoy, sheeps);
+
+    // Everyone gathers initally at front yard
+    const frontYard = PolarProjection(homeLoc, 500, AngleBetweenLocs(homeLoc, centerLocRect(grassRect)));
+    for (const unit of [...sheeps, sheepBoy]) {
+      unit.show = true;
+      if (!unit.isAlive()) continue;
+      const from = homeLoc;
+      const dest = PolarProjection(frontYard, GetRandomReal(0, 300), GetRandomDirectionDeg());
+      unit.setPosition(from.x, from.y);
+      unit.issueOrderAt(OrderId.Move, dest.x, dest.y);
+      await sleep(0.75);
+    }
+
+    // Sheep boy chases the sheeps to grass
+    await waitUntil(0.25, () => {
+      let notAtGrassSheeps = 0;
+      // sheep go to grass if near sheep boy, else stop
+      for (const sheep of sheeps) {
+        if (!sheep.isAlive()) continue;
+        if (!isLocInRect(sheep, grassRect)) {
+          notAtGrassSheeps++;
+          if (DistanceBetweenLocs(sheepBoy, sheep) < 300 && (isUnitIdle(sheep) || GetRandomInt(1, 16) === 1)) {
+            const dest = randomLocRect(grassRect);
+            sheep.issueOrderAt(OrderId.Move, dest.x, dest.y);
+            sheep.moveSpeed = sheep.defaultMoveSpeed * 1.25;
+          } else if (GetRandomInt(0, 8) === 0) {
+            sheep.issueImmediateOrder(OrderId.Stop);
+            sheep.moveSpeed = sheep.defaultMoveSpeed;
+          }
+        } else {
+          sheep.moveSpeed = sheep.defaultMoveSpeed;
+        }
+      }
+
+      // Sheep boy tries to chase the furthest sheep to grass
+      if (notAtGrassSheeps === 0 && isLocInRect(sheepBoy, grassRect)) {
+        return true;
+      }
+      if (!sheepBoy.isAlive()) {
+        return true;
+      }
+
+      // Get furthest alive sheep from grass
+      const furthestSheep = sheeps.reduce(
+        (best, current) => (
+          best && DistanceBetweenLocs(best, grassCenter) > DistanceBetweenLocs(current, grassCenter)
+            || !current.isAlive()
+            ? best
+            : current),
+        null,
+      );
+
+      // sheep boy chase the furthest sheep to grass, or go to grass if all are there
+      const dest = notAtGrassSheeps > 0 ? PolarProjection(furthestSheep, 50, AngleBetweenLocs(grassCenter, furthestSheep)) : randomLocRect(grassRect);
+      sheepBoy.issueOrderAt(OrderId.Move, dest.x, dest.y);
+      return false;
+    });
+
+    setUnitFacingWithRate(sheepBoy, AngleBetweenLocs(sheepBoy, grassCenter));
+  }
+
+  updateMovespeed(sheepBoy: Unit, sheeps: Unit[]) {
+    sheepBoy.moveSpeed = Math.max(200, 20 * sheeps.length);
+    for (const sheep of sheeps) {
+      sheep.moveSpeed = Math.max(100, 10 * sheeps.length);
+    }
   }
 }

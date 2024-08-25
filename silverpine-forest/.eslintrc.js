@@ -5,7 +5,8 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:import/typescript'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -63,6 +64,7 @@ module.exports = {
     'no-restricted-globals': 'off',
     'import/no-unresolved': 'off',
     'no-unused-vars': 'off',
+    'no-lonely-if': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     camelcase: 'off',
     'no-param-reassign': [
@@ -72,6 +74,8 @@ module.exports = {
       }
     ],
     'no-mixed-operators': 'off',
+    'no-empty-function': 'off',
+    'no-useless-constructor': 'off',
     'no-use-before-define': 'off',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [

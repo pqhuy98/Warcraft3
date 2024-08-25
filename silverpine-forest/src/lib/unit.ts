@@ -10,7 +10,9 @@ import { OrderId } from 'w3ts/globals';
 
 import { k0, k1 } from './debug/key_counter';
 import { log } from './log';
+import { angleDifference } from './maths/misc';
 import { ABILITY_RavenFormMedivh } from './resources/war3-abilities';
+import { UNIT_TYPE } from './resources/war3-units';
 import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
 export const BUFF_ID_GENERIC = FourCC('BTLF');
@@ -105,15 +107,27 @@ export function growUnit(u: Unit, targetScale: number, duration: number, initial
 }
 
 const unitTies = new Map<Unit, Unit>();
+let tieUnitTimer: Timer;
+let isTieUnitTimerPaused = true;
 
 export function tieUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
   k0('tu2u');
   unitTies.set(tiedUnit, targetUnit);
   relocateUnitToUnit(tiedUnit, targetUnit);
+  if (isTieUnitTimerPaused) {
+    isTieUnitTimerPaused = false;
+    tieUnitTimer.resume();
+  }
 }
 
 export function daemonTieUnitToUnit() {
-  setIntervalIndefinite(0.03, () => {
+  tieUnitTimer = setIntervalIndefinite(0.03, () => {
+    if (unitTies.size === 0) {
+      tieUnitTimer.pause();
+      isTieUnitTimerPaused = true;
+      return;
+    }
+
     for (const [tied, target] of unitTies) {
       relocateUnitToUnit(tied, target);
     }
@@ -179,6 +193,7 @@ let dummyCreatedCount = 0;
 
 export function daemonDummyMaster() {
   setIntervalIndefinite(5, () => {
+    if (dummyMaster.size === 0) return;
     for (const dummy of dummyMaster.keys()) {
       if (!dummy.isAlive()) {
         dummyMaster.delete(dummy);
@@ -224,9 +239,13 @@ export function isDummy(unit: Unit) {
   return unit.typeId === UNIT_ID_DUMMY;
 }
 
-export function GetUnitsInRangeOfXYMatching(range: number, loc: Loc, filter: () => boolean): Unit[] {
+export function getUnitsInRangeOfXYMatching(range: number, loc: Loc, filter: () => boolean): Unit[] {
   let cond: conditionfunc;
-  const group = GetUnitsInRangeOfLocMatching(range, tempLocation(loc).handle, cond = Condition(() => filter()));
+  const group = GetUnitsInRangeOfLocMatching(
+    range,
+    tempLocation(loc).handle,
+    cond = Condition(() => filter()),
+  );
   DestroyCondition(cond);
   const units = getUnitsFromGroup(group);
   DestroyGroup(group);
@@ -273,4 +292,17 @@ export function getUnitsInRect(rect: rect, filter?: (u: Unit) => boolean) {
 
 export function isUnitIdle(unit: Unit) {
   return unit.currentOrder === OrderId.Stop || unit.currentOrder === 0;
+}
+
+export function setUnitFacingWithRate(unit: Unit, angle: number, rate: number = 180 / 0.75) {
+  const angleDiff = angleDifference(unit.facing, angle);
+  SetUnitFacingTimed(unit.handle, angle, angleDiff / rate);
+}
+
+export function setUnitFacingTimed(unit: Unit, angle: number, duration = 0.75) {
+  SetUnitFacingTimed(unit.handle, angle, duration);
+}
+
+export function isUnitType(u: Unit, unitTypes: UNIT_TYPE) {
+  return u.typeId === FourCC(unitTypes.code);
 }

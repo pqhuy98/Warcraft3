@@ -3,7 +3,7 @@ import { ABILITY_BloodMageSiphonMana } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger } from 'lib/trigger';
 import {
-  createDummy, enumUnitsWithDelay, getUnitScale, GetUnitsInRangeOfXYMatching, isBuilding, isDummy,
+  createDummy, enumUnitsWithDelay, getUnitScale, getUnitsInRangeOfXYMatching, isBuilding, isDummy,
   isWard,
   setUnitScale,
   tieUnitToUnit,
@@ -41,7 +41,7 @@ export class MulticastUnit {
 
         const loc = getUnitXY(target);
 
-        const nearby = GetUnitsInRangeOfXYMatching(radius, loc, () => {
+        const nearby = getUnitsInRangeOfXYMatching(radius, loc, () => {
           const u = Unit.fromFilter();
           return u.isAlive()
             && u !== caster

@@ -12,7 +12,7 @@ import {
 } from 'lib/resources/war3-models';
 import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import {
-  GetUnitsInRangeOfXYMatching, isBuilding,
+  getUnitsInRangeOfXYMatching, isBuilding,
   isWard,
 } from 'lib/unit';
 import { classic } from 'lib/utils';
@@ -162,7 +162,7 @@ export default class Sandquake {
       }
 
       if (idx % 6 === 0) {
-        const nearbyEnemies = GetUnitsInRangeOfXYMatching(
+        const nearbyEnemies = getUnitsInRangeOfXYMatching(
           radius,
           casterLoc,
           () => Sandquake.Data.targetMatching(caster, Unit.fromFilter()) && !this.affectedEnemies.has(Unit.fromFilter()),

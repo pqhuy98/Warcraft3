@@ -1,6 +1,7 @@
 import { getElapsedTime, sleep } from 'w3ts';
 
-export function pickRandom<T>(bag: T[]): T {
+export function pickRandom<T>(bag: T[]): T | undefined {
+  if (bag.length === 0) return undefined;
   return bag[GetRandomInt(0, bag.length - 1)];
 }
 

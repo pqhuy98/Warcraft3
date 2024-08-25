@@ -13,7 +13,7 @@ import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { MiscEvents } from 'events/misc';
 import { QuestRegistry } from 'events/quests/quest-registry';
 import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
-import { UnitInteraction } from 'events/unit_interaction';
+import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
 import {
   ABILITY_ID_BLADE_DANCE,
   ABILITY_ID_CHAIN_LIGHTNING,
@@ -31,7 +31,8 @@ import {
 import {
   daemonTempCleanUp, temp,
 } from 'lib/location';
-import { isComputer } from 'lib/player';
+import { isComputer, setAllianceState2Way } from 'lib/player';
+import { daemonQuestMarker } from 'lib/quest_helpers';
 import {
   ABILITY_ArchMageBlizzard, ABILITY_ArchMageWaterElemental, ABILITY_BladeMasterBladestorm,
   ABILITY_BloodMageFlameStrike,
@@ -47,6 +48,8 @@ import {
   ABILITY_ShadowHunterHealingWave,
   ABILITY_ShadowHunterHex,
 } from 'lib/resources/war3-abilities';
+import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
+import { UnitInteraction } from 'lib/systems/unit_interaction';
 import {
   setTimeout, trackElapsedGameTime,
 } from 'lib/trigger';
@@ -77,6 +80,9 @@ function tsMain() {
   daemonTieUnitToUnit();
   daemonDummyMaster();
   daemonTempCleanUp();
+  daemonQuestMarker();
+  daemonGuardPosition();
+  useReforgedIcons();
 
   // Miscs
   // Weather.changeWeather();
@@ -124,8 +130,7 @@ function tsMain() {
   MulticastNoTarget.register(FourCC(ABILITY_BladeMasterBladestorm.code));
 
   registerChatCommands();
-
-  setTimeout(0.1, () => Camera.setSmoothingFactor(10));
+  Camera.setSmoothingFactor(1);
 }
 
 function configurePlayerSettings() {
@@ -211,35 +216,12 @@ function configurePlayerSettings() {
       const isAlly = (mainPlayerForce === 'light' && lightForce.hasPlayer(player)
         || mainPlayerForce === 'dark' && darkForce.hasPlayer(player)
         || mainPlayerForce === 'observer');
-
-      const p1 = mainPlayer.handle;
-      const p2 = player.handle;
-      SetPlayerAlliance(p1, p2, ALLIANCE_PASSIVE, isAlly);
-      SetPlayerAlliance(p2, p1, ALLIANCE_PASSIVE, isAlly);
-
-      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_REQUEST, isAlly);
-      SetPlayerAlliance(p2, p1, ALLIANCE_HELP_REQUEST, isAlly);
-
-      SetPlayerAlliance(p1, p2, ALLIANCE_HELP_RESPONSE, isAlly);
-      SetPlayerAlliance(p2, p1, ALLIANCE_HELP_RESPONSE, isAlly);
-
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_XP, isAlly);
-      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_XP, isAlly);
-
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_SPELLS, isAlly);
-      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_SPELLS, isAlly);
-
-      SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_VISION, false);
-      SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_VISION, false);
-
-      // SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_VISION, isAlly);
-      // SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_VISION, isAlly);
-
-      // SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_CONTROL, isAlly);
-      // SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_CONTROL, isAlly);
-
-      // SetPlayerAlliance(p1, p2, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
-      // SetPlayerAlliance(p2, p1, ALLIANCE_SHARED_ADVANCED_CONTROL, true);
+      if (isAlly) {
+        // setAllianceState2Way(mainPlayer, player, 'allied share unit');
+        setAllianceState2Way(mainPlayer, player, 'neutral');
+      } else {
+        setAllianceState2Way(mainPlayer, player, 'enemy');
+      }
     }
 
     ClearTextMessages();

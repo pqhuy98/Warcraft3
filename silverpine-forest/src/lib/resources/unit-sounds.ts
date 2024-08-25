@@ -5,7 +5,7 @@ interface SoundGroup {
   Channel: number,
   SoundName: string,
 }
-type SoundType = 'What' | 'Pissed' | 'YesAttack' | 'Yes' | 'Ready' | 'Warcry'
+export type SoundType = 'What' | 'Pissed' | 'YesAttack' | 'Yes' | 'Ready' | 'Warcry'
 
 type UnitSounds = {
   id: string
@@ -6340,6 +6340,547 @@ const unitSounds: UnitSounds = [
     },
   },
   {
+    id: 'Nalc',
+    name: 'alchemist',
+    sounds: {
+      What: [
+        {
+          FileNames: 'HeroAlchemistWhat1.wav,HeroAlchemistWhat2.wav,HeroAlchemistWhat3.wav,HeroAlchemistWhat4.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTWhat',
+        },
+      ],
+      Pissed: [
+        {
+          FileNames: 'HeroAlchemistPissed1.wav,HeroAlchemistPissed2.wav,HeroAlchemistPissed3.wav,HeroAlchemistPissed4.wav,HeroAlchemistPissed5.wav,HeroAlchemistPissed6.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTPissed',
+        },
+      ],
+      YesAttack: [
+        {
+          FileNames: 'HeroAlchemistYesAttack1.wav,HeroAlchemistYesAttack2.wav,HeroAlchemistYesAttack3.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 2,
+          SoundName: 'HEROGoblinALCHEMISTYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'HeroAlchemistYes1.wav,HeroAlchemistYes2.wav,HeroAlchemistYes3.wav,HeroAlchemistYes4.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 3,
+          SoundName: 'HEROGoblinALCHEMISTYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'HeroAlchemistReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTReady',
+        },
+      ],
+      Warcry: [
+        {
+          FileNames: 'HeroAlchemistWarcry1.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTWarcry',
+        },
+      ],
+    },
+  },
+  {
+    id: 'Nalm',
+    name: 'alchemistmorph',
+    sounds: {
+      What: [
+        {
+          FileNames: 'HeroAlchemistWhat1.wav,HeroAlchemistWhat2.wav,HeroAlchemistWhat3.wav,HeroAlchemistWhat4.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTWhat',
+        },
+      ],
+      Pissed: [
+        {
+          FileNames: 'HeroAlchemistPissed1.wav,HeroAlchemistPissed2.wav,HeroAlchemistPissed3.wav,HeroAlchemistPissed4.wav,HeroAlchemistPissed5.wav,HeroAlchemistPissed6.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTPissed',
+        },
+      ],
+      YesAttack: [
+        {
+          FileNames: 'HeroAlchemistYesAttack1.wav,HeroAlchemistYesAttack2.wav,HeroAlchemistYesAttack3.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 2,
+          SoundName: 'HEROGoblinALCHEMISTYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'HeroAlchemistYes1.wav,HeroAlchemistYes2.wav,HeroAlchemistYes3.wav,HeroAlchemistYes4.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 3,
+          SoundName: 'HEROGoblinALCHEMISTYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'HeroAlchemistReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTReady',
+        },
+      ],
+      Warcry: [
+        {
+          FileNames: 'HeroAlchemistWarcry1.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTWarcry',
+        },
+      ],
+    },
+  },
+  {
+    id: 'Nal2',
+    name: 'alchemistmorph2',
+    sounds: {
+      What: [
+        {
+          FileNames: 'HeroAlchemistWhat1.wav,HeroAlchemistWhat2.wav,HeroAlchemistWhat3.wav,HeroAlchemistWhat4.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTWhat',
+        },
+      ],
+      Pissed: [
+        {
+          FileNames: 'HeroAlchemistPissed1.wav,HeroAlchemistPissed2.wav,HeroAlchemistPissed3.wav,HeroAlchemistPissed4.wav,HeroAlchemistPissed5.wav,HeroAlchemistPissed6.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTPissed',
+        },
+      ],
+      YesAttack: [
+        {
+          FileNames: 'HeroAlchemistYesAttack1.wav,HeroAlchemistYesAttack2.wav,HeroAlchemistYesAttack3.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 2,
+          SoundName: 'HEROGoblinALCHEMISTYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'HeroAlchemistYes1.wav,HeroAlchemistYes2.wav,HeroAlchemistYes3.wav,HeroAlchemistYes4.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 3,
+          SoundName: 'HEROGoblinALCHEMISTYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'HeroAlchemistReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTReady',
+        },
+      ],
+      Warcry: [
+        {
+          FileNames: 'HeroAlchemistWarcry1.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTWarcry',
+        },
+      ],
+    },
+  },
+  {
+    id: 'Nal3',
+    name: 'alchemistmorph3',
+    sounds: {
+      What: [
+        {
+          FileNames: 'HeroAlchemistWhat1.wav,HeroAlchemistWhat2.wav,HeroAlchemistWhat3.wav,HeroAlchemistWhat4.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTWhat',
+        },
+      ],
+      Pissed: [
+        {
+          FileNames: 'HeroAlchemistPissed1.wav,HeroAlchemistPissed2.wav,HeroAlchemistPissed3.wav,HeroAlchemistPissed4.wav,HeroAlchemistPissed5.wav,HeroAlchemistPissed6.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTPissed',
+        },
+      ],
+      YesAttack: [
+        {
+          FileNames: 'HeroAlchemistYesAttack1.wav,HeroAlchemistYesAttack2.wav,HeroAlchemistYesAttack3.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 2,
+          SoundName: 'HEROGoblinALCHEMISTYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'HeroAlchemistYes1.wav,HeroAlchemistYes2.wav,HeroAlchemistYes3.wav,HeroAlchemistYes4.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 3,
+          SoundName: 'HEROGoblinALCHEMISTYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'HeroAlchemistReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTReady',
+        },
+      ],
+      Warcry: [
+        {
+          FileNames: 'HeroAlchemistWarcry1.wav',
+          DirectoryBase: 'Units\\Creeps\\HEROGoblinALCHEMIST',
+          Channel: 1,
+          SoundName: 'HEROGoblinALCHEMISTWarcry',
+        },
+      ],
+    },
+  },
+  {
+    id: 'Ntin',
+    name: 'tinker',
+    sounds: {
+      What: [
+        {
+          FileNames: 'HeroTinkerWhat1.wav,HeroTinkerWhat2.wav,HeroTinkerWhat3.wav,HeroTinkerWhat4.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 1,
+          SoundName: 'HeroTinkerWhat',
+        },
+      ],
+      Pissed: [
+        {
+          FileNames: 'HeroTinkerPissed1.wav,HeroTinkerPissed2.wav,HeroTinkerPissed3.wav,HeroTinkerPissed4.wav,HeroTinkerPissed5.wav,HeroTinkerPissed6.wav,HeroTinkerPissed7.wav,HeroTinkerPissed8.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 1,
+          SoundName: 'HeroTinkerPissed',
+        },
+      ],
+      YesAttack: [
+        {
+          FileNames: 'HeroTinkerYesAttack1.wav,HeroTinkerYesAttack2.wav,HeroTinkerYesAttack3.wav,HeroTinkerYesAttack4.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 2,
+          SoundName: 'HeroTinkerYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'HeroTinkerYes1.wav,HeroTinkerYes2.wav,HeroTinkerYes3.wav,HeroTinkerYes4.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 3,
+          SoundName: 'HeroTinkerYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'HeroTinkerReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 1,
+          SoundName: 'HeroTinkerReady',
+        },
+      ],
+      Warcry: [
+        {
+          FileNames: 'HeroTinkerWarcry1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 1,
+          SoundName: 'HeroTinkerWarcry',
+        },
+      ],
+    },
+  },
+  {
+    id: 'Nrob',
+    name: 'robogoblintinker',
+    sounds: {
+      What: [
+        {
+          FileNames: 'HeroTinkerWhat1.wav,HeroTinkerWhat2.wav,HeroTinkerWhat3.wav,HeroTinkerWhat4.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 1,
+          SoundName: 'HeroTinkerWhat',
+        },
+      ],
+      Pissed: [
+        {
+          FileNames: 'HeroTinkerPissed1.wav,HeroTinkerPissed2.wav,HeroTinkerPissed3.wav,HeroTinkerPissed4.wav,HeroTinkerPissed5.wav,HeroTinkerPissed6.wav,HeroTinkerPissed7.wav,HeroTinkerPissed8.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 1,
+          SoundName: 'HeroTinkerPissed',
+        },
+      ],
+      YesAttack: [
+        {
+          FileNames: 'HeroTinkerYesAttack1.wav,HeroTinkerYesAttack2.wav,HeroTinkerYesAttack3.wav,HeroTinkerYesAttack4.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 2,
+          SoundName: 'HeroTinkerYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'HeroTinkerYes1.wav,HeroTinkerYes2.wav,HeroTinkerYes3.wav,HeroTinkerYes4.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 3,
+          SoundName: 'HeroTinkerYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'HeroTinkerReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 1,
+          SoundName: 'HeroTinkerReady',
+        },
+      ],
+      Warcry: [
+        {
+          FileNames: 'HeroTinkerWarcry1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinker',
+          Channel: 1,
+          SoundName: 'HeroTinkerWarcry',
+        },
+      ],
+    },
+  },
+  {
+    id: 'ncgb',
+    name: 'clockwerkgoblin1',
+    sounds: {
+      What: [
+        {
+          FileNames: 'ClockwerkGoblinWhat1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [
+        {
+          FileNames: 'ClockwerkGoblinYesAttack1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'ClockwerkGoblinYes1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'ClockwerkGoblinReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinReady',
+        },
+      ],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'ncg1',
+    name: 'clockwerkgoblin2',
+    sounds: {
+      What: [
+        {
+          FileNames: 'ClockwerkGoblinWhat1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [
+        {
+          FileNames: 'ClockwerkGoblinYesAttack1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'ClockwerkGoblinYes1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'ClockwerkGoblinReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinReady',
+        },
+      ],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'ncg2',
+    name: 'clockwerkgoblin3',
+    sounds: {
+      What: [
+        {
+          FileNames: 'ClockwerkGoblinWhat1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [
+        {
+          FileNames: 'ClockwerkGoblinYesAttack1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'ClockwerkGoblinYes1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'ClockwerkGoblinReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinReady',
+        },
+      ],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'ncg3',
+    name: 'clockwerkgoblin4',
+    sounds: {
+      What: [
+        {
+          FileNames: 'ClockwerkGoblinWhat1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [
+        {
+          FileNames: 'ClockwerkGoblinYesAttack1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'ClockwerkGoblinYes1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'ClockwerkGoblinReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroTinkerRobot',
+          Channel: 1,
+          SoundName: 'ClockwerkGoblinReady',
+        },
+      ],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'nfac',
+    name: 'pocketfactory',
+    sounds: {
+      What: [
+        {
+          FileNames: 'PocketFactoryWhat.wav',
+          DirectoryBase: '\\Units\\Creeps\\HeroTinkerFactory',
+          Channel: 1,
+          SoundName: 'PocketFactoryWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [],
+      Yes: [],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'nfa1',
+    name: 'pocketfactory2',
+    sounds: {
+      What: [
+        {
+          FileNames: 'PocketFactoryWhat.wav',
+          DirectoryBase: '\\Units\\Creeps\\HeroTinkerFactory',
+          Channel: 1,
+          SoundName: 'PocketFactoryWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [],
+      Yes: [],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'nfa2',
+    name: 'pocketfactory3',
+    sounds: {
+      What: [
+        {
+          FileNames: 'PocketFactoryWhat.wav',
+          DirectoryBase: '\\Units\\Creeps\\HeroTinkerFactory',
+          Channel: 1,
+          SoundName: 'PocketFactoryWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [],
+      Yes: [],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+  {
     id: 'Nplh',
     name: 'pitlord',
     sounds: {
@@ -6391,6 +6932,159 @@ const unitSounds: UnitSounds = [
           SoundName: 'HeroPitLordWarcry',
         },
       ],
+    },
+  },
+  {
+    id: 'Nfir',
+    name: 'firelord',
+    sounds: {
+      What: [
+        {
+          FileNames: 'HeroFirelordWhat1.wav,HeroFirelordWhat2.wav,HeroFirelordWhat3.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroFlameLord',
+          Channel: 1,
+          SoundName: 'HeroFireLordWhat',
+        },
+      ],
+      Pissed: [
+        {
+          FileNames: 'HeroFirelordPissed1.wav,HeroFirelordPissed2.wav,HeroFirelordPissed3.wav,HeroFirelordPissed4.wav,HeroFirelordPissed5.wav,HeroFirelordPissed6.wav,HeroFirelordPissed7.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroFlameLord',
+          Channel: 1,
+          SoundName: 'HeroFireLordPissed',
+        },
+      ],
+      YesAttack: [
+        {
+          FileNames: 'HeroFirelordYesAttack1.wav,HeroFirelordYesAttack2.wav,HeroFirelordYesAttack3.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroFlameLord',
+          Channel: 2,
+          SoundName: 'HeroFireLordYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'HeroFirelordYes1.wav,HeroFirelordYes2.wav,HeroFirelordYes3.wav,HeroFirelordYes4.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroFlameLord',
+          Channel: 3,
+          SoundName: 'HeroFireLordYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'HeroFirelordReady1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroFlameLord',
+          Channel: 1,
+          SoundName: 'HeroFireLordReady',
+        },
+      ],
+      Warcry: [
+        {
+          FileNames: 'HeroFirelordWarcry1.wav',
+          DirectoryBase: 'Units\\Creeps\\HeroFlameLord',
+          Channel: 1,
+          SoundName: 'HeroFireLordWarcry',
+        },
+      ],
+    },
+  },
+  {
+    id: 'nlv1',
+    name: 'lavaspawn',
+    sounds: {
+      What: [
+        {
+          FileNames: 'LavaSpawnWhat1.wav,LavaSpawnWhat2.wav',
+          DirectoryBase: 'Units\\Creeps\\LavaSpawn',
+          Channel: 1,
+          SoundName: 'LavaSpawnWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [
+        {
+          FileNames: 'LavaSpawnYesAttack1.wav,LavaSpawnYesAttack2.wav',
+          DirectoryBase: 'Units\\Creeps\\LavaSpawn',
+          Channel: 2,
+          SoundName: 'LavaSpawnYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'LavaSpawnYes1.wav,LavaSpawnYes2.wav',
+          DirectoryBase: 'Units\\Creeps\\LavaSpawn',
+          Channel: 3,
+          SoundName: 'LavaSpawnYes',
+        },
+      ],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'nlv2',
+    name: 'lavaspawn2',
+    sounds: {
+      What: [
+        {
+          FileNames: 'LavaSpawnWhat1.wav,LavaSpawnWhat2.wav',
+          DirectoryBase: 'Units\\Creeps\\LavaSpawn',
+          Channel: 1,
+          SoundName: 'LavaSpawnWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [
+        {
+          FileNames: 'LavaSpawnYesAttack1.wav,LavaSpawnYesAttack2.wav',
+          DirectoryBase: 'Units\\Creeps\\LavaSpawn',
+          Channel: 2,
+          SoundName: 'LavaSpawnYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'LavaSpawnYes1.wav,LavaSpawnYes2.wav',
+          DirectoryBase: 'Units\\Creeps\\LavaSpawn',
+          Channel: 3,
+          SoundName: 'LavaSpawnYes',
+        },
+      ],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'nlv3',
+    name: 'lavaspawn3',
+    sounds: {
+      What: [
+        {
+          FileNames: 'LavaSpawnWhat1.wav,LavaSpawnWhat2.wav',
+          DirectoryBase: 'Units\\Creeps\\LavaSpawn',
+          Channel: 1,
+          SoundName: 'LavaSpawnWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [
+        {
+          FileNames: 'LavaSpawnYesAttack1.wav,LavaSpawnYesAttack2.wav',
+          DirectoryBase: 'Units\\Creeps\\LavaSpawn',
+          Channel: 2,
+          SoundName: 'LavaSpawnYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'LavaSpawnYes1.wav,LavaSpawnYes2.wav',
+          DirectoryBase: 'Units\\Creeps\\LavaSpawn',
+          Channel: 3,
+          SoundName: 'LavaSpawnYes',
+        },
+      ],
+      Ready: [],
+      Warcry: [],
     },
   },
   {
@@ -7950,6 +8644,39 @@ const unitSounds: UnitSounds = [
   {
     id: 'nbal',
     name: 'doomguard',
+    sounds: {
+      What: [
+        {
+          FileNames: 'WendigoWhat2.wav',
+          DirectoryBase: 'Units\\Creeps\\Wendigo\\',
+          Channel: 1,
+          SoundName: 'DoomGuardWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [
+        {
+          FileNames: 'WendigoYesAttack2.wav',
+          DirectoryBase: 'Units\\Creeps\\Wendigo\\',
+          Channel: 2,
+          SoundName: 'DoomGuardYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'WendigoYesAttack2.wav',
+          DirectoryBase: 'Units\\Creeps\\Wendigo\\',
+          Channel: 3,
+          SoundName: 'DoomGuardYes',
+        },
+      ],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'nba2',
+    name: 'doomguardsummoned',
     sounds: {
       What: [
         {
@@ -17140,6 +17867,86 @@ const unitSounds: UnitSounds = [
     },
   },
   {
+    id: 'nsca',
+    name: 'skeletalarchersummoned',
+    sounds: {
+      What: [
+        {
+          FileNames: 'SkeletonWhat1.wav,SkeletonWhat2.wav,SkeletonWhat3.wav',
+          DirectoryBase: 'Units\\Undead\\Skeleton\\',
+          Channel: 1,
+          SoundName: 'SkeletonArcherWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [
+        {
+          FileNames: 'SkeletonYesAttack1.wav,SkeletonYesAttack2.wav,SkeletonYesAttack3.wav',
+          DirectoryBase: 'Units\\Undead\\Skeleton\\',
+          Channel: 2,
+          SoundName: 'SkeletonArcherYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'SkeletonYes1.wav,SkeletonYes2.wav,SkeletonYes3.wav',
+          DirectoryBase: 'Units\\Undead\\Skeleton\\',
+          Channel: 3,
+          SoundName: 'SkeletonArcherYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'SkeletonWhat1.wav',
+          DirectoryBase: 'Units\\Undead\\Skeleton\\',
+          Channel: 4,
+          SoundName: 'SkeletonArcherReady',
+        },
+      ],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'nsce',
+    name: 'skeletonsummoned',
+    sounds: {
+      What: [
+        {
+          FileNames: 'SkeletonWhat1.wav,SkeletonWhat2.wav,SkeletonWhat3.wav',
+          DirectoryBase: 'Units\\Undead\\Skeleton\\',
+          Channel: 1,
+          SoundName: 'SkeletonWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [
+        {
+          FileNames: 'SkeletonYesAttack1.wav,SkeletonYesAttack2.wav,SkeletonYesAttack3.wav',
+          DirectoryBase: 'Units\\Undead\\Skeleton\\',
+          Channel: 2,
+          SoundName: 'SkeletonYesAttack',
+        },
+      ],
+      Yes: [
+        {
+          FileNames: 'SkeletonYes1.wav,SkeletonYes2.wav,SkeletonYes3.wav',
+          DirectoryBase: 'Units\\Undead\\Skeleton\\',
+          Channel: 3,
+          SoundName: 'SkeletonYes',
+        },
+      ],
+      Ready: [
+        {
+          FileNames: 'SkeletonWhat1.wav',
+          DirectoryBase: 'Units\\Undead\\Skeleton\\',
+          Channel: 4,
+          SoundName: 'SkeletonReady',
+        },
+      ],
+      Warcry: [],
+    },
+  },
+  {
     id: 'nskf',
     name: 'burningarcher',
     sounds: {
@@ -20543,6 +21350,82 @@ const unitSounds: UnitSounds = [
     },
   },
   {
+    id: 'nfro',
+    name: 'frog',
+    sounds: {
+      What: [
+        {
+          FileNames: 'FrogWhat1.wav',
+          DirectoryBase: 'Units\\Critters\\Frog\\',
+          Channel: 1,
+          SoundName: 'FrogWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [],
+      Yes: [],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'nech',
+    name: 'chicken',
+    sounds: {
+      What: [
+        {
+          FileNames: 'ChickenWhat1.wav',
+          DirectoryBase: 'Units\\Critters\\EasterChicken',
+          Channel: 1,
+          SoundName: 'ChickenWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [],
+      Yes: [],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'necr',
+    name: 'rabbit',
+    sounds: {
+      What: [
+        {
+          FileNames: 'RabbitWhat1.wav',
+          DirectoryBase: 'Units\\Critters\\EasterRabbit',
+          Channel: 1,
+          SoundName: 'RabbitWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [],
+      Yes: [],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+  {
+    id: 'nrac',
+    name: 'raccoon',
+    sounds: {
+      What: [
+        {
+          FileNames: 'RacoonWhat1.wav',
+          DirectoryBase: 'Units\\Critters\\Raccoon',
+          Channel: 1,
+          SoundName: 'RaccoonWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [],
+      Yes: [],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+  {
     id: 'ncrb',
     name: 'crab',
     sounds: {
@@ -20653,7 +21536,14 @@ const unitSounds: UnitSounds = [
     id: 'now2',
     name: 'owl2',
     sounds: {
-      What: [],
+      What: [
+        {
+          FileNames: 'OwlWhat1.wav,OwlWhat2.wav',
+          DirectoryBase: 'Units\\Critters\\SnowOwl\\',
+          Channel: 1,
+          SoundName: 'SnowOwlWhat',
+        },
+      ],
       Pissed: [],
       YesAttack: [],
       Yes: [],
@@ -20665,7 +21555,14 @@ const unitSounds: UnitSounds = [
     id: 'now3',
     name: 'owl3',
     sounds: {
-      What: [],
+      What: [
+        {
+          FileNames: 'OwlWhat1.wav,OwlWhat2.wav',
+          DirectoryBase: 'Units\\Critters\\SnowOwl\\',
+          Channel: 1,
+          SoundName: 'SnowOwlWhat',
+        },
+      ],
       Pissed: [],
       YesAttack: [],
       Yes: [],
@@ -20677,7 +21574,14 @@ const unitSounds: UnitSounds = [
     id: 'nowl',
     name: 'owl',
     sounds: {
-      What: [],
+      What: [
+        {
+          FileNames: 'OwlWhat1.wav,OwlWhat2.wav',
+          DirectoryBase: 'Units\\Critters\\SnowOwl\\',
+          Channel: 1,
+          SoundName: 'SnowOwlWhat',
+        },
+      ],
       Pissed: [],
       YesAttack: [],
       Yes: [],
@@ -29697,15 +30601,23 @@ const unitSounds: UnitSounds = [
 ];
 
 const unitSoundsMap = new Map(unitSounds.map((s) => [FourCC(s.id), s]));
+const unitSoundCache = new Map<string, string[]>();
 
 export function getUnitSounds(unitTypeId: number, ...soundTypes: SoundType[]): string[] {
-  const sounds: SoundGroup[] = [];
-  const ss = unitSoundsMap.get(unitTypeId);
-  if (ss) {
-    for (const st of soundTypes) {
-      sounds.push(...ss.sounds[st]);
+  const key = `${unitTypeId},${soundTypes.join(',')}`;
+  if (!unitSoundCache.has(key)) {
+    if (!unitSoundsMap.has(unitTypeId)) return [];
+    const ss = unitSoundsMap.get(unitTypeId);
+    const sounds: SoundGroup[] = [];
+    if (ss) {
+      for (const st of soundTypes) {
+        sounds.push(...ss.sounds[st]);
+      }
     }
-  }
 
-  return sounds.flatMap((s) => s.FileNames.split(',').flatMap((path) => s.DirectoryBase + path));
+    const result = sounds.flatMap((s) => s.FileNames.split(',').flatMap((path) => s.DirectoryBase + path));
+    unitSoundCache.set(key, result);
+    return result;
+  }
+  return unitSoundCache.get(key);
 }

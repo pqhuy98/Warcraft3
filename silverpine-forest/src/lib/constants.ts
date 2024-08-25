@@ -36,6 +36,10 @@ export const MODEL_Chat_Bubble = 'Models\\ChatBubble\\ChatBubble.mdx';
 
 export const UNIT_TirionFordring = { code: 'H004' };
 
+export const playerOrcishHorde = MapPlayer.fromIndex(0);
+export const playerNightElfSentinels = MapPlayer.fromIndex(2);
+export const playerHumanAlliance = MapPlayer.fromIndex(1);
+export const playerForsaken = MapPlayer.fromIndex(3);
 export const mainPlayer = MapPlayer.fromIndex(4);
 
 export const globalUnits: Record<string, Unit> = {

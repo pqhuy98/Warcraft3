@@ -9,7 +9,7 @@ import { MODEL_BoltImpact, MODEL_ThunderclapCaster } from 'lib/resources/war3-mo
 import { ORDER_chainlightning, ORDER_thunderclap } from 'lib/resources/war3-orders';
 import { buildTrigger, setIntervalForDuration } from 'lib/trigger';
 import {
-  createDummy, enumUnitsWithDelay, getUnitScale, GetUnitsInRangeOfXYMatching,
+  createDummy, enumUnitsWithDelay, getUnitScale, getUnitsInRangeOfXYMatching,
   isBuilding, isWard, setUnitScale, tieUnitToUnit,
 } from 'lib/unit';
 import { classic } from 'lib/utils';
@@ -138,7 +138,7 @@ export class ThunderBlink {
     });
 
     // Chain lightning around
-    const nearby = GetUnitsInRangeOfXYMatching(
+    const nearby = getUnitsInRangeOfXYMatching(
       radius,
       targetLoc,
       () => ThunderBlink.Data.targetMatching(caster, Unit.fromFilter()),

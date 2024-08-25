@@ -10,7 +10,7 @@ import {
   buildTrigger, setIntervalForDuration, setTimeout,
 } from 'lib/trigger';
 import {
-  createDummy, GetUnitsInRangeOfXYMatching,
+  createDummy, getUnitsInRangeOfXYMatching,
   isBuilding,
   isWard,
   safeRemoveDummy,
@@ -86,7 +86,7 @@ export default class WrathOfTheLichKing {
 
         setTimeout(0.2, () => {
           if (caster.isAlive() && Frostmourne.Data.ABILITY_IDS.some((id) => caster.getAbilityLevel(id) > 0)) {
-            const deadUnits = GetUnitsInRangeOfXYMatching(
+            const deadUnits = getUnitsInRangeOfXYMatching(
               radius,
               caster,
               () => Frostmourne.Data.targetMatching(caster, Unit.fromFilter()),

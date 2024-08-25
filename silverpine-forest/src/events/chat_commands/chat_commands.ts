@@ -52,5 +52,18 @@ export function registerChatCommands() {
       });
   }, 'GameControl', 'Level up selected units.');
 
+  onChatCommand('-tp', true, () => {
+    const x = GetCameraEyePositionX();
+    const y = GetCameraEyePositionY() + 800;
+
+    temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer())))
+      .for(() => {
+        if (Unit.fromEnum().isHero()) {
+          Unit.fromEnum().x = x;
+          Unit.fromEnum().y = y;
+        }
+      });
+  }, 'GameControl', 'Teleport all selected units to center of camera.');
+
   createCommandHelpQuests();
 }

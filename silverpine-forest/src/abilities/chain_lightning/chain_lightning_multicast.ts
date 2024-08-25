@@ -1,7 +1,7 @@
 import { getUnitXY } from 'lib/location';
 import { buildTrigger, setIntervalIndefinite } from 'lib/trigger';
 import {
-  createDummy, enumUnitsWithDelay, GetUnitsInRangeOfXYMatching,
+  createDummy, enumUnitsWithDelay, getUnitsInRangeOfXYMatching,
   isBuilding,
   tieUnitToUnit,
 } from 'lib/unit';
@@ -55,7 +55,7 @@ export class ChainLightningMulticast {
     const targetLoc = getUnitXY(target);
     const order = caster.currentOrder;
 
-    const nearby = GetUnitsInRangeOfXYMatching(
+    const nearby = getUnitsInRangeOfXYMatching(
       ChainLightningMulticast.Data.getEffectRadius(),
       targetLoc,
       () => ChainLightningMulticast.Data.targetMatching(caster, target, Unit.fromFilter()),

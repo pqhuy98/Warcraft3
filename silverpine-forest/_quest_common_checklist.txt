@@ -1,0 +1,32 @@
+These quest methods should have: 
+
+constructor()
+// super(globals.dependencies);
+// dialogue sounds
+
+register()
+  await waitUntil(3, () => this.requiredQuestsDone());
+
+    
+  knight.name = 'Knight Gareth';
+  disableInteractSound(... key allies)
+
+  const { unit: traveler } = await UnitInteraction.waitUntilQuestTalk(peter);
+  this.started = true;
+
+  keyAlly.shareVision(traveler.owner, true);
+
+  const quest = await Quest.create({
+    name: questName,
+    description: questDescription,
+    icon: questIcon,
+    items: [questItems[0]],
+  });
+
+  // when complete, consider:
+  keyAlly.shareVision(traveler.owner, false);
+
+
+-- Checklist:
+// use setGuardPosition to order units to move/attack
+// implement onForceComplete

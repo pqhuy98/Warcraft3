@@ -31,6 +31,21 @@ export function templocation(loc: location) {
   return temp(Point.fromHandle(loc)).handle;
 }
 
+export function centerLocRect(rect: rect) {
+  return { x: GetRectCenterX(rect), y: GetRectCenterY(rect) };
+}
+
+export function randomLocRect(rect: rect) {
+  return {
+    x: GetRandomReal(GetRectMinX(rect), GetRectMaxX(rect)),
+    y: GetRandomReal(GetRectMinY(rect), GetRectMaxY(rect)),
+  };
+}
+
+export function currentLoc(loc: Loc) {
+  return { x: loc.x, y: loc.y };
+}
+
 export function daemonTempCleanUp() {
   onChatCommand('-temp', true, () => {
     log('Temp destroyable:', temps.length + nextTemps.length);
@@ -88,6 +103,6 @@ export function locY(loc: location): number {
 
 export function isLocInRect(loc: Loc, rect: rect) {
   const Rect = Rectangle.fromHandle(rect);
-  return Rect.minX <= loc.x && loc.x < Rect.maxX
-    && Rect.minY <= loc.y && loc.y < Rect.maxY;
+  return Rect.minX - 10 <= loc.x && loc.x < Rect.maxX + 10
+    && Rect.minY - 10 <= loc.y && loc.y < Rect.maxY + 10;
 }
