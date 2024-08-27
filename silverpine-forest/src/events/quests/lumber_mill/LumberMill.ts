@@ -103,7 +103,7 @@ export class LumberMill extends BaseQuest {
     await this.waitDependenciesDone();
 
     // Wait to start
-    const traveler = await this.talkToQuestGiver(john);
+    const traveler = await this.talkToQuestGiver(john, true);
 
     pauseGuardPosition([john, peter], true);
     john.shareVision(traveler.owner, true);

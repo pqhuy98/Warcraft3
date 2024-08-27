@@ -28,16 +28,20 @@ export class BaseQuest {
     }
   }
 
-  async talkToQuestGiver(unit: Unit) {
+  async talkToQuestGiver(unit: Unit, showMinimapIcon: boolean) {
     this.questGiver = unit;
     disableInteractSound(unit);
-    setMinimapIconUnit(unit, 'questGiver');
+    if (showMinimapIcon) {
+      setMinimapIconUnit(unit, 'questGiver');
+    }
     const { unit: traveler } = await UnitInteraction.waitUntilQuestTalk(unit);
     if (this.status === 'open') {
       this.status = 'in_progress';
     }
     enableInteractSound(unit);
-    removeMinimapIcon(unit);
+    if (showMinimapIcon) {
+      removeMinimapIcon(unit);
+    }
     return traveler;
   }
 

@@ -107,7 +107,7 @@ export class LumberMillPart2 extends BaseQuest {
     await this.waitDependenciesDone();
 
     // Wait to start
-    const traveler = await this.talkToQuestGiver(john);
+    const traveler = await this.talkToQuestGiver(john, true);
     knight.shareVision(traveler.owner, true);
 
     // Peter and knight discussing
@@ -141,6 +141,7 @@ export class LumberMillPart2 extends BaseQuest {
     const lumberMillLoc = centerLocRect(lumberMillRect);
     removeGuardPosition(...escortUnits);
     for (const unit of escortUnits) {
+      unit.shareVision(traveler.owner, true);
       unit.moveSpeed = 200;
       setGuardPosition(unit, lumberMillLoc, AngleBetweenLocs(unit, lumberMillLoc));
     }
@@ -246,6 +247,7 @@ export class LumberMillPart2 extends BaseQuest {
     removeGuardPosition(...footmen, ...undeadAttackers);
 
     if (traveler.isAlive()) {
+      escortUnits.forEach((u) => u.shareVision(traveler.owner, false));
       questLog.updateItem(1, `${questItems[1]} (${undeadAttackers.length} / ${undeadAttackers.length})`);
       await questLog.completeItem(1);
       await questLog.insertItem(questItems[2]);

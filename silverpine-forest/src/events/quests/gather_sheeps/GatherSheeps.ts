@@ -145,7 +145,7 @@ export class GatherSheeps extends BaseQuest {
           return true;
         });
 
-        const traveler = await this.talkToQuestGiver(sheepBoy);
+        const traveler = await this.talkToQuestGiver(sheepBoy, false);
         canSleep = true;
 
         // wake up

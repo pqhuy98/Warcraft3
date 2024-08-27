@@ -95,7 +95,7 @@ export class StrikeBack extends BaseQuest {
 
     await this.waitDependenciesDone();
 
-    const traveler = await this.talkToQuestGiver(knight);
+    const traveler = await this.talkToQuestGiver(knight, true);
 
     mayor.shareVision(traveler.owner, true);
 

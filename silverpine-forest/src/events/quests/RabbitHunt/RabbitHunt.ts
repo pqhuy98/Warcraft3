@@ -65,7 +65,7 @@ export class RabbitHunt extends BaseQuest {
 
     await this.waitDependenciesDone();
 
-    const traveler = await this.talkToQuestGiver(jacob);
+    const traveler = await this.talkToQuestGiver(jacob, true);
     jacob.shareVision(traveler.owner, true);
 
     // spawns rabbits
