@@ -50,7 +50,9 @@ export class UnitInteraction {
         const unit = Unit.fromEvent();
         const target = Unit.fromHandle(GetOrderTargetUnit());
         if (distanceBetweenUnits(unit, target) < nearDistance) {
-          this.playRandomSound(unit, target);
+          if (!checkUnitFlag(target, Flag.MUTE_INTERACTION_SOUND)) {
+            this.playRandomSound(unit, target);
+          }
 
           // neutral critters run away from you
           if (target.owner === MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE) && target.maxLife <= 15) {
@@ -67,7 +69,7 @@ export class UnitInteraction {
           if (!unit.isHero()) return;
 
           // Other allies face towards you if idle
-          if (isUnitIdle(target) && isOrganic(target)) {
+          if (isUnitIdle(target) && isOrganic(target) && !checkUnitFlag(target, Flag.UNBREAKABLE_ATTENTION)) {
             setAttention(target, unit);
           }
 
@@ -101,7 +103,7 @@ export class UnitInteraction {
   }
 
   static playRandomSound(unit: Unit, target: Unit) {
-    if (unit.owner === MapPlayer.fromLocal() && !checkUnitFlag(target, Flag.MUTE_INTERACTION_SOUND)) {
+    if (unit.owner === MapPlayer.fromLocal()) {
       if (soundThrottleSet.has(target)) {
         return;
       }
@@ -176,6 +178,7 @@ export class UnitInteraction {
       onceSubscribers.delete(target);
     }
     disableQuestMarker(target);
+    enableInteractSound(target);
   }
 }
 

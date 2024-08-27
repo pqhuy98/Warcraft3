@@ -115,5 +115,7 @@ export function daemonQuestMarker() {
 
 export function giveItemReward(giver: Unit, itemType: number) {
   const loc = PolarProjection(giver, 100, giver.facing);
-  return Item.create(itemType, loc.x, loc.y);
+  const item = Item.create(itemType, loc.x, loc.y);
+  AddIndicator(item.handle, 255, 255, 255, 255);
+  return item;
 }

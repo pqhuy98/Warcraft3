@@ -7,15 +7,16 @@ import {
   DistanceBetweenLocs,
   isLocInRect,
   PolarProjection,
-  randomLocRect,
 } from 'lib/location';
 import { setAllianceState2Way } from 'lib/player';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
+import { ABILITY_DivineShieldCreep } from 'lib/resources/war3-abilities';
+import { UNIT_Footman } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
-import { removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
+import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import { getUnitsInRangeOfXYMatching, setUnitFacingWithRate } from 'lib/unit';
@@ -23,6 +24,7 @@ import { waitUntil } from 'lib/utils';
 import {
   Unit,
 } from 'w3ts';
+import { OrderId } from 'w3ts/globals';
 
 import { BaseQuest, BaseQuestProps } from '../base_quest';
 
@@ -39,6 +41,7 @@ const rewardXp = 900;
 
 let johnIntro: sound;
 let knightIntro: sound;
+let footmanFear: sound;
 let footmanWarcry: sound;
 let peterRunForLife: sound;
 let knightOutro: sound;
@@ -51,7 +54,6 @@ export class LumberMillPart2 extends BaseQuest {
     mayor: Unit
     footmen: Unit[]
     undeadAttackers: Unit[]
-    lumberMillFrontRect: rect
     lumberMillRect: rect
     homeRect: rect
   }) {
@@ -61,7 +63,7 @@ export class LumberMillPart2 extends BaseQuest {
     // Knight: ElevenLabs - Arnold
     johnIntro = createDialogSound(
       'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-john-intro.mp3',
-      'Villager Peter',
+      'Villager John',
       'Sir, we have dire news! Our farm\'s lumberjacks are dead, they were killed by undead near the mill!',
     );
     knightIntro = createDialogSound(
@@ -69,10 +71,15 @@ export class LumberMillPart2 extends BaseQuest {
       'Knight Gareth',
       'Undead? Are you sure?... Fine... Soldiers, escort these peasants to the lumber mill and investigate further. But you peasants better not waste our time!',
     );
+    footmanFear = createDialogSound(
+      'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-footman-1.mp3',
+      'Footman',
+      'This is a slaughter. They didn\'t stand a chance. Be on guard; we could be next.',
+    );
     footmanWarcry = createDialogSound(
       'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-footman-fight-1.mp3',
-      'Villager Peter',
-      'Undead! Run for your life!',
+      'Footman',
+      'The undead is attacking! Prepare for battle!',
     );
     peterRunForLife = createDialogSound(
       'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-peter-run.mp3',
@@ -90,9 +97,12 @@ export class LumberMillPart2 extends BaseQuest {
     const {
       john, peter, knight, mayor, footmen,
       undeadAttackers,
-      lumberMillRect, lumberMillFrontRect, homeRect,
+      lumberMillRect, homeRect,
     } = this.globals;
     knight.name = 'Knight Gareth';
+    knight.addAbility(ABILITY_DivineShieldCreep.id);
+    knight.maxMana = 125;
+    knight.mana = knight.maxMana;
 
     await this.waitDependenciesDone();
 
@@ -128,15 +138,28 @@ export class LumberMillPart2 extends BaseQuest {
 
     // All units start moving to lumber mill
     const escortUnits = [...footmen, john, peter];
-    const rectLumberMillFront = lumberMillFrontRect;
+    const lumberMillLoc = centerLocRect(lumberMillRect);
     removeGuardPosition(...escortUnits);
     for (const unit of escortUnits) {
       unit.moveSpeed = 200;
-      const dest = randomLocRect(rectLumberMillFront);
-      setGuardPosition(unit, dest, AngleBetweenLocs(dest, centerLocRect(lumberMillRect)));
+      setGuardPosition(unit, lumberMillLoc, AngleBetweenLocs(unit, lumberMillLoc));
     }
 
-    await waitUntil(2.231, () => escortUnits.every((u) => isLocInRect(u, rectLumberMillFront) || !u.isAlive()));
+    const distanceThreshold = 500;
+    let footmenFearSpoke = false;
+    await waitUntil(1, () => {
+      escortUnits.forEach((u) => {
+        if (DistanceBetweenLocs(u, lumberMillLoc) < distanceThreshold) {
+          u.issueImmediateOrder(OrderId.Stop);
+          guardCurrentPosition(u);
+          if (u.typeId === UNIT_Footman.id && !footmenFearSpoke) {
+            playSpeech(u, footmanFear);
+            footmenFearSpoke = true;
+          }
+        }
+      });
+      return escortUnits.every((u) => DistanceBetweenLocs(u, lumberMillLoc) < distanceThreshold || !u.isAlive());
+    });
 
     questLog.completeItem(0);
 
@@ -158,18 +181,18 @@ export class LumberMillPart2 extends BaseQuest {
     });
 
     // Wait until undead nearby
-    await waitUntil(1, () => footmen.some((footman) => getUnitsInRangeOfXYMatching(
-      300,
+    await waitUntil(0.25, () => footmen.some((footman) => getUnitsInRangeOfXYMatching(
+      600,
       footman,
-      () => Unit.fromFilter().isAlive() && footman.isEnemy(Unit.fromFilter().owner),
+      () => {
+        const undead = Unit.fromFilter();
+        return undead.isAlive() && footman.isEnemy(undead.owner) && undead.isVisible(footman.owner);
+      },
     ).length > 0));
 
+    removeGuardPosition(...footmen);
     const talkGroup2 = new TalkGroup([john, peter, ...footmen]);
     await talkGroup2.speak(footmen[0], footmanWarcry, undefined, false);
-    removeGuardPosition(...footmen);
-
-    // Wait until bloodshed
-    await waitUntil(0.5, () => footmen.some((footman) => footman.life < footman.maxLife));
 
     // Peter and John run home
     const homeLoc = centerLocRect(homeRect);
@@ -178,7 +201,7 @@ export class LumberMillPart2 extends BaseQuest {
     await talkGroup2.speak(peter, peterRunForLife, undefined, false);
     talkGroup2.finish();
 
-    waitUntil(1, () => { // do not block thread
+    waitUntil(1, () => { // make sure they enter their house, do not block thread
       if (isLocInRect(peter, homeRect)) peter.show = false;
       if (isLocInRect(john, homeRect)) john.show = false;
       const isDone = (isLocInRect(peter, homeRect) || !peter.isAlive())
@@ -189,12 +212,23 @@ export class LumberMillPart2 extends BaseQuest {
       return isDone;
     });
 
+    // Update quest log
     let undeadAlive = undeadAttackers.filter((u) => !u.isAlive()).length;
     await questLog.insertItem(`${questItems[1]} (${undeadAlive} / ${undeadAttackers.length})`);
 
+    // knight gareth casts protection if low till end of quest
+    // so that he doesn't die accidentally
+    waitUntil(1, () => {
+      if (knight.life < knight.maxLife - 300) {
+        knight.issueImmediateOrder(OrderId.Divineshield);
+        return true;
+      }
+      return this.isCompleted() || this.isFailed();
+    });
+
     // wait until all undeads and footmen die, or player dies
 
-    const killTimer = setIntervalIndefinite(5, () => {
+    const killTimer = setIntervalIndefinite(10, () => {
       const newUndeadAlive = undeadAttackers.filter((u) => !u.isAlive()).length;
       if (undeadAlive !== newUndeadAlive) {
         undeadAlive = newUndeadAlive;

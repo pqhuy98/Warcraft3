@@ -52,7 +52,7 @@ export class MulticastUnit {
 
         const backSwing = caster.getField(UNIT_RF_CAST_BACK_SWING) as number;
 
-        const dummyCastDuration = abilityId === FourCC(ABILITY_BloodMageSiphonMana.code)
+        const dummyCastDuration = abilityId === ABILITY_BloodMageSiphonMana.id
           ? BlzGetAbilityRealLevelField(caster.getAbility(abilityId), ABILITY_RLF_DURATION_NORMAL, abilityLevel - 1)
           : 0.25;
 

@@ -1,4 +1,5 @@
 import { playSpeech } from 'lib/sound';
+import { Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
 import { enumUnitsWithDelay, isUnitIdle } from 'lib/unit';
 import { shuffleArray } from 'lib/utils';
 import { Unit } from 'w3ts';
@@ -12,7 +13,10 @@ export class TalkGroup {
   }
 
   async speak(speakingUnit: Unit, sound: sound, target?: Unit, everyoneAttention = true) {
-    this.units.forEach((u) => disableInteractSound(u));
+    this.units.forEach((u) => {
+      disableInteractSound(u);
+      setUnitFlag(u, Flag.UNBREAKABLE_ATTENTION, true);
+    });
     shuffleArray(this.units);
     if (everyoneAttention) {
       enumUnitsWithDelay(this.units, (u) => {
@@ -22,7 +26,10 @@ export class TalkGroup {
       }, 0.5 / (this.units.length - 1));
     }
     await playSpeech(speakingUnit, sound, target);
-    this.units.forEach((u) => enableInteractSound(u));
+    this.units.forEach((u) => {
+      setUnitFlag(u, Flag.UNBREAKABLE_ATTENTION, false);
+      enableInteractSound(u);
+    });
   }
 
   finish() {

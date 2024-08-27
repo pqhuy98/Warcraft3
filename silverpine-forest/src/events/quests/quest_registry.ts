@@ -71,7 +71,6 @@ export class QuestRegistry {
         undeadAttackers: getUnitsInRect(gg_rct_Lumber_Mill_ambusher, (u) => u.isAlive()
           && u.owner === playerForsaken
           && !isBuilding(u)),
-        lumberMillFrontRect: gg_rct_LumberMill_road_to_town_1,
         lumberMillRect: gg_rct_Lumber_Mill,
         homeRect: gg_rct_Sheep_farm_entrance,
         dependencies: [lumberMill1],

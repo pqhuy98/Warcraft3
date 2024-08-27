@@ -2,8 +2,6 @@ import BladeDance from 'abilities/blade_dance/blade_dance';
 import { ChainLightning } from 'abilities/chain_lightning/chain_lightning';
 import Frostmourne from 'abilities/frostmourne/frostmourne';
 import { Impale } from 'abilities/impale/impale';
-import { MulticastNoTarget } from 'abilities/multicast/no-target';
-import { MulticastPoint } from 'abilities/multicast/point';
 import { MulticastUnit } from 'abilities/multicast/unit';
 import Sandquake from 'abilities/sandquake/sandquake';
 import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
@@ -21,7 +19,6 @@ import {
   ABILITY_ID_DIVINE_FURY,
   ABILITY_ID_FROST_NOVA_LICH_KING,
   ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION,
-  ABILITY_ID_MONSOON_THRALL,
   ABILITY_ID_SANDQUAKE,
   ABILITY_ID_THUNDER_BLINK,
   ABILITY_ID_WRATH_OF_THE_LICH_KING,
@@ -33,21 +30,6 @@ import {
 } from 'lib/location';
 import { isComputer, setAllianceState2Way } from 'lib/player';
 import { daemonQuestMarker } from 'lib/quests/utils';
-import {
-  ABILITY_ArchMageBlizzard, ABILITY_ArchMageWaterElemental, ABILITY_BladeMasterBladestorm,
-  ABILITY_BloodMageFlameStrike,
-  ABILITY_BloodMagePhoenix,
-  ABILITY_ChieftainShockWave,
-  ABILITY_ChieftainWarStomp,
-  ABILITY_FarseerChainLightning, ABILITY_FarseerEarthquake,
-  ABILITY_KeeperEntanglingRoots,
-  ABILITY_MountainKingThunderBolt,
-  ABILITY_MountainKingThunderClap,
-  ABILITY_PaladinHolyLight,
-  ABILITY_SeaWitchForkedLightning,
-  ABILITY_ShadowHunterHealingWave,
-  ABILITY_ShadowHunterHex,
-} from 'lib/resources/war3-abilities';
 import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
 import { UnitInteraction } from 'lib/systems/unit_interaction';
 import {
@@ -108,26 +90,6 @@ function tsMain() {
   MulticastUnit.register(ABILITY_ID_DEATH_COIL_LICH_KING);
   MulticastUnit.register(ABILITY_ID_FROST_NOVA_LICH_KING);
   MulticastUnit.register(ABILITY_ID_FROST_BOLT_LICH_KING);
-
-  MulticastUnit.register(FourCC(ABILITY_PaladinHolyLight.code));
-  MulticastUnit.register(FourCC(ABILITY_MountainKingThunderBolt.code));
-  MulticastNoTarget.register(FourCC(ABILITY_MountainKingThunderClap.code));
-  MulticastPoint.register(FourCC(ABILITY_ArchMageBlizzard.code));
-  MulticastNoTarget.register(FourCC(ABILITY_ArchMageWaterElemental.code));
-  MulticastPoint.register(FourCC(ABILITY_BloodMageFlameStrike.code));
-  MulticastNoTarget.register(FourCC(ABILITY_BloodMagePhoenix.code));
-
-  MulticastNoTarget.register(FourCC(ABILITY_ChieftainWarStomp.code));
-  MulticastUnit.register(FourCC(ABILITY_ChieftainShockWave.code));
-  MulticastPoint.register(FourCC(ABILITY_ChieftainShockWave.code));
-  MulticastUnit.register(FourCC(ABILITY_ShadowHunterHex.code));
-  MulticastUnit.register(FourCC(ABILITY_ShadowHunterHealingWave.code), undefined, false);
-  MulticastUnit.register(FourCC(ABILITY_FarseerChainLightning.code), undefined, false);
-  MulticastPoint.register(FourCC(ABILITY_FarseerEarthquake.code));
-  MulticastUnit.register(FourCC(ABILITY_KeeperEntanglingRoots.code), undefined, false);
-  MulticastUnit.register(FourCC(ABILITY_SeaWitchForkedLightning.code), undefined, false);
-  MulticastPoint.register(ABILITY_ID_MONSOON_THRALL);
-  MulticastNoTarget.register(FourCC(ABILITY_BladeMasterBladestorm.code));
 
   registerChatCommands();
   Camera.setSmoothingFactor(1);

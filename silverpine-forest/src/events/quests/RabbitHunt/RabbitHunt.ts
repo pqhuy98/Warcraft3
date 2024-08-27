@@ -1,3 +1,4 @@
+import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import {
   randomLocRect,
 } from 'lib/location';
@@ -48,6 +49,14 @@ export class RabbitHunt extends BaseQuest {
       'Villager Jacob',
       'With the rabbits gone, we have a chance to save our harvest. Thanks again, and please, stay safe out there.',
     );
+
+    onChatCommand('-cheat rh', true, () => {
+      const { wheatFieldRects } = this.globals;
+      wheatFieldRects
+        .flatMap((r) => getUnitsInRect(r))
+        .filter((u) => u.typeId === rabbitTypeId && u.isAlive())
+        .forEach((u) => u.kill());
+    });
   }
 
   async register() {

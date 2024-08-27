@@ -1,7 +1,7 @@
 import { getDestructablesInRect } from 'lib/destructable';
 import { currentLoc, isLocInRect, PolarProjection } from 'lib/location';
 import { isComputer } from 'lib/player';
-import { ABILITY_Wander } from 'lib/resources/war3-abilities';
+import { ABILITY_PaladinHolyLight, ABILITY_Wander } from 'lib/resources/war3-abilities';
 import { MODEL_InnerFireTarget } from 'lib/resources/war3-models';
 import {
   UNIT_Footman,
@@ -9,7 +9,9 @@ import {
 } from 'lib/resources/war3-units';
 import { guardCurrentPosition, removeGuardPosition } from 'lib/systems/unit_guard_position';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
-import { getUnitsInRect, isBuilding, isUnitType } from 'lib/unit';
+import {
+  getUnitsInRangeOfXYMatching, getUnitsInRect, isBuilding, isOrganic,
+} from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import { TextTag, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
@@ -31,7 +33,7 @@ export class MiscEvents {
     getUnitsInRect(GetWorldBounds(), (u) => u.isAlive()
       && !isBuilding(u)
       && isComputer(u.owner.handle)
-      && !u.getAbility(FourCC(ABILITY_Wander.code))
+      && !u.getAbility(ABILITY_Wander.id)
       && !u.isUnitType(UNIT_TYPE_PEON))
       .forEach((u) => {
         guardCurrentPosition(u, defaultGuardDistance);
@@ -58,7 +60,7 @@ export class MiscEvents {
     });
 
     // Villagers chopping woods
-    getUnitsInRect(gg_rct_Farm_villagers_working, (u) => isUnitType(u, UNIT_VillagerMan) || isUnitType(u, UNIT_VillagerMan2))
+    getUnitsInRect(gg_rct_Farm_villagers_working, (u) => [UNIT_VillagerMan.id, UNIT_VillagerMan2.id].includes(u.typeId))
       .forEach((u) => guardCurrentPosition(u, defaultGuardDistance, 'stand work'));
 
     // Peasants repairing broken wheelbarrow
@@ -87,11 +89,11 @@ export class MiscEvents {
     // Shore caster channeling
     getUnitsInRect(gg_rct_Shore_caster_ritual)
       .forEach((u) => {
-        if (isUnitType(u, UNIT_HeroShadowHunter)) {
+        if (u.typeId === UNIT_HeroShadowHunter.id) {
           guardCurrentPosition(u, defaultGuardDistance, 'stand channel');
-        } else if (isUnitType(u, UNIT_Shaman)) {
+        } else if (u.typeId === UNIT_Shaman.id) {
           guardCurrentPosition(u, defaultGuardDistance, 'spell 1');
-        } else if (isUnitType(u, UNIT_WitchDoctor)) {
+        } else if (u.typeId === UNIT_WitchDoctor.id) {
           guardCurrentPosition(u, defaultGuardDistance, 'spell 1');
         }
       });
@@ -109,11 +111,25 @@ export class MiscEvents {
       ModifyGateBJ(bj_GATEOPERATION_CLOSE, gg_dest_LTg3_4633);
       shadowfangGateBlockers.forEach((d) => d.heal(d.maxLife, false));
     });
+
+    // Mayor Ambermill casts holy light
+    const mayor = Unit.fromHandle(gg_unit_Hpb1_0145);
+    setIntervalIndefinite(3, () => {
+      if (mayor.getAbilityCooldownRemaining(ABILITY_PaladinHolyLight.id) > 0) return;
+      const nearbyUnhealthy = pickRandom(getUnitsInRangeOfXYMatching(600, mayor, () => {
+        const unit = Unit.fromFilter();
+        return unit.isAlive() && unit.isAlly(mayor.owner) && unit.life < unit.maxLife - 100
+          && isOrganic(unit);
+      }));
+      if (nearbyUnhealthy) {
+        mayor.issueTargetOrder(OrderId.Holybolt, nearbyUnhealthy);
+      }
+    });
   }
 
   // 9 footmen in Shadowfang practice
   static footmanPractice() {
-    const trainingFootmen = getUnitsInRect(gg_rct_Shadowfang_soldier_training, (u) => isUnitType(u, UNIT_Footman));
+    const trainingFootmen = getUnitsInRect(gg_rct_Shadowfang_soldier_training, (u) => u.typeId === UNIT_Footman.id);
     const initialLoc = new Map(trainingFootmen.map((u) => [u, currentLoc(u)]));
     removeGuardPosition(...trainingFootmen);
     // Footman

@@ -22,7 +22,7 @@ import {
 import { BaseQuest, BaseQuestProps } from '../base_quest';
 
 const questName = 'Lumber Mill, part 3';
-const questDescription = 'Following the devastating ambush at the lumber mill, where brave soldiers lost their lives to a horde of undead, Mayor Nicholas has ordered an immediate counterattack. Join forces with Knight Gareth and the town warriors to launch a retaliatory strike against the undead base.';
+const questDescription = 'Following the devastating ambush at the lumber mill, where brave soldiers lost their lives to a horde of undead, Mayor Darius has ordered an immediate counterattack. Join forces with Knight Gareth and the Ambermill warriors to launch a retaliatory strike against the undead base.';
 const questIcon = 'ReplaceableTextures\\CommandButtons\\BTNBlackCitadel.blp';
 const questItems = [
   'Destroy the undead base and slay all undeads',
@@ -130,12 +130,12 @@ export class StrikeBack extends BaseQuest {
 
     // Prepare undead base
     const undeadQuota = {
-      [FourCC(UNIT_Ghoul.code)]: 8,
-      [FourCC(UNIT_Abomination.code)]: 4,
-      [FourCC(UNIT_Zombie.code)]: 8,
-      [FourCC(UNIT_CryptFiend.code)]: 3,
-      [FourCC(UNIT_Gargoyle.code)]: 3,
-      [FourCC(UNIT_MeatWagon.code)]: 2,
+      [UNIT_Ghoul.id]: 8,
+      [UNIT_Abomination.id]: 4,
+      [UNIT_Zombie.id]: 8,
+      [UNIT_CryptFiend.id]: 3,
+      [UNIT_Gargoyle.id]: 3,
+      [UNIT_MeatWagon.id]: 2,
     };
     const undeads = getUnitsInRect(undeadBaseRect, (u) => u.owner === playerForsaken && u.isAlive());
     undeads.forEach((u) => {

@@ -44,7 +44,7 @@ export class MulticastNoTarget {
         const ability = caster.getAbility(abiId);
         const abiLevel = caster.getAbilityLevel(abiId);
         let order = caster.currentOrder;
-        if (abiId === FourCC(ABILITY_BladeMasterBladestorm.code)) order = OrderId.Whirlwind;
+        if (abiId === ABILITY_BladeMasterBladestorm.id) order = OrderId.Whirlwind;
 
         const castPoint = caster.getField(UNIT_RF_CAST_POINT) as number;
         const castBackSwing = caster.getField(UNIT_RF_CAST_BACK_SWING) as number;
@@ -60,7 +60,7 @@ export class MulticastNoTarget {
         dummy.setAbilityLevel(abiId, abiLevel);
         dummy.setAbilityCooldown(abiId, abiLevel - 1, 0);
         BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 99999);
-        if (abiId === FourCC(ABILITY_BladeMasterBladestorm.code)) {
+        if (abiId === ABILITY_BladeMasterBladestorm.id) {
           const damagePerSec = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_DAMAGE_PER_SECOND_OWW1, abiLevel - 1);
           const areaOfEffect = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_AREA_OF_EFFECT, abiLevel - 1);
           BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_DAMAGE_PER_SECOND_OWW1, abiLevel - 1, damagePerSec * 2);
@@ -79,7 +79,7 @@ export class MulticastNoTarget {
 
         const fadeDuration = (castPoint + castBackSwing + 0.1);
         let tLimitDuration = 2 * (castPoint + castBackSwing) - fadeDuration;
-        if (abiId === FourCC(ABILITY_BladeMasterBladestorm.code)) {
+        if (abiId === ABILITY_BladeMasterBladestorm.id) {
           tLimitDuration = BlzGetAbilityRealLevelField(ability, ABILITY_RLF_DURATION_NORMAL, abiLevel - 1) - fadeDuration;
           dummy.moveSpeed = caster.defaultMoveSpeed;
           const patrolLoc = PolarProjection(dummy, 7 * dummy.moveSpeed / 3, dummy.facing);

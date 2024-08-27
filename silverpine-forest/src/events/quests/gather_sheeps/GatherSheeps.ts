@@ -22,7 +22,7 @@ import {
   enableInteractSound, setAttention,
 } from 'lib/systems/unit_interaction';
 import {
-  enumUnitsWithDelay, getUnitsInRect, isUnitIdle, isUnitType, setUnitFacingWithRate,
+  enumUnitsWithDelay, getUnitsInRect, isUnitIdle, setUnitFacingWithRate,
 } from 'lib/unit';
 import { pickRandom, waitUntil } from 'lib/utils';
 import { sleep, Unit } from 'w3ts';
@@ -107,7 +107,7 @@ export class GatherSheeps extends BaseQuest {
     const { sheepBoy, grassRects } = this.globals;
     let sheeps = grassRects
       .flatMap((rect) => getUnitsInRect(rect))
-      .filter((u) => isUnitType(u, UNIT_Sheep));
+      .filter((u) => u.typeId === UNIT_Sheep.id);
     sheepBoy.name = 'Timmy';
     onChatCommand('-cheat gs', true, () => {
       sheeps.forEach((u) => { u.owner = mainPlayer; });
@@ -326,7 +326,7 @@ export class GatherSheeps extends BaseQuest {
     const homeLoc = centerLocRect(this.globals.homeRect);
 
     if (sheeps.length < 10) {
-      sheeps.push(Unit.create(sheepBoy.owner, FourCC(UNIT_Sheep.code), homeLoc.x, homeLoc.y));
+      sheeps.push(Unit.create(sheepBoy.owner, UNIT_Sheep.id, homeLoc.x, homeLoc.y));
     }
     this.updateHerdMovespeed(sheepBoy, sheeps);
 

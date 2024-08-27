@@ -153,8 +153,8 @@ export default class BladeDance {
     });
 
     BladeDance.unitsInCast.addUnit(this.caster);
-    this.caster.disableAbility(FourCC(ABILITY_BladeMasterBladestorm.code), true, false);
-    this.caster.disableAbility(FourCC(ABILITY_BladeMasterMirrorImage.code), true, false);
+    this.caster.disableAbility(ABILITY_BladeMasterBladestorm.id, true, false);
+    this.caster.disableAbility(ABILITY_BladeMasterMirrorImage.id, true, false);
   }
 
   setTarget(newTarget: Unit) {
@@ -219,8 +219,8 @@ export default class BladeDance {
       this.caster.invulnerable = false;
     }
     BladeDance.unitsInCast.removeUnit(this.caster);
-    this.caster.disableAbility(FourCC(ABILITY_BladeMasterBladestorm.code), false, false);
-    this.caster.disableAbility(FourCC(ABILITY_BladeMasterMirrorImage.code), false, false);
+    this.caster.disableAbility(ABILITY_BladeMasterBladestorm.id, false, false);
+    this.caster.disableAbility(ABILITY_BladeMasterMirrorImage.id, false, false);
     setTimeout(1, () => DestroyEffect(this.weaponEffect));
   }
 

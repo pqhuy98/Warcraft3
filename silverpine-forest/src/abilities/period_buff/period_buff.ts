@@ -168,7 +168,7 @@ export class PeriodBuff {
 
     k0('pb-t');
     const targetLoc = getUnitXY(this.target);
-    const abilityId = FourCC(ability.code);
+    const abilityId = ability.id;
 
     const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, 0.25);
     dummy.addAbility(abilityId);
@@ -189,7 +189,7 @@ export class PeriodBuff {
     k0('pb-nt');
 
     const targetLoc = getUnitXY(this.target);
-    const abilityId = FourCC(ability.code);
+    const abilityId = ability.id;
 
     const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, 0.25);
     dummy.addAbility(abilityId);
@@ -212,7 +212,7 @@ export class PeriodBuff {
 
     k0('pb-a');
     const targetLoc = getUnitXY(this.target);
-    const abilityId = FourCC(ability.code);
+    const abilityId = ability.id;
 
     const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
     const scale = getUnitScale(this.target);
@@ -238,7 +238,7 @@ export class PeriodBuff {
     k0('pb-aa');
     const targetLoc = getUnitXY(this.target);
 
-    const abilityId = FourCC(ability.code);
+    const abilityId = ability.id;
 
     const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
     dummy.addAbility(abilityId);

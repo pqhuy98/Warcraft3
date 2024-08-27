@@ -4,7 +4,7 @@ import { Unit } from 'w3ts';
 
 const summonBirthDuration = new Map<number, number>((<[UNIT_TYPE, number][]>[
   [UNIT_Infernal, 2.4],
-]).map(([unit, duration]) => [FourCC(unit.code), duration]));
+]).map(([unit, duration]) => [unit.id, duration]));
 
 export class SummonBirthAnimation {
   static register() {

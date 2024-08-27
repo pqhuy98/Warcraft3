@@ -113,7 +113,7 @@ export class LumberMill extends BaseQuest {
     const fleshCorpses: Unit[] = this.createCorpsesLumberMill();
     const ghouls: Unit[] = [];
     fleshCorpses.slice(0, 3).forEach((corpse) => {
-      const ghoul = Unit.create(playerForsaken, FourCC(UNIT_Ghoul.code), corpse.x, corpse.y, GetRandomDirectionDeg());
+      const ghoul = Unit.create(playerForsaken, UNIT_Ghoul.id, corpse.x, corpse.y, GetRandomDirectionDeg());
       guardCurrentPosition(ghoul, 1000, 'stand channel');
       ghouls.push(ghoul);
     });
@@ -218,10 +218,10 @@ export class LumberMill extends BaseQuest {
     ].forEach((rect) => {
       for (let i = 0; i < 3; i++) {
         fleshCorpses.push(Unit.fromHandle(
-          CreatePermanentCorpseLocBJ(bj_CORPSETYPE_FLESH, FourCC(UNIT_Peasant.code), Player(1), templocation(GetRandomLocInRect(rect)), GetRandomDirectionDeg()),
+          CreatePermanentCorpseLocBJ(bj_CORPSETYPE_FLESH, UNIT_Peasant.id, Player(1), templocation(GetRandomLocInRect(rect)), GetRandomDirectionDeg()),
         ));
       }
-      CreatePermanentCorpseLocBJ(bj_CORPSETYPE_BONE, FourCC(UNIT_Peasant.code), Player(1), templocation(GetRandomLocInRect(rect)), GetRandomDirectionDeg());
+      CreatePermanentCorpseLocBJ(bj_CORPSETYPE_BONE, UNIT_Peasant.id, Player(1), templocation(GetRandomLocInRect(rect)), GetRandomDirectionDeg());
     });
     return fleshCorpses;
   }

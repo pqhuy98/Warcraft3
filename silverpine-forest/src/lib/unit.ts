@@ -265,7 +265,7 @@ export function orderUnitUseItemAbilityAtLoc(unit: Unit, abilityId: number, loc:
   }
 }
 
-const crowFormAbilityId = FourCC(ABILITY_RavenFormMedivh.code);
+const crowFormAbilityId = ABILITY_RavenFormMedivh.id;
 export function makeFlyable(unit: Unit) {
   if (unit.getAbilityLevel(crowFormAbilityId) === 0) {
     unit.addAbility(crowFormAbilityId);

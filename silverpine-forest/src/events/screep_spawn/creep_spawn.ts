@@ -55,7 +55,7 @@ export class CreepSpawn {
   spawnEnemy() {
     if (this.spawns.size >= 80) { return; }
 
-    const unitId = FourCC(pickRandom(spawnables).code);
+    const unitId = pickRandom(spawnables).id;
 
     const targetLoc = getUnitXY(this.target);
     const spawnLoc = unitPolarProjection(this.target, 600, GetRandomDirectionDeg());
