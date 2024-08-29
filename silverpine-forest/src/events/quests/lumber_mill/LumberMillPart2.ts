@@ -107,7 +107,7 @@ export class LumberMillPart2 extends BaseQuest {
     await this.waitDependenciesDone();
 
     // Wait to start
-    const traveler = await this.talkToQuestGiver(john, true);
+    let traveler = await this.talkToQuestGiver(john, true);
     knight.shareVision(traveler.owner, true);
 
     // Peter and knight discussing
@@ -251,7 +251,7 @@ export class LumberMillPart2 extends BaseQuest {
       questLog.updateItem(1, `${questItems[1]} (${undeadAttackers.length} / ${undeadAttackers.length})`);
       await questLog.completeItem(1);
       await questLog.insertItem(questItems[2]);
-      await this.waitForTurnIn(knight);
+      traveler = await this.waitForTurnIn(knight);
 
       setAllianceState2Way(mainPlayer, playerHumanAlliance, 'neutral');
       setAllianceState2Way(playerHumanAlliance, playerForsaken, 'neutral');

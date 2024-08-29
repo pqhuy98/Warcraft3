@@ -65,7 +65,7 @@ export class RabbitHunt extends BaseQuest {
 
     await this.waitDependenciesDone();
 
-    const traveler = await this.talkToQuestGiver(jacob, true);
+    let traveler = await this.talkToQuestGiver(jacob, true);
     jacob.shareVision(traveler.owner, true);
 
     // spawns rabbits
@@ -102,7 +102,7 @@ export class RabbitHunt extends BaseQuest {
     await questLog.completeItem(0);
 
     // Wait player to return
-    await this.waitForTurnIn(jacob);
+    traveler = await this.waitForTurnIn(jacob);
 
     // Thanks and reward
     await playSpeech(jacob, jacobOutro, traveler);

@@ -1633,3 +1633,13 @@ STRING 295
 Teleports the Hero and any of its nearby troops to a target friendly building.
 }
 
+STRING 296
+{
+Quests
+}
+
+STRING 297
+{
+Info
+}
+

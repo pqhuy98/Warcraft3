@@ -103,7 +103,7 @@ export class LumberMill extends BaseQuest {
     await this.waitDependenciesDone();
 
     // Wait to start
-    const traveler = await this.talkToQuestGiver(john, true);
+    let traveler = await this.talkToQuestGiver(john, true);
 
     pauseGuardPosition([john, peter], true);
     john.shareVision(traveler.owner, true);
@@ -161,7 +161,7 @@ export class LumberMill extends BaseQuest {
     await questLog.completeItem(1);
 
     // Wait player to return
-    await this.waitForTurnIn(peter);
+    traveler = await this.waitForTurnIn(peter);
     ghouls.forEach((u) => { u.isAlive() && u.destroy(); });
     setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
 
@@ -232,7 +232,6 @@ export class LumberMill extends BaseQuest {
       townRect2,
       townKnight,
     } = this.globals;
-
     const loc = randomLocRect(townRect2);
     john.setPosition(loc.x, loc.y);
     peter.setPosition(loc.x, loc.y);

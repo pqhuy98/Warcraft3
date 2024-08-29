@@ -1,8 +1,9 @@
-import { playerForsaken } from 'lib/constants';
+import { playerForsaken, playerHumanAlliance } from 'lib/constants';
 import { setTimeout } from 'lib/trigger';
 import { getUnitsInRect, isBuilding } from 'lib/unit';
 import { Unit } from 'w3ts';
 
+import { BanditBanish } from './BanditBanish/BanditBanish';
 import { GatherSheeps } from './gather_sheeps/GatherSheeps';
 import { LumberMill } from './lumber_mill/LumberMill';
 import { LumberMillPart2 } from './lumber_mill/LumberMillPart2';
@@ -90,6 +91,21 @@ export class QuestRegistry {
         cheatName: 'sb',
       });
       strikeBack.register();
+
+      // BanditBanish
+      const banditBanish = new BanditBanish({
+        name: 'Bandits Banish',
+        john: Unit.fromHandle(gg_unit_nvl2_0413),
+        peter: Unit.fromHandle(gg_unit_nvil_0414),
+        archMage: Unit.fromHandle(gg_unit_Hamg_0109),
+        banditLord: Unit.fromHandle(gg_unit_nbld_0128),
+        bandits: getUnitsInRect(gg_rct_Bandit_camp, (u) => u.isAlive() && u.isEnemy(playerHumanAlliance)),
+        johnRect: gg_rct_John_after_undead,
+        peterRect: gg_rct_Peter_after_undead,
+        dependencies: [strikeBack],
+        cheatName: 'bb',
+      });
+      banditBanish.register();
     });
   }
 }

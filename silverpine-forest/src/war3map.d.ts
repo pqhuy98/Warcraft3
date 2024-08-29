@@ -84,3 +84,8 @@ declare var gg_dest_LTg3_4633: destructable;
 declare var gg_dest_LTg3_8382: destructable;
 declare var gg_dest_YTcx_0002: destructable;
 declare var gg_dest_YTcx_0001: destructable;
+declare var gg_unit_Hamg_0109: unit;
+declare var gg_rct_Bandit_camp: rect;
+declare var gg_rct_John_after_undead: rect;
+declare var gg_rct_Peter_after_undead: rect;
+declare var gg_unit_nbld_0128: unit;

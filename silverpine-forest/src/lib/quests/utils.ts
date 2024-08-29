@@ -23,6 +23,7 @@ export type IconStyle = keyof typeof IconStyles
 const unitMinimapIcon = new Map<Unit, { icon: minimapicon, style: IconStyle }>();
 
 export function setMinimapIconUnit(unit: Unit, style: IconStyle) {
+  if (!unit.isAlive()) return null;
   if (unitMinimapIcon.has(unit)) {
     const data = unitMinimapIcon.get(unit);
     if (data.style !== style) {

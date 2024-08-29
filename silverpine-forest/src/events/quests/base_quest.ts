@@ -1,4 +1,5 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
+import { log } from 'lib/log';
 import { removeMinimapIcon, setMinimapIconUnit } from 'lib/quests/utils';
 import { disableInteractSound, enableInteractSound, UnitInteraction } from 'lib/systems/unit_interaction';
 import { waitUntil } from 'lib/utils';
@@ -10,6 +11,8 @@ export interface BaseQuestProps {
   cheatName: string
 }
 
+const logDebug = false;
+
 export class BaseQuest {
   private status: 'open' | 'in_progress' | 'completed' | 'failed' = 'open';
 
@@ -17,7 +20,7 @@ export class BaseQuest {
 
   dependencies: BaseQuest[] = [];
 
-  questGiver: Unit;
+  currentQuestGiver: Unit;
 
   constructor({ dependencies, cheatName, name }: BaseQuestProps) {
     this.dependencies = dependencies;
@@ -29,7 +32,7 @@ export class BaseQuest {
   }
 
   async talkToQuestGiver(unit: Unit, showMinimapIcon: boolean) {
-    this.questGiver = unit;
+    this.currentQuestGiver = unit;
     disableInteractSound(unit);
     if (showMinimapIcon) {
       setMinimapIconUnit(unit, 'questGiver');
@@ -46,7 +49,7 @@ export class BaseQuest {
   }
 
   async waitForTurnIn(unit: Unit) {
-    this.questGiver = unit;
+    this.currentQuestGiver = unit;
     disableInteractSound(unit);
     setMinimapIconUnit(unit, 'turnIn');
     const { unit: traveler } = await UnitInteraction.waitUntilQuestTalk(unit);
@@ -59,7 +62,10 @@ export class BaseQuest {
   }
 
   async waitDependenciesDone() {
-    await waitUntil(1, () => this.dependencies.every((q) => q.isCompleted()));
+    await waitUntil(1, () => {
+      const done = this.dependencies.every((q) => q.isCompleted());
+      return done;
+    });
     if (this.isCompleted()) throw new Error('quest has been force completed during the time.');
   }
 
@@ -92,6 +98,7 @@ export class BaseQuest {
   }
 
   forceComplete(): boolean {
+    logDebug && log(`start forceComplete ${this.name}`);
     if (this.isCompleted()) return true;
     if (this.isInProgress()) {
       QuestMessageBJ(bj_FORCE_ALL_PLAYERS, bj_QUESTMESSAGE_WARNING, `Quest ${this.name} is already in progress, you can no longer cheat to skip the quest.`);
@@ -101,21 +108,25 @@ export class BaseQuest {
       QuestMessageBJ(bj_FORCE_ALL_PLAYERS, bj_QUESTMESSAGE_WARNING, `Quest ${this.name} cannot cheat to skip because of a dependency.`);
       return false;
     }
-    if (this.questGiver) {
-      removeMinimapIcon(this.questGiver);
-      UnitInteraction.removeAllQuestTalks(this.questGiver);
+    if (this.currentQuestGiver) {
+      removeMinimapIcon(this.currentQuestGiver);
+      UnitInteraction.removeAllQuestTalks(this.currentQuestGiver);
     }
+    logDebug && log(`start onForceComplete ${this.name}`);
     this.onForceComplete();
     this.complete();
+    logDebug && log(`completed ${this.name}`);
     return this.isCompleted();
   }
 
   forceCompleteDependencies() {
+    logDebug && log(`start forceCompleteDependencies ${this.name}`);
     let allCompleted = true;
     this.dependencies.forEach((q) => {
       const dependencyCompleted = q.forceComplete();
       allCompleted = allCompleted || dependencyCompleted;
     });
+    logDebug && log(`done forceCompleteDependencies ${this.name}, allCompleted=${allCompleted ? 'true' : 'false'}`);
     return allCompleted;
   }
 }

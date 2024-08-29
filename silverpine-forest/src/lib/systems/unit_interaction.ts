@@ -1,6 +1,6 @@
 import { mainPlayer } from 'lib/constants';
 import {
-  AngleBetweenLocs, PolarProjection,
+  AngleBetweenLocs, DistanceBetweenLocs, PolarProjection,
 } from 'lib/location';
 import { disableQuestMarker, enableQuestMarker } from 'lib/quests/utils';
 import { getUnitSounds, SoundType } from 'lib/resources/unit-sounds';
@@ -21,13 +21,14 @@ interface InteractionData {
   soundLastTimeS: number
   soundCount: number
   soundLastFile: string
+  maxRadius: number
 }
 const targets = new Map<Unit, InteractionData>();
 
 const soundThrottleSet = new Set<Unit>();
 
 const nearDistance = 400;
-const unfocusDistance = 500;
+const unfocusDistance = 600;
 
 type Subscriber = (unit: Unit, target: Unit) => unknown
 
@@ -87,9 +88,9 @@ export class UnitInteraction {
     setIntervalIndefinite(interval, () => {
       if (targets.size === 0) return;
 
-      for (const [unit, { facingToUnit, oldFacing }] of targets) {
+      for (const [unit, { facingToUnit, oldFacing, maxRadius }] of targets) {
         const isIdle = isUnitIdle(unit);
-        const shouldFace = distanceBetweenUnits(unit, facingToUnit) < unfocusDistance && isIdle && unit.isAlive();
+        const shouldFace = distanceBetweenUnits(unit, facingToUnit) < maxRadius && isIdle && unit.isAlive();
         if (!shouldFace) {
           targets.delete(unit);
           if (isIdle && unit.isAlive()) {
@@ -193,6 +194,7 @@ export function setAttention(unitFrom: Unit, unitTo: Unit) {
     soundLastTimeS: -99,
     soundCount: 0,
     soundLastFile: '',
+    maxRadius: Math.max(unfocusDistance, DistanceBetweenLocs(unitFrom, unitTo) + 200),
   });
 }
 

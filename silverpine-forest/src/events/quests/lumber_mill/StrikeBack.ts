@@ -95,7 +95,7 @@ export class StrikeBack extends BaseQuest {
 
     await this.waitDependenciesDone();
 
-    const traveler = await this.talkToQuestGiver(knight, true);
+    let traveler = await this.talkToQuestGiver(knight, true);
 
     mayor.shareVision(traveler.owner, true);
 
@@ -203,7 +203,7 @@ export class StrikeBack extends BaseQuest {
       setAllianceState2Way(playerForsaken, playerHumanAlliance, 'neutral');
       setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
 
-      await this.waitForTurnIn(mayor);
+      traveler = await this.waitForTurnIn(mayor);
       const talkGroup = new TalkGroup([mayor, traveler]);
       await talkGroup.speak(mayor, mayorOutro1, traveler);
       await talkGroup.speak(mayor, mayorOutro2, traveler);

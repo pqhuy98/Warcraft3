@@ -86,6 +86,11 @@ gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
+gg_unit_Hamg_0109 = nil
+gg_rct_Bandit_camp = nil
+gg_rct_John_after_undead = nil
+gg_rct_Peter_after_undead = nil
+gg_unit_nbld_0128 = nil
 function InitGlobals()
 end
 
@@ -429,8 +434,8 @@ u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 8246.9, -7123.8, 324.556, FourCC("n
 u = BlzCreateUnitWithSkin(p, FourCC("ngog"), 8894.4, -7704.9, 343.840, FourCC("ngog"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 8877.9, -7553.2, 4.394, FourCC("nvl2"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), 8965.9, -7464.7, 260.662, FourCC("nvil"))
-gg_unit_nvl2_0041 = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 9170.7, -5329.0, 28.830, FourCC("nvl2"))
-gg_unit_nvil_0042 = BlzCreateUnitWithSkin(p, FourCC("nvil"), 10771.1, -7712.9, 5.003, FourCC("nvil"))
+u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 9170.7, -5329.0, 28.830, FourCC("nvl2"))
+u = BlzCreateUnitWithSkin(p, FourCC("nvil"), 10771.1, -7712.9, 5.003, FourCC("nvil"))
 gg_unit_nvk2_0064 = BlzCreateUnitWithSkin(p, FourCC("nvk2"), 10209.5, -8599.4, 283.923, FourCC("nvk2"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 8135.5, -8334.2, 260.221, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 7974.7, -8418.1, 247.334, FourCC("hfoo"))
@@ -440,16 +445,27 @@ gg_unit_ngir_0097 = BlzCreateUnitWithSkin(p, FourCC("ngir"), 8420.5, -6175.8, 33
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 10849.9, -5894.3, 79.778, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 10653.8, -5870.3, 29.072, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 10564.0, -6041.9, 71.321, FourCC("hrif"))
-u = BlzCreateUnitWithSkin(p, FourCC("Hamg"), 9244.9, -3405.8, 92.161, FourCC("Hamg"))
-SetUnitState(u, UNIT_STATE_MANA, 285)
+gg_unit_Hamg_0109 = BlzCreateUnitWithSkin(p, FourCC("Hamg"), 9244.9, -3405.8, 92.160, FourCC("Hamg"))
+SetHeroLevel(gg_unit_Hamg_0109, 10, false)
+SetUnitState(gg_unit_Hamg_0109, UNIT_STATE_MANA, 285)
+SelectHeroSkill(gg_unit_Hamg_0109, FourCC("AHbz"))
+SelectHeroSkill(gg_unit_Hamg_0109, FourCC("AHbz"))
+SelectHeroSkill(gg_unit_Hamg_0109, FourCC("AHbz"))
+SelectHeroSkill(gg_unit_Hamg_0109, FourCC("AHwe"))
+SelectHeroSkill(gg_unit_Hamg_0109, FourCC("AHwe"))
+SelectHeroSkill(gg_unit_Hamg_0109, FourCC("AHwe"))
+SelectHeroSkill(gg_unit_Hamg_0109, FourCC("AHab"))
+SelectHeroSkill(gg_unit_Hamg_0109, FourCC("AHab"))
+SelectHeroSkill(gg_unit_Hamg_0109, FourCC("AHab"))
+SelectHeroSkill(gg_unit_Hamg_0109, FourCC("AHmt"))
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 8797.1, -3095.4, 11.048, FourCC("hkni"))
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 9008.6, -3279.5, 63.621, FourCC("hkni"))
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 9526.4, -3233.0, 141.496, FourCC("hkni"))
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 9676.9, -3045.0, 166.924, FourCC("hkni"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 9017.6, -2938.5, 98.964, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 9383.3, -2924.7, 93.632, FourCC("hfoo"))
-gg_unit_hpea_0132 = BlzCreateUnitWithSkin(p, FourCC("hpea"), 9822.4, -10436.9, 286.249, FourCC("hpea"))
-gg_unit_hpea_0133 = BlzCreateUnitWithSkin(p, FourCC("hpea"), 9970.3, -10579.0, 170.995, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 9822.4, -10436.9, 286.249, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 9970.3, -10579.0, 170.995, FourCC("hpea"))
 gg_unit_hkni_0134 = BlzCreateUnitWithSkin(p, FourCC("hkni"), 8800.9, -11402.8, 185.000, FourCC("hkni"))
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 8845.3, -11564.0, 185.000, FourCC("hkni"))
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 8835.8, -11222.7, 185.000, FourCC("hkni"))
@@ -475,7 +491,7 @@ gg_unit_hfoo_0151 = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 8689.5, -11448.5, 1
 u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 9554.9, -11104.8, 130.533, FourCC("hrif"))
 u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 9518.9, -10898.5, 246.430, FourCC("hrif"))
 u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 9362.1, -10995.4, 343.230, FourCC("hrif"))
-gg_unit_hpea_0155 = BlzCreateUnitWithSkin(p, FourCC("hpea"), 9817.9, -10676.4, 68.814, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 9817.9, -10676.4, 68.814, FourCC("hpea"))
 u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 9503.2, -12097.8, 71.690, FourCC("hmtm"))
 u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 9022.4, -11077.5, 185.000, FourCC("hmtm"))
 u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 9035.4, -11640.1, 185.000, FourCC("hmtm"))
@@ -506,7 +522,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 10350.2, -7715.5, 343.452, FourCC("
 IssueImmediateOrder(u, "repairon")
 u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 8485.8, -6201.5, 160.508, FourCC("hpea"))
 IssueImmediateOrder(u, "repairon")
-gg_unit_nvl2_0412 = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 9838.4, -5480.3, 22.537, FourCC("nvl2"))
+u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 9838.4, -5480.3, 22.537, FourCC("nvl2"))
 gg_unit_nvl2_0413 = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 9507.8, -7179.9, 42.612, FourCC("nvl2"))
 gg_unit_nvil_0414 = BlzCreateUnitWithSkin(p, FourCC("nvil"), 9712.5, -7071.7, 187.750, FourCC("nvil"))
 u = BlzCreateUnitWithSkin(p, FourCC("nhem"), 10359.1, -14514.6, 240.179, FourCC("nhem"))
@@ -747,11 +763,11 @@ u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 3579.4, -10820.2, 161.932, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 3988.8, -9143.0, 107.030, FourCC("nzom"))
 u = BlzCreateUnitWithSkin(p, FourCC("umtw"), 4098.2, -11060.5, 75.226, FourCC("umtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("nzof"), 3673.4, -10598.6, 317.196, FourCC("nzof"))
-gg_unit_ugho_0190 = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5638.9, -9958.0, 269.254, FourCC("ugho"))
+u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5638.9, -9958.0, 269.254, FourCC("ugho"))
 u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 4233.3, -9265.2, 140.805, FourCC("ugho"))
 u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 3387.4, -10399.5, 19.963, FourCC("ugho"))
 u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 3687.5, -9923.5, 145.553, FourCC("ugho"))
-gg_unit_ugho_0194 = BlzCreateUnitWithSkin(p, FourCC("ugho"), 6763.9, -11111.4, 239.132, FourCC("ugho"))
+u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 6763.9, -11111.4, 239.132, FourCC("ugho"))
 u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5898.2, -11048.8, 64.920, FourCC("ugho"))
 u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 4892.8, -11111.9, 162.490, FourCC("ugho"))
 u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 4452.7, -11257.4, 326.485, FourCC("ugho"))
@@ -763,9 +779,9 @@ u = BlzCreateUnitWithSkin(p, FourCC("ugar"), 4501.8, -11215.2, 323.262, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("ugar"), 4815.9, -9034.7, 262.149, FourCC("ugar"))
 u = BlzCreateUnitWithSkin(p, FourCC("uske"), 5752.6, -10750.9, 359.081, FourCC("uske"))
 u = BlzCreateUnitWithSkin(p, FourCC("uske"), 5714.8, -10108.2, 16.688, FourCC("uske"))
-gg_unit_ugho_0208 = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5276.0, -9792.1, 229.826, FourCC("ugho"))
-gg_unit_ugho_0209 = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5251.9, -9904.7, 98.968, FourCC("ugho"))
-gg_unit_ugho_0210 = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5139.3, -10063.2, 342.588, FourCC("ugho"))
+u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5276.0, -9792.1, 229.826, FourCC("ugho"))
+u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5251.9, -9904.7, 98.968, FourCC("ugho"))
+u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5139.3, -10063.2, 342.588, FourCC("ugho"))
 u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 4293.4, -9551.8, 23.336, FourCC("nzom"))
 u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 2922.3, -9392.2, 18.354, FourCC("nzom"))
 u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 4575.5, -10475.2, 36.171, FourCC("nzom"))
@@ -949,8 +965,8 @@ u = BlzCreateUnitWithSkin(p, FourCC("nban"), 9952.6, -1170.5, 290.178, FourCC("n
 u = BlzCreateUnitWithSkin(p, FourCC("nbrg"), 10080.5, -1118.1, 258.894, FourCC("nbrg"))
 u = BlzCreateUnitWithSkin(p, FourCC("nbrg"), 10411.3, -1289.1, 212.852, FourCC("nbrg"))
 u = BlzCreateUnitWithSkin(p, FourCC("nenf"), 10267.5, -1332.8, 240.714, FourCC("nenf"))
-u = BlzCreateUnitWithSkin(p, FourCC("nbld"), 10252.2, -1150.1, 240.766, FourCC("nbld"))
-SetUnitState(u, UNIT_STATE_MANA, 500)
+gg_unit_nbld_0128 = BlzCreateUnitWithSkin(p, FourCC("nbld"), 10252.2, -1150.1, 240.766, FourCC("nbld"))
+SetUnitState(gg_unit_nbld_0128, UNIT_STATE_MANA, 500)
 u = BlzCreateUnitWithSkin(p, FourCC("nenf"), 10099.7, -1253.6, 240.714, FourCC("nenf"))
 u = BlzCreateUnitWithSkin(p, FourCC("nogl"), -7553.4, 13937.3, 44.976, FourCC("nogl"))
 SetUnitState(u, UNIT_STATE_MANA, 500)
@@ -1478,6 +1494,9 @@ gg_rct_Farm_villagers_working = Rect(9056.0, -7776.0, 10976.0, -5184.0)
 gg_rct_Shadowfang_peasants_lumber = Rect(-6592.0, -16576.0, -6080.0, -15968.0)
 gg_rct_Shadowfang_soldier_training = Rect(-13408.0, -16736.0, -12736.0, -16160.0)
 gg_rct_Shadowfang_gate_sight_blocker = Rect(-8640.0, -16256.0, -8576.0, -15488.0)
+gg_rct_Bandit_camp = Rect(9728.0, -1472.0, 10592.0, -832.0)
+gg_rct_John_after_undead = Rect(8576.0, -6976.0, 8672.0, -6880.0)
+gg_rct_Peter_after_undead = Rect(8448.0, -7104.0, 8544.0, -7008.0)
 end
 
 function Trig_Doodads_Actions()
@@ -1502,24 +1521,15 @@ udg_tmp_unit = gg_unit_ngir_0097
 udg_tmp_unit = gg_unit_Hpb1_0145
 udg_tmp_unit = gg_unit_nvk2_0064
 udg_tmp_unit = gg_unit_nvil_0035
+udg_tmp_unit = gg_unit_nvl2_0413
+udg_tmp_unit = gg_unit_nvil_0414
 udg_tmp_unit = gg_unit_hkni_0134
 udg_tmp_unit = gg_unit_hfoo_0148
 udg_tmp_unit = gg_unit_hfoo_0149
 udg_tmp_unit = gg_unit_hfoo_0150
 udg_tmp_unit = gg_unit_hfoo_0151
-udg_tmp_unit = gg_unit_nvl2_0412
-udg_tmp_unit = gg_unit_nvl2_0413
-udg_tmp_unit = gg_unit_nvil_0414
-udg_tmp_unit = gg_unit_nvl2_0041
-udg_tmp_unit = gg_unit_nvil_0042
-udg_tmp_unit = gg_unit_hpea_0132
-udg_tmp_unit = gg_unit_hpea_0133
-udg_tmp_unit = gg_unit_hpea_0155
-udg_tmp_unit = gg_unit_ugho_0190
-udg_tmp_unit = gg_unit_ugho_0194
-udg_tmp_unit = gg_unit_ugho_0208
-udg_tmp_unit = gg_unit_ugho_0209
-udg_tmp_unit = gg_unit_ugho_0210
+udg_tmp_unit = gg_unit_Hamg_0109
+udg_tmp_unit = gg_unit_nbld_0128
 end
 
 function InitTrig_Unit_register()
