@@ -28,7 +28,7 @@ import { pickRandom, waitUntil } from 'lib/utils';
 import { sleep, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
-import { BaseQuest, BaseQuestProps } from '../base_quest';
+import { BaseQuest, BaseQuestProps } from '../base';
 
 const gatherRadius = 400;
 const minimapIconMinRadius = 1500;

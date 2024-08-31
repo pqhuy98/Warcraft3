@@ -11,7 +11,7 @@ export interface BaseQuestProps {
   cheatName: string
 }
 
-const logDebug = false;
+const logDebug = true;
 
 export class BaseQuest {
   private status: 'open' | 'in_progress' | 'completed' | 'failed' = 'open';

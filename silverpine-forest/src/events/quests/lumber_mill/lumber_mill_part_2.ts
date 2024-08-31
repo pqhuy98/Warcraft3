@@ -26,7 +26,7 @@ import {
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
-import { BaseQuest, BaseQuestProps } from '../base_quest';
+import { BaseQuest, BaseQuestProps } from '../base';
 
 const questName = 'Lumber Mill, part 2';
 const questDescription = 'Upon returning to town with the dire news of the undead threat, John and Peter report the situation to Knight Gareth. In response, Gareth sends a small squad of footmen to accompany the two men back to the lumber mill for further investigation.';

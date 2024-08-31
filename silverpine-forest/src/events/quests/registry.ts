@@ -3,12 +3,13 @@ import { setTimeout } from 'lib/trigger';
 import { getUnitsInRect, isBuilding } from 'lib/unit';
 import { Unit } from 'w3ts';
 
-import { BanditBanish } from './BanditBanish/BanditBanish';
-import { GatherSheeps } from './gather_sheeps/GatherSheeps';
-import { LumberMill } from './lumber_mill/LumberMill';
-import { LumberMillPart2 } from './lumber_mill/LumberMillPart2';
-import { StrikeBack } from './lumber_mill/StrikeBack';
-import { RabbitHunt } from './RabbitHunt/RabbitHunt';
+import { BanditBanish } from './bandit_banish/bandit_banish';
+import { GatherSheeps } from './gather_sheeps/gather_sheeps';
+import { HiddenEnergies } from './hidden_energies/hidden_energies';
+import { LumberMill } from './lumber_mill/lumber_mill';
+import { LumberMillPart2 } from './lumber_mill/lumber_mill_part_2';
+import { StrikeBack } from './lumber_mill/strike_back';
+import { RabbitHunt } from './rabbit_hunt/rabbit_hunt';
 
 export class QuestRegistry {
   static register() {
@@ -52,7 +53,7 @@ export class QuestRegistry {
         townRect2: gg_rct_LumberMill_road_to_town_2,
         townKnight: Unit.fromHandle(gg_unit_hkni_0134),
         dependencies: [rabbitHunt],
-        cheatName: 'lm1',
+        cheatName: 'lm',
       });
       lumberMill1.register();
 
@@ -102,10 +103,20 @@ export class QuestRegistry {
         bandits: getUnitsInRect(gg_rct_Bandit_camp, (u) => u.isAlive() && u.isEnemy(playerHumanAlliance)),
         johnRect: gg_rct_John_after_undead,
         peterRect: gg_rct_Peter_after_undead,
+        sightBlockersRect: gg_rct_Sight_blockers_farm,
         dependencies: [strikeBack],
         cheatName: 'bb',
       });
       banditBanish.register();
+
+      // HiddenEnergies
+      const hiddenEnergies = new HiddenEnergies({
+        name: 'Hidden Energies',
+        fountain: Unit.fromHandle(gg_unit_nmoo_0068),
+        dependencies: [banditBanish],
+        cheatName: 'he',
+      });
+      hiddenEnergies.register();
     });
   }
 }

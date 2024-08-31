@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 
 import { TalkGroup } from 'events/talk_group';
+import { getDestructablesInRect } from 'lib/destructable';
 import { centerLocRect } from 'lib/location';
 import { log } from 'lib/log';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
@@ -20,7 +21,7 @@ import {
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
-import { BaseQuest, BaseQuestProps } from '../base_quest';
+import { BaseQuest, BaseQuestProps } from '../base';
 
 const questName = 'Bandit Banish';
 const questDescription = 'John has requested your assistance one last time. He needs you to deliver an important item to the north outpost. Travel there and meet with the Archmage of the Northern Watch to ensure the safety of the area.';
@@ -49,6 +50,7 @@ export class BanditBanish extends BaseQuest {
     bandits: Unit[]
     johnRect: rect
     peterRect: rect
+    sightBlockersRect: rect
   }) {
     super(globals);
     johnSounds = [
@@ -108,11 +110,10 @@ export class BanditBanish extends BaseQuest {
 
   async register() {
     const {
-      archMage, john, peter, bandits, johnRect, peterRect, banditLord,
+      archMage, john, peter, bandits, johnRect, peterRect, banditLord, sightBlockersRect,
     } = this.globals;
     archMage.nameProper = archMageName.replace('ArchMage ', '');
     archMage.name = 'Archmage of Northern Watch';
-    log('Bandits', bandits.length);
 
     await this.waitDependenciesDone();
 
@@ -139,6 +140,10 @@ export class BanditBanish extends BaseQuest {
     await sleep(1);
     await talkGroup.speak(john, johnSounds[1], traveler);
     talkGroup.finish();
+
+    // Destroy sight blockers
+    getDestructablesInRect(sightBlockersRect, (d) => d.typeId === FourCC('YTlb'))
+      .forEach((d) => d.kill());
 
     const questLog = await QuestLog.create({
       name: questName,
@@ -220,7 +225,7 @@ export class BanditBanish extends BaseQuest {
     traveler.addExperience(rewardXp, true);
     traveler.addAbility(ABILITY_ArchMageWaterElemental.id);
     await questLog.completeWithRewards([
-      `New spell: ${GetAbilityName(ABILITY_ArchMageWaterElemental.id)}`,
+      `${GetAbilityName(ABILITY_ArchMageWaterElemental.id)}`,
       `${rewardXp} experience`,
     ]);
 

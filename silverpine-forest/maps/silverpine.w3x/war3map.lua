@@ -52,33 +52,27 @@ gg_rct_Farm_villagers_working = nil
 gg_rct_Shadowfang_peasants_lumber = nil
 gg_rct_Shadowfang_soldier_training = nil
 gg_rct_Shadowfang_gate_sight_blocker = nil
+gg_rct_Bandit_camp = nil
+gg_rct_John_after_undead = nil
+gg_rct_Peter_after_undead = nil
 gg_snd_lich_king_stab_out = nil
 gg_snd_lichking_frostmourne_hungers = nil
 gg_trg_Doodads = nil
 gg_trg_Unit_register = nil
 gg_trg_Doodads_register = nil
 gg_unit_nvil_0035 = nil
-gg_unit_nvl2_0041 = nil
-gg_unit_nvil_0042 = nil
 gg_unit_nvk2_0064 = nil
 gg_unit_ngir_0095 = nil
 gg_unit_ngir_0096 = nil
 gg_unit_ngir_0097 = nil
+gg_unit_Hamg_0109 = nil
+gg_unit_nbld_0128 = nil
 gg_unit_hkni_0134 = nil
 gg_unit_Hpb1_0145 = nil
 gg_unit_hfoo_0148 = nil
 gg_unit_hfoo_0149 = nil
 gg_unit_hfoo_0150 = nil
 gg_unit_hfoo_0151 = nil
-gg_unit_hpea_0132 = nil
-gg_unit_hpea_0133 = nil
-gg_unit_hpea_0155 = nil
-gg_unit_ugho_0190 = nil
-gg_unit_ugho_0194 = nil
-gg_unit_nvl2_0412 = nil
-gg_unit_ugho_0208 = nil
-gg_unit_ugho_0209 = nil
-gg_unit_ugho_0210 = nil
 gg_unit_nvl2_0413 = nil
 gg_unit_Ekee_0551 = nil
 gg_unit_nvil_0414 = nil
@@ -86,11 +80,8 @@ gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
-gg_unit_Hamg_0109 = nil
-gg_rct_Bandit_camp = nil
-gg_rct_John_after_undead = nil
-gg_rct_Peter_after_undead = nil
-gg_unit_nbld_0128 = nil
+gg_unit_nmoo_0068 = nil
+gg_rct_Sight_blockers_farm = nil
 function InitGlobals()
 end
 
@@ -925,7 +916,6 @@ SelectHeroSkill(u, FourCC("AEbl"))
 SelectHeroSkill(u, FourCC("AEbl"))
 SelectHeroSkill(u, FourCC("AEbl"))
 SelectHeroSkill(u, FourCC("AEsh"))
-UnitAddItemToSlotById(u, FourCC("stwp"), 0)
 end
 
 function CreateNeutralHostile()
@@ -1223,7 +1213,7 @@ local t
 local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("ngme"), 7552.0, -15616.0, 270.000, FourCC("ngme"))
-u = BlzCreateUnitWithSkin(p, FourCC("nmoo"), 7168.0, -8000.0, 270.000, FourCC("nmoo"))
+gg_unit_nmoo_0068 = BlzCreateUnitWithSkin(p, FourCC("nmoo"), 7168.0, -8000.0, 270.000, FourCC("nmoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("nwgt"), 14400.0, 16256.0, 270.000, FourCC("nwgt"))
 WaygateSetDestination(u, GetRectCenterX(gg_rct_Waygate_island_back), GetRectCenterY(gg_rct_Waygate_island_back))
 WaygateActivate(u, true)
@@ -1497,6 +1487,7 @@ gg_rct_Shadowfang_gate_sight_blocker = Rect(-8640.0, -16256.0, -8576.0, -15488.0
 gg_rct_Bandit_camp = Rect(9728.0, -1472.0, 10592.0, -832.0)
 gg_rct_John_after_undead = Rect(8576.0, -6976.0, 8672.0, -6880.0)
 gg_rct_Peter_after_undead = Rect(8448.0, -7104.0, 8544.0, -7008.0)
+gg_rct_Sight_blockers_farm = Rect(8192.0, -4960.0, 10464.0, -4096.0)
 end
 
 function Trig_Doodads_Actions()
@@ -1530,6 +1521,7 @@ udg_tmp_unit = gg_unit_hfoo_0150
 udg_tmp_unit = gg_unit_hfoo_0151
 udg_tmp_unit = gg_unit_Hamg_0109
 udg_tmp_unit = gg_unit_nbld_0128
+udg_tmp_unit = gg_unit_nmoo_0068
 end
 
 function InitTrig_Unit_register()

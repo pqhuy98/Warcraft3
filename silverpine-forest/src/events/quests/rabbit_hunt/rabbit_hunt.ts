@@ -15,7 +15,7 @@ import {
   MapPlayer, Unit,
 } from 'w3ts';
 
-import { BaseQuest, BaseQuestProps } from '../base_quest';
+import { BaseQuest, BaseQuestProps } from '../base';
 
 const questName = 'Rabbit Hunt';
 const questDescription = 'Hunt all rabbits in the wheat field.';

@@ -22,7 +22,7 @@ import {
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
-import { BaseQuest, BaseQuestProps } from '../base_quest';
+import { BaseQuest, BaseQuestProps } from '../base';
 
 const questName = 'Lumber Mill';
 const questDescription = 'Go to lumber mill';

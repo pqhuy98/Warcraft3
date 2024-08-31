@@ -19,7 +19,7 @@ import {
   Unit,
 } from 'w3ts';
 
-import { BaseQuest, BaseQuestProps } from '../base_quest';
+import { BaseQuest, BaseQuestProps } from '../base';
 
 const questName = 'Lumber Mill, part 3';
 const questDescription = 'Following the devastating ambush at the lumber mill, where brave soldiers lost their lives to a horde of undead, Mayor Darius has ordered an immediate counterattack. Join forces with Knight Gareth and the Ambermill warriors to launch a retaliatory strike against the undead base.';

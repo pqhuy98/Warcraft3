@@ -67,15 +67,6 @@ export class MiscEvents {
     getUnitsInRect(gg_rct_Town_peasants_repair_wheelbarrow)
       .forEach((u) => guardCurrentPosition(u, defaultGuardDistance, 'stand work lumber'));
 
-    // Ghouls eating corpses
-    [
-      gg_unit_ugho_0190,
-      gg_unit_ugho_0194,
-      gg_unit_ugho_0208,
-      gg_unit_ugho_0209,
-      gg_unit_ugho_0210,
-    ].forEach((u) => guardCurrentPosition(Unit.fromHandle(u), defaultGuardDistance, 'stand channel'));
-
     // Harvests
     [
       ...getUnitsInRect(gg_rct_Shore_Peon_harvest_gold),
