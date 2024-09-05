@@ -1,4 +1,5 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
+import { neutralPassive } from 'lib/constants';
 import {
   randomLocRect,
 } from 'lib/location';
@@ -11,9 +12,7 @@ import { playSpeech } from 'lib/sound';
 import { setIntervalFixedCount } from 'lib/trigger';
 import { getUnitsInRect } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
-import {
-  MapPlayer, Unit,
-} from 'w3ts';
+import { Unit } from 'w3ts';
 
 import { BaseQuest, BaseQuestProps } from '../base';
 
@@ -79,7 +78,7 @@ export class RabbitHunt extends BaseQuest {
         accumArea += GetRectWidthBJ(fieldRect) * GetRectHeightBJ(fieldRect);
         if (accumArea >= dice) {
           const loc = randomLocRect(gg_rct_Wheat_field);
-          Unit.create(MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE), rabbitTypeId, loc.x, loc.y, GetRandomDirectionDeg());
+          Unit.create(neutralPassive, rabbitTypeId, loc.x, loc.y, GetRandomDirectionDeg());
           break;
         }
       }

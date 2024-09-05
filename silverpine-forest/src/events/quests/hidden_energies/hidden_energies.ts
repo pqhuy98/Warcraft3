@@ -16,7 +16,7 @@ const questName = 'Hidden Energies';
 const questDescription = 'ArchMage Landazar whispers, "Near the south watch tower of the farm, by the cliff, there\'s a hidden spot where the land’s energies restore mana. It\'s a secret known to few." Can you uncover this mystical place and harness its power?';
 const questIcon = 'ReplaceableTextures\\CommandButtons\\BTNFountainOfMana.blp';
 const questItems = [
-  '- Find the secret spot where the land’s energies restore mana',
+  'Find the secret spot where the land’s energies restore mana',
 ];
 
 const rewardXp = 1200;

@@ -3,7 +3,6 @@
 import { TalkGroup } from 'events/talk_group';
 import { getDestructablesInRect } from 'lib/destructable';
 import { centerLocRect } from 'lib/location';
-import { log } from 'lib/log';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
@@ -166,7 +165,6 @@ export class BanditBanish extends BaseQuest {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON);
       t.addCondition(() => Unit.fromHandle(GetSummoningUnit()) === archMage);
       t.addAction(() => {
-        log('Summon', GetSummonedUnit());
         RescueUnitBJ(GetSummonedUnit(), traveler.owner.handle, false);
         summonTrigger.destroy();
       });

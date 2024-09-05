@@ -16,7 +16,7 @@ export class MulticastUnit {
   };
 
   static register(abilityId?: number, caster?: Unit, singleDummy: boolean = true) {
-    buildTrigger((t) => {
+    return buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       if (abilityId) {
         t.addCondition(() => GetSpellAbilityId() === abilityId);
@@ -83,6 +83,7 @@ export class MulticastUnit {
     setUnitScale(dummy, getUnitScale(caster));
     BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_COOLDOWN, abiLevel - 1, 0);
     BlzSetAbilityRealLevelField(dummy.getAbility(abiId), ABILITY_RLF_CAST_RANGE, abiLevel - 1, 999999);
+    tieUnitToUnit(dummy, caster);
     return dummy;
   }
 }

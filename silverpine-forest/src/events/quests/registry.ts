@@ -1,9 +1,10 @@
-import { playerForsaken, playerHumanAlliance } from 'lib/constants';
+import { neutralHostile, playerForsaken } from 'lib/constants';
 import { setTimeout } from 'lib/trigger';
 import { getUnitsInRect, isBuilding } from 'lib/unit';
 import { Unit } from 'w3ts';
 
 import { BanditBanish } from './bandit_banish/bandit_banish';
+import { ElvenDrink } from './elven_drink/elven_drink';
 import { GatherSheeps } from './gather_sheeps/gather_sheeps';
 import { HiddenEnergies } from './hidden_energies/hidden_energies';
 import { LumberMill } from './lumber_mill/lumber_mill';
@@ -100,7 +101,7 @@ export class QuestRegistry {
         peter: Unit.fromHandle(gg_unit_nvil_0414),
         archMage: Unit.fromHandle(gg_unit_Hamg_0109),
         banditLord: Unit.fromHandle(gg_unit_nbld_0128),
-        bandits: getUnitsInRect(gg_rct_Bandit_camp, (u) => u.isAlive() && u.isEnemy(playerHumanAlliance)),
+        bandits: getUnitsInRect(gg_rct_Bandit_camp, (u) => u.isAlive() && u.owner === neutralHostile),
         johnRect: gg_rct_John_after_undead,
         peterRect: gg_rct_Peter_after_undead,
         sightBlockersRect: gg_rct_Sight_blockers_farm,
@@ -117,6 +118,14 @@ export class QuestRegistry {
         cheatName: 'he',
       });
       hiddenEnergies.register();
+
+      // Elven Drink
+      new ElvenDrink({
+        name: 'Elven Drink',
+        questGiver: Unit.fromHandle(gg_unit_nhem_0557),
+        dependencies: [],
+        cheatName: 'ed',
+      }).register();
     });
   }
 }

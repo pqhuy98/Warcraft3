@@ -1,8 +1,37 @@
+/* eslint-disable no-bitwise */
 import { getElapsedTime, sleep } from 'w3ts';
 
 export function pickRandom<T>(bag: T[]): T | undefined {
   if (bag.length === 0) return undefined;
   return bag[GetRandomInt(0, bag.length - 1)];
+}
+
+export function pickRandomWeighted<T>(allOptions: [T, number][]): T | null {
+  // Filter out non-positive weight entries
+  const validOptions: [T, number][] = allOptions.filter((option) => option[1] > 0);
+
+  // If there are no valid options, return null
+  if (validOptions.length === 0) {
+    return null;
+  }
+
+  // Sum up the weights
+  const totalWeight = validOptions.reduce((sum, [, weight]) => sum + weight, 0);
+
+  // Generate a random number between 0 and totalWeight
+  const randomNumber = Math.random() * totalWeight;
+
+  // Select the option based on the random number
+  let cumulativeWeight = 0;
+  for (const [option, weight] of validOptions) {
+    cumulativeWeight += weight;
+    if (randomNumber < cumulativeWeight) {
+      return option;
+    }
+  }
+
+  // Should not reach here if the function logic is correct
+  return null;
 }
 
 type Timing = {
@@ -79,4 +108,30 @@ export async function waitUntil(interval: number, predicate: () => boolean, time
     }
   }
   return true;
+}
+
+export function reverseFourCC(code: number): string {
+  // Extract each character from the 32-bit integer
+  const char1 = String.fromCharCode((code >>> 24) & 0xFF);
+  const char2 = String.fromCharCode((code >>> 16) & 0xFF);
+  const char3 = String.fromCharCode((code >>> 8) & 0xFF);
+  const char4 = String.fromCharCode(code & 0xFF);
+
+  // Combine the characters into a string
+  return char1 + char2 + char3 + char4;
+}
+
+export function numberToOrdinal(i: number) {
+  const j = i % 10;
+  const k = i % 100;
+  if (j === 1 && k !== 11) {
+    return `${i}st`;
+  }
+  if (j === 2 && k !== 12) {
+    return `${i}nd`;
+  }
+  if (j === 3 && k !== 13) {
+    return `${i}rd`;
+  }
+  return `${i}th`;
 }

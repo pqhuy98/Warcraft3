@@ -1,5 +1,6 @@
 [Misc]
 FoodCeiling=300
+HeroFactorXP=100
 MaxHeroLevel=100
 MaxUnitLevel=100
 MaxUnitSpeed=522.0

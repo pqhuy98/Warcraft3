@@ -22,13 +22,17 @@ import {
   ABILITY_ID_SANDQUAKE,
   ABILITY_ID_THUNDER_BLINK,
   ABILITY_ID_WRATH_OF_THE_LICH_KING,
+  darkForce,
+  lightForce,
   mainPlayer,
+  neutralHostile,
+  neutralPassive,
   registerGlobalUnits,
 } from 'lib/constants';
 import {
   daemonTempCleanUp, temp,
 } from 'lib/location';
-import { isComputer, setAllianceState2Way } from 'lib/player';
+import { isComputer, setAllianceState, setAllianceState2Way } from 'lib/player';
 import { daemonQuestMarker } from 'lib/quests/utils';
 import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
 import { UnitInteraction } from 'lib/systems/unit_interaction';
@@ -39,8 +43,7 @@ import {
   daemonDummyMaster, daemonTieUnitToUnit,
 } from 'lib/unit';
 import {
-  Camera,
-  Force, Group, MapPlayer, Rectangle, Unit,
+  Camera, Group, MapPlayer, Rectangle, Unit,
 } from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
@@ -97,11 +100,6 @@ function tsMain() {
 
 function configurePlayerSettings() {
   SetReservedLocalHeroButtons(0);
-
-  const lightForce = Force.create();
-  for (const i of [1, 2]) lightForce.addPlayer(MapPlayer.fromIndex(i));
-  const darkForce = Force.create();
-  for (const i of [0, 3]) darkForce.addPlayer(MapPlayer.fromIndex(i));
 
   const heroOnlyPlayers = [
     mainPlayer,
@@ -166,6 +164,11 @@ function configurePlayerSettings() {
         u.color = playerColor;
       }
     });
+
+    setAllianceState(neutralPassive, player, 'neutral vision');
+    if (player !== mainPlayer) {
+      setAllianceState2Way(neutralHostile, player, 'neutral');
+    }
   }
 
   function setMainPlayerAlliance(mainPlayerForce: MainPlayerFaction) {
@@ -189,7 +192,7 @@ function configurePlayerSettings() {
     ClearTextMessages();
     setTimeout(0, () => SetFogStateRect(mainPlayer.handle, FOG_OF_WAR_MASKED, temp(Rectangle.getWorldBounds()).handle, false));
   }
-  setMainPlayerAlliance('observer');
+  setMainPlayerAlliance('light');
   onChatCommand('-faction $1', false, (msg) => {
     const faction = msg.split(' ')[1];
     switch (faction) {

@@ -11,7 +11,10 @@ import { OrderId } from 'w3ts/globals';
 import { k0, k1 } from './debug/key_counter';
 import { log } from './log';
 import { angleDifference } from './maths/misc';
-import { ABILITY_RavenFormMedivh } from './resources/war3-abilities';
+import {
+  ABILITY_Attack, ABILITY_Burrow, ABILITY_BurrowBarbedArachnathid, ABILITY_BurrowDetectionFlyers,
+  ABILITY_BurrowScarabLvl2, ABILITY_BurrowScarabLvl3, ABILITY_CreepSleep, ABILITY_Move, ABILITY_RavenFormMedivh,
+} from './resources/war3-abilities';
 import { UNIT_TYPE } from './resources/war3-units';
 import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
@@ -243,7 +246,7 @@ export function getUnitsInRangeOfXYMatching(range: number, loc: Loc, filter: () 
   let cond: conditionfunc;
   const group = GetUnitsInRangeOfLocMatching(
     range,
-    tempLocation(loc).handle,
+    tempLocation(loc),
     cond = Condition(() => filter()),
   );
   DestroyCondition(cond);
@@ -305,4 +308,24 @@ export function setUnitFacingTimed(unit: Unit, angle: number, duration = 0.75) {
 
 export function isUnitType(u: Unit, unitTypes: UNIT_TYPE) {
   return u.typeId === FourCC(unitTypes.code);
+}
+
+export function enumUnitAbilities(unit: Unit, callback: (ability: ability, id: number, level: number) => unknown) {
+  const ignoreList = [
+    ABILITY_Attack, ABILITY_Move, ABILITY_CreepSleep, ABILITY_BurrowDetectionFlyers,
+    ABILITY_Burrow, ABILITY_BurrowBarbedArachnathid, ABILITY_BurrowScarabLvl2, ABILITY_BurrowScarabLvl3,
+  ].map((a) => a.id);
+
+  for (let i = 0; ; i++) {
+    const ability = unit.getAbilityByIndex(i);
+    if (ability) {
+      const id = BlzGetAbilityId(ability);
+      if (ignoreList.includes(id)) continue;
+
+      const level = unit.getAbilityLevel(id);
+      callback(ability, id, level);
+    } else {
+      break;
+    }
+  }
 }

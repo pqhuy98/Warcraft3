@@ -14,7 +14,7 @@ export class MulticastPoint {
   };
 
   static register(abilityId?: number, specificCaster?: Unit) {
-    buildTrigger((t) => {
+    return buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       if (abilityId) {
         t.addCondition(() => GetSpellAbilityId() === abilityId);

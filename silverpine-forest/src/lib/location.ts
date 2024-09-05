@@ -1,7 +1,10 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { Point, Rectangle, Unit } from 'w3ts';
+import { OrderId } from 'w3ts/globals';
 
+import { mainPlayer, UNIT_IPR_RECEIVER, UNIT_IPR_TRANSMITTER } from './constants';
 import { log } from './log';
+import { ABILITY_Move } from './resources/war3-abilities';
 import { setIntervalIndefinite } from './trigger';
 
 export const RAD_TO_ANGLE = 180 / Math.PI;
@@ -11,7 +14,7 @@ export interface Loc {
   y: number
 }
 
-interface Destroyable {
+export interface Destroyable {
   destroy(): void
 }
 
@@ -24,7 +27,7 @@ export function temp<T extends Destroyable>(obj: T): T {
 }
 
 export function tempLocation(loc: Loc) {
-  return temp(Point.create(loc.x, loc.y));
+  return temp(Point.create(loc.x, loc.y)).handle;
 }
 
 export function templocation(loc: location) {
@@ -108,8 +111,40 @@ export function isLocInRect(loc: Loc, rect: rect) {
 }
 
 export function cameraCenter() {
-  return {
-    x: GetCameraEyePositionX(),
-    y: GetCameraEyePositionY() + 850,
-  };
+  return fromTempLocation(GetCameraTargetPositionLoc());
+}
+
+let iprTransmitter: Unit;
+let iprReceiver: Unit;
+
+// https://www.hiveworkshop.com/threads/is-point-reachable-1-0-2.353693/
+export function isPointReachable(from: Loc, to: Loc): boolean {
+  // IsTerrainPathable returns true if not walkable!
+  if (IsTerrainPathable(to.x, to.y, PATHING_TYPE_WALKABILITY)) {
+    return false;
+  }
+
+  if (!iprTransmitter) {
+    iprTransmitter = Unit.create(mainPlayer, UNIT_IPR_TRANSMITTER.id, from.x, from.y);
+  } else {
+    iprTransmitter.show = true;
+    iprTransmitter.paused = false;
+  }
+  if (!iprReceiver) {
+    iprReceiver = Unit.create(mainPlayer, UNIT_IPR_RECEIVER.id, to.x, to.y);
+  } else {
+    iprReceiver.show = true;
+    iprReceiver.paused = false;
+  }
+  iprTransmitter.x = from.x;
+  iprTransmitter.y = from.y;
+  iprReceiver.setPosition(to.x, to.y);
+  iprReceiver.setFacingEx(AngleBetweenLocs(iprTransmitter, iprReceiver)); // initially turn its back to transmitter
+  iprReceiver.issueImmediateOrder(OrderId.Militia);
+  const result = iprReceiver.currentOrder === OrderId.Militia;
+  if (result) {
+    iprReceiver.disableAbility(ABILITY_Move.id, true, false);
+    iprReceiver.disableAbility(ABILITY_Move.id, false, false);
+  }
+  return result;
 }

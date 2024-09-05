@@ -47,7 +47,7 @@ export function removeMinimapIcon(unit: Unit) {
 }
 
 export function createMinimapIconLoc(loc: Loc, type: keyof typeof IconStyles) {
-  CampaignMinimapIconLocBJ(tempLocation(loc).handle, IconStyles[type]);
+  CampaignMinimapIconLocBJ(tempLocation(loc), IconStyles[type]);
   const icon = GetLastCreatedMinimapIcon();
   return icon;
 }

@@ -25,7 +25,7 @@ export class MulticastNoTarget {
   };
 
   static register(abilityId?: number, specificCaster?: Unit) {
-    buildTrigger((t) => {
+    return buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       t.addCondition(() => !isDummy(Unit.fromHandle(GetSpellAbilityUnit()))
         && getSpellType().noTarget

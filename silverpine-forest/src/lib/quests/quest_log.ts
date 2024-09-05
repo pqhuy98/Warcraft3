@@ -65,7 +65,7 @@ export class QuestLog {
       bj_QUESTMESSAGE_COMPLETED,
       `${colorize.yellow('QUEST COMPLETED')}\n${this.data.name}`,
     );
-    this.notifyRewards(rewards);
+    notifyRewards(rewards);
     await sleep(GetSoundDuration(bj_questCompletedSound) / 1000 - 2);
   }
 
@@ -96,19 +96,19 @@ export class QuestLog {
     QuestMessageBJ(bj_FORCE_ALL_PLAYERS, bj_QUESTMESSAGE_UPDATED, message);
     await sleep(GetSoundDuration(bj_questUpdatedSound) / 1000);
   }
+}
 
-  private notifyRewards(rewards: string[]) {
-    if (rewards.length === 0) return;
+export function notifyRewards(rewards: string[]) {
+  if (rewards.length === 0) return;
 
-    let message = `${colorize.yellow('REWARD')}: `;
-    if (rewards.length === 1) {
-      message += rewards[0];
-    } else if (rewards.length === 2) {
-      message += rewards.join(' and ');
-    } else {
-      const allButLast = rewards.slice(0, -1).join(', ');
-      message += `${allButLast}, and ${rewards[rewards.length - 1]}`;
-    }
-    QuestMessageBJ(bj_FORCE_ALL_PLAYERS, bj_QUESTMESSAGE_ITEMACQUIRED, message);
+  let message = `${colorize.yellow('REWARD')}: `;
+  if (rewards.length === 1) {
+    message += rewards[0];
+  } else if (rewards.length === 2) {
+    message += rewards.join(' and ');
+  } else {
+    const allButLast = rewards.slice(0, -1).join(', ');
+    message += `${allButLast}, and ${rewards[rewards.length - 1]}`;
   }
+  QuestMessageBJ(bj_FORCE_ALL_PLAYERS, bj_QUESTMESSAGE_ITEMACQUIRED, message);
 }

@@ -1643,3 +1643,489 @@ STRING 297
 Info
 }
 
+STRING 298
+// Units: h005 (Is Point Reachable), EditorSuffix (Name - Editor Suffix)
+{
+(Transmitter)
+}
+
+STRING 299
+// Units: h006 (Is Point Reachable), EditorSuffix (Name - Editor Suffix)
+{
+(Receiver)
+}
+
+STRING 300
+// Units: h005 (Is Point Reachable), Name (Name)
+{
+Is Point Reachable
+}
+
+STRING 301
+// Units: h005 (Is Point Reachable), Tip (Tooltip - Basic)
+{
+Dummy
+}
+
+STRING 302
+// Units: h005 (Is Point Reachable), Ubertip (Tooltip - Extended)
+{
+Dummy
+}
+
+STRING 303
+// Units: h006 (Is Point Reachable), Name (Name)
+{
+Is Point Reachable
+}
+
+STRING 304
+// Units: h006 (Is Point Reachable), Tip (Tooltip - Basic)
+{
+Dummy
+}
+
+STRING 305
+// Units: h006 (Is Point Reachable), Ubertip (Tooltip - Extended)
+{
+Dummy
+}
+
+STRING 306
+// Abilities: A00P (Call To Arms), EditorSuffix (Editor Suffix)
+{
+(Transmitter)
+}
+
+STRING 307
+// Abilities: A00Q (Call to Arms), EditorSuffix (Editor Suffix)
+{
+(Receiver)
+}
+
+STRING 308
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 4|r]
+}
+
+STRING 309
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 5|r]
+}
+
+STRING 310
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 6|r]
+}
+
+STRING 311
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 7|r]
+}
+
+STRING 312
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 8|r]
+}
+
+STRING 313
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 9|r]
+}
+
+STRING 314
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 10|r]
+}
+
+STRING 315
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 11|r]
+}
+
+STRING 316
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 12|r]
+}
+
+STRING 317
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 13|r]
+}
+
+STRING 318
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 14|r]
+}
+
+STRING 319
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 15|r]
+}
+
+STRING 320
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 16|r]
+}
+
+STRING 321
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 17|r]
+}
+
+STRING 322
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 18|r]
+}
+
+STRING 323
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 19|r]
+}
+
+STRING 324
+// Abilities: AEfk (Fan of Knives), Tip (Tooltip - Normal)
+{
+Fan of Knives - [|cffffcc00Level 20|r]
+}
+
+STRING 325
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA1> damage. Total damage to all enemies is up to <AEfk,DataB1>.
+}
+
+STRING 326
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA2> damage. Total damage to all enemies is up to <AEfk,DataB2>.
+}
+
+STRING 327
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA3> damage. Total damage to all enemies is up to <AEfk,DataB3>.
+}
+
+STRING 328
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA4> damage. Total damage to all enemies is up to <AEfk,DataB4>.
+}
+
+STRING 329
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA5> damage. Total damage to all enemies is up to <AEfk,DataB5>.
+}
+
+STRING 330
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA6> damage. Total damage to all enemies is up to <AEfk,DataB6>.
+}
+
+STRING 331
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA7> damage. Total damage to all enemies is up to <AEfk,DataB7>.
+}
+
+STRING 332
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA8> damage. Total damage to all enemies is up to <AEfk,DataB8>.
+}
+
+STRING 333
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA9> damage. Total damage to all enemies is up to <AEfk,DataB9>.
+}
+
+STRING 334
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA10> damage. Total damage to all enemies is up to <AEfk,DataB10>.
+}
+
+STRING 335
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA11> damage. Total damage to all enemies is up to <AEfk,DataB11>.
+}
+
+STRING 336
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA12> damage. Total damage to all enemies is up to <AEfk,DataB12>.
+}
+
+STRING 337
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA13> damage. Total damage to all enemies is up to <AEfk,DataB13>.
+}
+
+STRING 338
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA14> damage. Total damage to all enemies is up to <AEfk,DataB14>.
+}
+
+STRING 339
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA15> damage. Total damage to all enemies is up to <AEfk,DataB15>.
+}
+
+STRING 340
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA16> damage. Total damage to all enemies is up to <AEfk,DataB16>.
+}
+
+STRING 341
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA17> damage. Total damage to all enemies is up to <AEfk,DataB17>.
+}
+
+STRING 342
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA18> damage. Total damage to all enemies is up to <AEfk,DataB18>.
+}
+
+STRING 343
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA19> damage. Total damage to all enemies is up to <AEfk,DataB19>.
+}
+
+STRING 344
+// Abilities: AEfk (Fan of Knives), Ubertip (Tooltip - Normal - Extended)
+{
+The Warden hurls a flurry of knives, damaging nearby enemies. Each knife does <AEfk,DataA20> damage. Total damage to all enemies is up to <AEfk,DataB20>.
+}
+
+STRING 345
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 4|r]
+}
+
+STRING 346
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 5|r]
+}
+
+STRING 347
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 6|r]
+}
+
+STRING 348
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 7|r]
+}
+
+STRING 349
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 8|r]
+}
+
+STRING 350
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 9|r]
+}
+
+STRING 351
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 10|r]
+}
+
+STRING 352
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 11|r]
+}
+
+STRING 353
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 12|r]
+}
+
+STRING 354
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 13|r]
+}
+
+STRING 355
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 14|r]
+}
+
+STRING 356
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 15|r]
+}
+
+STRING 357
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 16|r]
+}
+
+STRING 358
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 17|r]
+}
+
+STRING 359
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 18|r]
+}
+
+STRING 360
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 19|r]
+}
+
+STRING 361
+// Abilities: AEsh (Shadow Strike), Tip (Tooltip - Normal)
+{
+Shadow Strike - [|cffffcc00Level 20|r]
+}
+
+STRING 362
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE4> initial damage, and <AEsh,DataA4> damage every <AEsh,Cast4> seconds for <AEsh,Dur4> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 363
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE5> initial damage, and <AEsh,DataA5> damage every <AEsh,Cast5> seconds for <AEsh,Dur5> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 364
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE6> initial damage, and <AEsh,DataA6> damage every <AEsh,Cast6> seconds for <AEsh,Dur6> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 365
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE7> initial damage, and <AEsh,DataA7> damage every <AEsh,Cast7> seconds for <AEsh,Dur7> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 366
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE8> initial damage, and <AEsh,DataA8> damage every <AEsh,Cast8> seconds for <AEsh,Dur8> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 367
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE9> initial damage, and <AEsh,DataA9> damage every <AEsh,Cast9> seconds for <AEsh,Dur9> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 368
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE10> initial damage, and <AEsh,DataA10> damage every <AEsh,Cast10> seconds for <AEsh,Dur10> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 369
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE11> initial damage, and <AEsh,DataA11> damage every <AEsh,Cast11> seconds for <AEsh,Dur11> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 370
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE12> initial damage, and <AEsh,DataA12> damage every <AEsh,Cast12> seconds for <AEsh,Dur12> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 371
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE13> initial damage, and <AEsh,DataA13> damage every <AEsh,Cast13> seconds for <AEsh,Dur13> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 372
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE14> initial damage, and <AEsh,DataA14> damage every <AEsh,Cast14> seconds for <AEsh,Dur14> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 373
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE15> initial damage, and <AEsh,DataA15> damage every <AEsh,Cast15> seconds for <AEsh,Dur15> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 374
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE16> initial damage, and <AEsh,DataA16> damage every <AEsh,Cast16> seconds for <AEsh,Dur16> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 375
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE17> initial damage, and <AEsh,DataA17> damage every <AEsh,Cast17> seconds for <AEsh,Dur17> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 376
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE18> initial damage, and <AEsh,DataA18> damage every <AEsh,Cast18> seconds for <AEsh,Dur18> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 377
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE19> initial damage, and <AEsh,DataA19> damage every <AEsh,Cast19> seconds for <AEsh,Dur19> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+
+STRING 378
+// Abilities: AEsh (Shadow Strike), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE20> initial damage, and <AEsh,DataA20> damage every <AEsh,Cast20> seconds for <AEsh,Dur20> seconds. The poison slows the movement speed of the targeted unit for a short duration.
+}
+

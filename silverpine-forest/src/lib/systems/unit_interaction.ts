@@ -1,4 +1,4 @@
-import { mainPlayer } from 'lib/constants';
+import { mainPlayer, neutralPassive } from 'lib/constants';
 import {
   AngleBetweenLocs, DistanceBetweenLocs, PolarProjection,
 } from 'lib/location';
@@ -56,7 +56,7 @@ export class UnitInteraction {
           }
 
           // neutral critters run away from you
-          if (target.owner === MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE) && target.maxLife <= 15) {
+          if (target.owner === neutralPassive && target.maxLife <= 15) {
             const runDest = PolarProjection(target, 400, AngleBetweenLocs(unit, target));
             target.issueOrderAt(OrderId.Move, runDest.x, runDest.y);
             target.moveSpeed = target.defaultMoveSpeed * 3;

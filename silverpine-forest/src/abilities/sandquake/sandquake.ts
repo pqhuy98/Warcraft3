@@ -154,7 +154,7 @@ export default class Sandquake {
       }
 
       if (idx % 8 === 0) {
-        TerrainDeformationRandomBJ(0.5, tempLocation(newLoc).handle, radius, -30, 30, 0.15);
+        TerrainDeformationRandomBJ(0.5, tempLocation(newLoc), radius, -30, 30, 0.15);
         const effect = AddSpecialEffect(MODEL_EarthquakeTarget_classic, newLoc.x, newLoc.y);
         BlzSetSpecialEffectScale(effect, (1));
         BlzSetSpecialEffectYaw(effect, Math.random() * 2 * Math.PI);
