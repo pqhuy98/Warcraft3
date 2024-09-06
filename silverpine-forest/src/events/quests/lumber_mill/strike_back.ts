@@ -13,7 +13,7 @@ import {
   UNIT_Abomination, UNIT_CryptFiend, UNIT_Gargoyle, UNIT_Ghoul, UNIT_MeatWagon, UNIT_Zombie,
 } from 'lib/resources/war3-units';
 import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
-import { getUnitsInRangeOfXYMatching, getUnitsInRect, isBuilding } from 'lib/unit';
+import { getUnitsInRangeOfLoc, getUnitsInRect, isBuilding } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   Unit,
@@ -101,7 +101,7 @@ export class StrikeBack extends BaseQuest {
 
     const talkGroup = new TalkGroup([
       knight, mayor,
-      ...getUnitsInRangeOfXYMatching(500, mayor, () => !isBuilding(Unit.fromFilter())),
+      ...getUnitsInRangeOfLoc(500, mayor, (u) => !isBuilding(u)),
     ]);
     await talkGroup.speak(knight, knightIntro1, mayor);
     await talkGroup.speak(mayor, mayorIntro1, knight);

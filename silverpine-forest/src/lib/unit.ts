@@ -140,7 +140,7 @@ export function daemonTieUnitToUnit() {
 }
 
 function relocateUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
-  if (tiedUnit == null || targetUnit == null) {
+  if (isUnitRemoved(tiedUnit) || isUnitRemoved(targetUnit)) {
     unitTies.delete(tiedUnit);
     return;
   }
@@ -198,7 +198,7 @@ export function daemonDummyMaster() {
   setIntervalIndefinite(5, () => {
     if (dummyMaster.size === 0) return;
     for (const dummy of dummyMaster.keys()) {
-      if (!dummy.isAlive()) {
+      if (!dummy.isAlive() || isUnitRemoved(dummy)) {
         dummyMaster.delete(dummy);
       }
     }
@@ -242,17 +242,21 @@ export function isDummy(unit: Unit) {
   return unit.typeId === UNIT_ID_DUMMY;
 }
 
-export function getUnitsInRangeOfXYMatching(range: number, loc: Loc, filter: () => boolean): Unit[] {
-  let cond: conditionfunc;
-  const group = GetUnitsInRangeOfLocMatching(
-    range,
-    tempLocation(loc),
-    cond = Condition(() => filter()),
-  );
-  DestroyCondition(cond);
-  const units = getUnitsFromGroup(group);
+export function getUnitsInRangeOfLoc(range: number, loc: Loc, filter?: (u: Unit) => boolean) {
+  let group: group;
+  let condition: conditionfunc;
+  if (filter) {
+    condition = Condition(() => filter(Unit.fromFilter()));
+    group = GetUnitsInRangeOfLocMatching(range, tempLocation(loc), condition);
+  } else {
+    group = GetUnitsInRangeOfLocAll(range, tempLocation(loc));
+  }
+  const results = getUnitsFromGroup(group);
+  if (filter) {
+    DestroyBoolExpr(condition);
+  }
   DestroyGroup(group);
-  return units;
+  return results;
 }
 
 export function orderUnitUseItemAbilityAtLoc(unit: Unit, abilityId: number, loc: Loc) {
@@ -284,6 +288,23 @@ export function getUnitsInRect(rect: rect, filter?: (u: Unit) => boolean) {
     group = GetUnitsInRectMatching(rect, condition);
   } else {
     group = GetUnitsInRectAll(rect);
+  }
+  const results = getUnitsFromGroup(group);
+  if (filter) {
+    DestroyBoolExpr(condition);
+  }
+  DestroyGroup(group);
+  return results;
+}
+
+export function getUnitsOfPlayer(player: MapPlayer, filter?: (u: Unit) => boolean) {
+  let group: group;
+  let condition: conditionfunc;
+  if (filter) {
+    condition = Condition(() => !isDummy(Unit.fromFilter()) && filter(Unit.fromFilter()));
+    group = GetUnitsOfPlayerMatching(player.handle, condition);
+  } else {
+    group = GetUnitsOfPlayerAll(player.handle);
   }
   const results = getUnitsFromGroup(group);
   if (filter) {
@@ -328,4 +349,8 @@ export function enumUnitAbilities(unit: Unit, callback: (ability: ability, id: n
       break;
     }
   }
+}
+
+export function isUnitRemoved(unit: Unit): boolean {
+  return unit.typeId === 0;
 }

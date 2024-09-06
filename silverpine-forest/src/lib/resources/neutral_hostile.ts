@@ -2044,3 +2044,7 @@ export const neutralHostileTypes = [
     hp: 240,
   },
 ];
+
+export const neutralHostileMap = new Map<number, typeof neutralHostileTypes[number]>(
+  neutralHostileTypes.map((u) => [u.id, u]),
+);

@@ -4,7 +4,7 @@ import {
 import { ABILITY_BladeMasterBladestorm, ABILITY_BladeMasterMirrorImage } from 'lib/resources/war3-abilities';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
-  getAttackRange, getUnitsInRangeOfXYMatching, isWard, setAttackRange,
+  getAttackRange, getUnitsInRangeOfLoc, isWard, setAttackRange,
 } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import {
@@ -37,12 +37,12 @@ export default class BladeDance {
         const abilityId = GetSpellAbilityId();
         const abilityLevel = caster.getAbilityLevel(abilityId);
 
-        const nearbyCasterIllusions = getUnitsInRangeOfXYMatching(
+        const nearbyCasterIllusions = getUnitsInRangeOfLoc(
           this.Data.getFindIllusionRadius(),
           getUnitXY(caster),
-          () => Unit.fromFilter().typeId === caster.typeId
-            && Unit.fromFilter().owner === caster.owner
-            && Unit.fromFilter().isIllusion(),
+          (u) => u.typeId === caster.typeId
+            && u.owner === caster.owner
+            && u.isIllusion(),
         );
 
         const attackers: Unit[] = [
@@ -236,7 +236,7 @@ export default class BladeDance {
   }
 
   findNextTarget(loc: Loc): Unit {
-    const candidates = getUnitsInRangeOfXYMatching(BladeDance.Data.getFindNextRadius(), loc, () => {
+    const candidates = getUnitsInRangeOfLoc(BladeDance.Data.getFindNextRadius(), loc, () => {
       const matchingUnit = Group.getFilterUnit();
       return (
         matchingUnit.isAlive()

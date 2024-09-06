@@ -12,7 +12,7 @@ import { ABILITY_ArchMageWaterElemental } from 'lib/resources/war3-abilities';
 import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
 import { buildTrigger } from 'lib/trigger';
-import { getUnitsInRangeOfXYMatching, isOrganic } from 'lib/unit';
+import { getUnitsInRangeOfLoc, isOrganic } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   sleep,
@@ -130,7 +130,7 @@ export class BanditBanish extends BaseQuest {
     let traveler = await this.talkToQuestGiver(john, true);
 
     // outpost injured
-    getUnitsInRangeOfXYMatching(700, archMage, () => Unit.fromFilter().isAlive())
+    getUnitsInRangeOfLoc(700, archMage, (u) => u.isAlive())
       .forEach((u) => u.life = GetRandomReal(0.2, 0.6) * u.maxLife);
 
     // John asks to deliver item to outpost
@@ -154,7 +154,7 @@ export class BanditBanish extends BaseQuest {
     traveler = await this.waitForTurnIn(archMage);
     // Archmage asks for help
     const talkGroup2 = new TalkGroup([archMage, traveler,
-      ...getUnitsInRangeOfXYMatching(800, archMage, () => Unit.fromFilter().isAlive() && isOrganic(Unit.fromFilter())),
+      ...getUnitsInRangeOfLoc(800, archMage, (u) => u.isAlive() && isOrganic(u)),
     ]);
     await talkGroup2.speak(archMage, archMageSounds[0], traveler);
     await sleep(1.5);
@@ -178,19 +178,16 @@ export class BanditBanish extends BaseQuest {
     await questLog.insertItem(questItems[1]);
 
     // Wait until approaching bandits nearby
-    await waitUntil(0.25, () => bandits.some((bandit) => getUnitsInRangeOfXYMatching(
+    await waitUntil(0.25, () => bandits.some((bandit) => getUnitsInRangeOfLoc(
       600,
       bandit,
-      () => {
-        const enemy = Unit.fromFilter();
-        return enemy.isAlive() && enemy.owner === traveler.owner && enemy.isVisible(bandit.owner);
-      },
+      (enemy) => enemy.isAlive() && enemy.owner === traveler.owner && enemy.isVisible(bandit.owner),
     ).length > 0));
     playSpeech(banditLord, banditSounds[0]);
 
     // Play last words when bandit lords is low
     waitUntil(1, () => {
-      if (banditLord.life < banditLord.maxLife * 0.5) {
+      if (bandits.filter((u) => u.isAlive()).length <= 1) {
         playSpeech(banditLord, banditSounds[1]);
         return true;
       }

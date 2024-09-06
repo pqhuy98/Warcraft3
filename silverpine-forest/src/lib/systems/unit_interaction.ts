@@ -9,7 +9,7 @@ import {
   buildTrigger, getTimeS, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
 import {
-  distanceBetweenUnits, isOrganic, isUnitIdle, setUnitFacingWithRate,
+  distanceBetweenUnits, isOrganic, isUnitIdle, isUnitRemoved, setUnitFacingWithRate,
 } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import { MapPlayer, Unit } from 'w3ts';
@@ -89,6 +89,11 @@ export class UnitInteraction {
       if (targets.size === 0) return;
 
       for (const [unit, { facingToUnit, oldFacing, maxRadius }] of targets) {
+        if (isUnitRemoved(unit)) {
+          targets.delete(unit);
+          continue;
+        }
+
         const isIdle = isUnitIdle(unit);
         const shouldFace = distanceBetweenUnits(unit, facingToUnit) < maxRadius && isIdle && unit.isAlive();
         if (!shouldFace) {

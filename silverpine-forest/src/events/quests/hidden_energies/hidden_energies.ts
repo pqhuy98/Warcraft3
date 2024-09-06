@@ -3,7 +3,7 @@
 import { mainPlayer } from 'lib/constants';
 import { QuestLog } from 'lib/quests/quest_log';
 import { ABILITY_ArchMageWaterElemental } from 'lib/resources/war3-abilities';
-import { getUnitsInRangeOfXYMatching } from 'lib/unit';
+import { getUnitsInRangeOfLoc } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   sleep,
@@ -42,15 +42,17 @@ export class HiddenEnergies extends BaseQuest {
       items: questItems,
     });
 
-    await waitUntil(5, () => getUnitsInRangeOfXYMatching(500, fountain, () => {
-      const unit = Unit.fromFilter();
-      return unit.isHero() && unit.owner === mainPlayer && !unit.isIllusion();
-    }).length > 0);
+    await waitUntil(5, () => getUnitsInRangeOfLoc(
+      500,
+      fountain,
+      (unit) => unit.isHero() && unit.owner === mainPlayer && !unit.isIllusion(),
+    ).length > 0);
 
-    const traveler = getUnitsInRangeOfXYMatching(500, fountain, () => {
-      const unit = Unit.fromFilter();
-      return unit.isHero() && unit.owner === mainPlayer && !unit.isIllusion();
-    })[0];
+    const traveler = getUnitsInRangeOfLoc(
+      500,
+      fountain,
+      (unit) => unit.isHero() && unit.owner === mainPlayer && !unit.isIllusion(),
+    )[0];
 
     traveler.addExperience(rewardXp, true);
     const rewards = [

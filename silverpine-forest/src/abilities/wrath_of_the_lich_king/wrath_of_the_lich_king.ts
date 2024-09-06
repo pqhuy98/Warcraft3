@@ -10,7 +10,7 @@ import {
   buildTrigger, setIntervalForDuration, setTimeout,
 } from 'lib/trigger';
 import {
-  createDummy, getUnitsInRangeOfXYMatching,
+  createDummy, getUnitsInRangeOfLoc,
   isBuilding,
   isWard,
   safeRemoveDummy,
@@ -86,10 +86,10 @@ export default class WrathOfTheLichKing {
 
         setTimeout(0.2, () => {
           if (caster.isAlive() && Frostmourne.Data.ABILITY_IDS.some((id) => caster.getAbilityLevel(id) > 0)) {
-            const deadUnits = getUnitsInRangeOfXYMatching(
+            const deadUnits = getUnitsInRangeOfLoc(
               radius,
               caster,
-              () => Frostmourne.Data.targetMatching(caster, Unit.fromFilter()),
+              (u) => Frostmourne.Data.targetMatching(caster, u),
             );
             for (const victim of deadUnits) {
               Frostmourne.collectSoul(caster, victim);
@@ -115,8 +115,8 @@ export default class WrathOfTheLichKing {
             k1('wotlk4');
             return;
           }
-          const loc = PolarProjection(caster, (125), caster.facing);
-          const ub = Ubersplat.create(loc.x, loc.y, 'THND', 255, 255, 255, 255, true, false);
+          const casterLoc = PolarProjection(caster, (125), caster.facing);
+          const ub = Ubersplat.create(casterLoc.x, casterLoc.y, 'THND', 255, 255, 255, 255, true, false);
           ub.render(true, true);
           ub.show(true);
           setTimeout(15, () => {
@@ -208,12 +208,12 @@ export default class WrathOfTheLichKing {
     k0('wotlkT1');
     const t1 = setIntervalForDuration(0.05, effectDurationS, () => {
       if (caster.isAlive()) {
-        const loc = getUnitXY(caster);
+        const casterLoc = getUnitXY(caster);
         // for (const eff of effects) {
         //   BlzSetSpecialEffectPosition(eff, loc.x, loc.y, 100);
         // }
-        dummy2.x = loc.x;
-        dummy2.y = loc.y;
+        dummy2.x = casterLoc.x;
+        dummy2.y = casterLoc.y;
       } else {
         cleanUp();
       }

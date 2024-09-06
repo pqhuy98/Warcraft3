@@ -1,16 +1,22 @@
+import {
+  mainPlayer, neutralHostile, neutralPassive, playerBlackTurban,
+} from 'lib/constants';
 import { getDestructablesInRect } from 'lib/destructable';
-import { currentLoc, isLocInRect, PolarProjection } from 'lib/location';
+import {
+  currentLoc, fromTempLocation, isLocInRect, isPointReachable, PolarProjection,
+} from 'lib/location';
+import { log } from 'lib/log';
 import { isComputer } from 'lib/player';
 import { ABILITY_PaladinHolyLight, ABILITY_Wander } from 'lib/resources/war3-abilities';
-import { MODEL_InnerFireTarget } from 'lib/resources/war3-models';
+import { MODEL_FrostNovaTarget, MODEL_InnerFireTarget } from 'lib/resources/war3-models';
 import {
   UNIT_Footman,
   UNIT_HeroShadowHunter, UNIT_Shaman, UNIT_VillagerMan, UNIT_VillagerMan2, UNIT_WitchDoctor,
 } from 'lib/resources/war3-units';
 import { guardCurrentPosition, removeGuardPosition } from 'lib/systems/unit_guard_position';
-import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
+import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import {
-  getUnitsInRangeOfXYMatching, getUnitsInRect, isBuilding, isOrganic,
+  getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isBuilding, isOrganic,
 } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import { TextTag, Unit } from 'w3ts';
@@ -29,14 +35,17 @@ export class MiscEvents {
   }
 
   static run() {
-    // All pre-placed units guard their positions
+    // All pre-placed non-neutral units guard their positions
     getUnitsInRect(GetWorldBounds(), (u) => u.isAlive()
       && !isBuilding(u)
       && isComputer(u.owner.handle)
       && !u.getAbility(ABILITY_Wander.id)
-      && !u.isUnitType(UNIT_TYPE_PEON))
+      && !u.isUnitType(UNIT_TYPE_PEON)
+      && u.owner !== neutralHostile && u.owner !== neutralPassive)
       .forEach((u) => {
-        guardCurrentPosition(u, defaultGuardDistance);
+        let guardRange: number | undefined = defaultGuardDistance;
+        if (u.owner === playerBlackTurban) guardRange = undefined;
+        guardCurrentPosition(u, guardRange);
         u.setUseFood(false);
       });
 
@@ -107,14 +116,31 @@ export class MiscEvents {
     const mayor = Unit.fromHandle(gg_unit_Hpb1_0145);
     setIntervalIndefinite(3, () => {
       if (mayor.getAbilityCooldownRemaining(ABILITY_PaladinHolyLight.id) > 0) return;
-      const nearbyUnhealthy = pickRandom(getUnitsInRangeOfXYMatching(600, mayor, () => {
-        const unit = Unit.fromFilter();
-        return unit.isAlive() && unit.isAlly(mayor.owner) && unit.life < unit.maxLife - 100
-          && isOrganic(unit);
-      }));
+      const nearbyUnhealthy = pickRandom(getUnitsInRangeOfLoc(
+        600,
+        mayor,
+        (unit) => unit.isAlive() && unit.isAlly(mayor.owner) && unit.life < unit.maxLife - 100 && isOrganic(unit),
+      ));
       if (nearbyUnhealthy) {
         mayor.issueTargetOrder(OrderId.Holybolt, nearbyUnhealthy);
       }
+    });
+
+    // Testing isPointReachable
+    onChatCommand('-ipr', true, () => {
+      const hero = getUnitsOfPlayer(mainPlayer)[0];
+      buildTrigger((t) => {
+        t.registerUnitEvent(hero, EVENT_UNIT_ISSUED_POINT_ORDER);
+        t.addAction(() => {
+          const loc = fromTempLocation(GetOrderPointLoc());
+          if (!isPointReachable(hero, loc)) {
+            DestroyEffect(AddSpecialEffect(MODEL_FrostNovaTarget, loc.x, loc.y));
+          }
+          ClearTextMessages();
+          log(`neutral passive ${neutralPassive.coordsVisible(loc.x, loc.y) ? 'see' : 'not see'}`);
+          log(`hero ${hero.owner.coordsVisible(loc.x, loc.y) ? 'see' : 'not see'}`);
+        });
+      });
     });
   }
 

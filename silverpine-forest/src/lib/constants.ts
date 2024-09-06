@@ -47,6 +47,7 @@ export const playerNightElfSentinels = MapPlayer.fromIndex(2);
 export const playerHumanAlliance = MapPlayer.fromIndex(1);
 export const playerForsaken = MapPlayer.fromIndex(3);
 export const mainPlayer = MapPlayer.fromIndex(4);
+export const playerBlackTurban = MapPlayer.fromIndex(20);
 export const neutralHostile = MapPlayer.fromIndex(PLAYER_NEUTRAL_AGGRESSIVE);
 export const neutralPassive = MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE);
 

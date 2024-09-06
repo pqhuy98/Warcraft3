@@ -19,7 +19,7 @@ import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
-import { getUnitsInRangeOfXYMatching, setUnitFacingWithRate } from 'lib/unit';
+import { getUnitsInRangeOfLoc, setUnitFacingWithRate } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   Unit,
@@ -182,13 +182,10 @@ export class LumberMillPart2 extends BaseQuest {
     });
 
     // Wait until undead nearby
-    await waitUntil(0.25, () => footmen.some((footman) => getUnitsInRangeOfXYMatching(
+    await waitUntil(0.25, () => footmen.some((footman) => getUnitsInRangeOfLoc(
       600,
       footman,
-      () => {
-        const undead = Unit.fromFilter();
-        return undead.isAlive() && footman.isEnemy(undead.owner) && undead.isVisible(footman.owner);
-      },
+      (undead) => undead.isAlive() && footman.isEnemy(undead.owner) && undead.isVisible(footman.owner),
     ).length > 0));
 
     removeGuardPosition(...footmen);

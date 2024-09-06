@@ -2129,3 +2129,50 @@ STRING 378
 Hurls a poisoned dagger at a target enemy unit, dealing <AEsh,DataE20> initial damage, and <AEsh,DataA20> damage every <AEsh,Cast20> seconds for <AEsh,Dur20> seconds. The poison slows the movement speed of the targeted unit for a short duration.
 }
 
+STRING 379
+{
+Black Turban
+}
+
+STRING 380
+// Units: n001 (Elite Bandit), Name (Name)
+{
+Elite Bandit
+}
+
+STRING 381
+// Units: n002 (Elite Brigand), Name (Name)
+{
+Elite Brigand
+}
+
+STRING 382
+// Units: n003 (Elite Rogue), Name (Name)
+{
+Elite Rogue
+}
+
+STRING 383
+// Units: n004 (Elite Assassin), Name (Name)
+{
+Elite Assassin
+}
+
+STRING 384
+// Units: n005 (Elite Enforcer), Name (Name)
+{
+Elite Enforcer
+}
+
+STRING 386
+// Units: n006 (Bandit Chief), Name (Name)
+{
+Bandit Chief
+}
+
+STRING 387
+// Units: n007 (Kassan the Bandit King), Name (Name)
+{
+Kassan the Bandit King
+}
+

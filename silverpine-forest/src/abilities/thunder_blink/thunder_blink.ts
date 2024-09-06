@@ -9,7 +9,7 @@ import { MODEL_BoltImpact, MODEL_ThunderclapCaster } from 'lib/resources/war3-mo
 import { ORDER_chainlightning, ORDER_thunderclap } from 'lib/resources/war3-orders';
 import { buildTrigger, setIntervalForDuration } from 'lib/trigger';
 import {
-  createDummy, enumUnitsWithDelay, getUnitScale, getUnitsInRangeOfXYMatching,
+  createDummy, enumUnitsWithDelay, getUnitScale, getUnitsInRangeOfLoc,
   isBuilding, isWard, setUnitScale, tieUnitToUnit,
 } from 'lib/unit';
 import { classic } from 'lib/utils';
@@ -116,8 +116,8 @@ export class ThunderBlink {
       const distancePercent = i / repeat;
       const casterLoc = getUnitXY(caster);
       for (let j = 0; j < lightningsInner.length; j++) {
-        const loc = PolarProjection(casterLoc, distancePercent * lnRadius, j * 360 / lightningCount);// + i * anglePhase / repeat);
-        MoveLightning(lightningsInner[j], true, casterLoc.x, casterLoc.y, loc.x, loc.y);
+        const lightningLoc = PolarProjection(casterLoc, distancePercent * lnRadius, j * 360 / lightningCount);// + i * anglePhase / repeat);
+        MoveLightning(lightningsInner[j], true, casterLoc.x, casterLoc.y, lightningLoc.x, lightningLoc.y);
       }
 
       for (let j = 0; j < lightningsOuter.length; j++) {
@@ -138,10 +138,10 @@ export class ThunderBlink {
     });
 
     // Chain lightning around
-    const nearby = getUnitsInRangeOfXYMatching(
+    const nearby = getUnitsInRangeOfLoc(
       radius,
       targetLoc,
-      () => ThunderBlink.Data.targetMatching(caster, Unit.fromFilter()),
+      (u) => ThunderBlink.Data.targetMatching(caster, u),
     );
 
     const durationPerStep = Math.min(0.1, 2.0 / nearby.length);

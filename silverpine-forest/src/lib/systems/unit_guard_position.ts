@@ -8,7 +8,7 @@ import { isPlayingPlayer } from 'lib/player';
 import { isAttending } from 'lib/systems/unit_interaction';
 import { getTimeS, setIntervalIndefinite } from 'lib/trigger';
 import {
-  isBuilding, isUnitIdle, setUnitFacingWithRate,
+  isBuilding, isUnitIdle, isUnitRemoved, setUnitFacingWithRate,
 } from 'lib/unit';
 import { shuffleArray } from 'lib/utils';
 import { Unit } from 'w3ts';
@@ -62,15 +62,6 @@ export function pauseGuardPosition(units: Unit[], state: boolean) {
 }
 
 export function daemonGuardPosition() {
-  // setIntervalIndefinite(7, () => {
-  //   const units = getUnitsInRect(GetWorldBounds());
-  //   if (units.length === 0) return;
-  //   enumUnitsWithDelay(getUnitsInRect(GetWorldBounds()), (u) => {
-  //     const loc = PolarProjection(u, 300, GetRandomDirectionDeg());
-  //     u.issueOrderAt(OrderId.Move, loc.x, loc.y);
-  //   }, 7 / units.length);
-  // });
-
   const unitsPerIteration = 50;
   let shuffledUnits: Unit[] = [];
   let currentIndex = 0;
@@ -93,6 +84,12 @@ export function daemonGuardPosition() {
     for (let processedCount = 0; processedCount < unitsToProcess; processedCount++) {
       const unit = shuffledUnits[currentIndex];
       currentIndex++;
+
+      // check if unit has been removed
+      if (isUnitRemoved(unit)) {
+        unitPositions.delete(unit);
+        continue;
+      }
 
       // Check if the unit has been deleted during the pass
       const data = unitPositions.get(unit);

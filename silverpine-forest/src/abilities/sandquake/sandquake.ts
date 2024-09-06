@@ -12,7 +12,7 @@ import {
 } from 'lib/resources/war3-models';
 import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import {
-  getUnitsInRangeOfXYMatching, isBuilding,
+  getUnitsInRangeOfLoc, isBuilding,
   isWard,
 } from 'lib/unit';
 import { classic } from 'lib/utils';
@@ -147,8 +147,8 @@ export default class Sandquake {
       for (let i = 0; i < 2; i++) {
         const angle = GetRandomDirectionDeg();
         const distance = GetRandomReal(0, radius);
-        const loc = PolarProjection(newLoc, distance, angle);
-        const eff = AddSpecialEffect(MODEL_AncientProtectorMissile_classic, loc.x, loc.y);
+        const effLoc = PolarProjection(newLoc, distance, angle);
+        const eff = AddSpecialEffect(MODEL_AncientProtectorMissile_classic, effLoc.x, effLoc.y);
         BlzSetSpecialEffectScale(eff, (1));
         DestroyEffect(eff);
       }
@@ -162,10 +162,10 @@ export default class Sandquake {
       }
 
       if (idx % 6 === 0) {
-        const nearbyEnemies = getUnitsInRangeOfXYMatching(
+        const nearbyEnemies = getUnitsInRangeOfLoc(
           radius,
           casterLoc,
-          () => Sandquake.Data.targetMatching(caster, Unit.fromFilter()) && !this.affectedEnemies.has(Unit.fromFilter()),
+          (u) => Sandquake.Data.targetMatching(caster, u) && !this.affectedEnemies.has(u),
         );
 
         for (const enumUnit of nearbyEnemies) {

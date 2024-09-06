@@ -27,12 +27,16 @@ import {
   mainPlayer,
   neutralHostile,
   neutralPassive,
+  playerBlackTurban,
+  playerHumanAlliance,
+  playerNightElfSentinels,
+  playerOrcishHorde,
   registerGlobalUnits,
 } from 'lib/constants';
 import {
   daemonTempCleanUp, temp,
 } from 'lib/location';
-import { isComputer, setAllianceState, setAllianceState2Way } from 'lib/player';
+import { setAllianceState, setAllianceState2Way } from 'lib/player';
 import { daemonQuestMarker } from 'lib/quests/utils';
 import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
 import { UnitInteraction } from 'lib/systems/unit_interaction';
@@ -43,7 +47,7 @@ import {
   daemonDummyMaster, daemonTieUnitToUnit,
 } from 'lib/unit';
 import {
-  Camera, Group, MapPlayer, Rectangle, Unit,
+  Camera, MapPlayer, Rectangle,
 } from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
@@ -105,10 +109,6 @@ function configurePlayerSettings() {
     mainPlayer,
   ];
 
-  const colorPreservedUnits: Unit[] = [
-    // empty
-  ];
-
   for (let i = 0; i < 24; i++) {
     const player = MapPlayer.fromIndex(i);
     if (player.slotState === PLAYER_SLOT_STATE_EMPTY) {
@@ -124,53 +124,19 @@ function configurePlayerSettings() {
       player.setState(PLAYER_STATE_RESOURCE_LUMBER, GetRandomInt(100000, 500000));
     }
 
-    switch (player.race) {
-      case RACE_HUMAN:
-        SetPlayerColor(player.handle, PLAYER_COLOR_BLUE);
-        SetPlayerName(player.handle, 'Human Alliance');
-        if (isComputer(player.handle)) {
-          // StartCampaignAI(player.handle, 'AIScripts\\human.ai');
-        }
-        break;
-      case RACE_ORC:
-        SetPlayerColor(player.handle, PLAYER_COLOR_RED);
-        player.name = 'Orcish Horde';
-        if (isComputer(player.handle)) {
-          // StartCampaignAI(player.handle, 'AIScripts\\orc.ai');
-        }
-        break;
-      case RACE_NIGHTELF:
-        SetPlayerColor(player.handle, PLAYER_COLOR_CYAN);
-        player.name = 'Night Elf Sentinels';
-        if (isComputer(player.handle)) {
-          // StartCampaignAI(player.handle, 'AIScripts\\elf.ai');
-        }
-        break;
-      case RACE_UNDEAD:
-        SetPlayerColor(player.handle, PLAYER_COLOR_PURPLE);
-        player.name = 'Undead Scourge';
-        if (isComputer(player.handle)) {
-          // StartCampaignAI(player.handle, 'AIScripts\\undead.ai');
-        }
-        break;
-      default:
-    }
-    const playerColor = player.color;
-    const allUnitsOfPlayer = GetUnitsInRectOfPlayer(GetPlayableMapRect(), player.handle);
-
-    temp(Group.fromHandle(allUnitsOfPlayer)).for(() => {
-      const u = Unit.fromEnum();
-      if (!colorPreservedUnits.includes(u)) {
-        u.color = playerColor;
-      }
-    });
-
     setAllianceState(neutralPassive, player, 'neutral vision');
     if (player !== mainPlayer) {
       setAllianceState2Way(neutralHostile, player, 'neutral');
     }
   }
 
+  SetPlayerColorBJ(mainPlayer.handle, PLAYER_COLOR_PURPLE, true);
+  SetPlayerColorBJ(playerHumanAlliance.handle, PLAYER_COLOR_BLUE, true);
+  SetPlayerColorBJ(playerOrcishHorde.handle, PLAYER_COLOR_RED, true);
+  SetPlayerColorBJ(playerNightElfSentinels.handle, PLAYER_COLOR_CYAN, true);
+  SetPlayerColorBJ(playerBlackTurban.handle, PLAYER_COLOR_COAL, true);
+
+  // Change faction
   function setMainPlayerAlliance(mainPlayerForce: MainPlayerFaction) {
     for (let i = 0; i < 24; i++) {
       const player = MapPlayer.fromIndex(i);

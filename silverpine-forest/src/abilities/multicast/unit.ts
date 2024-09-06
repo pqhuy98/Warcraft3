@@ -3,7 +3,7 @@ import { ABILITY_BloodMageSiphonMana } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger } from 'lib/trigger';
 import {
-  createDummy, enumUnitsWithDelay, getUnitScale, getUnitsInRangeOfXYMatching, isBuilding, isDummy,
+  createDummy, enumUnitsWithDelay, getUnitScale, getUnitsInRangeOfLoc, isBuilding, isDummy,
   isWard,
   setUnitScale,
   tieUnitToUnit,
@@ -39,16 +39,17 @@ export class MulticastUnit {
         const abilityLevel = caster.getAbilityLevel(abilityId);
         const order = caster.currentOrder;
 
-        const loc = getUnitXY(target);
+        const targetLoc = getUnitXY(target);
 
-        const nearby = getUnitsInRangeOfXYMatching(radius, loc, () => {
-          const u = Unit.fromFilter();
-          return u.isAlive()
+        const nearby = getUnitsInRangeOfLoc(
+          radius,
+          targetLoc,
+          (u) => u.isAlive()
             && u !== caster
             && !isBuilding(u)
             && !isWard(u)
-            && u !== target;
-        });
+            && u !== target,
+        );
 
         const backSwing = caster.getField(UNIT_RF_CAST_BACK_SWING) as number;
 

@@ -1,5 +1,6 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { log } from 'lib/log';
+import { isUnitRemoved } from 'lib/unit';
 import { Item, Unit } from 'w3ts';
 
 import { Loc, PolarProjection, tempLocation } from '../location';
@@ -106,7 +107,7 @@ export function daemonQuestMarker() {
   setIntervalIndefinite(1.132, () => {
     if (questMarker.size === 0) return;
     for (const [unit, effect] of questMarker) {
-      if (!unit.isAlive()) {
+      if (!unit.isAlive() || isUnitRemoved(unit)) {
         questMarker.delete(unit);
         DestroyEffect(effect);
       }

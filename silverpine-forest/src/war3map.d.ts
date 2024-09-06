@@ -82,3 +82,4 @@ declare var gg_dest_YTcx_0002: destructable;
 declare var gg_dest_YTcx_0001: destructable;
 declare var gg_rct_Unit_experiments: rect;
 declare var gg_unit_nhem_0557: unit;
+declare var gg_rct_Bandit_Base: rect;

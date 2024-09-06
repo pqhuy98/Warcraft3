@@ -1,9 +1,12 @@
-import { neutralHostile, playerForsaken } from 'lib/constants';
+import {
+  mainPlayer, playerBlackTurban, playerForsaken,
+} from 'lib/constants';
 import { setTimeout } from 'lib/trigger';
 import { getUnitsInRect, isBuilding } from 'lib/unit';
 import { Unit } from 'w3ts';
 
 import { BanditBanish } from './bandit_banish/bandit_banish';
+import { BlackTurban } from './black_turban/black_turban';
 import { ElvenDrink } from './elven_drink/elven_drink';
 import { GatherSheeps } from './gather_sheeps/gather_sheeps';
 import { HiddenEnergies } from './hidden_energies/hidden_energies';
@@ -101,7 +104,7 @@ export class QuestRegistry {
         peter: Unit.fromHandle(gg_unit_nvil_0414),
         archMage: Unit.fromHandle(gg_unit_Hamg_0109),
         banditLord: Unit.fromHandle(gg_unit_nbld_0128),
-        bandits: getUnitsInRect(gg_rct_Bandit_camp, (u) => u.isAlive() && u.owner === neutralHostile),
+        bandits: getUnitsInRect(gg_rct_Bandit_camp, (u) => u.isAlive() && u.owner === playerBlackTurban),
         johnRect: gg_rct_John_after_undead,
         peterRect: gg_rct_Peter_after_undead,
         sightBlockersRect: gg_rct_Sight_blockers_farm,
@@ -125,6 +128,17 @@ export class QuestRegistry {
         questGiver: Unit.fromHandle(gg_unit_nhem_0557),
         dependencies: [],
         cheatName: 'ed',
+      }).register();
+
+      // Black Turban
+      new BlackTurban({
+        name: 'Black Turban',
+        victimPlayer: mainPlayer,
+        banditPlayer: playerBlackTurban,
+        banditHomeEntranceRect: gg_rct_Waygate_island_back,
+        banditHomeRect: gg_rct_Bandit_Base,
+        dependencies: [],
+        cheatName: 'bt',
       }).register();
     });
   }

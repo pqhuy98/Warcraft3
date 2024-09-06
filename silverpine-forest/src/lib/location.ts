@@ -2,7 +2,9 @@ import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { Point, Rectangle, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
-import { mainPlayer, UNIT_IPR_RECEIVER, UNIT_IPR_TRANSMITTER } from './constants';
+import {
+  neutralPassive, UNIT_IPR_RECEIVER, UNIT_IPR_TRANSMITTER,
+} from './constants';
 import { log } from './log';
 import { ABILITY_Move } from './resources/war3-abilities';
 import { setIntervalIndefinite } from './trigger';
@@ -26,11 +28,11 @@ export function temp<T extends Destroyable>(obj: T): T {
   return obj;
 }
 
-export function tempLocation(loc: Loc) {
+export function tempLocation(loc: Loc): location {
   return temp(Point.create(loc.x, loc.y)).handle;
 }
 
-export function templocation(loc: location) {
+export function templocation(loc: location): location {
   return temp(Point.fromHandle(loc)).handle;
 }
 
@@ -125,13 +127,13 @@ export function isPointReachable(from: Loc, to: Loc): boolean {
   }
 
   if (!iprTransmitter) {
-    iprTransmitter = Unit.create(mainPlayer, UNIT_IPR_TRANSMITTER.id, from.x, from.y);
+    iprTransmitter = Unit.create(neutralPassive, UNIT_IPR_TRANSMITTER.id, from.x, from.y);
   } else {
     iprTransmitter.show = true;
     iprTransmitter.paused = false;
   }
   if (!iprReceiver) {
-    iprReceiver = Unit.create(mainPlayer, UNIT_IPR_RECEIVER.id, to.x, to.y);
+    iprReceiver = Unit.create(neutralPassive, UNIT_IPR_RECEIVER.id, to.x, to.y);
   } else {
     iprReceiver.show = true;
     iprReceiver.paused = false;
