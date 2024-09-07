@@ -7,7 +7,6 @@ import Sandquake from 'abilities/sandquake/sandquake';
 import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
 import WrathOfTheLichKing from 'abilities/wrath_of_the_lich_king/wrath_of_the_lich_king';
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
-import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { MiscEvents } from 'events/misc';
 import { QuestRegistry } from 'events/quests/registry';
 import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
@@ -22,12 +21,11 @@ import {
   ABILITY_ID_SANDQUAKE,
   ABILITY_ID_THUNDER_BLINK,
   ABILITY_ID_WRATH_OF_THE_LICH_KING,
-  darkForce,
-  lightForce,
   mainPlayer,
   neutralHostile,
   neutralPassive,
   playerBlackTurban,
+  playerForsaken,
   playerHumanAlliance,
   playerMonsters,
   playerNightElfSentinels,
@@ -35,30 +33,25 @@ import {
   registerGlobalUnits,
 } from 'lib/constants';
 import {
-  daemonTempCleanUp, temp,
+  daemonTempCleanUp,
 } from 'lib/location';
 import { setAllianceState, setAllianceState2Way } from 'lib/player';
 import { daemonQuestMarker } from 'lib/quests/utils';
 import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
 import { UnitInteraction } from 'lib/systems/unit_interaction';
 import { registerFloatTextExperiments } from 'lib/texttag';
-import {
-  setTimeout, trackElapsedGameTime,
-} from 'lib/trigger';
+import { trackElapsedGameTime } from 'lib/trigger';
 import {
   daemonDummyMaster, daemonTieUnitToUnit,
 } from 'lib/unit';
 import {
-  Camera, MapPlayer, Rectangle,
+  Camera, MapPlayer,
 } from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
 import { ABILITY_ID_FROST_BOLT_LICH_KING } from './lib/constants';
 
-type MainPlayerFaction = 'light' | 'dark' | 'observer'
-
 function tsMain() {
-  // Cheat('iseedeadpeople');
   UnlockGameSpeedBJ();
   SetGameSpeed(MAP_SPEED_FASTEST);
   LockGameSpeedBJ();
@@ -78,7 +71,6 @@ function tsMain() {
 
   // Miscs
   // Weather.changeWeather();
-  // SmallUnitModel.register();
   Impale.register();
   SummonBirthAnimation.register();
   MiscEvents.register();
@@ -133,6 +125,7 @@ function configurePlayerSettings() {
     }
   }
 
+  // Player Color
   SetPlayerColorBJ(mainPlayer.handle, PLAYER_COLOR_PURPLE, true);
   SetPlayerColorBJ(playerHumanAlliance.handle, PLAYER_COLOR_BLUE, true);
   SetPlayerColorBJ(playerOrcishHorde.handle, PLAYER_COLOR_RED, true);
@@ -140,47 +133,19 @@ function configurePlayerSettings() {
   SetPlayerColorBJ(playerBlackTurban.handle, PLAYER_COLOR_COAL, true);
   SetPlayerColorBJ(playerMonsters.handle, PLAYER_COLOR_COAL, true);
 
-  // Change faction
-  function setMainPlayerAlliance(mainPlayerForce: MainPlayerFaction) {
-    for (let i = 0; i < 24; i++) {
-      const player = MapPlayer.fromIndex(i);
-      if (player.slotState === PLAYER_SLOT_STATE_EMPTY) {
-        continue;
-      }
+  // Player alliance
+  setAllianceState2Way(playerOrcishHorde, mainPlayer, 'enemy');
+  setAllianceState2Way(playerNightElfSentinels, mainPlayer, 'allied vision');
+  setAllianceState2Way(playerHumanAlliance, mainPlayer, 'allied');
+  setAllianceState2Way(playerForsaken, mainPlayer, 'enemy');
+  setAllianceState2Way(playerBlackTurban, mainPlayer, 'enemy');
+  setAllianceState2Way(playerMonsters, mainPlayer, 'enemy');
 
-      const isAlly = (mainPlayerForce === 'light' && lightForce.hasPlayer(player)
-        || mainPlayerForce === 'dark' && darkForce.hasPlayer(player)
-        || mainPlayerForce === 'observer');
-      if (isAlly) {
-        // setAllianceState2Way(mainPlayer, player, 'allied share unit');
-        setAllianceState2Way(mainPlayer, player, 'allied');
-      } else {
-        setAllianceState2Way(mainPlayer, player, 'enemy');
-      }
-    }
+  setAllianceState2Way(playerBlackTurban, playerHumanAlliance, 'enemy');
+  setAllianceState2Way(playerForsaken, playerHumanAlliance, 'enemy');
+  setAllianceState2Way(playerOrcishHorde, playerHumanAlliance, 'enemy');
 
-    ClearTextMessages();
-    setTimeout(0, () => SetFogStateRect(mainPlayer.handle, FOG_OF_WAR_MASKED, temp(Rectangle.getWorldBounds()).handle, false));
-  }
-  setMainPlayerAlliance('light');
-  onChatCommand('-faction $1', false, (msg) => {
-    const faction = msg.split(' ')[1];
-    switch (faction) {
-      case 'dark': {
-        setMainPlayerAlliance('dark');
-        break;
-      }
-      case 'light': {
-        setMainPlayerAlliance('light');
-        break;
-      }
-      case 'observer': {
-        setMainPlayerAlliance('observer');
-        break;
-      }
-      default:
-    }
-  }, 'GameControl', 'Change your faction. Valid values for $1 are "light", "dark", "observer".');
+  setAllianceState2Way(playerBlackTurban, playerNightElfSentinels, 'enemy');
 }
 
 addScriptHook(W3TS_HOOK.MAIN_AFTER, tsMain);
