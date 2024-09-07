@@ -35,6 +35,8 @@ export const MODEL_Sand_Tornado = 'Models\\Tornado\\SandTornado.mdx';
 export const MODEL_Water_Tornado = 'Models\\Tornado\\WaterTornado.mdx';
 export const MODEL_Shadow_Tornado = 'Models\\Tornado\\ShadowTornado.mdx';
 export const MODEL_Chat_Bubble = 'Models\\ChatBubble\\ChatBubble.mdx';
+export const MODEL_Quest_New = 'Models\\QuestMark\\QuestNew.mdx';
+export const MODEL_Quest_TurnIn = 'Models\\QuestMark\\QuestTurnIn.mdx';
 
 // Custom unit types
 export const UNIT_TirionFordring = { code: 'H004', id: FourCC('H004') };
@@ -48,6 +50,7 @@ export const playerHumanAlliance = MapPlayer.fromIndex(1);
 export const playerForsaken = MapPlayer.fromIndex(3);
 export const mainPlayer = MapPlayer.fromIndex(4);
 export const playerBlackTurban = MapPlayer.fromIndex(20);
+export const playerMonsters = MapPlayer.fromIndex(21);
 export const neutralHostile = MapPlayer.fromIndex(PLAYER_NEUTRAL_AGGRESSIVE);
 export const neutralPassive = MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE);
 

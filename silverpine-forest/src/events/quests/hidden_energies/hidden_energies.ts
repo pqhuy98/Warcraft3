@@ -63,7 +63,7 @@ export class HiddenEnergies extends BaseQuest {
       traveler.incAbilityLevel(ABILITY_ArchMageWaterElemental.id);
       rewards.splice(0, 0, `+1 level ${GetAbilityName(ABILITY_ArchMageWaterElemental.id)}`);
     }
-    questLog.completeWithRewards(rewards);
+    await questLog.completeWithRewards(rewards);
     this.complete();
   }
 

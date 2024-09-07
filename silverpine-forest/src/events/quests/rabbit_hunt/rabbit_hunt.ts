@@ -10,7 +10,7 @@ import {
 import { giveItemReward } from 'lib/quests/utils';
 import { playSpeech } from 'lib/sound';
 import { setIntervalFixedCount } from 'lib/trigger';
-import { getUnitsInRect } from 'lib/unit';
+import { getUnitsInRect, setNeverDie } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import { Unit } from 'w3ts';
 
@@ -61,6 +61,7 @@ export class RabbitHunt extends BaseQuest {
   async register() {
     const { jacob, wheatFieldRects } = this.globals;
     jacob.name = 'Villager Jacob';
+    setNeverDie(jacob, true, 1);
 
     await this.waitDependenciesDone();
 

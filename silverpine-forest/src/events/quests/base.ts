@@ -11,7 +11,7 @@ export interface BaseQuestProps {
   cheatName: string
 }
 
-const logDebug = true;
+const logDebug = false;
 
 export class BaseQuest {
   private status: 'open' | 'in_progress' | 'completed' | 'failed' = 'open';
@@ -37,7 +37,7 @@ export class BaseQuest {
     if (showMinimapIcon) {
       setMinimapIconUnit(unit, 'questGiver');
     }
-    const { unit: traveler } = await UnitInteraction.waitUntilQuestTalk(unit);
+    const { unit: traveler } = await UnitInteraction.waitUntilQuestTalk(unit, 'new');
     if (this.status === 'open') {
       this.status = 'in_progress';
     }
@@ -52,7 +52,7 @@ export class BaseQuest {
     this.currentQuestGiver = unit;
     disableInteractSound(unit);
     setMinimapIconUnit(unit, 'turnIn');
-    const { unit: traveler } = await UnitInteraction.waitUntilQuestTalk(unit);
+    const { unit: traveler } = await UnitInteraction.waitUntilQuestTalk(unit, 'turnin');
     if (this.status === 'open') {
       this.status = 'in_progress';
     }

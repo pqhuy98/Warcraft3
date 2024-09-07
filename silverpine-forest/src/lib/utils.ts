@@ -98,9 +98,11 @@ export function isReforgedForcefully(resourcePath: string) {
 /**
  * @returns true if predicate happened, false if timed out.
  */
-export async function waitUntil(interval: number, predicate: () => boolean, timeout?: number): Promise<boolean> {
+export async function waitUntil(interval: number, predicate: (idx: number) => boolean, timeout?: number): Promise<boolean> {
   let duration = 0;
-  while (!predicate()) {
+  let counter = 0;
+  while (!predicate(counter)) {
+    counter++;
     await sleep(interval);
     duration += interval;
     if (timeout && duration > timeout) {

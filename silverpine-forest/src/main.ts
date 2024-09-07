@@ -29,6 +29,7 @@ import {
   neutralPassive,
   playerBlackTurban,
   playerHumanAlliance,
+  playerMonsters,
   playerNightElfSentinels,
   playerOrcishHorde,
   registerGlobalUnits,
@@ -40,6 +41,7 @@ import { setAllianceState, setAllianceState2Way } from 'lib/player';
 import { daemonQuestMarker } from 'lib/quests/utils';
 import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
 import { UnitInteraction } from 'lib/systems/unit_interaction';
+import { registerFloatTextExperiments } from 'lib/texttag';
 import {
   setTimeout, trackElapsedGameTime,
 } from 'lib/trigger';
@@ -72,6 +74,7 @@ function tsMain() {
   daemonQuestMarker();
   daemonGuardPosition();
   useReforgedIcons();
+  registerFloatTextExperiments();
 
   // Miscs
   // Weather.changeWeather();
@@ -135,6 +138,7 @@ function configurePlayerSettings() {
   SetPlayerColorBJ(playerOrcishHorde.handle, PLAYER_COLOR_RED, true);
   SetPlayerColorBJ(playerNightElfSentinels.handle, PLAYER_COLOR_CYAN, true);
   SetPlayerColorBJ(playerBlackTurban.handle, PLAYER_COLOR_COAL, true);
+  SetPlayerColorBJ(playerMonsters.handle, PLAYER_COLOR_COAL, true);
 
   // Change faction
   function setMainPlayerAlliance(mainPlayerForce: MainPlayerFaction) {

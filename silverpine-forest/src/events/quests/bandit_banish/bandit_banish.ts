@@ -12,7 +12,7 @@ import { ABILITY_ArchMageWaterElemental } from 'lib/resources/war3-abilities';
 import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
 import { buildTrigger } from 'lib/trigger';
-import { getUnitsInRangeOfLoc, isOrganic } from 'lib/unit';
+import { getUnitsInRangeOfLoc, isOrganic, setNeverDie } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   sleep,
@@ -113,6 +113,7 @@ export class BanditBanish extends BaseQuest {
     } = this.globals;
     archMage.nameProper = archMageName.replace('ArchMage ', '');
     archMage.name = 'Archmage of Northern Watch';
+    setNeverDie(archMage, true, 1);
 
     await this.waitDependenciesDone();
 
@@ -183,11 +184,14 @@ export class BanditBanish extends BaseQuest {
       bandit,
       (enemy) => enemy.isAlive() && enemy.owner === traveler.owner && enemy.isVisible(bandit.owner),
     ).length > 0));
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     playSpeech(banditLord, banditSounds[0]);
 
     // Play last words when bandit lords is low
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     waitUntil(1, () => {
       if (bandits.filter((u) => u.isAlive()).length <= 1) {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         playSpeech(banditLord, banditSounds[1]);
         return true;
       }

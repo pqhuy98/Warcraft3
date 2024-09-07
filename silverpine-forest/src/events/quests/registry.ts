@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import {
   mainPlayer, playerBlackTurban, playerForsaken,
 } from 'lib/constants';
@@ -90,7 +91,7 @@ export class QuestRegistry {
         knight: Unit.fromHandle(gg_unit_hkni_0134),
         mayor: Unit.fromHandle(gg_unit_Hpb1_0145),
         undeadBaseRect: gg_rct_Undead_ruin,
-        humanBaseRect: gg_rct_Human_Town,
+        humanBaseRect: gg_rct_AmberMill_region,
         knightRectAfterQuest: gg_rct_Knight_after_StrikeBack,
         dependencies: [lumberMill2],
         cheatName: 'sb',
@@ -137,7 +138,13 @@ export class QuestRegistry {
         banditPlayer: playerBlackTurban,
         banditHomeEntranceRect: gg_rct_Waygate_island_back,
         banditHomeRect: gg_rct_Bandit_Base,
-        dependencies: [],
+        safeRects: [
+          gg_rct_Orc_shore_base, gg_rct_Orc_east_base, gg_rct_Bandit_Island, gg_rct_Bandit_Base,
+          gg_rct_Thalandor_home, gg_rct_AmberMill_region, gg_rct_Farm_region,
+          gg_rct_Shadowfang_region, gg_rct_Night_elf_shore_base,
+          gg_rct_Keep_Fog,
+        ],
+        dependencies: [banditBanish],
         cheatName: 'bt',
       }).register();
     });

@@ -8,8 +8,7 @@ gg_rct_Region_001_Copy = nil
 gg_rct_undercity = nil
 gg_rct_Worgen_Cave = nil
 gg_rct_Worgen_Moonlight = nil
-gg_rct_Worgen_Moonlight_Copy = nil
-gg_rct_Worgen_Moonlight_Copy_2 = nil
+gg_rct_Orc_east_base = nil
 gg_rct_Worgen_Moonlight_Copy_2_Copy = nil
 gg_rct_Worgen_Moonlight_Copy_2_Copy_3 = nil
 gg_rct_Sepulcher_Fog = nil
@@ -19,7 +18,7 @@ gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_Copy_2 = nil
 gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_Copy_3 = nil
 gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_Copy_4 = nil
 gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_Copy_4_Copy = nil
-gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_Copy_4_Copy_Copy = nil
+gg_rct_Orc_shore_base = nil
 gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_2 = nil
 gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_3 = nil
 gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_3_Copy = nil
@@ -27,7 +26,7 @@ gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_3_Copy_2 = nil
 gg_rct_Skittering_Dark = nil
 gg_rct_Waygate_island = nil
 gg_rct_Waygate_island_back = nil
-gg_rct_Island_weather = nil
+gg_rct_Bandit_Island = nil
 gg_rct_Undead_ruin = nil
 gg_rct_Lumber_mill_corpses_1 = nil
 gg_rct_Lumber_mill_corpses_2 = nil
@@ -41,7 +40,7 @@ gg_rct_Wheat_field = nil
 gg_rct_Wheat_field_2 = nil
 gg_rct_Lumber_Mill_ambusher = nil
 gg_rct_Lumber_Mill = nil
-gg_rct_Human_Town = nil
+gg_rct_AmberMill_region = nil
 gg_rct_Knight_after_StrikeBack = nil
 gg_rct_Shore_Peon_harvest_gold = nil
 gg_rct_Shore_Peon_harvest_lumber = nil
@@ -56,6 +55,14 @@ gg_rct_Bandit_camp = nil
 gg_rct_John_after_undead = nil
 gg_rct_Peter_after_undead = nil
 gg_rct_Sight_blockers_farm = nil
+gg_rct_Unit_experiments = nil
+gg_rct_Bandit_Base = nil
+gg_rct_Undead_lumber_ghouls_eating_1 = nil
+gg_rct_Undead_lumber_ghouls_eating_2 = nil
+gg_rct_Thalandor_home = nil
+gg_rct_Farm_region = nil
+gg_rct_Shadowfang_region = nil
+gg_rct_Night_elf_shore_base = nil
 gg_snd_lich_king_stab_out = nil
 gg_snd_lichking_frostmourne_hungers = nil
 gg_trg_Doodads = nil
@@ -76,15 +83,13 @@ gg_unit_hfoo_0149 = nil
 gg_unit_hfoo_0150 = nil
 gg_unit_hfoo_0151 = nil
 gg_unit_nvl2_0413 = nil
+gg_unit_nhem_0557 = nil
 gg_unit_Ekee_0551 = nil
 gg_unit_nvil_0414 = nil
 gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
-gg_rct_Unit_experiments = nil
-gg_unit_nhem_0557 = nil
-gg_rct_Bandit_Base = nil
 function InitGlobals()
 end
 
@@ -777,7 +782,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5276.0, -9792.1, 229.826, FourCC("u
 u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5251.9, -9904.7, 98.968, FourCC("ugho"))
 u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 5139.3, -10063.2, 342.588, FourCC("ugho"))
 u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 4293.4, -9551.8, 23.336, FourCC("nzom"))
-u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 2922.3, -9392.2, 18.354, FourCC("nzom"))
+u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 3298.3, -9428.2, 18.354, FourCC("nzom"))
 u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 4575.5, -10475.2, 36.171, FourCC("nzom"))
 u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 5111.0, -10528.3, 263.881, FourCC("nzom"))
 u = BlzCreateUnitWithSkin(p, FourCC("nzom"), 5392.2, -10310.8, 165.605, FourCC("nzom"))
@@ -911,7 +916,7 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 10333.2, -14958.2, 195.880, FourCC("Ewar"))
+u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 12573.2, -5358.2, 195.880, FourCC("Ewar"))
 SetHeroLevel(u, 5, false)
 SetUnitState(u, UNIT_STATE_MANA, 345)
 SelectHeroSkill(u, FourCC("AEfk"))
@@ -929,7 +934,7 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("n001"), 6754.2, 8424.5, -37.038, FourCC("n001"))
+u = BlzCreateUnitWithSkin(p, FourCC("n001"), 6754.2, 8424.5, 322.962, FourCC("n001"))
 u = BlzCreateUnitWithSkin(p, FourCC("nban"), 10229.3, -1356.1, 217.577, FourCC("nban"))
 u = BlzCreateUnitWithSkin(p, FourCC("nban"), 10423.7, -1399.7, 205.651, FourCC("nban"))
 u = BlzCreateUnitWithSkin(p, FourCC("nban"), 10062.4, -1271.8, 239.628, FourCC("nban"))
@@ -947,13 +952,12 @@ u = BlzCreateUnitWithSkin(p, FourCC("nass"), 10319.5, -1150.4, 219.634, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("nenf"), 10159.1, -1279.2, 240.714, FourCC("nenf"))
 u = BlzCreateUnitWithSkin(p, FourCC("n001"), 7496.5, 8388.3, 220.179, FourCC("n001"))
 u = BlzCreateUnitWithSkin(p, FourCC("n005"), 6945.8, 9239.0, 1.511, FourCC("n005"))
-u = BlzCreateUnitWithSkin(p, FourCC("n005"), 7008.4, 8634.4, -75.654, FourCC("n005"))
+u = BlzCreateUnitWithSkin(p, FourCC("n005"), 7008.4, 8634.4, 284.346, FourCC("n005"))
 u = BlzCreateUnitWithSkin(p, FourCC("n006"), 6918.7, 10429.4, 55.492, FourCC("n006"))
-SetUnitState(u, UNIT_STATE_MANA, 0)
 u = BlzCreateUnitWithSkin(p, FourCC("n002"), 6665.0, 10318.9, 47.204, FourCC("n002"))
-u = BlzCreateUnitWithSkin(p, FourCC("n001"), 6966.0, 8468.4, -54.338, FourCC("n001"))
+u = BlzCreateUnitWithSkin(p, FourCC("n001"), 6966.0, 8468.4, 305.662, FourCC("n001"))
 u = BlzCreateUnitWithSkin(p, FourCC("n001"), 7304.6, 8455.7, 235.687, FourCC("n001"))
-u = BlzCreateUnitWithSkin(p, FourCC("n002"), 6867.3, 8579.3, -83.356, FourCC("n002"))
+u = BlzCreateUnitWithSkin(p, FourCC("n002"), 6867.3, 8579.3, 276.644, FourCC("n002"))
 u = BlzCreateUnitWithSkin(p, FourCC("n002"), 7488.3, 8554.7, 262.652, FourCC("n002"))
 u = BlzCreateUnitWithSkin(p, FourCC("n004"), 7333.4, 8631.4, 247.751, FourCC("n004"))
 u = BlzCreateUnitWithSkin(p, FourCC("n005"), 6934.8, 9053.6, 1.511, FourCC("n005"))
@@ -972,8 +976,8 @@ u = BlzCreateUnitWithSkin(p, FourCC("n002"), 7731.2, 10275.3, 128.262, FourCC("n
 u = BlzCreateUnitWithSkin(p, FourCC("n002"), 8144.2, 10530.2, 157.046, FourCC("n002"))
 u = BlzCreateUnitWithSkin(p, FourCC("n002"), 8520.8, 10514.5, 163.527, FourCC("n002"))
 u = BlzCreateUnitWithSkin(p, FourCC("n002"), 6844.0, 10906.4, 2.169, FourCC("n002"))
-u = BlzCreateUnitWithSkin(p, FourCC("n002"), 6786.2, 11146.3, -27.358, FourCC("n002"))
-u = BlzCreateUnitWithSkin(p, FourCC("n002"), 6313.5, 11027.4, -6.697, FourCC("n002"))
+u = BlzCreateUnitWithSkin(p, FourCC("n002"), 6786.2, 11146.3, 332.642, FourCC("n002"))
+u = BlzCreateUnitWithSkin(p, FourCC("n002"), 6313.5, 11027.4, 353.303, FourCC("n002"))
 u = BlzCreateUnitWithSkin(p, FourCC("n002"), 6637.8, 12005.7, 86.436, FourCC("n002"))
 u = BlzCreateUnitWithSkin(p, FourCC("n002"), 7924.1, 11074.9, 192.392, FourCC("n002"))
 u = BlzCreateUnitWithSkin(p, FourCC("n002"), 7515.7, 10049.7, 108.624, FourCC("n002"))
@@ -983,21 +987,28 @@ u = BlzCreateUnitWithSkin(p, FourCC("n004"), 6744.9, 10471.4, 38.107, FourCC("n0
 u = BlzCreateUnitWithSkin(p, FourCC("n004"), 6402.6, 10444.8, 30.144, FourCC("n004"))
 u = BlzCreateUnitWithSkin(p, FourCC("n004"), 6906.3, 10052.6, 70.004, FourCC("n004"))
 u = BlzCreateUnitWithSkin(p, FourCC("n004"), 7382.5, 9432.2, 197.108, FourCC("n004"))
-u = BlzCreateUnitWithSkin(p, FourCC("n004"), 6968.7, 9431.7, -5.582, FourCC("n004"))
+u = BlzCreateUnitWithSkin(p, FourCC("n004"), 6968.7, 9431.7, 354.418, FourCC("n004"))
 u = BlzCreateUnitWithSkin(p, FourCC("n004"), 8394.9, 10742.9, 171.829, FourCC("n004"))
-u = BlzCreateUnitWithSkin(p, FourCC("n004"), 6664.7, 10961.8, -4.219, FourCC("n004"))
-u = BlzCreateUnitWithSkin(p, FourCC("n005"), 6694.1, 11569.2, -50.841, FourCC("n005"))
+u = BlzCreateUnitWithSkin(p, FourCC("n004"), 6664.7, 10961.8, 355.781, FourCC("n004"))
+u = BlzCreateUnitWithSkin(p, FourCC("n005"), 6694.1, 11569.2, 309.159, FourCC("n005"))
 u = BlzCreateUnitWithSkin(p, FourCC("n005"), 7777.9, 10446.1, 139.504, FourCC("n005"))
 u = BlzCreateUnitWithSkin(p, FourCC("n005"), 7056.4, 9914.7, 80.643, FourCC("n005"))
 u = BlzCreateUnitWithSkin(p, FourCC("n005"), 6537.8, 10429.1, 35.692, FourCC("n005"))
 u = BlzCreateUnitWithSkin(p, FourCC("n005"), 8064.0, 10369.2, 146.769, FourCC("n005"))
-u = BlzCreateUnitWithSkin(p, FourCC("n005"), 6384.0, 11432.6, -31.414, FourCC("n005"))
+u = BlzCreateUnitWithSkin(p, FourCC("n005"), 6384.0, 11432.6, 328.586, FourCC("n005"))
 u = BlzCreateUnitWithSkin(p, FourCC("n005"), 6859.5, 12316.3, 81.706, FourCC("n005"))
 u = BlzCreateUnitWithSkin(p, FourCC("n005"), 7715.6, 10840.6, 170.780, FourCC("n005"))
 u = BlzCreateUnitWithSkin(p, FourCC("n006"), 7557.8, 10460.2, 126.085, FourCC("n006"))
-SetUnitState(u, UNIT_STATE_MANA, 0)
+u = BlzCreateUnitWithSkin(p, FourCC("n007"), 7232.5, 10870.0, 273.630, FourCC("n007"))
 u = BlzCreateUnitWithSkin(p, FourCC("n006"), 6685.5, 12332.2, 85.107, FourCC("n006"))
-SetUnitState(u, UNIT_STATE_MANA, 0)
+u = BlzCreateUnitWithSkin(p, FourCC("n001"), 17373.0, 8610.4, 313.292, FourCC("n001"))
+u = BlzCreateUnitWithSkin(p, FourCC("n001"), 17540.5, 8279.5, 87.802, FourCC("n001"))
+u = BlzCreateUnitWithSkin(p, FourCC("n003"), 16743.6, 11269.1, 202.246, FourCC("n003"))
+u = BlzCreateUnitWithSkin(p, FourCC("nrog"), 16527.7, 11360.4, 309.731, FourCC("nrog"))
+u = BlzCreateUnitWithSkin(p, FourCC("nbrg"), 16677.7, 11079.8, 104.775, FourCC("nbrg"))
+u = BlzCreateUnitWithSkin(p, FourCC("nenf"), 17582.2, 8582.1, 256.967, FourCC("nenf"))
+u = BlzCreateUnitWithSkin(p, FourCC("nrog"), 17395.8, 8422.6, 1.484, FourCC("nrog"))
+u = BlzCreateUnitWithSkin(p, FourCC("nbrg"), 17692.4, 8392.6, 166.927, FourCC("nbrg"))
 end
 
 function CreateNeutralHostile()
@@ -1275,15 +1286,6 @@ u = BlzCreateUnitWithSkin(p, FourCC("nkog"), 1282.1, -2601.1, 70.602, FourCC("nk
 SetUnitState(u, UNIT_STATE_MANA, 300)
 u = BlzCreateUnitWithSkin(p, FourCC("nkob"), 379.0, -3694.5, 226.984, FourCC("nkob"))
 u = BlzCreateUnitWithSkin(p, FourCC("nkob"), 816.7, -3940.9, 346.179, FourCC("nkob"))
-u = BlzCreateUnitWithSkin(p, FourCC("n007"), 7232.5, 10870.0, -86.367, FourCC("n007"))
-u = BlzCreateUnitWithSkin(p, FourCC("n001"), 17373.0, 8610.4, -46.708, FourCC("n001"))
-u = BlzCreateUnitWithSkin(p, FourCC("n001"), 17540.5, 8279.5, 87.802, FourCC("n001"))
-u = BlzCreateUnitWithSkin(p, FourCC("n003"), 16743.6, 11269.1, 202.246, FourCC("n003"))
-u = BlzCreateUnitWithSkin(p, FourCC("nrog"), 16527.7, 11360.4, -50.269, FourCC("nrog"))
-u = BlzCreateUnitWithSkin(p, FourCC("nbrg"), 16677.7, 11079.8, 104.775, FourCC("nbrg"))
-u = BlzCreateUnitWithSkin(p, FourCC("nenf"), 17582.2, 8582.1, 256.967, FourCC("nenf"))
-u = BlzCreateUnitWithSkin(p, FourCC("nrog"), 17395.8, 8422.6, 1.484, FourCC("nrog"))
-u = BlzCreateUnitWithSkin(p, FourCC("nbrg"), 17692.4, 8392.6, 166.927, FourCC("nbrg"))
 end
 
 function CreateNeutralPassiveBuildings()
@@ -1466,7 +1468,7 @@ EnableWeatherEffect(we, true)
 gg_rct_Gilneas_Fog = Rect(-17088.0, -26624.0, 928.0, -19136.0)
 we = AddWeatherEffect(gg_rct_Gilneas_Fog, FourCC("FDwl"))
 EnableWeatherEffect(we, true)
-gg_rct_Keep_Fog = Rect(-14336.0, -13344.0, -9344.0, -10464.0)
+gg_rct_Keep_Fog = Rect(-15008.0, -13344.0, -8224.0, -10016.0)
 we = AddWeatherEffect(gg_rct_Keep_Fog, FourCC("FDwh"))
 EnableWeatherEffect(we, true)
 gg_rct_Region_001 = Rect(-1888.0, -14048.0, -1344.0, -13216.0)
@@ -1484,11 +1486,8 @@ EnableWeatherEffect(we, true)
 gg_rct_Worgen_Moonlight = Rect(4096.0, -2112.0, 4768.0, -1408.0)
 we = AddWeatherEffect(gg_rct_Worgen_Moonlight, FourCC("LRma"))
 EnableWeatherEffect(we, true)
-gg_rct_Worgen_Moonlight_Copy = Rect(3872.0, -2144.0, 6784.0, -512.0)
-we = AddWeatherEffect(gg_rct_Worgen_Moonlight_Copy, FourCC("LRma"))
-EnableWeatherEffect(we, true)
-gg_rct_Worgen_Moonlight_Copy_2 = Rect(3840.0, -512.0, 5440.0, 928.0)
-we = AddWeatherEffect(gg_rct_Worgen_Moonlight_Copy_2, FourCC("LRma"))
+gg_rct_Orc_east_base = Rect(3584.0, -2944.0, 7200.0, 1472.0)
+we = AddWeatherEffect(gg_rct_Orc_east_base, FourCC("LRma"))
 EnableWeatherEffect(we, true)
 gg_rct_Worgen_Moonlight_Copy_2_Copy = Rect(-160.0, -3040.0, 512.0, -2336.0)
 we = AddWeatherEffect(gg_rct_Worgen_Moonlight_Copy_2_Copy, FourCC("LRma"))
@@ -1517,8 +1516,8 @@ EnableWeatherEffect(we, true)
 gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_Copy_4_Copy = Rect(-7488.0, 13664.0, -7104.0, 14112.0)
 we = AddWeatherEffect(gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_Copy_4_Copy, FourCC("LRma"))
 EnableWeatherEffect(we, true)
-gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_Copy_4_Copy_Copy = Rect(-18720.0, 4480.0, -15040.0, 12640.0)
-we = AddWeatherEffect(gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_Copy_4_Copy_Copy, FourCC("LRma"))
+gg_rct_Orc_shore_base = Rect(-18720.0, 4480.0, -15040.0, 12640.0)
+we = AddWeatherEffect(gg_rct_Orc_shore_base, FourCC("LRma"))
 EnableWeatherEffect(we, true)
 gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_2 = Rect(-13248.0, -11840.0, -12576.0, -11136.0)
 we = AddWeatherEffect(gg_rct_Worgen_Moonlight_Copy_2_Copy_3_Copy_2, FourCC("LRma"))
@@ -1537,8 +1536,8 @@ we = AddWeatherEffect(gg_rct_Skittering_Dark, FourCC("FDgl"))
 EnableWeatherEffect(we, true)
 gg_rct_Waygate_island = Rect(14176.0, 16032.0, 14656.0, 16512.0)
 gg_rct_Waygate_island_back = Rect(11520.0, -21600.0, 12000.0, -21152.0)
-gg_rct_Island_weather = Rect(5184.0, 4160.0, 19424.0, 16704.0)
-we = AddWeatherEffect(gg_rct_Island_weather, FourCC("RLlr"))
+gg_rct_Bandit_Island = Rect(5184.0, 4160.0, 19424.0, 16704.0)
+we = AddWeatherEffect(gg_rct_Bandit_Island, FourCC("RLlr"))
 EnableWeatherEffect(we, true)
 gg_rct_Undead_ruin = Rect(3200.0, -11584.0, 6048.0, -8768.0)
 we = AddWeatherEffect(gg_rct_Undead_ruin, FourCC("FDgl"))
@@ -1553,9 +1552,9 @@ gg_rct_Sheeps_2 = Rect(9280.0, -8928.0, 10048.0, -8192.0)
 gg_rct_Sheeps_3 = Rect(8512.0, -8928.0, 9280.0, -8192.0)
 gg_rct_Wheat_field = Rect(9216.0, -7872.0, 10528.0, -5600.0)
 gg_rct_Wheat_field_2 = Rect(8896.0, -6784.0, 9248.0, -5600.0)
-gg_rct_Lumber_Mill_ambusher = Rect(3616.0, -10880.0, 5824.0, -9216.0)
+gg_rct_Lumber_Mill_ambusher = Rect(3616.0, -10752.0, 5824.0, -9216.0)
 gg_rct_Lumber_Mill = Rect(6304.0, -9856.0, 7040.0, -9152.0)
-gg_rct_Human_Town = Rect(8480.0, -13088.0, 11264.0, -9536.0)
+gg_rct_AmberMill_region = Rect(8480.0, -13248.0, 11264.0, -9536.0)
 gg_rct_Knight_after_StrikeBack = Rect(8960.0, -11296.0, 9056.0, -11200.0)
 gg_rct_Shore_Peon_harvest_gold = Rect(-16224.0, 4768.0, -15584.0, 5280.0)
 gg_rct_Shore_Peon_harvest_lumber = Rect(-15680.0, 7136.0, -15136.0, 7904.0)
@@ -1572,6 +1571,12 @@ gg_rct_Peter_after_undead = Rect(8448.0, -7104.0, 8544.0, -7008.0)
 gg_rct_Sight_blockers_farm = Rect(8192.0, -4960.0, 10464.0, -4096.0)
 gg_rct_Unit_experiments = Rect(16928.0, -21472.0, 18912.0, -19488.0)
 gg_rct_Bandit_Base = Rect(7168.0, 11264.0, 7360.0, 11456.0)
+gg_rct_Undead_lumber_ghouls_eating_1 = Rect(5056.0, -10144.0, 5728.0, -9728.0)
+gg_rct_Undead_lumber_ghouls_eating_2 = Rect(6592.0, -11264.0, 7104.0, -11008.0)
+gg_rct_Thalandor_home = Rect(9184.0, -15968.0, 11232.0, -13504.0)
+gg_rct_Farm_region = Rect(7584.0, -9568.0, 11616.0, -1984.0)
+gg_rct_Shadowfang_region = Rect(-16064.0, -18560.0, -8192.0, -13312.0)
+gg_rct_Night_elf_shore_base = Rect(-19392.0, -11488.0, -17024.0, -5248.0)
 end
 
 function Trig_Doodads_Actions()
@@ -1671,6 +1676,11 @@ SetPlayerColor(Player(20), ConvertPlayerColor(20))
 SetPlayerRacePreference(Player(20), RACE_PREF_HUMAN)
 SetPlayerRaceSelectable(Player(20), false)
 SetPlayerController(Player(20), MAP_CONTROL_COMPUTER)
+SetPlayerStartLocation(Player(21), 6)
+SetPlayerColor(Player(21), ConvertPlayerColor(21))
+SetPlayerRacePreference(Player(21), RACE_PREF_UNDEAD)
+SetPlayerRaceSelectable(Player(21), false)
+SetPlayerController(Player(21), MAP_CONTROL_COMPUTER)
 end
 
 function InitCustomTeams()
@@ -1680,36 +1690,49 @@ SetPlayerTeam(Player(2), 0)
 SetPlayerTeam(Player(3), 0)
 SetPlayerTeam(Player(4), 0)
 SetPlayerTeam(Player(20), 0)
+SetPlayerTeam(Player(21), 0)
 SetPlayerAllianceStateAllyBJ(Player(0), Player(1), true)
 SetPlayerAllianceStateAllyBJ(Player(0), Player(2), true)
 SetPlayerAllianceStateAllyBJ(Player(0), Player(3), true)
 SetPlayerAllianceStateAllyBJ(Player(0), Player(4), true)
 SetPlayerAllianceStateAllyBJ(Player(0), Player(20), true)
+SetPlayerAllianceStateAllyBJ(Player(0), Player(21), true)
 SetPlayerAllianceStateAllyBJ(Player(1), Player(0), true)
 SetPlayerAllianceStateAllyBJ(Player(1), Player(2), true)
 SetPlayerAllianceStateAllyBJ(Player(1), Player(3), true)
 SetPlayerAllianceStateAllyBJ(Player(1), Player(4), true)
 SetPlayerAllianceStateAllyBJ(Player(1), Player(20), true)
+SetPlayerAllianceStateAllyBJ(Player(1), Player(21), true)
 SetPlayerAllianceStateAllyBJ(Player(2), Player(0), true)
 SetPlayerAllianceStateAllyBJ(Player(2), Player(1), true)
 SetPlayerAllianceStateAllyBJ(Player(2), Player(3), true)
 SetPlayerAllianceStateAllyBJ(Player(2), Player(4), true)
 SetPlayerAllianceStateAllyBJ(Player(2), Player(20), true)
+SetPlayerAllianceStateAllyBJ(Player(2), Player(21), true)
 SetPlayerAllianceStateAllyBJ(Player(3), Player(0), true)
 SetPlayerAllianceStateAllyBJ(Player(3), Player(1), true)
 SetPlayerAllianceStateAllyBJ(Player(3), Player(2), true)
 SetPlayerAllianceStateAllyBJ(Player(3), Player(4), true)
 SetPlayerAllianceStateAllyBJ(Player(3), Player(20), true)
+SetPlayerAllianceStateAllyBJ(Player(3), Player(21), true)
 SetPlayerAllianceStateAllyBJ(Player(4), Player(0), true)
 SetPlayerAllianceStateAllyBJ(Player(4), Player(1), true)
 SetPlayerAllianceStateAllyBJ(Player(4), Player(2), true)
 SetPlayerAllianceStateAllyBJ(Player(4), Player(3), true)
 SetPlayerAllianceStateAllyBJ(Player(4), Player(20), true)
+SetPlayerAllianceStateAllyBJ(Player(4), Player(21), true)
 SetPlayerAllianceStateAllyBJ(Player(20), Player(0), true)
 SetPlayerAllianceStateAllyBJ(Player(20), Player(1), true)
 SetPlayerAllianceStateAllyBJ(Player(20), Player(2), true)
 SetPlayerAllianceStateAllyBJ(Player(20), Player(3), true)
 SetPlayerAllianceStateAllyBJ(Player(20), Player(4), true)
+SetPlayerAllianceStateAllyBJ(Player(20), Player(21), true)
+SetPlayerAllianceStateAllyBJ(Player(21), Player(0), true)
+SetPlayerAllianceStateAllyBJ(Player(21), Player(1), true)
+SetPlayerAllianceStateAllyBJ(Player(21), Player(2), true)
+SetPlayerAllianceStateAllyBJ(Player(21), Player(3), true)
+SetPlayerAllianceStateAllyBJ(Player(21), Player(4), true)
+SetPlayerAllianceStateAllyBJ(Player(21), Player(20), true)
 end
 
 function InitAllyPriorities()
@@ -1717,8 +1740,9 @@ SetStartLocPrioCount(0, 1)
 SetStartLocPrio(0, 0, 4, MAP_LOC_PRIO_LOW)
 SetEnemyStartLocPrioCount(0, 1)
 SetEnemyStartLocPrio(0, 0, 4, MAP_LOC_PRIO_LOW)
-SetStartLocPrioCount(1, 2)
+SetStartLocPrioCount(1, 3)
 SetStartLocPrio(1, 0, 2, MAP_LOC_PRIO_HIGH)
+SetStartLocPrio(1, 1, 6, MAP_LOC_PRIO_LOW)
 SetStartLocPrioCount(2, 2)
 SetStartLocPrio(2, 0, 0, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(2, 1, 3, MAP_LOC_PRIO_LOW)
@@ -1727,12 +1751,22 @@ SetStartLocPrio(3, 0, 0, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(3, 1, 1, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(3, 2, 2, MAP_LOC_PRIO_LOW)
 SetStartLocPrio(3, 3, 4, MAP_LOC_PRIO_LOW)
-SetStartLocPrioCount(5, 3)
+SetStartLocPrioCount(5, 4)
 SetStartLocPrio(5, 0, 2, MAP_LOC_PRIO_HIGH)
 SetStartLocPrio(5, 1, 4, MAP_LOC_PRIO_LOW)
-SetEnemyStartLocPrioCount(5, 3)
+SetStartLocPrio(5, 2, 6, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrioCount(5, 4)
 SetEnemyStartLocPrio(5, 0, 0, MAP_LOC_PRIO_LOW)
 SetEnemyStartLocPrio(5, 1, 3, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrio(5, 2, 6, MAP_LOC_PRIO_LOW)
+SetStartLocPrioCount(6, 2)
+SetStartLocPrio(6, 0, 0, MAP_LOC_PRIO_LOW)
+SetStartLocPrio(6, 1, 4, MAP_LOC_PRIO_LOW)
+SetEnemyStartLocPrioCount(6, 4)
+SetEnemyStartLocPrio(6, 0, 0, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(6, 1, 1, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(6, 2, 3, MAP_LOC_PRIO_HIGH)
+SetEnemyStartLocPrio(6, 3, 4, MAP_LOC_PRIO_LOW)
 end
 
 function main()
@@ -1757,15 +1791,16 @@ end
 function config()
 SetMapName("TRIGSTR_004")
 SetMapDescription("TRIGSTR_009")
-SetPlayers(6)
-SetTeams(6)
+SetPlayers(7)
+SetTeams(7)
 SetGamePlacement(MAP_PLACEMENT_USE_MAP_SETTINGS)
 DefineStartLocation(0, -9472.0, -25152.0)
 DefineStartLocation(1, -9152.0, -25216.0)
 DefineStartLocation(2, -9344.0, -25152.0)
 DefineStartLocation(3, -9600.0, -25088.0)
-DefineStartLocation(4, 10368.0, -14912.0)
+DefineStartLocation(4, 12608.0, -5312.0)
 DefineStartLocation(5, -9664.0, -25344.0)
+DefineStartLocation(6, -9472.0, -25408.0)
 InitCustomPlayerSlots()
 InitCustomTeams()
 InitAllyPriorities()

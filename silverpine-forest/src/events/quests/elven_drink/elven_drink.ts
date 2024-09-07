@@ -3,7 +3,7 @@ import { MulticastNoTarget } from 'abilities/multicast/no-target';
 import { MulticastPoint } from 'abilities/multicast/point';
 import { MulticastUnit } from 'abilities/multicast/unit';
 import { TalkGroup } from 'events/talk_group';
-import { neutralHostile } from 'lib/constants';
+import { playerMonsters } from 'lib/constants';
 import { generateFogLocsBehindTrees } from 'lib/destructable';
 import {
   currentLoc, Destroyable, DistanceBetweenLocs,
@@ -15,6 +15,7 @@ import { neutralHostileTypes } from 'lib/resources/neutral_hostile';
 import {
   ABILITY_MagicImmunity, ABILITY_MagicImmunityCreep, ABILITY_MagicImmunityDragons, ABILITY_ReincarnationCreep, ABILITY_ReincarnationGeneric,
 } from 'lib/resources/war3-abilities';
+import { setGuardPosition } from 'lib/systems/unit_guard_position';
 import {
   buildTrigger, setIntervalFixedCount, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
@@ -22,6 +23,7 @@ import {
   BUFF_ID_GENERIC, enumUnitAbilities,
   getUnitsInRect,
   isBuilding,
+  setNeverDie,
 } from 'lib/unit';
 import { shuffleArray, waitUntil } from 'lib/utils';
 import {
@@ -35,6 +37,10 @@ type MonsterType = typeof neutralHostileTypes[number]
 
 let elfFirstSound: sound;
 let elfAgainSounds: sound[];
+let elfLastSound: sound;
+
+const hardestMinimumLife = 2000;
+const hardestMinimumDamage = 100;
 
 export class ElvenDrink extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
@@ -50,35 +56,30 @@ export class ElvenDrink extends BaseQuest {
 
     elfAgainSounds = [
       createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-2.mp3',
-        'Thalandor',
-        'Ah, you\'ve returned! I see my brew left a lasting impression... or a series of them. Care for another round of passionate, unforgettable dreams?',
-      ),
-      createDialogSound(
         'QuestSounds\\elven-drink\\elven-drink-elf-3.mp3',
         'Thalandor',
         'Look who\'s back from their unexpected \'vacation\'! Ready to indulge in another taste of unparalleled brilliance—or should I say, visions?',
       ),
       createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-4.mp3',
+        'QuestSounds\\elven-drink\\elven-drink-elf-2.mp3',
         'Thalandor',
-        'Remarkable! You survived the soul-stirring experience last time. Naturally, you\'d crave more of my exquisite, reality-bending creation.',
+        'Ah, you\'ve returned! I see my brew left a lasting impression... or a series of them. Care for another round of passionate, unforgettable dreams?',
       ),
-      createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-5.mp3',
-        'Thalandor',
-        'Welcome back! Clearly, my elixir was so divine, it spirited you away for days. Let\'s see what adventures it conjures this time, shall we?',
-      ),
-      createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-6.mp3',
-        'Thalandor',
-        'Well, you\'ve re-emerged from whatever dreams my concoction blessed you with! Eager for another round of ethereal escapades?',
-      ),
-      createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-7.mp3',
-        'Thalandor',
-        'Ah, there you are again! My neighbor, Lyndor, sipped my brew and swore he spent an afternoon having tea with a dragon; shall we see where it takes you this time?',
-      ),
+      // createDialogSound(
+      //   'QuestSounds\\elven-drink\\elven-drink-elf-4.mp3',
+      //   'Thalandor',
+      //   'Remarkable! You survived the soul-stirring experience last time. Naturally, you\'d crave more of my exquisite, reality-bending creation.',
+      // ),
+      // createDialogSound(
+      //   'QuestSounds\\elven-drink\\elven-drink-elf-6.mp3',
+      //   'Thalandor',
+      //   'Well, you\'ve re-emerged from whatever dreams my concoction blessed you with! Eager for another round of ethereal escapades?',
+      // ),
+      // createDialogSound(
+      //   'QuestSounds\\elven-drink\\elven-drink-elf-7.mp3',
+      //   'Thalandor',
+      //   'Ah, there you are again! My neighbor, Lyndor, sipped my brew and swore he spent an afternoon having tea with a dragon; shall we see where it takes you this time?',
+      // ),
       createDialogSound(
         'QuestSounds\\elven-drink\\elven-drink-elf-8.mp3',
         'Thalandor',
@@ -89,26 +90,26 @@ export class ElvenDrink extends BaseQuest {
         'Thalandor',
         'Ah, welcome back, brave soul! You know, the last villager claimed he saw a dozen Hydras dancing in his garden after just one sip. Care to challenge your senses again?',
       ),
-      createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-10.mp3',
-        'Thalandor',
-        'Look who\'s returned! A traveler from Lordaeron swore he conversed with an army of spectral orcs after enjoying my brew. Shall we see what marvels lie in store for you this time?',
-      ),
-      createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-11.mp3',
-        'Thalandor',
-        'Welcome, brave soul! My drink apparently made an orc compose poetry about rainbows—wonder what it will inspire in you this time! Ready for another sip?',
-      ),
-      createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-12.mp3',
-        'Thalandor',
-        'Well, if it isn\'t my most daring patron! One sip of my brew apparently convinced a paladin that his hammer was singing to him. Shall we toast to more enchanting experiences?',
-      ),
-      createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-13.mp3',
-        'Thalandor',
-        'Ah, you\'ve returned! The last knight who tried my brew claimed he battled shadowy nightmares for three nights straight. Ready for another encounter with the surreal?',
-      ),
+      // createDialogSound(
+      //   'QuestSounds\\elven-drink\\elven-drink-elf-10.mp3',
+      //   'Thalandor',
+      //   'Look who\'s returned! A traveler from Lordaeron swore he conversed with an army of spectral orcs after enjoying my brew. Shall we see what marvels lie in store for you this time?',
+      // ),
+      // createDialogSound(
+      //   'QuestSounds\\elven-drink\\elven-drink-elf-11.mp3',
+      //   'Thalandor',
+      //   'Welcome, brave soul! My drink apparently made an orc compose poetry about rainbows—wonder what it will inspire in you this time! Ready for another sip?',
+      // ),
+      // createDialogSound(
+      //   'QuestSounds\\elven-drink\\elven-drink-elf-12.mp3',
+      //   'Thalandor',
+      //   'Well, if it isn\'t my most daring patron! One sip of my brew apparently convinced a paladin that his hammer was singing to him. Shall we toast to more enchanting experiences?',
+      // ),
+      // createDialogSound(
+      //   'QuestSounds\\elven-drink\\elven-drink-elf-13.mp3',
+      //   'Thalandor',
+      //   'Ah, you\'ve returned! The last knight who tried my brew claimed he battled shadowy nightmares for three nights straight. Ready for another encounter with the surreal?',
+      // ),
       createDialogSound(
         'QuestSounds\\elven-drink\\elven-drink-elf-14.mp3',
         'Thalandor',
@@ -129,22 +130,22 @@ export class ElvenDrink extends BaseQuest {
         'Thalandor',
         'Beware—your last nightmares were enough to shake even the strongest. This next sip may be your most frightening yet.',
       ),
-      createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-18.mp3',
-        'Thalandor',
-        'Each time you drink, the horrors you face become more dreadful. Ready to confront the darkness again?',
-      ),
+      // createDialogSound(
+      //   'QuestSounds\\elven-drink\\elven-drink-elf-18.mp3',
+      //   'Thalandor',
+      //   'Each time you drink, the horrors you face become more dreadful. Ready to confront the darkness again?',
+      // ),
       createDialogSound(
         'QuestSounds\\elven-drink\\elven-drink-elf-19.mp3',
         'Thalandor',
         'I must warn you—your nightmares have grown alarmingly intense. Each drink pulls you deeper into a world of unspeakable horrors. Tread carefully, for the terror that awaits is beyond anything you\'ve faced.',
       ),
-      createDialogSound(
-        'QuestSounds\\elven-drink\\elven-drink-elf-20.mp3',
-        'Thalandor',
-        'This is your final drink, brave soul. Your last nightmares were filled with relentless, swarming monsters. I fear the darkness you will encounter now may be too great to endure. Drink, if you must, but know this is the last time I can in good conscience offer you my elixir.',
-      ),
     ];
+    elfLastSound = createDialogSound(
+      'QuestSounds\\elven-drink\\elven-drink-elf-20.mp3',
+      'Thalandor',
+      'This is your final drink, brave soul. Your last nightmares were filled with relentless, swarming monsters. I fear the darkness you will encounter now may be too great to endure. Drink, if you must, but know this is the last time I can in good conscience offer you my elixir.',
+    );
     shuffleArray(elfAgainSounds);
     neutralHostileTypes.sort((u1, u2) => u1.hp - u2.hp);
   }
@@ -155,11 +156,11 @@ export class ElvenDrink extends BaseQuest {
     questGiver.setField(UNIT_RF_CAST_POINT, 0);
     questGiver.setField(UNIT_RF_CAST_BACK_SWING, 0);
     questGiver.addAbility(FourCC('A00R'));
+    setNeverDie(questGiver, true, 1);
 
     await this.waitDependenciesDone();
 
-    const maxLevel = 20;
-    const monsterTypesPerLevel = Math.ceil(neutralHostileTypes.length / maxLevel);
+    const maxLevel = 10;
 
     const questLogMap = new Map<number, QuestLog>();
 
@@ -169,8 +170,14 @@ export class ElvenDrink extends BaseQuest {
       const traveler = await this.talkToQuestGiver(questGiver, true);
       traveler.shareVision(questGiver.owner, true);
 
+      const elfSpeech = firstElfSpeech
+        ? elfFirstSound
+        : (level < maxLevel)
+          ? elfAgainSounds[level % elfAgainSounds.length]
+          : elfLastSound;
+
       const talkGroup = new TalkGroup([traveler, questGiver]);
-      await talkGroup.speak(questGiver, firstElfSpeech ? elfFirstSound : elfAgainSounds[level % elfAgainSounds.length], traveler);
+      await talkGroup.speak(questGiver, elfSpeech, traveler);
       firstElfSpeech = false;
 
       await sleep(0.5);
@@ -181,7 +188,7 @@ export class ElvenDrink extends BaseQuest {
       if (!questLogMap.has(level)) {
         const objective = `Remain standing until the effect of ${level} Elven's Brew${level > 1 ? 's' : ''} wear${level > 1 ? 's' : ''} off`;
         questLogMap.set(level, await QuestLog.create({
-          name: `Elven drink${level > 1 ? `, part ${level}` : ''}`,
+          name: `Elven drink${level > 1 ? `, part ${level}/${maxLevel}` : ''}`,
           description: 'Thalandor, esteemed brewer of the finest elixirs in all of Silvermoon, invited you to try his new elixir',
           icon: 'ReplaceableTextures\\CommandButtons\\BTNStrongDrink.blp',
           items: [objective],
@@ -191,17 +198,18 @@ export class ElvenDrink extends BaseQuest {
       const questLog = questLogMap.get(level);
       talkGroup.finish();
 
+      const monsterTypesPerLevel = Math.ceil(neutralHostileTypes.length / maxLevel);
       const monsterTypes = neutralHostileTypes.slice((level - 1) * monsterTypesPerLevel, level * monsterTypesPerLevel);
-      const completed = await this.start(traveler, 60, monsterTypes);
+      const completed = await this.start(level, maxLevel, traveler, monsterTypes, 6, 6);
 
       if (completed) {
         const rewards: string[] = [];
 
-        const bonusLife = level * 20;
+        const bonusLife = level * 50;
         traveler.maxLife += bonusLife;
         rewards.push(`+${bonusLife} max life`);
 
-        const bonusDamage = 20;
+        const bonusDamage = 30;
         for (let i = 0; i < 2; i++) {
           traveler.setBaseDamage(traveler.getBaseDamage(i) + bonusDamage, i);
         }
@@ -214,14 +222,22 @@ export class ElvenDrink extends BaseQuest {
     }
   }
 
-  start(traveler: Unit, survivalDuration: number, monsterTypes: MonsterType[]): Promise<boolean> {
+  start(
+    level: number,
+    maxLevel: number,
+    traveler: Unit,
+    monsterTypes: MonsterType[],
+    unitPerType: number,
+    spawnPerSec: number,
+  ): Promise<boolean> {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises, no-async-promise-executor
     return new Promise(async (resolve) => {
       CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
       await sleep(3);
 
       AbortCinematicFadeBJ();
-      dream(0, 0, 0, GetRandomInt(0, 100), GetRandomInt(0, 100), GetRandomInt(0, 100), 0, GetRandomInt(80, 90), 4);
+      dream(0, 0, 0, GetRandomInt(0, 100), GetRandomInt(0, 100), GetRandomInt(0, 100), 0, GetRandomInt(85, 90), 4);
+      setTimeout(4, () => EnableUserUI(true));
 
       // Hide all units on map
       const mapUnits = getUnitsInRect(GetWorldBounds(), (u) => u !== traveler);
@@ -273,7 +289,7 @@ export class ElvenDrink extends BaseQuest {
       );
 
       // Enemy spawns
-      traveler.shareVision(neutralHostile, true);
+      traveler.shareVision(playerMonsters, true);
 
       const summons = Group.create();
       const aliveSpawns = Group.create();
@@ -282,48 +298,68 @@ export class ElvenDrink extends BaseQuest {
       toClean.push(aliveSpawns);
       toClean.push(deadSpawns);
 
-      // Rotate monsters
-      const spawnPerSecs = 3;
       const monsterCount: {typeId: number, count: number}[] = monsterTypes.map(({ id }) => ({
         typeId: id,
-        count: survivalDuration * spawnPerSecs / monsterTypes.length,
+        count: unitPerType,
       }));
 
       // Spawn monsters
+      const minimumLife = Math.round(level / maxLevel * hardestMinimumLife);
+      const minimumDamage = Math.round(level / maxLevel * hardestMinimumDamage);
+
       let spawnDone = false;
       toClean.push(setIntervalIndefinite(1, () => {
-        if (monsterCount.length === 0) {
+        spawnDone = monsterCount.length === 0;
+        if (monsterCount.length === 0 && farSpawns.size === 0) {
           spawnDone = true;
           return;
         }
 
-        const { typeId, count } = monsterCount[0];
+        let neededLocCount = 1; // 1 for teleporting farSpawns
+        if (monsterCount.length > 0) {
+          neededLocCount = monsterCount[0].count;
+        }
 
         // Find fog locations behind trees
-        const locs = generateFogLocsBehindTrees(1000, traveler, traveler.owner, Math.min(spawnPerSecs, count));
+        const locs = generateFogLocsBehindTrees(1000, traveler, traveler.owner, Math.min(spawnPerSec, neededLocCount));
         if (locs.length === 0) {
           return;
         }
 
         for (const loc of locs) {
-          const creep = Unit.create(neutralHostile, typeId, loc.x, loc.y);
-          creep.removeAbility(ABILITY_ReincarnationCreep.id);
-          creep.removeAbility(ABILITY_ReincarnationGeneric.id);
-          creep.removeAbility(ABILITY_MagicImmunity.id);
-          creep.removeAbility(ABILITY_MagicImmunityCreep.id);
-          creep.removeAbility(ABILITY_MagicImmunityDragons.id);
-          creep.removeGuardPosition();
-          creep.canSleep = false;
-          creep.issueTargetOrder(OrderId.Attack, traveler);
-          aliveSpawns.addUnit(creep);
-          farSpawns.for(() => {
-            Unit.fromEnum().setPosition(loc.x, loc.y);
-          });
-          farSpawns.clear();
+          if (monsterCount.length > 0) {
+            const { typeId } = monsterCount[0];
+            const creep = Unit.create(playerMonsters, typeId, loc.x, loc.y);
+            creep.removeAbility(ABILITY_ReincarnationCreep.id);
+            creep.removeAbility(ABILITY_ReincarnationGeneric.id);
+            creep.removeAbility(ABILITY_MagicImmunity.id);
+            creep.removeAbility(ABILITY_MagicImmunityCreep.id);
+            creep.removeAbility(ABILITY_MagicImmunityDragons.id);
+
+            creep.canSleep = false;
+            creep.maxLife = Math.max(minimumLife, creep.maxLife);
+            for (let idx = 0; idx < 2; idx++) {
+              creep.setBaseDamage(Math.max(creep.getBaseDamage(idx), minimumDamage), idx);
+            }
+
+            creep.issueTargetOrder(OrderId.Attack, traveler);
+            setGuardPosition(creep, traveler, 0);
+            aliveSpawns.addUnit(creep);
+          }
+
+          if (farSpawns.size > 0) {
+            // Also teleport all far creeps here
+            farSpawns.for(() => {
+              Unit.fromEnum().setPosition(loc.x, loc.y);
+            });
+            farSpawns.clear();
+          }
         }
-        monsterCount[0].count -= locs.length;
-        if (monsterCount[0].count <= 0) {
-          monsterCount.splice(0, 1);
+        if (monsterCount.length > 0) {
+          monsterCount[0].count -= locs.length;
+          if (monsterCount[0].count <= 0) {
+            monsterCount.splice(0, 1);
+          }
         }
       }));
 
@@ -339,8 +375,6 @@ export class ElvenDrink extends BaseQuest {
           } else {
             if (DistanceBetweenLocs(creep, traveler) > 2000) {
               farSpawns.addUnit(creep);
-            } else if (GetRandomInt(1, aliveSpawns.size) <= 15) {
-              creep.issueOrderAt(OrderId.Attack, traveler.x, traveler.y);
             }
           }
         });
@@ -349,7 +383,7 @@ export class ElvenDrink extends BaseQuest {
       // Also add summons to this list.
       toClean.push(buildTrigger((t) => {
         t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON);
-        t.addCondition(() => [neutralHostile, traveler.owner].includes(Unit.fromHandle(GetSummoningUnit()).owner));
+        t.addCondition(() => [playerMonsters, traveler.owner].includes(Unit.fromHandle(GetSummoningUnit()).owner));
         t.addAction(() => {
           const summoned = Unit.fromHandle(GetSummonedUnit());
           summons.addUnit(summoned);
@@ -406,7 +440,7 @@ export class ElvenDrink extends BaseQuest {
         });
       }));
 
-      setTimeout(survivalDuration, async () => {
+      setTimeout(unitPerType, async () => {
         await waitUntil(3, () => {
           if ((spawnDone && aliveSpawns.size === 0) || failed) return true;
           if (aliveSpawns.size > 0) {

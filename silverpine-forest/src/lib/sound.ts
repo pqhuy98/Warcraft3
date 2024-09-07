@@ -1,5 +1,5 @@
 import { setAttention } from 'lib/systems/unit_interaction';
-import { sleep, Unit } from 'w3ts';
+import { Effect, sleep, Unit } from 'w3ts';
 
 import { MODEL_Chat_Bubble } from './constants';
 
@@ -17,11 +17,11 @@ export async function playSpeech(unit: Unit, sound: sound, target?: Unit) {
   );
 
   SetSpeechVolumeGroupsBJ();
-  const speakEffect = AddSpecialEffectTarget(MODEL_Chat_Bubble, unit.handle, 'overhead');
+  const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
   PlayDialogueFromSpeakerEx(bj_FORCE_ALL_PLAYERS, unit.handle, GetUnitTypeId(unit.handle), sound, bj_TIMETYPE_ADD, 0, false);
   const duration = GetSoundDuration(sound);
   await sleep(duration / 1000);
-  DestroyEffect(speakEffect);
+  speakEffect.destroy();
   VolumeGroupReset();
 }
 

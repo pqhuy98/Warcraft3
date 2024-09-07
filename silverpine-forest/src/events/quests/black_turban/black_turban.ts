@@ -1,7 +1,8 @@
 import { generateFogLocsBehindTrees } from 'lib/destructable';
 import {
-  centerLocRect, DistanceBetweenLocs, isLocInRect, Loc,
+  centerLocRect, currentLoc, DistanceBetweenLocs, isLocInRect, Loc,
 } from 'lib/location';
+import { log } from 'lib/log';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import { neutralHostileMap } from 'lib/resources/neutral_hostile';
 import {
@@ -11,11 +12,12 @@ import {
 import { playSpeech } from 'lib/sound';
 import { removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { getTimeS } from 'lib/trigger';
-import { getUnitsInRangeOfLoc, getUnitsOfPlayer } from 'lib/unit';
+import { BUFF_ID_GENERIC, getUnitsInRangeOfLoc, getUnitsOfPlayer } from 'lib/unit';
 import {
   pickRandom, pickRandomWeighted, shuffleArray, waitUntil,
 } from 'lib/utils';
 import { MapPlayer, sleep, Unit } from 'w3ts';
+import { OrderId } from 'w3ts/globals';
 
 import { BaseQuest, BaseQuestProps } from '../base';
 
@@ -28,10 +30,13 @@ const banditTypes: [UNIT_TYPE, number][] = [
   UNIT_BanditLord,
 ].map((u) => [u, 1000 / neutralHostileMap.get(u.id).hp]);
 
-const weakestBanditPower = banditTypes.reduce((acc, [{ id }]) => Math.min(acc, neutralHostileMap.get(id).hp), 999999999);
+const weakestBanditPower = banditTypes.reduce((acc, [{ id }]) => Math.min(acc, neutralHostileMap.get(id).hp), 9999);
 
 let banditFirstSounds: sound[];
 let banditAgainSounds: sound[];
+
+const chaseRange = 5000;
+const debug = false;
 
 export class BlackTurban extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
@@ -39,6 +44,7 @@ export class BlackTurban extends BaseQuest {
     victimPlayer: MapPlayer
     banditHomeEntranceRect: rect
     banditHomeRect: rect
+    safeRects: rect[]
   }) {
     super(globals);
     banditFirstSounds = [
@@ -116,27 +122,40 @@ export class BlackTurban extends BaseQuest {
 
   async register() {
     await this.waitDependenciesDone();
+    await sleep(60);
 
     const {
-      banditPlayer, victimPlayer, banditHomeEntranceRect, banditHomeRect,
+      banditPlayer, victimPlayer, safeRects,
     } = this.globals;
+
+    const isUnsafeLoc = (loc: Loc) => safeRects.every((rect) => !isLocInRect(loc, rect));
 
     for (let attempt = 0; ; attempt++) {
       let victim: Unit;
 
+      // Wait until night for some victim
+      debug && log('find victim');
+      debug && log('safeRects.length', safeRects.length);
       await waitUntil(10, () => {
         if (!isNightTime()) return false;
         if (victimPlayer.isPlayerAlly(banditPlayer)) return false;
 
-        const victimUnits = getUnitsOfPlayer(victimPlayer, (u) => u.isAlive() && !u.invulnerable);
+        debug && log('check candidate victims');
+        const victimUnits = getUnitsOfPlayer(
+          victimPlayer,
+          (u) => u.isAlive() && !u.invulnerable && isUnsafeLoc(u),
+        );
         if (victimUnits.length === 0) return false;
-
         victim = pickRandom(victimUnits);
-        if (generateFogLocsBehindTrees(1000, victim, victim.owner, 1).length) {
+        debug && log('found candidate victim', victim.name);
+
+        if (generateFogLocsBehindTrees(1000, victim, victim.owner, 3, isUnsafeLoc).length >= 3) {
           return true;
         }
+        debug && log('candidate victim doesnt have any nearby unsafe loc', victim.name);
         return false;
       });
+      debug && log('found victim');
 
       // victim is found
       victim.shareVision(banditPlayer, true);
@@ -159,7 +178,7 @@ export class BlackTurban extends BaseQuest {
 
       while (squadTotalPower < squadDesiredPower) {
         if (locs.length === 0) {
-          locs.push(...generateFogLocsBehindTrees(1000, victim, victim.owner, 3));
+          locs.push(...generateFogLocsBehindTrees(1000, victim, victim.owner, 3, isUnsafeLoc));
         }
 
         if (locs.length > 0) {
@@ -180,58 +199,100 @@ export class BlackTurban extends BaseQuest {
         }
       }
 
+      // All bandits have same movement speed
+      const avgSpeed = bandits.reduce((acc, u) => acc + u.moveSpeed, 0) / bandits.length;
+      bandits.forEach((u) => u.moveSpeed = avgSpeed);
+
+      // Leader speech
       const leader = bandits.reduce((best, u) => (best.level > u.level ? best : u));
-      const banditSound = attempt < 2 ? banditFirstSounds[attempt] : banditAgainSounds[attempt % banditAgainSounds.length];
+      const banditSound = attempt < banditFirstSounds.length
+        ? banditFirstSounds[attempt]
+        : banditAgainSounds[attempt % banditAgainSounds.length];
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       waitUntil(1, () => {
-        if (DistanceBetweenLocs(leader, victim) < 550) {
+        if (DistanceBetweenLocs(leader, victim) < 700) {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           playSpeech(leader, banditSound);
           return true;
         }
         return false;
+      }, 20);
+
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      this.handleBanditAttack(bandits, victim);
+
+      await waitUntil(2, () => getTimeS() - attackTimeS > 120);
+    }
+  }
+
+  async handleBanditAttack(bandits: Unit[], victim: Unit) {
+    const {
+      banditHomeEntranceRect, banditHomeRect,
+    } = this.globals;
+
+    // Make sure stucked bandits are eventually dead
+    const initLocs = new Map(bandits.map((u) => [u, currentLoc(u)]));
+    let bandits1 = bandits;
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    waitUntil(5, (idx) => {
+      if (idx === 0) return false;
+      bandits1.forEach((u) => {
+        if (DistanceBetweenLocs(u, initLocs.get(u)) < 100) {
+          u.applyTimedLife(BUFF_ID_GENERIC, 30);
+        } else {
+          u.cancelTimedLife();
+        }
+      });
+      bandits1 = bandits1.filter((u) => u.isAlive());
+      return bandits1.length === 0;
+    });
+
+    // Wait until either victim is dead,
+    // or bandit squad is all dead or lost target
+    await waitUntil(1, () => {
+      let banditRetreats = true;
+      for (const bandit of bandits) {
+        if (bandit.isAlive() && DistanceBetweenLocs(bandit, victim) < chaseRange) {
+          banditRetreats = false;
+        }
+        if (!bandit.isAlive()) {
+          removeGuardPosition(bandit);
+        }
+      }
+      return (!victim.isAlive() || banditRetreats);
+    });
+
+    // Alive bandits go home
+    let aliveBandits = bandits.filter((u) => u.isAlive());
+    if (aliveBandits.length > 0) {
+      const banditEntrance = centerLocRect(banditHomeEntranceRect);
+      const banditHome = centerLocRect(banditHomeRect);
+
+      aliveBandits.forEach((u) => {
+        u.issueImmediateOrder(OrderId.Stop);
+        setGuardPosition(u, banditEntrance, 0);
       });
 
-      // Wait until victim is dead, or bandit squad are all dead
-      await waitUntil(1, () => {
-        let allBanditsDead = true;
-        for (const bandit of bandits) {
-          if (bandit.isAlive()) {
-            allBanditsDead = false;
-          } else {
-            removeGuardPosition(bandit);
+      // Remove bandit when they reach home
+      for (;;) {
+        await sleep(1);
+        let someReached = false;
+        for (const bandit of aliveBandits) {
+          if (isLocInRect(bandit, banditHomeEntranceRect)) {
+            setGuardPosition(bandit, banditHome, 0);
+          }
+          if (isLocInRect(bandit, banditHomeRect)) {
+            bandit.destroy();
+            someReached = true;
           }
         }
-        return !victim.isAlive() || allBanditsDead;
-      });
-
-      let aliveBandits = bandits.filter((u) => u.isAlive());
-
-      // Alive bandits go home
-      if (aliveBandits.length > 0) {
-        const banditEntrance = centerLocRect(banditHomeEntranceRect);
-        const banditHome = centerLocRect(banditHomeRect);
-
-        aliveBandits.forEach((u) => setGuardPosition(u, banditEntrance, 0));
-
-        // Remove bandit when they reach home
-        waitUntil(1, () => {
-          let someReached = false;
-          for (const bandit of aliveBandits) {
-            if (isLocInRect(bandit, banditHomeEntranceRect)) {
-              setGuardPosition(bandit, banditHome, 0);
-            }
-            if (isLocInRect(bandit, banditHomeRect)) {
-              bandit.destroy();
-              someReached = true;
-            }
-          }
-          if (someReached) {
-            aliveBandits = aliveBandits.filter((u) => u.isAlive());
-          }
-          return aliveBandits.length === 0;
-        });
+        if (someReached) {
+          aliveBandits = aliveBandits.filter((u) => u.isAlive());
+        }
+        if (aliveBandits.length === 0) {
+          break;
+        }
       }
-
-      await waitUntil(2, () => getTimeS() - attackTimeS > 1);
     }
   }
 }

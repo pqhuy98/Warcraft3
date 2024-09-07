@@ -19,7 +19,7 @@ import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
-import { getUnitsInRangeOfLoc, setUnitFacingWithRate } from 'lib/unit';
+import { getUnitsInRangeOfLoc, setNeverDie, setUnitFacingWithRate } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   Unit,
@@ -103,6 +103,7 @@ export class LumberMillPart2 extends BaseQuest {
     knight.addAbility(ABILITY_DivineShieldCreep.id);
     knight.maxMana = 125;
     knight.mana = knight.maxMana;
+    setNeverDie(knight, true, 1);
 
     await this.waitDependenciesDone();
 
@@ -154,6 +155,7 @@ export class LumberMillPart2 extends BaseQuest {
           u.issueImmediateOrder(OrderId.Stop);
           guardCurrentPosition(u);
           if (u.typeId === UNIT_Footman.id && !footmenFearSpoke) {
+            // eslint-disable-next-line @typescript-eslint/no-floating-promises
             playSpeech(u, footmanFear);
             footmenFearSpoke = true;
           }
@@ -162,6 +164,7 @@ export class LumberMillPart2 extends BaseQuest {
       return escortUnits.every((u) => DistanceBetweenLocs(u, lumberMillLoc) < distanceThreshold || !u.isAlive());
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     questLog.completeItem(0);
 
     // Undead started attacking
@@ -170,6 +173,7 @@ export class LumberMillPart2 extends BaseQuest {
     setAllianceState2Way(mainPlayer, playerForsaken, 'enemy');
 
     removeGuardPosition(...undeadAttackers);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     waitUntil(1, () => { // non-blocking
       const victim = [...footmen, traveler].find((u) => u.isAlive());
       if (!victim) return true;
@@ -189,6 +193,8 @@ export class LumberMillPart2 extends BaseQuest {
     ).length > 0));
 
     removeGuardPosition(...footmen);
+    setNeverDie(john, true, 1);
+    setNeverDie(peter, true, 1);
     const talkGroup2 = new TalkGroup([john, peter, ...footmen]);
     await talkGroup2.speak(footmen[0], footmanWarcry, undefined, false);
 
@@ -199,6 +205,7 @@ export class LumberMillPart2 extends BaseQuest {
     await talkGroup2.speak(peter, peterRunForLife, undefined, false);
     talkGroup2.finish();
 
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     waitUntil(1, () => { // make sure they enter their house, do not block thread
       if (isLocInRect(peter, homeRect)) peter.show = false;
       if (isLocInRect(john, homeRect)) john.show = false;
@@ -216,6 +223,7 @@ export class LumberMillPart2 extends BaseQuest {
 
     // knight gareth casts protection if low till end of quest
     // so that he doesn't die accidentally
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     waitUntil(1, () => {
       if (knight.life < knight.maxLife - 300) {
         knight.issueImmediateOrder(OrderId.Divineshield);
@@ -230,7 +238,11 @@ export class LumberMillPart2 extends BaseQuest {
       const newUndeadAlive = undeadAttackers.filter((u) => !u.isAlive()).length;
       if (undeadAlive !== newUndeadAlive) {
         undeadAlive = newUndeadAlive;
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         questLog.updateItem(1, `${questItems[1]} (${undeadAlive} / ${undeadAttackers.length})`);
+      }
+      if (undeadAlive === 0) {
+        footmen.filter((u) => u.isAlive()).forEach((u) => setTimeout(GetRandomReal(0, 2), () => u.kill()));
       }
     });
 
@@ -245,6 +257,7 @@ export class LumberMillPart2 extends BaseQuest {
 
     if (traveler.isAlive()) {
       escortUnits.forEach((u) => u.shareVision(traveler.owner, false));
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       questLog.updateItem(1, `${questItems[1]} (${undeadAttackers.length} / ${undeadAttackers.length})`);
       await questLog.completeItem(1);
       await questLog.insertItem(questItems[2]);

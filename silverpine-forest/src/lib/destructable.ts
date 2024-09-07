@@ -29,7 +29,7 @@ const attempts = 20;
 /**
  * Might return fewer locations than mostLocCount
  */
-export function generateFogLocsBehindTrees(range: number, centerLoc: Loc, fogPlayer: MapPlayer, locCountAtMost: number): Loc[] {
+export function generateFogLocsBehindTrees(range: number, centerLoc: Loc, fogPlayer: MapPlayer, locCountAtMost: number, filter?: (loc: Loc) => boolean): Loc[] {
   const trees = getDestructablesInRange(range, centerLoc, (d) => d.typeId === treeTypeId);
   if (trees.length === 0) {
     return [];
@@ -43,7 +43,7 @@ export function generateFogLocsBehindTrees(range: number, centerLoc: Loc, fogPla
       const candidateLoc = PolarProjection(tree, GetRandomReal(100, 200), GetRandomReal(angleToTree - 30, angleToTree + 30));
       const reachable = isPointReachable(centerLoc, candidateLoc);
       const visible = fogPlayer.coordsVisible(candidateLoc.x, candidateLoc.y);
-      if (reachable && !visible) {
+      if (reachable && !visible && (filter === undefined || filter(candidateLoc))) {
         result.push(candidateLoc);
         break;
       }

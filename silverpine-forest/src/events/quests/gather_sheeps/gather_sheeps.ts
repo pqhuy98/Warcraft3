@@ -22,10 +22,10 @@ import {
   enableInteractSound, setAttention,
 } from 'lib/systems/unit_interaction';
 import {
-  enumUnitsWithDelay, getUnitsInRect, isUnitIdle, setUnitFacingWithRate,
+  enumUnitsWithDelay, getUnitsInRect, isUnitIdle, setNeverDie, setUnitFacingWithRate,
 } from 'lib/unit';
 import { pickRandom, waitUntil } from 'lib/utils';
-import { sleep, Unit } from 'w3ts';
+import { Effect, sleep, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
 import { BaseQuest, BaseQuestProps } from '../base';
@@ -109,6 +109,9 @@ export class GatherSheeps extends BaseQuest {
       .flatMap((rect) => getUnitsInRect(rect))
       .filter((u) => u.typeId === UNIT_Sheep.id);
     sheepBoy.name = 'Timmy';
+    setNeverDie(sheepBoy);
+    sheeps.forEach((u) => setNeverDie(u));
+
     onChatCommand('-cheat gs', true, () => {
       sheeps.forEach((u) => { u.owner = mainPlayer; });
     }, 'GameControl', "Grant control of all Timmy's sheeps.");
@@ -127,13 +130,14 @@ export class GatherSheeps extends BaseQuest {
 
       // If quest available
       if (level <= maxLevel && !this.isFailed()) {
-        const sleepEffect = AddSpecialEffectTarget(MODEL_SleepTarget, sheepBoy.handle, 'overhead');
+        const sleepEffect = Effect.createAttachment(MODEL_SleepTarget, sheepBoy, 'overhead');
         // mimic sleep animation
         let canSleep = false;
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         waitUntil(5, () => {
           if (!sheepBoy.isAlive()) {
             sheepBoy.setTimeScale(1);
-            DestroyEffect(sleepEffect);
+            sleepEffect.destroy();
             return true;
           }
           if (!canSleep) {
@@ -151,12 +155,13 @@ export class GatherSheeps extends BaseQuest {
         // wake up
         ResetUnitAnimation(sheepBoy.handle);
         sheepBoy.setTimeScale(1);
-        DestroyEffect(sleepEffect);
+        sleepEffect.destroy();
 
         await this.runQuest(sheepBoy, sheeps, traveler, level);
 
         // Quest done, now go home
         if (!this.isFailed()) {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           playSpeech(sheepBoy, goHomeSound, traveler)
             .then(() => enableInteractSound(sheepBoy));
         }
@@ -229,7 +234,7 @@ export class GatherSheeps extends BaseQuest {
         if (!sheep.isAlive()) return true;
         if (sheep.isAlive() && DistanceBetweenLocs(sheep, sheepBoy) > (gatherRadius)) {
           outCnt++;
-          enableQuestMarker(sheep);
+          enableQuestMarker(sheep, 'new');
         } else {
           disableQuestMarker(sheep);
         }

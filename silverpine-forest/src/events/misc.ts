@@ -6,20 +6,21 @@ import {
   currentLoc, fromTempLocation, isLocInRect, isPointReachable, PolarProjection,
 } from 'lib/location';
 import { log } from 'lib/log';
-import { isComputer } from 'lib/player';
+import { isComputer, setAllianceState2Way } from 'lib/player';
 import { ABILITY_PaladinHolyLight, ABILITY_Wander } from 'lib/resources/war3-abilities';
-import { MODEL_FrostNovaTarget, MODEL_InnerFireTarget } from 'lib/resources/war3-models';
+import { MODEL_BrewmasterTarget, MODEL_FrostNovaTarget, MODEL_InnerFireTarget } from 'lib/resources/war3-models';
 import {
   UNIT_Footman,
   UNIT_HeroShadowHunter, UNIT_Shaman, UNIT_VillagerMan, UNIT_VillagerMan2, UNIT_WitchDoctor,
 } from 'lib/resources/war3-units';
 import { guardCurrentPosition, removeGuardPosition } from 'lib/systems/unit_guard_position';
+import { createFloatText, TTSetting } from 'lib/texttag';
 import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isBuilding, isOrganic,
 } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
-import { TextTag, Unit } from 'w3ts';
+import { Effect, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
 import { onChatCommand } from './chat_commands/chat_commands.model';
@@ -75,6 +76,12 @@ export class MiscEvents {
     // Peasants repairing broken wheelbarrow
     getUnitsInRect(gg_rct_Town_peasants_repair_wheelbarrow)
       .forEach((u) => guardCurrentPosition(u, defaultGuardDistance, 'stand work lumber'));
+
+    // Undead ghouls eating
+    [
+      ...getUnitsInRect(gg_rct_Undead_lumber_ghouls_eating_1),
+      ...getUnitsInRect(gg_rct_Undead_lumber_ghouls_eating_2),
+    ].forEach((u) => guardCurrentPosition(u, defaultGuardDistance, 'stand channel'));
 
     // Harvests
     [
@@ -134,12 +141,39 @@ export class MiscEvents {
         t.addAction(() => {
           const loc = fromTempLocation(GetOrderPointLoc());
           if (!isPointReachable(hero, loc)) {
-            DestroyEffect(AddSpecialEffect(MODEL_FrostNovaTarget, loc.x, loc.y));
+            Effect.create(MODEL_FrostNovaTarget, loc.x, loc.y).destroy();
           }
           ClearTextMessages();
           log(`neutral passive ${neutralPassive.coordsVisible(loc.x, loc.y) ? 'see' : 'not see'}`);
           log(`hero ${hero.owner.coordsVisible(loc.x, loc.y) ? 'see' : 'not see'}`);
         });
+      });
+    });
+
+    // Thalandor's' barrels
+    const barrelTypeIds = ['LTbx', 'LTbs', 'LTbr'].map((code) => FourCC(code));
+    getDestructablesInRect(gg_rct_Thalandor_home, (d) => barrelTypeIds.includes(d.typeId))
+      .forEach((b) => {
+        const eff = Effect.create(MODEL_BrewmasterTarget, b.x, b.y);
+        eff.setHeight(50 + Unit.fromHandle(gg_unit_nhem_0557).z);
+        buildTrigger((t) => {
+          t.registerDeathEvent(b);
+          t.addAction(() => eff.destroy());
+        });
+      });
+
+    // Players become hostile if being friendly fired
+    buildTrigger((t) => {
+      t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
+      t.addCondition(() => {
+        const killer = Unit.fromHandle(GetKillingUnit());
+        const victim = Unit.fromHandle(GetDyingUnit());
+        return victim.owner !== killer.owner && victim.isAlly(killer.owner);
+      });
+      t.addAction(() => {
+        const killer = Unit.fromHandle(GetKillingUnit());
+        const victim = Unit.fromHandle(GetDyingUnit());
+        setAllianceState2Way(victim.owner, killer.owner, 'enemy');
       });
     });
   }
@@ -159,36 +193,7 @@ export class MiscEvents {
     //   animationIndex = parseInt(msg.split(' ')[1], 10);
     // });
 
-    let r = 255;
-    let g = 255;
-    let b = 255;
-    let heightOffset = -50;
-    let fontSize = 7;
-    let lifespan = 1.5;
-    let fadepoint = 0;
-    let vy = 0.005;
-    onChatCommand('-ttc $r $g $b', false, (msg) => {
-      r = parseInt(msg.split(' ')[1], 10);
-      g = parseInt(msg.split(' ')[2], 10);
-      b = parseInt(msg.split(' ')[3], 10);
-    });
-
-    onChatCommand('-ttho $1', false, (msg) => {
-      heightOffset = parseFloat(msg.split(' ')[1]);
-    });
-    onChatCommand('-ttf $1', false, (msg) => {
-      fontSize = parseFloat(msg.split(' ')[1]);
-    });
-    onChatCommand('-ttvy $1', false, (msg) => {
-      vy = parseFloat(msg.split(' ')[1]);
-    });
-    onChatCommand('-ttl $1', false, (msg) => {
-      lifespan = parseFloat(msg.split(' ')[1]);
-    });
-    onChatCommand('-ttf $1', false, (msg) => {
-      fadepoint = parseFloat(msg.split(' ')[1]);
-    });
-    const leaderEffect = AddSpecialEffectTarget(MODEL_InnerFireTarget, trainingFootmen[0].handle, 'overhead');
+    const leaderEffect = Effect.createAttachment(MODEL_InnerFireTarget, trainingFootmen[0], 'overhead');
 
     const timer = setIntervalIndefinite((50 / 200 + 0.5) + 1, (i) => {
       if (trainingFootmen.every((u) => isLocInRect(u, gg_rct_Shadowfang_soldier_training))) {
@@ -205,25 +210,17 @@ export class MiscEvents {
             u.queueAnimation('stand first');
           });
 
-          const tt = TextTag.create();
-          tt.setColor(r, g, b, 255);
-          tt.setLifespan(lifespan);
-          tt.setFadepoint(fadepoint);
-          tt.setPosUnit(trainingFootmen[0], heightOffset);
-          tt.setText({
+          createFloatText({
             2: 'Warcry!',
             3: 'Sheath!',
             4: 'Strike with shield!',
             5: 'Strike sweep!',
             7: 'Shield up!',
             11: 'Strike!',
-          }[animationIndex], fontSize, true);
-          tt.setVelocity(0, vy);
-          tt.setVisible(true);
-          tt.setPermanent(false);
+          }[animationIndex], trainingFootmen[0], TTSetting.info);
         });
       } else {
-        DestroyEffect(leaderEffect);
+        leaderEffect.destroy();
         timer.pause();
         timer.destroy();
       }

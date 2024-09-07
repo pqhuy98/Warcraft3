@@ -37,7 +37,10 @@ export function onChatCommand(text: string, exactMatch: boolean, callback: (text
     commandHelpData[catetegory].map.set(text, `${exactMatch ? '(exact)' : '(substring)'} ${description}`);
   }
   return buildTrigger((t) => {
-    t.registerPlayerChatEvent(MapPlayer.fromLocal(), exactMatch ? text : text.split(' ')[0], exactMatch);
+    const phrase = exactMatch
+      ? text
+      : text.includes(' ') ? `${text.split(' ')[0]} ` : text;
+    t.registerPlayerChatEvent(MapPlayer.fromLocal(), phrase, exactMatch);
     t.addAction(() => callback(GetEventPlayerChatString()));
   });
 }

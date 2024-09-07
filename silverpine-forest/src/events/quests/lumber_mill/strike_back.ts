@@ -13,7 +13,9 @@ import {
   UNIT_Abomination, UNIT_CryptFiend, UNIT_Gargoyle, UNIT_Ghoul, UNIT_MeatWagon, UNIT_Zombie,
 } from 'lib/resources/war3-units';
 import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
-import { getUnitsInRangeOfLoc, getUnitsInRect, isBuilding } from 'lib/unit';
+import {
+  getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, setNeverDie,
+} from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   Unit,
@@ -91,7 +93,9 @@ export class StrikeBack extends BaseQuest {
     } = this.globals;
     knight.name = knightName;
     mayor.nameProper = mayorName;
-    mayor.name = 'Mayor of Ambermill Town';
+    mayor.name = 'Mayor of Ambermill';
+    setNeverDie(mayor, true, 1);
+    setNeverDie(knight, true, 1);
 
     await this.waitDependenciesDone();
 
@@ -127,6 +131,7 @@ export class StrikeBack extends BaseQuest {
       guardCurrentPosition(u);
       RescueUnitBJ(u.handle, mainPlayer.handle, false);
     });
+    setNeverDie(knight, false);
 
     // Prepare undead base
     const undeadQuota = {
@@ -169,6 +174,7 @@ export class StrikeBack extends BaseQuest {
       u.life = u.maxLife;
       setMinimapIconUnit(u, 'enemyStatic');
     });
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     waitUntil(3, () => {
       // wait until some undead is attacked
       const attackedUndead = undeads.find((u) => u.life < u.maxLife);
@@ -219,7 +225,7 @@ export class StrikeBack extends BaseQuest {
       ]);
       this.complete();
     } else {
-      questLog.fail();
+      await questLog.fail();
       this.fail();
     }
   }

@@ -1,10 +1,11 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
+import { MODEL_Quest_TurnIn } from 'lib/constants';
 import { log } from 'lib/log';
+import { MODEL_TalkToMe } from 'lib/resources/war3-models';
 import { isUnitRemoved } from 'lib/unit';
-import { Item, Unit } from 'w3ts';
+import { Effect, Item, Unit } from 'w3ts';
 
 import { Loc, PolarProjection, tempLocation } from '../location';
-import { MODEL_TalkToMe } from '../resources/war3-models';
 import { setIntervalIndefinite } from '../trigger';
 
 export const IconStyles = {
@@ -53,16 +54,22 @@ export function createMinimapIconLoc(loc: Loc, type: keyof typeof IconStyles) {
   return icon;
 }
 
-const questMarker = new Map<Unit, effect>();
+export type QuestMarkerType = 'new' | 'turnin'
+const modelPaths: Record<QuestMarkerType, string> = {
+  new: MODEL_TalkToMe,
+  turnin: MODEL_Quest_TurnIn,
+};
 
-export function enableQuestMarker(unit: Unit) {
+const questMarker = new Map<Unit, Effect>();
+export function enableQuestMarker(unit: Unit, mode: QuestMarkerType) {
   if (questMarker.has(unit)) return;
-  questMarker.set(unit, AddSpecialEffectTarget(MODEL_TalkToMe, unit.handle, 'overhead'));
+
+  questMarker.set(unit, Effect.createAttachment(modelPaths[mode], unit, 'overhead'));
 }
 
 export function disableQuestMarker(unit: Unit) {
   if (!questMarker.has(unit)) return;
-  DestroyEffect(questMarker.get(unit));
+  questMarker.get(unit).destroy();
   questMarker.delete(unit);
 }
 
@@ -109,7 +116,7 @@ export function daemonQuestMarker() {
     for (const [unit, effect] of questMarker) {
       if (!unit.isAlive() || isUnitRemoved(unit)) {
         questMarker.delete(unit);
-        DestroyEffect(effect);
+        effect.destroy();
       }
     }
   });

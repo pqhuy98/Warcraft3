@@ -4,7 +4,7 @@ import {
   tempLocation,
 } from 'lib/location';
 import {
-  Group, Item, MapPlayer, Timer, Unit,
+  Group, Item, MapPlayer, Timer, Trigger, Unit,
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
@@ -16,7 +16,7 @@ import {
   ABILITY_BurrowScarabLvl2, ABILITY_BurrowScarabLvl3, ABILITY_CreepSleep, ABILITY_Move, ABILITY_RavenFormMedivh,
 } from './resources/war3-abilities';
 import { UNIT_TYPE } from './resources/war3-units';
-import { setIntervalForDuration, setIntervalIndefinite } from './trigger';
+import { buildTrigger, setIntervalForDuration, setIntervalIndefinite } from './trigger';
 
 export const BUFF_ID_GENERIC = FourCC('BTLF');
 export const UNIT_ID_DUMMY = FourCC('h000:hfoo');
@@ -353,4 +353,22 @@ export function enumUnitAbilities(unit: Unit, callback: (ability: ability, id: n
 
 export function isUnitRemoved(unit: Unit): boolean {
   return unit.typeId === 0;
+}
+
+const invulnerableTriggers = new Map<Unit, Trigger>();
+
+export function setNeverDie(unit: Unit, state = true, lowestHp: number = unit.maxLife) {
+  if (state && invulnerableTriggers.has(unit)) return;
+
+  if (state) {
+    invulnerableTriggers.set(unit, buildTrigger((t) => {
+      t.registerUnitEvent(unit, EVENT_UNIT_DAMAGING);
+      t.addCondition(() => GetEventDamage() > 0);
+      t.addAction(() => {
+        BlzSetEventDamage(Math.min(GetEventDamage(), Math.max(0, unit.life - lowestHp)));
+      });
+    }));
+  } else {
+    invulnerableTriggers.delete(unit);
+  }
 }

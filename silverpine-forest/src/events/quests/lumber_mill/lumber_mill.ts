@@ -16,6 +16,7 @@ import { UNIT_Ghoul, UNIT_Peasant } from 'lib/resources/war3-units';
 import { guardCurrentPosition, pauseGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setTimeout } from 'lib/trigger';
+import { setNeverDie } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   sleep, Unit,
@@ -99,6 +100,8 @@ export class LumberMill extends BaseQuest {
     } = this.globals;
     john.name = 'Villager John';
     peter.name = 'Villager Peter';
+    setNeverDie(john);
+    setNeverDie(peter);
 
     await this.waitDependenciesDone();
 
@@ -131,7 +134,9 @@ export class LumberMill extends BaseQuest {
       setAttention(unit, traveler);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getCloserToTraveler(john);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getCloserToTraveler(peter);
 
     const talkGroup = new TalkGroup([john, peter, traveler]);
@@ -166,7 +171,9 @@ export class LumberMill extends BaseQuest {
     setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
 
     // John and Peter's dialogues after hearing the news
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getCloserToTraveler(john);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getCloserToTraveler(peter);
     await talkGroup.speak(peter, peterOutro1, traveler);
     await talkGroup.speak(john, johnOutro1, traveler);

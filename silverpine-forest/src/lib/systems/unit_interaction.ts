@@ -2,7 +2,7 @@ import { mainPlayer, neutralPassive } from 'lib/constants';
 import {
   AngleBetweenLocs, DistanceBetweenLocs, PolarProjection,
 } from 'lib/location';
-import { disableQuestMarker, enableQuestMarker } from 'lib/quests/utils';
+import { disableQuestMarker, enableQuestMarker, QuestMarkerType } from 'lib/quests/utils';
 import { getUnitSounds, SoundType } from 'lib/resources/unit-sounds';
 import { checkUnitFlag, Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
 import {
@@ -168,9 +168,9 @@ export class UnitInteraction {
     return callback;
   }
 
-  static waitUntilQuestTalk(target: Unit) {
+  static waitUntilQuestTalk(target: Unit, mode: QuestMarkerType) {
     disableInteractSound(target);
-    enableQuestMarker(target);
+    enableQuestMarker(target, mode);
     return new Promise<{ unit: Unit, target: Unit }>((resolve) => {
       this.onStartOnce(target, (unit, target) => {
         disableQuestMarker(target);
