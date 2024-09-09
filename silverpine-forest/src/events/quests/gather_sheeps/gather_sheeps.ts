@@ -215,7 +215,7 @@ export class GatherSheeps extends BaseQuest {
     }, 4.2 / sheeps.length);
 
     const talkGroup = new TalkGroup([sheepBoy, traveler]);
-    await talkGroup.speak(sheepBoy, introSounds[level]);
+    await talkGroup.speak(sheepBoy, introSounds[level], null, sheepBoy);
     talkGroup.finish();
 
     const questLog = await QuestLog.create({
@@ -257,7 +257,7 @@ export class GatherSheeps extends BaseQuest {
     removeMinimapIcon(sheepBoy);
 
     if (sheeps.every((u) => u.isAlive())) {
-      await talkGroup.speak(sheepBoy, outroSounds[level]);
+      await talkGroup.speak(sheepBoy, outroSounds[level], null, sheepBoy);
       talkGroup.finish();
 
       traveler.addExperience(rewardsXp[level], true);

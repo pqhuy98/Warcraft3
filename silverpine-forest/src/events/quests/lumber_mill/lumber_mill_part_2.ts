@@ -59,8 +59,6 @@ export class LumberMillPart2 extends BaseQuest {
   }) {
     super(globals);
 
-    // Peter: ElevenLabs - Eric
-    // Knight: ElevenLabs - Arnold
     johnIntro = createDialogSound(
       'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-john-intro.mp3',
       'Villager John',
@@ -103,7 +101,7 @@ export class LumberMillPart2 extends BaseQuest {
     knight.addAbility(ABILITY_DivineShieldCreep.id);
     knight.maxMana = 125;
     knight.mana = knight.maxMana;
-    setNeverDie(knight, true, 1);
+    setNeverDie(knight, true, 100);
 
     await this.waitDependenciesDone();
 
@@ -117,13 +115,13 @@ export class LumberMillPart2 extends BaseQuest {
     [knight, ...footmen].forEach((u) => setAttention(u, peter));
 
     const talkGroup1 = new TalkGroup([john, peter, knight, ...footmen, traveler]);
-    await talkGroup1.speak(john, johnIntro, knight);
-    const knightSpeech = talkGroup1.speak(knight, knightIntro, john, false);
-    setTimeout(3, () => {
+    await talkGroup1.speak(john, johnIntro, knight, john);
+    const knightSpeech = talkGroup1.speak(knight, knightIntro, john, john);
+    setTimeout(4, () => {
       // Knight now order footmen to help
       footmen.forEach((u) => setAttention(u, knight));
     });
-    setTimeout(7, () => {
+    setTimeout(8, () => {
       // Knight now mock peasants
       footmen.forEach((u) => setAttention(u, john));
     });
@@ -193,16 +191,16 @@ export class LumberMillPart2 extends BaseQuest {
     ).length > 0));
 
     removeGuardPosition(...footmen);
-    setNeverDie(john, true, 1);
-    setNeverDie(peter, true, 1);
+    setNeverDie(john, true, 5);
+    setNeverDie(peter, true, 5);
     const talkGroup2 = new TalkGroup([john, peter, ...footmen]);
-    await talkGroup2.speak(footmen[0], footmanWarcry, undefined, false);
+    await talkGroup2.speak(footmen[0], footmanWarcry, null, null);
 
     // Peter and John run home
     const homeLoc = centerLocRect(homeRect);
     setGuardPosition(peter, homeLoc, 0);
     setGuardPosition(john, homeLoc, 0);
-    await talkGroup2.speak(peter, peterRunForLife, undefined, false);
+    await talkGroup2.speak(peter, peterRunForLife, null, null);
     talkGroup2.finish();
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises

@@ -90,7 +90,12 @@ gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
-gg_rct_Orc_First_Attack = nil
+gg_rct_Orc_base_attack_gathering = nil
+gg_rct_Human_shipyard = nil
+gg_unit_hcth_0943 = nil
+gg_rct_Orc_attack_footman_loc = nil
+gg_unit_hfoo_0941 = nil
+gg_rct_Orc_attack_corpses = nil
 function InitGlobals()
 end
 
@@ -342,6 +347,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("odoc"), -16601.5, 8042.2, 253.725, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("ogru"), 6290.5, -1044.5, 257.987, FourCC("ogru"))
 u = BlzCreateUnitWithSkin(p, FourCC("ohun"), 4408.8, -1794.8, 341.784, FourCC("ohun"))
 u = BlzCreateUnitWithSkin(p, FourCC("ohun"), 5825.9, -1423.5, 225.863, FourCC("ohun"))
+u = BlzCreateUnitWithSkin(p, FourCC("ocat"), 4887.4, -756.4, 185.111, FourCC("ocat"))
 end
 
 function CreateBuildingsForPlayer1()
@@ -678,14 +684,17 @@ u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -8325.3, -16476.3, 56.557, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("hbot"), 2746.3, 4431.4, 53.530, FourCC("hbot"))
 life = GetUnitState(u, UNIT_STATE_LIFE)
 SetUnitState(u, UNIT_STATE_LIFE, 0.01 * life)
-u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 1777.1, 3754.5, 223.918, FourCC("hfoo"))
-u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 2668.5, 3584.1, 264.814, FourCC("hkni"))
-u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1942.2, 3622.1, 251.865, FourCC("hrif"))
-u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), 2602.1, 3873.6, 254.327, FourCC("hmpr"))
+u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 1902.1, 3619.1, 246.457, FourCC("hfoo"))
+gg_unit_hfoo_0941 = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2678.7, 3523.0, 257.042, FourCC("hfoo"))
+gg_unit_hcth_0943 = BlzCreateUnitWithSkin(p, FourCC("hcth"), 2519.3, 3792.5, 250.916, FourCC("hcth"))
+u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2187.0, 3710.5, 251.865, FourCC("hrif"))
+u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), 2742.7, 3729.0, 265.811, FourCC("hmpr"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2135.9, 3501.3, 260.801, FourCC("hfoo"))
-u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2860.6, 3609.2, -88.243, FourCC("hfoo"))
-u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 2513.9, 4419.3, -13.319, FourCC("hpea"))
-u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 2439.9, 4339.9, -61.761, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2860.2, 3566.6, 271.757, FourCC("hfoo"))
+u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 2513.9, 4419.3, 346.681, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 2439.9, 4339.9, 298.239, FourCC("hpea"))
+u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), 2043.8, 3757.4, -88.192, FourCC("hmpr"))
+u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), 2266.6, 3802.8, 267.773, FourCC("hmpr"))
 end
 
 function CreateBuildingsForPlayer2()
@@ -1615,7 +1624,10 @@ gg_rct_Thalandor_home = Rect(9184.0, -15968.0, 11232.0, -13504.0)
 gg_rct_Farm_region = Rect(7584.0, -9568.0, 11616.0, -1984.0)
 gg_rct_Shadowfang_region = Rect(-16064.0, -18560.0, -8192.0, -13312.0)
 gg_rct_Night_elf_shore_base = Rect(-19392.0, -11488.0, -17024.0, -5248.0)
-gg_rct_Orc_First_Attack = Rect(1952.0, 1632.0, 2528.0, 2112.0)
+gg_rct_Orc_base_attack_gathering = Rect(3776.0, -960.0, 5088.0, 736.0)
+gg_rct_Human_shipyard = Rect(192.0, 1856.0, 3936.0, 5184.0)
+gg_rct_Orc_attack_footman_loc = Rect(7776.0, -2080.0, 7936.0, -1888.0)
+gg_rct_Orc_attack_corpses = Rect(2112.0, 2240.0, 2528.0, 2656.0)
 end
 
 function Trig_Doodads_Actions()
@@ -1651,6 +1663,8 @@ udg_tmp_unit = gg_unit_Hamg_0109
 udg_tmp_unit = gg_unit_nbld_0128
 udg_tmp_unit = gg_unit_nmoo_0068
 udg_tmp_unit = gg_unit_nhem_0557
+udg_tmp_unit = gg_unit_hcth_0943
+udg_tmp_unit = gg_unit_hfoo_0941
 end
 
 function InitTrig_Unit_register()

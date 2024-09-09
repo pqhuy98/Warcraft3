@@ -365,7 +365,10 @@ export function setNeverDie(unit: Unit, state = true, lowestHp: number = unit.ma
       t.registerUnitEvent(unit, EVENT_UNIT_DAMAGING);
       t.addCondition(() => GetEventDamage() > 0);
       t.addAction(() => {
-        BlzSetEventDamage(Math.min(GetEventDamage(), Math.max(0, unit.life - lowestHp)));
+        if (GetEventDamage() > unit.life - lowestHp) {
+          BlzSetEventDamage(Math.max(0, unit.life - lowestHp));
+          BlzSetEventDamageType(DAMAGE_TYPE_UNIVERSAL);
+        }
       });
     }));
   } else {

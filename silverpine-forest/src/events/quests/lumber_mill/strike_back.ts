@@ -94,8 +94,8 @@ export class StrikeBack extends BaseQuest {
     knight.name = knightName;
     mayor.nameProper = mayorName;
     mayor.name = 'Mayor of Ambermill';
-    setNeverDie(mayor, true, 1);
-    setNeverDie(knight, true, 1);
+    setNeverDie(mayor, true, 100);
+    setNeverDie(knight, true, 100);
 
     await this.waitDependenciesDone();
 
@@ -107,10 +107,10 @@ export class StrikeBack extends BaseQuest {
       knight, mayor,
       ...getUnitsInRangeOfLoc(500, mayor, (u) => !isBuilding(u)),
     ]);
-    await talkGroup.speak(knight, knightIntro1, mayor);
-    await talkGroup.speak(mayor, mayorIntro1, knight);
-    await talkGroup.speak(mayor, mayorIntro2, knight);
-    await talkGroup.speak(knight, knightIntro2, mayor);
+    await talkGroup.speak(knight, knightIntro1, mayor, knight);
+    await talkGroup.speak(mayor, mayorIntro1, knight, knight);
+    await talkGroup.speak(mayor, mayorIntro2, knight, knight);
+    await talkGroup.speak(knight, knightIntro2, mayor, knight);
     talkGroup.finish();
 
     const questLog = await QuestLog.create({
@@ -211,8 +211,8 @@ export class StrikeBack extends BaseQuest {
 
       traveler = await this.waitForTurnIn(mayor);
       const talkGroup = new TalkGroup([mayor, traveler]);
-      await talkGroup.speak(mayor, mayorOutro1, traveler);
-      await talkGroup.speak(mayor, mayorOutro2, traveler);
+      await talkGroup.speak(mayor, mayorOutro1, traveler, traveler);
+      await talkGroup.speak(mayor, mayorOutro2, traveler, traveler);
 
       // grant vision of buildings
       getUnitsInRect(humanBaseRect, (u) => isBuilding(u) && u.owner === mayor.owner)

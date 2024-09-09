@@ -12,16 +12,20 @@ export class TalkGroup {
   constructor(private units: Unit[]) {
   }
 
-  async speak(speakingUnit: Unit, sound: sound, target?: Unit, everyoneAttention = true) {
+  addUnit(unit: Unit) {
+    this.units.push(unit);
+  }
+
+  async speak(speakingUnit: Unit, sound: sound, target: Unit | null, everyoneAttention: Unit | null) {
     this.units.forEach((u) => {
       disableInteractSound(u);
       setUnitFlag(u, Flag.UNBREAKABLE_ATTENTION, true);
     });
     shuffleArray(this.units);
-    if (everyoneAttention) {
+    if (everyoneAttention != null) {
       enumUnitsWithDelay(this.units, (u) => {
         if (u !== speakingUnit && isUnitIdle(u)) {
-          setAttention(u, speakingUnit);
+          setAttention(u, everyoneAttention);
         }
       }, 0.5 / (this.units.length - 1));
     }

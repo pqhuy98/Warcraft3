@@ -53,8 +53,6 @@ export class LumberMill extends BaseQuest {
     townKnight: Unit
   }) {
     super(globals);
-    // John: ElevenLabs - Liam
-    // Peter: ElevenLabs - Eric
     johnIntro = createDialogSound(
       'QuestSounds\\lumber-mill\\lumber-mill-john-intro.mp3',
       'Villager John',
@@ -140,8 +138,8 @@ export class LumberMill extends BaseQuest {
     getCloserToTraveler(peter);
 
     const talkGroup = new TalkGroup([john, peter, traveler]);
-    await talkGroup.speak(john, johnIntro, traveler);
-    await talkGroup.speak(peter, peterIntro, traveler);
+    await talkGroup.speak(john, johnIntro, traveler, traveler);
+    await talkGroup.speak(peter, peterIntro, traveler, traveler);
     talkGroup.finish();
 
     pauseGuardPosition([john, peter], false);
@@ -175,8 +173,8 @@ export class LumberMill extends BaseQuest {
     getCloserToTraveler(john);
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getCloserToTraveler(peter);
-    await talkGroup.speak(peter, peterOutro1, traveler);
-    await talkGroup.speak(john, johnOutro1, traveler);
+    await talkGroup.speak(peter, peterOutro1, traveler, traveler);
+    await talkGroup.speak(john, johnOutro1, traveler, traveler);
     talkGroup.finish();
 
     await sleep(0.5);
@@ -203,8 +201,8 @@ export class LumberMill extends BaseQuest {
       travelToRect(john, townRect1, lumberMillLoc),
       travelToRect(peter, townRect1, lumberMillLoc),
     ]);
-    await talkGroup.speak(john, johnOutro2, undefined, false);
-    await talkGroup.speak(peter, peterOutro2, undefined, false);
+    await talkGroup.speak(john, johnOutro2, null, null);
+    await talkGroup.speak(peter, peterOutro2, null, null);
     talkGroup.finish();
 
     // Continue to travel to town

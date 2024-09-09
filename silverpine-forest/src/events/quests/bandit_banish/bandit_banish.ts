@@ -113,7 +113,7 @@ export class BanditBanish extends BaseQuest {
     } = this.globals;
     archMage.nameProper = archMageName.replace('ArchMage ', '');
     archMage.name = 'Archmage of Northern Watch';
-    setNeverDie(archMage, true, 1);
+    setNeverDie(archMage, true, 100);
 
     await this.waitDependenciesDone();
 
@@ -136,9 +136,9 @@ export class BanditBanish extends BaseQuest {
 
     // John asks to deliver item to outpost
     const talkGroup = new TalkGroup([john, peter, traveler]);
-    await talkGroup.speak(john, johnSounds[0], traveler);
+    await talkGroup.speak(john, johnSounds[0], traveler, traveler);
     await sleep(1);
-    await talkGroup.speak(john, johnSounds[1], traveler);
+    await talkGroup.speak(john, johnSounds[1], traveler, traveler);
     talkGroup.finish();
 
     // Destroy sight blockers
@@ -157,9 +157,9 @@ export class BanditBanish extends BaseQuest {
     const talkGroup2 = new TalkGroup([archMage, traveler,
       ...getUnitsInRangeOfLoc(800, archMage, (u) => u.isAlive() && isOrganic(u)),
     ]);
-    await talkGroup2.speak(archMage, archMageSounds[0], traveler);
+    await talkGroup2.speak(archMage, archMageSounds[0], traveler, traveler);
     await sleep(1.5);
-    await talkGroup2.speak(archMage, archMageSounds[1], traveler);
+    await talkGroup2.speak(archMage, archMageSounds[1], traveler, traveler);
 
     // Archmage summons water elemental to help
     const summonTrigger = buildTrigger((t) => {
@@ -217,9 +217,9 @@ export class BanditBanish extends BaseQuest {
     await questLog.insertItem(questItems[2]);
 
     traveler = await this.waitForTurnIn(archMage);
-    await talkGroup2.speak(archMage, archMageSounds[2], traveler);
+    await talkGroup2.speak(archMage, archMageSounds[2], traveler, traveler);
     await sleep(0.5);
-    await talkGroup2.speak(archMage, archMageSounds[3], traveler);
+    await talkGroup2.speak(archMage, archMageSounds[3], traveler, traveler);
 
     traveler.addExperience(rewardXp, true);
     traveler.addAbility(ABILITY_ArchMageWaterElemental.id);
@@ -229,14 +229,16 @@ export class BanditBanish extends BaseQuest {
     ]);
 
     await sleep(1.5);
-    await talkGroup2.speak(archMage, archMageSounds[4], traveler);
+    await talkGroup2.speak(archMage, archMageSounds[4], traveler, traveler);
 
     talkGroup2.finish();
     this.complete();
   }
 
   onForceComplete() {
-    const { bandits } = this.globals;
+    const { bandits, sightBlockersRect } = this.globals;
     bandits.forEach((u) => u.kill());
+    getDestructablesInRect(sightBlockersRect, (d) => d.typeId === FourCC('YTlb'))
+      .forEach((d) => d.kill());
   }
 }

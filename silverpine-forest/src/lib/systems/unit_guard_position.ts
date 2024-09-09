@@ -111,7 +111,7 @@ function updateUnit(unit: Unit, data: GuardPositonData, now: number) {
       unit.issueOrderAt(OrderId.Move, position.x, position.y);
     }
   } else if (distance > 50) { // unit far from guard position but still within guard area
-    if (isUnitIdle(unit) && data.lastBusyTimeS + 1 < now) {
+    if ((isUnitIdle(unit) || unit.currentOrder === OrderId.Move) && data.lastBusyTimeS + 1 < now) {
       unit.issueOrderAt(OrderId.Attack, position.x, position.y);
     }
   } else {

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import {
   mainPlayer, playerBlackTurban, playerForsaken,
+  playerOrcishHorde,
 } from 'lib/constants';
 import { setTimeout } from 'lib/trigger';
 import { getUnitsInRect, isBuilding } from 'lib/unit';
@@ -14,6 +15,7 @@ import { HiddenEnergies } from './hidden_energies/hidden_energies';
 import { LumberMill } from './lumber_mill/lumber_mill';
 import { LumberMillPart2 } from './lumber_mill/lumber_mill_part_2';
 import { StrikeBack } from './lumber_mill/strike_back';
+import { OrcAttack } from './orc_attack/orc_attack';
 import { RabbitHunt } from './rabbit_hunt/rabbit_hunt';
 
 export class QuestRegistry {
@@ -142,10 +144,26 @@ export class QuestRegistry {
           gg_rct_Orc_shore_base, gg_rct_Orc_east_base, gg_rct_Bandit_Island, gg_rct_Bandit_Base,
           gg_rct_Thalandor_home, gg_rct_AmberMill_region, gg_rct_Farm_region,
           gg_rct_Shadowfang_region, gg_rct_Night_elf_shore_base,
-          gg_rct_Keep_Fog,
+          gg_rct_Keep_Fog, gg_rct_Human_shipyard,
         ],
         dependencies: [banditBanish],
         cheatName: 'bt',
+      }).register();
+
+      // Orc attacking
+      new OrcAttack({
+        name: 'Orc Attack',
+        archmage: Unit.fromHandle(gg_unit_Hamg_0109),
+        footman: Unit.fromHandle(gg_unit_hfoo_0941),
+        captain: Unit.fromHandle(gg_unit_hcth_0943),
+        footManNewLocRec: gg_rct_Orc_attack_footman_loc,
+        corpsesRect: gg_rct_Orc_attack_corpses,
+        humanShipyardRect: gg_rct_Human_shipyard,
+        orcPlayer: playerOrcishHorde,
+        orcBaseRect: gg_rct_Orc_east_base,
+        orcGatherRect: gg_rct_Orc_base_attack_gathering,
+        dependencies: [hiddenEnergies],
+        cheatName: 'oa',
       }).register();
     });
   }

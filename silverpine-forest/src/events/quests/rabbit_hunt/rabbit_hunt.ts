@@ -37,7 +37,6 @@ export class RabbitHunt extends BaseQuest {
     wheatFieldRects: rect[]
   }) {
     super(globals);
-    // Jacob: ElevenLabs - Thomas
     jacobIntro = createDialogSound(
       'QuestSounds\\rabbit-hunt\\rabbit-hunt-jacob-intro.mp3',
       'Villager Jacob',

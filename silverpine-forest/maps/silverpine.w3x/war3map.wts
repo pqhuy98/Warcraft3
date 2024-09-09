@@ -274,12 +274,6 @@ STRING 59
 Orcish Horde
 }
 
-STRING 60
-// Units: Obla (Blademaster), Propernames (Proper Names)
-{
-Tojara,Nikoro,Kajind,Mikasa,Akinos,Mazuru,Yozshura,Daisho,Kigami,Arashicage,Moogul the Sly,Jubei
-}
-
 STRING 61
 // Units: h000 (Dummy), Name (Name)
 {

@@ -156,7 +156,7 @@ export class ElvenDrink extends BaseQuest {
     questGiver.setField(UNIT_RF_CAST_POINT, 0);
     questGiver.setField(UNIT_RF_CAST_BACK_SWING, 0);
     questGiver.addAbility(FourCC('A00R'));
-    setNeverDie(questGiver, true, 1);
+    setNeverDie(questGiver, true);
 
     await this.waitDependenciesDone();
 
@@ -177,7 +177,7 @@ export class ElvenDrink extends BaseQuest {
           : elfLastSound;
 
       const talkGroup = new TalkGroup([traveler, questGiver]);
-      await talkGroup.speak(questGiver, elfSpeech, traveler);
+      await talkGroup.speak(questGiver, elfSpeech, traveler, traveler);
       firstElfSpeech = false;
 
       await sleep(0.5);
