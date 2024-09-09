@@ -7,7 +7,6 @@ gg_rct_Region_001 = nil
 gg_rct_Region_001_Copy = nil
 gg_rct_undercity = nil
 gg_rct_Worgen_Cave = nil
-gg_rct_Worgen_Moonlight = nil
 gg_rct_Orc_east_base = nil
 gg_rct_Worgen_Moonlight_Copy_2_Copy = nil
 gg_rct_Worgen_Moonlight_Copy_2_Copy_3 = nil
@@ -63,6 +62,10 @@ gg_rct_Thalandor_home = nil
 gg_rct_Farm_region = nil
 gg_rct_Shadowfang_region = nil
 gg_rct_Night_elf_shore_base = nil
+gg_rct_Orc_base_attack_gathering = nil
+gg_rct_Human_shipyard = nil
+gg_rct_Orc_attack_footman_loc = nil
+gg_rct_Orc_attack_corpses = nil
 gg_snd_lich_king_stab_out = nil
 gg_snd_lichking_frostmourne_hungers = nil
 gg_trg_Doodads = nil
@@ -86,16 +89,12 @@ gg_unit_nvl2_0413 = nil
 gg_unit_nhem_0557 = nil
 gg_unit_Ekee_0551 = nil
 gg_unit_nvil_0414 = nil
+gg_unit_hcth_0943 = nil
+gg_unit_hfoo_0941 = nil
 gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
-gg_rct_Orc_base_attack_gathering = nil
-gg_rct_Human_shipyard = nil
-gg_unit_hcth_0943 = nil
-gg_rct_Orc_attack_footman_loc = nil
-gg_unit_hfoo_0941 = nil
-gg_rct_Orc_attack_corpses = nil
 function InitGlobals()
 end
 
@@ -693,7 +692,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2135.9, 3501.3, 260.801, FourCC("hf
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2860.2, 3566.6, 271.757, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 2513.9, 4419.3, 346.681, FourCC("hpea"))
 u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 2439.9, 4339.9, 298.239, FourCC("hpea"))
-u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), 2043.8, 3757.4, -88.192, FourCC("hmpr"))
+u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), 2043.8, 3757.4, 271.808, FourCC("hmpr"))
 u = BlzCreateUnitWithSkin(p, FourCC("hmpr"), 2266.6, 3802.8, 267.773, FourCC("hmpr"))
 end
 
@@ -1529,9 +1528,6 @@ we = AddWeatherEffect(gg_rct_undercity, FourCC("FDgl"))
 EnableWeatherEffect(we, true)
 gg_rct_Worgen_Cave = Rect(2496.0, -6048.0, 6784.0, -3904.0)
 we = AddWeatherEffect(gg_rct_Worgen_Cave, FourCC("FDwl"))
-EnableWeatherEffect(we, true)
-gg_rct_Worgen_Moonlight = Rect(4096.0, -2112.0, 4768.0, -1408.0)
-we = AddWeatherEffect(gg_rct_Worgen_Moonlight, FourCC("LRma"))
 EnableWeatherEffect(we, true)
 gg_rct_Orc_east_base = Rect(3584.0, -2944.0, 7200.0, 1472.0)
 we = AddWeatherEffect(gg_rct_Orc_east_base, FourCC("LRma"))
