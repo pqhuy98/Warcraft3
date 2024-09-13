@@ -39,6 +39,16 @@ const chaseRange = 5000;
 const debug = false;
 
 export class BlackTurban extends BaseQuest {
+  static globalDisableCount = 0;
+
+  static disable() {
+    this.globalDisableCount++;
+  }
+
+  static enable() {
+    this.globalDisableCount--;
+  }
+
   constructor(public globals: BaseQuestProps & {
     banditPlayer: MapPlayer
     victimPlayer: MapPlayer
@@ -137,6 +147,7 @@ export class BlackTurban extends BaseQuest {
       debug && log('find victim');
       debug && log('safeRects.length', safeRects.length);
       await waitUntil(10, () => {
+        if (BlackTurban.globalDisableCount > 0) return false;
         if (!isNightTime()) return false;
         if (victimPlayer.isPlayerAlly(banditPlayer)) return false;
 

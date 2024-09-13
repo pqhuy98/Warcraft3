@@ -25,7 +25,11 @@ export class TalkGroup {
     if (everyoneAttention != null) {
       enumUnitsWithDelay(this.units, (u) => {
         if (u !== speakingUnit && isUnitIdle(u)) {
-          setAttention(u, everyoneAttention);
+          if (u !== everyoneAttention) {
+            setAttention(u, everyoneAttention);
+          } else {
+            setAttention(u, speakingUnit);
+          }
         }
       }, 0.5 / (this.units.length - 1));
     }

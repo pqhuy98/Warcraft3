@@ -30,6 +30,7 @@ import { MapPlayer, sleep, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
 import { BaseQuest, BaseQuestProps } from '../base';
+import { BlackTurban } from '../black_turban/black_turban';
 
 const questName = 'Three Dead Men';
 const questDescription = 'After discovering a hidden mana spot, you return to Archmage Landazar, who hints at more such spots to power your abilities. Suddenly, Footman Aldric rushes in with dire news - three soldiers at the shipyard have been found dead in the nearby forest. Sent to assist, you meet Captain Thaddeus, who confirms the severity of the situation.';
@@ -61,6 +62,7 @@ const orcTrainingBuildings: [UNIT_TYPE, UNIT_TYPE][] = [
 let archMageSounds: sound[];
 let footmanSounds: sound[];
 let captainSounds: sound[];
+let gruntSounds: sound[];
 
 const archMageName = 'ArchMage Landazar';
 const footmanName = 'Footman Aldric';
@@ -145,27 +147,50 @@ export class OrcAttack extends BaseQuest {
       createDialogSound(
         'QuestSounds\\orc-attack\\orc-attack-captain-3.mp3',
         captainName,
-        'More coming! This time they\'ve brought HeadHunters. We need to take them down quickly!',
+        'Here they come again! Now they have Shamans with them. Watch out for their spells!',
       ),
       createDialogSound(
         'QuestSounds\\orc-attack\\orc-attack-captain-4.mp3',
         captainName,
-        'Here they come again! Now they have Shamans with them. Watch out for their spells!',
+        'They\'re sending in a beast this time and with a larger force. Aim for the Kodo Beast, it\'s their key strength!',
       ),
       createDialogSound(
         'QuestSounds\\orc-attack\\orc-attack-captain-5.mp3',
         captainName,
-        'They\'re sending in a beast this time and with a larger force. Aim for the Kodo Beast, it\'s their key strength!',
-      ),
-      createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-captain-6.mp3',
-        captainName,
-        'This is their biggest push yet. They’ve even brought a Demolisher to raze our structure!',
-      ),
-      createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-captain-7.mp3',
-        captainName,
         'There are so many of them! They\'re throwing everything they have at us. Hold the line at all costs!',
+      ),
+    ];
+
+    gruntSounds = [
+      createDialogSound(
+        'QuestSounds\\orc-attack\\orc-attack-grunt-1.mp3',
+        'Orc Grunt',
+        'Humans, you trespass on our land! This territory belongs to the Orcs! We will take it back with blood and honor!',
+      ),
+      createDialogSound(
+        'QuestSounds\\orc-attack\\orc-attack-grunt-2.mp3',
+        'Orc Grunt',
+        'Brothers, the humans are weakening! Push harder and show them our true might!',
+      ),
+      createDialogSound(
+        'QuestSounds\\orc-attack\\orc-attack-grunt-3.mp3',
+        'Orc Grunt',
+        'Prepare yourselves, warriors! We will break their lines and take what is ours!',
+      ),
+      createDialogSound(
+        'QuestSounds\\orc-attack\\orc-attack-grunt-4.mp3',
+        'Orc Grunt',
+        'The undead fell to our axes, and so will you. The Horde is unstoppable!',
+      ),
+      createDialogSound(
+        'QuestSounds\\orc-attack\\orc-attack-grunt-5.mp3',
+        'Orc Grunt',
+        'Warriors of the Horde, press on! Remember the strength of Grom Hellscream!',
+      ),
+      createDialogSound(
+        'QuestSounds\\orc-attack\\orc-attack-grunt-6.mp3',
+        'Orc Grunt',
+        'This is the final wave, warriors! Attack with all your strength! Victory for the Horde!',
       ),
     ];
   }
@@ -195,8 +220,10 @@ export class OrcAttack extends BaseQuest {
       );
     }
 
-    // Archmage talks with player, then footman arrives with urgent news
+    // Archmage talks with player
     let traveler = await this.talkToQuestGiver(archmage, true);
+    BlackTurban.disable();
+
     const talkGroup = new TalkGroup([
       traveler, archmage,
       ...getUnitsInRangeOfLoc(800, archmage, (u) => u.isAlive() && isOrganic(u)),
@@ -206,6 +233,7 @@ export class OrcAttack extends BaseQuest {
     await talkGroup.speak(archmage, archMageSounds[2], traveler, traveler);
     talkGroup.finish();
 
+    // then footman arrives with urgent news
     const footmanNewLoc = centerLocRect(footManNewLocRec);
     footman.setPosition(footmanNewLoc.x, footmanNewLoc.y);
     pauseGuardPosition([footman], true);
@@ -271,6 +299,10 @@ export class OrcAttack extends BaseQuest {
     // Wait till Orc attack waves complete
     const result = await orcAttackPromise;
     if (result === 'no more wave') {
+      humanShipyard.shareVision(traveler.owner, false);
+      humanBarracks.shareVision(traveler.owner, false);
+      footman.shareVision(traveler.owner, false);
+
       traveler.addExperience(rewardXp, true);
       await questLog.completeWithRewards([
         `${rewardXp} experience`,
@@ -280,6 +312,7 @@ export class OrcAttack extends BaseQuest {
       await questLog.fail();
       this.fail();
     }
+    BlackTurban.enable();
   }
 
   async orcAttacking(target: Unit, talkGroup: TalkGroup): Promise<'target dead' | 'no more wave'> {
@@ -289,13 +322,13 @@ export class OrcAttack extends BaseQuest {
 
     target.addIndicator(255, 255, 255, 255);
 
-    const speeches: [Unit, sound][] = [
-      [captain, captainSounds[1]],
-      [footman, footmanSounds[3]],
-      [captain, captainSounds[3]],
-      [captain, captainSounds[4]],
-      [footman, footmanSounds[4]],
-      [captain, captainSounds[6]],
+    const speeches: {unit?: Unit, unitType?: UNIT_TYPE, sound: sound}[][] = [
+      [{ unitType: UNIT_Grunt, sound: gruntSounds[0] }, { unit: captain, sound: captainSounds[1] }],
+      [{ unitType: UNIT_Grunt, sound: gruntSounds[1] }, { unit: footman, sound: footmanSounds[3] }],
+      [{ unitType: UNIT_Grunt, sound: gruntSounds[2] }, { unit: captain, sound: captainSounds[2] }],
+      [{ unitType: UNIT_Grunt, sound: gruntSounds[3] }, { unit: captain, sound: captainSounds[3] }],
+      [{ unitType: UNIT_Grunt, sound: gruntSounds[4] }, { unit: footman, sound: footmanSounds[4] }],
+      [{ unitType: UNIT_Grunt, sound: gruntSounds[5] }, { unit: captain, sound: captainSounds[4] }],
     ];
     const orcBuildings = getUnitsInRect(orcBaseRect, (u) => isBuilding(u) && u.isAlive() && u.owner === orcPlayer);
     orcBuildings.forEach((u) => setNeverDie(u, true));
@@ -342,12 +375,19 @@ export class OrcAttack extends BaseQuest {
       await waitUntil(1, () => {
         if (!attackersArrive && attackers.some((u) => u.life < u.maxLife)) {
           attackersArrive = true;
-          const [speaker, sound] = speeches[0];
-          speeches.splice(0, 1);
-          if (speaker.isAlive()) {
-            // eslint-disable-next-line @typescript-eslint/no-floating-promises
-            talkGroup.speak(speaker, sound, null, null);
-          }
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          (async () => {
+            for (const { unit, unitType, sound } of speeches[0]) {
+              if (unit && unit.isAlive()) {
+                await talkGroup.speak(unit, sound, null, null);
+              } else if (unitType) {
+                const speaker = attackers.find((u) => u.typeId === unitType.id);
+                await talkGroup.speak(speaker, sound, null, null);
+              }
+              await sleep(0.5);
+            }
+            speeches.splice(0, 1);
+          })();
         }
 
         return attackersArrive || attackers.every((u) => !u.isAlive()) || !target.isAlive();

@@ -372,6 +372,7 @@ export function setNeverDie(unit: Unit, state = true, lowestHp: number = unit.ma
       });
     }));
   } else {
+    invulnerableTriggers.get(unit).destroy();
     invulnerableTriggers.delete(unit);
   }
 }
