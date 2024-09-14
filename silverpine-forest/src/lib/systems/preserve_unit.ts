@@ -82,7 +82,7 @@ export function preserveUnit(unit: Unit): RestoreFunction {
       t.addCondition(() => GetEventDamage() > 0);
       t.addAction(() => {
         const data = preservedUnits.get(unit);
-        data.saveBeforeDeath = save(unit);
+        data.saveBeforeDeath = saveUnit(unit);
 
         if (unit.isHero()) {
           return;
@@ -110,7 +110,7 @@ export function preserveUnit(unit: Unit): RestoreFunction {
       });
     }),
     // original data before dying
-    saveOriginal: save(unit),
+    saveOriginal: saveUnit(unit),
     isAlive: unit.isAlive(),
     restore,
   });
@@ -176,7 +176,7 @@ function restoreFromSave(unit: Unit, save: UnitSave): void {
   unit.setPathing(true);
 }
 
-function save(unit: Unit): UnitSave {
+function saveUnit(unit: Unit): UnitSave {
   return {
     lifePercent: unit.life / unit.maxLife,
     manaPercent: unit.mana / unit.maxMana,

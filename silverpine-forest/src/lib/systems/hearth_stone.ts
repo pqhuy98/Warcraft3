@@ -54,9 +54,9 @@ export function registerHearthStone(): void {
         innMap.delete(unit);
       }
 
-      innMap.set(unit, buildTrigger((t) => {
-        t.registerDeathEvent(unit);
-        t.addAction(() => {
+      innMap.set(unit, buildTrigger((t2) => {
+        t2.registerDeathEvent(unit);
+        t2.addAction(() => {
           setTimeout(10, () => {
             if (!unit.isAlive()) {
               unit.revive(innLoc.x, innLoc.y, true);

@@ -123,9 +123,9 @@ export const defineEvent = <L extends number>(
 
   emit(`DefEvent ${packedName} ${finalArgs} ${pack(format)}`);
 
-  return (...args: FixedLengthArray<string, L>): void => {
-    const packedArgs = args.map((arg) => pack(arg)).join(' ');
-    emit(`Event ${packedName}${args.length > 0 ? ` ${packedArgs}` : ''}`);
+  return (...args1: FixedLengthArray<string, L>): void => {
+    const packedArgs1 = args1.map((arg) => pack(arg)).join(' ');
+    emit(`Event ${packedName}${args1.length > 0 ? ` ${packedArgs1}` : ''}`);
   };
 };
 

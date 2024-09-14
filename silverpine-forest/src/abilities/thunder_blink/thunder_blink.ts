@@ -114,15 +114,15 @@ export class ThunderBlink {
     const lnRadius = radius;
     setIntervalForDuration(0.05, 0.5, (i, repeat) => {
       const distancePercent = i / repeat;
-      const casterLoc = getUnitXY(caster);
+      const currentCasterLoc = getUnitXY(caster);
       for (let j = 0; j < lightningsInner.length; j++) {
-        const lightningLoc = PolarProjection(casterLoc, distancePercent * lnRadius, j * 360 / lightningCount);// + i * anglePhase / repeat);
-        MoveLightning(lightningsInner[j], true, casterLoc.x, casterLoc.y, lightningLoc.x, lightningLoc.y);
+        const lightningLoc = PolarProjection(currentCasterLoc, distancePercent * lnRadius, j * 360 / lightningCount);// + i * anglePhase / repeat);
+        MoveLightning(lightningsInner[j], true, currentCasterLoc.x, currentCasterLoc.y, lightningLoc.x, lightningLoc.y);
       }
 
       for (let j = 0; j < lightningsOuter.length; j++) {
-        const loc1 = PolarProjection(casterLoc, distancePercent * lnRadius, j * 360 / lightningCount + i * anglePhase / repeat);
-        const loc2 = PolarProjection(casterLoc, distancePercent * lnRadius, (j + 1) * 360 / lightningCount + i * anglePhase / repeat);
+        const loc1 = PolarProjection(currentCasterLoc, distancePercent * lnRadius, j * 360 / lightningCount + i * anglePhase / repeat);
+        const loc2 = PolarProjection(currentCasterLoc, distancePercent * lnRadius, (j + 1) * 360 / lightningCount + i * anglePhase / repeat);
         MoveLightning(lightningsInner[j], true, loc1.x, loc1.y, loc2.x, loc2.y);
       }
     }, () => {

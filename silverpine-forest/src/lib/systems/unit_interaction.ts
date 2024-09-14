@@ -152,9 +152,9 @@ export class UnitInteraction {
           unmuteUnitSound();
           soundThrottleSet.delete(target);
           if (targets.has(target)) {
-            const data = targets.get(target);
-            data.soundLastTimeS = getTimeS();
-            data.playedSounds.push(soundPath);
+            const data1 = targets.get(target);
+            data1.soundLastTimeS = getTimeS();
+            data1.playedSounds.push(soundPath);
           }
         });
         UnitAddIndicator(
@@ -185,9 +185,9 @@ export class UnitInteraction {
     disableInteractSound(target);
     enableQuestMarker(target, mode);
     return new Promise<{ unit: Unit, target: Unit }>((resolve) => {
-      this.onStartOnce(target, (unit, target) => {
-        disableQuestMarker(target);
-        resolve({ unit, target });
+      this.onStartOnce(target, (unit, target1) => {
+        disableQuestMarker(target1);
+        resolve({ unit, target: target1 });
       });
     });
   }

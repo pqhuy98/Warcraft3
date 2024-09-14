@@ -6,7 +6,7 @@ module.exports = {
   extends: [
     'airbnb-base',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'plugin:import/typescript'
+    'plugin:import/typescript',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,10 +17,11 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
+    '@stylistic/ts',
     'unused-imports',
     'simple-import-sort'
   ],
-  ignorePatterns: ['**/war3map.d.ts', __dirname + "/scripts/*"],
+  ignorePatterns: ['**/war3map.d.ts', `${__dirname}/scripts/*`],
   overrides: [
     {
       files: ['*.ts'],
@@ -35,12 +36,15 @@ module.exports = {
       files: ['.eslintrc.js'],
       parser: 'espree', // or another JavaScript parser
       env: { node: true },
-    }
+    },
   ],
   rules: {
+    "@stylistic/ts/type-annotation-spacing": "error",
     "@typescript-eslint/explicit-function-return-type": "warn",
+    "@typescript-eslint/no-unsafe-enum-comparison": "off",
     'no-restricted-syntax': 'off',
     'no-shadow': 'off',
+    "@typescript-eslint/no-shadow": "error",
     'import/extensions': 'off',
     'linebreak-style': 0,
     'no-continue': 'off',
@@ -50,7 +54,7 @@ module.exports = {
     'no-new': 'off',
     'no-plusplus': 'off',
     'prefer-destructuring': 'off',
-    '@typescript-eslint/no-unsafe-enum-comparison': 'off',
+    '@stylistic/ts/no-unsafe-enum-comparison': 'off',
     'no-await-in-loop': 'off',
     'no-unused-expressions': 'off',
     'class-methods-use-this': 'off',
@@ -60,7 +64,7 @@ module.exports = {
       'error',
       {
         code: 200,
-      }
+      },
     ],
     'no-restricted-globals': 'off',
     'import/no-unresolved': 'off',
@@ -72,7 +76,7 @@ module.exports = {
       'error',
       {
         props: false,
-      }
+      },
     ],
     'no-mixed-operators': 'off',
     'no-empty-function': 'off',
@@ -85,10 +89,10 @@ module.exports = {
         vars: 'all',
         varsIgnorePattern: '^_',
         args: 'after-used',
-        argsIgnorePattern: '^_'
+        argsIgnorePattern: '^_',
       },
     ],
-    'simple-import-sort/imports': 'error'
+    'simple-import-sort/imports': 'error',
   },
   settings: {
     'import/resolver': {
@@ -97,9 +101,9 @@ module.exports = {
           '.js',
           '.jsx',
           '.ts',
-          '.tsx'
+          '.tsx',
         ],
-      }
+      },
     },
-  }
-}
+  },
+};

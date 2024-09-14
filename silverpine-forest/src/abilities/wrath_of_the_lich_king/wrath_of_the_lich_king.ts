@@ -44,12 +44,12 @@ export default class WrathOfTheLichKing {
 
   static lastCachedEffectRange: number;
 
-  static register(abilityId: number): void {
-    WrathOfTheLichKing.Data.ABILITY_IDS.push(abilityId);
+  static register(registeredAbilityId: number): void {
+    WrathOfTheLichKing.Data.ABILITY_IDS.push(registeredAbilityId);
 
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
-      t.addCondition(() => GetSpellAbilityId() === abilityId);
+      t.addCondition(() => GetSpellAbilityId() === registeredAbilityId);
       t.addAction(() => {
         const radius = WrathOfTheLichKing.Data.getEffectRadius();
 
@@ -155,7 +155,7 @@ export default class WrathOfTheLichKing {
 
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_ENDCAST);
-      t.addCondition(() => GetSpellAbilityId() === abilityId);
+      t.addCondition(() => GetSpellAbilityId() === registeredAbilityId);
       t.addAction(() => {
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
         caster.setTimeScale(1);
@@ -210,12 +210,12 @@ export default class WrathOfTheLichKing {
     k0('wotlkT1');
     const t1 = setIntervalForDuration(0.05, effectDurationS, () => {
       if (caster.isAlive()) {
-        const casterLoc = getUnitXY(caster);
+        const currentCasterLoc = getUnitXY(caster);
         // for (const eff of effects) {
         //   BlzSetSpecialEffectPosition(eff, loc.x, loc.y, 100);
         // }
-        dummy2.x = casterLoc.x;
-        dummy2.y = casterLoc.y;
+        dummy2.x = currentCasterLoc.x;
+        dummy2.y = currentCasterLoc.y;
       } else {
         cleanUp();
       }

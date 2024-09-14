@@ -20,6 +20,7 @@
     "wc3maptranslator": "^4.0.4"
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin-ts": "^2.8.0",
     "@types/fs-extra": "8.1.1",
     "@types/glob": "^8.1.0",
     "@types/node": "12.19.1",

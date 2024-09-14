@@ -24,7 +24,7 @@ export class ChainLightningAttack {
   }
 
   constructor(
-    abilityId:number,
+    abilityId: number,
     attacker: Unit,
     target: Unit,
     abilityLevel: number,

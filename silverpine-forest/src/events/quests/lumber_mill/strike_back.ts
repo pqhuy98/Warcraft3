@@ -210,9 +210,9 @@ export class StrikeBack extends BaseQuest {
       setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
 
       traveler = await this.waitForTurnIn(mayor);
-      const talkGroup = new TalkGroup([mayor, traveler]);
-      await talkGroup.speak(mayor, mayorOutro1, traveler, traveler);
-      await talkGroup.speak(mayor, mayorOutro2, traveler, traveler);
+      const talkGroup2 = new TalkGroup([mayor, traveler]);
+      await talkGroup2.speak(mayor, mayorOutro1, traveler, traveler);
+      await talkGroup2.speak(mayor, mayorOutro2, traveler, traveler);
 
       // grant vision of buildings
       getUnitsInRect(humanBaseRect, (u) => isBuilding(u) && u.owner === mayor.owner)

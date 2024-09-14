@@ -13,11 +13,11 @@ export class MulticastPoint {
     FACING_OFFSET: [0, -90, -90, 360 / 3],
   };
 
-  static register(abilityId?: number, specificCaster?: Unit): Trigger {
+  static register(registeredAbilityId?: number, specificCaster?: Unit): Trigger {
     return buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
-      if (abilityId) {
-        t.addCondition(() => GetSpellAbilityId() === abilityId);
+      if (registeredAbilityId) {
+        t.addCondition(() => GetSpellAbilityId() === registeredAbilityId);
       }
       if (specificCaster) {
         t.addCondition(() => GetSpellAbilityUnit() === specificCaster.handle);
@@ -55,7 +55,6 @@ export class MulticastPoint {
 
           dummy.issueOrderAt(order, dummyCastLoc.x, dummyCastLoc.y);
 
-          // eslint-disable-next-line no-loop-func
           k0('mcpt');
           buildTrigger((t2) => {
             t2.registerUnitEvent(caster, EVENT_UNIT_SPELL_ENDCAST);

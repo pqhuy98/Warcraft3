@@ -26,11 +26,11 @@ export default class BladeDance {
 
   static unitsInCast = Group.create();
 
-  static register(abilityId: number): void {
-    BladeDance.Data.ABILITY_IDS.push(abilityId);
+  static register(registeredAbilityId: number): void {
+    BladeDance.Data.ABILITY_IDS.push(registeredAbilityId);
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
-      t.addCondition(() => GetSpellAbilityId() === abilityId);
+      t.addCondition(() => GetSpellAbilityId() === registeredAbilityId);
       t.addAction(() => {
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
         const target = Unit.fromHandle(GetSpellTargetUnit());

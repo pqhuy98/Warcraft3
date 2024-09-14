@@ -66,6 +66,6 @@ wc3ColorMap.set(PLAYER_COLOR_PEANUT, 'peanut');
 export const playerColorToColor = (playerColor: playercolor): Color => wc3ColorMap.get(playerColor) ?? 'white';
 
 export const colorize = {} as Record<Color, (v: unknown) => string>;
-Object.entries(color).forEach(([color, code]) => {
-  colorize[color as Color] = (string: string): string => `${code}${string}|r`;
+Object.entries(color).forEach(([clr, code]) => {
+  colorize[clr as Color] = (string: string): string => `${code}${string}|r`;
 });

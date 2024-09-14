@@ -21,11 +21,11 @@ import { buildTrigger, setIntervalForDuration, setIntervalIndefinite } from './t
 export const BUFF_ID_GENERIC = FourCC('BTLF');
 export const UNIT_ID_DUMMY = FourCC('h000:hfoo');
 
-export function getAttackRange(unit: Unit, weaponIndex:number):number {
+export function getAttackRange(unit: Unit, weaponIndex: number): number {
   return BlzGetUnitWeaponRealField(unit.handle, UNIT_WEAPON_RF_ATTACK_RANGE, weaponIndex);
 }
 
-export function setAttackRange(unit: Unit, weaponIndex: number, value:number): void {
+export function setAttackRange(unit: Unit, weaponIndex: number, value: number): void {
   const currentRange = getAttackRange(unit, weaponIndex); // index is correct, returned range is correct.
   const secondRange = getAttackRange(unit, weaponIndex + 1); // yes, we should get the 2nd attack range and count it too
 
@@ -37,7 +37,7 @@ export function setAttackRange(unit: Unit, weaponIndex: number, value:number): v
   );
 }
 
-export function distanceBetweenUnits(u1: Unit, u2:Unit): number {
+export function distanceBetweenUnits(u1: Unit, u2: Unit): number {
   const l1 = getUnitXY(u1);
   const l2 = getUnitXY(u2);
   const result = DistanceBetweenLocs(l1, l2);

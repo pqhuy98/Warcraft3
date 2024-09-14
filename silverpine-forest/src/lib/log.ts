@@ -18,12 +18,12 @@ export const emitLog = (key: string, arg: unknown, ...args: Array<unknown>): voi
   log(key, ...allArgs);
 };
 
-const isArray = (v: unknown): boolean => {
-  if (typeof v !== 'object') return false;
+const isArray = (obj: unknown): boolean => {
+  if (typeof obj !== 'object') return false;
 
   // Lua uses 1 as the starter index
-  return Object.keys(v).every((v, index) => S2I(v) === index + 1 || S2I(v) === index)
-    && (v[0] != null || v[1] != null);
+  return Object.keys(obj).every((v, index) => S2I(v) === index + 1 || S2I(v) === index)
+    && (obj[0] != null || obj[1] != null);
 };
 
 const userdataType = (userdata: Record<string, unknown>): string => {
@@ -41,7 +41,7 @@ export const termToString = (v: unknown, color = true): string => {
 
   if (isArray(v)) {
     const arr = v as Array<unknown>;
-    return `[ ${arr.map((v: unknown) => termToString(v)).join(', ')} ]`;
+    return `[ ${arr.map((v1: unknown) => termToString(v1)).join(', ')} ]`;
   }
 
   if (typeof v === 'object' && v != null) { return `{ ${Object.entries(v).map(([key, value]) => `${key}: ${termToString(value)}`).join(', ')} }`; }

@@ -15,14 +15,14 @@ export class MulticastUnit {
     getEffectRadius: (): number => (500),
   };
 
-  static register(abilityId?: number, caster?: Unit, singleDummy: boolean = true): Trigger {
+  static register(registeredAbilityId?: number, registeredCaster?: Unit, singleDummy: boolean = true): Trigger {
     return buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
-      if (abilityId) {
-        t.addCondition(() => GetSpellAbilityId() === abilityId);
+      if (registeredAbilityId) {
+        t.addCondition(() => GetSpellAbilityId() === registeredAbilityId);
       }
-      if (caster) {
-        t.addCondition(() => GetSpellAbilityUnit() === caster.handle);
+      if (registeredCaster) {
+        t.addCondition(() => GetSpellAbilityUnit() === registeredCaster.handle);
       }
       t.addCondition(() => {
         const caster = GetSpellAbilityUnit();
