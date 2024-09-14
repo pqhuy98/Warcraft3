@@ -49,11 +49,11 @@ const OrderAutoHarvestLumber = 'autoharvestlumber';
 const defaultGuardDistance = 1000;
 
 export class MiscEvents {
-  static register() {
+  static register(): void {
     setTimeout(0.0, () => this.run());
   }
 
-  static run() {
+  static run(): void {
     // All pre-placed non-neutral units guard their positions
     getUnitsInRect(GetWorldBounds(), (u) => u.isAlive()
       && !isBuilding(u)
@@ -126,17 +126,6 @@ export class MiscEvents {
     // Shadowfang training footmen
     this.footmanPractice();
 
-    // Shadowfang gate open
-    const shadowfangGateBlockers = getDestructablesInRect(gg_rct_Shadowfang_gate_sight_blocker);
-    onChatCommand('-open', true, () => {
-      ModifyGateBJ(bj_GATEOPERATION_OPEN, gg_dest_LTg3_4633);
-      shadowfangGateBlockers.forEach((d) => d.kill());
-    });
-    onChatCommand('-close', true, () => {
-      ModifyGateBJ(bj_GATEOPERATION_CLOSE, gg_dest_LTg3_4633);
-      shadowfangGateBlockers.forEach((d) => d.heal(d.maxLife, false));
-    });
-
     // Mayor Ambermill casts holy light
     const mayor = Unit.fromHandle(gg_unit_Hpb1_0145);
     setIntervalIndefinite(3, () => {
@@ -186,7 +175,7 @@ export class MiscEvents {
   }
 
   // 9 footmen in Shadowfang practice
-  static footmanPractice() {
+  static footmanPractice(): void {
     const trainingFootmen = getUnitsInRect(gg_rct_Shadowfang_soldier_training, (u) => u.typeId === UNIT_Footman.id);
     const initialLoc = new Map(trainingFootmen.map((u) => [u, currentLoc(u)]));
     removeGuardPosition(...trainingFootmen);
@@ -234,7 +223,7 @@ export class MiscEvents {
     });
   }
 
-  static preventFriendlyFire() {
+  static preventFriendlyFire(): void {
     // Players become hostile if being friendly fired
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
@@ -268,7 +257,7 @@ export class MiscEvents {
     });
   }
 
-  static creatCastleCorpses() {
+  static creatCastleCorpses(): void {
     const corpses = 200;
 
     // Corpses

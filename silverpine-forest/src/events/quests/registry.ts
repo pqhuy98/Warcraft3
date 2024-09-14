@@ -17,9 +17,10 @@ import { LumberMillPart2 } from './lumber_mill/lumber_mill_part_2';
 import { StrikeBack } from './lumber_mill/strike_back';
 import { OrcAttack } from './orc_attack/orc_attack';
 import { RabbitHunt } from './rabbit_hunt/rabbit_hunt';
+import { ShadowFangGate } from './shadow_fang_city/shadow_fang_gate';
 
 export class QuestRegistry {
-  static register() {
+  static register(): void {
     setTimeout(0, () => {
       // GatherSheeps
       const gatherSheeps = new GatherSheeps({
@@ -164,6 +165,17 @@ export class QuestRegistry {
         orcGatherRect: gg_rct_Orc_base_attack_gathering,
         dependencies: [hiddenEnergies],
         cheatName: 'oa',
+      }).register();
+
+      // Shadow fang gate
+      new ShadowFangGate({
+        name: 'Shadow Fang Gate',
+        gateKeepers: [
+          Unit.fromHandle(gg_unit_hkni_0680),
+          Unit.fromHandle(gg_unit_hmtm_0682),
+        ],
+        dependencies: [],
+        cheatName: 'sfg',
       }).register();
     });
   }
