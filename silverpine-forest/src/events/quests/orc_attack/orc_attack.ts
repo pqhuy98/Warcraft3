@@ -21,6 +21,9 @@ import {
   UNIT_SpiritLodge,
   UNIT_TYPE,
 } from 'lib/resources/war3-units';
+import {
+  isPreservedUnitAlive, preserveUnit, RestoreMode, restoreUnit,
+} from 'lib/systems/preserve_unit';
 import { guardCurrentPosition, pauseGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, isOrganic, setNeverDie,
@@ -165,7 +168,7 @@ export class OrcAttack extends BaseQuest {
       createDialogSound(
         'QuestSounds\\orc-attack\\orc-attack-grunt-1.mp3',
         'Orc Grunt',
-        'Humans, you trespass on our land! This territory belongs to the Orcs! We will take it back with blood and honor!',
+        'Humans, you trespass on our land! This territory belongs to the Horde! We will take it back with blood and honor!',
       ),
       createDialogSound(
         'QuestSounds\\orc-attack\\orc-attack-grunt-2.mp3',
@@ -199,13 +202,16 @@ export class OrcAttack extends BaseQuest {
     const {
       archmage, footman, footManNewLocRec, corpsesRect,
       captain,
-      humanShipyardRect,
+      humanShipyardRect, orcBaseRect, orcPlayer,
     } = this.globals;
     footman.name = footmanName;
     captain.name = captainName;
     setNeverDie(footman);
     setNeverDie(captain);
     setNeverDie(archmage);
+
+    getUnitsInRect(orcBaseRect, (u) => u.owner === orcPlayer)
+      .forEach((u) => setNeverDie(u, true, u.maxLife / 3));
 
     await this.waitDependenciesDone();
 
@@ -295,6 +301,7 @@ export class OrcAttack extends BaseQuest {
       .forEach((u) => guardCurrentPosition(u));
     setNeverDie(footman, false);
     setNeverDie(captain, false);
+    preserveUnit(captain);
 
     // Wait till Orc attack waves complete
     const result = await orcAttackPromise;
@@ -302,6 +309,12 @@ export class OrcAttack extends BaseQuest {
       humanShipyard.shareVision(traveler.owner, false);
       humanBarracks.shareVision(traveler.owner, false);
       footman.shareVision(traveler.owner, false);
+
+      if (!isPreservedUnitAlive(captain)) {
+        restoreUnit(captain, RestoreMode.BEFORE_DEATH);
+        setNeverDie(captain, true, 50);
+        captain.life = GetRandomReal(1, 50);
+      }
 
       traveler.addExperience(rewardXp, true);
       await questLog.completeWithRewards([

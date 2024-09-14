@@ -21450,7 +21450,7 @@ const unitSounds: UnitSounds = [
     },
   },
   {
-    id: 'ndog',
+    id: 'ngog',
     name: 'dog',
     sounds: {
       What: [

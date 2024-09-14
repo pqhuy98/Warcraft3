@@ -66,6 +66,7 @@ declare var gg_rct_Orc_attack_footman_loc: rect;
 declare var gg_rct_Orc_attack_corpses: rect;
 declare var gg_snd_lich_king_stab_out: sound;
 declare var gg_snd_lichking_frostmourne_hungers: sound;
+declare var gg_trg_Untitled_Trigger_001: trigger;
 declare var gg_trg_Doodads: trigger;
 declare var gg_trg_Unit_register: trigger;
 declare var gg_trg_Doodads_register: trigger;

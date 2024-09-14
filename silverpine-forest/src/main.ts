@@ -37,6 +37,8 @@ import {
 } from 'lib/location';
 import { setAllianceState, setAllianceState2Way } from 'lib/player';
 import { daemonQuestMarker } from 'lib/quests/utils';
+import { registerHearthStone } from 'lib/systems/hearth_stone';
+import { registerPreseveUnits } from 'lib/systems/preserve_unit';
 import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
 import { UnitInteraction } from 'lib/systems/unit_interaction';
 import { registerFloatTextExperiments } from 'lib/texttag';
@@ -68,6 +70,8 @@ function tsMain() {
   daemonGuardPosition();
   useReforgedIcons();
   registerFloatTextExperiments();
+  registerPreseveUnits();
+  registerHearthStone();
 
   // Miscs
   // Weather.changeWeather();
@@ -112,8 +116,7 @@ function configurePlayerSettings() {
 
     if (heroOnlyPlayers.includes(player)) {
       player.setState(PLAYER_STATE_RESOURCE_GOLD, 1000);
-      player.setState(PLAYER_STATE_RESOURCE_LUMBER, 0);
-      player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, 60);
+      player.setState(PLAYER_STATE_RESOURCE_LUMBER, 200);
     } else {
       player.setState(PLAYER_STATE_RESOURCE_GOLD, GetRandomInt(500000, 999999));
       player.setState(PLAYER_STATE_RESOURCE_LUMBER, GetRandomInt(100000, 500000));
@@ -135,7 +138,7 @@ function configurePlayerSettings() {
 
   // Player alliance
   setAllianceState2Way(playerOrcishHorde, mainPlayer, 'enemy');
-  setAllianceState2Way(playerNightElfSentinels, mainPlayer, 'allied vision');
+  setAllianceState2Way(playerNightElfSentinels, mainPlayer, 'allied');
   setAllianceState2Way(playerHumanAlliance, mainPlayer, 'allied');
   setAllianceState2Way(playerForsaken, mainPlayer, 'enemy');
   setAllianceState2Way(playerBlackTurban, mainPlayer, 'enemy');

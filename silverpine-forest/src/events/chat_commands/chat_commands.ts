@@ -27,7 +27,15 @@ export function registerChatCommands() {
 
   onChatCommand('-kill', true, () => {
     temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer())))
-      .for(() => Unit.fromEnum().kill());
+      .for(() => Unit.fromEnum().damageTarget(
+        Unit.fromEnum().handle,
+        Unit.fromEnum().life * 2,
+        false,
+        false,
+        ATTACK_TYPE_CHAOS,
+        DAMAGE_TYPE_UNIVERSAL,
+        WEAPON_TYPE_WHOKNOWS,
+      ));
   }, 'GameControl', 'Kill all selected units.');
 
   onChatCommand('-killall', true, () => {
@@ -36,7 +44,15 @@ export function registerChatCommands() {
       && u.isAlive()
       && !u.isUnitType(UNIT_TYPE_PEON))
       .forEach((u) => {
-        u.kill();
+        u.damageTarget(
+          u.handle,
+          u.life * 2,
+          false,
+          false,
+          ATTACK_TYPE_CHAOS,
+          DAMAGE_TYPE_UNIVERSAL,
+          WEAPON_TYPE_WHOKNOWS,
+        );
         count++;
       });
     log('Killed units', count);

@@ -2175,3 +2175,33 @@ STRING 389
 Black Turban Syndicate
 }
 
+STRING 390
+// Abilities: A00S (Purge), EditorSuffix (Editor Suffix)
+{
+(No Graphic)
+}
+
+STRING 391
+// Items: I001 (Hearthstone), Name (Name)
+{
+Hearthstone
+}
+
+STRING 392
+// Items: I001 (Hearthstone), Tip (Tooltip - Basic)
+{
+Hearthstone
+}
+
+STRING 393
+// Items: I001 (Hearthstone), Ubertip (Tooltip - Extended)
+{
+Upon activation, this building becomes your designated resurrection location. If you fall in battle, you will be resurrected at this building.
+}
+
+STRING 394
+// Items: I001 (Hearthstone), Description (Description)
+{
+Upon activation, this building becomes your designated resurrection location. If you fall in battle, you will be resurrected at this building.
+}
+

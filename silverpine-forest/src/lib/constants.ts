@@ -30,6 +30,8 @@ export const ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION = FourCC('A00F:AIcb');
 export const ABILITY_ID_BOOK_OF_TELEPORTATION = FourCC('A00K:AHmt');
 export const ABILITY_ID_MONSOON_THRALL = FourCC('A00L:ACmo');
 
+export const ABILITY_ID_PURGE_NO_GRAPHIC = FourCC('A00S:Aprg');
+
 // Custom Models
 export const MODEL_Sand_Tornado = 'Models\\Tornado\\SandTornado.mdx';
 export const MODEL_Water_Tornado = 'Models\\Tornado\\WaterTornado.mdx';

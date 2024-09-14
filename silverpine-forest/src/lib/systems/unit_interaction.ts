@@ -3,7 +3,7 @@ import {
   AngleBetweenLocs, DistanceBetweenLocs, PolarProjection,
 } from 'lib/location';
 import { disableQuestMarker, enableQuestMarker, QuestMarkerType } from 'lib/quests/utils';
-import { getUnitSounds, SoundType } from 'lib/resources/unit-sounds';
+import { getUnitSounds } from 'lib/resources/unit-sounds';
 import { checkUnitFlag, Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
 import {
   buildTrigger, getTimeS, setIntervalIndefinite, setTimeout,
@@ -19,22 +19,21 @@ interface InteractionData {
   facingToUnit: Unit,
   oldFacing: number
   soundLastTimeS: number
-  soundCount: number
-  soundLastFile: string
+  playedSounds: string[]
   maxRadius: number
 }
 const targets = new Map<Unit, InteractionData>();
 
 const soundThrottleSet = new Set<Unit>();
 
-const nearDistance = 400;
-const unfocusDistance = 600;
+const nearDistance = 300;
+const unfocusDistance = 500;
 
 type Subscriber = (unit: Unit, target: Unit) => unknown
 
 const onceSubscribers = new Map<Unit, Subscriber[]>();
 
-const interval = 0.5;
+const interval = 0.1;
 
 export class UnitInteraction {
   static register() {
@@ -99,10 +98,10 @@ export class UnitInteraction {
         if (!shouldFace) {
           targets.delete(unit);
           if (isIdle && unit.isAlive()) {
-            setUnitFacingWithRate(unit, oldFacing, interval);
+            setUnitFacingWithRate(unit, oldFacing, 0.5);
           }
         } else {
-          SetUnitFacingToFaceUnitTimed(unit.handle, facingToUnit.handle, interval);
+          SetUnitFacingToFaceUnitTimed(unit.handle, facingToUnit.handle, 0.5);
         }
       }
     });
@@ -115,33 +114,47 @@ export class UnitInteraction {
       }
       soundThrottleSet.add(target);
 
-      const soundTypes: SoundType[] = ['What'];
       const data = targets.has(target) ? targets.get(target) : null;
 
-      if (data != null && data.soundLastTimeS > getTimeS() - 3) { // recently played
-        soundTypes.push('Yes');
+      // Selecting sounds to play
+      let soundPaths: string[] = [];
+      if (data != null) {
+        soundPaths = getUnitSounds(target.typeId, 'What').filter((s) => !data.playedSounds.includes(s));
+        if (data.soundLastTimeS > getTimeS() - 3) { // last played recently
+          if (data.playedSounds.length >= 3) {
+            const pissed = getUnitSounds(target.typeId, 'Pissed')
+              .filter((s) => !data.playedSounds.includes(s))
+              .slice(0, 1);
+            if (pissed.length > 0) {
+              soundPaths = pissed;
+            }
+          }
+        } else {
+          data.playedSounds = [];
+        }
+        if (soundPaths.length === 0) {
+          data.playedSounds = [];
+          soundPaths = getUnitSounds(target.typeId, 'What');
+        }
+      } else {
+        soundPaths = getUnitSounds(target.typeId, 'What');
       }
 
-      const sounds = getUnitSounds(target.typeId, ...soundTypes);
-      if (sounds.length > 0) {
-        let soundPath: string;
-        if (sounds.length === 1) {
-          soundPath = sounds[0];
-        } else if (data && data.soundLastFile.length > 0) {
-          soundPath = pickRandom(sounds.filter((s) => s !== data.soundLastFile));
-        } else {
-          soundPath = pickRandom(sounds);
-        }
+      // Play sound
+      const soundPath = pickRandom(soundPaths);
+      if (soundPath != null) {
         const snd = CreateSound(soundPath, false, true, true, 1, 1, 'DefaultEAXON');
-        SetSoundChannel(snd, 1);
-        PlaySoundOnUnitBJ(snd, 90, target.handle);
+        SetSoundChannel(snd, 0);
+        muteUnitSound();
+        PlaySoundOnUnitBJ(snd, 100, target.handle);
         KillSoundWhenDone(snd);
         setTimeout(GetSoundDuration(snd) / 1000, () => {
+          unmuteUnitSound();
           soundThrottleSet.delete(target);
           if (targets.has(target)) {
             const data = targets.get(target);
             data.soundLastTimeS = getTimeS();
-            data.soundLastFile = soundPath;
+            data.playedSounds.push(soundPath);
           }
         });
         UnitAddIndicator(
@@ -190,6 +203,8 @@ export class UnitInteraction {
 
 export function setAttention(unitFrom: Unit, unitTo: Unit) {
   if (!unitFrom.isAlive()) return;
+  if (targets.has(unitFrom) && targets.get(unitFrom).facingToUnit === unitTo) return;
+
   unitFrom.issueImmediateOrder(OrderId.Stop);
   ResetUnitAnimation(unitFrom.handle);
   const oldFacing = targets.get(unitFrom)?.oldFacing ?? unitFrom.facing;
@@ -197,8 +212,7 @@ export function setAttention(unitFrom: Unit, unitTo: Unit) {
     facingToUnit: unitTo,
     oldFacing,
     soundLastTimeS: -99,
-    soundCount: 0,
-    soundLastFile: '',
+    playedSounds: [],
     maxRadius: Math.max(unfocusDistance, DistanceBetweenLocs(unitFrom, unitTo) + 200),
   });
 }
@@ -222,5 +236,18 @@ export function enableInteractSound(unit: Unit) {
 export function disableInteractSound(...units: Unit[]) {
   for (const unit of units) {
     setUnitFlag(unit, Flag.MUTE_INTERACTION_SOUND, true);
+  }
+}
+
+let unitSoundMute = 0;
+function muteUnitSound() {
+  unitSoundMute++;
+  VolumeGroupSetVolume(SOUND_VOLUMEGROUP_UNITSOUNDS, 0);
+}
+
+function unmuteUnitSound() {
+  unitSoundMute--;
+  if (unitSoundMute === 0) {
+    VolumeGroupSetVolume(SOUND_VOLUMEGROUP_UNITSOUNDS, 1);
   }
 }

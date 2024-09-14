@@ -55,7 +55,7 @@ export class StrikeBack extends BaseQuest {
     knightIntro1 = createDialogSound(
       'QuestSounds\\strike-back\\strike-back-knight-intro-1.mp3',
       knightName,
-      'Mayor, I bring dire news. Our patrol to the lumber mill was ambushed by a horde of undead. All our men... they didn\'t make it back.This traveler managed to kill the Lich leader and escape, but the situation is grave.',
+      'Mayor, I bring dire news. Our patrol to the lumber mill was ambushed by a horde of undead. All our men... they didn\'t make it back. This traveler managed to kill the Lich leader and escape, but the situation is grave.',
     );
     mayorIntro1 = createDialogSound(
       'QuestSounds\\strike-back\\strike-back-mayor-intro-1.mp3',

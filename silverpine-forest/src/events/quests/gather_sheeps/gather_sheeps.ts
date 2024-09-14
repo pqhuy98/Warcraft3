@@ -132,7 +132,7 @@ export class GatherSheeps extends BaseQuest {
       if (level <= maxLevel && !this.isFailed()) {
         const sleepEffect = Effect.createAttachment(MODEL_SleepTarget, sheepBoy, 'overhead');
         // mimic sleep animation
-        let canSleep = false;
+        let canSleep = true;
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         waitUntil(5, () => {
           if (!sheepBoy.isAlive()) {
@@ -140,7 +140,7 @@ export class GatherSheeps extends BaseQuest {
             sleepEffect.destroy();
             return true;
           }
-          if (!canSleep) {
+          if (canSleep) {
             ResetUnitAnimation(sheepBoy.handle);
             sheepBoy.setAnimation('decay flesh');
             sheepBoy.setTimeScale(0.1);
@@ -150,7 +150,7 @@ export class GatherSheeps extends BaseQuest {
         });
 
         const traveler = await this.talkToQuestGiver(sheepBoy, false);
-        canSleep = true;
+        canSleep = false;
 
         // wake up
         ResetUnitAnimation(sheepBoy.handle);

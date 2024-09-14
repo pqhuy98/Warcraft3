@@ -162,20 +162,8 @@ export class MiscEvents {
         });
       });
 
-    // Players become hostile if being friendly fired
-    buildTrigger((t) => {
-      t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
-      t.addCondition(() => {
-        const killer = Unit.fromHandle(GetKillingUnit());
-        const victim = Unit.fromHandle(GetDyingUnit());
-        return victim.owner !== killer.owner && victim.isAlly(killer.owner);
-      });
-      t.addAction(() => {
-        const killer = Unit.fromHandle(GetKillingUnit());
-        const victim = Unit.fromHandle(GetDyingUnit());
-        setAllianceState2Way(victim.owner, killer.owner, 'enemy');
-      });
-    });
+    // Prevent/punish friendly fire
+    this.preventFriendlyFire();
   }
 
   // 9 footmen in Shadowfang practice
@@ -224,6 +212,40 @@ export class MiscEvents {
         timer.pause();
         timer.destroy();
       }
+    });
+  }
+
+  static preventFriendlyFire() {
+    // Players become hostile if being friendly fired
+    buildTrigger((t) => {
+      t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
+      t.addCondition(() => {
+        const killer = Unit.fromHandle(GetKillingUnit());
+        const victim = Unit.fromHandle(GetDyingUnit());
+        if (victim.owner === neutralPassive) return false;
+        return victim.owner !== killer.owner && victim.isAlly(killer.owner);
+      });
+      t.addAction(() => {
+        const killer = Unit.fromHandle(GetKillingUnit());
+        const victim = Unit.fromHandle(GetDyingUnit());
+        setAllianceState2Way(victim.owner, killer.owner, 'enemy');
+      });
+    });
+
+    // All players cannot attack allies
+    buildTrigger((t) => {
+      t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED);
+      t.addCondition(() => {
+        const attacker = Unit.fromHandle(GetAttacker());
+        const victim = Unit.fromEvent();
+        return victim.owner !== attacker.owner
+          && attacker.owner.isPlayerAlly(victim.owner)
+          && victim.owner !== neutralPassive;
+      });
+      t.addAction(() => {
+        const attacker = Unit.fromHandle(GetAttacker());
+        attacker.issueImmediateOrder(OrderId.Stop);
+      });
     });
   }
 }
