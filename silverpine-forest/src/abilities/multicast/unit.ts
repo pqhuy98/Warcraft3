@@ -8,14 +8,14 @@ import {
   setUnitScale,
   tieUnitToUnit,
 } from 'lib/unit';
-import { Unit } from 'w3ts';
+import { Trigger, Unit } from 'w3ts';
 
 export class MulticastUnit {
   static Data = {
-    getEffectRadius: () => (500),
+    getEffectRadius: (): number => (500),
   };
 
-  static register(abilityId?: number, caster?: Unit, singleDummy: boolean = true) {
+  static register(abilityId?: number, caster?: Unit, singleDummy: boolean = true): Trigger {
     return buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       if (abilityId) {
@@ -76,7 +76,12 @@ export class MulticastUnit {
     });
   }
 
-  private static createDummyWithAbility(caster: Unit, duration: number, abiId: number, abiLevel: number) {
+  private static createDummyWithAbility(
+    caster: Unit,
+    duration: number,
+    abiId: number,
+    abiLevel: number,
+  ): Unit {
     const dummy = createDummy(caster.owner, caster.x, caster.y, caster, duration, caster.facing);
     dummy.setflyHeight(caster.getflyHeight(), 0);
     dummy.addAbility(abiId);

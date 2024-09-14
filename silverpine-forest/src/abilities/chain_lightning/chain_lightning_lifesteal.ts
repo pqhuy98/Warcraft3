@@ -3,7 +3,7 @@ import { getDummyMaster, getUnitsInRect } from 'lib/unit';
 import { Group, Unit } from 'w3ts';
 
 export class ChainLightningLifesteal {
-  static register(abilityId: number) {
+  static register(abilityId: number): void {
     const trackedUnits = Group.create();
 
     const lifestealTrigger = buildTrigger((t) => {

@@ -45,7 +45,7 @@ export class MovingTerrainEffect {
     this.tileQueue = new TimestampedQueue<{ loc: Loc, typeId: number }>({
       debugName: 'terrain',
       itemExpireS: durationS,
-      cleanUp: (v) => {
+      cleanUp: (v): void => {
         if (!this.destroyed && unit.isAlive() && DistanceBetweenLocs(unit, v.loc) <= radius) {
           this.tileQueue.push({
             timestamp: getTimeS(),
@@ -91,7 +91,7 @@ export class MovingTerrainEffect {
     });
   }
 
-  destroy() {
+  destroy(): void {
     this.destroyed = true;
     this.tileQueue.destroy();
     this.timer.pause();

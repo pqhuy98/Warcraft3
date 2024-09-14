@@ -8,10 +8,10 @@ import {
   safeRemoveDummy,
   setUnitScale,
 } from 'lib/unit';
-import { Timer, Unit } from 'w3ts';
+import { Timer, Trigger, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
-function isNotMorphAbility() {
+function isNotMorphAbility(): boolean {
   return BlzGetAbilityStringLevelField(
     GetSpellAbility(),
     ABILITY_SLF_NORMAL_FORM_UNIT_EME1,
@@ -24,7 +24,7 @@ export class MulticastNoTarget {
     REPEAT_CAST: 3,
   };
 
-  static register(abilityId?: number, specificCaster?: Unit) {
+  static register(abilityId?: number, specificCaster?: Unit): Trigger {
     return buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       t.addCondition(() => !isDummy(Unit.fromHandle(GetSpellAbilityUnit()))
@@ -70,7 +70,7 @@ export class MulticastNoTarget {
         growUnit(dummy, scale * 1.5, this.Data.REPEAT_CAST * castPoint);
         const targetLoc = GetSpellTargetLoc();
 
-        const dummyCast = () => {
+        const dummyCast = (): void => {
           dummy.issueImmediateOrder(order);
         };
 
@@ -88,7 +88,7 @@ export class MulticastNoTarget {
 
         buildTrigger((t2) => {
           let tLimit = Timer.create();
-          const startCleanUp = () => {
+          const startCleanUp = (): void => {
             t2.destroy();
             tLimit.pause();
             tLimit.destroy();

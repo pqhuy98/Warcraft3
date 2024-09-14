@@ -117,7 +117,7 @@ export function preserveUnit(unit: Unit): RestoreFunction {
   return restore;
 }
 
-export function undoPreserveUnit(unit: Unit) {
+export function undoPreserveUnit(unit: Unit): void {
   const data = preservedUnits.get(unit);
   if (!data) {
     log(`Warn: cannot undo-preserve a no-longer-preserved unit: ${unit.name}`);
@@ -126,7 +126,7 @@ export function undoPreserveUnit(unit: Unit) {
   preservedUnits.delete(unit);
 }
 
-export function restoreUnit(unit: Unit, mode: RestoreMode) {
+export function restoreUnit(unit: Unit, mode: RestoreMode): void {
   const data = preservedUnits.get(unit);
   if (data) {
     data.restore(mode);
@@ -135,7 +135,7 @@ export function restoreUnit(unit: Unit, mode: RestoreMode) {
   }
 }
 
-export function registerPreseveUnits() {
+export function registerPreseveUnits(): void {
   onChatCommand('-ps', true, () => {
     temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer())))
       .for(() => preserveUnit(Unit.fromEnum()));
@@ -162,7 +162,7 @@ export function isPreservedUnitAlive(unit: Unit): boolean {
     : unit.isAlive();
 }
 
-function restoreFromSave(unit: Unit, save: UnitSave) {
+function restoreFromSave(unit: Unit, save: UnitSave): void {
   unit.life = save.lifePercent * unit.maxLife;
   unit.mana = save.manaPercent * unit.maxMana;
   unit.x = save.position.x;

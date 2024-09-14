@@ -25,7 +25,7 @@ export function getAttackRange(unit: Unit, weaponIndex:number):number {
   return BlzGetUnitWeaponRealField(unit.handle, UNIT_WEAPON_RF_ATTACK_RANGE, weaponIndex);
 }
 
-export function setAttackRange(unit: Unit, weaponIndex: number, value:number) {
+export function setAttackRange(unit: Unit, weaponIndex: number, value:number): void {
   const currentRange = getAttackRange(unit, weaponIndex); // index is correct, returned range is correct.
   const secondRange = getAttackRange(unit, weaponIndex + 1); // yes, we should get the 2nd attack range and count it too
 
@@ -37,7 +37,7 @@ export function setAttackRange(unit: Unit, weaponIndex: number, value:number) {
   );
 }
 
-export function distanceBetweenUnits(u1: Unit, u2:Unit) {
+export function distanceBetweenUnits(u1: Unit, u2:Unit): number {
   const l1 = getUnitXY(u1);
   const l2 = getUnitXY(u2);
   const result = DistanceBetweenLocs(l1, l2);
@@ -59,7 +59,7 @@ export function fadeUnit(
   alphaLossPerSec: number,
   checkCancel: () => boolean,
   onComplete: () => void,
-) {
+): void {
   k0('fade');
   const t = Timer.create();
 
@@ -89,16 +89,16 @@ export function fadeUnit(
   });
 }
 
-export function setUnitScale(u: Unit, scale: number) {
+export function setUnitScale(u: Unit, scale: number): void {
   u.setField(UNIT_RF_SCALING_VALUE, scale);
   u.setScale(scale, 0, 0);
 }
 
-export function getUnitScale(u: Unit) {
+export function getUnitScale(u: Unit): number {
   return u.getField(UNIT_RF_SCALING_VALUE) as number;
 }
 
-export function growUnit(u: Unit, targetScale: number, duration: number, initialScale?: number) {
+export function growUnit(u: Unit, targetScale: number, duration: number, initialScale?: number): void {
   k0('grwu');
   const startingScale = initialScale ?? getUnitScale(u);
   setIntervalForDuration(0.1, duration, (i, repeat) => {
@@ -113,7 +113,7 @@ const unitTies = new Map<Unit, Unit>();
 let tieUnitTimer: Timer;
 let isTieUnitTimerPaused = true;
 
-export function tieUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
+export function tieUnitToUnit(tiedUnit: Unit, targetUnit: Unit): void {
   k0('tu2u');
   unitTies.set(tiedUnit, targetUnit);
   relocateUnitToUnit(tiedUnit, targetUnit);
@@ -123,7 +123,7 @@ export function tieUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
   }
 }
 
-export function daemonTieUnitToUnit() {
+export function daemonTieUnitToUnit(): void {
   tieUnitTimer = setIntervalIndefinite(0.03, () => {
     if (unitTies.size === 0) {
       tieUnitTimer.pause();
@@ -139,7 +139,7 @@ export function daemonTieUnitToUnit() {
   onChatCommand('-tu2u', true, () => { log('unitTies', unitTies.size); }, 'Debug', 'Print number of units that are tied to another unit.');
 }
 
-function relocateUnitToUnit(tiedUnit: Unit, targetUnit: Unit) {
+function relocateUnitToUnit(tiedUnit: Unit, targetUnit: Unit): void {
   if (isUnitRemoved(tiedUnit) || isUnitRemoved(targetUnit)) {
     unitTies.delete(tiedUnit);
     return;
@@ -167,7 +167,7 @@ export function enumUnitsWithDelay(
   units: Unit[],
   callback: (u: Unit, index: number) => void,
   durationPerStep: number,
-) {
+): void {
   if (units.length === 0) {
     return;
   }
@@ -194,7 +194,7 @@ export function getDummyMaster(dummy: unit): Unit {
 
 let dummyCreatedCount = 0;
 
-export function daemonDummyMaster() {
+export function daemonDummyMaster(): void {
   setIntervalIndefinite(5, () => {
     if (dummyMaster.size === 0) return;
     for (const dummy of dummyMaster.keys()) {
@@ -208,7 +208,14 @@ export function daemonDummyMaster() {
   onChatCommand('-dmc', true, () => { log('dummy created count', dummyCreatedCount); }, 'Debug', 'Print number of dummies ever created.');
 }
 
-export function createDummy(owner: MapPlayer, locX: number, locY: number, master: Unit, timespan: number, facing = 0) {
+export function createDummy(
+  owner: MapPlayer,
+  locX: number,
+  locY: number,
+  master: Unit,
+  timespan: number,
+  facing = 0,
+): Unit {
   dummyCreatedCount++;
   const dummy = Unit.create(owner, UNIT_ID_DUMMY, locX, locY, facing);
   if (timespan > 0) {
@@ -221,28 +228,28 @@ export function createDummy(owner: MapPlayer, locX: number, locY: number, master
   return dummy;
 }
 
-export function safeRemoveDummy(dummy: Unit) {
+export function safeRemoveDummy(dummy: Unit): void {
   dummy.kill();
   dummy.show = false;
 }
 
-export function isBuilding(unit: Unit) {
+export function isBuilding(unit: Unit): boolean {
   return !!unit.isUnitType(UNIT_TYPE_STRUCTURE);
 }
 
-export function isWard(unit: Unit) {
+export function isWard(unit: Unit): boolean {
   return ConvertTargetFlag(unit.getField(UNIT_IF_TARGETED_AS) as number) === TARGET_FLAG_WARD;
 }
 
-export function isOrganic(unit: Unit) {
+export function isOrganic(unit: Unit): boolean {
   return !isBuilding(unit) && !unit.isUnitType(UNIT_TYPE_MECHANICAL) && !isWard(unit);
 }
 
-export function isDummy(unit: Unit) {
+export function isDummy(unit: Unit): boolean {
   return unit.typeId === UNIT_ID_DUMMY;
 }
 
-export function getUnitsInRangeOfLoc(range: number, loc: Loc, filter?: (u: Unit) => boolean) {
+export function getUnitsInRangeOfLoc(range: number, loc: Loc, filter?: (u: Unit) => boolean): Unit[] {
   let group: group;
   let condition: conditionfunc;
   if (filter) {
@@ -259,7 +266,7 @@ export function getUnitsInRangeOfLoc(range: number, loc: Loc, filter?: (u: Unit)
   return results;
 }
 
-export function orderUnitUseItemAbilityAtLoc(unit: Unit, abilityId: number, loc: Loc) {
+export function orderUnitUseItemAbilityAtLoc(unit: Unit, abilityId: number, loc: Loc): void {
   for (let i = 0; i < 6; i++) {
     const itm = UnitItemInSlot(unit.handle, i + 1);
     if (itm == null) continue;
@@ -273,14 +280,14 @@ export function orderUnitUseItemAbilityAtLoc(unit: Unit, abilityId: number, loc:
 }
 
 const crowFormAbilityId = ABILITY_RavenFormMedivh.id;
-export function makeFlyable(unit: Unit) {
+export function makeFlyable(unit: Unit): void {
   if (unit.getAbilityLevel(crowFormAbilityId) === 0) {
     unit.addAbility(crowFormAbilityId);
     unit.removeAbility(crowFormAbilityId);
   }
 }
 
-export function getUnitsInRect(rect: rect, filter?: (u: Unit) => boolean) {
+export function getUnitsInRect(rect: rect, filter?: (u: Unit) => boolean): Unit[] {
   let group: group;
   let condition: conditionfunc;
   if (filter) {
@@ -297,7 +304,7 @@ export function getUnitsInRect(rect: rect, filter?: (u: Unit) => boolean) {
   return results;
 }
 
-export function getUnitsOfPlayer(player: MapPlayer, filter?: (u: Unit) => boolean) {
+export function getUnitsOfPlayer(player: MapPlayer, filter?: (u: Unit) => boolean): Unit[] {
   let group: group;
   let condition: conditionfunc;
   if (filter) {
@@ -314,24 +321,24 @@ export function getUnitsOfPlayer(player: MapPlayer, filter?: (u: Unit) => boolea
   return results;
 }
 
-export function isUnitIdle(unit: Unit) {
+export function isUnitIdle(unit: Unit): boolean {
   return unit.currentOrder === OrderId.Stop || unit.currentOrder === 0;
 }
 
-export function setUnitFacingWithRate(unit: Unit, angle: number, rate: number = 180 / 0.75) {
+export function setUnitFacingWithRate(unit: Unit, angle: number, rate: number = 180 / 0.75): void {
   const angleDiff = angleDifference(unit.facing, angle);
   SetUnitFacingTimed(unit.handle, angle, angleDiff / rate);
 }
 
-export function setUnitFacingTimed(unit: Unit, angle: number, duration = 0.75) {
+export function setUnitFacingTimed(unit: Unit, angle: number, duration = 0.75): void {
   SetUnitFacingTimed(unit.handle, angle, duration);
 }
 
-export function isUnitType(u: Unit, unitTypes: UNIT_TYPE) {
+export function isUnitType(u: Unit, unitTypes: UNIT_TYPE): boolean {
   return u.typeId === FourCC(unitTypes.code);
 }
 
-export function enumUnitAbilities(unit: Unit, callback: (ability: ability, id: number, level: number) => unknown) {
+export function enumUnitAbilities(unit: Unit, callback: (ability: ability, id: number, level: number) => unknown): void {
   const ignoreList = [
     ABILITY_Attack, ABILITY_Move, ABILITY_CreepSleep, ABILITY_BurrowDetectionFlyers,
     ABILITY_Burrow, ABILITY_BurrowBarbedArachnathid, ABILITY_BurrowScarabLvl2, ABILITY_BurrowScarabLvl3,
@@ -357,7 +364,7 @@ export function isUnitRemoved(unit: Unit): boolean {
 
 const invulnerableTriggers = new Map<Unit, Trigger>();
 
-export function setNeverDie(unit: Unit, state = true, lowestHp: number = unit.maxLife) {
+export function setNeverDie(unit: Unit, state = true, lowestHp: number = unit.maxLife): void {
   if (state && invulnerableTriggers.has(unit)) return;
 
   if (state) {

@@ -5,6 +5,6 @@ ALL_HEROES.forEach((hero) => {
   heroMap.set(FourCC(hero.code), hero);
 });
 
-export function getHero(typeId: number) {
+export function getHero(typeId: number): Hero {
   return heroMap.get(typeId);
 }

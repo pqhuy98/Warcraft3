@@ -10,7 +10,7 @@ const excludedAbilityIds = [
 
 const abilitySet = new Set<number>(excludedAbilityIds);
 
-export function useReforgedIcons() {
+export function useReforgedIcons(): void {
   const units = temp(Group.fromHandle(GetUnitsInRectAll(GetWorldBounds())));
   units.for(() => updateReforgedIcons(Unit.fromEnum()));
 
@@ -22,7 +22,7 @@ export function useReforgedIcons() {
   });
 }
 
-function updateReforgedIcons(unit: Unit) {
+function updateReforgedIcons(unit: Unit): void {
   for (let i = 0; ; i++) {
     const ability = unit.getAbilityByIndex(i);
     if (ability) {

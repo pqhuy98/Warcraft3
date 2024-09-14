@@ -3,7 +3,7 @@ import { ChainLightningLifesteal } from './chain_lightning_lifesteal';
 import { ChainLightningMulticast } from './chain_lightning_multicast';
 
 export class ChainLightning {
-  static register(abilityId: number) {
+  static register(abilityId: number): void {
     ChainLightningMulticast.register(abilityId);
     ChainLightningAttack.register(abilityId);
     ChainLightningLifesteal.register(abilityId);

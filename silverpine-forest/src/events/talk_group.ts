@@ -12,11 +12,11 @@ export class TalkGroup {
   constructor(public units: Unit[]) {
   }
 
-  addUnit(unit: Unit) {
+  addUnit(unit: Unit): void {
     this.units.push(unit);
   }
 
-  async speak(speakingUnit: Unit, sound: sound, target: Unit | null, everyoneAttention: Unit | null) {
+  async speak(speakingUnit: Unit, sound: sound, target: Unit | null, everyoneAttention: Unit | null): Promise<void> {
     this.units.forEach((u) => {
       disableInteractSound(u);
       setUnitFlag(u, Flag.UNBREAKABLE_ATTENTION, true);
@@ -40,13 +40,13 @@ export class TalkGroup {
     });
   }
 
-  setEveryoneAttention(target: Unit) {
+  setEveryoneAttention(target: Unit): void {
     this.units.forEach((u) => {
       setAttention(u, target);
     });
   }
 
-  finish() {
+  finish(): void {
     this.units.forEach((u) => removeAttention(u));
   }
 }

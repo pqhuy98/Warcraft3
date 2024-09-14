@@ -83,15 +83,15 @@ export function shuffleArray<T>(array: T[], coefficient: number = 1): T[] {
   return array;
 }
 
-export function classic(resourcePath: string) {
+export function classic(resourcePath: string): string {
   return `war3.w3mod:${resourcePath}`;
 }
 
-export function reforged(resourcePath: string) {
+export function reforged(resourcePath: string): string {
   return `_hd.w3mod:${resourcePath}`;
 }
 
-export function isReforgedForcefully(resourcePath: string) {
+export function isReforgedForcefully(resourcePath: string): boolean {
   return resourcePath.startsWith('_hd.w3mod:');
 }
 
@@ -123,7 +123,7 @@ export function reverseFourCC(code: number): string {
   return char1 + char2 + char3 + char4;
 }
 
-export function numberToOrdinal(i: number) {
+export function numberToOrdinal(i: number): string {
   const j = i % 10;
   const k = i % 100;
   if (j === 1 && k !== 11) {

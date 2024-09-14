@@ -41,11 +41,11 @@ const debug = false;
 export class BlackTurban extends BaseQuest {
   static globalDisableCount = 0;
 
-  static disable() {
+  static disable(): void {
     this.globalDisableCount++;
   }
 
-  static enable() {
+  static enable(): void {
     this.globalDisableCount--;
   }
 
@@ -130,7 +130,7 @@ export class BlackTurban extends BaseQuest {
     shuffleArray(banditAgainSounds);
   }
 
-  async register() {
+  async register(): Promise<void> {
     await this.waitDependenciesDone();
     await sleep(60);
 
@@ -138,7 +138,7 @@ export class BlackTurban extends BaseQuest {
       banditPlayer, victimPlayer, safeRects,
     } = this.globals;
 
-    const isUnsafeLoc = (loc: Loc) => safeRects.every((rect) => !isLocInRect(loc, rect));
+    const isUnsafeLoc = (loc: Loc): boolean => safeRects.every((rect) => !isLocInRect(loc, rect));
 
     for (let attempt = 0; ; attempt++) {
       let victim: Unit;
@@ -236,7 +236,7 @@ export class BlackTurban extends BaseQuest {
     }
   }
 
-  async handleBanditAttack(bandits: Unit[], victim: Unit) {
+  async handleBanditAttack(bandits: Unit[], victim: Unit): Promise<void> {
     const {
       banditHomeEntranceRect, banditHomeRect,
     } = this.globals;
@@ -308,6 +308,6 @@ export class BlackTurban extends BaseQuest {
   }
 }
 
-function isNightTime() {
+function isNightTime(): boolean {
   return GetTimeOfDay() < 6 || GetTimeOfDay() > 18;
 }

@@ -91,7 +91,7 @@ export class LumberMillPart2 extends BaseQuest {
     );
   }
 
-  async register() {
+  async register(): Promise<void> {
     const {
       john, peter, knight, mayor, footmen,
       undeadAttackers,
@@ -283,7 +283,7 @@ export class LumberMillPart2 extends BaseQuest {
     }
   }
 
-  onForceComplete() {
+  onForceComplete(): void {
     const {
       john, peter, homeRect, knight, mayor, footmen, undeadAttackers,
     } = this.globals;

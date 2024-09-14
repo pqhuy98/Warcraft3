@@ -36,22 +36,22 @@ export function templocation(loc: location): location {
   return temp(Point.fromHandle(loc)).handle;
 }
 
-export function centerLocRect(rect: rect) {
+export function centerLocRect(rect: rect): Loc {
   return { x: GetRectCenterX(rect), y: GetRectCenterY(rect) };
 }
 
-export function randomLocRect(rect: rect) {
+export function randomLocRect(rect: rect): Loc {
   return {
     x: GetRandomReal(GetRectMinX(rect), GetRectMaxX(rect)),
     y: GetRandomReal(GetRectMinY(rect), GetRectMaxY(rect)),
   };
 }
 
-export function currentLoc(loc: Loc) {
+export function currentLoc(loc: Loc): Loc {
   return { x: loc.x, y: loc.y };
 }
 
-export function daemonTempCleanUp() {
+export function daemonTempCleanUp(): void {
   onChatCommand('-temp', true, () => {
     log('Temp destroyable:', temps.length + nextTemps.length);
   }, 'Debug', 'Print how many pending leakable destroys.');
@@ -88,11 +88,11 @@ export function PolarProjection(loc: Loc, offset: number, angleDeg: number): Loc
 /**
  * @return angle in degree
  */
-export function AngleBetweenLocs(loc1: Loc, loc2: Loc) {
+export function AngleBetweenLocs(loc1: Loc, loc2: Loc): number {
   return Math.atan2(loc2.y - loc1.y, loc2.x - loc1.x) * RAD_TO_ANGLE;
 }
 
-export function DistanceBetweenLocs(loc1: Loc, loc2: Loc) {
+export function DistanceBetweenLocs(loc1: Loc, loc2: Loc): number {
   const dx = loc2.x - loc1.x;
   const dy = loc2.y - loc1.y;
   return Math.sqrt(dx * dx + dy * dy);
@@ -106,13 +106,13 @@ export function locY(loc: location): number {
   return GetLocationY(loc);
 }
 
-export function isLocInRect(loc: Loc, rect: rect) {
+export function isLocInRect(loc: Loc, rect: rect): boolean {
   const Rect = Rectangle.fromHandle(rect);
   return Rect.minX - 10 <= loc.x && loc.x < Rect.maxX + 10
     && Rect.minY - 10 <= loc.y && loc.y < Rect.maxY + 10;
 }
 
-export function cameraCenter() {
+export function cameraCenter(): Loc {
   return fromTempLocation(GetCameraTargetPositionLoc());
 }
 

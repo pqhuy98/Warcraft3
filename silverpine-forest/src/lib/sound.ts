@@ -3,7 +3,7 @@ import { Effect, sleep, Unit } from 'w3ts';
 
 import { MODEL_Chat_Bubble } from './constants';
 
-export async function playSpeech(unit: Unit, sound: sound, target?: Unit) {
+export async function playSpeech(unit: Unit, sound: sound, target?: Unit): Promise<void> {
   if (target) {
     setAttention(unit, target);
   }
@@ -25,7 +25,11 @@ export async function playSpeech(unit: Unit, sound: sound, target?: Unit) {
   VolumeGroupReset();
 }
 
-export async function playSoundIsolate(sound: sound, volume: number, startingOffset: number) {
+export async function playSoundIsolate(
+  sound: sound,
+  volume: number,
+  startingOffset: number,
+): Promise<void> {
   StopSound(sound, false, false);
   SetMusicVolume(0);
   PlaySoundFromOffsetBJ(sound, volume, startingOffset);

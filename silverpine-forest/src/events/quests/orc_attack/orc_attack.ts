@@ -210,7 +210,7 @@ export class OrcAttack extends BaseQuest {
     ];
   }
 
-  async register() {
+  async register(): Promise<void> {
     const {
       archmage, footman, footManNewLocRec, corpsesRect,
       captain,
@@ -411,7 +411,7 @@ export class OrcAttack extends BaseQuest {
         if (!attackersArrive && attackers.some((u) => u.life < u.maxLife)) {
           attackersArrive = true;
           // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          (async () => {
+          (async (): Promise<void> => {
             for (const { unit, unitType, sound } of speeches[0]) {
               if (unit && isPreservedUnitAlive(unit)) {
                 await talkGroup.speak(unit, sound, null, null);
@@ -442,6 +442,6 @@ export class OrcAttack extends BaseQuest {
     return 'no more wave';
   }
 
-  onForceComplete() {
+  onForceComplete(): void {
   }
 }

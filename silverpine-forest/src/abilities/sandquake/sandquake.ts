@@ -29,8 +29,8 @@ const MODEL_AncientProtectorMissile_classic = classic(MODEL_AncientProtectorMiss
 export default class Sandquake {
   static Data = {
     ABILITY_IDS: <number[]>[],
-    getEffectRadius: () => (500),
-    targetMatching: (caster: Unit, unit: Unit) => unit.isAlive()
+    getEffectRadius: (): number => (500),
+    targetMatching: (caster: Unit, unit: Unit): boolean => unit.isAlive()
       && unit.isEnemy(caster.getOwner())
       && !unit.invulnerable
       && !isBuilding(unit)
@@ -40,7 +40,7 @@ export default class Sandquake {
 
   static unitDestination = new Map<Unit, Loc>();
 
-  static register(abilityId: number) {
+  static register(abilityId: number): void {
     Sandquake.Data.ABILITY_IDS.push(abilityId);
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
@@ -219,7 +219,7 @@ export default class Sandquake {
     });
   }
 
-  static isCasting(unit: Unit) {
+  static isCasting(unit: Unit): boolean {
     return this.unitDestination.has(unit);
   }
 }

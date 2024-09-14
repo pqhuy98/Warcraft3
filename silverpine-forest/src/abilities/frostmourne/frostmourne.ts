@@ -29,9 +29,9 @@ export default class Frostmourne {
     SOUL_MODEL: MODEL_ZigguratMissile,
     LIFE_PERCENT_RESTORED_PER_SOUL: 0.02,
     MANA_PERCENT_RESTORED_PER_SOUL: 0.01,
-    getSoulReturnSpeed: () => (700),
-    getSoulEffectFinalHeight: () => (150),
-    targetMatching: (killer: Unit, victim: Unit) => !victim.isAlive()
+    getSoulReturnSpeed: (): number => (700),
+    getSoulEffectFinalHeight: (): number => (150),
+    targetMatching: (killer: Unit, victim: Unit): boolean => !victim.isAlive()
       && !victim.isUnitType(UNIT_TYPE_MECHANICAL)
       && !victim.isIllusion()
       && !isBuilding(victim)
@@ -50,7 +50,7 @@ export default class Frostmourne {
 
   static isTimerPaused = false;
 
-  static register(abilityId: number) {
+  static register(abilityId: number): void {
     Frostmourne.Data.ABILITY_IDS.push(abilityId);
 
     buildTrigger((t) => {
@@ -110,7 +110,7 @@ export default class Frostmourne {
     });
   }
 
-  static collectSoul(killer: Unit, victim: Unit) {
+  static collectSoul(killer: Unit, victim: Unit): void {
     if (checkUnitFlag(victim, Flag.FROSTMOURNE_SOUL_HARVESTED)) return;
 
     k0('fstm');

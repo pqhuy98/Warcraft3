@@ -57,7 +57,7 @@ export class RabbitHunt extends BaseQuest {
     });
   }
 
-  async register() {
+  async register(): Promise<void> {
     const { jacob, wheatFieldRects } = this.globals;
     jacob.name = 'Villager Jacob';
     setNeverDie(jacob, true, 1);

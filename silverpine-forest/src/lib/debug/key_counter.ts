@@ -2,15 +2,15 @@ import { log } from 'lib/log';
 
 export const k: Record<string, number> = {};
 
-export function k0(key: string) {
+export function k0(key: string): void {
   k[key] = (k[key] ?? 0) + 1;
 }
 
-export function k1(key: string) {
+export function k1(key: string): void {
   k[key] = (k[key] ?? 0) - 1;
 }
 
-export function logDiscrepancy() {
+export function logDiscrepancy(): void {
   let zeroCount = 0;
   for (const key of Object.keys(k)) {
     if (k[key] > 0) {

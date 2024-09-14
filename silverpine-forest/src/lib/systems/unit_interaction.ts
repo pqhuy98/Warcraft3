@@ -36,7 +36,7 @@ const onceSubscribers = new Map<Unit, Subscriber[]>();
 const interval = 0.1;
 
 export class UnitInteraction {
-  static register() {
+  static register(): void {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER);
       t.addCondition(() => {
@@ -107,7 +107,7 @@ export class UnitInteraction {
     });
   }
 
-  static playRandomSound(unit: Unit, target: Unit) {
+  static playRandomSound(unit: Unit, target: Unit): void {
     if (unit.owner === MapPlayer.fromLocal()) {
       if (soundThrottleSet.has(target)) {
         return;
@@ -172,7 +172,7 @@ export class UnitInteraction {
     }
   }
 
-  static onStartOnce(unit: Unit, callback: Subscriber) {
+  static onStartOnce(unit: Unit, callback: Subscriber): ReturnType<Subscriber> {
     if (onceSubscribers.has(unit)) {
       onceSubscribers.get(unit).push(callback);
     } else {
@@ -181,7 +181,7 @@ export class UnitInteraction {
     return callback;
   }
 
-  static waitUntilQuestTalk(target: Unit, mode: QuestMarkerType) {
+  static waitUntilQuestTalk(target: Unit, mode: QuestMarkerType): Promise<{ unit: Unit, target: Unit }> {
     disableInteractSound(target);
     enableQuestMarker(target, mode);
     return new Promise<{ unit: Unit, target: Unit }>((resolve) => {
@@ -192,7 +192,7 @@ export class UnitInteraction {
     });
   }
 
-  static removeAllQuestTalks(target: Unit) {
+  static removeAllQuestTalks(target: Unit): void {
     if (onceSubscribers.has(target)) {
       onceSubscribers.delete(target);
     }
@@ -201,7 +201,7 @@ export class UnitInteraction {
   }
 }
 
-export function setAttention(unitFrom: Unit, unitTo: Unit) {
+export function setAttention(unitFrom: Unit, unitTo: Unit): void {
   if (!unitFrom.isAlive()) return;
   if (unitFrom === unitTo) return;
   if (targets.has(unitFrom) && targets.get(unitFrom).facingToUnit === unitTo) return;
@@ -218,7 +218,7 @@ export function setAttention(unitFrom: Unit, unitTo: Unit) {
   });
 }
 
-export function removeAttention(unit: Unit) {
+export function removeAttention(unit: Unit): void {
   const oldFacing = targets.get(unit)?.oldFacing ?? unit.facing;
   targets.delete(unit);
   if (isUnitIdle(unit) && unit.isAlive()) {
@@ -226,27 +226,27 @@ export function removeAttention(unit: Unit) {
   }
 }
 
-export function isAttending(unit: Unit) {
+export function isAttending(unit: Unit): boolean {
   return targets.has(unit);
 }
 
-export function enableInteractSound(unit: Unit) {
+export function enableInteractSound(unit: Unit): void {
   setUnitFlag(unit, Flag.MUTE_INTERACTION_SOUND, false);
 }
 
-export function disableInteractSound(...units: Unit[]) {
+export function disableInteractSound(...units: Unit[]): void {
   for (const unit of units) {
     setUnitFlag(unit, Flag.MUTE_INTERACTION_SOUND, true);
   }
 }
 
 let unitSoundMute = 0;
-function muteUnitSound() {
+function muteUnitSound(): void {
   unitSoundMute++;
   VolumeGroupSetVolume(SOUND_VOLUMEGROUP_UNITSOUNDS, 0);
 }
 
-function unmuteUnitSound() {
+function unmuteUnitSound(): void {
   unitSoundMute--;
   if (unitSoundMute === 0) {
     VolumeGroupSetVolume(SOUND_VOLUMEGROUP_UNITSOUNDS, 1);

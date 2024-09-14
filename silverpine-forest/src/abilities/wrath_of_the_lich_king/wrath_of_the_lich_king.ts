@@ -34,8 +34,8 @@ const snowyTerrainTypes = [
 export default class WrathOfTheLichKing {
   static Data = {
     ABILITY_IDS: <number[]>[],
-    getEffectRadius: () => (1500),
-    targetMatching: (caster: Unit, unit: Unit) => unit.isAlive()
+    getEffectRadius: (): number => (1500),
+    targetMatching: (caster: Unit, unit: Unit): boolean => unit.isAlive()
       && unit.isEnemy(caster.getOwner())
       && !unit.invulnerable
       && !isBuilding(unit)
@@ -44,7 +44,7 @@ export default class WrathOfTheLichKing {
 
   static lastCachedEffectRange: number;
 
-  static register(abilityId: number) {
+  static register(abilityId: number): void {
     WrathOfTheLichKing.Data.ABILITY_IDS.push(abilityId);
 
     buildTrigger((t) => {
@@ -67,6 +67,7 @@ export default class WrathOfTheLichKing {
 
         caster.setAnimation(4);
         setTimeout(0, () => {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           playSoundIsolate(gg_snd_lich_king_stab_out, 100, 0);
           k1('wotlk1');
         });
@@ -77,7 +78,7 @@ export default class WrathOfTheLichKing {
           k1('wotlk2');
         });
 
-        const earlyStop = () => {
+        const earlyStop = (): void => {
           caster.setTimeScale(1);
           StopSoundBJ(gg_snd_lich_king_stab_out, false);
           VolumeGroupReset();
@@ -136,6 +137,7 @@ export default class WrathOfTheLichKing {
 
         setTimeout(animationDurationSwordUp + animationDurationSwordSlam + 1, () => {
           if (caster.isAlive()) {
+            // eslint-disable-next-line @typescript-eslint/no-floating-promises
             playSpeech(caster, gg_snd_lichking_frostmourne_hungers);
           }
           k1('wotlk5');
@@ -185,8 +187,8 @@ export default class WrathOfTheLichKing {
       radius,
       durationS: 3,
       terrainTypes: snowyTerrainTypes,
-      onSetTile: (x, y) => Effect.create(MODEL_FrostNovaTarget, x, y).destroy(),
-      onUnsetTile: (x, y) => {
+      onSetTile: (x, y): void => Effect.create(MODEL_FrostNovaTarget, x, y).destroy(),
+      onUnsetTile: (x, y): void => {
         const eff = Effect.create(MODEL_FreezingBreathMissile, x, y);
         setTimeout(0.02, () => eff.destroy());
       },
@@ -231,7 +233,7 @@ export default class WrathOfTheLichKing {
       cleanUp();
     });
 
-    cleanUp = () => {
+    cleanUp = (): void => {
       movingTerrainEffect.destroy();
       // setTimeout(1, () => {
       //   for (const eff of effects) {

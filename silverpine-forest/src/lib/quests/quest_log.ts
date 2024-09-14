@@ -35,24 +35,24 @@ export class QuestLog {
     return new QuestLog(q, items, questData);
   }
 
-  async completeItem(questItemIndex: number) {
+  async completeItem(questItemIndex: number): Promise<void> {
     QuestItemSetCompleted(this.items[questItemIndex], true);
     await this.notifyQuestUpdate();
   }
 
-  async updateItem(questItemIndex: number, newDescription: string) {
+  async updateItem(questItemIndex: number, newDescription: string): Promise<void> {
     QuestItemSetDescription(this.items[questItemIndex], newDescription);
     this.data.items[questItemIndex] = newDescription;
     await this.notifyQuestUpdate(questItemIndex);
   }
 
-  async insertItem(description: string, atIndex: number = this.items.length) {
+  async insertItem(description: string, atIndex: number = this.items.length): Promise<void> {
     this.data.items.splice(atIndex, 0, description);
     this.items.splice(atIndex, 0, CreateQuestItemBJ(this.quest, description));
     await this.notifyQuestUpdate();
   }
 
-  async completeWithRewards(rewards: string[]) {
+  async completeWithRewards(rewards: string[]): Promise<void> {
     await sleep(1);
     ClearTextMessages();
     QuestSetCompleted(this.quest, true);
@@ -69,7 +69,7 @@ export class QuestLog {
     await sleep(GetSoundDuration(bj_questCompletedSound) / 1000 - 2);
   }
 
-  async fail() {
+  async fail(): Promise<void> {
     ClearTextMessages();
     QuestSetFailed(this.quest, true);
 
@@ -81,7 +81,7 @@ export class QuestLog {
     await sleep(GetSoundDuration(bj_questFailedSound) / 1000);
   }
 
-  async notifyQuestUpdate(onlyIndex?: number) {
+  async notifyQuestUpdate(onlyIndex?: number): Promise<void> {
     ClearTextMessages();
     let message = `${colorize.yellow('QUEST UPDATE')}\n${this.data.name}`;
     for (let i = 0; i < this.items.length; i++) {
@@ -98,7 +98,7 @@ export class QuestLog {
   }
 }
 
-export function notifyRewards(rewards: string[]) {
+export function notifyRewards(rewards: string[]): void {
   if (rewards.length === 0) return;
 
   let message = `${colorize.yellow('REWARD')}: `;

@@ -53,7 +53,7 @@ import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
 import { ABILITY_ID_FROST_BOLT_LICH_KING } from './lib/constants';
 
-function tsMain() {
+function tsMain(): void {
   UnlockGameSpeedBJ();
   SetGameSpeed(MAP_SPEED_FASTEST);
   LockGameSpeedBJ();
@@ -105,7 +105,7 @@ function tsMain() {
   });
 }
 
-function configurePlayerSettings() {
+function configurePlayerSettings(): void {
   SetReservedLocalHeroButtons(0);
 
   const heroOnlyPlayers = [

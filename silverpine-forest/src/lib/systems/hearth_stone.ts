@@ -15,7 +15,7 @@ import { Trigger, Unit } from 'w3ts';
 
 const itemTypeId = FourCC('I001');
 
-export function registerHearthStone() {
+export function registerHearthStone(): void {
   // These buildings sell Hearthstone
   const buildingTypeIds = [
     UNIT_HumanBarracks,

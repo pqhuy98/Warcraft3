@@ -85,7 +85,7 @@ export function setIntervalForDuration(
 
 let infiniteTimer: Timer;
 
-export function trackElapsedGameTime() {
+export function trackElapsedGameTime(): void {
   buildTrigger((t) => {
     t.registerTimerEvent(0.00, false);
     t.addAction(() => {
@@ -95,7 +95,7 @@ export function trackElapsedGameTime() {
   });
 }
 
-export function getTimeS() {
+export function getTimeS(): number {
   if (infiniteTimer) {
     return infiniteTimer.elapsed;
   }

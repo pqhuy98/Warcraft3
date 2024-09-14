@@ -36,7 +36,7 @@ export class Weather {
 
   static activeTimer = Timer.create();
 
-  static changeWeather(chosenWeatherType: typeof weathers[number] = pickRandom(weathers), duration: number = 60, noWeatherDelay: number = 10) {
+  static changeWeather(chosenWeatherType: typeof weathers[number] = pickRandom(weathers), duration: number = 60, noWeatherDelay: number = 10): void {
     k0('cw0');
     k0('cw1');
     Weather.delayTimer.pause();

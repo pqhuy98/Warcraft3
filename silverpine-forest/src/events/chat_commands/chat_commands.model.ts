@@ -45,7 +45,7 @@ export function onChatCommand(text: string, exactMatch: boolean, callback: (text
   });
 }
 
-export function createCommandHelpQuests() {
+export function createCommandHelpQuests(): void {
   setTimeout(0.1, () => {
     for (const category of commandCategories) {
       const {
@@ -67,7 +67,7 @@ export function createCommandHelpQuests() {
   });
 }
 
-function getHelpMessage(category: CommandCategory) {
+function getHelpMessage(category: CommandCategory): string[] {
   const result: string[] = [];
   for (const key of commandHelpData[category].map.keys()) {
     result.push(`${colorize.yellow(key)}|n${commandHelpData[category].map.get(key)}`);

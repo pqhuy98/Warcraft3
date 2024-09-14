@@ -20,15 +20,15 @@ const MODEL_BoltImpact_classic = classic(MODEL_BoltImpact);
 
 export class ThunderBlink {
   static Data = {
-    getEffectRadius: () => (600),
-    targetMatching: (caster: Unit, matchingUnit: Unit) => matchingUnit.isAlive()
+    getEffectRadius: (): number => (600),
+    targetMatching: (caster: Unit, matchingUnit: Unit): boolean => matchingUnit.isAlive()
       && !matchingUnit.invulnerable
       && matchingUnit.isEnemy(caster.getOwner())
       && !isBuilding(matchingUnit)
       && !isWard(matchingUnit),
   };
 
-  static register(abilityId: number) {
+  static register(abilityId: number): void {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       t.addCondition(() => GetSpellAbilityId() === abilityId);

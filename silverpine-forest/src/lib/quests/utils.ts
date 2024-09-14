@@ -24,7 +24,7 @@ export type IconStyle = keyof typeof IconStyles
 
 const unitMinimapIcon = new Map<Unit, { icon: minimapicon, style: IconStyle }>();
 
-export function setMinimapIconUnit(unit: Unit, style: IconStyle) {
+export function setMinimapIconUnit(unit: Unit, style: IconStyle): minimapicon {
   if (!unit.isAlive()) return null;
   if (unitMinimapIcon.has(unit)) {
     const data = unitMinimapIcon.get(unit);
@@ -41,14 +41,14 @@ export function setMinimapIconUnit(unit: Unit, style: IconStyle) {
   return icon;
 }
 
-export function removeMinimapIcon(unit: Unit) {
+export function removeMinimapIcon(unit: Unit): void {
   if (unitMinimapIcon.has(unit)) {
     DestroyMinimapIcon(unitMinimapIcon.get(unit).icon);
     unitMinimapIcon.delete(unit);
   }
 }
 
-export function createMinimapIconLoc(loc: Loc, type: keyof typeof IconStyles) {
+export function createMinimapIconLoc(loc: Loc, type: keyof typeof IconStyles): minimapicon {
   CampaignMinimapIconLocBJ(tempLocation(loc), IconStyles[type]);
   const icon = GetLastCreatedMinimapIcon();
   return icon;
@@ -61,19 +61,19 @@ const modelPaths: Record<QuestMarkerType, string> = {
 };
 
 const questMarker = new Map<Unit, Effect>();
-export function enableQuestMarker(unit: Unit, mode: QuestMarkerType) {
+export function enableQuestMarker(unit: Unit, mode: QuestMarkerType): void {
   if (questMarker.has(unit)) return;
 
   questMarker.set(unit, Effect.createAttachment(modelPaths[mode], unit, 'overhead'));
 }
 
-export function disableQuestMarker(unit: Unit) {
+export function disableQuestMarker(unit: Unit): void {
   if (!questMarker.has(unit)) return;
   questMarker.get(unit).destroy();
   questMarker.delete(unit);
 }
 
-export function daemonQuestMarker() {
+export function daemonQuestMarker(): void {
   let r = 255;
   let g = 255;
   let b = 255;
@@ -122,7 +122,7 @@ export function daemonQuestMarker() {
   });
 }
 
-export function giveItemReward(giver: Unit, itemType: number) {
+export function giveItemReward(giver: Unit, itemType: number): Item {
   const loc = PolarProjection(giver, 100, giver.facing);
   const item = Item.create(itemType, loc.x, loc.y);
   AddIndicator(item.handle, 255, 255, 255, 255);

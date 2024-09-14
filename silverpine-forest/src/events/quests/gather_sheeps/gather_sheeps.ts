@@ -103,7 +103,7 @@ export class GatherSheeps extends BaseQuest {
     goHomeSound = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-go-home.mp3', 'Timmy', goHomeDialogue);
   }
 
-  async register() {
+  async register(): Promise<void> {
     const { sheepBoy, grassRects } = this.globals;
     let sheeps = grassRects
       .flatMap((rect) => getUnitsInRect(rect))
@@ -187,7 +187,7 @@ export class GatherSheeps extends BaseQuest {
     }
   }
 
-  async runQuest(sheepBoy: Unit, sheeps: Unit[], traveler: Unit, level: number) {
+  async runQuest(sheepBoy: Unit, sheeps: Unit[], traveler: Unit, level: number): Promise<void> {
     sheepBoy.shareVision(traveler.owner, true);
 
     // Sheep initial scattering
@@ -272,7 +272,7 @@ export class GatherSheeps extends BaseQuest {
   }
 
   // not part of the quest's requirment
-  async sheepBoyGoHome(sheepBoy: Unit, sheeps: Unit[]) {
+  async sheepBoyGoHome(sheepBoy: Unit, sheeps: Unit[]): Promise<void> {
     const homeRect = this.globals.homeRect;
     const homeLoc = centerLocRect(homeRect);
 
@@ -323,7 +323,7 @@ export class GatherSheeps extends BaseQuest {
   }
 
   // not part of the quest's requirment
-  async sheepBoyLeaveHome(sheepBoy: Unit, sheeps: Unit[]) {
+  async sheepBoyLeaveHome(sheepBoy: Unit, sheeps: Unit[]): Promise<void> {
     if (!sheepBoy.isAlive()) return;
 
     const grassRect = pickRandom(this.globals.grassRects);
@@ -395,7 +395,7 @@ export class GatherSheeps extends BaseQuest {
     setUnitFacingWithRate(sheepBoy, AngleBetweenLocs(sheepBoy, grassCenter));
   }
 
-  updateHerdMovespeed(sheepBoy: Unit, sheeps: Unit[]) {
+  updateHerdMovespeed(sheepBoy: Unit, sheeps: Unit[]): void {
     sheepBoy.moveSpeed = Math.max(200, 20 * sheeps.length);
     for (const sheep of sheeps) {
       sheep.moveSpeed = Math.max(100, 10 * sheeps.length);

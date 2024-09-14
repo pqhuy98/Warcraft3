@@ -69,7 +69,7 @@ export const globalUnits: Record<string, Unit> = {
 
 const globalUnitColors = new Map<Unit, playercolor>();
 
-export function registerGlobalUnits() {
+export function registerGlobalUnits(): void {
   setTimeout(0, () => {
     // globalUnitColors.set(globalUnits.fountainLight, PLAYER_COLOR_BLUE);
     for (const [unit, color] of globalUnitColors) {
@@ -78,6 +78,6 @@ export function registerGlobalUnits() {
   });
 }
 
-export function getGlobalUnitColor(unit: Unit) {
+export function getGlobalUnitColor(unit: Unit): playercolor {
   return globalUnitColors.get(unit) ?? PLAYER_COLOR_COAL;
 }

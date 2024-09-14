@@ -150,7 +150,7 @@ export class ElvenDrink extends BaseQuest {
     neutralHostileTypes.sort((u1, u2) => u1.hp - u2.hp);
   }
 
-  async register() {
+  async register(): Promise<void> {
     const { questGiver } = this.globals;
     questGiver.name = 'Thalandor';
     questGiver.setField(UNIT_RF_CAST_POINT, 0);
@@ -392,7 +392,7 @@ export class ElvenDrink extends BaseQuest {
       }));
 
       // Common clean up function
-      const cleanUp = (removeSpawns: boolean) => {
+      const cleanUp = (removeSpawns: boolean): void => {
         mapUnits.forEach((u) => {
           if (!isBuilding(u)) {
             u.show = true;
@@ -461,7 +461,17 @@ export class ElvenDrink extends BaseQuest {
   }
 }
 
-function dream(r0: number, g0: number, b0: number, r1:number, g1:number, b1:number, trans0: number, trans1: number, duration: number) {
+function dream(
+  r0: number,
+  g0: number,
+  b0: number,
+  r1:number,
+  g1:number,
+  b1:number,
+  trans0: number,
+  trans1: number,
+  duration: number,
+): void {
   SetCineFilterTexture('ReplaceableTextures\\CameraMasks\\White_mask.blp');
   SetCineFilterBlendMode(BLEND_MODE_BLEND);
   SetCineFilterTexMapFlags(TEXMAP_FLAG_NONE);

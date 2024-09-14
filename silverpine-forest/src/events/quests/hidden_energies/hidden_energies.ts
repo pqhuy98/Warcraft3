@@ -28,7 +28,7 @@ export class HiddenEnergies extends BaseQuest {
     super(globals);
   }
 
-  async register() {
+  async register(): Promise<void> {
     const { fountain } = this.globals;
     fountain.name = 'Hidden Energy Vein';
 
@@ -67,6 +67,6 @@ export class HiddenEnergies extends BaseQuest {
     this.complete();
   }
 
-  onForceComplete() {
+  onForceComplete(): void {
   }
 }

@@ -107,7 +107,7 @@ export class BanditBanish extends BaseQuest {
     ];
   }
 
-  async register() {
+  async register(): Promise<void> {
     const {
       archMage, john, peter, bandits, johnRect, peterRect, banditLord, sightBlockersRect,
     } = this.globals;
@@ -235,7 +235,7 @@ export class BanditBanish extends BaseQuest {
     this.complete();
   }
 
-  onForceComplete() {
+  onForceComplete(): void {
     const { bandits, sightBlockersRect } = this.globals;
     bandits.forEach((u) => u.kill());
     getDestructablesInRect(sightBlockersRect, (d) => d.typeId === FourCC('YTlb'))

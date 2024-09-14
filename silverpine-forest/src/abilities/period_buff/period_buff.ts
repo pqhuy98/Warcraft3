@@ -128,7 +128,7 @@ export class PeriodBuff {
     setIntervalIndefinite(10, () => this.buffTarget());
   }
 
-  buffTarget() {
+  buffTarget(): void {
     if (!this.target.isAlive()) {
       return;
     }
@@ -161,7 +161,7 @@ export class PeriodBuff {
     k1('pb');
   }
 
-  buffUnitTargetAbility({ ability, orderId, periodS }: UnitTargetAbility) {
+  buffUnitTargetAbility({ ability, orderId, periodS }: UnitTargetAbility): void {
     if (this.auraMap.has(ability.code)) {
       return;
     }
@@ -182,7 +182,7 @@ export class PeriodBuff {
     });
   }
 
-  buffNoTargetAbility({ ability, orderId, periodS }: NoTargetAbility) {
+  buffNoTargetAbility({ ability, orderId, periodS }: NoTargetAbility): void {
     if (this.auraMap.has(ability.code)) {
       return;
     }
@@ -203,9 +203,7 @@ export class PeriodBuff {
     });
   }
 
-  buffAuraAbility({
-    ability, periodS,
-  }: AuraAbility) {
+  buffAuraAbility({ ability, periodS }: AuraAbility): void {
     if (this.auraMap.has(ability.code)) {
       return;
     }
@@ -228,9 +226,7 @@ export class PeriodBuff {
     });
   }
 
-  buffActiveAuraAbility({
-    ability, orderId, periodS,
-  }: ActiveAuraTargetAbility) {
+  buffActiveAuraAbility({ ability, orderId, periodS }: ActiveAuraTargetAbility): void {
     if (this.auraMap.has(ability.code)) {
       return;
     }

@@ -52,7 +52,7 @@ export class CreepSpawn {
     });
   }
 
-  spawnEnemy() {
+  spawnEnemy(): void {
     if (this.spawns.size >= 80) { return; }
 
     const unitId = pickRandom(spawnables).id;

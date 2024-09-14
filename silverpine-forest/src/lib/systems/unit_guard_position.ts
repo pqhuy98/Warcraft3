@@ -36,7 +36,7 @@ const unitPositions = [
 
 const priorities = [Priority.LOW, Priority.MEDIUM, Priority.HIGH];
 
-export function setGuardPosition(u: Unit, loc: Loc, facing: number, maxRadius: number = 9999999, animation = '') {
+export function setGuardPosition(u: Unit, loc: Loc, facing: number, maxRadius: number = 9999999, animation = ''): void {
   if (isBuilding(u)) return;
   removeGuardPosition(u);
   unitPositions[Priority.HIGH].set(u, {
@@ -50,12 +50,12 @@ export function setGuardPosition(u: Unit, loc: Loc, facing: number, maxRadius: n
   });
 }
 
-export function guardCurrentPosition(unit: Unit, radius?: number, animation?: string) {
+export function guardCurrentPosition(unit: Unit, radius?: number, animation?: string): void {
   unit.issueImmediateOrder(OrderId.Stop);
   setGuardPosition(unit, currentLoc(unit), unit.facing, radius, animation);
 }
 
-export function removeGuardPosition(...units: Unit[]) {
+export function removeGuardPosition(...units: Unit[]): void {
   for (const u of units) {
     u.removeGuardPosition();
     for (const priority of priorities) {
@@ -64,7 +64,7 @@ export function removeGuardPosition(...units: Unit[]) {
   }
 }
 
-export function pauseGuardPosition(units: Unit[], state: boolean) {
+export function pauseGuardPosition(units: Unit[], state: boolean): void {
   for (const u of units) {
     u.removeGuardPosition();
     for (const priority of priorities) {
@@ -76,7 +76,7 @@ export function pauseGuardPosition(units: Unit[], state: boolean) {
   }
 }
 
-export function daemonGuardPosition() {
+export function daemonGuardPosition(): void {
   const unitsPerIteration = 5;
   for (const priority of priorities) {
     let shuffledUnits: Unit[] = [];

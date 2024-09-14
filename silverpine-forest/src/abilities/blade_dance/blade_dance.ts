@@ -17,16 +17,16 @@ export default class BladeDance {
     ABILITY_IDS: <number[]>[],
     ATTACK_SPEED_SCALING: 8,
     ATTACKS_PER_LEVEL: 10,
-    getMeleeAttackDistance: () => 150,
-    getExtraAttackRange: () => 2000,
-    getFindNextRadius: () => 700,
-    getFindIllusionRadius: () => 700,
+    getMeleeAttackDistance: (): number => 150,
+    getExtraAttackRange: (): number => 2000,
+    getFindNextRadius: (): number => 700,
+    getFindIllusionRadius: (): number => 700,
     IS_INVULNERABLE_DURING_CAST: false,
   };
 
   static unitsInCast = Group.create();
 
-  static register(abilityId: number) {
+  static register(abilityId: number): void {
     BladeDance.Data.ABILITY_IDS.push(abilityId);
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
@@ -157,13 +157,13 @@ export default class BladeDance {
     this.caster.disableAbility(ABILITY_BladeMasterMirrorImage.id, true, false);
   }
 
-  setTarget(newTarget: Unit) {
+  setTarget(newTarget: Unit): void {
     this.target = newTarget;
     this.onAttackTrigger.registerUnitEvent(this.target, EVENT_UNIT_DAMAGED);
     this.onTargetDeathTrigger.registerUnitEvent(this.target, EVENT_UNIT_DEATH);
   }
 
-  onEachAttack() {
+  onEachAttack(): void {
     this.timerIdle1.pause();
     this.timerIdle1.destroy();
     this.timerIdle2.pause();
@@ -199,7 +199,7 @@ export default class BladeDance {
     }
   }
 
-  endSpell() {
+  endSpell(): void {
     this.onAttackTrigger.destroy();
     this.onTargetDeathTrigger.destroy();
     this.timerAttack.destroy();
@@ -224,7 +224,7 @@ export default class BladeDance {
     setTimeout(1, () => DestroyEffect(this.weaponEffect));
   }
 
-  handleTargetUnattackable() {
+  handleTargetUnattackable(): void {
     const targetLoc = getUnitXY(this.target);
 
     const nextTarget = this.findNextTarget(targetLoc);

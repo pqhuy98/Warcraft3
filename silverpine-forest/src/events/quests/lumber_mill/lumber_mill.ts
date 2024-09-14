@@ -87,7 +87,7 @@ export class LumberMill extends BaseQuest {
     );
   }
 
-  async register() {
+  async register(): Promise<void> {
     const {
       john, peter,
       lumberMillCorpse1Rect,
@@ -125,7 +125,7 @@ export class LumberMill extends BaseQuest {
     CreateItemLoc(FourCC('lmbr'), templocation(GetRandomLocInRect(lumberMillCorpse1Rect)));
     CreateItemLoc(FourCC('lmbr'), templocation(GetRandomLocInRect(lumberMillCorpse2Rect)));
 
-    async function getCloserToTraveler(unit: Unit) {
+    async function getCloserToTraveler(unit: Unit): Promise<void> {
       const dest = PolarProjection(traveler, 200, AngleBetweenLocs(traveler, unit));
       unit.issueOrderAt(OrderId.Move, dest.x, dest.y);
       await waitUntil(0.234, () => DistanceBetweenLocs(unit, dest) <= 50);
@@ -187,7 +187,7 @@ export class LumberMill extends BaseQuest {
     ]);
 
     // John and Peter travel to checkpoint 1 then look at Lumber Mill
-    async function travelToRect(unit: Unit, rect: rect, facingLoc: Loc) {
+    async function travelToRect(unit: Unit, rect: rect, facingLoc: Loc): Promise<void> {
       await sleep(GetRandomReal(0, 0.5));
       const dest = centerLocRect(rect);
       setGuardPosition(unit, dest, AngleBetweenLocs(dest, facingLoc));
@@ -213,7 +213,7 @@ export class LumberMill extends BaseQuest {
     this.complete();
   }
 
-  createCorpsesLumberMill() {
+  createCorpsesLumberMill(): Unit[] {
     const { lumberMillCorpse1Rect, lumberMillCorpse2Rect } = this.globals;
 
     const fleshCorpses: Unit[] = [];
@@ -231,7 +231,7 @@ export class LumberMill extends BaseQuest {
     return fleshCorpses;
   }
 
-  onForceComplete() {
+  onForceComplete(): void {
     const {
       john, peter,
       townRect2,

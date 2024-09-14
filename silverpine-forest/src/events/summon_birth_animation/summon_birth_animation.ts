@@ -7,7 +7,7 @@ const summonBirthDuration = new Map<number, number>((<[UNIT_TYPE, number][]>[
 ]).map(([unit, duration]) => [unit.id, duration]));
 
 export class SummonBirthAnimation {
-  static register() {
+  static register(): void {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SUMMON);
       t.addCondition(() => {

@@ -8,7 +8,7 @@ import {
 
 import { createCommandHelpQuests, onChatCommand } from './chat_commands.model';
 
-export function registerChatCommands() {
+export function registerChatCommands(): void {
   onChatCommand('-clear', true, () => {
     ClearTextMessages();
   }, 'UI', 'Clear all messages.');

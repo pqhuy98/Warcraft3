@@ -58,7 +58,7 @@ export function findBestCircle(x: number[], y: number[], radius: number): Point 
   return bestCenter;
 }
 
-export function findBestCircleCoverMostUnits(units: Unit[], radius: number) {
+export function findBestCircleCoverMostUnits(units: Unit[], radius: number): Point | null {
   return findBestCircle(
     units.map((u) => u.x),
     units.map((u) => u.y),
@@ -66,7 +66,7 @@ export function findBestCircleCoverMostUnits(units: Unit[], radius: number) {
   );
 }
 
-export function findBestCircleCoverMostLocations(locs: Loc[], radius: number) {
+export function findBestCircleCoverMostLocations(locs: Loc[], radius: number): Point | null {
   return findBestCircle(
     locs.map((l) => l.x),
     locs.map((l) => l.y),

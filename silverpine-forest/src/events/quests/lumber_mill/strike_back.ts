@@ -84,7 +84,7 @@ export class StrikeBack extends BaseQuest {
     );
   }
 
-  async register() {
+  async register(): Promise<void> {
     const { undeadBaseRect } = this.globals;
     const undeadBuildings = getUnitsInRect(undeadBaseRect, (u) => u.owner === playerForsaken && isBuilding(u));
 
@@ -230,7 +230,7 @@ export class StrikeBack extends BaseQuest {
     }
   }
 
-  onForceComplete() {
+  onForceComplete(): void {
     const {
       knight, mayor,
       undeadBaseRect, humanBaseRect, knightRectAfterQuest,

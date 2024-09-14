@@ -5,7 +5,7 @@ import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
   createDummy, fadeUnit, getUnitScale, isDummy, safeRemoveDummy, setUnitScale, unitPolarProjection,
 } from 'lib/unit';
-import { Unit } from 'w3ts';
+import { Trigger, Unit } from 'w3ts';
 
 export class MulticastPoint {
   static Data = {
@@ -13,7 +13,7 @@ export class MulticastPoint {
     FACING_OFFSET: [0, -90, -90, 360 / 3],
   };
 
-  static register(abilityId?: number, specificCaster?: Unit) {
+  static register(abilityId?: number, specificCaster?: Unit): Trigger {
     return buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
       if (abilityId) {

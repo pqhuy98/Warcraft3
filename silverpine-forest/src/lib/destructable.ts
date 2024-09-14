@@ -5,7 +5,7 @@ import {
 } from './location';
 import { pickRandom } from './utils';
 
-export function getDestructablesInRect(rect: rect, filter?: (d: Destructable) => boolean) {
+export function getDestructablesInRect(rect: rect, filter?: (d: Destructable) => boolean): Destructable[] {
   const result: Destructable[] = [];
   EnumDestructablesInRectAll(rect, () => {
     const des = Destructable.fromHandle(GetEnumDestructable());
@@ -16,7 +16,11 @@ export function getDestructablesInRect(rect: rect, filter?: (d: Destructable) =>
   return result;
 }
 
-export function getDestructablesInRange(range: number, loc: Loc, filter?: (d: Destructable) => boolean) {
+export function getDestructablesInRange(
+  range: number,
+  loc: Loc,
+  filter?: (d: Destructable) => boolean,
+): Destructable[] {
   const rect = Rect(loc.x - range, loc.y - range, loc.x + range, loc.y + range);
   const result = getDestructablesInRect(rect, (d) => DistanceBetweenLocs(loc, d) <= range && filter(d));
   RemoveRect(rect);

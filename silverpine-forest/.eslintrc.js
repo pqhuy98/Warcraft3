@@ -38,6 +38,7 @@ module.exports = {
     }
   ],
   rules: {
+    "@typescript-eslint/explicit-function-return-type": "warn",
     'no-restricted-syntax': 'off',
     'no-shadow': 'off',
     'import/extensions': 'off',

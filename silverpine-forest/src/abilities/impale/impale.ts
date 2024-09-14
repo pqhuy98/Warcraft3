@@ -28,11 +28,11 @@ export class Impale {
 
   static timer: Timer;
 
-  static register() {
+  static register(): void {
     onChatCommand('-imp', true, () => log('Impale list', this.dataInstances.length), 'Debug', 'Print current number of impaled units.');
   }
 
-  static loop() {
+  static loop(): void {
     for (let i = 0; i < this.dataInstances.length; i++) {
       const data = this.dataInstances[i];
       data.elapseS += this.intervalS;
@@ -65,7 +65,7 @@ export class Impale {
   }: {
     caster: Unit, target: Unit, tossDurationS: number, maxHeight: number, stunDurationS: number,
     onStart: () => unknown, onComplete: () => unknown
-  }) {
+  }): void {
     if (Impale.affectedUnits.has(target)) return;
     Impale.affectedUnits.add(target);
 

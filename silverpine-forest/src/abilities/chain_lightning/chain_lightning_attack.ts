@@ -6,7 +6,7 @@ import { Unit } from 'w3ts';
 import { ChainLightningMulticast } from './chain_lightning_multicast';
 
 export class ChainLightningAttack {
-  static register(abilityId: number) {
+  static register(abilityId: number): void {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DAMAGED);
       t.addCondition(() => GetUnitAbilityLevel(GetEventDamageSource(), abilityId) > 0

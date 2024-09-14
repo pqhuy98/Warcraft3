@@ -13,15 +13,15 @@ export class ChainLightningMulticast {
   private static dummies: Group;
 
   static Data = {
-    getEffectRadius: () => 500,
-    targetMatching: (caster: Unit, originalTarget: Unit, matchingUnit: Unit) => matchingUnit.isAlive()
+    getEffectRadius: (): number => 500,
+    targetMatching: (caster: Unit, originalTarget: Unit, matchingUnit: Unit): boolean => matchingUnit.isAlive()
       && matchingUnit.isEnemy(caster.owner)
       && !matchingUnit.invulnerable
       && matchingUnit !== originalTarget
       && !isBuilding(matchingUnit),
   };
 
-  static register(abilityId: number) {
+  static register(abilityId: number): void {
     ChainLightningMulticast.dummies = Group.create();
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);
@@ -72,7 +72,7 @@ export class ChainLightningMulticast {
     }, durationPerStep);
   }
 
-  public static blackListCaster(caster: Unit) {
+  public static blackListCaster(caster: Unit): void {
     ChainLightningMulticast.dummies.addUnit(caster);
   }
 }

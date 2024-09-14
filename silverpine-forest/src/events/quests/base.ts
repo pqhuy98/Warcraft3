@@ -31,7 +31,7 @@ export class BaseQuest {
     }
   }
 
-  async talkToQuestGiver(unit: Unit, showMinimapIcon: boolean) {
+  async talkToQuestGiver(unit: Unit, showMinimapIcon: boolean): Promise<Unit> {
     this.currentQuestGiver = unit;
     disableInteractSound(unit);
     if (showMinimapIcon) {
@@ -48,7 +48,7 @@ export class BaseQuest {
     return traveler;
   }
 
-  async waitForTurnIn(unit: Unit) {
+  async waitForTurnIn(unit: Unit): Promise<Unit> {
     this.currentQuestGiver = unit;
     disableInteractSound(unit);
     setMinimapIconUnit(unit, 'turnIn');
@@ -61,7 +61,7 @@ export class BaseQuest {
     return traveler;
   }
 
-  async waitDependenciesDone() {
+  async waitDependenciesDone(): Promise<void> {
     await waitUntil(1, () => {
       const done = this.dependencies.every((q) => q.isCompleted());
       return done;
@@ -69,31 +69,31 @@ export class BaseQuest {
     if (this.isCompleted()) throw new Error('quest has been force completed during the time.');
   }
 
-  complete() {
+  complete(): void {
     this.status = 'completed';
   }
 
-  fail() {
+  fail(): void {
     this.status = 'failed';
   }
 
-  isInProgress() {
+  isInProgress(): boolean {
     return this.status === 'in_progress';
   }
 
-  isCompleted() {
+  isCompleted(): boolean {
     return this.status === 'completed';
   }
 
-  isFailed() {
+  isFailed(): boolean {
     return this.status === 'failed';
   }
 
-  cheatCodeInstantStart(cheatCode: string) {
+  cheatCodeInstantStart(cheatCode: string): void {
     onChatCommand(cheatCode, true, () => this.forceCompleteDependencies());
   }
 
-  onForceComplete() {
+  onForceComplete(): void {
 
   }
 
@@ -119,7 +119,7 @@ export class BaseQuest {
     return this.isCompleted();
   }
 
-  forceCompleteDependencies() {
+  forceCompleteDependencies(): boolean {
     logDebug && log(`start forceCompleteDependencies ${this.name}`);
     let allCompleted = true;
     this.dependencies.forEach((q) => {

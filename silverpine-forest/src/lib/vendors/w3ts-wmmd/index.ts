@@ -204,7 +204,7 @@ const onReadyHooks: (() => void)[] = [];
  * Adds a callback that will be invoked when w3mmd has finished initializing.
  * @param fn The callback to be invoked.
  */
-export const onReady = (fn: () => void) => {
+export const onReady = (fn: () => void): void => {
   onReadyHooks.push(fn);
 };
 
@@ -212,7 +212,7 @@ export const onReady = (fn: () => void) => {
  * Manually sets the internal state to ready and flushes the queue. Called
  * automatically unless `stopInit` is called.
  */
-export const flagReady = () => {
+export const flagReady = (): void => {
   ready = true;
   queue.forEach((message) => emit(message));
   queue = [];
@@ -223,7 +223,7 @@ export const flagReady = () => {
  * Manually begins initialization. Called automatically unless `stopInit` is
  * called.
  */
-export const init = () => {
+export const init = (): void => {
   emit('init version 1 1');
 
   for (let i = 0; i < bj_MAX_PLAYERS; i++) {
@@ -253,6 +253,6 @@ addScriptHook(W3TS_HOOK.MAIN_AFTER, (): void => {
 });
 
 /** Stops automatic initialization. */
-export const stopInit = () => {
+export const stopInit = (): void => {
   stopInitFlag = true;
 };

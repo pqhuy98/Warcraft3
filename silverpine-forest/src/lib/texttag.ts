@@ -40,7 +40,7 @@ function cf(
   fontSize: number,
   velocityUp: number,
   permanent: boolean,
-) {
+): TextTagConfig {
   return {
     r,
     g,
@@ -83,7 +83,7 @@ export function createFloatText(text: string, loc: Loc, {
   fontSize,
   velocityUp,
   permanent,
-}: TextTagConfig) {
+}: TextTagConfig): TextTag {
   const tt = TextTag.create();
   tt.setColor(r, g, b, 255);
   tt.setLifespan(lifespan);
@@ -93,9 +93,10 @@ export function createFloatText(text: string, loc: Loc, {
   tt.setVelocity(0, velocityUp);
   tt.setPermanent(permanent);
   tt.setVisible(true);
+  return tt;
 }
 
-export function registerFloatTextExperiments() {
+export function registerFloatTextExperiments(): void {
   let r = 255;
   let g = 255;
   let b = 255;

@@ -14,13 +14,13 @@ export const isComputer = (player: player): boolean => GetPlayerController(playe
 export const hasLeft = (player: player): boolean => GetPlayerSlotState(player) === PLAYER_SLOT_STATE_LEFT;
 
 export function setAllianceState2Way(p1: MapPlayer, p2: MapPlayer, state:
-  'enemy' | 'enemy vision' | 'allied' | 'allied vision' | 'allied share unit' | 'allied share advanced' | 'neutral' | 'neutral vision') {
+  'enemy' | 'enemy vision' | 'allied' | 'allied vision' | 'allied share unit' | 'allied share advanced' | 'neutral' | 'neutral vision'): void {
   setAllianceState(p1, p2, state);
   setAllianceState(p2, p1, state);
 }
 
 export function setAllianceState(p1: MapPlayer, p2: MapPlayer, state:
-  'enemy' | 'enemy vision' | 'allied' | 'allied vision' | 'allied share unit' | 'allied share advanced' | 'neutral' | 'neutral vision') {
+  'enemy' | 'enemy vision' | 'allied' | 'allied vision' | 'allied share unit' | 'allied share advanced' | 'neutral' | 'neutral vision'): void {
   if (state === 'enemy') {
     SetPlayerAllianceStateBJ(p2.handle, p1.handle, bj_ALLIANCE_UNALLIED);
   } else if (state === 'enemy vision') {

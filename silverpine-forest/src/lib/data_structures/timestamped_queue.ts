@@ -35,7 +35,7 @@ export class TimestampedQueue<T> {
     this.checkExpiredItemsTimer = setIntervalIndefinite(0.5, () => this.checkExpiredItems());
   }
 
-  destroy() {
+  destroy(): void {
     this.destroyed = true;
   }
 
