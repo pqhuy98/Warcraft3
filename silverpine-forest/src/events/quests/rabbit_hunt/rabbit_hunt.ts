@@ -77,7 +77,7 @@ export class RabbitHunt extends BaseQuest {
       for (const fieldRect of wheatFieldRects) {
         accumArea += GetRectWidthBJ(fieldRect) * GetRectHeightBJ(fieldRect);
         if (accumArea >= dice) {
-          const loc = randomLocRect(gg_rct_Wheat_field);
+          const loc = randomLocRect(fieldRect);
           Unit.create(neutralPassive, rabbitTypeId, loc.x, loc.y, GetRandomDirectionDeg());
           break;
         }

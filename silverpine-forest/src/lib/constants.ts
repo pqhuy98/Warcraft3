@@ -44,6 +44,7 @@ export const MODEL_Quest_TurnIn = 'Models\\QuestMark\\QuestTurnIn.mdx';
 export const UNIT_TirionFordring = { code: 'H004', id: FourCC('H004') };
 export const UNIT_IPR_TRANSMITTER = { code: 'h005', id: FourCC('h005') };
 export const UNIT_IPR_RECEIVER = { code: 'h006', id: FourCC('h006') };
+export const UNIT_Butcher = { code: 'u001', id: FourCC('u001') };
 
 // Players
 export const playerOrcishHorde = MapPlayer.fromIndex(0);

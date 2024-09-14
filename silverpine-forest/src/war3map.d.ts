@@ -94,3 +94,7 @@ declare var gg_dest_LTg3_4633: destructable;
 declare var gg_dest_LTg3_8382: destructable;
 declare var gg_dest_YTcx_0002: destructable;
 declare var gg_dest_YTcx_0001: destructable;
+declare var gg_rct_Castle_corpses_3: rect;
+declare var gg_rct_Castle_corpses_2: rect;
+declare var gg_rct_Castle_corpses_1: rect;
+declare var gg_unit_u001_1000: unit;

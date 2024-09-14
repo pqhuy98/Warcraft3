@@ -203,6 +203,7 @@ export class UnitInteraction {
 
 export function setAttention(unitFrom: Unit, unitTo: Unit) {
   if (!unitFrom.isAlive()) return;
+  if (unitFrom === unitTo) return;
   if (targets.has(unitFrom) && targets.get(unitFrom).facingToUnit === unitTo) return;
 
   unitFrom.issueImmediateOrder(OrderId.Stop);

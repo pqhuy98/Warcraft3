@@ -1,26 +1,44 @@
 import {
   mainPlayer, neutralHostile, neutralPassive, playerBlackTurban,
+  playerForsaken,
+  playerHumanAlliance,
+  UNIT_Butcher,
 } from 'lib/constants';
 import { getDestructablesInRect } from 'lib/destructable';
 import {
   currentLoc, fromTempLocation, isLocInRect, isPointReachable, PolarProjection,
+  randomLocRect,
+  tempLocation,
 } from 'lib/location';
 import { log } from 'lib/log';
 import { isComputer, setAllianceState2Way } from 'lib/player';
+import { createDialogSound } from 'lib/quests/dialogue_sound';
 import { ABILITY_PaladinHolyLight, ABILITY_Wander } from 'lib/resources/war3-abilities';
 import { MODEL_BrewmasterTarget, MODEL_FrostNovaTarget, MODEL_InnerFireTarget } from 'lib/resources/war3-models';
 import {
+  UNIT_Abomination,
+  UNIT_Acolyte,
+  UNIT_Banshee,
+  UNIT_CryptFiend,
   UNIT_Footman,
-  UNIT_HeroShadowHunter, UNIT_Shaman, UNIT_VillagerMan, UNIT_VillagerMan2, UNIT_WitchDoctor,
+  UNIT_Ghoul,
+  UNIT_HeroShadowHunter, UNIT_Knight, UNIT_MeatWagon, UNIT_MortarTeam, UNIT_Necromancer,
+  UNIT_Peasant, UNIT_Priest, UNIT_Shaman, UNIT_Sorceress, UNIT_TheCaptain, UNIT_VillagerMan,
+  UNIT_VillagerMan2, UNIT_WitchDoctor,
 } from 'lib/resources/war3-units';
+import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition, removeGuardPosition } from 'lib/systems/unit_guard_position';
 import { createFloatText, TTSetting } from 'lib/texttag';
-import { buildTrigger, setIntervalIndefinite, setTimeout } from 'lib/trigger';
+import {
+  buildTrigger, setIntervalFixedCount, setIntervalIndefinite, setTimeout,
+} from 'lib/trigger';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isBuilding, isOrganic,
 } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
-import { Effect, Unit } from 'w3ts';
+import {
+  Effect, MapPlayer, Unit,
+} from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
 import { onChatCommand } from './chat_commands/chat_commands.model';
@@ -162,8 +180,9 @@ export class MiscEvents {
         });
       });
 
-    // Prevent/punish friendly fire
+    // Others
     this.preventFriendlyFire();
+    this.creatCastleCorpses();
   }
 
   // 9 footmen in Shadowfang practice
@@ -245,6 +264,65 @@ export class MiscEvents {
       t.addAction(() => {
         const attacker = Unit.fromHandle(GetAttacker());
         attacker.issueImmediateOrder(OrderId.Stop);
+      });
+    });
+  }
+
+  static creatCastleCorpses() {
+    const corpses = 200;
+
+    // Corpses
+    const rects = [
+      gg_rct_Castle_corpses_1,
+      gg_rct_Castle_corpses_2,
+      gg_rct_Castle_corpses_3,
+    ];
+
+    const corpseTypes: [MapPlayer, number[]][] = [
+      [playerHumanAlliance, [
+        UNIT_Footman, UNIT_Knight, UNIT_Priest, UNIT_MortarTeam, UNIT_Peasant, UNIT_Sorceress, UNIT_TheCaptain,
+      ].map((t) => t.id)],
+      [playerForsaken, [
+        UNIT_Ghoul, UNIT_Abomination, UNIT_Necromancer, UNIT_Banshee, UNIT_MeatWagon, UNIT_Acolyte, UNIT_CryptFiend,
+      ].map((t) => t.id)],
+    ];
+
+    const rectAreas = rects.map((r) => GetRectWidthBJ(r) * GetRectHeightBJ(r));
+    const rectTotalArea = rectAreas.reduce((acc, v) => acc + v, 0);
+
+    setIntervalFixedCount(0.05, corpses, () => {
+      const dice = GetRandomReal(0, rectTotalArea);
+      let accumArea = 0;
+      for (const curRect of rects) {
+        accumArea += GetRectWidthBJ(curRect) * GetRectHeightBJ(curRect);
+        if (accumArea >= dice) {
+          const [player, types] = pickRandom(corpseTypes);
+          CreatePermanentCorpseLocBJ(
+            GetRandomInt(1, 50) === 1 ? bj_CORPSETYPE_FLESH : bj_CORPSETYPE_BONE,
+            pickRandom(types),
+            player.handle,
+            tempLocation(randomLocRect(curRect)),
+            GetRandomDirectionDeg(),
+          );
+          break;
+        }
+      }
+    });
+
+    // Butcher kills heroes
+    const freshMeatSound = createDialogSound('Sound\\Dialogue\\HumanExpCamp\\Human06x\\BUTCHER.WAV', 'Butcher', '...');
+    buildTrigger((t) => {
+      t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
+      t.addCondition(() => {
+        const killer = Unit.fromHandle(GetKillingUnit());
+        const victim = Unit.fromHandle(GetDyingUnit());
+        return killer.typeId === UNIT_Butcher.id && victim.isHero() && !victim.isIllusion();
+      });
+      t.addAction(() => {
+        const killer = Unit.fromHandle(GetKillingUnit());
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        playSpeech(killer, freshMeatSound);
+        killer.life = killer.maxLife;
       });
     });
   }

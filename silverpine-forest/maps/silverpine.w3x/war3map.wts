@@ -2205,3 +2205,9 @@ STRING 394
 Upon activation, this building becomes your designated resurrection location. If you fall in battle, you will be resurrected at this building.
 }
 
+STRING 395
+// Units: u001 (Flesh Giant), Name (Name)
+{
+Flesh Giant
+}
+

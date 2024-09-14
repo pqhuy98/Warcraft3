@@ -96,6 +96,10 @@ gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
+gg_rct_Castle_corpses_3 = nil
+gg_rct_Castle_corpses_2 = nil
+gg_rct_Castle_corpses_1 = nil
+gg_unit_u001_1000 = nil
 function InitGlobals()
 end
 
@@ -595,7 +599,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), -9584.6, -17459.3, 330.536, FourCC(
 u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), -12911.5, -14515.5, 169.999, FourCC("nvl2"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), -14863.8, -15472.8, 179.027, FourCC("nvl2"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), -14957.7, -17254.9, 62.429, FourCC("nvl2"))
-u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), -13221.6, -18013.9, 282.161, FourCC("nvl2"))
+u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), -13289.1, -17745.8, 64.734, FourCC("nvl2"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), -12520.6, -17882.7, 128.840, FourCC("nvil"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), -15595.4, -15818.0, 317.410, FourCC("nvil"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), -13524.5, -14681.2, 309.710, FourCC("nvil"))
@@ -712,9 +716,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -13764.7, -16847.0, 11.701, FourCC(
 u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -12937.2, -15642.8, 26.324, FourCC("hgry"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -11071.1, -15368.1, 346.761, FourCC("hgry"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgry"), -8325.3, -16476.3, 56.557, FourCC("hgry"))
-u = BlzCreateUnitWithSkin(p, FourCC("hbot"), 2746.3, 4431.4, 53.530, FourCC("hbot"))
-life = GetUnitState(u, UNIT_STATE_LIFE)
-SetUnitState(u, UNIT_STATE_LIFE, 0.01 * life)
+u = BlzCreateUnitWithSkin(p, FourCC("hbot"), 2746.3, 4431.4, 62.336, FourCC("hbot"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 1902.1, 3619.1, 246.457, FourCC("hfoo"))
 gg_unit_hfoo_0941 = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2678.7, 3523.0, 257.042, FourCC("hfoo"))
 gg_unit_hcth_0943 = BlzCreateUnitWithSkin(p, FourCC("hcth"), 2519.3, 3792.5, 250.916, FourCC("hcth"))
@@ -1411,6 +1413,21 @@ SetUnitState(u, UNIT_STATE_MANA, 400)
 u = BlzCreateUnitWithSkin(p, FourCC("nwlg"), -4415.5, -16880.1, 147.558, FourCC("nwlg"))
 u = BlzCreateUnitWithSkin(p, FourCC("nwlg"), -4718.9, -16314.8, 3.716, FourCC("nwlg"))
 u = BlzCreateUnitWithSkin(p, FourCC("nwlg"), -3915.5, -17029.2, 33.367, FourCC("nwlg"))
+gg_unit_u001_1000 = BlzCreateUnitWithSkin(p, FourCC("u001"), -7956.7, -11888.4, -26.422, FourCC("u001"))
+u = BlzCreateUnitWithSkin(p, FourCC("u001"), -9993.8, -12762.5, -1.374, FourCC("u001"))
+u = BlzCreateUnitWithSkin(p, FourCC("u001"), -10847.7, -12141.1, 241.785, FourCC("u001"))
+u = BlzCreateUnitWithSkin(p, FourCC("u001"), -12161.3, -12337.5, 174.859, FourCC("u001"))
+u = BlzCreateUnitWithSkin(p, FourCC("u001"), -11823.7, -10826.6, 94.670, FourCC("u001"))
+u = BlzCreateUnitWithSkin(p, FourCC("unec"), -10434.9, -12985.1, 11.755, FourCC("unec"))
+SetUnitState(u, UNIT_STATE_MANA, 200)
+u = BlzCreateUnitWithSkin(p, FourCC("unec"), -10982.3, -11621.8, -17.911, FourCC("unec"))
+SetUnitState(u, UNIT_STATE_MANA, 200)
+u = BlzCreateUnitWithSkin(p, FourCC("unec"), -11838.5, -11733.7, -35.747, FourCC("unec"))
+SetUnitState(u, UNIT_STATE_MANA, 200)
+u = BlzCreateUnitWithSkin(p, FourCC("unec"), -12335.5, -11022.4, 49.090, FourCC("unec"))
+SetUnitState(u, UNIT_STATE_MANA, 200)
+u = BlzCreateUnitWithSkin(p, FourCC("unec"), -12776.8, -12294.4, 47.960, FourCC("unec"))
+SetUnitState(u, UNIT_STATE_MANA, 200)
 end
 
 function CreateNeutralPassiveBuildings()
@@ -1706,6 +1723,9 @@ gg_rct_Orc_base_attack_gathering = Rect(3776.0, -960.0, 5088.0, 736.0)
 gg_rct_Human_shipyard = Rect(192.0, 1856.0, 3936.0, 5184.0)
 gg_rct_Orc_attack_footman_loc = Rect(7776.0, -2080.0, 7936.0, -1888.0)
 gg_rct_Orc_attack_corpses = Rect(2144.0, 2368.0, 2400.0, 2592.0)
+gg_rct_Castle_corpses_3 = Rect(-8704.0, -13824.0, -7712.0, -11328.0)
+gg_rct_Castle_corpses_2 = Rect(-7776.0, -12576.0, -6656.0, -11424.0)
+gg_rct_Castle_corpses_1 = Rect(-7712.0, -13344.0, -6208.0, -12576.0)
 end
 
 function Trig_Untitled_Trigger_001_Conditions()
@@ -1771,6 +1791,7 @@ udg_tmp_unit = gg_unit_nmoo_0068
 udg_tmp_unit = gg_unit_nhem_0557
 udg_tmp_unit = gg_unit_hcth_0943
 udg_tmp_unit = gg_unit_hfoo_0941
+udg_tmp_unit = gg_unit_u001_1000
 end
 
 function InitTrig_Unit_register()

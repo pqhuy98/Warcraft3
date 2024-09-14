@@ -21,10 +21,12 @@ import {
   UNIT_SpiritLodge,
   UNIT_TYPE,
 } from 'lib/resources/war3-units';
+import { playSpeech } from 'lib/sound';
 import {
   isPreservedUnitAlive, preserveUnit, RestoreMode, restoreUnit,
 } from 'lib/systems/preserve_unit';
 import { guardCurrentPosition, pauseGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
+import { setTimeout } from 'lib/trigger';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, isOrganic, setNeverDie,
 } from 'lib/unit';
@@ -162,6 +164,16 @@ export class OrcAttack extends BaseQuest {
         captainName,
         'There are so many of them! They\'re throwing everything they have at us. Hold the line at all costs!',
       ),
+      createDialogSound(
+        'QuestSounds\\orc-attack\\orc-attack-captain-6.mp3',
+        captainName,
+        'We\'ve lost a lot of good men today. The shipyard\'s army is hurting bad. You\'re strong, very strong—but even the strongest warrior can\'t do it alone.',
+      ),
+      createDialogSound(
+        'QuestSounds\\orc-attack\\orc-attack-captain-7.mp3',
+        captainName,
+        'Remember this: true power lies not in being the best warrior, but in leading many strong ones.',
+      ),
     ];
 
     gruntSounds = [
@@ -253,10 +265,17 @@ export class OrcAttack extends BaseQuest {
       1,
     );
 
+    // everyone looks at footman
+    setTimeout(1, () => {
+      talkGroup.setEveryoneAttention(footman);
+    });
+
     await waitUntil(1, () => DistanceBetweenLocs(footman, archmage) < 500);
 
+    talkGroup.addUnit(footman);
     await talkGroup.speak(footman, footmanSounds[0], archmage, footman);
     await talkGroup.speak(archmage, archMageSounds[3], footman, footman);
+    await sleep(1);
     await talkGroup.speak(footman, footmanSounds[1], traveler, traveler);
 
     setGuardPosition(
@@ -316,6 +335,9 @@ export class OrcAttack extends BaseQuest {
         captain.life = GetRandomReal(1, 50);
       }
 
+      await sleep(1);
+      await playSpeech(captain, captainSounds[5]);
+      await playSpeech(captain, captainSounds[6]);
       traveler.addExperience(rewardXp, true);
       await questLog.completeWithRewards([
         `${rewardXp} experience`,
@@ -391,7 +413,7 @@ export class OrcAttack extends BaseQuest {
           // eslint-disable-next-line @typescript-eslint/no-floating-promises
           (async () => {
             for (const { unit, unitType, sound } of speeches[0]) {
-              if (unit && unit.isAlive()) {
+              if (unit && isPreservedUnitAlive(unit)) {
                 await talkGroup.speak(unit, sound, null, null);
               } else if (unitType) {
                 const speaker = attackers.find((u) => u.typeId === unitType.id);

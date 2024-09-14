@@ -9,7 +9,7 @@ import {
 } from '../lib/systems/unit_interaction';
 
 export class TalkGroup {
-  constructor(private units: Unit[]) {
+  constructor(public units: Unit[]) {
   }
 
   addUnit(unit: Unit) {
@@ -37,6 +37,12 @@ export class TalkGroup {
     this.units.forEach((u) => {
       setUnitFlag(u, Flag.UNBREAKABLE_ATTENTION, false);
       enableInteractSound(u);
+    });
+  }
+
+  setEveryoneAttention(target: Unit) {
+    this.units.forEach((u) => {
+      setAttention(u, target);
     });
   }
 

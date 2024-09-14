@@ -42,7 +42,7 @@ import { registerPreseveUnits } from 'lib/systems/preserve_unit';
 import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
 import { UnitInteraction } from 'lib/systems/unit_interaction';
 import { registerFloatTextExperiments } from 'lib/texttag';
-import { trackElapsedGameTime } from 'lib/trigger';
+import { setTimeout, trackElapsedGameTime } from 'lib/trigger';
 import {
   daemonDummyMaster, daemonTieUnitToUnit,
 } from 'lib/unit';
@@ -99,6 +99,10 @@ function tsMain() {
 
   registerChatCommands();
   Camera.setSmoothingFactor(1);
+  CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 0, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+  setTimeout(3, () => {
+    CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 3, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+  });
 }
 
 function configurePlayerSettings() {
