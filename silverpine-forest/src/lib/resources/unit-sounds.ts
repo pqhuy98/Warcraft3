@@ -30604,9 +30604,6 @@ const unitSounds: UnitSounds[] = [
   },
 ];
 
-// Sounds of custom units
-addCustomUnitSound(UNIT_HarvestGolem, UNIT_GoblinShredder);
-
 /**
  * Functions
  */
@@ -30641,3 +30638,6 @@ export function addCustomUnitSound(unit: UNIT_TYPE, baseUnit: UNIT_TYPE): void {
   unitSounds.push(customUnitSound);
   unitSoundsMap.set(unit.id, customUnitSound);
 }
+
+// Sounds of custom units
+addCustomUnitSound(UNIT_HarvestGolem, UNIT_GoblinShredder);
