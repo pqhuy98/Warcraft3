@@ -2211,3 +2211,15 @@ STRING 395
 Flesh Giant
 }
 
+STRING 396
+// Units: n008 (Harvest Golem), Name (Name)
+{
+Harvest Golem
+}
+
+STRING 397
+// Abilities: A00T (Possession), EditorSuffix (Editor Suffix)
+{
+(Target Hero)
+}
+

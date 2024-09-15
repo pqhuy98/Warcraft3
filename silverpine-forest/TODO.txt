@@ -1,9 +1,3 @@
 TODO:
-- Convert model files from .obj to mdx with BLP textures. Investigate reforged HD models if convertible. Retain folder structure.
-- Auto-generate doodads data into object data file war3map.w3d
-  - Can import a few import doodads (ICC, Wrathgrate...) to test first if automation too hard.
-- Convert wow.export doodads .CSV file to list of doodads in war3map.doo file
-- Implement better terrain generation. Some ideas:
-  - Use BFS to generate connected navigatable components. Sort them to generate layers.
-  - Investigate integrating tile ramp based on height map and edge map.
-  - Generate WoW texture map and use it to assign per tile texture out of 16 chosen tiles.
+- Use varied villager models: https://www.hiveworkshop.com/threads/villagers-re-reforged.333071/, https://www.hiveworkshop.com/threads/old-villagers-re-reforged.335548/, https://www.hiveworkshop.com/threads/villager-girls-re-reforged.335802/
+- SetAttention make guardPosition to high priority

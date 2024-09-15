@@ -213,6 +213,7 @@ export class StrikeBack extends BaseQuest {
       const talkGroup2 = new TalkGroup([mayor, traveler]);
       await talkGroup2.speak(mayor, mayorOutro1, traveler, traveler);
       await talkGroup2.speak(mayor, mayorOutro2, traveler, traveler);
+      talkGroup2.finish();
 
       // grant vision of buildings
       getUnitsInRect(humanBaseRect, (u) => isBuilding(u) && u.owner === mayor.owner)

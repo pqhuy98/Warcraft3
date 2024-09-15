@@ -31,6 +31,7 @@ export const ABILITY_ID_BOOK_OF_TELEPORTATION = FourCC('A00K:AHmt');
 export const ABILITY_ID_MONSOON_THRALL = FourCC('A00L:ACmo');
 
 export const ABILITY_ID_PURGE_NO_GRAPHIC = FourCC('A00S:Aprg');
+export const ABILITY_ID_POSSESSION_TARGET_HERO = FourCC('A00T:Apos');
 
 // Custom Models
 export const MODEL_Sand_Tornado = 'Models\\Tornado\\SandTornado.mdx';
@@ -45,6 +46,7 @@ export const UNIT_TirionFordring = { code: 'H004', id: FourCC('H004') };
 export const UNIT_IPR_TRANSMITTER = { code: 'h005', id: FourCC('h005') };
 export const UNIT_IPR_RECEIVER = { code: 'h006', id: FourCC('h006') };
 export const UNIT_Butcher = { code: 'u001', id: FourCC('u001') };
+export const UNIT_HarvestGolem = { code: 'n008', id: FourCC('n008') };
 
 // Players
 export const playerOrcishHorde = MapPlayer.fromIndex(0);

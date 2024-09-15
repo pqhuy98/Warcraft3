@@ -1,9 +1,28 @@
 /* eslint-disable no-bitwise */
 import { getElapsedTime, sleep } from 'w3ts';
 
-export function pickRandom<T>(bag: T[]): T | undefined {
-  if (bag.length === 0) return undefined;
-  return bag[GetRandomInt(0, bag.length - 1)];
+export function pickRandom<T>(array: T[]): T | undefined {
+  if (array.length === 0) return undefined;
+  return array[GetRandomInt(0, array.length - 1)];
+}
+
+export function pickRandomMany<T>(array: T[], n: number): T[] {
+  const len = array.length;
+  if (n >= len) {
+    return [...array]; // Return a copy of the entire array if n >= array length
+  }
+
+  // Create a shallow copy of the array to avoid mutating the original
+  const copy = [...array];
+
+  // Partial Fisher-Yates Shuffle on the copied array: Only shuffle the first n elements
+  for (let i = 0; i < n; i++) {
+    const randomIndex = i + Math.floor(Math.random() * (len - i));
+    [copy[i], copy[randomIndex]] = [copy[randomIndex], copy[i]]; // Swap elements
+  }
+
+  // Return the first n shuffled elements from the copy
+  return copy.slice(0, n);
 }
 
 export function pickRandomWeighted<T>(allOptions: [T, number][]): T | null {
@@ -136,4 +155,10 @@ export function numberToOrdinal(i: number): string {
     return `${i}rd`;
   }
   return `${i}th`;
+}
+
+export function range(n: number): number[] {
+  const arr: number[] = [];
+  for (let i = 0; i < n; i++) arr.push(i);
+  return arr;
 }

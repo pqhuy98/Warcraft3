@@ -1,9 +1,10 @@
 import { getDestructablesInRect } from 'lib/destructable';
+import { log } from 'lib/log';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import { UNIT_Knight, UNIT_MortarTeam } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
 import { removeAttention, UnitInteraction } from 'lib/systems/unit_interaction';
-import { pickRandom } from 'lib/utils';
+import { pickRandom, reverseFourCC } from 'lib/utils';
 import { sleep, Unit } from 'w3ts';
 
 import { BaseQuest, BaseQuestProps } from '../base';
@@ -63,7 +64,9 @@ export class ShadowFangGate extends BaseQuest {
       );
 
       if (target.typeId === UNIT_Knight.id) {
+        log(reverseFourCC(target.typeId));
         const sounds = unitSounds[target.typeId];
+        log(sounds);
         if (sounds) {
           await playSpeech(target, pickRandom(sounds));
         }

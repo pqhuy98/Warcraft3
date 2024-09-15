@@ -37,6 +37,7 @@ import {
 } from 'lib/location';
 import { setAllianceState, setAllianceState2Way } from 'lib/player';
 import { daemonQuestMarker } from 'lib/quests/utils';
+import { allUpgrades } from 'lib/resources/war3-upgrades';
 import { registerHearthStone } from 'lib/systems/hearth_stone';
 import { registerPreseveUnits } from 'lib/systems/preserve_unit';
 import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
@@ -130,7 +131,11 @@ function configurePlayerSettings(): void {
     if (player !== mainPlayer) {
       setAllianceState2Way(neutralHostile, player, 'neutral');
     }
+    fullUpgrade(player);
   }
+
+  fullUpgrade(neutralHostile);
+  fullUpgrade(neutralPassive);
 
   // Player Color
   SetPlayerColorBJ(mainPlayer.handle, PLAYER_COLOR_PURPLE, true);
@@ -156,3 +161,7 @@ function configurePlayerSettings(): void {
 }
 
 addScriptHook(W3TS_HOOK.MAIN_AFTER, tsMain);
+
+function fullUpgrade(player: MapPlayer): void {
+  allUpgrades.forEach((up) => player.addTechResearched(up, 99));
+}

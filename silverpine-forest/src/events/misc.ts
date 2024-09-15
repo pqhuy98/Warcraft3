@@ -6,6 +6,8 @@ import {
 } from 'lib/constants';
 import { getDestructablesInRect } from 'lib/destructable';
 import {
+  AngleBetweenLocs,
+  centerLocRect,
   currentLoc, fromTempLocation, isLocInRect, isPointReachable, PolarProjection,
   randomLocRect,
   tempLocation,
@@ -21,6 +23,7 @@ import {
   UNIT_Banshee,
   UNIT_CryptFiend,
   UNIT_Footman,
+  UNIT_GargoyleMorphed,
   UNIT_Ghoul,
   UNIT_HeroShadowHunter, UNIT_Knight, UNIT_MeatWagon, UNIT_MortarTeam, UNIT_Necromancer,
   UNIT_Peasant, UNIT_Priest, UNIT_Shaman, UNIT_Sorceress, UNIT_TheCaptain, UNIT_VillagerMan,
@@ -35,7 +38,7 @@ import {
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isBuilding, isOrganic,
 } from 'lib/unit';
-import { pickRandom } from 'lib/utils';
+import { pickRandom, range } from 'lib/utils';
 import {
   Effect, MapPlayer, Unit,
 } from 'w3ts';
@@ -79,11 +82,11 @@ export class MiscEvents {
       });
     });
 
-    // Goblin Shredder in farm deteriorating
+    // Harvest Golems in farm deteriorating
     setIntervalIndefinite(10, () => {
-      [gg_unit_ngir_0095, gg_unit_ngir_0096, gg_unit_ngir_0097].forEach((gs) => {
-        const goblinShredder = Unit.fromHandle(gs);
-        goblinShredder.life = Math.min(goblinShredder.life, goblinShredder.maxLife - 80);
+      [gg_unit_n008_0942, gg_unit_n008_0095, gg_unit_n008_0096].forEach((gs) => {
+        const harvestGolem = Unit.fromHandle(gs);
+        harvestGolem.life = Math.min(harvestGolem.life, harvestGolem.maxLife - 85);
       });
     });
 
@@ -168,6 +171,27 @@ export class MiscEvents {
           t.addAction(() => eff.destroy());
         });
       });
+
+    // Gargoyle
+    const gargoyleCount = 20;
+    const centerLoc = centerLocRect(gg_rct_Gargoyle);
+    const gargoyles = range(gargoyleCount).map((i) => {
+      const loc = PolarProjection(centerLoc, 400, i * 360 / gargoyleCount);
+      const garg = Unit.create(neutralHostile, UNIT_GargoyleMorphed.id, loc.x, loc.y, AngleBetweenLocs(centerLoc, loc));
+      garg.paused = true;
+      return garg;
+    });
+    buildTrigger((t) => {
+      gargoyles.forEach((u) => t.registerDeathEvent(u));
+      t.addAction(() => {
+        gargoyles.forEach((u) => {
+          u.paused = false;
+          u.issueImmediateOrder(OrderId.Stoneform);
+          BlzQueueTargetOrderById(u.handle, OrderId.Attack, GetKillingUnit());
+        });
+        t.destroy();
+      });
+    });
 
     // Others
     this.preventFriendlyFire();

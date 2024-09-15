@@ -223,7 +223,7 @@ export class OrcAttack extends BaseQuest {
     setNeverDie(archmage);
 
     getUnitsInRect(orcBaseRect, (u) => u.owner === orcPlayer)
-      .forEach((u) => setNeverDie(u, true, u.maxLife / 3));
+      .forEach((u) => setNeverDie(u));
 
     await this.waitDependenciesDone();
 
@@ -308,6 +308,14 @@ export class OrcAttack extends BaseQuest {
     const orcAttackPromise = this.orcAttacking(humanShipyard, talkGroup2);
     await talkGroup2.speak(footman, footmanSounds[2], captain, traveler);
     await talkGroup2.speak(captain, captainSounds[0], traveler, traveler);
+    talkGroup2.finish();
+
+    captain.shareVision(traveler.owner, true);
+    getUnitsInRect(humanShipyardRect, (u) => u.isAlive() && u.owner === captain.owner)
+      .forEach((u) => guardCurrentPosition(u));
+    setNeverDie(footman, false);
+    setNeverDie(captain, false);
+    preserveUnit(captain);
 
     const questLog = await QuestLog.create({
       name: questName,
@@ -315,12 +323,6 @@ export class OrcAttack extends BaseQuest {
       icon: questIcon,
       items: questItems,
     });
-    captain.shareVision(traveler.owner, true);
-    getUnitsInRect(humanShipyardRect, (u) => u.isAlive() && u.owner === captain.owner)
-      .forEach((u) => guardCurrentPosition(u));
-    setNeverDie(footman, false);
-    setNeverDie(captain, false);
-    preserveUnit(captain);
 
     // Wait till Orc attack waves complete
     const result = await orcAttackPromise;

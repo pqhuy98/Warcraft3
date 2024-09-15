@@ -9,6 +9,7 @@ import { Unit } from 'w3ts';
 
 import { BanditBanish } from './bandit_banish/bandit_banish';
 import { BlackTurban } from './black_turban/black_turban';
+import { Cementery } from './cementery/cementery';
 import { ElvenDrink } from './elven_drink/elven_drink';
 import { GatherSheeps } from './gather_sheeps/gather_sheeps';
 import { HiddenEnergies } from './hidden_energies/hidden_energies';
@@ -176,6 +177,18 @@ export class QuestRegistry {
         ],
         dependencies: [],
         cheatName: 'sfg',
+      }).register();
+
+      // Cementery
+      new Cementery({
+        name: 'Cementary\'s Ghost Party',
+        ghostLadiesRect: gg_rct_Ghost_ladies_graveyard,
+        cementeryEntryRect: gg_rct_Cementery_entry,
+        partySpawnRect: gg_rct_Cemetery_spawns,
+        partyStageRect: gg_rct_Cementery_Stage,
+        partyActivateRect: gg_rct_Cementery_activate,
+        dependencies: [],
+        cheatName: 'cgp',
       }).register();
     });
   }

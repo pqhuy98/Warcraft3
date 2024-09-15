@@ -184,7 +184,7 @@ export class BlackTurban extends BaseQuest {
 
       const bandits: Unit[] = [];
       let squadTotalPower = 0;
-      const squadDesiredPower = Math.min(10000, victimTotalPower * 2.5);
+      const squadDesiredPower = Math.min(10000, victimTotalPower * GetRandomReal(1, 2.5));
       const locs: Loc[] = [];
 
       while (squadTotalPower < squadDesiredPower) {

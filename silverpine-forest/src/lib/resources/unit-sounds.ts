@@ -1,3 +1,7 @@
+import { UNIT_HarvestGolem } from 'lib/constants';
+
+import { UNIT_GoblinShredder, UNIT_TYPE } from './war3-units';
+
 /* eslint-disable max-len */
 interface SoundGroup {
   FileNames: string,
@@ -11,9 +15,9 @@ type UnitSounds = {
   id: string
   name: string
   sounds: Record<SoundType, SoundGroup[]>
-}[];
+};
 
-const unitSounds: UnitSounds = [
+const unitSounds: UnitSounds[] = [
   {
     id: 'Hamg',
     name: 'archmage',
@@ -30600,6 +30604,12 @@ const unitSounds: UnitSounds = [
   },
 ];
 
+// Sounds of custom units
+addCustomUnitSound(UNIT_HarvestGolem, UNIT_GoblinShredder);
+
+/**
+ * Functions
+ */
 const unitSoundsMap = new Map(unitSounds.map((s) => [FourCC(s.id), s]));
 const unitSoundCache = new Map<string, string[]>();
 
@@ -30620,4 +30630,14 @@ export function getUnitSounds(unitTypeId: number, ...soundTypes: SoundType[]): s
     return result;
   }
   return unitSoundCache.get(key);
+}
+
+export function addCustomUnitSound(unit: UNIT_TYPE, baseUnit: UNIT_TYPE): void {
+  const customUnitSound: UnitSounds = {
+    ...unitSoundsMap.get(baseUnit.id),
+    id: unit.code,
+  };
+
+  unitSounds.push(customUnitSound);
+  unitSoundsMap.set(unit.id, customUnitSound);
 }
