@@ -94,7 +94,7 @@ export class MulticastNoTarget {
             tLimit.destroy();
             RemoveLocation(targetLoc);
             k0('mcnt-f');
-            fadeUnit(dummy, 255, 255, 0, 128, 128 / fadeDuration, () => false, () => {
+            fadeUnit(dummy, 255, 255, 0, 128, fadeDuration, () => false, () => {
               safeRemoveDummy(dummy);
               k1('mcnt-f');
             });

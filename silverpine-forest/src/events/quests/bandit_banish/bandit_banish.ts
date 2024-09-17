@@ -236,9 +236,22 @@ export class BanditBanish extends BaseQuest {
   }
 
   onForceComplete(): void {
-    const { bandits, sightBlockersRect } = this.globals;
+    const {
+      john, peter, bandits, johnRect, peterRect, sightBlockersRect,
+    } = this.globals;
     bandits.forEach((u) => u.kill());
     getDestructablesInRect(sightBlockersRect, (d) => d.typeId === FourCC('YTlb'))
       .forEach((d) => d.kill());
+
+    john.show = true;
+    peter.show = true;
+    const johnPos = centerLocRect(johnRect);
+    const peterPos = centerLocRect(peterRect);
+    john.setPosition(johnPos.x, johnPos.y);
+    peter.setPosition(peterPos.x, peterPos.y);
+    john.setFacingEx(270);
+    peter.setFacingEx(0);
+    guardCurrentPosition(john);
+    guardCurrentPosition(peter);
   }
 }

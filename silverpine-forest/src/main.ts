@@ -101,7 +101,7 @@ function tsMain(): void {
   registerChatCommands();
   Camera.setSmoothingFactor(1);
   CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 0, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
-  setTimeout(3, () => {
+  setTimeout(0.5, () => {
     CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 3, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
   });
 }

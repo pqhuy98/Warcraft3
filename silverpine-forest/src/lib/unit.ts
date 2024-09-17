@@ -56,15 +56,15 @@ export function fadeUnit(
   green: number,
   blue: number,
   alpha: number,
-  alphaLossPerSec: number,
+  duration: number,
   checkCancel: () => boolean,
   onComplete: () => void,
 ): void {
   k0('fade');
   const t = Timer.create();
 
-  const TICK_TIME = 1.0 / 15;
-  const alphaLossPerTick = Math.round(alphaLossPerSec * TICK_TIME);
+  const TICK_TIME = 1.0 / 30;
+  const alphaLossPerTick = alpha / duration * TICK_TIME;
   let newAlpha = alpha;
 
   t.start(TICK_TIME, true, () => {
@@ -85,7 +85,7 @@ export function fadeUnit(
       onComplete();
     }
 
-    u.setVertexColor(red, green, blue, newAlpha);
+    u.setVertexColor(red, green, blue, Math.min(255, Math.max(0, Math.round(newAlpha))));
   });
 }
 
@@ -266,6 +266,24 @@ export function getUnitsInRangeOfLoc(range: number, loc: Loc, filter?: (u: Unit)
   return results;
 }
 
+/**
+ * @returns closest unit to a unit, obviously excluding itself.
+ */
+export function getClosestUnitInRangeOfUnit(range: number, unit: Unit, filter?: (u: Unit) => boolean, minRange = 0): Unit | undefined {
+  const units = getUnitsInRangeOfLoc(range, unit, (u) => u !== unit && DistanceBetweenLocs(u, unit) >= minRange && filter(u));
+  if (units.length === 0) return undefined;
+  let bestUnit = units[0];
+  let bestDistance = DistanceBetweenLocs(bestUnit, unit);
+  for (let i = 0; i < units.length; i++) {
+    const distance = DistanceBetweenLocs(units[i], unit);
+    if (distance < bestDistance) {
+      bestUnit = units[i];
+      bestDistance = distance;
+    }
+  }
+  return bestUnit;
+}
+
 export function orderUnitUseItemAbilityAtLoc(unit: Unit, abilityId: number, loc: Loc): void {
   for (let i = 0; i < 6; i++) {
     const itm = UnitItemInSlot(unit.handle, i + 1);
@@ -322,7 +340,9 @@ export function getUnitsOfPlayer(player: MapPlayer, filter?: (u: Unit) => boolea
 }
 
 export function isUnitIdle(unit: Unit): boolean {
-  return unit.currentOrder === OrderId.Stop || unit.currentOrder === 0;
+  return unit.currentOrder === OrderId.Stop
+    || unit.currentOrder === 0
+    || unit.currentOrder === OrderId.Standdown;
 }
 
 export function setUnitFacingWithRate(unit: Unit, angle: number, rate: number = 180 / 0.75): void {

@@ -5,7 +5,7 @@ import {
 } from 'lib/location';
 import { log } from 'lib/log';
 import { buildTrigger } from 'lib/trigger';
-import { createDummy } from 'lib/unit';
+import { createDummy, getDummyMaster } from 'lib/unit';
 import { Group, Trigger, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
@@ -87,7 +87,7 @@ export function preserveUnit(unit: Unit): RestoreFunction {
         if (unit.isHero()) {
           return;
         }
-        const killer = Unit.fromHandle(GetEventDamageSource());
+        const killer = getDummyMaster(GetEventDamageSource());
         if (GetEventDamage() > unit.life) {
           BlzSetEventDamage(0);
           // hide unit

@@ -9,7 +9,9 @@ export const displayToPlayer = (player: player, message: string): void => Displa
 export const isPlayingPlayer = (player: player): boolean => GetPlayerController(player) === MAP_CONTROL_USER
   && GetPlayerSlotState(player) === PLAYER_SLOT_STATE_PLAYING;
 
-export const isComputer = (player: player): boolean => GetPlayerController(player) === MAP_CONTROL_COMPUTER;
+export const isComputer = (player: MapPlayer): boolean => player.controller === MAP_CONTROL_COMPUTER;
+
+export const isUser = (player: MapPlayer): boolean => player.controller === MAP_CONTROL_USER;
 
 export const hasLeft = (player: player): boolean => GetPlayerSlotState(player) === PLAYER_SLOT_STATE_LEFT;
 

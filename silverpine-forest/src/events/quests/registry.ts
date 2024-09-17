@@ -184,6 +184,7 @@ export class QuestRegistry {
         name: 'Cementary\'s Ghost Party',
         ghostLadiesRect: gg_rct_Ghost_ladies_graveyard,
         cementeryEntryRect: gg_rct_Cementery_entry,
+        partyRect: gg_rct_Cementery_area,
         partySpawnRect: gg_rct_Cemetery_spawns,
         partyStageRect: gg_rct_Cementery_Stage,
         partyActivateRect: gg_rct_Cementery_activate,

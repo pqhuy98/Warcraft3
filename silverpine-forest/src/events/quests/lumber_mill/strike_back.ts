@@ -85,17 +85,15 @@ export class StrikeBack extends BaseQuest {
   }
 
   async register(): Promise<void> {
-    const { undeadBaseRect } = this.globals;
-    const undeadBuildings = getUnitsInRect(undeadBaseRect, (u) => u.owner === playerForsaken && isBuilding(u));
-
     const {
-      knight, mayor, humanBaseRect, knightRectAfterQuest,
+      knight, mayor, humanBaseRect, knightRectAfterQuest, undeadBaseRect,
     } = this.globals;
     knight.name = knightName;
     mayor.nameProper = mayorName;
     mayor.name = 'Mayor of Ambermill';
     setNeverDie(mayor, true, 100);
     setNeverDie(knight, true, 100);
+    const undeadBuildings = getUnitsInRect(undeadBaseRect, (u) => u.owner === playerForsaken && isBuilding(u));
 
     await this.waitDependenciesDone();
 

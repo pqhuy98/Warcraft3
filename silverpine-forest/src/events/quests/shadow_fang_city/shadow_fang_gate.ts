@@ -1,10 +1,9 @@
 import { getDestructablesInRect } from 'lib/destructable';
-import { log } from 'lib/log';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import { UNIT_Knight, UNIT_MortarTeam } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
 import { removeAttention, UnitInteraction } from 'lib/systems/unit_interaction';
-import { pickRandom, reverseFourCC } from 'lib/utils';
+import { pickRandom } from 'lib/utils';
 import { sleep, Unit } from 'w3ts';
 
 import { BaseQuest, BaseQuestProps } from '../base';
@@ -62,14 +61,10 @@ export class ShadowFangGate extends BaseQuest {
       const { target } = await Promise.race(
         gateKeepers.map((u) => UnitInteraction.waitUntilQuestTalk(u, 'new')),
       );
-
-      if (target.typeId === UNIT_Knight.id) {
-        log(reverseFourCC(target.typeId));
-        const sounds = unitSounds[target.typeId];
-        log(sounds);
-        if (sounds) {
-          await playSpeech(target, pickRandom(sounds));
-        }
+      await sleep(0.5);
+      const sounds = unitSounds[target.typeId];
+      if (sounds) {
+        await playSpeech(target, pickRandom(sounds));
       }
       await sleep(0.5);
       this.openGate(true);
@@ -78,7 +73,7 @@ export class ShadowFangGate extends BaseQuest {
         removeAttention(u);
       });
 
-      await sleep(GetRandomReal(10, 20));
+      await sleep(GetRandomReal(20, 30));
       this.openGate(false);
       await sleep(1);
     }

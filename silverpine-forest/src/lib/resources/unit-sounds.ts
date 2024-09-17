@@ -9,7 +9,9 @@ interface SoundGroup {
   Channel: number,
   SoundName: string,
 }
-export type SoundType = 'What' | 'Pissed' | 'YesAttack' | 'Yes' | 'Ready' | 'Warcry'
+
+export const AllSoundTypes = ['What', 'Pissed', 'YesAttack', 'Yes', 'Ready', 'Warcry'] as const;
+export type SoundType = typeof AllSoundTypes[number]
 
 type UnitSounds = {
   id: string

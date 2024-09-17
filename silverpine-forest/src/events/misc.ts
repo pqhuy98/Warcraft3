@@ -13,21 +13,20 @@ import {
   tempLocation,
 } from 'lib/location';
 import { log } from 'lib/log';
-import { isComputer, setAllianceState2Way } from 'lib/player';
+import { isComputer, isUser, setAllianceState2Way } from 'lib/player';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import { ABILITY_PaladinHolyLight, ABILITY_Wander } from 'lib/resources/war3-abilities';
 import { MODEL_BrewmasterTarget, MODEL_FrostNovaTarget, MODEL_InnerFireTarget } from 'lib/resources/war3-models';
 import {
   UNIT_Abomination,
-  UNIT_Acolyte,
-  UNIT_Banshee,
-  UNIT_CryptFiend,
   UNIT_Footman,
   UNIT_GargoyleMorphed,
   UNIT_Ghoul,
-  UNIT_HeroShadowHunter, UNIT_Knight, UNIT_MeatWagon, UNIT_MortarTeam, UNIT_Necromancer,
-  UNIT_Peasant, UNIT_Priest, UNIT_Shaman, UNIT_Sorceress, UNIT_TheCaptain, UNIT_VillagerMan,
-  UNIT_VillagerMan2, UNIT_WitchDoctor,
+  UNIT_HeroShadowHunter,
+  UNIT_Militia,
+  UNIT_Peasant, UNIT_Shaman, UNIT_VillagerKid, UNIT_VillagerKid2, UNIT_VillagerMan,
+  UNIT_VillagerMan2, UNIT_VillagerWoman, UNIT_WitchDoctor,
+  UNIT_Zombie,
 } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition, removeGuardPosition } from 'lib/systems/unit_guard_position';
@@ -40,7 +39,7 @@ import {
 } from 'lib/unit';
 import { pickRandom, range } from 'lib/utils';
 import {
-  Effect, MapPlayer, Unit,
+  Effect, MapPlayer, sleep, Unit,
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
@@ -60,7 +59,7 @@ export class MiscEvents {
     // All pre-placed non-neutral units guard their positions
     getUnitsInRect(GetWorldBounds(), (u) => u.isAlive()
       && !isBuilding(u)
-      && isComputer(u.owner.handle)
+      && isComputer(u.owner)
       && !u.getAbility(ABILITY_Wander.id)
       && !u.isUnitType(UNIT_TYPE_PEON)
       && u.owner !== neutralHostile && u.owner !== neutralPassive)
@@ -195,7 +194,8 @@ export class MiscEvents {
 
     // Others
     this.preventFriendlyFire();
-    this.creatCastleCorpses();
+    this.castleEvents();
+    this.shadowFangCitizens();
   }
 
   // 9 footmen in Shadowfang practice
@@ -247,6 +247,22 @@ export class MiscEvents {
     });
   }
 
+  static shadowFangCitizens(): void {
+    const citizenIds = [
+      UNIT_VillagerMan,
+      UNIT_VillagerMan2,
+      UNIT_VillagerWoman,
+      UNIT_VillagerKid,
+      UNIT_VillagerKid2,
+    ].map((t) => t.id);
+
+    getUnitsInRect(gg_rct_Shadowfang_region, (u) => citizenIds.includes(u.typeId))
+      .forEach((u) => {
+        u.addAbility(ABILITY_Wander.id);
+        removeGuardPosition(u);
+      });
+  }
+
   static preventFriendlyFire(): void {
     // Players become hostile if being friendly fired
     buildTrigger((t) => {
@@ -270,7 +286,8 @@ export class MiscEvents {
       t.addCondition(() => {
         const attacker = Unit.fromHandle(GetAttacker());
         const victim = Unit.fromEvent();
-        return victim.owner !== attacker.owner
+        return isUser(attacker.owner)
+          && victim.owner !== attacker.owner
           && attacker.owner.isPlayerAlly(victim.owner)
           && victim.owner !== neutralPassive;
       });
@@ -281,8 +298,8 @@ export class MiscEvents {
     });
   }
 
-  static creatCastleCorpses(): void {
-    const corpses = 200;
+  static castleEvents(): void {
+    const corpses = 70;
 
     // Corpses
     const rects = [
@@ -293,10 +310,10 @@ export class MiscEvents {
 
     const corpseTypes: [MapPlayer, number[]][] = [
       [playerHumanAlliance, [
-        UNIT_Footman, UNIT_Knight, UNIT_Priest, UNIT_MortarTeam, UNIT_Peasant, UNIT_Sorceress, UNIT_TheCaptain,
+        UNIT_Footman, UNIT_Peasant, UNIT_Militia, UNIT_VillagerMan, UNIT_VillagerMan2, UNIT_VillagerWoman,
       ].map((t) => t.id)],
       [playerForsaken, [
-        UNIT_Ghoul, UNIT_Abomination, UNIT_Necromancer, UNIT_Banshee, UNIT_MeatWagon, UNIT_Acolyte, UNIT_CryptFiend,
+        UNIT_Ghoul, UNIT_Zombie, UNIT_Abomination,
       ].map((t) => t.id)],
     ];
 
@@ -336,6 +353,23 @@ export class MiscEvents {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         playSpeech(killer, freshMeatSound);
         killer.life = killer.maxLife;
+      });
+    });
+
+    buildTrigger((t) => {
+      TriggerRegisterEnterRectSimple(t.handle, gg_rct_Casle_entry);
+      t.addCondition(() => Unit.fromEvent().owner === mainPlayer);
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      t.addAction(async () => {
+        ModifyGateBJ(bj_GATEOPERATION_OPEN, gg_dest_LTg3_8382);
+        const shadowfangGateBlockers = getDestructablesInRect(gg_rct_Casle_entry);
+        shadowfangGateBlockers.forEach((d) => d.kill());
+        t.enabled = false;
+        await sleep(10);
+        ModifyGateBJ(bj_GATEOPERATION_CLOSE, gg_dest_LTg3_8382);
+        shadowfangGateBlockers.forEach((d) => d.kill());
+        await sleep(10);
+        t.enabled = true;
       });
     });
   }
