@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { TalkGroup } from 'events/talk_group';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { mainPlayer, playerForsaken, playerHumanAlliance } from 'lib/constants';
 import {
   AngleBetweenLocs,

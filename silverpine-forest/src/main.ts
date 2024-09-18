@@ -8,7 +8,6 @@ import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
 import WrathOfTheLichKing from 'abilities/wrath_of_the_lich_king/wrath_of_the_lich_king';
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
 import { MiscEvents } from 'events/misc';
-import { QuestRegistry } from 'events/quests/registry';
 import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
 import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
 import {
@@ -47,6 +46,7 @@ import { setTimeout, trackElapsedGameTime } from 'lib/trigger';
 import {
   daemonDummyMaster, daemonTieUnitToUnit,
 } from 'lib/unit';
+import { QuestRegistry } from 'quests/registry';
 import {
   Camera, MapPlayer,
 } from 'w3ts';

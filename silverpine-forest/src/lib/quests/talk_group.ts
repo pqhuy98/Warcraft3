@@ -6,7 +6,7 @@ import { Unit } from 'w3ts';
 
 import {
   disableInteractSound, enableInteractSound, removeAttention, setAttention,
-} from '../lib/systems/unit_interaction';
+} from '../systems/unit_interaction';
 
 export class TalkGroup {
   constructor(public units: Unit[]) {

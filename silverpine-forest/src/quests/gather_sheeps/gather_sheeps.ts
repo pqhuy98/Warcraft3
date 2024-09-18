@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { TalkGroup } from 'events/talk_group';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { mainPlayer } from 'lib/constants';
 import {
   AngleBetweenLocs, centerLocRect, DistanceBetweenLocs, isLocInRect, PolarProjection,

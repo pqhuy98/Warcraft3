@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import { TalkGroup } from 'events/talk_group';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { mainPlayer, playerForsaken, playerHumanAlliance } from 'lib/constants';
 import { centerLocRect, randomLocRect } from 'lib/location';
 import { setAllianceState2Way } from 'lib/player';

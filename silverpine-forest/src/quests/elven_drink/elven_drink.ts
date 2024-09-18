@@ -2,7 +2,7 @@
 import { MulticastNoTarget } from 'abilities/multicast/no-target';
 import { MulticastPoint } from 'abilities/multicast/point';
 import { MulticastUnit } from 'abilities/multicast/unit';
-import { TalkGroup } from 'events/talk_group';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { playerMonsters } from 'lib/constants';
 import { generateFogLocsBehindTrees } from 'lib/destructable';
 import {

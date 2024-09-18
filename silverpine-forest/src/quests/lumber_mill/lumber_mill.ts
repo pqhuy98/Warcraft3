@@ -1,4 +1,4 @@
-import { TalkGroup } from 'events/talk_group';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { mainPlayer, playerForsaken } from 'lib/constants';
 import {
   AngleBetweenLocs,

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import { TalkGroup } from 'events/talk_group';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { getDestructablesInRect } from 'lib/destructable';
 import { centerLocRect } from 'lib/location';
 import { createDialogSound } from 'lib/quests/dialogue_sound';

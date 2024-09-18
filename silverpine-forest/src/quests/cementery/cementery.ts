@@ -1,4 +1,3 @@
-import { TalkGroup } from 'events/talk_group';
 import {
   ABILITY_ID_POSSESSION_TARGET_HERO, mainPlayer,
   MODEL_Chat_Bubble,
@@ -16,6 +15,7 @@ import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
+import { TalkGroup } from 'lib/quests/talk_group';
 import {
   disableQuestMarker, enableQuestMarker, removeMinimapIcon, setMinimapIconUnit,
 } from 'lib/quests/utils';
@@ -49,10 +49,11 @@ import {
 import { pickRandom, pickRandomMany, waitUntil } from 'lib/utils';
 import {
   Effect,
-  sleep, Sound, Unit,
+  sleep, Sound, Timer, Unit,
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
+import { restoreCameraBound, updateCameraBound } from '../../lib/camerabounds';
 import { BaseQuest, BaseQuestProps } from '../base';
 
 const questName = 'Cementary\'s Ghost Party';
@@ -70,7 +71,7 @@ const ghostG = 200;
 const ghostB = 200;
 const ghostA = 75;
 
-const debug = false;
+const debug = true;
 
 export class Cementery extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
@@ -158,7 +159,7 @@ export class Cementery extends BaseQuest {
 
   async register(): Promise<void> {
     const {
-      ghostLadiesRect, cementeryEntryRect, partyRect, partyActivateRect,
+      ghostLadiesRect, cementeryEntryRect, partyRect, partyActivateRect, partySpawnRect,
     } = this.globals;
     const ghostLadies = getUnitsInRect(ghostLadiesRect);
     ghostLadies.sort((u1, u2) => u2.level - u1.level);
@@ -257,6 +258,7 @@ export class Cementery extends BaseQuest {
     BlzEnableCursor(false);
     await sleep(1);
     SmartCameraPanBJ(traveler.owner.handle, tempLocation(traveler), 0);
+    updateCameraBound([partySpawnRect]);
 
     // Party goers algorithm
     const { partyGoers, chatSounds, attackSounds } = this.spawnParty();
@@ -314,11 +316,7 @@ export class Cementery extends BaseQuest {
             attacker,
             (u) => !targetMap.has(u) && DistanceBetweenLocs(victim, u) >= (u.getField(UNIT_RF_MINIMUM_ATTACK_RANGE) as number),
           ).forEach((u) => {
-            if (isVictimInnocent && GetRandomInt(1, 2) === 1) {
-              setTimeout(GetRandomReal(0, 5), () => setAttackTarget(u, victim));
-            } else {
-              setAttackTarget(u, victim);
-            }
+            setTimeout(GetRandomReal(0, 5), () => setAttackTarget(u, victim));
           });
 
           getUnitsInRangeOfLoc(
@@ -370,69 +368,68 @@ export class Cementery extends BaseQuest {
 
     // Unit control loop
     const nextChatTimestampS = new Map<Unit, number>();
-    const timer = setIntervalIndefinite(1, () => {
+    const timers = partyGoers.map((unit) => setIntervalIndefinite(GetRandomReal(1, 2), () => {
       const now = getTimeS();
-      partyGoers.forEach((unit) => {
-        // Dead/outside unit leaves party
-        if (!unit.isAlive() || !isLocInRect(unit, partyRect)) {
-          leaveParty(unit);
-          return;
-        }
+      // Dead/outside unit leaves party
+      if (!unit.isAlive() || !isLocInRect(unit, partyRect)) {
+        leaveParty(unit);
+        Timer.fromExpired().pause();
+        return;
+      }
 
-        // Do not control traveler
-        if (unit === traveler) return;
+      // Do not control traveler
+      if (unit === traveler) return;
 
-        const isAggressive = targetMap.has(unit);
-        const target = targetMap.get(unit);
+      const isAggressive = targetMap.has(unit);
+      const target = targetMap.get(unit);
 
-        // Attack control
-        if (isAggressive && target != null) {
-          const shouldSwitch = !target.isAlive()
+      // Attack control
+      if (isAggressive && target != null) {
+        const shouldSwitch = !target.isAlive()
             || !partyGoers.has(target)
             || DistanceBetweenLocs(unit, target) > 1000;
-          if (shouldSwitch) {
-            setAttackTargetNearby(unit);
-          } else {
-            unit.issueTargetOrder(OrderId.Attack, target);
-          }
+        if (shouldSwitch) {
+          setAttackTargetNearby(unit);
         } else {
-          // Move to talk to nearby unit, or wander around
-          if (!nextChatTimestampS.has(unit) || nextChatTimestampS.get(unit) < now) {
-            const dice = GetRandomInt(1, 3);
-            const nearby = dice === 1
-              ? pickRandom(getUnitsInRangeOfLoc(500, unit, (u) => u.isAlive() && partyGoers.has(u) && u !== unit))
-              : dice === 2
-                ? getClosestUnitInRangeOfUnit(500, unit, (u) => u.isAlive() && partyGoers.has(u))
-                : partyGoers.getRandom();
-            if (nearby) {
-              if (DistanceBetweenLocs(unit, nearby) > 400 || angleDifference(unit.facing, AngleBetweenLocs(unit, nearby)) > 30) {
-                unit.issueTargetOrder(OrderId.Smart, nearby);
-              }
-              nextChatTimestampS.set(unit, now + GetRandomReal(5, 10));
-            } else {
-              const moveDest = PolarProjection(unit, unit.moveSpeed, GetRandomDirectionDeg());
-              unit.issueOrderAt(OrderId.Move, moveDest.x, moveDest.y);
+          unit.issueTargetOrder(OrderId.Attack, target);
+        }
+      } else {
+        // Move to talk to nearby unit, or wander around
+        if (!nextChatTimestampS.has(unit) || nextChatTimestampS.get(unit) < now) {
+          const dice = GetRandomInt(1, 3);
+          const nearby = dice === 1
+            ? pickRandom(getUnitsInRangeOfLoc(500, unit, (u) => u.isAlive() && partyGoers.has(u) && u !== unit))
+            : dice === 2
+              ? getClosestUnitInRangeOfUnit(500, unit, (u) => u.isAlive() && partyGoers.has(u))
+              : partyGoers.getRandom();
+          if (nearby) {
+            if (DistanceBetweenLocs(unit, nearby) > 400 || angleDifference(unit.facing, AngleBetweenLocs(unit, nearby)) > 30) {
+              unit.issueTargetOrder(OrderId.Smart, nearby);
             }
+            nextChatTimestampS.set(unit, now + GetRandomReal(5, 10));
+          } else {
+            const moveDest = PolarProjection(unit, unit.moveSpeed, GetRandomDirectionDeg());
+            unit.issueOrderAt(OrderId.Move, moveDest.x, moveDest.y);
           }
         }
+      }
 
-        // Play unit sound
-        if (!nextSoundTimestampS.has(unit) || nextSoundTimestampS.get(unit) < now) {
-          const snd = pickRandom(isAggressive ? attackSounds.get(unit) : chatSounds.get(unit));
-          if (snd) {
-            let volume = !isAggressive ? GetRandomInt(1, 33) : GetRandomInt(66, 100);
-            if (target === traveler) {
-              volume = 127;
-            }
-            snd.setVolume(volume);
-            snd.start();
-            nextSoundTimestampS.set(unit, now + snd.duration / 1000 + GetRandomReal(0, 5));
-            const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
-            setTimeout(snd.duration / 1000, () => speakEffect.destroy());
+      // Play unit sound
+      if (!nextSoundTimestampS.has(unit) || nextSoundTimestampS.get(unit) < now) {
+        const snd = pickRandom(isAggressive ? attackSounds.get(unit) : chatSounds.get(unit));
+        if (snd) {
+          let volume = !isAggressive ? GetRandomInt(1, 33) : GetRandomInt(66, 100);
+          if (target === traveler) {
+            volume = 127;
           }
+          snd.setVolume(volume);
+          snd.start();
+          nextSoundTimestampS.set(unit, now + snd.duration / 1000 + GetRandomReal(0, 5));
+          const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
+          setTimeout(snd.duration / 1000, () => speakEffect.destroy());
         }
-      });
-    });
+      }
+    }));
 
     VolumeGroupSetVolume(SOUND_VOLUMEGROUP_COMBAT, 0.35);
     VolumeGroupSetVolume(SOUND_VOLUMEGROUP_SPELLS, 0.35);
@@ -463,13 +460,14 @@ export class Cementery extends BaseQuest {
 
     await waitUntil(1, () => partyGoers.size === 1 || !partyGoers.has(traveler));
 
-    timer.destroy();
+    timers.forEach((t) => t.destroy());
     damageTrigger.destroy();
     rightClickTrigger.destroy();
 
     partyGoers.forEach((u) => setTimeout(GetRandomReal(0, 5), () => leaveParty(u)));
     VolumeGroupSetVolume(SOUND_VOLUMEGROUP_COMBAT, 1);
     VolumeGroupSetVolume(SOUND_VOLUMEGROUP_SPELLS, 1);
+    restoreCameraBound();
 
     if (traveler.isAlive()) {
       // TODO: give reward

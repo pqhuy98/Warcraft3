@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import { TalkGroup } from 'events/talk_group';
 import {
   AngleBetweenLocs,
   centerLocRect,
@@ -10,13 +9,14 @@ import {
 } from 'lib/location';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import { QuestLog } from 'lib/quests/quest_log';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { disableQuestMarker, enableQuestMarker } from 'lib/quests/utils';
 import {
   UNIT_Barracks,
   UNIT_Beastiary,
   UNIT_Demolisher,
   UNIT_Footman,
-  UNIT_Grunt, UNIT_HeadHunter, UNIT_HumanBarracks, UNIT_HumanShipyard, UNIT_KodoBeast, UNIT_Raider,
+  UNIT_Grunt, UNIT_HeadHunter, UNIT_HumanShipyard, UNIT_KodoBeast, UNIT_Raider,
   UNIT_Shaman,
   UNIT_SpiritLodge,
   UNIT_TYPE,
@@ -280,7 +280,7 @@ export class OrcAttack extends BaseQuest {
 
     setGuardPosition(
       footman,
-      PolarProjection(captain, 250, AngleBetweenLocs(captain, footman)),
+      PolarProjection(captain, 200, AngleBetweenLocs(captain, footman)),
       AngleBetweenLocs(footman, captain),
     );
     enableQuestMarker(footman, 'new');
@@ -293,9 +293,7 @@ export class OrcAttack extends BaseQuest {
     await waitUntil(1, () => DistanceBetweenLocs(footman, captain) < 300);
     disableQuestMarker(footman);
     const humanShipyard = getUnitsInRect(humanShipyardRect, (u) => u.owner === captain.owner && u.typeId === UNIT_HumanShipyard.id)[0];
-    const humanBarracks = getUnitsInRect(humanShipyardRect, (u) => u.owner === captain.owner && u.typeId === UNIT_HumanBarracks.id)[0];
     humanShipyard.shareVision(traveler.owner, true);
-    humanBarracks.shareVision(traveler.owner, true);
 
     traveler = await this.waitForTurnIn(footman);
 
@@ -328,7 +326,6 @@ export class OrcAttack extends BaseQuest {
     const result = await orcAttackPromise;
     if (result === 'no more wave') {
       humanShipyard.shareVision(traveler.owner, false);
-      humanBarracks.shareVision(traveler.owner, false);
       footman.shareVision(traveler.owner, false);
 
       if (!isPreservedUnitAlive(captain)) {
@@ -356,9 +353,6 @@ export class OrcAttack extends BaseQuest {
     const {
       captain, footman, orcBaseRect, orcGatherRect, orcPlayer,
     } = this.globals;
-
-    target.addIndicator(255, 255, 255, 255);
-
     const speeches: {unit?: Unit, unitType?: UNIT_TYPE, sound: sound}[][] = [
       [{ unitType: UNIT_Grunt, sound: gruntSounds[0] }, { unit: captain, sound: captainSounds[1] }],
       [{ unitType: UNIT_Grunt, sound: gruntSounds[1] }, { unit: footman, sound: footmanSounds[3] }],
