@@ -26,6 +26,7 @@ interface GuardPositonData {
   lastBusyTimeS: number
   lastAnimationSetS: number
   paused: boolean
+  includeUserUnit: boolean
 }
 
 const unitPositions = [
@@ -36,23 +37,36 @@ const unitPositions = [
 
 const priorities = [Priority.LOW, Priority.MEDIUM, Priority.HIGH];
 
-export function setGuardPosition(u: Unit, loc: Loc, facing: number, maxRadius: number = 9999999, animation = ''): void {
+interface GuardOptions {
+  maxRadius?: number,
+  animation?: string,
+  includeUserUnit?: boolean
+}
+
+export function setGuardPosition(
+  u: Unit,
+  loc: Loc,
+  facing: number,
+  options?: GuardOptions,
+): void {
   if (isBuilding(u)) return;
   removeGuardPosition(u);
+
   unitPositions[Priority.HIGH].set(u, {
     position: loc,
     angle: facing,
-    maxRadius,
-    animation,
+    maxRadius: options?.maxRadius ?? 99999999,
+    animation: options?.animation ?? '',
     lastBusyTimeS: -99,
     lastAnimationSetS: -999,
     paused: false,
+    includeUserUnit: options?.includeUserUnit ?? false,
   });
 }
 
-export function guardCurrentPosition(unit: Unit, radius?: number, animation?: string): void {
+export function guardCurrentPosition(unit: Unit, options?: GuardOptions): void {
   unit.issueImmediateOrder(OrderId.Stop);
-  setGuardPosition(unit, currentLoc(unit), unit.facing, radius, animation);
+  setGuardPosition(unit, currentLoc(unit), unit.facing, options);
 }
 
 export function removeGuardPosition(...units: Unit[]): void {
@@ -64,12 +78,16 @@ export function removeGuardPosition(...units: Unit[]): void {
   }
 }
 
-export function pauseGuardPosition(units: Unit[], state: boolean): void {
+export function pauseGuardPosition(units: Unit[], isPaused: boolean): void {
   for (const u of units) {
-    u.removeGuardPosition();
     for (const priority of priorities) {
       if (unitPositions[priority].has(u)) {
-        unitPositions[priority].get(u).paused = state;
+        unitPositions[priority].get(u).paused = isPaused;
+        if (isPaused) {
+          setGuardPositionPriority(u, Priority.LOW, priority);
+        } else {
+          setGuardPositionPriority(u, Priority.HIGH, priority);
+        }
         break;
       }
     }
@@ -117,11 +135,7 @@ export function daemonGuardPosition(): void {
         const data = unitPositions[priority].get(unit);
         if (data) {
           const newPriority = updateUnit(unit, data, now);
-          if (newPriority !== priority) {
-            // move to a different processing queue
-            unitPositions[newPriority].set(unit, data);
-            unitPositions[priority].delete(unit);
-          }
+          setGuardPositionPriority(unit, newPriority, priority);
         }
       }
     });
@@ -130,9 +144,9 @@ export function daemonGuardPosition(): void {
 
 function updateUnit(unit: Unit, data: GuardPositonData, now: number): Priority {
   const {
-    position, angle, maxRadius, paused, animation,
+    position, angle, maxRadius, paused, animation, includeUserUnit,
   } = data;
-  if (!unit.isAlive() || paused || isPlayingPlayer(unit.owner.handle)) return Priority.LOW;
+  if (!unit.isAlive() || paused || (!includeUserUnit && isPlayingPlayer(unit.owner.handle))) return Priority.LOW;
   const distance = DistanceBetweenLocs(unit, position);
   const idle = isUnitIdle(unit);
   let priority: Priority;
@@ -172,4 +186,14 @@ function updateUnit(unit: Unit, data: GuardPositonData, now: number): Priority {
   }
 
   return priority;
+}
+
+function setGuardPositionPriority(
+  unit: Unit,
+  newPriority: Priority,
+  oldPriority: Priority,
+): void {
+  if (newPriority === oldPriority) return;
+  unitPositions[newPriority].set(unit, unitPositions[oldPriority].get(unit));
+  unitPositions[oldPriority].delete(unit);
 }

@@ -67,7 +67,6 @@ export function registerHearthStone(): void {
               if (sound) {
                 const snd = CreateSound(sound, false, false, false, 1, 1, 'DefaultEAXON');
                 SetSoundChannel(snd, 4);
-                SetSoundVolumeBJ(snd, 100);
                 PlaySoundBJ(snd);
                 KillSoundWhenDone(snd);
               }

@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-import { TalkGroup } from 'lib/quests/talk_group';
 import { mainPlayer, playerForsaken, playerHumanAlliance } from 'lib/constants';
 import { centerLocRect, randomLocRect } from 'lib/location';
 import { setAllianceState2Way } from 'lib/player';
@@ -8,11 +7,14 @@ import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { giveItemReward, setMinimapIconUnit } from 'lib/quests/utils';
 import {
   UNIT_Abomination, UNIT_CryptFiend, UNIT_Gargoyle, UNIT_Ghoul, UNIT_MeatWagon, UNIT_Zombie,
 } from 'lib/resources/war3-units';
-import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
+import {
+  guardCurrentPosition, pauseGuardPosition, removeGuardPosition, setGuardPosition,
+} from 'lib/systems/unit_guard_position';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, setNeverDie,
 } from 'lib/unit';
@@ -129,6 +131,7 @@ export class StrikeBack extends BaseQuest {
       guardCurrentPosition(u);
       RescueUnitBJ(u.handle, mainPlayer.handle, false);
     });
+    pauseGuardPosition(controllables, true);
     setNeverDie(knight, false);
 
     // Prepare undead base
@@ -189,44 +192,33 @@ export class StrikeBack extends BaseQuest {
     setAllianceState2Way(mainPlayer, playerForsaken, 'enemy');
 
     // Wait until success/failure
-    await Promise.race([
-      waitUntil(2, () => !traveler.isAlive()),
-      waitUntil(2, () => undeads.every((u) => !u.isAlive())),
-    ]);
+    await waitUntil(2, () => undeads.every((u) => !u.isAlive()));
 
     const knightNewLoc = centerLocRect(knightRectAfterQuest);
     setGuardPosition(knight, knightNewLoc, 225);
-    if (traveler.isAlive()) {
-      controllables.forEach((u) => {
-        u.setOwner(mayor.owner, true);
-        u.removeGuardPosition();
-        u.shareVision(traveler.owner, true);
-      });
 
-      setAllianceState2Way(mainPlayer, playerHumanAlliance, 'allied');
-      setAllianceState2Way(playerForsaken, playerHumanAlliance, 'neutral');
-      setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
+    controllables.forEach((u) => {
+      u.setOwner(mayor.owner, true);
+      u.shareVision(traveler.owner, true);
+    });
+    pauseGuardPosition(controllables, false);
 
-      traveler = await this.waitForTurnIn(mayor);
-      const talkGroup2 = new TalkGroup([mayor, traveler]);
-      await talkGroup2.speak(mayor, mayorOutro1, traveler, traveler);
-      await talkGroup2.speak(mayor, mayorOutro2, traveler, traveler);
-      talkGroup2.finish();
+    traveler = await this.waitForTurnIn(mayor);
+    const talkGroup2 = new TalkGroup([mayor, traveler]);
+    await talkGroup2.speak(mayor, mayorOutro1, traveler, traveler);
+    await talkGroup2.speak(mayor, mayorOutro2, traveler, traveler);
+    talkGroup2.finish();
 
-      // grant vision of buildings
-      getUnitsInRect(humanBaseRect, (u) => isBuilding(u) && u.owner === mayor.owner)
-        .forEach((u) => u.shareVision(traveler.owner, true));
-      traveler.addExperience(rewardXp, true);
-      await questLog.completeWithRewards([
-        giveItemReward(mayor, rewardItem).name,
-        `${rewardXp} experience`,
-        'Town\'s vision',
-      ]);
-      this.complete();
-    } else {
-      await questLog.fail();
-      this.fail();
-    }
+    // grant vision of buildings
+    getUnitsInRect(humanBaseRect, (u) => isBuilding(u) && u.owner === mayor.owner)
+      .forEach((u) => u.shareVision(traveler.owner, true));
+    traveler.addExperience(rewardXp, true);
+    await questLog.completeWithRewards([
+      giveItemReward(mayor, rewardItem).name,
+      `${rewardXp} experience`,
+      'Town\'s vision',
+    ]);
+    this.complete();
   }
 
   onForceComplete(): void {

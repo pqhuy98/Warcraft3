@@ -380,7 +380,7 @@ export class OrcAttack extends BaseQuest {
           building.setAnimation('stand work');
           const attacker = Unit.create(orcPlayer, unitType.id, loc.x, loc.y, 250);
           attackers.push(attacker);
-          setGuardPosition(attacker, gatherLoc, 0, 600);
+          setGuardPosition(attacker, gatherLoc, 0, { maxRadius: 600 });
           attacker.issueOrderAt(OrderId.Move, gatherLoc.x, gatherLoc.y);
           await sleep(1);
         }

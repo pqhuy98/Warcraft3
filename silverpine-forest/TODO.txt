@@ -1,3 +1,7 @@
 TODO:
 - Use varied villager models: https://www.hiveworkshop.com/threads/villagers-re-reforged.333071/, https://www.hiveworkshop.com/threads/old-villagers-re-reforged.335548/, https://www.hiveworkshop.com/threads/villager-girls-re-reforged.335802/
+
+- use a sound volume priority queue system to avoid overriding sound volume
+
+DONE:
 - SetAttention make guardPosition to high priority

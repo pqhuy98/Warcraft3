@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import { TalkGroup } from 'lib/quests/talk_group';
 import { mainPlayer, playerForsaken, playerHumanAlliance } from 'lib/constants';
 import {
   AngleBetweenLocs,
@@ -13,6 +12,7 @@ import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { ABILITY_DivineShieldCreep } from 'lib/resources/war3-abilities';
 import { UNIT_Footman } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
@@ -244,43 +244,35 @@ export class LumberMillPart2 extends BaseQuest {
       }
     });
 
-    await Promise.race([
-      waitUntil(1, () => [...footmen, ...undeadAttackers].every((u) => !u.isAlive())),
-      waitUntil(1, () => !traveler.isAlive()),
-    ]);
+    await waitUntil(1, () => [...footmen, ...undeadAttackers].every((u) => !u.isAlive()));
     killTimer.pause();
     killTimer.destroy();
 
     removeGuardPosition(...footmen, ...undeadAttackers);
 
-    if (traveler.isAlive()) {
-      escortUnits.forEach((u) => u.shareVision(traveler.owner, false));
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      questLog.updateItem(1, `${questItems[1]} (${undeadAttackers.length} / ${undeadAttackers.length})`);
-      await questLog.completeItem(1);
-      await questLog.insertItem(questItems[2]);
-      traveler = await this.waitForTurnIn(knight);
+    escortUnits.forEach((u) => u.shareVision(traveler.owner, false));
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    questLog.updateItem(1, `${questItems[1]} (${undeadAttackers.length} / ${undeadAttackers.length})`);
+    await questLog.completeItem(1);
+    await questLog.insertItem(questItems[2]);
+    traveler = await this.waitForTurnIn(knight);
 
-      setAllianceState2Way(mainPlayer, playerHumanAlliance, 'neutral');
-      setAllianceState2Way(playerHumanAlliance, playerForsaken, 'neutral');
-      setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
+    setAllianceState2Way(mainPlayer, playerHumanAlliance, 'neutral');
+    setAllianceState2Way(playerHumanAlliance, playerForsaken, 'neutral');
+    setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
 
-      await playSpeech(knight, knightOutro, traveler);
+    await playSpeech(knight, knightOutro, traveler);
 
-      const loc = PolarProjection(mayor, 300, AngleBetweenLocs(mayor, knight));
-      setGuardPosition(knight, loc, AngleBetweenLocs(loc, mayor));
+    const loc = PolarProjection(mayor, 300, AngleBetweenLocs(mayor, knight));
+    setGuardPosition(knight, loc, AngleBetweenLocs(loc, mayor));
 
-      traveler.addExperience(rewardXp, true);
-      await questLog.completeWithRewards([
-        `${rewardXp} experience`,
-      ]);
+    traveler.addExperience(rewardXp, true);
+    await questLog.completeWithRewards([
+      `${rewardXp} experience`,
+    ]);
 
-      await waitUntil(1, () => DistanceBetweenLocs(knight, loc) < 50);
-      this.complete();
-    } else {
-      await questLog.fail();
-      this.fail();
-    }
+    await waitUntil(1, () => DistanceBetweenLocs(knight, loc) < 50);
+    this.complete();
   }
 
   onForceComplete(): void {

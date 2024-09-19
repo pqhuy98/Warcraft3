@@ -22,21 +22,23 @@ import {
 import { getUnitSounds } from 'lib/resources/unit-sounds';
 import {
   ABILITY_AuraPlagueAbomination,
+  ABILITY_Locust,
   ABILITY_PermanentInvisibility, ABILITY_Possession, ABILITY_ShadowMeld, ABILITY_ShadowMeldAkama, ABILITY_ShadowMeldInstant,
 } from 'lib/resources/war3-abilities';
 import {
-  ALL_HEROES, HERO_archimonde, HERO_cenarius, HERO_Mannoroth, HERO_tichondrius,
+  ALL_HEROES, HERO_akama, HERO_archimonde, HERO_cenarius, HERO_Mannoroth, HERO_tichondrius,
 } from 'lib/resources/war3-heroes';
 import {
   UNIT_Abomination, UNIT_Acolyte, UNIT_Archer, UNIT_Banshee, UNIT_Berserker, UNIT_BlackrockBlademaster, UNIT_BloodElfEngineer,
   UNIT_BloodElfLieutenant, UNIT_BloodElfSpellBreaker, UNIT_BloodElfWorker, UNIT_Chaplain, UNIT_DruidoftheClaw,
   UNIT_DruidoftheTalon, UNIT_Dryad, UNIT_Footman, UNIT_Ghost, UNIT_GhostlyArchmage, UNIT_Ghoul,
-  UNIT_GiantSkeletonWarrior, UNIT_Grunt, UNIT_HighElvenArcher, UNIT_HighElvenFemale,
-  UNIT_HighElvenMale, UNIT_HighElvenSwordsman, UNIT_Huntress, UNIT_Hydromancer, UNIT_Knight, UNIT_MortarTeam,
+  UNIT_GiantSkeletonWarrior, UNIT_Grunt, UNIT_HighElvenArcher, UNIT_HighElvenSwordsman, UNIT_Huntress, UNIT_Hydromancer, UNIT_Knight, UNIT_MortarTeam,
   UNIT_MountainGiant, UNIT_Necromancer, UNIT_NightElfAssassin, UNIT_NightElfCourier, UNIT_OrcWarchief, UNIT_Priest,
-  UNIT_Rifleman, UNIT_Shade, UNIT_Shaman, UNIT_Shandris, UNIT_SkeletalOrc, UNIT_SkeletalOrcChampion,
-  UNIT_SkeletalOrcGrunt, UNIT_Sorceress, UNIT_Spiritwalker, UNIT_SpiritWolfLevel3, UNIT_Tauren, UNIT_TheCaptain, UNIT_War2Warlock, UNIT_Watcher, UNIT_WitchDoctor, UNIT_Wraith,
+  UNIT_Rifleman, UNIT_Shaman, UNIT_Shandris, UNIT_SkeletalOrc, UNIT_SkeletalOrcChampion,
+  UNIT_SkeletalOrcGrunt, UNIT_Sorceress, UNIT_Spiritwalker, UNIT_SpiritWolfLevel3, UNIT_Tauren, UNIT_TheCaptain, UNIT_War2Warlock, UNIT_Watcher, UNIT_WitchDoctor,
+  UNIT_Wraith,
 } from 'lib/resources/war3-units';
+import { playSpeech } from 'lib/sound';
 import { removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
 import { Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
@@ -44,9 +46,10 @@ import {
   buildTrigger, getTimeS, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
 import {
-  fadeUnit, getClosestUnitInRangeOfUnit, getDummyMaster, getUnitsInRangeOfLoc, getUnitsInRect, setNeverDie,
+  fadeUnit, getClosestUnitInRangeOfUnit, getDummyMaster, getUnitsInRangeOfLoc, getUnitsInRect, makeFlyable, setNeverDie,
 } from 'lib/unit';
 import { pickRandom, pickRandomMany, waitUntil } from 'lib/utils';
+import { BlackTurban } from 'quests/black_turban/black_turban';
 import {
   Effect,
   sleep, Sound, Timer, Unit,
@@ -64,7 +67,12 @@ const questItems = [
   'Enjoy the party',
 ];
 
-let ghostSounds: sound[][];
+let introSounds: sound[][];
+let joinSounds: sound[][];
+let pooperSounds: sound[][];
+let midFightSounds: sound[][];
+let winSounds: sound[][];
+let loseSounds: sound[][];
 
 const ghostR = 200;
 const ghostG = 200;
@@ -83,8 +91,8 @@ export class Cementery extends BaseQuest {
     partyActivateRect: rect
   }) {
     super(globals);
-    ghostSounds = [
-      // Gwen
+    introSounds = [
+      // Gwen - 11Labs Gigi
       [
         createDialogSound(
           'QuestSounds\\cementery\\cementary-lady1-1.mp3',
@@ -108,7 +116,7 @@ export class Cementery extends BaseQuest {
           'So, what do you say? Help us crash the party? It’ll be a haunted blast!',
         ),
       ],
-      // Lila
+      // Lila - 11Labs Jessica
       [
         createDialogSound(
           'QuestSounds\\cementery\\cementary-lady2-1.mp3',
@@ -131,7 +139,7 @@ export class Cementery extends BaseQuest {
           'Pleaaase? You just need to pay a little visit for us. No biggie!',
         ),
       ],
-      // Bella
+      // Bella - 11Labs Lily
       [
         createDialogSound(
           'QuestSounds\\cementery\\cementary-lady3-1.mp3',
@@ -155,13 +163,108 @@ export class Cementery extends BaseQuest {
         ),
       ],
     ];
+
+    joinSounds = [
+      // Gwen
+      [
+        createDialogSound(
+          'QuestSounds\\cementery\\cementary-lady1-5.mp3',
+          'Ghost Gwen',
+          'Hey, look at this place! It\'s even more spectral than we imagined! The grand Phantom Fest!',
+        ),
+      ],
+      // Lila
+      [
+        createDialogSound(
+          'QuestSounds\\cementery\\cementary-lady2-5.mp3',
+          'Ghost Lila',
+          'Totally! This is your chance to shine, mortal. Mingle with everyone. The more people you talk to, the cooler you\'ll be!',
+        ),
+      ],
+    ];
+
+    pooperSounds = [
+      // Bella
+      [
+        createDialogSound(
+          'QuestSounds\\cementery\\cementary-lady3-5.mp3',
+          'Ghost Bella',
+          'Ugh, there\'s always one party pooper. That downer over there just started a scene.',
+        ),
+      ],
+      // Gwen
+      [
+        createDialogSound(
+          'QuestSounds\\cementery\\cementary-lady1-6.mp3',
+          'Ghost Gwen',
+          'Stay sharp, mortal. Sometimes a little chaos can be a blast. Just keep your eyes open!',
+        ),
+      ],
+    ];
+
+    midFightSounds = [
+      // Lila
+      [
+        createDialogSound(
+          'QuestSounds\\cementery\\cementary-lady2-6.mp3',
+          'Ghost Lila',
+          'Oh, things are heating up! Everyone’s losing it!',
+        ),
+      ],
+      // Gwen
+      [
+        createDialogSound(
+          'QuestSounds\\cementery\\cementary-lady1-7.mp3',
+          'Ghost Gwen',
+          'Quick! Take out as many of those crazies as you can. Trust us, nothing ups your coolness faster than surviving and thriving in a ghost brawl!',
+        ),
+      ],
+    ];
+
+    winSounds = [
+      // Bella
+      [
+        createDialogSound(
+          'QuestSounds\\cementery\\cementary-lady3-6.mp3',
+          'Ghost Bella',
+          'Wow! You really outdid yourself! You\'re the life of the party!',
+        ),
+      ],
+      // Gwen
+      [
+        createDialogSound(
+          'QuestSounds\\cementery\\cementary-lady1-8.mp3',
+          'Ghost Gwen',
+          'Absolutely! We couldn\'t have crashed this party any better without you. You\'re legendary! We can\'t wait for the next Phantom Fest with you. Goodbye for now!',
+        ),
+      ],
+    ];
+
+    loseSounds = [
+      // Lila
+      [
+        createDialogSound(
+          'QuestSounds\\cementery\\cementary-lady2-7.mp3',
+          'Ghost Lila',
+          'Well, that was... something. It got a bit out of hand, but hey, you did great!',
+        ),
+      ],
+      // Gwen
+      [
+        createDialogSound(
+          'QuestSounds\\cementery\\cementary-lady1-9.mp3',
+          'Ghost Gwen',
+          'Yeah, maybe it wasn\'t perfect, but you still rocked it. Gotta say goodbye now, we\'re all too exhausted from the fun. See you in the afterlife!',
+        ),
+      ],
+    ];
   }
 
   async register(): Promise<void> {
     const {
       ghostLadiesRect, cementeryEntryRect, partyRect, partyActivateRect, partySpawnRect,
     } = this.globals;
-    const ghostLadies = getUnitsInRect(ghostLadiesRect);
+    let ghostLadies = getUnitsInRect(ghostLadiesRect);
     ghostLadies.sort((u1, u2) => u2.level - u1.level);
 
     const questGiver = pickRandom(ghostLadies);
@@ -186,25 +289,25 @@ export class Cementery extends BaseQuest {
     const talkGroup = new TalkGroup([...ghostLadies, traveler]);
 
     if (!debug) {
-      await talkGroup.speak(ghostLadies[0], ghostSounds[0][0], ghostLadies[1], ghostLadies[0]);
-      await talkGroup.speak(ghostLadies[1], ghostSounds[1][0], ghostLadies[0], ghostLadies[1]);
-      await talkGroup.speak(ghostLadies[2], ghostSounds[2][0], ghostLadies[1], ghostLadies[2]);
+      await talkGroup.speak(ghostLadies[0], introSounds[0][0], ghostLadies[1], ghostLadies[0]);
+      await talkGroup.speak(ghostLadies[1], introSounds[1][0], ghostLadies[0], ghostLadies[1]);
+      await talkGroup.speak(ghostLadies[2], introSounds[2][0], ghostLadies[1], ghostLadies[2]);
 
-      await talkGroup.speak(ghostLadies[0], ghostSounds[0][1], ghostLadies[2], ghostLadies[0]);
-      await talkGroup.speak(ghostLadies[1], ghostSounds[1][1], ghostLadies[0], ghostLadies[1]);
+      await talkGroup.speak(ghostLadies[0], introSounds[0][1], ghostLadies[2], ghostLadies[0]);
+      await talkGroup.speak(ghostLadies[1], introSounds[1][1], ghostLadies[0], ghostLadies[1]);
 
-      await talkGroup.speak(ghostLadies[2], ghostSounds[2][1], traveler, ghostLadies[2]);
+      await talkGroup.speak(ghostLadies[2], introSounds[2][1], traveler, ghostLadies[2]);
 
-      await talkGroup.speak(ghostLadies[0], ghostSounds[0][2], traveler, traveler);
-      await talkGroup.speak(ghostLadies[1], ghostSounds[1][2], traveler, traveler);
-      await talkGroup.speak(ghostLadies[2], ghostSounds[2][2], traveler, traveler);
+      await talkGroup.speak(ghostLadies[0], introSounds[0][2], traveler, traveler);
+      await talkGroup.speak(ghostLadies[1], introSounds[1][2], traveler, traveler);
+      await talkGroup.speak(ghostLadies[2], introSounds[2][2], traveler, traveler);
 
-      await talkGroup.speak(ghostLadies[0], ghostSounds[0][3], traveler, traveler);
-      await talkGroup.speak(ghostLadies[1], ghostSounds[1][3], traveler, traveler);
-      await talkGroup.speak(ghostLadies[2], ghostSounds[2][3], traveler, traveler);
+      await talkGroup.speak(ghostLadies[0], introSounds[0][3], traveler, traveler);
+      await talkGroup.speak(ghostLadies[1], introSounds[1][3], traveler, traveler);
+      await talkGroup.speak(ghostLadies[2], introSounds[2][3], traveler, traveler);
     }
 
-    const questLog = await QuestLog.create({
+    const questLogPromise = QuestLog.create({
       name: questName,
       description: questDescription,
       icon: questIcon,
@@ -230,15 +333,17 @@ export class Cementery extends BaseQuest {
     setMinimapIconUnit(traveler, 'neutralActive');
     await sleep(1);
 
+    // Possessed traveler automatically goes to party entry
     const dest = centerLocRect(cementeryEntryRect);
 
     if (!debug) {
-      setGuardPosition(traveler, dest, 180, 200);
+      setGuardPosition(traveler, dest, 180, { maxRadius: 200 });
     } else {
       traveler.setPosition(dest.x, dest.y);
       PanCameraToTimedForPlayer(traveler.owner.handle, dest.x, dest.y, 0);
     }
 
+    // Possessed traveler arrives at party entry, regains control
     await waitUntil(1, () => DistanceBetweenLocs(traveler, dest) < 150);
     traveler.disableAbility(ABILITY_ShadowMeld.id, false, false);
     await sleep(1);
@@ -248,19 +353,22 @@ export class Cementery extends BaseQuest {
     setNeverDie(traveler, false);
     removeGuardPosition(traveler);
 
+    const questLog = await questLogPromise;
     await questLog.completeItem(0);
 
+    // Wait until traveler enters party
     await waitUntil(1, () => isLocInRect(traveler, partyActivateRect));
     SetDoodadAnimationRect(partyActivateRect, FourCC('JOgr'), 'death', false);
+    BlackTurban.disable();
+    BlzEnableCursor(false);
     await sleep(1);
 
     CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 0.5, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
-    BlzEnableCursor(false);
     await sleep(1);
     SmartCameraPanBJ(traveler.owner.handle, tempLocation(traveler), 0);
     updateCameraBound([partySpawnRect]);
 
-    // Party goers algorithm
+    // Spawn all party goers and define their behaviors
     const { partyGoers, chatSounds, attackSounds } = this.spawnParty();
 
     const leaveParty = (u: Unit): void => {
@@ -271,15 +379,20 @@ export class Cementery extends BaseQuest {
       }
     };
 
+    // who this party goer wants to attack? Default is null as in the beginning everyone is friendly
     const targetMap = new Map<Unit, Unit>();
-    const nextSoundTimestampS = new Map<Unit, number>();
 
+    // make unit chases and attacks a target
     const setAttackTarget = (unit: Unit, target: Unit): void => {
       if (unit === target || unit === traveler) return;
       targetMap.set(unit, target);
       unit.issueTargetOrder(OrderId.Attack, target);
+      if (unit.owner === neutralPassive && GetRandomInt(1, 10) === 1) {
+        unit.owner = neutralHostile;
+      }
     };
 
+    // make unit pick a nearby target
     const setAttackTargetNearby = (unit: Unit): void => {
       const target = getClosestUnitInRangeOfUnit(
         unit.acquireRange,
@@ -306,17 +419,19 @@ export class Cementery extends BaseQuest {
         }
 
         // Friendly units turn aggressive
-        const isVictimInnocent = !targetMap.has(victim);
-        if (isVictimInnocent || GetRandomInt(1, 10) === 1) {
+        const isVictimFriendly = !targetMap.has(victim);
+        if (isVictimFriendly || GetRandomInt(1, 10) === 1) {
           setAttackTarget(victim, attacker);
 
-          // nearby units are also enraged
+          // nearby units also join the fight
           getUnitsInRangeOfLoc(
             attacker.acquireRange,
             attacker,
             (u) => !targetMap.has(u) && DistanceBetweenLocs(victim, u) >= (u.getField(UNIT_RF_MINIMUM_ATTACK_RANGE) as number),
           ).forEach((u) => {
-            setTimeout(GetRandomReal(0, 5), () => setAttackTarget(u, victim));
+            if (GetRandomInt(1, 2) === 1) {
+              setTimeout(GetRandomReal(0, 5), () => setAttackTarget(u, victim));
+            }
           });
 
           getUnitsInRangeOfLoc(
@@ -326,33 +441,15 @@ export class Cementery extends BaseQuest {
           ).forEach((u) => {
             if (GetRandomInt(1, 2) === 1) {
               setTimeout(GetRandomReal(0, 5), () => setAttackTarget(u, attacker));
-            } else {
-              setAttackTarget(u, attacker);
             }
           });
 
-        // victim switching target to retaliate, but rarely
+        // occasionally victim switches target to attacker to retaliate
         } else if (attacker.isAlive() && partyGoers.has(attacker) && GetRandomInt(1, 6) === 1) {
           setAttackTarget(victim, attacker);
         }
       });
     });
-
-    // Right click to auto attack
-    const rightClickTrigger = buildTrigger((t) => {
-      t.registerPlayerUnitEvent(traveler.owner, EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER, undefined);
-      t.addCondition(() => {
-        const target = Unit.fromHandle(GetOrderTargetUnit());
-        return GetIssuedOrderId() === OrderId.Smart
-          && target.owner !== traveler.owner
-          && partyGoers.has(target);
-      });
-      t.addAction(() => {
-        const target = Unit.fromHandle(GetOrderTargetUnit());
-        Unit.fromEvent().issueTargetOrder(OrderId.Attack, target);
-      });
-    });
-    rightClickTrigger.enabled = false;
 
     // Party goers setup
     partyGoers.forEach((u) => {
@@ -365,6 +462,10 @@ export class Cementery extends BaseQuest {
 
     partyGoers.insert(traveler);
     damageTrigger.registerUnitEvent(traveler, EVENT_UNIT_DAMAGED);
+
+    // When this unit's sounds should be played next?
+    // To avoid overlapping multiple sounds from the same unit.
+    const nextSoundTimestampS = new Map<Unit, number>();
 
     // Unit control loop
     const nextChatTimestampS = new Map<Unit, number>();
@@ -418,57 +519,152 @@ export class Cementery extends BaseQuest {
       if (!nextSoundTimestampS.has(unit) || nextSoundTimestampS.get(unit) < now) {
         const snd = pickRandom(isAggressive ? attackSounds.get(unit) : chatSounds.get(unit));
         if (snd) {
-          let volume = !isAggressive ? GetRandomInt(1, 33) : GetRandomInt(66, 100);
-          if (target === traveler) {
-            volume = 127;
-          }
+          const volume = !isAggressive ? GetRandomInt(1, 10) : GetRandomInt(10, 20);
           snd.setVolume(volume);
           snd.start();
-          nextSoundTimestampS.set(unit, now + snd.duration / 1000 + GetRandomReal(0, 5));
+          snd.setChannel(2);
+          nextSoundTimestampS.set(unit, now + snd.duration / 1000 + GetRandomReal(1, 5));
           const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
           setTimeout(snd.duration / 1000, () => speakEffect.destroy());
         }
       }
     }));
 
-    VolumeGroupSetVolume(SOUND_VOLUMEGROUP_COMBAT, 0.35);
-    VolumeGroupSetVolume(SOUND_VOLUMEGROUP_SPELLS, 0.35);
+    // Change volume group so that we can hear chats
+    const setPartyVolumeGroup = (): void => {
+      VolumeGroupSetVolume(SOUND_VOLUMEGROUP_UNITSOUNDS, 0.1);
+      VolumeGroupSetVolume(SOUND_VOLUMEGROUP_COMBAT, 0.1);
+      VolumeGroupSetVolume(SOUND_VOLUMEGROUP_SPELLS, 0.1);
+    };
+    setPartyVolumeGroup();
+
+    // Re-create ghost ladies, since old ones are technically dead after possession.
+    ghostLadies = [
+      Unit.create(traveler.owner, UNIT_Wraith.id, traveler.x, traveler.y, GetRandomDirectionDeg()),
+      Unit.create(traveler.owner, UNIT_Banshee.id, traveler.x, traveler.y, GetRandomDirectionDeg()),
+      Unit.create(traveler.owner, UNIT_Ghost.id, traveler.x, traveler.y, GetRandomDirectionDeg()),
+    ].sort((u1, u2) => u2.level - u1.level);
+
+    // Ghost ladies follow traveler
+    ghostLadies.forEach((u) => {
+      makeFlyable(u);
+      u.setPathing(false);
+      u.addAbility(ABILITY_Locust.id);
+      u.invulnerable = true;
+      u.moveSpeed = traveler.moveSpeed + 100;
+      u.maxMana = 0; // avoid casting spells
+      u.mana = 0;
+      u.color = PLAYER_COLOR_COAL;
+    });
+    const ghostLadiesTimer = setIntervalIndefinite(1, () => {
+      ghostLadies.forEach((u) => setGuardPosition(
+        u,
+        PolarProjection(traveler, GetRandomReal(150, 250), GetRandomDirectionDeg()),
+        GetRandomDirectionDeg(),
+        { maxRadius: 500, includeUserUnit: true },
+      ));
+    });
+
+    // Right click to auto attack
+    const rightClickTrigger = buildTrigger((t) => {
+      t.registerPlayerUnitEvent(traveler.owner, EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER, undefined);
+      t.addCondition(() => {
+        const target = Unit.fromHandle(GetOrderTargetUnit());
+        return GetIssuedOrderId() === OrderId.Smart
+              && target.owner !== traveler.owner
+              && partyGoers.has(target);
+      });
+      t.addAction(() => {
+        const target = Unit.fromHandle(GetOrderTargetUnit());
+        Unit.fromEvent().issueTargetOrder(OrderId.Attack, target);
+        if (Unit.fromEvent() === traveler) {
+          ghostLadies.forEach((u) => u.issueTargetOrder(OrderId.Attack, target));
+        }
+      });
+    });
+    rightClickTrigger.enabled = false; // initially not enabled, until brawl starts
+
+    // Fade in, party starts now
     await sleep(3);
     CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 0.5, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
     BlzEnableCursor(true);
 
-    setTimeout(60, async () => {
-      rightClickTrigger.enabled = true;
-      const unit = partyGoers.getRandom();
-      PanCameraToTimedForPlayer(traveler.owner.handle, unit.x, unit.y, 0.5);
-      enableQuestMarker(unit, 'new');
+    await sleep(1);
+    await playSpeech(ghostLadies[0], joinSounds[0][0], undefined, { ignoreVolumeGroupAdjustment: true });
+    await playSpeech(ghostLadies[1], joinSounds[1][0], undefined, { ignoreVolumeGroupAdjustment: true });
 
-      const atkSound = pickRandom(attackSounds.get(unit));
+    let isPartyEnded = false;
+    const partyEndedPromise = waitUntil(1, () => partyGoers.size === 1 || !partyGoers.has(traveler))
+      .then(() => isPartyEnded = true);
+
+    // A party pooper appears after a while
+    setTimeout(10, async () => {
+      if (isPartyEnded) return;
+      rightClickTrigger.enabled = true;
+
+      // pan camera to a random party pooper
+      const partyPooper = partyGoers.getRandom();
+      PanCameraToTimedForPlayer(traveler.owner.handle, partyPooper.x, partyPooper.y, 0.5);
+      enableQuestMarker(partyPooper, 'new');
+
+      // party pooper shouts
+      const atkSound = pickRandom(attackSounds.get(partyPooper));
       if (atkSound) {
         atkSound.setVolume(127);
         atkSound.start();
-        nextSoundTimestampS.set(unit, getTimeS() + atkSound.duration / 1000 + GetRandomReal(0, 5));
-        const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
-        setTimeout(atkSound.duration / 1000, () => speakEffect.destroy());
+        nextSoundTimestampS.set(partyPooper, getTimeS() + atkSound.duration / 1000 + GetRandomReal(0, 5));
+        const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, partyPooper, 'overhead');
+        await sleep(atkSound.duration / 1000);
+        speakEffect.destroy();
       }
 
-      await sleep(2.5);
-      setAttackTargetNearby(unit);
+      // party pooper attacks
+      setAttackTargetNearby(partyPooper);
       await sleep(2);
-      disableQuestMarker(unit);
+      disableQuestMarker(partyPooper);
+
+      // ghost ladies comment
+      await playSpeech(ghostLadies[2], pooperSounds[0][0], undefined, { ignoreVolumeGroupAdjustment: true });
+      await playSpeech(ghostLadies[0], pooperSounds[1][0], undefined, { ignoreVolumeGroupAdjustment: true });
+
+      // ghost ladies comment, mid brawl
+      await sleep(3);
+      await waitUntil(1, () => targetMap.size > partyGoers.size * 0.8 || isPartyEnded);
+      if (!isPartyEnded) {
+        await playSpeech(ghostLadies[1], midFightSounds[0][0], undefined, { ignoreVolumeGroupAdjustment: true });
+        await playSpeech(ghostLadies[0], midFightSounds[1][0], undefined, { ignoreVolumeGroupAdjustment: true });
+      }
     });
 
-    await waitUntil(1, () => partyGoers.size === 1 || !partyGoers.has(traveler));
+    await partyEndedPromise;
 
+    // Ghost ladies say good bye
+    if (traveler.isAlive()) {
+      await playSpeech(ghostLadies[2], winSounds[0][0], undefined, { ignoreVolumeGroupAdjustment: true });
+      await playSpeech(ghostLadies[0], winSounds[1][0], undefined, { ignoreVolumeGroupAdjustment: true });
+    } else {
+      await playSpeech(ghostLadies[1], loseSounds[0][0], undefined, { ignoreVolumeGroupAdjustment: true });
+      await playSpeech(ghostLadies[0], loseSounds[1][0], undefined, { ignoreVolumeGroupAdjustment: true });
+    }
+    ghostLadies.forEach((u) => {
+      removeGuardPosition(u);
+      leaveParty(u);
+    });
+
+    await sleep(1);
+
+    // Clean up
     timers.forEach((t) => t.destroy());
     damageTrigger.destroy();
     rightClickTrigger.destroy();
+    ghostLadiesTimer.destroy();
 
-    partyGoers.forEach((u) => setTimeout(GetRandomReal(0, 5), () => leaveParty(u)));
-    VolumeGroupSetVolume(SOUND_VOLUMEGROUP_COMBAT, 1);
-    VolumeGroupSetVolume(SOUND_VOLUMEGROUP_SPELLS, 1);
+    partyGoers.forEach((u) => setTimeout(GetRandomReal(0, 5), () => u.kill()));
+    VolumeGroupReset();
     restoreCameraBound();
+    BlackTurban.enable();
 
+    // Complete quest and rewards
     if (traveler.isAlive()) {
       // TODO: give reward
       await questLog.completeWithRewards([]);
@@ -488,10 +684,8 @@ export class Cementery extends BaseQuest {
 
     const partyGoerTypes = [
       // Undead
-      UNIT_Banshee,
       UNIT_Ghoul,
       UNIT_Abomination,
-      UNIT_Shade,
       UNIT_Acolyte,
       UNIT_Necromancer,
       UNIT_SkeletalOrc,
@@ -507,8 +701,6 @@ export class Cementery extends BaseQuest {
       UNIT_Sorceress,
       UNIT_BloodElfSpellBreaker,
       UNIT_HighElvenArcher,
-      UNIT_HighElvenMale,
-      UNIT_HighElvenFemale,
       UNIT_MortarTeam,
       UNIT_Rifleman,
       UNIT_Knight,
@@ -543,14 +735,10 @@ export class Cementery extends BaseQuest {
       UNIT_NightElfAssassin,
       UNIT_Shandris,
 
-      // Neutral
-      UNIT_Ghost,
-      UNIT_Wraith,
-
       // Heroes
       ...pickRandomMany(ALL_HEROES, 15)
-        // Ignore those are too strong
-        .filter((hero) => ![HERO_archimonde, HERO_tichondrius, HERO_cenarius, HERO_Mannoroth].includes(hero))
+        // Ignore those are too strong, or Akama which has Lich King's voice
+        .filter((hero) => ![HERO_archimonde, HERO_tichondrius, HERO_cenarius, HERO_Mannoroth, HERO_akama].includes(hero))
         .map((hero) => ({ code: hero.code, id: FourCC(hero.code) })),
     ];
 
@@ -581,16 +769,16 @@ export class Cementery extends BaseQuest {
 
       const unitChatSounds = getUnitSounds(unit.typeId, 'What', 'Pissed', 'Yes', 'Ready');
       for (const path of unitChatSounds) {
-        const snd = Sound.create(path, false, true, true, 1, 1, 'DefaultEAXON');
-        snd.setDistances(1000, 3000);
-        AttachSoundToUnit(snd.handle, unit.handle);
+        const snd = Sound.create(path, false, false, false, 1, 1, 'DefaultEAXON');
+        // snd.setDistances(1000, 3000);
+        // AttachSoundToUnit(snd.handle, unit.handle);
         chatSounds.get(unit).push(snd);
       }
       const unitAttackSounds = getUnitSounds(unit.typeId, 'YesAttack', 'Warcry');
       for (const path of unitAttackSounds) {
-        const snd = Sound.create(path, false, true, true, 1, 1, 'DefaultEAXON');
-        snd.setDistances(1000, 3000);
-        AttachSoundToUnit(snd.handle, unit.handle);
+        const snd = Sound.create(path, false, false, false, 1, 1, 'DefaultEAXON');
+        // snd.setDistances(1000, 3000);
+        // AttachSoundToUnit(snd.handle, unit.handle);
         attackSounds.get(unit).push(snd);
       }
     }

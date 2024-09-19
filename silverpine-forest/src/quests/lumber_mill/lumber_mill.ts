@@ -1,4 +1,3 @@
-import { TalkGroup } from 'lib/quests/talk_group';
 import { mainPlayer, playerForsaken } from 'lib/constants';
 import {
   AngleBetweenLocs,
@@ -12,6 +11,7 @@ import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { UNIT_Ghoul, UNIT_Peasant } from 'lib/resources/war3-units';
 import { guardCurrentPosition, pauseGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
@@ -115,7 +115,7 @@ export class LumberMill extends BaseQuest {
     const ghouls: Unit[] = [];
     fleshCorpses.slice(0, 3).forEach((corpse) => {
       const ghoul = Unit.create(playerForsaken, UNIT_Ghoul.id, corpse.x, corpse.y, GetRandomDirectionDeg());
-      guardCurrentPosition(ghoul, 1000, 'stand channel');
+      guardCurrentPosition(ghoul, { maxRadius: 1000, animation: 'stand channel' });
       ghouls.push(ghoul);
     });
     setAllianceState2Way(mainPlayer, playerForsaken, 'enemy');

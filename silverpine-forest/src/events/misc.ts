@@ -64,9 +64,11 @@ export class MiscEvents {
       && !u.isUnitType(UNIT_TYPE_PEON)
       && u.owner !== neutralHostile && u.owner !== neutralPassive)
       .forEach((u) => {
-        let guardRange: number | undefined = defaultGuardDistance;
-        if (u.owner === playerBlackTurban) guardRange = undefined;
-        guardCurrentPosition(u, guardRange);
+        if (u.owner === playerBlackTurban) {
+          guardCurrentPosition(u, { maxRadius: defaultGuardDistance });
+        } else {
+          guardCurrentPosition(u);
+        }
         u.setUseFood(false);
       });
 
@@ -91,17 +93,17 @@ export class MiscEvents {
 
     // Villagers chopping woods
     getUnitsInRect(gg_rct_Farm_villagers_working, (u) => [UNIT_VillagerMan.id, UNIT_VillagerMan2.id].includes(u.typeId))
-      .forEach((u) => guardCurrentPosition(u, defaultGuardDistance, 'stand work'));
+      .forEach((u) => guardCurrentPosition(u, { maxRadius: defaultGuardDistance, animation: 'stand work' }));
 
     // Peasants repairing broken wheelbarrow
     getUnitsInRect(gg_rct_Town_peasants_repair_wheelbarrow)
-      .forEach((u) => guardCurrentPosition(u, defaultGuardDistance, 'stand work lumber'));
+      .forEach((u) => guardCurrentPosition(u, { maxRadius: defaultGuardDistance, animation: 'stand work lumber' }));
 
     // Undead ghouls eating
     [
       ...getUnitsInRect(gg_rct_Undead_lumber_ghouls_eating_1),
       ...getUnitsInRect(gg_rct_Undead_lumber_ghouls_eating_2),
-    ].forEach((u) => guardCurrentPosition(u, defaultGuardDistance, 'stand channel'));
+    ].forEach((u) => guardCurrentPosition(u, { maxRadius: defaultGuardDistance, animation: 'stand channel' }));
 
     // Harvests
     [
@@ -117,11 +119,11 @@ export class MiscEvents {
     getUnitsInRect(gg_rct_Shore_caster_ritual)
       .forEach((u) => {
         if (u.typeId === UNIT_HeroShadowHunter.id) {
-          guardCurrentPosition(u, defaultGuardDistance, 'stand channel');
+          guardCurrentPosition(u, { maxRadius: defaultGuardDistance, animation: 'stand channel' });
         } else if (u.typeId === UNIT_Shaman.id) {
-          guardCurrentPosition(u, defaultGuardDistance, 'spell 1');
+          guardCurrentPosition(u, { maxRadius: defaultGuardDistance, animation: 'spell 1' });
         } else if (u.typeId === UNIT_WitchDoctor.id) {
-          guardCurrentPosition(u, defaultGuardDistance, 'spell 1');
+          guardCurrentPosition(u, { maxRadius: defaultGuardDistance, animation: 'spell 1' });
         }
       });
 
