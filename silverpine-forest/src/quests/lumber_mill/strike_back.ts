@@ -55,32 +55,32 @@ export class StrikeBack extends BaseQuest {
   }) {
     super(globals);
     knightIntro1 = createDialogSound(
-      'QuestSounds\\strike-back\\strike-back-knight-intro-1.mp3',
+      'QuestSounds\\__refined\\strike-back\\strike-back-knight-intro-1.mp3',
       knightName,
       'Mayor, I bring dire news. Our patrol to the lumber mill was ambushed by a horde of undead. All our men... they didn\'t make it back. This traveler managed to kill the Lich leader and escape, but the situation is grave.',
     );
     mayorIntro1 = createDialogSound(
-      'QuestSounds\\strike-back\\strike-back-mayor-intro-1.mp3',
+      'QuestSounds\\__refined\\strike-back\\strike-back-mayor-intro-1.mp3',
       mayorName,
       'This is unthinkable. Such a loss... Those brave souls... We can\'t let their deaths be in vain. The undead must be eradicated, once and for all.',
     );
     mayorIntro2 = createDialogSound(
-      'QuestSounds\\strike-back\\strike-back-mayor-intro-2.mp3',
+      'QuestSounds\\__refined\\strike-back\\strike-back-mayor-intro-2.mp3',
       mayorName,
       'We must strike back immediately. Rally all available forces. Inform the captains and gather our best fighters. This town will not stand idly by while these abominations threaten our people. Prepare for an assault on the undead base. We must wipe them out completely.',
     );
     knightIntro2 = createDialogSound(
-      'QuestSounds\\strike-back\\strike-back-knight-intro-2.mp3',
+      'QuestSounds\\__refined\\strike-back\\strike-back-knight-intro-2.mp3',
       knightName,
       'Understood, Mayor. We will avenge our fallen brothers and ensure this threat is eliminated.',
     );
     mayorOutro1 = createDialogSound(
-      'QuestSounds\\strike-back\\strike-back-mayor-outro-1.mp3',
+      'QuestSounds\\__refined\\strike-back\\strike-back-mayor-outro-1.mp3',
       mayorName,
       'Well done, hero! You\'ve saved Ambermill town from a dire threat. As a token of our gratitude, I grant you vision of Ambermill and a town portal scroll—it will allow you to travel here instantly.',
     );
     mayorOutro2 = createDialogSound(
-      'QuestSounds\\strike-back\\strike-back-mayor-outro-2.mp3',
+      'QuestSounds\\__refined\\strike-back\\strike-back-mayor-outro-2.mp3',
       mayorName,
       'Additionally, I have written you a recommendation letter. Show this to the leader of Shadowfang City for access and recognition if you ever find yourself there. Your bravery shall not be forgotten.',
     );

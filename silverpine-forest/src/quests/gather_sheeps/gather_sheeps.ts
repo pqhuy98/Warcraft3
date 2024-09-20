@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { TalkGroup } from 'lib/quests/talk_group';
 import { mainPlayer } from 'lib/constants';
 import {
   AngleBetweenLocs, centerLocRect, DistanceBetweenLocs, isLocInRect, PolarProjection,
@@ -10,6 +9,7 @@ import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
+import { TalkGroup } from 'lib/quests/talk_group';
 import {
   disableQuestMarker, enableQuestMarker, giveItemReward, removeMinimapIcon,
   setMinimapIconUnit,
@@ -92,15 +92,15 @@ export class GatherSheeps extends BaseQuest {
   }) {
     super(globals);
     // Timmy: ElevanLabs - Gigi
-    introSounds[1] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-intro-1.mp3', 'Timmy', introDialogues[1]);
-    introSounds[2] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-intro-2.mp3', 'Timmy', introDialogues[2]);
-    introSounds[3] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-intro-3.mp3', 'Timmy', introDialogues[3]);
+    introSounds[1] = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-intro-1.mp3', 'Timmy', introDialogues[1]);
+    introSounds[2] = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-intro-2.mp3', 'Timmy', introDialogues[2]);
+    introSounds[3] = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-intro-3.mp3', 'Timmy', introDialogues[3]);
 
-    outroSounds[1] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-outro-1.mp3', 'Timmy', outroDialogues[1]);
-    outroSounds[2] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-outro-2.mp3', 'Timmy', outroDialogues[2]);
-    outroSounds[3] = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-outro-3.mp3', 'Timmy', outroDialogues[3]);
+    outroSounds[1] = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-outro-1.mp3', 'Timmy', outroDialogues[1]);
+    outroSounds[2] = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-outro-2.mp3', 'Timmy', outroDialogues[2]);
+    outroSounds[3] = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-outro-3.mp3', 'Timmy', outroDialogues[3]);
 
-    goHomeSound = createDialogSound('QuestSounds\\gather-sheeps\\gather-sheeps-timmy-go-home.mp3', 'Timmy', goHomeDialogue);
+    goHomeSound = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-go-home.mp3', 'Timmy', goHomeDialogue);
   }
 
   async register(): Promise<void> {

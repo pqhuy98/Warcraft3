@@ -38,12 +38,12 @@ export class RabbitHunt extends BaseQuest {
   }) {
     super(globals);
     jacobIntro = createDialogSound(
-      'QuestSounds\\rabbit-hunt\\rabbit-hunt-jacob-intro.mp3',
+      'QuestSounds\\__refined\\rabbit-hunt\\rabbit-hunt-jacob-intro.mp3',
       'Villager Jacob',
       'Hello there. Our wheat field is being overrun by rabbits, and they\'re destroying our crops. Could you help us by hunting down all the rabbits in the field?',
     );
     jacobOutro = createDialogSound(
-      'QuestSounds\\rabbit-hunt\\rabbit-hunt-jacob-outro.mp3',
+      'QuestSounds\\__refined\\rabbit-hunt\\rabbit-hunt-jacob-outro.mp3',
       'Villager Jacob',
       'With the rabbits gone, we have a chance to save our harvest. Thanks again, and please, stay safe out there.',
     );

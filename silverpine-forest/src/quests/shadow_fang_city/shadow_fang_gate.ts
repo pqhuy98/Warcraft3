@@ -18,34 +18,34 @@ export class ShadowFangGate extends BaseQuest {
     unitSounds = {
       [UNIT_Knight.id]: [
         createDialogSound(
-          'QuestSounds\\shadow-fang-gate\\shadow-fang-gate-knight-1.mp3',
+          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-1.mp3',
           'Knight',
           'Guards, open the gate!',
         ),
         createDialogSound(
-          'QuestSounds\\shadow-fang-gate\\shadow-fang-gate-knight-2.mp3',
+          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-2.mp3',
           'Knight',
           'Open the gate now!',
         ),
         createDialogSound(
-          'QuestSounds\\shadow-fang-gate\\shadow-fang-gate-knight-3.mp3',
+          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-3.mp3',
           'Knight',
           'Get that gate open!',
         ),
       ],
       [UNIT_MortarTeam.id]: [
         createDialogSound(
-          'QuestSounds\\shadow-fang-gate\\shadow-fang-gate-mortar-1.mp3',
+          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-1.mp3',
           'Mortar team',
           'Open the gate for our visitor!',
         ),
         createDialogSound(
-          'QuestSounds\\shadow-fang-gate\\shadow-fang-gate-mortar-2.mp3',
+          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-2.mp3',
           'Mortar team',
           'Let our friend through!',
         ),
         createDialogSound(
-          'QuestSounds\\shadow-fang-gate\\shadow-fang-gate-mortar-3.mp3',
+          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-3.mp3',
           'Mortar team',
           'Unlock the gate for our comrade!',
         ),

@@ -60,32 +60,32 @@ export class LumberMillPart2 extends BaseQuest {
     super(globals);
 
     johnIntro = createDialogSound(
-      'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-john-intro.mp3',
+      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-john-intro.mp3',
       'Villager John',
       'Sir, we have dire news! Our farm\'s lumberjacks are dead, they were killed by undead near the mill!',
     );
     knightIntro = createDialogSound(
-      'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-knight-intro.mp3',
+      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-knight-intro.mp3',
       'Knight Gareth',
       'Undead? Are you sure?... Fine... Soldiers, escort these peasants to the lumber mill and investigate further. But you peasants better not waste our time!',
     );
     footmanFear = createDialogSound(
-      'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-footman-1.mp3',
+      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-footman-1.mp3',
       'Footman',
       'This is a slaughter. They didn\'t stand a chance. Be on guard; we could be next.',
     );
     footmanWarcry = createDialogSound(
-      'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-footman-fight-1.mp3',
+      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-footman-fight-1.mp3',
       'Footman',
       'The undead is attacking! Prepare for battle!',
     );
     peterRunForLife = createDialogSound(
-      'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-peter-run.mp3',
+      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-peter-run.mp3',
       'Villager Peter',
       'Undead! Run for your life!',
     );
     knightOutro = createDialogSound(
-      'QuestSounds\\lumber-mill-part-2\\lumber-mill-part-2-knight-outro.mp3',
+      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-knight-outro.mp3',
       'Knight Gareth',
       'All our men... gone?... This is a grave blow, beyond words. I must inform the mayor immediately. Your bravery is noted for taking down the Lich. But this loss... it\'s devastating.',
     );

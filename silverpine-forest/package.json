@@ -13,7 +13,8 @@
     "lint": "eslint src/**/*.ts --fix",
     "sandbox-terrain": "ts-node --transpile-only scripts/sandbox/sandbox-terrain.ts",
     "sandbox-doodads-csv": "ts-node --transpile-only scripts/sandbox/doodads-csv.ts",
-    "sandbox": "ts-node --transpile-only scripts/sandbox/sandbox.ts"
+    "sandbox": "ts-node --transpile-only scripts/sandbox/sandbox.ts",
+    "sound": "ts-node --transpile-only scripts/sound.ts"
   },
   "dependencies": {
     "w3ts": "^3.0.2",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-ts": "^2.8.0",
+    "@types/fluent-ffmpeg": "^2.1.26",
     "@types/fs-extra": "8.1.1",
     "@types/glob": "^8.1.0",
     "@types/node": "12.19.1",
@@ -36,6 +38,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "eslint-plugin-unused-imports": "^3.2.0",
+    "fluent-ffmpeg": "^2.1.3",
     "fs-extra": "8.1.0",
     "glob": "^11.0.0",
     "lua-types": "^2.13.1",
@@ -63,6 +66,12 @@
       ],
       "extensions": "lua",
       "legacyWatch": true
+    },
+    "sound": {
+      "patterns": [
+        "./sounds/*",
+        "./scripts/sound.ts"
+      ]
     }
   }
 }

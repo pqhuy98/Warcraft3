@@ -89,22 +89,22 @@ export class OrcAttack extends BaseQuest {
 
     archMageSounds = [
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-archmage-1.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-1.mp3',
         archMageName,
         'Ah, you\'re back! I see you\'ve discovered the hidden mana spot by the south watch tower. Excellent work!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-archmage-2.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-2.mp3',
         archMageName,
         'Not only have you found the secret, but it has also unlocked the next level Summon Water Elemental for you. Your abilities continue to impress me.',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-archmage-3.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-3.mp3',
         archMageName,
         'There are other hidden spots like these scattered across the land. They can further enhance your powers if you\'re able to locate them.',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-archmage-4.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-4.mp3',
         archMageName,
         'Such a grim discovery... We can\'t afford to ignore this. Immediate investigation is crucial.',
       ),
@@ -112,27 +112,27 @@ export class OrcAttack extends BaseQuest {
 
     footmanSounds = [
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-footman-1.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-1.mp3',
         footmanName,
         'Archmage Landazar, urgent news—several of our footmen at the shipyard have been found dead in the nearby forest, dismembered. We have no idea what caused it.',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-footman-2.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-2.mp3',
         footmanName,
         'Stranger, you\'ll help us investigate? That’s a relief. Your presence will be a great morale booster for those remaining.',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-footman-3.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-3.mp3',
         footmanName,
         'Captain, the Archmage Landazar has sent this one to assist us.',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-footman-4.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-4.mp3',
         footmanName,
         'Captain, more coming! This time they\'ve brought HeadHunters. We need to take them down quickly!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-footman-5.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-5.mp3',
         footmanName,
         'This is their biggest push yet! They’ve even brought a Demolisher to raze our structure!',
       ),
@@ -140,37 +140,37 @@ export class OrcAttack extends BaseQuest {
 
     captainSounds = [
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-captain-1.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-1.mp3',
         captainName,
         'Thank you, it’s good to have you here. We need all the help we can get. Three of our men just died brutally just near the south forest.',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-captain-2.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-2.mp3',
         captainName,
         'It\'s the orcs—they must have been the ones who killed our men near the south forest. Prepare yourselves, everyone!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-captain-3.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-3.mp3',
         captainName,
         'Here they come again! Now they have Shamans with them. Watch out for their spells!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-captain-4.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-4.mp3',
         captainName,
         'They\'re sending in a beast this time and with a larger force. Aim for the Kodo Beast, it\'s their key strength!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-captain-5.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-5.mp3',
         captainName,
         'There are so many of them! They\'re throwing everything they have at us. Hold the line at all costs!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-captain-6.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-6.mp3',
         captainName,
         'We\'ve lost a lot of good men today. The shipyard\'s army is hurting bad. You\'re strong, very strong—but even the strongest warrior can\'t do it alone.',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-captain-7.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-7.mp3',
         captainName,
         'Remember this: true power lies not in being the best warrior, but in leading many strong ones.',
       ),
@@ -178,32 +178,32 @@ export class OrcAttack extends BaseQuest {
 
     gruntSounds = [
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-grunt-1.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-1.mp3',
         'Orc Grunt',
         'Humans, you trespass on our land! This territory belongs to the Horde! We will take it back with blood and honor!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-grunt-2.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-2.mp3',
         'Orc Grunt',
         'Brothers, the humans are weakening! Push harder and show them our true might!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-grunt-3.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-3.mp3',
         'Orc Grunt',
         'Prepare yourselves, warriors! We will break their lines and take what is ours!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-grunt-4.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-4.mp3',
         'Orc Grunt',
         'The undead fell to our axes, and so will you. The Horde is unstoppable!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-grunt-5.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-5.mp3',
         'Orc Grunt',
         'Warriors of the Horde, press on! Remember the strength of Grom Hellscream!',
       ),
       createDialogSound(
-        'QuestSounds\\orc-attack\\orc-attack-grunt-6.mp3',
+        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-6.mp3',
         'Orc Grunt',
         'This is the final wave, warriors! Attack with all your strength! Victory for the Horde!',
       ),

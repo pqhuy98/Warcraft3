@@ -54,34 +54,34 @@ export class LumberMill extends BaseQuest {
   }) {
     super(globals);
     johnIntro = createDialogSound(
-      'QuestSounds\\lumber-mill\\lumber-mill-john-intro.mp3',
+      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-intro.mp3',
       'Villager John',
       "Ugh, we're never gonna fix this wheelbarrow without more lumber! The lumberjack team should've brought back wood hours ago.",
     );
     peterIntro = createDialogSound(
-      'QuestSounds\\lumber-mill\\lumber-mill-peter-intro.mp3',
+      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-intro.mp3',
       'Villager Peter',
       "Something's not right. Could you head southwest to the lumber mill and see what's taking so long? We really need that wood.",
     );
 
     peterOutro1 = createDialogSound(
-      'QuestSounds\\lumber-mill\\lumber-mill-peter-outro-1.mp3',
+      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-outro-1.mp3',
       'Villager Peter',
       "What?! The lumberjacks are dead and there's an undead base nearby? Forget the wheelbarrow, we need to report this to the army!",
     );
     johnOutro1 = createDialogSound(
-      'QuestSounds\\lumber-mill\\lumber-mill-john-outro-1.mp3',
+      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-outro-1.mp3',
       'Villager John',
       "Thank you for bringing the lumber, but this is far more urgent. We're heading to town right away.",
     );
 
     johnOutro2 = createDialogSound(
-      'QuestSounds\\lumber-mill\\lumber-mill-john-outro-2.mp3',
+      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-outro-2.mp3',
       'Villager John',
       'Oh my... Peter,... look at all the bodies!',
     );
     peterOutro2 = createDialogSound(
-      'QuestSounds\\lumber-mill\\lumber-mill-peter-outro-2.mp3',
+      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-outro-2.mp3',
       'Villager Peter',
       'This... this is a massacre... We need to get out of here ... before they come back!',
     );

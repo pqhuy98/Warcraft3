@@ -1,6 +1,8 @@
+import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import {
   currentLoc, DistanceBetweenLocs, Loc,
 } from 'lib/location';
+import { log } from 'lib/log';
 import { angleDifference } from 'lib/maths/misc';
 import { isPlayingPlayer } from 'lib/player';
 import { isAttending } from 'lib/systems/unit_interaction';
@@ -80,6 +82,7 @@ export function removeGuardPosition(...units: Unit[]): void {
 
 export function pauseGuardPosition(units: Unit[], isPaused: boolean): void {
   for (const u of units) {
+    u.removeGuardPosition();
     for (const priority of priorities) {
       if (unitPositions[priority].has(u)) {
         unitPositions[priority].get(u).paused = isPaused;
@@ -95,6 +98,12 @@ export function pauseGuardPosition(units: Unit[], isPaused: boolean): void {
 }
 
 export function daemonGuardPosition(): void {
+  onChatCommand('-gup', true, () => {
+    for (const priority of priorities) {
+      log(`unitPositions[${priority}]`, unitPositions[priority].size);
+    }
+  });
+
   const unitsPerIteration = 5;
   for (const priority of priorities) {
     let shuffledUnits: Unit[] = [];
@@ -146,7 +155,14 @@ function updateUnit(unit: Unit, data: GuardPositonData, now: number): Priority {
   const {
     position, angle, maxRadius, paused, animation, includeUserUnit,
   } = data;
-  if (!unit.isAlive() || paused || (!includeUserUnit && isPlayingPlayer(unit.owner.handle))) return Priority.LOW;
+  if (!unit.isAlive()
+    || paused
+    || (!includeUserUnit && isPlayingPlayer(unit.owner.handle))
+    || unit.paused
+  ) {
+    return Priority.LOW;
+  }
+
   const distance = DistanceBetweenLocs(unit, position);
   const idle = isUnitIdle(unit);
   let priority: Priority;

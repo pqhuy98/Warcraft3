@@ -1,20 +1,22 @@
 /* eslint-disable max-len */
 
-import { TalkGroup } from 'lib/quests/talk_group';
 import { getDestructablesInRect } from 'lib/destructable';
 import { centerLocRect } from 'lib/location';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
+import { TalkGroup } from 'lib/quests/talk_group';
 import { removeMinimapIcon, setMinimapIconUnit } from 'lib/quests/utils';
 import { ABILITY_ArchMageWaterElemental } from 'lib/resources/war3-abilities';
+import { MODEL_TomeOfRetrainingCaster } from 'lib/resources/war3-models';
 import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
 import { buildTrigger } from 'lib/trigger';
 import { getUnitsInRangeOfLoc, isOrganic, setNeverDie } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
+  Effect,
   sleep,
   Unit,
 } from 'w3ts';
@@ -54,12 +56,12 @@ export class BanditBanish extends BaseQuest {
     super(globals);
     johnSounds = [
       createDialogSound(
-        'QuestSounds\\bandit-banish\\bandit-banish-john-1.mp3',
+        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-john-1.mp3',
         villagerName,
         'Thank the heavens you\'re back! You\'ve rid us of those dreadful undead, and the farm is safe once more. But there\'s still one more danger... up at the northern outpost.',
       ),
       createDialogSound(
-        'QuestSounds\\bandit-banish\\bandit-banish-john-2.mp3',
+        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-john-2.mp3',
         villagerName,
         'I need you to do me one last favor. Deliver this to the soldiers stationed there. They could use it in these troubling times.',
       ),
@@ -67,27 +69,27 @@ export class BanditBanish extends BaseQuest {
 
     archMageSounds = [
       createDialogSound(
-        'QuestSounds\\bandit-banish\\bandit-banish-archmage-1.mp3',
+        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-1.mp3',
         archMageName,
         'Ah, you must be the brave soul John mentioned. Our outpost is plagued by bandit threats, and we\'re too underpowered to fend them off alone.',
       ),
       createDialogSound(
-        'QuestSounds\\bandit-banish\\bandit-banish-archmage-2.mp3',
+        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-2.mp3',
         archMageName,
         'You would take on the bandit camp for us? Your courage is truly remarkable. Unfortunately, our troops are too injured to assist you directly. I can only offer a Water Elemental to aid in your quest. May it serve you well.',
       ),
       createDialogSound(
-        'QuestSounds\\bandit-banish\\bandit-banish-archmage-3.mp3',
+        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-3.mp3',
         archMageName,
         'You\'re back! I can\'t express how relieved we all are. You\'ve done something remarkable here.',
       ),
       createDialogSound(
-        'QuestSounds\\bandit-banish\\bandit-banish-archmage-4.mp3',
+        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-4.mp3',
         archMageName,
         'To show my gratitude, let me teach you something invaluable—a spell to summon a Water Elemental. It’s a rare gift, use it well.',
       ),
       createDialogSound(
-        'QuestSounds\\bandit-banish\\bandit-banish-archmage-5.mp3',
+        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-5.mp3',
         archMageName,
         'One more thing - near the south watch tower of the farm, by the cliff, there\'s a hidden spot where the land’s energies restore mana. It\'s a secret known to few.',
       ),
@@ -95,12 +97,12 @@ export class BanditBanish extends BaseQuest {
 
     banditSounds = [
       createDialogSound(
-        'QuestSounds\\bandit-banish\\bandit-banish-bandit-1.mp3',
+        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-bandit-1.mp3',
         'Bandit Lord',
         'Well, look at that. Someone from the battered outpost dares to show up. Bold move!',
       ),
       createDialogSound(
-        'QuestSounds\\bandit-banish\\bandit-banish-bandit-2.mp3',
+        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-bandit-2.mp3',
         'Bandit Lord',
         'You... you think this is over? The Black Turban Syndicate won\'t let you get away with this.',
       ),
@@ -167,6 +169,7 @@ export class BanditBanish extends BaseQuest {
       t.addCondition(() => Unit.fromHandle(GetSummoningUnit()) === archMage);
       t.addAction(() => {
         RescueUnitBJ(GetSummonedUnit(), traveler.owner.handle, false);
+        UnitApplyTimedLife(GetSummonedUnit(), FourCC('BHwe'), 120);
         summonTrigger.destroy();
       });
     });
@@ -223,6 +226,7 @@ export class BanditBanish extends BaseQuest {
 
     traveler.addExperience(rewardXp, true);
     traveler.addAbility(ABILITY_ArchMageWaterElemental.id);
+    Effect.createAttachment(MODEL_TomeOfRetrainingCaster, traveler, 'origin').destroy();
     await questLog.completeWithRewards([
       `${GetAbilityName(ABILITY_ArchMageWaterElemental.id)}`,
       `${rewardXp} experience`,
