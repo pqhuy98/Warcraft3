@@ -1,9 +1,12 @@
 import { setCineFilter } from 'lib/camera';
-import { neutralHostile } from 'lib/constants';
+import {
+  neutralHostile, UNIT_BigSludge_1, UNIT_BigSludge_2, UNIT_BigSludge_3,
+} from 'lib/constants';
 import { AngleBetweenLocs, cameraCenter, isLocInRect } from 'lib/location';
-import { getUnitSounds } from 'lib/resources/unit-sounds';
+import { AllSoundTypes, getUnitSounds } from 'lib/resources/unit-sounds';
 import { MODEL_DivineShieldTarget } from 'lib/resources/war3-models';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
+import { setIntervalFixedCount } from 'lib/trigger';
 import { fadeUnit } from 'lib/unit';
 import { pickRandom, waitUntil } from 'lib/utils';
 import {
@@ -27,9 +30,11 @@ export class WordlessBook extends BaseQuest {
     areaRect: rect
   }) {
     super(globals);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.register();
   }
 
-  async register(): Promise<void> {
+  private async register(): Promise<void> {
     const { wordlessBook, bossRects, areaRect } = this.globals;
 
     const shieldEffect = Effect.createAttachment(MODEL_DivineShieldTarget, wordlessBook, 'origin');
@@ -61,19 +66,22 @@ export class WordlessBook extends BaseQuest {
     const traveler = await this.talkToQuestGiver(wordlessBook, true);
 
     const bosses = [
-      Unit.create(neutralHostile, FourCC('n009'), GetRectCenterX(bossRects[0]), GetRectCenterY(bossRects[0])),
-      Unit.create(neutralHostile, FourCC('n00A'), GetRectCenterX(bossRects[1]), GetRectCenterY(bossRects[1])),
-      Unit.create(neutralHostile, FourCC('n00B'), GetRectCenterX(bossRects[2]), GetRectCenterY(bossRects[2])),
+      Unit.create(neutralHostile, UNIT_BigSludge_1.id, GetRectCenterX(bossRects[0]), GetRectCenterY(bossRects[0])),
+      Unit.create(neutralHostile, UNIT_BigSludge_2.id, GetRectCenterX(bossRects[1]), GetRectCenterY(bossRects[1])),
+      Unit.create(neutralHostile, UNIT_BigSludge_3.id, GetRectCenterX(bossRects[2]), GetRectCenterY(bossRects[2])),
     ];
     bosses.forEach((u) => {
       u.setFacingEx(AngleBetweenLocs(u, traveler));
       u.issueTargetOrder(OrderId.Attack, traveler);
       u.canSleep = false;
-      const soundPath = pickRandom(getUnitSounds(u.typeId, 'YesAttack'));
+      const soundPath = pickRandom(getUnitSounds(u.typeId, ...AllSoundTypes));
       if (soundPath) {
         const snd = Sound.create(soundPath, false, false, false, 1, 1, 'DefaultEAXON');
-        snd.start();
-        snd.killWhenDone();
+        setIntervalFixedCount(snd.duration / 1000 + 0.1, 5, () => {
+          if (u.isVisible(traveler.owner)) {
+            snd.start();
+          }
+        });
       }
       fadeUnit(u, 255, 255, 255, 0, 255, 3);
       guardCurrentPosition(u, { maxRadius: 1500 });

@@ -47,6 +47,9 @@ export class RabbitHunt extends BaseQuest {
     wheatFieldRects: rect[]
   }) {
     super(globals);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.register();
+
     onChatCommand('-cheat rh', true, () => {
       const { wheatFieldRects } = this.globals;
       wheatFieldRects
@@ -56,7 +59,7 @@ export class RabbitHunt extends BaseQuest {
     });
   }
 
-  async register(): Promise<void> {
+  private async register(): Promise<void> {
     const { jacob, wheatFieldRects } = this.globals;
     jacob.name = 'Villager Jacob';
     setNeverDie(jacob, true, 1);

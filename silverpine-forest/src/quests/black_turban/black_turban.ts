@@ -1,18 +1,22 @@
+import { playerBlackTurban } from 'lib/constants';
 import { generateFogLocsBehindTrees } from 'lib/destructable';
 import {
   centerLocRect, currentLoc, DistanceBetweenLocs, isLocInRect, Loc,
 } from 'lib/location';
 import { log } from 'lib/log';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { notifyEventCompleted } from 'lib/quests/quest_log';
 import { neutralHostileMap } from 'lib/resources/neutral_hostile';
 import {
   UNIT_Assassin, UNIT_Bandit, UNIT_BanditLord, UNIT_Brigand, UNIT_Enforcer, UNIT_Rogue,
   UNIT_TYPE,
 } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
-import { removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
+import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { getTimeS } from 'lib/trigger';
-import { BUFF_ID_GENERIC, getUnitsInRangeOfLoc, getUnitsOfPlayer } from 'lib/unit';
+import {
+  BUFF_ID_GENERIC, getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer,
+} from 'lib/unit';
 import {
   pickRandom, pickRandomWeighted, shuffleArray, waitUntil,
 } from 'lib/utils';
@@ -32,8 +36,77 @@ const banditTypes: [UNIT_TYPE, number][] = [
 
 const weakestBanditPower = banditTypes.reduce((acc, [{ id }]) => Math.min(acc, neutralHostileMap.get(id).hp), 9999);
 
-let banditFirstSounds: sound[];
-let banditAgainSounds: sound[];
+const banditFirstSounds = [
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-1.mp3',
+    'Black Turban\'s bandit',
+    'You thought you could wipe out one of our camps and face no consequences? The Black Turban Syndicate doesn\'t forgive, and today we avenge our fallen brothers!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-12.mp3',
+    'Black Turban\'s bandit',
+    'We may have failed before, but the Black Turban Syndicate\'s vengeance always finds a way—ask those we drowned in the river; they\'ll tell you we never stop.',
+  ),
+];
+
+const banditAgainSounds = [
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-2.mp3',
+    'Black Turban\'s bandit',
+    'We\'re back, and this time we won\'t fail—consider this your final warning from the Black Turban Syndicate!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-3.mp3',
+    'Black Turban\'s bandit',
+    'Did you really believe you could escape our wrath? The Black Turban Syndicate always collects its debts!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-4.mp3',
+    'Black Turban\'s bandit',
+    'Time and time again, you\'ve slipped through our grasp, but the Black Turban Syndicate is relentless—we won\'t stop until vengeance is ours!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-5.mp3',
+    'Black Turban\'s bandit',
+    'You\'ve beaten us before, but the Black Turban Syndicate\'s resolve is unbreakable—we\'re here to settle this once and for all!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-6.mp3',
+    'Black Turban\'s bandit',
+    'No matter how many times we fall, we rise stronger—this time, you\'ll pay for every defeat you\'ve handed the Black Turban Syndicate!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-7.mp3',
+    'Black Turban\'s bandit',
+    'You\'ve escaped us before, but the shadows grow darker—the Black Turban Syndicate will haunt your every step until we have our revenge.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-8.mp3',
+    'Black Turban\'s bandit',
+    'Every failure tightens our grip—tonight, the Black Turban Syndicate brings nightmares you can\'t escape.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-9.mp3',
+    'Black Turban\'s bandit',
+    'You\'ve escaped our grasp before, but the Black Turban Syndicate will never relent—just like those who dared defy us in the past, whose screams still echo in the night!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-10.mp3',
+    'Black Turban\'s bandit',
+    'Your luck won\'t save you forever—the Black Turban Syndicate has a dark history with its enemies, and soon, you\'ll join the ranks of those who vanished into the shadows.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-11.mp3',
+    'Black Turban\'s bandit',
+    'You\'ve escaped us too many times, but the Black Turban Syndicate never forgets—ever heard the screams of those we buried alive? Your turn is coming!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\black-turban\\black-turban-bandit-13.mp3',
+    'Black Turban\'s bandit',
+    'The Black Turban Syndicate flayed our last defector alive and left him for the vultures; your fate will be even worse.',
+  ),
+];
+shuffleArray(banditAgainSounds);
 
 const chaseRange = 5000;
 const debug = false;
@@ -57,80 +130,19 @@ export class BlackTurban extends BaseQuest {
     safeRects: rect[]
   }) {
     super(globals);
-    banditFirstSounds = [
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-1.mp3',
-        'Black Turban\'s bandit',
-        'You thought you could wipe out one of our camps and face no consequences? The Black Turban Syndicate doesn\'t forgive, and today we avenge our fallen brothers!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-12.mp3',
-        'Black Turban\'s bandit',
-        'We may have failed before, but the Black Turban Syndicate\'s vengeance always finds a way—ask those we drowned in the river; they\'ll tell you we never stop.',
-      ),
-    ];
-
-    banditAgainSounds = [
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-2.mp3',
-        'Black Turban\'s bandit',
-        'We\'re back, and this time we won\'t fail—consider this your final warning from the Black Turban Syndicate!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-3.mp3',
-        'Black Turban\'s bandit',
-        'Did you really believe you could escape our wrath? The Black Turban Syndicate always collects its debts!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-4.mp3',
-        'Black Turban\'s bandit',
-        'Time and time again, you\'ve slipped through our grasp, but the Black Turban Syndicate is relentless—we won\'t stop until vengeance is ours!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-5.mp3',
-        'Black Turban\'s bandit',
-        'You\'ve beaten us before, but the Black Turban Syndicate\'s resolve is unbreakable—we\'re here to settle this once and for all!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-6.mp3',
-        'Black Turban\'s bandit',
-        'No matter how many times we fall, we rise stronger—this time, you\'ll pay for every defeat you\'ve handed the Black Turban Syndicate!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-7.mp3',
-        'Black Turban\'s bandit',
-        'You\'ve escaped us before, but the shadows grow darker—the Black Turban Syndicate will haunt your every step until we have our revenge.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-8.mp3',
-        'Black Turban\'s bandit',
-        'Every failure tightens our grip—tonight, the Black Turban Syndicate brings nightmares you can\'t escape.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-9.mp3',
-        'Black Turban\'s bandit',
-        'You\'ve escaped our grasp before, but the Black Turban Syndicate will never relent—just like those who dared defy us in the past, whose screams still echo in the night!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-10.mp3',
-        'Black Turban\'s bandit',
-        'Your luck won\'t save you forever—the Black Turban Syndicate has a dark history with its enemies, and soon, you\'ll join the ranks of those who vanished into the shadows.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-11.mp3',
-        'Black Turban\'s bandit',
-        'You\'ve escaped us too many times, but the Black Turban Syndicate never forgets—ever heard the screams of those we buried alive? Your turn is coming!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\black-turban\\black-turban-bandit-13.mp3',
-        'Black Turban\'s bandit',
-        'The Black Turban Syndicate flayed our last defector alive and left him for the vultures; your fate will be even worse.',
-      ),
-    ];
-    shuffleArray(banditAgainSounds);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.register();
   }
 
-  async register(): Promise<void> {
+  private async register(): Promise<void> {
+    getUnitsInRect(gg_rct_Black_turban_base, (u) => u.owner === playerBlackTurban)
+      .forEach((u) => {
+        u.acquireRange = 1500;
+        guardCurrentPosition(u);
+      });
+
+    const banditKing = Unit.fromHandle(gg_unit_n007_0901);
+
     await this.waitDependenciesDone();
     await sleep(60);
 
@@ -140,13 +152,22 @@ export class BlackTurban extends BaseQuest {
 
     const isUnsafeLoc = (loc: Loc): boolean => safeRects.every((rect) => !isLocInRect(loc, rect));
 
-    for (let attempt = 0; ; attempt++) {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    waitUntil(1, () => {
+      if (!banditKing.isAlive()) {
+        notifyEventCompleted('Black Turban Syndicate has been destroyed. They will no longer attack you at night.');
+      }
+      return !banditKing.isAlive();
+    });
+
+    for (let attempt = 0; banditKing.isAlive(); attempt++) {
       let victim: Unit;
 
-      // Wait until night for some victim
+      // Wait until night before finding victim
       debug && log('find victim');
       debug && log('safeRects.length', safeRects.length);
       await waitUntil(10, () => {
+        if (!banditKing.isAlive()) return true;
         if (BlackTurban.globalDisableCount > 0) return false;
         if (!isNightTime()) return false;
         if (victimPlayer.isPlayerAlly(banditPlayer)) return false;
@@ -166,6 +187,8 @@ export class BlackTurban extends BaseQuest {
         debug && log('candidate victim doesnt have any nearby unsafe loc', victim.name);
         return false;
       });
+      if (!banditKing.isAlive()) break;
+
       debug && log('found victim');
 
       // victim is found

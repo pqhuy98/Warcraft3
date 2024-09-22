@@ -1,5 +1,5 @@
 import {
-  mainPlayer, neutralHostile, neutralPassive, playerBlackTurban,
+  mainPlayer, neutralHostile, neutralPassive,
   playerForsaken,
   playerHumanAlliance,
   UNIT_Butcher,
@@ -30,7 +30,7 @@ import {
 } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition, removeGuardPosition } from 'lib/systems/unit_guard_position';
-import { createFloatText, TTSetting } from 'lib/texttag';
+import { createTextTag, TTSetting } from 'lib/texttag';
 import {
   buildTrigger, setIntervalFixedCount, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
@@ -64,11 +64,7 @@ export class MiscEvents {
       && !u.isUnitType(UNIT_TYPE_PEON)
       && u.owner !== neutralHostile && u.owner !== neutralPassive)
       .forEach((u) => {
-        if (u.owner === playerBlackTurban) {
-          guardCurrentPosition(u, { maxRadius: defaultGuardDistance });
-        } else {
-          guardCurrentPosition(u);
-        }
+        guardCurrentPosition(u, { maxRadius: defaultGuardDistance });
         u.setUseFood(false);
       });
 
@@ -232,7 +228,7 @@ export class MiscEvents {
             u.queueAnimation('stand first');
           });
 
-          createFloatText({
+          createTextTag({
             2: 'Warcry!',
             3: 'Sheath!',
             4: 'Strike with shield!',
@@ -267,7 +263,7 @@ export class MiscEvents {
 
   static preventFriendlyFire(): void {
     // Players become hostile if being friendly fired
-    buildTrigger((t) => {
+    false && buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
       t.addCondition(() => {
         const killer = Unit.fromHandle(GetKillingUnit());

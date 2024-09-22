@@ -1,8 +1,7 @@
 import { mainPlayer, playerForsaken } from 'lib/constants';
 import {
   AngleBetweenLocs,
-  centerLocRect,
-  DistanceBetweenLocs, isLocInRect, Loc, PolarProjection,
+  centerLocRect, isLocInRect, Loc,
   randomLocRect,
   templocation,
 } from 'lib/location';
@@ -80,9 +79,11 @@ export class LumberMill extends BaseQuest {
     townKnight: Unit
   }) {
     super(globals);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.register();
   }
 
-  async register(): Promise<void> {
+  private async register(): Promise<void> {
     const {
       john, peter,
       lumberMillCorpse1Rect,
@@ -120,17 +121,9 @@ export class LumberMill extends BaseQuest {
     CreateItemLoc(FourCC('lmbr'), templocation(GetRandomLocInRect(lumberMillCorpse1Rect)));
     CreateItemLoc(FourCC('lmbr'), templocation(GetRandomLocInRect(lumberMillCorpse2Rect)));
 
-    async function getCloserToTraveler(unit: Unit): Promise<void> {
-      const dest = PolarProjection(traveler, 200, AngleBetweenLocs(traveler, unit));
-      unit.issueOrderAt(OrderId.Move, dest.x, dest.y);
-      await waitUntil(0.234, () => DistanceBetweenLocs(unit, dest) <= 50);
-      setAttention(unit, traveler);
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getCloserToTraveler(john);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getCloserToTraveler(peter);
+    john.issueTargetOrder(OrderId.Smart, traveler);
+    peter.issueTargetOrder(OrderId.Smart, traveler);
+    await sleep(0.5);
 
     const talkGroup = new TalkGroup([john, peter, traveler]);
     await talkGroup.speak(john, johnIntro, traveler, traveler);
@@ -164,10 +157,10 @@ export class LumberMill extends BaseQuest {
     setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
 
     // John and Peter's dialogues after hearing the news
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getCloserToTraveler(john);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getCloserToTraveler(peter);
+    john.issueTargetOrder(OrderId.Smart, traveler);
+    peter.issueTargetOrder(OrderId.Smart, traveler);
+    await sleep(0.5);
+
     await talkGroup.speak(peter, peterOutro1, traveler, traveler);
     await talkGroup.speak(john, johnOutro1, traveler, traveler);
     talkGroup.finish();

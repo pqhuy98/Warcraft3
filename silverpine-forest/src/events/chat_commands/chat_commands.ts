@@ -6,7 +6,7 @@ import {
   Group, Unit,
 } from 'w3ts';
 
-import { createCommandHelpQuests, onChatCommand } from './chat_commands.model';
+import { onChatCommand } from './chat_commands.model';
 
 export function registerChatCommands(): void {
   onChatCommand('-clear', true, () => {
@@ -80,5 +80,5 @@ export function registerChatCommands(): void {
       });
   }, 'GameControl', 'Teleport all selected units to center of camera.');
 
-  createCommandHelpQuests();
+  // createCommandHelpQuests();
 }

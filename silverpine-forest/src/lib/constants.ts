@@ -47,6 +47,9 @@ export const UNIT_IPR_TRANSMITTER = { code: 'h005', id: FourCC('h005') };
 export const UNIT_IPR_RECEIVER = { code: 'h006', id: FourCC('h006') };
 export const UNIT_Butcher = { code: 'u001', id: FourCC('u001') };
 export const UNIT_HarvestGolem = { code: 'n008', id: FourCC('n008') };
+export const UNIT_BigSludge_1 = { code: 'n009', id: FourCC('n009') };
+export const UNIT_BigSludge_2 = { code: 'n00A', id: FourCC('n00A') };
+export const UNIT_BigSludge_3 = { code: 'n00B', id: FourCC('n00B') };
 
 // Players
 export const playerOrcishHorde = MapPlayer.fromIndex(0);

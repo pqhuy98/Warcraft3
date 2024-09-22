@@ -1,6 +1,8 @@
-import { UNIT_HarvestGolem } from 'lib/constants';
+import {
+  UNIT_BigSludge_1, UNIT_BigSludge_2, UNIT_BigSludge_3, UNIT_HarvestGolem,
+} from 'lib/constants';
 
-import { UNIT_GoblinShredder, UNIT_TYPE } from './war3-units';
+import { UNIT_GoblinShredder, UNIT_SludgeMonstrosity, UNIT_TYPE } from './war3-units';
 
 /* eslint-disable max-len */
 interface SoundGroup {
@@ -30643,3 +30645,6 @@ export function addCustomUnitSound(unit: UNIT_TYPE, baseUnit: UNIT_TYPE): void {
 
 // Sounds of custom units
 addCustomUnitSound(UNIT_HarvestGolem, UNIT_GoblinShredder);
+addCustomUnitSound(UNIT_BigSludge_1, UNIT_SludgeMonstrosity);
+addCustomUnitSound(UNIT_BigSludge_2, UNIT_SludgeMonstrosity);
+addCustomUnitSound(UNIT_BigSludge_3, UNIT_SludgeMonstrosity);

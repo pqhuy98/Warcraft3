@@ -35,12 +35,62 @@ const questItems = [
 
 const rewardXp = 1200;
 
-let johnSounds: sound[];
-let archMageSounds: sound[];
-let banditSounds: sound[];
-
 const villagerName = 'John';
-const archMageName = 'ArchMage Landazar';
+const archmageName = 'Archmage Landazar';
+
+const johnSounds = [
+  createDialogSound(
+    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-john-1.mp3',
+    villagerName,
+    'Thank the heavens you\'re back! You\'ve rid us of those dreadful undead, and the farm is safe once more. But there\'s still one more danger... up at the northern outpost.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-john-2.mp3',
+    villagerName,
+    'I need you to do me one last favor. Deliver this to the soldiers stationed there. They could use it in these troubling times.',
+  ),
+];
+
+const archMageSounds = [
+  createDialogSound(
+    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-1.mp3',
+    archmageName,
+    'Ah, you must be the brave soul John mentioned. Our outpost is plagued by bandit threats, and we\'re too underpowered to fend them off alone.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-2.mp3',
+    archmageName,
+    'You would take on the bandit camp for us? Your courage is truly remarkable. Unfortunately, our troops are too injured to assist you directly. I can only offer a Water Elemental to aid in your quest. May it serve you well.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-3.mp3',
+    archmageName,
+    'You\'re back! I can\'t express how relieved we all are. You\'ve done something remarkable here.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-4.mp3',
+    archmageName,
+    'To show my gratitude, let me teach you something invaluable—a spell to summon a Water Elemental. It’s a rare gift, use it well.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-5.mp3',
+    archmageName,
+    'One more thing - near the south watch tower of the farm, by the cliff, there\'s a hidden spot where the land’s energies restore mana. It\'s a secret known to few.',
+  ),
+];
+
+const banditSounds = [
+  createDialogSound(
+    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-bandit-1.mp3',
+    'Bandit Lord',
+    'Well, look at that. Someone from the battered outpost dares to show up. Bold move!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-bandit-2.mp3',
+    'Bandit Lord',
+    'You... you think this is over? The Black Turban Syndicate won\'t let you get away with this.',
+  ),
+];
 
 export class BanditBanish extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
@@ -54,66 +104,15 @@ export class BanditBanish extends BaseQuest {
     sightBlockersRect: rect
   }) {
     super(globals);
-    johnSounds = [
-      createDialogSound(
-        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-john-1.mp3',
-        villagerName,
-        'Thank the heavens you\'re back! You\'ve rid us of those dreadful undead, and the farm is safe once more. But there\'s still one more danger... up at the northern outpost.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-john-2.mp3',
-        villagerName,
-        'I need you to do me one last favor. Deliver this to the soldiers stationed there. They could use it in these troubling times.',
-      ),
-    ];
-
-    archMageSounds = [
-      createDialogSound(
-        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-1.mp3',
-        archMageName,
-        'Ah, you must be the brave soul John mentioned. Our outpost is plagued by bandit threats, and we\'re too underpowered to fend them off alone.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-2.mp3',
-        archMageName,
-        'You would take on the bandit camp for us? Your courage is truly remarkable. Unfortunately, our troops are too injured to assist you directly. I can only offer a Water Elemental to aid in your quest. May it serve you well.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-3.mp3',
-        archMageName,
-        'You\'re back! I can\'t express how relieved we all are. You\'ve done something remarkable here.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-4.mp3',
-        archMageName,
-        'To show my gratitude, let me teach you something invaluable—a spell to summon a Water Elemental. It’s a rare gift, use it well.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-5.mp3',
-        archMageName,
-        'One more thing - near the south watch tower of the farm, by the cliff, there\'s a hidden spot where the land’s energies restore mana. It\'s a secret known to few.',
-      ),
-    ];
-
-    banditSounds = [
-      createDialogSound(
-        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-bandit-1.mp3',
-        'Bandit Lord',
-        'Well, look at that. Someone from the battered outpost dares to show up. Bold move!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\bandit-banish\\bandit-banish-bandit-2.mp3',
-        'Bandit Lord',
-        'You... you think this is over? The Black Turban Syndicate won\'t let you get away with this.',
-      ),
-    ];
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.register();
   }
 
-  async register(): Promise<void> {
+  private async register(): Promise<void> {
     const {
       archMage, john, peter, bandits, johnRect, peterRect, banditLord, sightBlockersRect,
     } = this.globals;
-    archMage.nameProper = archMageName.replace('ArchMage ', '');
+    archMage.nameProper = archmageName.replace('Archmage ', '');
     archMage.name = 'Archmage of Northern Watch';
     setNeverDie(archMage, true, 100);
 
@@ -193,7 +192,7 @@ export class BanditBanish extends BaseQuest {
     // Play last words when bandit lords is low
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     waitUntil(1, () => {
-      if (bandits.filter((u) => u.isAlive()).length <= 1) {
+      if (!banditLord.isAlive() || bandits.filter((u) => u.isAlive()).length <= 1) {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         playSpeech(banditLord, banditSounds[1]);
         return true;

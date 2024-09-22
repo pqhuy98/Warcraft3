@@ -10,6 +10,7 @@ export interface TextTagConfig {
   r: number
   g: number
   b: number
+  a: number
   lifespan: number
   fadepoint: number
   heightOffset: number
@@ -22,6 +23,7 @@ const defaultSetting: TextTagConfig = {
   r: 255,
   g: 255,
   b: 255,
+  a: 255,
   heightOffset: 50,
   fontSize: 7,
   lifespan: 1.5,
@@ -45,6 +47,7 @@ function cf(
     r,
     g,
     b,
+    a: 255,
     lifespan,
     fadepoint,
     heightOffset,
@@ -65,18 +68,19 @@ export const TTSetting = {
   shadowStrike: cf(160, 255, 0, 5, 2, 0, 10, 0.04, false),
   manaBurn: cf(82, 82, 255, 5, 2, 0, 10, 0.04, false),
 
-  info: {
+  info: defaultSetting,
+  dialogue: {
     ...defaultSetting,
-    r: 255,
-    g: 255,
-    b: 255,
+    heightOffset: 120,
+    fontSize: 9,
   },
 } satisfies Record<string, TextTagConfig>;
 
-export function createFloatText(text: string, loc: Loc, {
+export function createTextTag(text: string, loc: Loc, {
   r,
   g,
   b,
+  a,
   lifespan,
   fadepoint,
   heightOffset,
@@ -85,7 +89,7 @@ export function createFloatText(text: string, loc: Loc, {
   permanent,
 }: TextTagConfig): TextTag {
   const tt = TextTag.create();
-  tt.setColor(r, g, b, 255);
+  tt.setColor(r, g, b, a);
   tt.setLifespan(lifespan);
   tt.setFadepoint(fadepoint);
   tt.setPos(loc.x, loc.y, heightOffset);
@@ -96,10 +100,20 @@ export function createFloatText(text: string, loc: Loc, {
   return tt;
 }
 
+export function createDialogueTextTag(text: string, loc: Loc, durationS: number): TextTag {
+  return createTextTag(text, loc, {
+    ...TTSetting.dialogue,
+    lifespan: durationS + 0.5,
+    fadepoint: durationS - 0.5,
+    velocityUp: 0,
+  });
+}
+
 export function registerFloatTextExperiments(): void {
   let r = 255;
   let g = 255;
   let b = 255;
+  let a = 255;
   let heightOffset = 50;
   let fontSize = 7;
   let lifespan = 1.5;
@@ -112,10 +126,11 @@ export function registerFloatTextExperiments(): void {
   let text = '4564';
   let itv = 1;
 
-  onChatCommand('tc $r $g $b', false, (msg) => {
+  onChatCommand('tc $r $g $b % a', false, (msg) => {
     r = parseInt(msg.split(' ')[1], 10);
     g = parseInt(msg.split(' ')[2], 10);
     b = parseInt(msg.split(' ')[3], 10);
+    a = parseInt(msg.split(' ')[4], 10);
   });
 
   onChatCommand('tho $1', false, (msg) => {
@@ -174,10 +189,11 @@ export function registerFloatTextExperiments(): void {
         y: hero.y,
       };
 
-      createFloatText(text, loc, {
+      createTextTag(text, loc, {
         r,
         g,
         b,
+        a,
         heightOffset,
         fontSize,
         lifespan,

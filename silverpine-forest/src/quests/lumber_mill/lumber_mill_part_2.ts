@@ -39,12 +39,36 @@ const questItems = [
 
 const rewardXp = 900;
 
-let johnIntro: sound;
-let knightIntro: sound;
-let footmanFear: sound;
-let footmanWarcry: sound;
-let peterRunForLife: sound;
-let knightOutro: sound;
+const johnIntro = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-john-intro.mp3',
+  'Villager John',
+  'Sir, we have dire news! Our farm\'s lumberjacks are dead, they were killed by undead near the mill!',
+);
+const knightIntro = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-knight-intro.mp3',
+  'Knight Gareth',
+  'Undead? Are you sure?... Fine... Soldiers, escort these peasants to the lumber mill and investigate further. But you peasants better not waste our time!',
+);
+const footmanFear = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-footman-1.mp3',
+  'Footman',
+  'This is a slaughter. They didn\'t stand a chance. Be on guard; we could be next.',
+);
+const footmanWarcry = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-footman-fight-1.mp3',
+  'Footman',
+  'The undead is attacking! Prepare for battle!',
+);
+const peterRunForLife = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-peter-run.mp3',
+  'Villager Peter',
+  'Undead! Run for your life!',
+);
+const knightOutro = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-knight-outro.mp3',
+  'Knight Gareth',
+  'All our men... gone?... This is a grave blow, beyond words. I must inform the mayor immediately. Your bravery is noted for taking down the Lich. But this loss... it\'s devastating.',
+);
 
 export class LumberMillPart2 extends BaseQuest {
   constructor(private globals: BaseQuestProps & {
@@ -58,40 +82,11 @@ export class LumberMillPart2 extends BaseQuest {
     homeRect: rect
   }) {
     super(globals);
-
-    johnIntro = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-john-intro.mp3',
-      'Villager John',
-      'Sir, we have dire news! Our farm\'s lumberjacks are dead, they were killed by undead near the mill!',
-    );
-    knightIntro = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-knight-intro.mp3',
-      'Knight Gareth',
-      'Undead? Are you sure?... Fine... Soldiers, escort these peasants to the lumber mill and investigate further. But you peasants better not waste our time!',
-    );
-    footmanFear = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-footman-1.mp3',
-      'Footman',
-      'This is a slaughter. They didn\'t stand a chance. Be on guard; we could be next.',
-    );
-    footmanWarcry = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-footman-fight-1.mp3',
-      'Footman',
-      'The undead is attacking! Prepare for battle!',
-    );
-    peterRunForLife = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-peter-run.mp3',
-      'Villager Peter',
-      'Undead! Run for your life!',
-    );
-    knightOutro = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-knight-outro.mp3',
-      'Knight Gareth',
-      'All our men... gone?... This is a grave blow, beyond words. I must inform the mayor immediately. Your bravery is noted for taking down the Lich. But this loss... it\'s devastating.',
-    );
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.register();
   }
 
-  async register(): Promise<void> {
+  private async register(): Promise<void> {
     const {
       john, peter, knight, mayor, footmen,
       undeadAttackers,
@@ -117,7 +112,7 @@ export class LumberMillPart2 extends BaseQuest {
     const talkGroup1 = new TalkGroup([john, peter, knight, ...footmen, traveler]);
     await talkGroup1.speak(john, johnIntro, knight, john);
     const knightSpeech = talkGroup1.speak(knight, knightIntro, john, john);
-    setTimeout(4, () => {
+    setTimeout(5, () => {
       // Knight now order footmen to help
       footmen.forEach((u) => setAttention(u, knight));
     });
@@ -233,7 +228,7 @@ export class LumberMillPart2 extends BaseQuest {
     // wait until all undeads and footmen die, or player dies
 
     const killTimer = setIntervalIndefinite(10, () => {
-      const newUndeadAlive = undeadAttackers.filter((u) => !u.isAlive()).length;
+      const newUndeadAlive = undeadAttackers.filter((u) => u.isAlive()).length;
       if (undeadAlive !== newUndeadAlive) {
         undeadAlive = newUndeadAlive;
         // eslint-disable-next-line @typescript-eslint/no-floating-promises

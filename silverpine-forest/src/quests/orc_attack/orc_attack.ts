@@ -1,8 +1,10 @@
 /* eslint-disable max-len */
+import { dropItemOnDeath, restorationDrops } from 'events/item_drops/item_drops';
 import {
   AngleBetweenLocs,
   centerLocRect,
   DistanceBetweenLocs,
+  isLocInRect,
   PolarProjection,
   randomLocRect,
   tempLocation,
@@ -30,7 +32,7 @@ import { setTimeout } from 'lib/trigger';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, isOrganic, setNeverDie,
 } from 'lib/unit';
-import { waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil } from 'lib/utils';
 import { MapPlayer, sleep, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
@@ -64,14 +66,131 @@ const orcTrainingBuildings: [UNIT_TYPE, UNIT_TYPE][] = [
   [UNIT_Demolisher, UNIT_Barracks],
 ];
 
-let archMageSounds: sound[];
-let footmanSounds: sound[];
-let captainSounds: sound[];
-let gruntSounds: sound[];
-
 const archMageName = 'ArchMage Landazar';
 const footmanName = 'Footman Aldric';
 const captainName = 'Captain Thaddeus';
+
+const archMageSounds = [
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-1.mp3',
+    archMageName,
+    'Ah, you\'re back! I see you\'ve discovered the hidden mana spot by the south watch tower. Excellent work!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-2.mp3',
+    archMageName,
+    'Not only have you found the secret, but it has also unlocked the next level Summon Water Elemental for you. Your abilities continue to impress me.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-3.mp3',
+    archMageName,
+    'There are other hidden spots like these scattered across the land. They can further enhance your powers if you\'re able to locate them.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-4.mp3',
+    archMageName,
+    'Such a grim discovery... We can\'t afford to ignore this. Immediate investigation is crucial.',
+  ),
+];
+
+const footmanSounds = [
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-1.mp3',
+    footmanName,
+    'Archmage Landazar, urgent news—several of our footmen at the shipyard have been found dead in the nearby forest, dismembered. We have no idea what caused it.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-2.mp3',
+    footmanName,
+    'Stranger, you\'ll help us investigate? That’s a relief. Your presence will be a great morale booster for those remaining.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-3.mp3',
+    footmanName,
+    'Captain, the Archmage Landazar has sent this one to assist us.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-4.mp3',
+    footmanName,
+    'Captain, more coming! This time they\'ve brought HeadHunters. We need to take them down quickly!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-5.mp3',
+    footmanName,
+    'This is their biggest push yet! They’ve even brought a Demolisher to raze our structure!',
+  ),
+];
+
+const captainSounds = [
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-1.mp3',
+    captainName,
+    'Thank you, it’s good to have you here. We need all the help we can get. Three of our men just died brutally just near the south forest.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-2.mp3',
+    captainName,
+    'It\'s the orcs—they must have been the ones who killed our men near the south forest. Prepare yourselves, everyone!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-3.mp3',
+    captainName,
+    'Here they come again! Now they have Shamans with them. Watch out for their spells!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-4.mp3',
+    captainName,
+    'They\'re sending in a beast this time and with a larger force. Aim for the Kodo Beast, it\'s their key strength!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-5.mp3',
+    captainName,
+    'There are so many of them! They\'re throwing everything they have at us. Hold the line at all costs!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-6.mp3',
+    captainName,
+    'We\'ve lost a lot of good men today. The shipyard\'s army is hurting bad. You\'re strong, very strong—but even the strongest warrior can\'t do it alone.',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-7.mp3',
+    captainName,
+    'Remember this: true power lies not in being the best warrior, but in leading many strong ones.',
+  ),
+];
+
+const gruntSounds = [
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-1.mp3',
+    'Orc Grunt',
+    'Humans, you trespass on our land! This territory belongs to the Horde! We will take it back with blood and honor!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-2.mp3',
+    'Orc Grunt',
+    'Brothers, the humans are weakening! Push harder and show them our true might!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-3.mp3',
+    'Orc Grunt',
+    'Prepare yourselves, warriors! We will break their lines and take what is ours!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-4.mp3',
+    'Orc Grunt',
+    'The undead fell to our axes, and so will you. The Horde is unstoppable!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-5.mp3',
+    'Orc Grunt',
+    'Warriors of the Horde, press on! Remember the strength of Grom Hellscream!',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-6.mp3',
+    'Orc Grunt',
+    'This is the final wave, warriors! Attack with all your strength! Victory for the Horde!',
+  ),
+];
 
 export class OrcAttack extends BaseQuest {
   constructor(private globals: BaseQuestProps & {
@@ -86,131 +205,11 @@ export class OrcAttack extends BaseQuest {
     orcGatherRect: rect
   }) {
     super(globals);
-
-    archMageSounds = [
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-1.mp3',
-        archMageName,
-        'Ah, you\'re back! I see you\'ve discovered the hidden mana spot by the south watch tower. Excellent work!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-2.mp3',
-        archMageName,
-        'Not only have you found the secret, but it has also unlocked the next level Summon Water Elemental for you. Your abilities continue to impress me.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-3.mp3',
-        archMageName,
-        'There are other hidden spots like these scattered across the land. They can further enhance your powers if you\'re able to locate them.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-archmage-4.mp3',
-        archMageName,
-        'Such a grim discovery... We can\'t afford to ignore this. Immediate investigation is crucial.',
-      ),
-    ];
-
-    footmanSounds = [
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-1.mp3',
-        footmanName,
-        'Archmage Landazar, urgent news—several of our footmen at the shipyard have been found dead in the nearby forest, dismembered. We have no idea what caused it.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-2.mp3',
-        footmanName,
-        'Stranger, you\'ll help us investigate? That’s a relief. Your presence will be a great morale booster for those remaining.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-3.mp3',
-        footmanName,
-        'Captain, the Archmage Landazar has sent this one to assist us.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-4.mp3',
-        footmanName,
-        'Captain, more coming! This time they\'ve brought HeadHunters. We need to take them down quickly!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-footman-5.mp3',
-        footmanName,
-        'This is their biggest push yet! They’ve even brought a Demolisher to raze our structure!',
-      ),
-    ];
-
-    captainSounds = [
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-1.mp3',
-        captainName,
-        'Thank you, it’s good to have you here. We need all the help we can get. Three of our men just died brutally just near the south forest.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-2.mp3',
-        captainName,
-        'It\'s the orcs—they must have been the ones who killed our men near the south forest. Prepare yourselves, everyone!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-3.mp3',
-        captainName,
-        'Here they come again! Now they have Shamans with them. Watch out for their spells!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-4.mp3',
-        captainName,
-        'They\'re sending in a beast this time and with a larger force. Aim for the Kodo Beast, it\'s their key strength!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-5.mp3',
-        captainName,
-        'There are so many of them! They\'re throwing everything they have at us. Hold the line at all costs!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-6.mp3',
-        captainName,
-        'We\'ve lost a lot of good men today. The shipyard\'s army is hurting bad. You\'re strong, very strong—but even the strongest warrior can\'t do it alone.',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-captain-7.mp3',
-        captainName,
-        'Remember this: true power lies not in being the best warrior, but in leading many strong ones.',
-      ),
-    ];
-
-    gruntSounds = [
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-1.mp3',
-        'Orc Grunt',
-        'Humans, you trespass on our land! This territory belongs to the Horde! We will take it back with blood and honor!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-2.mp3',
-        'Orc Grunt',
-        'Brothers, the humans are weakening! Push harder and show them our true might!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-3.mp3',
-        'Orc Grunt',
-        'Prepare yourselves, warriors! We will break their lines and take what is ours!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-4.mp3',
-        'Orc Grunt',
-        'The undead fell to our axes, and so will you. The Horde is unstoppable!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-5.mp3',
-        'Orc Grunt',
-        'Warriors of the Horde, press on! Remember the strength of Grom Hellscream!',
-      ),
-      createDialogSound(
-        'QuestSounds\\__refined\\orc-attack\\orc-attack-grunt-6.mp3',
-        'Orc Grunt',
-        'This is the final wave, warriors! Attack with all your strength! Victory for the Horde!',
-      ),
-    ];
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.register();
   }
 
-  async register(): Promise<void> {
+  private async register(): Promise<void> {
     const {
       archmage, footman, footManNewLocRec, corpsesRect,
       captain,
@@ -223,7 +222,10 @@ export class OrcAttack extends BaseQuest {
     setNeverDie(archmage);
 
     getUnitsInRect(orcBaseRect, (u) => u.owner === orcPlayer)
-      .forEach((u) => setNeverDie(u));
+      .forEach((u) => {
+        setNeverDie(u);
+        guardCurrentPosition(u, { maxRadius: 300 });
+      });
 
     await this.waitDependenciesDone();
 
@@ -264,6 +266,7 @@ export class OrcAttack extends BaseQuest {
       tempLocation(PolarProjection(footman, footman.moveSpeed * 2, AngleBetweenLocs(footman, archmage))),
       1,
     );
+    footman.shareVision(traveler.owner, true);
 
     // everyone looks at footman
     setTimeout(1, () => {
@@ -284,7 +287,6 @@ export class OrcAttack extends BaseQuest {
       AngleBetweenLocs(footman, captain),
     );
     enableQuestMarker(footman, 'new');
-    footman.shareVision(traveler.owner, true);
 
     await sleep(3);
     talkGroup.finish();
@@ -303,7 +305,7 @@ export class OrcAttack extends BaseQuest {
     ]);
 
     // the orc prepares attack now to avoid waiting long
-    const orcAttackPromise = this.orcAttacking(humanShipyard, talkGroup2);
+    const orcAttackPromise = this.orcAttacking(humanShipyard, talkGroup2, traveler);
     await talkGroup2.speak(footman, footmanSounds[2], captain, traveler);
     await talkGroup2.speak(captain, captainSounds[0], traveler, traveler);
     talkGroup2.finish();
@@ -349,7 +351,7 @@ export class OrcAttack extends BaseQuest {
     BlackTurban.enable();
   }
 
-  async orcAttacking(target: Unit, talkGroup: TalkGroup): Promise<'target dead' | 'no more wave'> {
+  async orcAttacking(target: Unit, talkGroup: TalkGroup, traveler: Unit): Promise<'target dead' | 'no more wave'> {
     const {
       captain, footman, orcBaseRect, orcGatherRect, orcPlayer,
     } = this.globals;
@@ -412,8 +414,12 @@ export class OrcAttack extends BaseQuest {
               if (unit && isPreservedUnitAlive(unit)) {
                 await talkGroup.speak(unit, sound, null, null);
               } else if (unitType) {
-                const speaker = attackers.find((u) => u.typeId === unitType.id);
+                await waitUntil(0.5, () => attackers.some((u) => u.typeId === unitType.id && u.life < u.maxLife));
+                const speaker = attackers.find((u) => u.typeId === unitType.id && u.life < u.maxLife);
                 await talkGroup.speak(speaker, sound, null, null);
+                if (speaker.owner === orcPlayer) {
+                  dropItemOnDeath(speaker, pickRandom(restorationDrops).id);
+                }
               }
               await sleep(0.5);
             }
@@ -424,7 +430,8 @@ export class OrcAttack extends BaseQuest {
         return attackersArrive || attackers.every((u) => !u.isAlive()) || !target.isAlive();
       });
       if (!target.isAlive()) {
-        return 'target dead';
+        oldAttackers.push(...attackers);
+        break;
       }
       // Continue to train next wave
       oldAttackers = attackers;
@@ -433,6 +440,24 @@ export class OrcAttack extends BaseQuest {
     // wait last wave completes
     await waitUntil(1, () => oldAttackers.every((u) => !u.isAlive()) || !target.isAlive());
     if (!target.isAlive()) {
+      // attackers return to base after target is dead
+      oldAttackers.forEach((u) => {
+        if (u.isAlive()) {
+          setGuardPosition(u, centerLocRect(gg_rct_Orc_attack_failed_return), 0);
+          u.shareVision(traveler.owner, true);
+        }
+      });
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      waitUntil(1, () => {
+        oldAttackers = oldAttackers.filter((u) => u.isAlive());
+        oldAttackers.forEach((u) => {
+          if (isLocInRect(u, gg_rct_Orc_attack_failed_return)) {
+            u.destroy();
+          }
+        });
+        return oldAttackers.length === 0;
+      });
+
       return 'target dead';
     }
     return 'no more wave';

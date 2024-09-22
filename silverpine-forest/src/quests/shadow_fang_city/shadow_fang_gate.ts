@@ -8,52 +8,52 @@ import { sleep, Unit } from 'w3ts';
 
 import { BaseQuest, BaseQuestProps } from '../base';
 
-let unitSounds: Record<number, sound[]>;
-
+const unitSounds = {
+  [UNIT_Knight.id]: [
+    createDialogSound(
+      'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-1.mp3',
+      'Knight',
+      'Guards, open the gate!',
+    ),
+    createDialogSound(
+      'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-2.mp3',
+      'Knight',
+      'Open the gate now!',
+    ),
+    createDialogSound(
+      'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-3.mp3',
+      'Knight',
+      'Get that gate open!',
+    ),
+  ],
+  [UNIT_MortarTeam.id]: [
+    createDialogSound(
+      'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-1.mp3',
+      'Mortar team',
+      'Open the gate for our visitor!',
+    ),
+    createDialogSound(
+      'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-2.mp3',
+      'Mortar team',
+      'Let our friend through!',
+    ),
+    createDialogSound(
+      'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-3.mp3',
+      'Mortar team',
+      'Unlock the gate for our comrade!',
+    ),
+  ],
+};
 export class ShadowFangGate extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
     gateKeepers: Unit[]
   }) {
     super(globals);
-    unitSounds = {
-      [UNIT_Knight.id]: [
-        createDialogSound(
-          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-1.mp3',
-          'Knight',
-          'Guards, open the gate!',
-        ),
-        createDialogSound(
-          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-2.mp3',
-          'Knight',
-          'Open the gate now!',
-        ),
-        createDialogSound(
-          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-3.mp3',
-          'Knight',
-          'Get that gate open!',
-        ),
-      ],
-      [UNIT_MortarTeam.id]: [
-        createDialogSound(
-          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-1.mp3',
-          'Mortar team',
-          'Open the gate for our visitor!',
-        ),
-        createDialogSound(
-          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-2.mp3',
-          'Mortar team',
-          'Let our friend through!',
-        ),
-        createDialogSound(
-          'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-3.mp3',
-          'Mortar team',
-          'Unlock the gate for our comrade!',
-        ),
-      ],
-    };
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.register();
   }
 
-  async register(): Promise<void> {
+  private async register(): Promise<void> {
     await this.waitDependenciesDone();
     const { gateKeepers } = this.globals;
 

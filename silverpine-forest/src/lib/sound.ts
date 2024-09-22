@@ -1,8 +1,10 @@
 import { disableInteractSound, enableInteractSound, setAttention } from 'lib/systems/unit_interaction';
 import { Effect, sleep, Unit } from 'w3ts';
 
+import { colorize } from './colorize';
 import { MODEL_Chat_Bubble } from './constants';
 import { Flag, setUnitFlag } from './systems/unit_user_data_flag';
+import { createDialogueTextTag } from './texttag';
 
 /**
  * @param options.volumeGroupAdjustment
@@ -34,9 +36,15 @@ export async function playSpeech(unit: Unit, sound: sound, target?: Unit, option
     SetSpeechVolumeGroupsBJ();
   }
   const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
-  PlayDialogueFromSpeakerEx(bj_FORCE_ALL_PLAYERS, unit.handle, GetUnitTypeId(unit.handle), sound, bj_TIMETYPE_ADD, 0, false);
-  const duration = GetSoundDuration(sound);
-  await sleep(duration / 1000);
+  // PlayDialogueFromSpeakerEx(bj_FORCE_ALL_PLAYERS, unit.handle, GetUnitTypeId(unit.handle), sound, bj_TIMETYPE_ADD, 0, false);
+  StartSound(sound);
+  const durationS = GetSoundDuration(sound) / 1000;
+
+  const speechText = GetDialogueTextKey(sound);
+  const speakerName = GetDialogueSpeakerNameKey(sound);
+  createDialogueTextTag(`${colorize.yellow(speakerName)}: ${speechText}`, unit, durationS);
+
+  await sleep(durationS);
   speakEffect.destroy();
 
   if (shouldSetVolumeGroup) {

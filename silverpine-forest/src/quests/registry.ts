@@ -25,7 +25,7 @@ export class QuestRegistry {
   static register(): void {
     setTimeout(0, () => {
       // GatherSheeps
-      const gatherSheeps = new GatherSheeps({
+      new GatherSheeps({
         name: 'Gather Sheeps',
         sheepBoy: Unit.fromHandle(gg_unit_nvk2_0064),
         grassRects: [
@@ -37,7 +37,6 @@ export class QuestRegistry {
         dependencies: [],
         cheatName: 'gs',
       });
-      gatherSheeps.register();
 
       // RabbitHunt
       const rabbitHunt = new RabbitHunt({
@@ -50,7 +49,6 @@ export class QuestRegistry {
         dependencies: [],
         cheatName: 'rh',
       });
-      rabbitHunt.register();
 
       // LumberMill
       const lumberMill1 = new LumberMill({
@@ -65,7 +63,6 @@ export class QuestRegistry {
         dependencies: [rabbitHunt],
         cheatName: 'lm',
       });
-      lumberMill1.register();
 
       // LumberMillPart2
       const lumberMill2 = new LumberMillPart2({
@@ -88,7 +85,6 @@ export class QuestRegistry {
         dependencies: [lumberMill1],
         cheatName: 'lm2',
       });
-      lumberMill2.register();
 
       // StrikeBack
       const strikeBack = new StrikeBack({
@@ -101,7 +97,6 @@ export class QuestRegistry {
         dependencies: [lumberMill2],
         cheatName: 'sb',
       });
-      strikeBack.register();
 
       // BanditBanish
       const banditBanish = new BanditBanish({
@@ -117,7 +112,6 @@ export class QuestRegistry {
         dependencies: [strikeBack],
         cheatName: 'bb',
       });
-      banditBanish.register();
 
       // HiddenEnergies
       const hiddenEnergies = new HiddenEnergies({
@@ -126,7 +120,6 @@ export class QuestRegistry {
         dependencies: [banditBanish],
         cheatName: 'he',
       });
-      hiddenEnergies.register();
 
       // Elven Drink
       new ElvenDrink({
@@ -134,7 +127,7 @@ export class QuestRegistry {
         questGiver: Unit.fromHandle(gg_unit_nhem_0557),
         dependencies: [],
         cheatName: 'ed',
-      }).register();
+      });
 
       // Black Turban
       new BlackTurban({
@@ -151,7 +144,7 @@ export class QuestRegistry {
         ],
         dependencies: [banditBanish],
         cheatName: 'bt',
-      }).register();
+      });
 
       // Orc attacking
       new OrcAttack({
@@ -167,7 +160,7 @@ export class QuestRegistry {
         orcGatherRect: gg_rct_Orc_base_attack_gathering,
         dependencies: [hiddenEnergies],
         cheatName: 'oa',
-      }).register();
+      });
 
       // Shadow fang gate
       new ShadowFangGate({
@@ -178,7 +171,7 @@ export class QuestRegistry {
         ],
         dependencies: [],
         cheatName: 'sfg',
-      }).register();
+      });
 
       // Cementery
       new Cementery({
@@ -191,7 +184,7 @@ export class QuestRegistry {
         partyActivateRect: gg_rct_Cementery_activate,
         dependencies: [],
         cheatName: 'cgp',
-      }).register();
+      });
 
       // Wordless book
       new WordlessBook({
@@ -201,7 +194,7 @@ export class QuestRegistry {
         bossRects: [gg_rct_Wordless_book_boss_1, gg_rct_Wordless_book_boss_2, gg_rct_Wordless_book_boss_3],
         dependencies: [],
         cheatName: 'wb',
-      }).register();
+      });
     });
   }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { mainPlayer } from 'lib/constants';
+import { mainPlayer, neutralPassive } from 'lib/constants';
 import {
   AngleBetweenLocs, centerLocRect, DistanceBetweenLocs, isLocInRect, PolarProjection,
   randomLocRect,
@@ -101,9 +101,11 @@ export class GatherSheeps extends BaseQuest {
     outroSounds[3] = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-outro-3.mp3', 'Timmy', outroDialogues[3]);
 
     goHomeSound = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-go-home.mp3', 'Timmy', goHomeDialogue);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.register();
   }
 
-  async register(): Promise<void> {
+  private async register(): Promise<void> {
     const { sheepBoy, grassRects } = this.globals;
     let sheeps = grassRects
       .flatMap((rect) => getUnitsInRect(rect))
@@ -331,7 +333,7 @@ export class GatherSheeps extends BaseQuest {
     const homeLoc = centerLocRect(this.globals.homeRect);
 
     if (sheeps.length < 10) {
-      sheeps.push(Unit.create(sheepBoy.owner, UNIT_Sheep.id, homeLoc.x, homeLoc.y));
+      sheeps.push(Unit.create(neutralPassive, UNIT_Sheep.id, homeLoc.x, homeLoc.y));
     }
     this.updateHerdMovespeed(sheepBoy, sheeps);
 

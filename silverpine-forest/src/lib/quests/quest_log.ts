@@ -112,3 +112,8 @@ export function notifyRewards(rewards: string[]): void {
   }
   QuestMessageBJ(bj_FORCE_ALL_PLAYERS, bj_QUESTMESSAGE_ITEMACQUIRED, message);
 }
+
+export function notifyEventCompleted(text: string): void {
+  const message = `${colorize.yellow('UPDATE')}: ${text}`;
+  QuestMessageBJ(bj_FORCE_ALL_PLAYERS, bj_QUESTMESSAGE_COMPLETED, message);
+}
