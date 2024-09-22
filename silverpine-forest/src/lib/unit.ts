@@ -55,22 +55,23 @@ export function fadeUnit(
   red: number,
   green: number,
   blue: number,
-  alpha: number,
+  alphaOld: number,
+  alphaNew: number,
   duration: number,
-  checkCancel: () => boolean,
-  onComplete: () => void,
+  onComplete?: () => void,
+  checkCancel?: () => boolean,
 ): void {
   k0('fade');
   const t = Timer.create();
 
   const TICK_TIME = 1.0 / 30;
-  const alphaLossPerTick = alpha / duration * TICK_TIME;
-  let newAlpha = alpha;
+  const alphaBonusPerTick = (alphaNew - alphaOld) / duration * TICK_TIME;
+  let newAlpha = alphaOld;
 
   t.start(TICK_TIME, true, () => {
-    newAlpha -= alphaLossPerTick;
+    newAlpha += alphaBonusPerTick;
 
-    if (checkCancel()) {
+    if (checkCancel?.()) {
       // fading is cancelled
       t.pause();
       t.destroy();
@@ -82,7 +83,7 @@ export function fadeUnit(
       t.pause();
       t.destroy();
       k1('fade');
-      onComplete();
+      onComplete?.();
     }
 
     u.setVertexColor(red, green, blue, Math.min(255, Math.max(0, Math.round(newAlpha))));

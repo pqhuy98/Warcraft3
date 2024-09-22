@@ -64,7 +64,7 @@ export class MulticastPoint {
               t2.destroy();
               k1('mcpt');
               k0('mcpt-f');
-              fadeUnit(dummy, 255, 255, 0, 128, 1, () => false, () => {
+              fadeUnit(dummy, 255, 255, 0, 128, 0, 1, () => {
                 safeRemoveDummy(dummy);
                 k1('mcpt-f');
               });

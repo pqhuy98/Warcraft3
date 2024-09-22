@@ -12,6 +12,7 @@ import {
   QuestLog,
 } from 'lib/quests/quest_log';
 import { TalkGroup } from 'lib/quests/talk_group';
+import { disableQuestMarker, enableQuestMarker } from 'lib/quests/utils';
 import { UNIT_Ghoul, UNIT_Peasant } from 'lib/resources/war3-units';
 import { guardCurrentPosition, pauseGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
@@ -35,12 +36,38 @@ const questItems = [
 ];
 const rewardXp = 600;
 
-let johnIntro: sound;
-let peterIntro: sound;
-let peterOutro1: sound;
-let johnOutro1: sound;
-let peterOutro2: sound;
-let johnOutro2: sound;
+const johnIntro = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-intro.mp3',
+  'Villager John',
+  "Ugh, we're never gonna fix this wheelbarrow without more lumber! The lumberjack team should've brought back wood hours ago.",
+);
+const peterIntro = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-intro.mp3',
+  'Villager Peter',
+  "Something's not right. Could you head southwest to the lumber mill and see what's taking so long? We really need that wood.",
+);
+
+const peterOutro1 = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-outro-1.mp3',
+  'Villager Peter',
+  "What?! The lumberjacks are dead and there's an undead base nearby? Forget the wheelbarrow, we need to report this to the army!",
+);
+const johnOutro1 = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-outro-1.mp3',
+  'Villager John',
+  "Thank you for bringing the lumber, but this is far more urgent. We're heading to town right away.",
+);
+
+const johnOutro2 = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-outro-2.mp3',
+  'Villager John',
+  'Oh my... Peter,... look at all the bodies!',
+);
+const peterOutro2 = createDialogSound(
+  'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-outro-2.mp3',
+  'Villager Peter',
+  'This... this is a massacre... We need to get out of here ... before they come back!',
+);
 
 export class LumberMill extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
@@ -53,38 +80,6 @@ export class LumberMill extends BaseQuest {
     townKnight: Unit
   }) {
     super(globals);
-    johnIntro = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-intro.mp3',
-      'Villager John',
-      "Ugh, we're never gonna fix this wheelbarrow without more lumber! The lumberjack team should've brought back wood hours ago.",
-    );
-    peterIntro = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-intro.mp3',
-      'Villager Peter',
-      "Something's not right. Could you head southwest to the lumber mill and see what's taking so long? We really need that wood.",
-    );
-
-    peterOutro1 = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-outro-1.mp3',
-      'Villager Peter',
-      "What?! The lumberjacks are dead and there's an undead base nearby? Forget the wheelbarrow, we need to report this to the army!",
-    );
-    johnOutro1 = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-outro-1.mp3',
-      'Villager John',
-      "Thank you for bringing the lumber, but this is far more urgent. We're heading to town right away.",
-    );
-
-    johnOutro2 = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-outro-2.mp3',
-      'Villager John',
-      'Oh my... Peter,... look at all the bodies!',
-    );
-    peterOutro2 = createDialogSound(
-      'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-outro-2.mp3',
-      'Villager Peter',
-      'This... this is a massacre... We need to get out of here ... before they come back!',
-    );
   }
 
   async register(): Promise<void> {
@@ -187,6 +182,8 @@ export class LumberMill extends BaseQuest {
     ]);
 
     // John and Peter travel to checkpoint 1 then look at Lumber Mill
+    enableQuestMarker(john, 'new');
+
     async function travelToRect(unit: Unit, rect: rect, facingLoc: Loc): Promise<void> {
       await sleep(GetRandomReal(0, 0.5));
       const dest = centerLocRect(rect);
@@ -210,6 +207,7 @@ export class LumberMill extends BaseQuest {
       travelToRect(john, townRect2, townKnight),
       travelToRect(peter, townRect2, townKnight),
     ]);
+    disableQuestMarker(john);
     this.complete();
   }
 

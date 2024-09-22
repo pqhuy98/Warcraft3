@@ -28,8 +28,18 @@ const rabbitTypeId = FourCC('necr');
 const rewardItem = FourCC('manh'); // Manual of Health
 const rewardXp = 300;
 
-let jacobIntro: sound;
-let jacobOutro: sound;
+const jacobSounds = [
+  createDialogSound(
+    'QuestSounds\\__refined\\rabbit-hunt\\rabbit-hunt-jacob-intro.mp3',
+    'Villager Jacob',
+    'Hello there. Our wheat field is being overrun by rabbits, and they\'re destroying our crops. Could you help us by hunting down all the rabbits in the field?',
+  ),
+  createDialogSound(
+    'QuestSounds\\__refined\\rabbit-hunt\\rabbit-hunt-jacob-outro.mp3',
+    'Villager Jacob',
+    'With the rabbits gone, we have a chance to save our harvest. Thanks again, and please, stay safe out there.',
+  ),
+];
 
 export class RabbitHunt extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
@@ -37,17 +47,6 @@ export class RabbitHunt extends BaseQuest {
     wheatFieldRects: rect[]
   }) {
     super(globals);
-    jacobIntro = createDialogSound(
-      'QuestSounds\\__refined\\rabbit-hunt\\rabbit-hunt-jacob-intro.mp3',
-      'Villager Jacob',
-      'Hello there. Our wheat field is being overrun by rabbits, and they\'re destroying our crops. Could you help us by hunting down all the rabbits in the field?',
-    );
-    jacobOutro = createDialogSound(
-      'QuestSounds\\__refined\\rabbit-hunt\\rabbit-hunt-jacob-outro.mp3',
-      'Villager Jacob',
-      'With the rabbits gone, we have a chance to save our harvest. Thanks again, and please, stay safe out there.',
-    );
-
     onChatCommand('-cheat rh', true, () => {
       const { wheatFieldRects } = this.globals;
       wheatFieldRects
@@ -84,7 +83,7 @@ export class RabbitHunt extends BaseQuest {
       }
     });
 
-    await playSpeech(jacob, jacobIntro, traveler);
+    await playSpeech(jacob, jacobSounds[0], traveler);
 
     const questLog = await QuestLog.create({
       name: questName,
@@ -104,7 +103,7 @@ export class RabbitHunt extends BaseQuest {
     traveler = await this.waitForTurnIn(jacob);
 
     // Thanks and reward
-    await playSpeech(jacob, jacobOutro, traveler);
+    await playSpeech(jacob, jacobSounds[1], traveler);
     traveler.addExperience(rewardXp, true);
     await questLog.completeWithRewards([
       giveItemReward(jacob, rewardItem).name,

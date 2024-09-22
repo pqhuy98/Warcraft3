@@ -33,7 +33,11 @@ export class TalkGroup {
         }
       }, 0.5 / (this.units.length - 1));
     }
-    await playSpeech(speakingUnit, sound, target);
+    await playSpeech(speakingUnit, sound, target, {
+      // all units in talk group already has interaction disabled earlier, and will be re-enabled later
+      // so this flag must be false to avoid playSpeech re-enabling interaction too early after it's done
+      disableInteraction: false,
+    });
     this.units.forEach((u) => {
       setUnitFlag(u, Flag.UNBREAKABLE_ATTENTION, false);
       enableInteractSound(u);

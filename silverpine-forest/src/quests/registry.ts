@@ -16,6 +16,7 @@ import { HiddenEnergies } from './hidden_energies/hidden_energies';
 import { LumberMill } from './lumber_mill/lumber_mill';
 import { LumberMillPart2 } from './lumber_mill/lumber_mill_part_2';
 import { StrikeBack } from './lumber_mill/strike_back';
+import { WordlessBook } from './mini_bosses/wordless_book';
 import { OrcAttack } from './orc_attack/orc_attack';
 import { RabbitHunt } from './rabbit_hunt/rabbit_hunt';
 import { ShadowFangGate } from './shadow_fang_city/shadow_fang_gate';
@@ -190,6 +191,16 @@ export class QuestRegistry {
         partyActivateRect: gg_rct_Cementery_activate,
         dependencies: [],
         cheatName: 'cgp',
+      }).register();
+
+      // Wordless book
+      new WordlessBook({
+        name: 'Wordless Book',
+        wordlessBook: Unit.fromHandle(gg_unit_n00C_1135),
+        areaRect: gg_rct_Wordless_Book_Cave,
+        bossRects: [gg_rct_Wordless_book_boss_1, gg_rct_Wordless_book_boss_2, gg_rct_Wordless_book_boss_3],
+        dependencies: [],
+        cheatName: 'wb',
       }).register();
     });
   }

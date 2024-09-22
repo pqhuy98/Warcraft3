@@ -40,7 +40,7 @@ export class CementeryParty {
       partyGoers.delete(u);
       if (u !== traveler) {
         const fadeDuration = GetRandomReal(3, 6);
-        fadeUnit(u, ghostR, ghostG, ghostB, ghostA, fadeDuration, () => false, () => u.destroy());
+        fadeUnit(u, ghostR, ghostG, ghostB, ghostA, 0, fadeDuration, () => u.destroy());
       }
     };
 

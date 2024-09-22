@@ -2223,3 +2223,51 @@ STRING 397
 (Target Hero)
 }
 
+STRING 398
+// Units: n009 (Ancient Sludge), Name (Name)
+{
+Ancient Sludge
+}
+
+STRING 399
+// Units: n009 (Ancient Sludge), EditorSuffix (Name - Editor Suffix)
+{
+(1)
+}
+
+STRING 400
+// Units: n00A (Ancient Sludge), Name (Name)
+{
+Ancient Sludge
+}
+
+STRING 401
+// Units: n00A (Ancient Sludge), EditorSuffix (Name - Editor Suffix)
+{
+(3)
+}
+
+STRING 402
+// Units: n00B (Ancient Sludge), Name (Name)
+{
+Ancient Sludge
+}
+
+STRING 403
+// Units: n00B (Ancient Sludge), EditorSuffix (Name - Editor Suffix)
+{
+(2)
+}
+
+STRING 404
+// Units: n00C (Wordless Book), Name (Name)
+{
+Wordless Book
+}
+
+STRING 405
+// Doodads: D00U (Red Post Lantern), Name (Name)
+{
+Red Post Lantern
+}
+

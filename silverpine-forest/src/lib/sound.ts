@@ -1,13 +1,15 @@
-import { setAttention } from 'lib/systems/unit_interaction';
+import { disableInteractSound, enableInteractSound, setAttention } from 'lib/systems/unit_interaction';
 import { Effect, sleep, Unit } from 'w3ts';
 
 import { MODEL_Chat_Bubble } from './constants';
+import { Flag, setUnitFlag } from './systems/unit_user_data_flag';
 
 /**
  * @param options.volumeGroupAdjustment
  */
 export async function playSpeech(unit: Unit, sound: sound, target?: Unit, options?: {
-  ignoreVolumeGroupAdjustment: boolean
+  ignoreVolumeGroupAdjustment?: boolean
+  disableInteraction?: boolean
 }): Promise<void> {
   if (target) {
     setAttention(unit, target);
@@ -21,6 +23,12 @@ export async function playSpeech(unit: Unit, sound: sound, target?: Unit, option
     bj_TRANSMISSION_IND_ALPHA,
   );
 
+  const shouldDisableInteraction = !options || options?.disableInteraction;
+  if (shouldDisableInteraction) {
+    disableInteractSound(unit);
+    setUnitFlag(unit, Flag.UNBREAKABLE_ATTENTION, true);
+  }
+
   const shouldSetVolumeGroup = !options || !options?.ignoreVolumeGroupAdjustment;
   if (shouldSetVolumeGroup) {
     SetSpeechVolumeGroupsBJ();
@@ -30,8 +38,13 @@ export async function playSpeech(unit: Unit, sound: sound, target?: Unit, option
   const duration = GetSoundDuration(sound);
   await sleep(duration / 1000);
   speakEffect.destroy();
+
   if (shouldSetVolumeGroup) {
     VolumeGroupReset();
+  }
+  if (shouldDisableInteraction) {
+    setUnitFlag(unit, Flag.UNBREAKABLE_ATTENTION, false);
+    enableInteractSound(unit);
   }
 }
 

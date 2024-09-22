@@ -1,3 +1,4 @@
+import { restoreCameraBound, updateCameraBound } from 'lib/camera';
 import {
   ABILITY_ID_POSSESSION_TARGET_HERO,
 } from 'lib/constants';
@@ -35,7 +36,6 @@ import {
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
-import { restoreCameraBound, updateCameraBound } from '../../lib/camerabounds';
 import { BaseQuest, BaseQuestProps } from '../base';
 import { CementeryParty } from './party';
 import {

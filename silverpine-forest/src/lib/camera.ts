@@ -1,6 +1,8 @@
 import { mainPlayer } from 'lib/constants';
 import { Frame, Unit as Locs } from 'w3ts';
 
+import { setTimeout } from './trigger';
+
 export function updateCameraBound(rects: rect[], locs?: Locs[]): void {
   if (rects.length === 0 && (!locs || locs.length === 0)) return;
 
@@ -37,8 +39,26 @@ export function updateCameraBound(rects: rect[], locs?: Locs[]): void {
 
 export function restoreCameraBound(): void {
   BlzChangeMinimapTerrainTex('war3mapMap.blp');
-  const defaultBound = GetCameraBoundsMapRect();
-  SetCameraBoundsToRectForPlayerBJ(mainPlayer.handle, defaultBound);
-  RemoveRect(defaultBound);
+  SetCameraBoundsToRectForPlayerBJ(mainPlayer.handle, GetCameraBoundsMapRect());
   Frame.fromOrigin(ORIGIN_FRAME_MINIMAP, 0).visible = true;
+}
+
+export function setCineFilter(
+  from: {r: number, g: number, b: number, a: number},
+  to: {r: number, g: number, b: number, a: number},
+  duration: number,
+  texture = 'ReplaceableTextures\\CameraMasks\\White_mask.blp',
+): void {
+  SetCineFilterTexture(texture);
+  SetCineFilterBlendMode(BLEND_MODE_BLEND);
+  SetCineFilterTexMapFlags(TEXMAP_FLAG_NONE);
+  SetCineFilterStartUV(0, 0, 1, 1);
+  SetCineFilterEndUV(0, 0, 1, 1);
+  SetCineFilterStartColor(from.r, from.g, from.b, from.a);
+  SetCineFilterEndColor(to.r, to.g, to.b, to.a);
+  SetCineFilterDuration(duration);
+  DisplayCineFilter(true);
+  if (to.a === 0) {
+    setTimeout(duration, () => DisplayCineFilter(false));
+  }
 }

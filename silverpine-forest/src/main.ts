@@ -7,6 +7,7 @@ import Sandquake from 'abilities/sandquake/sandquake';
 import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
 import WrathOfTheLichKing from 'abilities/wrath_of_the_lich_king/wrath_of_the_lich_king';
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
+import { registerItemDrops } from 'events/item_drops/item_drops';
 import { MiscEvents } from 'events/misc';
 import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
 import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
@@ -73,6 +74,7 @@ function tsMain(): void {
   registerFloatTextExperiments();
   registerPreseveUnits();
   registerHearthStone();
+  registerItemDrops();
 
   // Miscs
   // Weather.changeWeather();
