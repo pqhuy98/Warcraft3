@@ -71,7 +71,7 @@ export const TTSetting = {
   info: defaultSetting,
   dialogue: {
     ...defaultSetting,
-    heightOffset: 120,
+    heightOffset: 150,
     fontSize: 9,
   },
 } satisfies Record<string, TextTagConfig>;

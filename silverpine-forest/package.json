@@ -14,7 +14,8 @@
     "sandbox-terrain": "ts-node --transpile-only scripts/sandbox/sandbox-terrain.ts",
     "sandbox-doodads-csv": "ts-node --transpile-only scripts/sandbox/doodads-csv.ts",
     "sandbox": "ts-node --transpile-only scripts/sandbox/sandbox.ts",
-    "sound": "ts-node --transpile-only scripts/sound.ts"
+    "sound": "ts-node --transpile-only scripts/sound.ts",
+    "extract-src": "ts-node --transpile-only scripts/extract-src.ts"
   },
   "dependencies": {
     "w3ts": "^3.0.2",
