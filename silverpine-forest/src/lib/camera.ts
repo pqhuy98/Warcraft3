@@ -1,9 +1,10 @@
 import { mainPlayer } from 'lib/constants';
-import { Frame, Unit as Locs } from 'w3ts';
+import { Frame } from 'w3ts';
 
+import { Loc, tempLocation } from './location';
 import { setTimeout } from './trigger';
 
-export function updateCameraBound(rects: rect[], locs?: Locs[]): void {
+export function lockCameraBound(rects: rect[], locs?: Loc[]): void {
   if (rects.length === 0 && (!locs || locs.length === 0)) return;
 
   let minX = 999999999;
@@ -61,4 +62,8 @@ export function setCineFilter(
   if (to.a === 0) {
     setTimeout(duration, () => DisplayCineFilter(false));
   }
+}
+
+export function panCameraSmart(loc: Loc, duration: number): void {
+  SmartCameraPanBJ(GetLocalPlayer(), tempLocation(loc), duration);
 }

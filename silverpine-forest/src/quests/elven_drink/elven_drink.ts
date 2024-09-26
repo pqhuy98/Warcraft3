@@ -10,7 +10,7 @@ import {
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import { QuestLog } from 'lib/quests/quest_log';
 import { TalkGroup } from 'lib/quests/talk_group';
-import { setMinimapIconUnit } from 'lib/quests/utils';
+import { cinematicFadeIn, cinematicFadeOut, setMinimapIconUnit } from 'lib/quests/utils';
 import { neutralHostileTypes } from 'lib/resources/neutral_hostile';
 import {
   ABILITY_MagicImmunity, ABILITY_MagicImmunityCreep, ABILITY_MagicImmunityDragons, ABILITY_ReincarnationCreep, ABILITY_ReincarnationGeneric,
@@ -232,7 +232,7 @@ export class ElvenDrink extends BaseQuest {
   ): Promise<boolean> {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises, no-async-promise-executor
     return new Promise(async (resolve) => {
-      CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+      cinematicFadeOut(1);
       await sleep(3);
 
       AbortCinematicFadeBJ();
@@ -420,7 +420,7 @@ export class ElvenDrink extends BaseQuest {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         t.addAction(async () => {
           failed = true;
-          CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 3, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+          cinematicFadeOut(3);
 
           await sleep(5);
 
@@ -436,7 +436,7 @@ export class ElvenDrink extends BaseQuest {
             traveler.startAbilityCooldown(abilityId, oldCooldown);
           }
 
-          CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 3, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+          cinematicFadeIn(3);
           resolve(false);
         });
       }));

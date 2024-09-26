@@ -36,7 +36,7 @@ import {
   daemonTempCleanUp,
 } from 'lib/location';
 import { setAllianceState, setAllianceState2Way } from 'lib/player';
-import { daemonQuestMarker } from 'lib/quests/utils';
+import { cinematicFadeIn, cinematicFadeOut, daemonQuestMarker } from 'lib/quests/utils';
 import { allUpgrades } from 'lib/resources/war3-upgrades';
 import { registerHearthStone } from 'lib/systems/hearth_stone';
 import { registerPreseveUnits } from 'lib/systems/preserve_unit';
@@ -102,9 +102,9 @@ function tsMain(): void {
 
   registerChatCommands();
   Camera.setSmoothingFactor(1);
-  CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 0, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+  cinematicFadeOut(0);
   setTimeout(0.5, () => {
-    CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 3, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+    cinematicFadeIn(3);
   });
 }
 

@@ -1,8 +1,10 @@
-export function createDialogSound(filePath: string, speakerName: string, text: string): sound {
-  const sound = CreateSound(filePath, false, false, false, 1, 1, 'DefaultEAXON');
-  SetSoundChannel(sound, 0);
-  SetSoundVolumeBJ(sound, 127);
-  SetDialogueSpeakerNameKey(sound, speakerName);
-  SetDialogueTextKey(sound, text);
+import { Sound } from 'w3ts';
+
+export function createDialogSound(filePath: string, speakerName: string, text: string): Sound {
+  const sound = Sound.create(filePath, false, false, false, 1, 1, 'DefaultEAXON');
+  sound.setChannel(0);
+  sound.setVolume(127);
+  sound.dialogueSpeakerNameKey = speakerName;
+  sound.dialogueTextKey = text;
   return sound;
 }

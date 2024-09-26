@@ -128,3 +128,15 @@ export function giveItemReward(giver: Unit, itemType: number): Item {
   AddIndicator(item.handle, 255, 255, 255, 255);
   return item;
 }
+
+export function cinematicFadeOut(duration: number): void {
+  CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, duration, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+}
+
+export function cinematicFadeIn(duration: number): void {
+  CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, duration, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+}
+
+export function cinematicMode(isCinematic: boolean, duration: number): void {
+  CinematicModeExBJ(isCinematic, bj_FORCE_ALL_PLAYERS, duration);
+}

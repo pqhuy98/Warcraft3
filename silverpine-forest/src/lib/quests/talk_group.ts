@@ -2,7 +2,7 @@ import { playSpeech } from 'lib/sound';
 import { Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
 import { enumUnitsWithDelay, isUnitIdle } from 'lib/unit';
 import { shuffleArray } from 'lib/utils';
-import { Unit } from 'w3ts';
+import { Sound, Unit } from 'w3ts';
 
 import {
   disableInteractSound, enableInteractSound, removeAttention, setAttention,
@@ -16,7 +16,7 @@ export class TalkGroup {
     this.units.push(unit);
   }
 
-  async speak(speakingUnit: Unit, sound: sound, target: Unit | null, everyoneAttention: Unit | null): Promise<void> {
+  async speak(speakingUnit: Unit, sound: Sound, target: Unit | null, everyoneAttention: Unit | null): Promise<void> {
     this.units.forEach((u) => {
       disableInteractSound(u);
       setUnitFlag(u, Flag.UNBREAKABLE_ATTENTION, true);

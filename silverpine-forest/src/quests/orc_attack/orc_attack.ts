@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import { dropItemOnDeath, restorationDrops } from 'events/item_drops/item_drops';
+import { panCameraSmart } from 'lib/camera';
 import {
   AngleBetweenLocs,
   centerLocRect,
@@ -33,7 +34,9 @@ import {
   getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, isOrganic, isUnitIdle, setNeverDie,
 } from 'lib/unit';
 import { pickRandom, waitUntil } from 'lib/utils';
-import { MapPlayer, sleep, Unit } from 'w3ts';
+import {
+  MapPlayer, sleep, Sound, Unit,
+} from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
 import { BaseQuest, BaseQuestProps } from '../base';
@@ -261,11 +264,7 @@ export class OrcAttack extends BaseQuest {
     const footmanMoveLoc = PolarProjection(archmage, 300, 90);
     footman.issueOrderAt(OrderId.Move, footmanMoveLoc.x, footmanMoveLoc.y);
     await sleep(1);
-    SmartCameraPanBJ(
-      traveler.owner.handle,
-      tempLocation(PolarProjection(footman, footman.moveSpeed * 2, AngleBetweenLocs(footman, archmage))),
-      1,
-    );
+    panCameraSmart(PolarProjection(footman, footman.moveSpeed * 2, AngleBetweenLocs(footman, archmage)), 1);
     footman.shareVision(traveler.owner, true);
 
     // everyone looks at footman
@@ -356,7 +355,7 @@ export class OrcAttack extends BaseQuest {
     const {
       captain, footman, orcBaseRect, orcGatherRect, orcPlayer,
     } = this.globals;
-    const speeches: {unit?: Unit, unitType?: UNIT_TYPE, sound: sound}[][] = [
+    const speeches: {unit?: Unit, unitType?: UNIT_TYPE, sound: Sound}[][] = [
       [{ unitType: UNIT_Grunt, sound: gruntSounds[0] }, { unit: captain, sound: captainSounds[1] }],
       [{ unitType: UNIT_Grunt, sound: gruntSounds[1] }, { unit: footman, sound: footmanSounds[3] }],
       [{ unitType: UNIT_Grunt, sound: gruntSounds[2] }, { unit: captain, sound: captainSounds[2] }],

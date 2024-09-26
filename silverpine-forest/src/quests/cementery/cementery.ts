@@ -1,10 +1,9 @@
-import { restoreCameraBound, updateCameraBound } from 'lib/camera';
+import { lockCameraBound, panCameraSmart, restoreCameraBound } from 'lib/camera';
 import {
   ABILITY_ID_POSSESSION_TARGET_HERO,
 } from 'lib/constants';
 import {
   centerLocRect, DistanceBetweenLocs, isLocInRect, PolarProjection,
-  tempLocation,
 } from 'lib/location';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
@@ -12,6 +11,8 @@ import {
 } from 'lib/quests/quest_log';
 import { TalkGroup } from 'lib/quests/talk_group';
 import {
+  cinematicFadeIn,
+  cinematicFadeOut,
   disableQuestMarker, enableQuestMarker, removeMinimapIcon, setMinimapIconUnit,
 } from 'lib/quests/utils';
 import {
@@ -356,10 +357,10 @@ export class Cementery extends BaseQuest {
     BlzEnableCursor(false);
     await sleep(1);
 
-    CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 0.5, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+    cinematicFadeOut(0.5);
     await sleep(1);
-    SmartCameraPanBJ(traveler.owner.handle, tempLocation(traveler), 0);
-    updateCameraBound([partySpawnRect]);
+    panCameraSmart(traveler, 0);
+    lockCameraBound([partySpawnRect]);
 
     // Spawn all party goers and define their behaviors
     const party = CementeryParty.create({
@@ -415,7 +416,7 @@ export class Cementery extends BaseQuest {
 
     // Fade in, party starts now
     await sleep(3);
-    CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 0.5, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+    cinematicFadeIn(0.5);
     BlzEnableCursor(true);
 
     await sleep(1);

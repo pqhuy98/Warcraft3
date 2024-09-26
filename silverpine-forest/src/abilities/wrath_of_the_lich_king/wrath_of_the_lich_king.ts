@@ -17,6 +17,7 @@ import {
 } from 'lib/unit';
 import {
   Effect,
+  Sound,
   Ubersplat,
   Unit,
 } from 'w3ts';
@@ -138,7 +139,7 @@ export default class WrathOfTheLichKing {
         setTimeout(animationDurationSwordUp + animationDurationSwordSlam + 1, () => {
           if (caster.isAlive()) {
             // eslint-disable-next-line @typescript-eslint/no-floating-promises
-            playSpeech(caster, gg_snd_lichking_frostmourne_hungers);
+            playSpeech(caster, Sound.fromHandle(gg_snd_lichking_frostmourne_hungers));
           }
           k1('wotlk5');
         });

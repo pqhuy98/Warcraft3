@@ -11,12 +11,14 @@ import { BanditBanish } from './bandit_banish/bandit_banish';
 import { BlackTurban } from './black_turban/black_turban';
 import { Cementery } from './cementery/cementery';
 import { ElvenDrink } from './elven_drink/elven_drink';
+import { FarmMassacre } from './farm-massacre/farm-massarce';
 import { GatherSheeps } from './gather_sheeps/gather_sheeps';
 import { HiddenEnergies } from './hidden_energies/hidden_energies';
 import { LumberMill } from './lumber_mill/lumber_mill';
 import { LumberMillPart2 } from './lumber_mill/lumber_mill_part_2';
 import { StrikeBack } from './lumber_mill/strike_back';
 import { WordlessBook } from './mini_bosses/wordless_book';
+import { NightElfLanding } from './night-elf-landing/night-elf-landing';
 import { OrcAttack } from './orc_attack/orc_attack';
 import { RabbitHunt } from './rabbit_hunt/rabbit_hunt';
 import { ShadowFangGate } from './shadow_fang_city/shadow_fang_gate';
@@ -138,7 +140,7 @@ export class QuestRegistry {
         banditHomeRect: gg_rct_Bandit_Base,
         safeRects: [
           gg_rct_Orc_shore_base, gg_rct_Orc_east_base, gg_rct_Bandit_Island, gg_rct_Bandit_Base,
-          gg_rct_Thalandor_home, gg_rct_AmberMill_region, gg_rct_Farm_region,
+          gg_rct_Thalandor_home, gg_rct_AmberMill_region, gg_rct_Farm_region, gg_rct_Farm_north_outpost,
           gg_rct_Shadowfang_region, gg_rct_Night_elf_shore_base,
           gg_rct_Keep_Fog, gg_rct_Human_shipyard,
         ],
@@ -146,8 +148,8 @@ export class QuestRegistry {
         cheatName: 'bt',
       });
 
-      // Orc attacking
-      new OrcAttack({
+      // Orc attack
+      const orcAttack = new OrcAttack({
         name: 'Orc Attack',
         archmage: Unit.fromHandle(gg_unit_Hamg_0109),
         footman: Unit.fromHandle(gg_unit_hfoo_0941),
@@ -194,6 +196,33 @@ export class QuestRegistry {
         bossRects: [gg_rct_Wordless_book_boss_1, gg_rct_Wordless_book_boss_2, gg_rct_Wordless_book_boss_3],
         dependencies: [],
         cheatName: 'wb',
+      });
+
+      // Farm Massacre
+      const farmMassacre = new FarmMassacre({
+        name: 'Farm Massacre',
+        footman: Unit.fromHandle(gg_unit_hfoo_0115),
+        john: Unit.fromHandle(gg_unit_nvl2_0413),
+        johnRect: gg_rct_Farm_massacre_john_loc,
+        outpostRect: gg_rct_Farm_north_outpost,
+        farmRect: gg_rct_Farm_region,
+        undeadSpawnRects: [
+          gg_rct_Farm_massacre_Undead_spawn_1,
+          gg_rct_Farm_massacre_Undead_spawn_2,
+          gg_rct_Farm_massacre_Undead_spawn_3,
+          gg_rct_Farm_massacre_Undead_spawn_4,
+        ],
+        dependencies: [orcAttack],
+        cheatName: 'fm',
+      });
+
+      // Night Elf Landing
+      new NightElfLanding({
+        name: 'Night Elf Landing',
+        baseRect: gg_rct_Night_elf_shore_base,
+        elfHero: Unit.fromHandle(gg_unit_Ekee_0024),
+        dependencies: [farmMassacre],
+        cheatName: 'nel',
       });
     });
   }

@@ -114,6 +114,15 @@ gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
+gg_rct_Farm_north_outpost = nil
+gg_rct_Farm_massacre_john_loc = nil
+gg_rct_Farm_massacre_Undead_spawn_2 = nil
+gg_rct_Farm_massacre_Undead_spawn_1 = nil
+gg_rct_Farm_massacre_Undead_spawn_3 = nil
+gg_rct_Farm_massacre_Undead_spawn_4 = nil
+gg_snd_TragicConfrontation = ""
+gg_unit_hfoo_0115 = nil
+gg_unit_Ekee_0024 = nil
 function InitGlobals()
 end
 
@@ -354,6 +363,7 @@ SetSoundDuration(gg_snd_lichking_frostmourne_hungers, 5276)
 SetSoundChannel(gg_snd_lichking_frostmourne_hungers, 0)
 SetSoundVolume(gg_snd_lichking_frostmourne_hungers, 127)
 SetSoundPitch(gg_snd_lichking_frostmourne_hungers, 1.0)
+gg_snd_TragicConfrontation = "TragicConfrontation"
 end
 
 function CreateAllDestructables()
@@ -444,6 +454,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("otrb"), -15776.0, 11552.0, 270.000, FourCC(
 u = BlzCreateUnitWithSkin(p, FourCC("otrb"), -16032.0, 11872.0, 270.000, FourCC("otrb"))
 u = BlzCreateUnitWithSkin(p, FourCC("otrb"), -17376.0, 7200.0, 270.000, FourCC("otrb"))
 u = BlzCreateUnitWithSkin(p, FourCC("otrb"), -17696.0, 10144.0, 270.000, FourCC("otrb"))
+u = BlzCreateUnitWithSkin(p, FourCC("obea"), -15616.0, 5952.0, 270.000, FourCC("obea"))
 end
 
 function CreateUnitsForPlayer0()
@@ -676,7 +687,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 9008.6, -3279.5, 63.621, FourCC("hk
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 9526.4, -3233.0, 141.496, FourCC("hkni"))
 u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 9676.9, -3045.0, 166.924, FourCC("hkni"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 9017.6, -2938.5, 98.964, FourCC("hfoo"))
-u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 9329.2, -2926.3, 93.632, FourCC("hfoo"))
+gg_unit_hfoo_0115 = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 9329.2, -2926.3, 93.632, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 9822.4, -10436.9, 286.249, FourCC("hpea"))
 u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 9970.3, -10579.0, 170.995, FourCC("hpea"))
 gg_unit_hkni_0134 = BlzCreateUnitWithSkin(p, FourCC("hkni"), 8800.9, -11402.8, 185.000, FourCC("hkni"))
@@ -987,12 +998,11 @@ local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("e000"), -17952.0, -6240.0, 270.000, FourCC("e000"))
 SetUnitState(u, UNIT_STATE_MANA, 300)
-u = BlzCreateUnitWithSkin(p, FourCC("etrp"), -18144.0, -7264.0, 270.000, FourCC("etrp"))
+u = BlzCreateUnitWithSkin(p, FourCC("etrp"), -18656.0, -7264.0, 270.000, FourCC("etrp"))
 u = BlzCreateUnitWithSkin(p, FourCC("eshy"), -19040.0, -6336.0, 277.715, FourCC("eshy"))
-u = BlzCreateUnitWithSkin(p, FourCC("eaom"), -18528.0, -6560.0, 270.000, FourCC("eaom"))
+u = BlzCreateUnitWithSkin(p, FourCC("eaom"), -18528.0, -6304.0, 270.000, FourCC("eaom"))
 u = BlzCreateUnitWithSkin(p, FourCC("eate"), -17952.0, -6944.0, 270.000, FourCC("eate"))
-u = BlzCreateUnitWithSkin(p, FourCC("etrp"), -18607.7, -7118.6, 302.862, FourCC("etrp"))
-IssueImmediateOrder(u, "unroot")
+u = BlzCreateUnitWithSkin(p, FourCC("etrp"), -18080.0, -7328.0, 270.000, FourCC("etrp"))
 end
 
 function CreateUnitsForPlayer2()
@@ -1003,13 +1013,18 @@ local t
 local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), -18648.1, -6329.3, 43.551, FourCC("ewsp"))
-u = BlzCreateUnitWithSkin(p, FourCC("earc"), -18119.1, -7068.1, 212.513, FourCC("earc"))
-u = BlzCreateUnitWithSkin(p, FourCC("earc"), -18587.3, -6859.7, 286.803, FourCC("earc"))
-u = BlzCreateUnitWithSkin(p, FourCC("esen"), -18423.2, -7031.7, 277.890, FourCC("esen"))
-u = BlzCreateUnitWithSkin(p, FourCC("edot"), -18309.6, -6523.7, 274.043, FourCC("edot"))
+u = BlzCreateUnitWithSkin(p, FourCC("earc"), -18631.0, -6848.3, 127.740, FourCC("earc"))
+u = BlzCreateUnitWithSkin(p, FourCC("earc"), -18617.1, -6615.3, -67.920, FourCC("earc"))
+u = BlzCreateUnitWithSkin(p, FourCC("esen"), -18492.0, -7101.6, 277.890, FourCC("esen"))
+u = BlzCreateUnitWithSkin(p, FourCC("edot"), -18409.5, -6634.9, -33.699, FourCC("edot"))
 SetUnitState(u, UNIT_STATE_MANA, 200)
-u = BlzCreateUnitWithSkin(p, FourCC("Ekee"), -18185.9, -6741.3, 234.009, FourCC("Ekee"))
-SetUnitState(u, UNIT_STATE_MANA, 270)
+gg_unit_Ekee_0024 = BlzCreateUnitWithSkin(p, FourCC("Ekee"), -18123.8, -6730.1, 234.010, FourCC("Ekee"))
+SetHeroLevel(gg_unit_Ekee_0024, 6, false)
+SetUnitState(gg_unit_Ekee_0024, UNIT_STATE_MANA, 465)
+SelectHeroSkill(gg_unit_Ekee_0024, FourCC("AEer"))
+SelectHeroSkill(gg_unit_Ekee_0024, FourCC("AEfn"))
+SelectHeroSkill(gg_unit_Ekee_0024, FourCC("AEah"))
+SelectHeroSkill(gg_unit_Ekee_0024, FourCC("AEtq"))
 u = BlzCreateUnitWithSkin(p, FourCC("edes"), -19248.1, -6537.3, 356.823, FourCC("edes"))
 u = BlzCreateUnitWithSkin(p, FourCC("ebsh"), -19248.2, -6883.0, 349.430, FourCC("ebsh"))
 u = BlzCreateUnitWithSkin(p, FourCC("etrs"), -18961.2, -6682.8, 358.639, FourCC("etrs"))
@@ -1018,9 +1033,10 @@ u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), -18781.1, -6889.6, 330.721, FourCC(
 u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), -18768.0, -8284.0, 55.582, FourCC("ewsp"))
 u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), -17528.8, -10331.3, 55.582, FourCC("ewsp"))
 u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), -15795.7, -12532.2, 163.899, FourCC("ewsp"))
-u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), -17282.3, -11278.0, 150.616, FourCC("ewsp"))
+u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), -17332.8, -11154.1, 150.616, FourCC("ewsp"))
 u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), -17986.7, -10607.0, 340.290, FourCC("ewsp"))
 u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), -16828.2, -12404.8, 136.202, FourCC("ewsp"))
+u = BlzCreateUnitWithSkin(p, FourCC("edcm"), -18229.3, -7002.6, 166.779, FourCC("edcm"))
 end
 
 function CreateBuildingsForPlayer3()
@@ -1272,7 +1288,7 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 9668.0, -11309.1, 195.880, FourCC("Ewar"))
+u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 12292.0, -5293.1, 195.880, FourCC("Ewar"))
 SetHeroLevel(u, 5, false)
 SetUnitState(u, UNIT_STATE_MANA, 345)
 SelectHeroSkill(u, FourCC("AEfk"))
@@ -2172,7 +2188,7 @@ gg_rct_Wheat_field = Rect(9216.0, -7872.0, 10528.0, -5600.0)
 gg_rct_Wheat_field_2 = Rect(8896.0, -6784.0, 9248.0, -5600.0)
 gg_rct_Lumber_Mill_ambusher = Rect(3616.0, -10752.0, 5824.0, -9216.0)
 gg_rct_Lumber_Mill = Rect(6304.0, -9856.0, 7040.0, -9152.0)
-gg_rct_AmberMill_region = Rect(8480.0, -13248.0, 11264.0, -9536.0)
+gg_rct_AmberMill_region = Rect(8128.0, -13248.0, 11264.0, -9056.0)
 gg_rct_Knight_after_StrikeBack = Rect(8960.0, -11296.0, 9056.0, -11200.0)
 gg_rct_Shore_Peon_harvest_gold = Rect(-16224.0, 4768.0, -15584.0, 5280.0)
 gg_rct_Shore_Peon_harvest_lumber = Rect(-15680.0, 7136.0, -15136.0, 7904.0)
@@ -2180,21 +2196,21 @@ gg_rct_Shore_caster_ritual = Rect(-16544.0, 6752.0, -15968.0, 7328.0)
 gg_rct_Jungle_peon_harvest_lumber = Rect(5216.0, -2272.0, 5568.0, -1952.0)
 gg_rct_Town_peasants_repair_wheelbarrow = Rect(9664.0, -10752.0, 10048.0, -10368.0)
 gg_rct_Farm_villagers_working = Rect(9056.0, -7776.0, 10976.0, -5184.0)
-gg_rct_Shadowfang_peasants_lumber = Rect(-6432.0, -16736.0, -5792.0, -15584.0)
+gg_rct_Shadowfang_peasants_lumber = Rect(-6880.0, -16832.0, -5792.0, -15584.0)
 gg_rct_Shadowfang_soldier_training = Rect(-13408.0, -16736.0, -12736.0, -16160.0)
 gg_rct_Shadowfang_gate_sight_blocker = Rect(-8640.0, -16256.0, -8576.0, -15488.0)
 gg_rct_Bandit_camp = Rect(9728.0, -1472.0, 10592.0, -832.0)
-gg_rct_John_after_undead = Rect(8576.0, -6976.0, 8672.0, -6880.0)
-gg_rct_Peter_after_undead = Rect(8448.0, -7104.0, 8544.0, -7008.0)
+gg_rct_John_after_undead = Rect(8608.0, -6976.0, 8704.0, -6880.0)
+gg_rct_Peter_after_undead = Rect(8480.0, -7104.0, 8576.0, -7008.0)
 gg_rct_Sight_blockers_farm = Rect(8192.0, -4960.0, 10464.0, -4096.0)
 gg_rct_Unit_experiments = Rect(16928.0, -21472.0, 18912.0, -19488.0)
 gg_rct_Bandit_Base = Rect(7168.0, 11264.0, 7360.0, 11456.0)
 gg_rct_Undead_lumber_ghouls_eating_1 = Rect(5056.0, -10144.0, 5728.0, -9728.0)
 gg_rct_Undead_lumber_ghouls_eating_2 = Rect(6592.0, -11264.0, 7104.0, -11008.0)
 gg_rct_Thalandor_home = Rect(9184.0, -15968.0, 11232.0, -13504.0)
-gg_rct_Farm_region = Rect(7584.0, -9568.0, 11616.0, -1984.0)
+gg_rct_Farm_region = Rect(7264.0, -9088.0, 11616.0, -4928.0)
 gg_rct_Shadowfang_region = Rect(-16224.0, -18560.0, -7584.0, -13312.0)
-gg_rct_Night_elf_shore_base = Rect(-19392.0, -11488.0, -17024.0, -5248.0)
+gg_rct_Night_elf_shore_base = Rect(-19392.0, -12736.0, -15552.0, -5248.0)
 gg_rct_Orc_base_attack_gathering = Rect(3776.0, -960.0, 5088.0, 736.0)
 gg_rct_Human_shipyard = Rect(192.0, 1856.0, 3936.0, 5184.0)
 gg_rct_Orc_attack_footman_loc = Rect(7776.0, -2080.0, 7936.0, -1888.0)
@@ -2213,6 +2229,12 @@ gg_rct_Wordless_book_boss_2 = Rect(2880.0, -14432.0, 3008.0, -14304.0)
 gg_rct_Wordless_book_boss_3 = Rect(1888.0, -14656.0, 2016.0, -14528.0)
 gg_rct_Orc_attack_failed_return = Rect(4736.0, -384.0, 4928.0, -64.0)
 gg_rct_Black_turban_base = Rect(5888.0, 9696.0, 8928.0, 11936.0)
+gg_rct_Farm_north_outpost = Rect(7584.0, -4992.0, 11616.0, -1984.0)
+gg_rct_Farm_massacre_john_loc = Rect(9696.0, -7456.0, 9888.0, -7264.0)
+gg_rct_Farm_massacre_Undead_spawn_2 = Rect(12672.0, -5344.0, 12800.0, -5152.0)
+gg_rct_Farm_massacre_Undead_spawn_1 = Rect(6944.0, -8864.0, 7136.0, -8672.0)
+gg_rct_Farm_massacre_Undead_spawn_3 = Rect(9312.0, -4864.0, 9504.0, -4672.0)
+gg_rct_Farm_massacre_Undead_spawn_4 = Rect(10976.0, -9280.0, 11168.0, -9088.0)
 end
 
 function Trig_Doodads_Actions()
@@ -2253,8 +2275,10 @@ udg_tmp_unit = gg_unit_hfoo_0941
 udg_tmp_unit = gg_unit_u001_1000
 udg_tmp_unit = gg_unit_hkni_0680
 udg_tmp_unit = gg_unit_hmtm_0682
+udg_tmp_unit = gg_unit_hfoo_0115
 udg_tmp_unit = gg_unit_n00C_1135
 udg_tmp_unit = gg_unit_n007_0901
+udg_tmp_unit = gg_unit_Ekee_0024
 end
 
 function InitTrig_Unit_register()
@@ -3033,7 +3057,7 @@ DefineStartLocation(0, -9472.0, -25152.0)
 DefineStartLocation(1, -9152.0, -25216.0)
 DefineStartLocation(2, -9344.0, -25152.0)
 DefineStartLocation(3, -9600.0, -25088.0)
-DefineStartLocation(4, 9664.0, -11328.0)
+DefineStartLocation(4, 12288.0, -5312.0)
 DefineStartLocation(5, -9664.0, -25344.0)
 DefineStartLocation(6, -9472.0, -25408.0)
 InitCustomPlayerSlots()

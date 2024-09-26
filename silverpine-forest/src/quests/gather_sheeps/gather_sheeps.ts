@@ -25,7 +25,9 @@ import {
   enumUnitsWithDelay, getUnitsInRect, isUnitIdle, setNeverDie, setUnitFacingWithRate,
 } from 'lib/unit';
 import { pickRandom, waitUntil } from 'lib/utils';
-import { Effect, sleep, Unit } from 'w3ts';
+import {
+  Effect, sleep, Sound, Unit,
+} from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
 import { BaseQuest, BaseQuestProps } from '../base';
@@ -80,9 +82,9 @@ const rewardsXp: Record<number, number> = {
   3: 1200, // Tiny Castle
 };
 
-const introSounds: Record<number, sound> = {};
-const outroSounds: Record<number, sound> = {};
-let goHomeSound: sound;
+const introSounds: Record<number, Sound> = {};
+const outroSounds: Record<number, Sound> = {};
+let goHomeSound: Sound;
 
 export class GatherSheeps extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
