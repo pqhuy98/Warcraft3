@@ -5,6 +5,8 @@ import {
 
 import { colorize } from './colorize';
 import { MODEL_Chat_Bubble } from './constants';
+import { cameraCenter, Loc, tempLocation } from './location';
+import { UNIT_TYPE } from './resources/war3-units';
 import { Flag, setUnitFlag } from './systems/unit_user_data_flag';
 import { createDialogueTextTag } from './texttag';
 
@@ -60,6 +62,30 @@ export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, option
   }
 }
 
+/**
+ * @param options.volumeGroupAdjustment
+ */
+export async function playSpeechUnitType(unitType: UNIT_TYPE, sound: Sound, options?: {
+  ignoreVolumeGroupAdjustment?: boolean
+}): Promise<void> {
+  const shouldSetVolumeGroup = !options || !options?.ignoreVolumeGroupAdjustment;
+  if (shouldSetVolumeGroup) {
+    SetSpeechVolumeGroupsBJ();
+  }
+
+  const speechText = sound.dialogueTextKey;
+  const speakerName = sound.dialogueSpeakerNameKey;
+  if (speechText && speakerName) {
+    PlayDialogueFromSpeakerTypeEx(bj_FORCE_ALL_PLAYERS, GetLocalPlayer(), unitType.id, tempLocation(cameraCenter()), sound.handle, bj_TIMETYPE_ADD, 0, false);
+  }
+
+  await sleep(sound.duration / 1000);
+
+  if (shouldSetVolumeGroup) {
+    VolumeGroupReset();
+  }
+}
+
 export async function playSoundIsolate(
   sound: sound,
   volume: number,
@@ -71,4 +97,18 @@ export async function playSoundIsolate(
   const duration = GetSoundDuration(sound);
   await sleep(duration / 1000);
   SetMusicVolume(100);
+}
+
+export function playGlobalSound(path: string): void {
+  const snd = Sound.create(path, false, false, false, 1, 1, 'DefaultEAXON');
+  snd.start();
+  snd.killWhenDone();
+}
+
+export async function play3dSound(path: string, loc: Loc): Promise<void> {
+  const snd = Sound.create(path, false, false, false, 1, 1, 'DefaultEAXON');
+  snd.setPosition(loc.x, loc.y, 0);
+  snd.start();
+  snd.killWhenDone();
+  await sleep(snd.duration / 1000);
 }

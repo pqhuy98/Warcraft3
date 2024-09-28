@@ -1,6 +1,6 @@
 import { k0, k1 } from 'lib/debug/key_counter';
 import {
-  AngleBetweenLocs, DistanceBetweenLocs, PolarProjection,
+  Angle, Distance, PolarProjection,
 } from 'lib/location';
 import { MODEL_ZigguratMissile } from 'lib/resources/war3-models';
 import { checkUnitFlag, Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
@@ -81,7 +81,7 @@ export default class Frostmourne {
 
       for (const soul of this.soulTarget.keys()) {
         const target = this.soulTarget.get(soul);
-        if (!target || DistanceBetweenLocs(soul, target) < distancePerStep) {
+        if (!target || Distance(soul, target) < distancePerStep) {
           if (target.isAlive()) {
             const scale = this.soulScale.get(soul) ?? 1;
             target.life += target.maxLife * (0.25 + scale) * Frostmourne.Data.LIFE_PERCENT_RESTORED_PER_SOUL;
@@ -102,7 +102,7 @@ export default class Frostmourne {
           k1('fstm');
           k1('fstm2');
         } else {
-          const newLoc = PolarProjection(soul, distancePerStep, AngleBetweenLocs(soul, target));
+          const newLoc = PolarProjection(soul, distancePerStep, Angle(soul, target));
           soul.x = newLoc.x;
           soul.y = newLoc.y;
         }
@@ -124,7 +124,7 @@ export default class Frostmourne {
 
       this.soulTarget.set(soul, killer);
       this.soulEffect.set(soul, effect);
-      const estimatedReturnTime = DistanceBetweenLocs(victim, killer) / Frostmourne.Data.getSoulReturnSpeed();
+      const estimatedReturnTime = Distance(victim, killer) / Frostmourne.Data.getSoulReturnSpeed();
       const finalHeight = Frostmourne.Data.getSoulEffectFinalHeight();
       const speed = finalHeight / estimatedReturnTime;
       soul.setflyHeight(finalHeight, speed);

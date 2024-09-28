@@ -6,13 +6,14 @@ import {
 } from 'lib/constants';
 import { PolarProjection } from 'lib/location';
 import { setAllianceState2Way } from 'lib/player';
-import { cinematicFadeIn, cinematicMode } from 'lib/quests/utils';
+import { cinematicFadeIn, cinematicFadeOut, cinematicMode } from 'lib/quests/utils';
 import { getUnitSounds } from 'lib/resources/unit-sounds';
 import {
   UNIT_AncientofWar,
   UNIT_Archer, UNIT_DruidoftheClaw, UNIT_DruidoftheClawMorph, UNIT_DruidoftheTalon, UNIT_DruidoftheTalonMorph, UNIT_Huntress,
 } from 'lib/resources/war3-units';
 import { setRespawnLoc } from 'lib/systems/hearth_stone';
+import { removeGuardPosition } from 'lib/systems/unit_guard_position';
 import { setIntervalIndefinite } from 'lib/trigger';
 import { getUnitsInRect, getUnitsOfPlayer, isBuilding } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
@@ -51,8 +52,8 @@ export class NightElfLanding extends BaseQuest {
     getUnitsInRect(GetWorldBounds(), (u) => u.owner === mainPlayer && !u.isHero())
       .forEach((u) => u.destroy());
     mainPlayer.color = PLAYER_COLOR_CYAN;
-    mainPlayer.setState(PLAYER_STATE_RESOURCE_GOLD, 15000);
-    mainPlayer.setState(PLAYER_STATE_RESOURCE_LUMBER, 5000);
+    mainPlayer.setState(PLAYER_STATE_RESOURCE_GOLD, 1000);
+    mainPlayer.setState(PLAYER_STATE_RESOURCE_LUMBER, 500);
     ClearSelectionForPlayer(mainPlayer.handle);
     panCameraSmart(elfHero, 0);
     elfHero.select(true);
@@ -64,6 +65,7 @@ export class NightElfLanding extends BaseQuest {
       .forEach((u) => {
         if (!isBuilding(u) && !u.isUnitType(UNIT_TYPE_PEON) && !u.isUnitType(UNIT_TYPE_MECHANICAL)) {
           u.owner = mainPlayer;
+          removeGuardPosition(u);
         }
         if (u.typeId === UNIT_AncientofWar.id) {
           ancientOfWar = u;
@@ -71,11 +73,12 @@ export class NightElfLanding extends BaseQuest {
       });
 
     setAllianceState2Way(mainPlayer, playerHumanAlliance, 'allied');
+    setAllianceState2Way(mainPlayer, playerNightElfSentinels, 'allied vision');
     getUnitsInRect(GetWorldBounds())
       .forEach((u) => u.shareVision(mainPlayer, false));
 
-    setAllianceState2Way(mainPlayer, playerNightElfSentinels, 'allied vision');
-
+    cinematicMode(true, 0);
+    cinematicFadeOut(0);
     await sleep(3);
     cinematicMode(false, 1);
     cinematicFadeIn(3);
@@ -104,6 +107,7 @@ export class NightElfLanding extends BaseQuest {
       }
       if (spawnTypes.length === 0) {
         ResetUnitAnimation(ancientOfWar.handle);
+        ancientOfWar.queueAnimation('stand alternate');
         return;
       }
 
@@ -115,9 +119,12 @@ export class NightElfLanding extends BaseQuest {
       }
 
       // Play ready sound
-      const snd = Sound.create(pickRandom(getUnitSounds(spawnUnit.typeId, 'Ready')), false, false, false, 1, 1, 'DefaultEAXON');
-      snd.start();
-      snd.killWhenDone();
+      const soundPath = pickRandom(getUnitSounds(spawnUnit.typeId, 'Ready'));
+      if (soundPath) {
+        const snd = Sound.create(soundPath, false, false, false, 1, 1, 'DefaultEAXON');
+        snd.start();
+        snd.killWhenDone();
+      }
 
       PingMinimap(spawnLoc.x, spawnLoc.y, 1);
     });

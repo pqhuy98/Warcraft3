@@ -72,7 +72,8 @@
       "patterns": [
         "./sounds/*",
         "./scripts/sound.ts"
-      ]
+      ],
+      "legacyWatch": true
     }
   }
 }

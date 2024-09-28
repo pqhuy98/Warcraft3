@@ -5,7 +5,7 @@ import { MulticastUnit } from 'abilities/multicast/unit';
 import { playerMonsters } from 'lib/constants';
 import { generateFogLocsBehindTrees } from 'lib/destructable';
 import {
-  currentLoc, Destroyable, DistanceBetweenLocs,
+  currentLoc, Destroyable, Distance,
 } from 'lib/location';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import { QuestLog } from 'lib/quests/quest_log';
@@ -374,7 +374,7 @@ export class ElvenDrink extends BaseQuest {
             removeGuardPosition(creep);
           } else {
             setGuardPosition(creep, traveler, 0);
-            if (DistanceBetweenLocs(creep, traveler) > 2000) {
+            if (Distance(creep, traveler) > 2000) {
               farSpawns.addUnit(creep);
             }
           }

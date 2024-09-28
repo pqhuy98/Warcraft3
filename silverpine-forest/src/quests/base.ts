@@ -89,6 +89,10 @@ export class BaseQuest {
     return this.status === 'failed';
   }
 
+  isOver(): boolean {
+    return this.isCompleted() || this.isFailed();
+  }
+
   cheatCodeInstantStart(cheatCode: string): void {
     onChatCommand(cheatCode, true, () => this.forceCompleteDependencies());
   }

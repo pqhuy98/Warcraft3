@@ -1,7 +1,7 @@
 import { MODEL_Chat_Bubble, neutralHostile, neutralPassive } from 'lib/constants';
 import { RandomSet } from 'lib/data_structures/random_set';
 import {
-  AngleBetweenLocs, DistanceBetweenLocs, isLocInRect, PolarProjection,
+  Angle, Distance, isLocInRect, PolarProjection,
 } from 'lib/location';
 import { angleDifference } from 'lib/maths/misc';
 import {
@@ -63,7 +63,7 @@ export class CementeryParty {
         unit.acquireRange,
         unit,
         (u) => u.isAlive() && partyGoers.has(u)
-              && DistanceBetweenLocs(unit, u) > (unit.getField(UNIT_RF_MINIMUM_ATTACK_RANGE) as number),
+              && Distance(unit, u) > (unit.getField(UNIT_RF_MINIMUM_ATTACK_RANGE) as number),
       ) ?? partyGoers.getRandom();
       setAttackTarget(unit, target);
     };
@@ -92,7 +92,7 @@ export class CementeryParty {
           getUnitsInRangeOfLoc(
             attacker.acquireRange,
             attacker,
-            (u) => !targetMap.has(u) && DistanceBetweenLocs(victim, u) >= (u.getField(UNIT_RF_MINIMUM_ATTACK_RANGE) as number),
+            (u) => !targetMap.has(u) && Distance(victim, u) >= (u.getField(UNIT_RF_MINIMUM_ATTACK_RANGE) as number),
           ).forEach((u) => {
             if (GetRandomInt(1, 2) === 1) {
               setTimeout(GetRandomReal(0, 5), () => setAttackTarget(u, victim));
@@ -102,7 +102,7 @@ export class CementeryParty {
           getUnitsInRangeOfLoc(
             victim.acquireRange,
             victim,
-            (u) => !targetMap.has(u) && DistanceBetweenLocs(attacker, u) >= (u.getField(UNIT_RF_MINIMUM_ATTACK_RANGE) as number),
+            (u) => !targetMap.has(u) && Distance(attacker, u) >= (u.getField(UNIT_RF_MINIMUM_ATTACK_RANGE) as number),
           ).forEach((u) => {
             if (GetRandomInt(1, 2) === 1) {
               setTimeout(GetRandomReal(0, 5), () => setAttackTarget(u, attacker));
@@ -162,7 +162,7 @@ export class CementeryParty {
       if (isAggressive && target != null) {
         const shouldSwitch = !target.isAlive()
                 || !partyGoers.has(target)
-                || DistanceBetweenLocs(unit, target) > 1000;
+                || Distance(unit, target) > 1000;
         if (shouldSwitch) {
           setAttackTargetNearby(unit);
         } else {
@@ -178,7 +178,7 @@ export class CementeryParty {
               ? getClosestUnitInRangeOfUnit(500, unit, (u) => u.isAlive() && partyGoers.has(u))
               : partyGoers.getRandom();
           if (nearby) {
-            if (DistanceBetweenLocs(unit, nearby) > 400 || angleDifference(unit.facing, AngleBetweenLocs(unit, nearby)) > 30) {
+            if (Distance(unit, nearby) > 400 || angleDifference(unit.facing, Angle(unit, nearby)) > 30) {
               unit.issueTargetOrder(OrderId.Smart, nearby);
             }
             nextChatTimestampS.set(unit, now + GetRandomReal(5, 10));

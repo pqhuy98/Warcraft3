@@ -11,7 +11,7 @@ const inputDir: string = 'sounds\\QuestSounds';
 const outputDir: string = 'maps\\silverpine.w3x\\QuestSounds\\__refined';
 
 function transform(inputFilePath: string, cmd: ffmpeg.FfmpegCommand): ffmpeg.FfmpegCommand {
-    cmd.audioFilters('volume=2');
+    cmd.audioFilters('volume=1.5');
     if (inputFilePath.includes("QuestSounds\\cementery\\cementary-lady")) {
         cmd.audioFilters([
             'areverse',

@@ -6,7 +6,7 @@ import {
 } from 'lib/constants';
 import { getDestructablesInRect } from 'lib/destructable';
 import {
-  AngleBetweenLocs,
+  Angle,
   centerLocRect,
   currentLoc, fromTempLocation, isLocInRect, isPointReachable, PolarProjection,
   randomLocRect,
@@ -17,6 +17,7 @@ import { isComputer, isUser, setAllianceState2Way } from 'lib/player';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import { ABILITY_PaladinHolyLight, ABILITY_Wander } from 'lib/resources/war3-abilities';
 import { MODEL_BrewmasterTarget, MODEL_FrostNovaTarget, MODEL_InnerFireTarget } from 'lib/resources/war3-models';
+import { ORDER_AutoHarvestGold, ORDER_AutoHarvestLumber } from 'lib/resources/war3-orders';
 import {
   UNIT_Abomination,
   UNIT_Footman,
@@ -44,9 +45,6 @@ import {
 import { OrderId } from 'w3ts/globals';
 
 import { onChatCommand } from './chat_commands/chat_commands.model';
-
-const OrderAutoHarvestGold = 'autoharvestgold';
-const OrderAutoHarvestLumber = 'autoharvestlumber';
 
 const defaultGuardDistance = 1000;
 
@@ -104,12 +102,11 @@ export class MiscEvents {
     // Harvests
     [
       ...getUnitsInRect(gg_rct_Shore_Peon_harvest_gold),
-    ].forEach((u) => u.issueImmediateOrder(OrderAutoHarvestGold));
+    ].forEach((u) => u.issueImmediateOrder(ORDER_AutoHarvestGold));
     [
       ...getUnitsInRect(gg_rct_Shore_Peon_harvest_lumber),
       ...getUnitsInRect(gg_rct_Jungle_peon_harvest_lumber),
-      ...getUnitsInRect(gg_rct_Shadowfang_peasants_lumber),
-    ].forEach((u) => u.issueImmediateOrder(OrderAutoHarvestLumber));
+    ].forEach((u) => u.issueImmediateOrder(ORDER_AutoHarvestLumber));
 
     // Shore caster channeling
     getUnitsInRect(gg_rct_Shore_caster_ritual)
@@ -174,7 +171,7 @@ export class MiscEvents {
     const centerLoc = centerLocRect(gg_rct_Gargoyle);
     const gargoyles = range(gargoyleCount).map((i) => {
       const loc = PolarProjection(centerLoc, 400, i * 360 / gargoyleCount);
-      const garg = Unit.create(neutralHostile, UNIT_GargoyleMorphed.id, loc.x, loc.y, AngleBetweenLocs(centerLoc, loc));
+      const garg = Unit.create(neutralHostile, UNIT_GargoyleMorphed.id, loc.x, loc.y, Angle(centerLoc, loc));
       garg.paused = true;
       return garg;
     });

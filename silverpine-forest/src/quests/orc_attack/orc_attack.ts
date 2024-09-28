@@ -2,9 +2,9 @@
 import { dropItemOnDeath, restorationDrops } from 'events/item_drops/item_drops';
 import { panCameraSmart } from 'lib/camera';
 import {
-  AngleBetweenLocs,
+  Angle,
   centerLocRect,
-  DistanceBetweenLocs,
+  Distance,
   isLocInRect,
   PolarProjection,
   randomLocRect,
@@ -264,7 +264,7 @@ export class OrcAttack extends BaseQuest {
     const footmanMoveLoc = PolarProjection(archmage, 300, 90);
     footman.issueOrderAt(OrderId.Move, footmanMoveLoc.x, footmanMoveLoc.y);
     await sleep(1);
-    panCameraSmart(PolarProjection(footman, footman.moveSpeed * 2, AngleBetweenLocs(footman, archmage)), 1);
+    panCameraSmart(PolarProjection(footman, footman.moveSpeed * 2, Angle(footman, archmage)), 1);
     footman.shareVision(traveler.owner, true);
 
     // everyone looks at footman
@@ -272,7 +272,7 @@ export class OrcAttack extends BaseQuest {
       talkGroup.setEveryoneAttention(footman);
     });
 
-    await waitUntil(1, () => DistanceBetweenLocs(footman, archmage) < 500);
+    await waitUntil(1, () => Distance(footman, archmage) < 500);
 
     talkGroup.addUnit(footman);
     await talkGroup.speak(footman, footmanSounds[0], archmage, footman);
@@ -282,8 +282,8 @@ export class OrcAttack extends BaseQuest {
 
     setGuardPosition(
       footman,
-      PolarProjection(captain, 200, AngleBetweenLocs(captain, footman)),
-      AngleBetweenLocs(footman, captain),
+      PolarProjection(captain, 200, Angle(captain, footman)),
+      Angle(footman, captain),
     );
     enableQuestMarker(footman, 'new');
 
@@ -291,7 +291,7 @@ export class OrcAttack extends BaseQuest {
     talkGroup.finish();
 
     // Wait till footman returns to shipyard
-    await waitUntil(1, () => DistanceBetweenLocs(footman, captain) < 300);
+    await waitUntil(1, () => Distance(footman, captain) < 300);
     disableQuestMarker(footman);
     const humanShipyard = getUnitsInRect(humanShipyardRect, (u) => u.owner === captain.owner && u.typeId === UNIT_HumanShipyard.id)[0];
     humanShipyard.shareVision(traveler.owner, true);

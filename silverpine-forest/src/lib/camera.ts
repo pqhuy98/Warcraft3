@@ -4,22 +4,20 @@ import { Frame } from 'w3ts';
 import { Loc, tempLocation } from './location';
 import { setTimeout } from './trigger';
 
-export function lockCameraBound(rects: rect[], locs?: Loc[]): void {
-  if (rects.length === 0 && (!locs || locs.length === 0)) return;
+export function lockCameraBound(rects: rect[], locs: Loc[] = []): void {
+  if (rects.length === 0 && locs.length === 0) return;
 
   let minX = 999999999;
   let minY = 999999999;
   let maxX = -999999999;
   let maxY = -999999999;
 
-  if (locs) {
-    locs.forEach((u) => {
-      minX = Math.min(minX, u.x);
-      maxX = Math.max(maxX, u.x);
-      minY = Math.min(minY, u.y);
-      maxY = Math.max(maxY, u.y);
-    });
-  }
+  locs.forEach((u) => {
+    minX = Math.min(minX, u.x);
+    maxX = Math.max(maxX, u.x);
+    minY = Math.min(minY, u.y);
+    maxY = Math.max(maxY, u.y);
+  });
   rects.forEach((r) => {
     minX = Math.min(minX, GetRectMinX(r));
     maxX = Math.max(maxX, GetRectMaxX(r));

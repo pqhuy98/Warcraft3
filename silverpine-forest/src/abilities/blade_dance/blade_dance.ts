@@ -1,5 +1,5 @@
 import {
-  AngleBetweenLocs, getUnitXY, Loc, PolarProjection,
+  Angle, getUnitXY, Loc, PolarProjection,
 } from 'lib/location';
 import { ABILITY_BladeMasterBladestorm, ABILITY_BladeMasterMirrorImage } from 'lib/resources/war3-abilities';
 import { buildTrigger, setTimeout } from 'lib/trigger';
@@ -148,7 +148,7 @@ export default class BladeDance {
       if (this.target.invulnerable || !this.caster.isAlive()) {
         this.handleTargetUnattackable();
       }
-      this.caster.setFacingEx(AngleBetweenLocs(this.caster, this.target));
+      this.caster.setFacingEx(Angle(this.caster, this.target));
       this.caster.issueTargetOrder(OrderId.Attack, this.target);
     });
 
@@ -188,14 +188,14 @@ export default class BladeDance {
 
       let newLoc: Loc;
       if (this.isCasterMeleeUnit) {
-        const angle = AngleBetweenLocs(casterLoc, targetLoc) + GetRandomReal(-30, 30);
+        const angle = Angle(casterLoc, targetLoc) + GetRandomReal(-30, 30);
         newLoc = PolarProjection(targetLoc, BladeDance.Data.getMeleeAttackDistance(), angle);
       } else {
         newLoc = PolarProjection(casterLoc, GetRandomReal(0, 50), GetRandomDirectionDeg());
       }
       SetUnitX(this.caster.handle, newLoc.x);
       SetUnitY(this.caster.handle, newLoc.y);
-      this.caster.setFacingEx(AngleBetweenLocs(newLoc, targetLoc));
+      this.caster.setFacingEx(Angle(newLoc, targetLoc));
     }
   }
 

@@ -2,7 +2,7 @@ import { setCineFilter } from 'lib/camera';
 import {
   neutralHostile, UNIT_BigSludge_1, UNIT_BigSludge_2, UNIT_BigSludge_3,
 } from 'lib/constants';
-import { AngleBetweenLocs, cameraCenter, isLocInRect } from 'lib/location';
+import { Angle, cameraCenter, isLocInRect } from 'lib/location';
 import { AllSoundTypes, getUnitSounds } from 'lib/resources/unit-sounds';
 import { MODEL_DivineShieldTarget } from 'lib/resources/war3-models';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
@@ -59,6 +59,11 @@ export class WordlessBook extends BaseQuest {
         }
         prevCameraIn = false;
       }
+      if (!wordlessBook.isAlive() && prevCameraIn) {
+        setCineFilter(rgbIn, rgbOut, 0.5);
+        EnableUserUI(true);
+        prevCameraIn = false;
+      }
       return !wordlessBook.isAlive();
     });
 
@@ -71,7 +76,7 @@ export class WordlessBook extends BaseQuest {
       Unit.create(neutralHostile, UNIT_BigSludge_3.id, GetRectCenterX(bossRects[2]), GetRectCenterY(bossRects[2])),
     ];
     bosses.forEach((u) => {
-      u.setFacingEx(AngleBetweenLocs(u, traveler));
+      u.setFacingEx(Angle(u, traveler));
       u.issueTargetOrder(OrderId.Attack, traveler);
       u.canSleep = false;
       const soundPath = pickRandom(getUnitSounds(u.typeId, ...AllSoundTypes));

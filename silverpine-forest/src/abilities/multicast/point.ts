@@ -1,5 +1,5 @@
 import { k0, k1 } from 'lib/debug/key_counter';
-import { AngleBetweenLocs, fromTempLocation, PolarProjection } from 'lib/location';
+import { Angle, fromTempLocation, PolarProjection } from 'lib/location';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
@@ -43,7 +43,7 @@ export class MulticastPoint {
           const dummyLoc = unitPolarProjection(caster, 150, offsetAngle);
           const dummyCastLoc = PolarProjection(targetLoc, offsetDistance, offsetAngle);
 
-          const dummy = createDummy(caster.owner, dummyLoc.x, dummyLoc.y, caster, 999, AngleBetweenLocs(dummyLoc, dummyCastLoc));
+          const dummy = createDummy(caster.owner, dummyLoc.x, dummyLoc.y, caster, 999, Angle(dummyLoc, dummyCastLoc));
           dummy.setflyHeight(caster.getflyHeight(), 0);
           dummy.skin = caster.skin;
           setUnitScale(dummy, getUnitScale(caster));

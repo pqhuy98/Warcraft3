@@ -32,6 +32,7 @@ export const ABILITY_ID_MONSOON_THRALL = FourCC('A00L:ACmo');
 
 export const ABILITY_ID_PURGE_NO_GRAPHIC = FourCC('A00S:Aprg');
 export const ABILITY_ID_POSSESSION_TARGET_HERO = FourCC('A00T:Apos');
+export const ABILITY_ID_DECONSTRUCT = FourCC('A00U:ANtm');
 
 // Custom Models
 export const MODEL_Sand_Tornado = 'Models\\Tornado\\SandTornado.mdx';
@@ -50,6 +51,10 @@ export const UNIT_HarvestGolem = { code: 'n008', id: FourCC('n008') };
 export const UNIT_BigSludge_1 = { code: 'n009', id: FourCC('n009') };
 export const UNIT_BigSludge_2 = { code: 'n00A', id: FourCC('n00A') };
 export const UNIT_BigSludge_3 = { code: 'n00B', id: FourCC('n00B') };
+export const UNIT_LumberMillQuest = { code: 'h007', id: FourCC('h007') };
+
+// Destructable type IDs
+export const DESTRUCTABLE_TREE = FourCC('B000');
 
 // Players
 export const playerOrcishHorde = MapPlayer.fromIndex(0);

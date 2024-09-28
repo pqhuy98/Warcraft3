@@ -1,6 +1,6 @@
 import { mainPlayer, neutralPassive } from 'lib/constants';
 import {
-  AngleBetweenLocs, DistanceBetweenLocs, PolarProjection,
+  Angle, Distance, PolarProjection,
 } from 'lib/location';
 import { disableQuestMarker, enableQuestMarker, QuestMarkerType } from 'lib/quests/utils';
 import { getUnitSounds } from 'lib/resources/unit-sounds';
@@ -56,7 +56,7 @@ export class UnitInteraction {
 
           // neutral critters run away from you
           if (target.owner === neutralPassive && target.maxLife <= 15) {
-            const runDest = PolarProjection(target, 400, AngleBetweenLocs(unit, target));
+            const runDest = PolarProjection(target, 400, Angle(unit, target));
             target.issueOrderAt(OrderId.Move, runDest.x, runDest.y);
             target.moveSpeed = target.defaultMoveSpeed * 3;
             setTimeout(400 / target.moveSpeed, () => {
@@ -214,7 +214,7 @@ export function setAttention(unitFrom: Unit, unitTo: Unit): void {
     oldFacing,
     soundLastTimeS: -99,
     playedSounds: [],
-    maxRadius: Math.max(unfocusDistance, DistanceBetweenLocs(unitFrom, unitTo) + 200),
+    maxRadius: Math.max(unfocusDistance, Distance(unitFrom, unitTo) + 200),
   });
 }
 

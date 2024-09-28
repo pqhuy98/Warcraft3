@@ -1,6 +1,6 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import {
-  DistanceBetweenLocs, getUnitXY, Loc, PolarProjection,
+  Distance, getUnitXY, Loc, PolarProjection,
   tempLocation,
 } from 'lib/location';
 import {
@@ -40,7 +40,7 @@ export function setAttackRange(unit: Unit, weaponIndex: number, value: number): 
 export function distanceBetweenUnits(u1: Unit, u2: Unit): number {
   const l1 = getUnitXY(u1);
   const l2 = getUnitXY(u2);
-  const result = DistanceBetweenLocs(l1, l2);
+  const result = Distance(l1, l2);
   return result;
 }
 
@@ -271,12 +271,12 @@ export function getUnitsInRangeOfLoc(range: number, loc: Loc, filter?: (u: Unit)
  * @returns closest unit to a unit, obviously excluding itself.
  */
 export function getClosestUnitInRangeOfUnit(range: number, unit: Unit, filter?: (u: Unit) => boolean, minRange = 0): Unit | undefined {
-  const units = getUnitsInRangeOfLoc(range, unit, (u) => u !== unit && DistanceBetweenLocs(u, unit) >= minRange && filter(u));
+  const units = getUnitsInRangeOfLoc(range, unit, (u) => u !== unit && Distance(u, unit) >= minRange && filter(u));
   if (units.length === 0) return undefined;
   let bestUnit = units[0];
-  let bestDistance = DistanceBetweenLocs(bestUnit, unit);
+  let bestDistance = Distance(bestUnit, unit);
   for (let i = 0; i < units.length; i++) {
-    const distance = DistanceBetweenLocs(units[i], unit);
+    const distance = Distance(units[i], unit);
     if (distance < bestDistance) {
       bestUnit = units[i];
       bestDistance = distance;

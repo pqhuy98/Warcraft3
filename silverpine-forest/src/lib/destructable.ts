@@ -1,7 +1,8 @@
 import { Destructable, MapPlayer } from 'w3ts';
 
+import { DESTRUCTABLE_TREE } from './constants';
 import {
-  AngleBetweenLocs, DistanceBetweenLocs, isPointReachable, Loc, PolarProjection,
+  Angle, Distance, isPointReachable, Loc, PolarProjection,
 } from './location';
 import { pickRandom } from './utils';
 
@@ -22,19 +23,18 @@ export function getDestructablesInRange(
   filter?: (d: Destructable) => boolean,
 ): Destructable[] {
   const rect = Rect(loc.x - range, loc.y - range, loc.x + range, loc.y + range);
-  const result = getDestructablesInRect(rect, (d) => DistanceBetweenLocs(loc, d) <= range && filter(d));
+  const result = getDestructablesInRect(rect, (d) => Distance(loc, d) <= range && filter(d));
   RemoveRect(rect);
   return result;
 }
 
-const treeTypeId = FourCC('B000');
 const attempts = 20;
 
 /**
  * Might return fewer locations than mostLocCount
  */
 export function generateFogLocsBehindTrees(range: number, centerLoc: Loc, fogPlayer: MapPlayer, locCountAtMost: number, filter?: (loc: Loc) => boolean): Loc[] {
-  const trees = getDestructablesInRange(range, centerLoc, (d) => d.typeId === treeTypeId);
+  const trees = getDestructablesInRange(range, centerLoc, (d) => d.typeId === DESTRUCTABLE_TREE);
   if (trees.length === 0) {
     return [];
   }
@@ -43,7 +43,7 @@ export function generateFogLocsBehindTrees(range: number, centerLoc: Loc, fogPla
   for (let cnt = 0; cnt < locCountAtMost; cnt++) {
     for (let i = 0; i < attempts; i++) {
       const tree = pickRandom(trees);
-      const angleToTree = AngleBetweenLocs(centerLoc, tree);
+      const angleToTree = Angle(centerLoc, tree);
       const candidateLoc = PolarProjection(tree, GetRandomReal(100, 200), GetRandomReal(angleToTree - 30, angleToTree + 30));
       const reachable = isPointReachable(centerLoc, candidateLoc);
       const visible = fogPlayer.coordsVisible(candidateLoc.x, candidateLoc.y);

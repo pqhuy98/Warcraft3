@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 import { mainPlayer, playerForsaken, playerHumanAlliance } from 'lib/constants';
 import {
-  AngleBetweenLocs,
+  Angle,
   centerLocRect,
-  DistanceBetweenLocs,
+  Distance,
   isLocInRect,
   PolarProjection,
 } from 'lib/location';
@@ -137,14 +137,14 @@ export class LumberMillPart2 extends BaseQuest {
     for (const unit of escortUnits) {
       unit.shareVision(traveler.owner, true);
       unit.moveSpeed = 200;
-      setGuardPosition(unit, lumberMillLoc, AngleBetweenLocs(unit, lumberMillLoc));
+      setGuardPosition(unit, lumberMillLoc, Angle(unit, lumberMillLoc));
     }
 
     const distanceThreshold = 500;
     let footmenFearSpoke = false;
     await waitUntil(1, () => {
       escortUnits.forEach((u) => {
-        if (DistanceBetweenLocs(u, lumberMillLoc) < distanceThreshold) {
+        if (Distance(u, lumberMillLoc) < distanceThreshold) {
           u.issueImmediateOrder(OrderId.Stop);
           guardCurrentPosition(u);
           if (u.typeId === UNIT_Footman.id && !footmenFearSpoke) {
@@ -154,7 +154,7 @@ export class LumberMillPart2 extends BaseQuest {
           }
         }
       });
-      return escortUnits.every((u) => DistanceBetweenLocs(u, lumberMillLoc) < distanceThreshold || !u.isAlive());
+      return escortUnits.every((u) => Distance(u, lumberMillLoc) < distanceThreshold || !u.isAlive());
     });
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -175,7 +175,7 @@ export class LumberMillPart2 extends BaseQuest {
     });
 
     escortUnits.forEach((u) => {
-      setUnitFacingWithRate(u, AngleBetweenLocs(u, undeadAttackers[0]));
+      setUnitFacingWithRate(u, Angle(u, undeadAttackers[0]));
     });
 
     // Wait until undead nearby
@@ -258,15 +258,15 @@ export class LumberMillPart2 extends BaseQuest {
 
     await playSpeech(knight, knightOutro, traveler);
 
-    const loc = PolarProjection(mayor, 300, AngleBetweenLocs(mayor, knight));
-    setGuardPosition(knight, loc, AngleBetweenLocs(loc, mayor));
+    const loc = PolarProjection(mayor, 300, Angle(mayor, knight));
+    setGuardPosition(knight, loc, Angle(loc, mayor));
 
     traveler.addExperience(rewardXp, true);
     await questLog.completeWithRewards([
       `${rewardXp} experience`,
     ]);
 
-    await waitUntil(1, () => DistanceBetweenLocs(knight, loc) < 50);
+    await waitUntil(1, () => Distance(knight, loc) < 50);
     this.complete();
   }
 
@@ -286,9 +286,9 @@ export class LumberMillPart2 extends BaseQuest {
       u.kill();
     });
 
-    const loc = PolarProjection(mayor, 300, AngleBetweenLocs(mayor, knight));
+    const loc = PolarProjection(mayor, 300, Angle(mayor, knight));
     knight.setPosition(loc.x, loc.y);
-    knight.facing = AngleBetweenLocs(loc, mayor);
-    setGuardPosition(knight, loc, AngleBetweenLocs(loc, mayor));
+    knight.facing = Angle(loc, mayor);
+    setGuardPosition(knight, loc, Angle(loc, mayor));
   }
 }

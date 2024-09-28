@@ -1,6 +1,6 @@
 import { mainPlayer, playerForsaken } from 'lib/constants';
 import {
-  AngleBetweenLocs,
+  Angle,
   centerLocRect, isLocInRect, Loc,
   randomLocRect,
   templocation,
@@ -180,9 +180,9 @@ export class LumberMill extends BaseQuest {
     async function travelToRect(unit: Unit, rect: rect, facingLoc: Loc): Promise<void> {
       await sleep(GetRandomReal(0, 0.5));
       const dest = centerLocRect(rect);
-      setGuardPosition(unit, dest, AngleBetweenLocs(dest, facingLoc));
+      setGuardPosition(unit, dest, Angle(dest, facingLoc));
       await waitUntil(1, () => isLocInRect(unit, rect));
-      setGuardPosition(unit, unit, AngleBetweenLocs(unit, facingLoc));
+      setGuardPosition(unit, unit, Angle(unit, facingLoc));
     }
 
     const lumberMillLoc = centerLocRect(lumberMillCorpse2Rect);
@@ -231,8 +231,8 @@ export class LumberMill extends BaseQuest {
     const loc = randomLocRect(townRect2);
     john.setPosition(loc.x, loc.y);
     peter.setPosition(loc.x, loc.y);
-    setGuardPosition(john, loc, AngleBetweenLocs(loc, townKnight));
-    setGuardPosition(peter, loc, AngleBetweenLocs(loc, townKnight));
+    setGuardPosition(john, loc, Angle(loc, townKnight));
+    setGuardPosition(peter, loc, Angle(loc, townKnight));
     setAttention(john, townKnight);
     setAttention(peter, townKnight);
     this.createCorpsesLumberMill();

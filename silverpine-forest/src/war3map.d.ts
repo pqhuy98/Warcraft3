@@ -121,3 +121,5 @@ declare var gg_rct_Farm_massacre_Undead_spawn_4: rect;
 declare var gg_snd_TragicConfrontation: string;
 declare var gg_unit_hfoo_0115: unit;
 declare var gg_unit_Ekee_0024: unit;
+declare var gg_rct_Gilneas_camp: rect;
+declare var gg_rct_Shadowfang_peasants_lumber_2: rect;

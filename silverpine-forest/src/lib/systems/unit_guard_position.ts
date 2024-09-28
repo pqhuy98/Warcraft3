@@ -1,6 +1,6 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import {
-  currentLoc, DistanceBetweenLocs, Loc,
+  currentLoc, Distance, Loc,
 } from 'lib/location';
 import { log } from 'lib/log';
 import { angleDifference } from 'lib/maths/misc';
@@ -163,7 +163,7 @@ function updateUnit(unit: Unit, data: GuardPositonData, now: number): Priority {
     return Priority.LOW;
   }
 
-  const distance = DistanceBetweenLocs(unit, position);
+  const distance = Distance(unit, position);
   const idle = isUnitIdle(unit);
   let priority: Priority;
 

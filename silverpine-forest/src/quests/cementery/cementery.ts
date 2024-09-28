@@ -3,7 +3,7 @@ import {
   ABILITY_ID_POSSESSION_TARGET_HERO,
 } from 'lib/constants';
 import {
-  centerLocRect, DistanceBetweenLocs, isLocInRect, PolarProjection,
+  centerLocRect, Distance, isLocInRect, PolarProjection,
 } from 'lib/location';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
 import {
@@ -338,7 +338,7 @@ export class Cementery extends BaseQuest {
     }
 
     // Possessed traveler arrives at party entry, regains control
-    await waitUntil(1, () => DistanceBetweenLocs(traveler, dest) < 150);
+    await waitUntil(1, () => Distance(traveler, dest) < 150);
     traveler.disableAbility(ABILITY_ShadowMeld.id, false, false);
     await sleep(1);
     RescueUnitBJ(traveler.handle, travelerPlayer.handle, true);
@@ -481,10 +481,8 @@ export class Cementery extends BaseQuest {
     }
     ghostLadies.forEach((u) => {
       removeGuardPosition(u);
-      setTimeout(GetRandomReal(1, 3), () => u.kill());
+      setTimeout(GetRandomReal(0, 1), () => u.kill());
     });
-
-    await sleep(1);
 
     // Clean up
     party.destroy();

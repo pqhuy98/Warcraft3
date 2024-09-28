@@ -1,7 +1,7 @@
 import { playerBlackTurban } from 'lib/constants';
 import { generateFogLocsBehindTrees } from 'lib/destructable';
 import {
-  centerLocRect, currentLoc, DistanceBetweenLocs, isLocInRect, Loc,
+  centerLocRect, currentLoc, Distance, isLocInRect, Loc,
 } from 'lib/location';
 import { log } from 'lib/log';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
@@ -244,7 +244,7 @@ export class BlackTurban extends BaseQuest {
         : banditAgainSounds[attempt % banditAgainSounds.length];
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       waitUntil(1, () => {
-        if (DistanceBetweenLocs(leader, victim) < 700) {
+        if (Distance(leader, victim) < 700) {
           // eslint-disable-next-line @typescript-eslint/no-floating-promises
           playSpeech(leader, banditSound);
           return true;
@@ -271,7 +271,7 @@ export class BlackTurban extends BaseQuest {
     waitUntil(5, (idx) => {
       if (idx === 0) return false;
       bandits1.forEach((u) => {
-        if (DistanceBetweenLocs(u, initLocs.get(u)) < 100) {
+        if (Distance(u, initLocs.get(u)) < 100) {
           u.applyTimedLife(BUFF_ID_GENERIC, 30);
         } else {
           u.cancelTimedLife();
@@ -286,7 +286,7 @@ export class BlackTurban extends BaseQuest {
     await waitUntil(1, () => {
       let banditRetreats = true;
       for (const bandit of bandits) {
-        if (bandit.isAlive() && DistanceBetweenLocs(bandit, victim) < chaseRange) {
+        if (bandit.isAlive() && Distance(bandit, victim) < chaseRange) {
           banditRetreats = false;
         }
         if (!bandit.isAlive()) {

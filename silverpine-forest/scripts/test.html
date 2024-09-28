@@ -2,89 +2,139 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Disco Light Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concave Hull</title>
     <style>
-        #canvas {
-            border: 1px solid black;
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
         }
     </style>
 </head>
 <body>
-    <canvas id="canvas" width="800" height="400"></canvas>
-
+    <h1>Concave Hull Calculation Demo</h1>
+    <p>Click on the canvas to add points.</p>
+    <canvas id="canvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
     <script>
-      function generator(A, B, centerX, centerY) {
-        // Frequencies for x and y
-        let a0 = Math.random() * Math.PI * 2;
-        let b0 = Math.random() * Math.PI * 2;
-        let c0 = Math.random() * Math.PI * 2;
-        let d0 = Math.random() * Math.PI * 2;
-        let a = Math.random() * 3;
-        let b = Math.random() * 3;
-        let c = Math.random() * 3;
-        let d = Math.random() * 3;
+        let points = [];
 
-        // Function to calculate x and y based on time t
-        return function f(t) {
-            const x = A * Math.sin(a * t + b0) + centerX;
-            const y = B * Math.cos(c * t + d0) + centerY;
-            return { x, y };
+        function distance(p1, p2) {
+            return Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
         }
-      }
 
-      function drawDiscoLight() {
-            // Get canvas and context
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+        function cross(o, a, b) {
+            return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+        }
 
-            // Rectangle boundaries
-            const minX = 50;
-            const minY = 50;
-            const maxX = canvas.width - 50;
-            const maxY = canvas.height - 50;
+        function convexHull(points) {
+            if (points.length < 3) return points; // Convex hull requires at least 3 points
+            points.sort((a, b) => a.x !== b.x ? a.x - b.x : a.y - b.y);
 
-            // Amplitude for x and y
-            const A = (maxX - minX) / 2;
-            const B = (maxY - minY) / 2;
-
-            // Center of the rectangle
-            const centerX = (minX + maxX) / 2;
-            const centerY = (minY + maxY) / 2;
-
-            const fs = Array(5).fill(0).map(() => generator(A, B, centerX, centerY))
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Draw the rectangle
-                ctx.strokeRect(minX, minY, maxX - minX, maxY - minY);
-
-                // Get the current time in seconds
-                const t = performance.now() / 1000;
-
-                // Draw the disco light as a circle
-                
-                for(const f of fs) {
-                  ctx.beginPath();
-                  ctx.fillStyle = 'red';
-                  const { x, y } = f(t);
-                  ctx.arc(x, y, 10, 0, 2 * Math.PI);
-                  ctx.fill();
+            const lower = [];
+            for (let i = 0; i < points.length; i++) {
+                while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], points[i]) <= 0) {
+                    lower.pop();
                 }
-
-                ctx.closePath();
-
-                // Request the next frame
-                requestAnimationFrame(animate);
+                lower.push(points[i]);
             }
 
-            // Start the animation
-            animate();
+            const upper = [];
+            for (let i = points.length - 1; i >= 0; i--) {
+                while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], points[i]) <= 0) {
+                    upper.pop();
+                }
+                upper.push(points[i]);
+            }
+
+            // Remove the last point of each half because it is repeated at the beginning of the other half
+            return lower.concat(upper.slice(1, upper.length - 1));
         }
-        
-        // Call the function to initialize and start the animation.
-        drawDiscoLight();
+
+        function kNearestNeighbors(points, point, k) {
+            return points
+                .map(p => ({ point: p, distance: distance(point, p) }))
+                .sort((a, b) => a.distance - b.distance)
+                .slice(1, k + 1)
+                .map(obj => obj.point);
+        }
+
+        function edgeFlex(currentHull, points, concavity) {
+            let updatedHull = [...currentHull];
+            let additions = true;
+
+            while (additions) {
+                additions = false;
+                for (let i = 0; i < updatedHull.length - 1; i++) {
+                    const p1 = updatedHull[i];
+                    const p2 = updatedHull[i + 1];
+                    const neighbors = kNearestNeighbors(points, p1, 3).concat(kNearestNeighbors(points, p2, 3));
+
+                    for (const neighbor of neighbors) {
+                        if (distance(p1, neighbor) < concavity && distance(p2, neighbor) < concavity && !updatedHull.includes(neighbor)) {
+                            updatedHull.splice(i + 1, 0, neighbor);
+                            additions = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return updatedHull;
+        }
+
+        function drawPoints(ctx, points) {
+            ctx.beginPath();
+            points.forEach(point => {
+                ctx.moveTo(point.x + 3, point.y);
+                ctx.arc(point.x, point.y, 3, 0, Math.PI * 2);
+            });
+            ctx.fill();
+        }
+
+        function drawPolygon(ctx, points) {
+            if (points.length === 0) return;
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            points.forEach(point => ctx.lineTo(point.x, point.y));
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        function main() {
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+
+            canvas.addEventListener('click', (event) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                points.push({x, y});
+                redraw(canvas, ctx);
+            });
+        }
+
+        function redraw(canvas, ctx) {
+            // Find convex hull
+            const convex = convexHull(points);
+
+            // Flex edges to create concave hull based on concavity
+            const concavity = 70;
+            const concaveHull = edgeFlex(convex, points, concavity);
+
+            // Draw points and hulls
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPoints(ctx, points);
+
+            ctx.strokeStyle = "blue";
+            ctx.fillStyle = "black";
+            drawPolygon(ctx, convex);
+            
+            ctx.strokeStyle = "red";
+            drawPolygon(ctx, concaveHull);
+        }
+
+        window.onload = main;
     </script>
 </body>
 </html>
-

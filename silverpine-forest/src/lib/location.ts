@@ -88,11 +88,11 @@ export function PolarProjection(loc: Loc, offset: number, angleDeg: number): Loc
 /**
  * @return angle in degree
  */
-export function AngleBetweenLocs(loc1: Loc, loc2: Loc): number {
+export function Angle(loc1: Loc, loc2: Loc): number {
   return Math.atan2(loc2.y - loc1.y, loc2.x - loc1.x) * RAD_TO_ANGLE;
 }
 
-export function DistanceBetweenLocs(loc1: Loc, loc2: Loc): number {
+export function Distance(loc1: Loc, loc2: Loc): number {
   const dx = loc2.x - loc1.x;
   const dy = loc2.y - loc1.y;
   return Math.sqrt(dx * dx + dy * dy);
@@ -141,7 +141,7 @@ export function isPointReachable(from: Loc, to: Loc): boolean {
   iprTransmitter.x = from.x;
   iprTransmitter.y = from.y;
   iprReceiver.setPosition(to.x, to.y);
-  iprReceiver.setFacingEx(AngleBetweenLocs(iprTransmitter, iprReceiver)); // initially turn its back to transmitter
+  iprReceiver.setFacingEx(Angle(iprTransmitter, iprReceiver)); // initially turn its back to transmitter
   iprReceiver.issueImmediateOrder(OrderId.Militia);
   const result = iprReceiver.currentOrder === OrderId.Militia;
   if (result) {

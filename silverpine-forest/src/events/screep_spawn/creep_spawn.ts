@@ -1,4 +1,4 @@
-import { AngleBetweenLocs, getUnitXY } from 'lib/location';
+import { Angle, getUnitXY } from 'lib/location';
 import {
   UNIT_Ghoul, UNIT_SkeletalOrc, UNIT_SkeletonWarrior, UNIT_Zombie,
 } from 'lib/resources/war3-units';
@@ -65,7 +65,7 @@ export class CreepSpawn {
       unitId,
       spawnLoc.x,
       spawnLoc.y,
-      AngleBetweenLocs(spawnLoc, targetLoc),
+      Angle(spawnLoc, targetLoc),
     ));
     this.spawns.addUnit(spawn);
     spawn.setPathing(false);

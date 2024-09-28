@@ -372,3 +372,6 @@ export const ORDER_instant1 = 851991; // ?
 export const ORDER_instant2 = 851987; // ?
 export const ORDER_instant3 = 851975; // ?
 export const ORDER_instant4 = 852019; // ?
+
+export const ORDER_AutoHarvestGold = 'autoharvestgold';
+export const ORDER_AutoHarvestLumber = 'autoharvestlumber';

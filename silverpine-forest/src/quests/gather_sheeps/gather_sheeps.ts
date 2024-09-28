@@ -2,7 +2,7 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { mainPlayer, neutralPassive } from 'lib/constants';
 import {
-  AngleBetweenLocs, centerLocRect, DistanceBetweenLocs, isLocInRect, PolarProjection,
+  Angle, centerLocRect, Distance, isLocInRect, PolarProjection,
   randomLocRect,
 } from 'lib/location';
 import { createDialogSound } from 'lib/quests/dialogue_sound';
@@ -199,7 +199,7 @@ export class GatherSheeps extends BaseQuest {
       sheep.shareVision(traveler.owner, true);
       const loc = PolarProjection(
         sheep,
-        Math.max(GetRandomReal(gatherRadius + 100, scatterRadiuses[level]), DistanceBetweenLocs(sheep, sheepBoy)),
+        Math.max(GetRandomReal(gatherRadius + 100, scatterRadiuses[level]), Distance(sheep, sheepBoy)),
         GetRandomDirectionDeg(),
       );
       sheep.issueOrderAt(OrderId.Move, loc.x, loc.y);
@@ -210,7 +210,7 @@ export class GatherSheeps extends BaseQuest {
     enumUnitsWithDelay(sheeps, (sheep, i) => {
       const randomSheep = pickRandom(sheeps.filter((s) => s.isAlive()));
       if (randomSheep) {
-        const dest = PolarProjection(sheepBoy, GetRandomReal(0, 25), AngleBetweenLocs(sheepBoy, randomSheep));
+        const dest = PolarProjection(sheepBoy, GetRandomReal(0, 25), Angle(sheepBoy, randomSheep));
         sheepBoy.issueOrderAt(OrderId.Move, dest.x, dest.y);
       }
       if (i === sheeps.length - 1) {
@@ -236,13 +236,13 @@ export class GatherSheeps extends BaseQuest {
       let outCnt = 0;
       for (const sheep of sheeps) {
         if (!sheep.isAlive()) return true;
-        if (sheep.isAlive() && DistanceBetweenLocs(sheep, sheepBoy) > (gatherRadius)) {
+        if (sheep.isAlive() && Distance(sheep, sheepBoy) > (gatherRadius)) {
           outCnt++;
           enableQuestMarker(sheep, 'new');
         } else {
           disableQuestMarker(sheep);
         }
-        if (sheep.isAlive() && DistanceBetweenLocs(sheep, sheepBoy) > minimapIconMinRadius) {
+        if (sheep.isAlive() && Distance(sheep, sheepBoy) > minimapIconMinRadius) {
           setMinimapIconUnit(sheep, 'neutralActive');
         } else {
           removeMinimapIcon(sheep);
@@ -289,7 +289,7 @@ export class GatherSheeps extends BaseQuest {
         if (!sheep.isAlive()) continue;
         if (!isLocInRect(sheep, homeRect)) {
           notHomeSheeps++;
-          if (DistanceBetweenLocs(sheepBoy, sheep) < 300 && (isUnitIdle(sheep) || GetRandomInt(1, 8) === 1)) {
+          if (Distance(sheepBoy, sheep) < 300 && (isUnitIdle(sheep) || GetRandomInt(1, 8) === 1)) {
             sheep.issueOrderAt(OrderId.Move, homeLoc.x, homeLoc.y);
             sheep.moveSpeed = sheep.defaultMoveSpeed * 1.25;
           } else if (GetRandomInt(0, 8) === 0) {
@@ -315,12 +315,12 @@ export class GatherSheeps extends BaseQuest {
       }
 
       const furthestSheep = sheeps.reduce(
-        (best, current) => (best && DistanceBetweenLocs(best, homeLoc) > DistanceBetweenLocs(current, homeLoc) || !current.isAlive()
+        (best, current) => (best && Distance(best, homeLoc) > Distance(current, homeLoc) || !current.isAlive()
           ? best
           : current),
         null,
       );
-      const dest = notHomeSheeps > 0 ? PolarProjection(furthestSheep, 50, AngleBetweenLocs(homeLoc, furthestSheep)) : homeLoc;
+      const dest = notHomeSheeps > 0 ? PolarProjection(furthestSheep, 50, Angle(homeLoc, furthestSheep)) : homeLoc;
       sheepBoy.issueOrderAt(OrderId.Move, dest.x, dest.y);
       return false;
     });
@@ -340,7 +340,7 @@ export class GatherSheeps extends BaseQuest {
     this.updateHerdMovespeed(sheepBoy, sheeps);
 
     // Everyone gathers initally at front yard
-    const frontYard = PolarProjection(homeLoc, 500, AngleBetweenLocs(homeLoc, centerLocRect(grassRect)));
+    const frontYard = PolarProjection(homeLoc, 500, Angle(homeLoc, centerLocRect(grassRect)));
     for (const unit of [...sheeps, sheepBoy]) {
       unit.show = true;
       if (!unit.isAlive()) continue;
@@ -359,7 +359,7 @@ export class GatherSheeps extends BaseQuest {
         if (!sheep.isAlive()) continue;
         if (!isLocInRect(sheep, grassRect)) {
           notAtGrassSheeps++;
-          if (DistanceBetweenLocs(sheepBoy, sheep) < 300 && (isUnitIdle(sheep) || GetRandomInt(1, 16) === 1)) {
+          if (Distance(sheepBoy, sheep) < 300 && (isUnitIdle(sheep) || GetRandomInt(1, 16) === 1)) {
             const dest = randomLocRect(grassRect);
             sheep.issueOrderAt(OrderId.Move, dest.x, dest.y);
             sheep.moveSpeed = sheep.defaultMoveSpeed * 1.25;
@@ -383,7 +383,7 @@ export class GatherSheeps extends BaseQuest {
       // Get furthest alive sheep from grass
       const furthestSheep = sheeps.reduce(
         (best, current) => (
-          best && DistanceBetweenLocs(best, grassCenter) > DistanceBetweenLocs(current, grassCenter)
+          best && Distance(best, grassCenter) > Distance(current, grassCenter)
             || !current.isAlive()
             ? best
             : current),
@@ -391,12 +391,12 @@ export class GatherSheeps extends BaseQuest {
       );
 
       // sheep boy chase the furthest sheep to grass, or go to grass if all are there
-      const dest = notAtGrassSheeps > 0 ? PolarProjection(furthestSheep, 50, AngleBetweenLocs(grassCenter, furthestSheep)) : randomLocRect(grassRect);
+      const dest = notAtGrassSheeps > 0 ? PolarProjection(furthestSheep, 50, Angle(grassCenter, furthestSheep)) : randomLocRect(grassRect);
       sheepBoy.issueOrderAt(OrderId.Move, dest.x, dest.y);
       return false;
     });
 
-    setUnitFacingWithRate(sheepBoy, AngleBetweenLocs(sheepBoy, grassCenter));
+    setUnitFacingWithRate(sheepBoy, Angle(sheepBoy, grassCenter));
   }
 
   updateHerdMovespeed(sheepBoy: Unit, sheeps: Unit[]): void {

@@ -1,6 +1,6 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { TimestampedQueue } from 'lib/data_structures/timestamped_queue';
-import { DistanceBetweenLocs, Loc } from 'lib/location';
+import { Distance, Loc } from 'lib/location';
 import { log } from 'lib/log';
 import { getCircleCoordinates } from 'lib/maths/geometric_coordinates';
 import {
@@ -46,7 +46,7 @@ export class MovingTerrainEffect {
       debugName: 'terrain',
       itemExpireS: durationS,
       cleanUp: (v): void => {
-        if (!this.destroyed && unit.isAlive() && DistanceBetweenLocs(unit, v.loc) <= radius) {
+        if (!this.destroyed && unit.isAlive() && Distance(unit, v.loc) <= radius) {
           this.tileQueue.push({
             timestamp: getTimeS(),
             value: v,

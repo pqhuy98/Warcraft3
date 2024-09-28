@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable unused-imports/no-unused-vars */
 import {
   mainPlayer, playerBlackTurban, playerForsaken,
   playerOrcishHorde,
@@ -17,6 +18,7 @@ import { HiddenEnergies } from './hidden_energies/hidden_energies';
 import { LumberMill } from './lumber_mill/lumber_mill';
 import { LumberMillPart2 } from './lumber_mill/lumber_mill_part_2';
 import { StrikeBack } from './lumber_mill/strike_back';
+import { LumberHarvest } from './lumber-harvest/lumber-harvest';
 import { WordlessBook } from './mini_bosses/wordless_book';
 import { NightElfLanding } from './night-elf-landing/night-elf-landing';
 import { OrcAttack } from './orc_attack/orc_attack';
@@ -142,7 +144,7 @@ export class QuestRegistry {
           gg_rct_Orc_shore_base, gg_rct_Orc_east_base, gg_rct_Bandit_Island, gg_rct_Bandit_Base,
           gg_rct_Thalandor_home, gg_rct_AmberMill_region, gg_rct_Farm_region, gg_rct_Farm_north_outpost,
           gg_rct_Shadowfang_region, gg_rct_Night_elf_shore_base,
-          gg_rct_Keep_Fog, gg_rct_Human_shipyard,
+          gg_rct_Keep_Fog, gg_rct_Human_shipyard, gg_rct_Gilneas_camp,
         ],
         dependencies: [banditBanish],
         cheatName: 'bt',
@@ -198,6 +200,14 @@ export class QuestRegistry {
         cheatName: 'wb',
       });
 
+      // Lumber Harvest
+      const lumberHarvest = new LumberHarvest({
+        name: 'Lumber harvest',
+        treeRects: [gg_rct_Shadowfang_peasants_lumber, gg_rct_Shadowfang_peasants_lumber_2],
+        dependencies: [],
+        cheatName: 'lh',
+      });
+
       // Farm Massacre
       const farmMassacre = new FarmMassacre({
         name: 'Farm Massacre',
@@ -217,12 +227,16 @@ export class QuestRegistry {
       });
 
       // Night Elf Landing
-      new NightElfLanding({
+      const nightElfLanding = new NightElfLanding({
         name: 'Night Elf Landing',
         baseRect: gg_rct_Night_elf_shore_base,
         elfHero: Unit.fromHandle(gg_unit_Ekee_0024),
         dependencies: [farmMassacre],
         cheatName: 'nel',
+      });
+
+      setTimeout(0.1, () => {
+        // lumberHarvest.forceCompleteDependencies();
       });
     });
   }

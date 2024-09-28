@@ -1,8 +1,8 @@
 import { Impale } from 'abilities/impale/impale';
 import { k0, k1 } from 'lib/debug/key_counter';
 import {
-  AngleBetweenLocs,
-  DistanceBetweenLocs, fromTempLocation, getUnitXY, Loc,
+  Angle,
+  Distance, fromTempLocation, getUnitXY, Loc,
   PolarProjection,
   tempLocation,
 } from 'lib/location';
@@ -133,8 +133,8 @@ export default class Sandquake {
       }
 
       const casterLoc = getUnitXY(caster);
-      const timeToReach = DistanceBetweenLocs(casterLoc, targetLoc) / speed;
-      const newLoc = PolarProjection(casterLoc, distancePerStep, timeToReach > 0.15 ? caster.facing : AngleBetweenLocs(casterLoc, targetLoc));
+      const timeToReach = Distance(casterLoc, targetLoc) / speed;
+      const newLoc = PolarProjection(casterLoc, distancePerStep, timeToReach > 0.15 ? caster.facing : Angle(casterLoc, targetLoc));
 
       caster.x = newLoc.x;
       caster.y = newLoc.y;
@@ -142,7 +142,7 @@ export default class Sandquake {
       BlzSetSpecialEffectPosition(sandstormEffect, newLoc.x, newLoc.y, 0);
       BlzSetSpecialEffectPosition(sandstormEffect2, newLoc.x, newLoc.y, 0);
 
-      SetUnitFacingTimed(caster.handle, AngleBetweenLocs(casterLoc, targetLoc), 0.1 * timeToReach);
+      SetUnitFacingTimed(caster.handle, Angle(casterLoc, targetLoc), 0.1 * timeToReach);
 
       for (let i = 0; i < 2; i++) {
         const angle = GetRandomDirectionDeg();
@@ -191,7 +191,7 @@ export default class Sandquake {
         }
       }
 
-      if (!caster.isAlive() || DistanceBetweenLocs(caster, targetLoc) < distancePerStep) {
+      if (!caster.isAlive() || Distance(caster, targetLoc) < distancePerStep) {
         caster.setVertexColor(255, 255, 255, 255);
         caster.setPathing(true);
         caster.disableAbility(abilityId, false, false);

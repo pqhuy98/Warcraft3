@@ -2271,3 +2271,39 @@ STRING 405
 Red Post Lantern
 }
 
+STRING 406
+// Units: h007 (Lumber Mill), EditorSuffix (Name - Editor Suffix)
+{
+(quest Lumber Harvest)
+}
+
+STRING 407
+// Units: hhou (House), Name (Name)
+{
+House
+}
+
+STRING 408
+// Units: hhou (House), Tip (Tooltip - Basic)
+{
+Build House
+}
+
+STRING 409
+// Abilities: A00U (Deconstruct), Name (Name)
+{
+Deconstruct
+}
+
+STRING 410
+// Abilities: A00U (Deconstruct), Tip (Tooltip - Normal)
+{
+Deconstruct
+}
+
+STRING 411
+// Abilities: A00U (Deconstruct), Ubertip (Tooltip - Normal - Extended)
+{
+Kills a target building unit instantly, recoup a portion of its gold cost.
+}
+
