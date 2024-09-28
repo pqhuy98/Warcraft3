@@ -21,7 +21,7 @@ import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isBuilding,
 } from 'lib/unit';
-import { pickRandom, waitUntil, waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil } from 'lib/utils';
 import { sleep, Sound, Unit } from 'w3ts';
 
 import { BaseQuest, BaseQuestProps } from '../base';

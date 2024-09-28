@@ -14,7 +14,7 @@ import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
 import { buildTrigger } from 'lib/trigger';
 import { getUnitsInRangeOfLoc, isOrganic, setNeverDie } from 'lib/unit';
-import { waitUntil, waitUntil } from 'lib/utils';
+import { waitUntil } from 'lib/utils';
 import {
   Effect,
   sleep,

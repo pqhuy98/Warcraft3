@@ -22,7 +22,7 @@ import { setAttention } from 'lib/systems/unit_interaction';
 import {
   enumUnitsWithDelay, getUnitsInRect, isUnitIdle, setNeverDie, setUnitFacingWithRate,
 } from 'lib/unit';
-import { pickRandom, waitUntil, waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil } from 'lib/utils';
 import {
   Effect, sleep, Sound, Unit,
 } from 'w3ts';

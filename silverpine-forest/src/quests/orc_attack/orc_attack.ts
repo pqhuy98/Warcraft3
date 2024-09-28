@@ -33,7 +33,7 @@ import { setTimeout } from 'lib/trigger';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, isOrganic, isUnitIdle, setNeverDie,
 } from 'lib/unit';
-import { pickRandom, waitUntil, waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil } from 'lib/utils';
 import {
   MapPlayer, sleep, Sound, Unit,
 } from 'w3ts';

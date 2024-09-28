@@ -28,7 +28,7 @@ import { setIntervalIndefinite } from 'lib/trigger';
 import {
   getUnitsInRect, getUnitsOfPlayer, isUnitIdle, isUnitRemoved, setNeverDie,
 } from 'lib/unit';
-import { pickRandom, waitUntil, waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil } from 'lib/utils';
 import { BlackTurban } from 'quests/black_turban/black_turban';
 import {
   Effect,

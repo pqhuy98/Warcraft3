@@ -112,8 +112,6 @@ export function daemonGuardPosition(): void {
     // eslint-disable-next-line no-loop-func
     setIntervalIndefinite(0.1, () => {
       const now = getTimeS();
-      // log(`shuffledUnits[${priority}] = ${shuffledUnits.length}, currentIndex = ${currentIndex}`);
-
       if (currentIndex >= shuffledUnits.length) {
         currentIndex = 0;
         if (unitPositions[priority].size > 0) {

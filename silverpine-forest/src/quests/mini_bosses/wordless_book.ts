@@ -8,7 +8,7 @@ import { MODEL_DivineShieldTarget } from 'lib/resources/war3-models';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
 import { setIntervalFixedCount } from 'lib/trigger';
 import { fadeUnit } from 'lib/unit';
-import { pickRandom, waitUntil, waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil } from 'lib/utils';
 import {
   Effect, Sound, Unit,
 } from 'w3ts';

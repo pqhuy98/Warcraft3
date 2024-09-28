@@ -20,7 +20,7 @@ import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import { getUnitsInRangeOfLoc, setNeverDie, setUnitFacingWithRate } from 'lib/unit';
-import { waitUntil, waitUntil } from 'lib/utils';
+import { waitUntil } from 'lib/utils';
 import {
   Unit,
 } from 'w3ts';
