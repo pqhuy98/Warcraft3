@@ -20,7 +20,7 @@ import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import { getUnitsInRangeOfLoc, setNeverDie, setUnitFacingWithRate } from 'lib/unit';
-import { waitUntil } from 'lib/utils';
+import { waitUntil, waitUntilAsync } from 'lib/utils';
 import {
   Unit,
 } from 'w3ts';
@@ -166,8 +166,7 @@ export class LumberMillPart2 extends BaseQuest {
     setAllianceState2Way(mainPlayer, playerForsaken, 'enemy');
 
     removeGuardPosition(...undeadAttackers);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(1, () => { // non-blocking
+    waitUntilAsync(1, () => { // non-blocking
       const victim = [...footmen, traveler].find((u) => u.isAlive());
       if (!victim) return true;
       undeadAttackers.forEach((u) => setGuardPosition(u, victim, GetRandomDirectionDeg()));
@@ -198,8 +197,7 @@ export class LumberMillPart2 extends BaseQuest {
     await talkGroup2.speak(peter, peterRunForLife, null, null);
     talkGroup2.finish();
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(1, () => { // make sure they enter their house, do not block thread
+    waitUntilAsync(1, () => { // make sure they enter their house, do not block thread
       if (isLocInRect(peter, homeRect)) peter.show = false;
       if (isLocInRect(john, homeRect)) john.show = false;
       const isDone = (isLocInRect(peter, homeRect) || !peter.isAlive())
@@ -216,8 +214,7 @@ export class LumberMillPart2 extends BaseQuest {
 
     // knight gareth casts protection if low till end of quest
     // so that he doesn't die accidentally
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(1, () => {
+    waitUntilAsync(1, () => {
       if (knight.life < knight.maxLife - 300) {
         knight.issueImmediateOrder(OrderId.Divineshield);
         return true;

@@ -21,7 +21,7 @@ import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isBuilding,
 } from 'lib/unit';
-import { pickRandom, waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil, waitUntilAsync } from 'lib/utils';
 import { sleep, Sound, Unit } from 'w3ts';
 
 import { BaseQuest, BaseQuestProps } from '../base';
@@ -93,14 +93,12 @@ export class FarmMassacre extends BaseQuest {
     });
 
     // Prepare dying footman and John
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     survivors.forEach((u) => {
       setUnitFlag(u, Flag.UNBREAKABLE_ATTENTION, true);
       setUnitFlag(u, Flag.MUTE_INTERACTION_SOUND, true);
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(5, () => {
+    waitUntilAsync(5, () => {
       survivors.forEach((u) => {
         u.life = 1;
         u.setTimeScale(0.01);
@@ -110,8 +108,7 @@ export class FarmMassacre extends BaseQuest {
     });
 
     // Play sound when player realized outtpost and farm are destroyed
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(1, () => {
+    waitUntilAsync(1, () => {
       const canSongStart = getUnitsOfPlayer(mainPlayer, (u) => u.isHero() && (isLocInRect(u, outpostRect) || isLocInRect(u, farmRect))).length > 0;
       if (canSongStart) {
         PlayThematicMusic('Sound\\Music\\mp3Music\\TragicConfrontation.mp3');
@@ -125,17 +122,13 @@ export class FarmMassacre extends BaseQuest {
 
     let traveler = await this.talkToQuestGiver(footman, true);
     lockCameraBound([outpostRect, farmRect], []);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    playSpeech(footman, footmanSound).then(() => {
-      footman.addAbility(ABILITY_Locust.id);
-    });
+    await playSpeech(footman, footmanSound);
+    footman.addAbility(ABILITY_Locust.id);
 
     traveler = await this.talkToQuestGiver(john, true);
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    playSpeech(john, johnSound).then(() => {
-      john.addAbility(ABILITY_Locust.id);
-    });
+    await playSpeech(john, johnSound);
+    john.addAbility(ABILITY_Locust.id);
 
     panCameraSmart(johnLoc, 0.5);
     setTimeout(0.5, () => lockCameraBound([], [johnLoc]));

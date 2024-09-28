@@ -33,7 +33,7 @@ import { setTimeout } from 'lib/trigger';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, isOrganic, isUnitIdle, setNeverDie,
 } from 'lib/unit';
-import { pickRandom, waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil, waitUntilAsync } from 'lib/utils';
 import {
   MapPlayer, sleep, Sound, Unit,
 } from 'w3ts';
@@ -408,6 +408,7 @@ export class OrcAttack extends BaseQuest {
       await waitUntil(1, () => {
         if (!attackersArrive && attackers.some((u) => u.life < u.maxLife)) {
           attackersArrive = true;
+          // Start playing dialogues in order
           // eslint-disable-next-line @typescript-eslint/no-floating-promises
           (async (): Promise<void> => {
             for (const { unit, unitType, sound } of speeches[0]) {
@@ -456,8 +457,7 @@ export class OrcAttack extends BaseQuest {
           u.shareVision(traveler.owner, true);
         }
       });
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      waitUntil(1, () => {
+      waitUntilAsync(1, () => {
         oldAttackers = oldAttackers.filter((u) => u.isAlive());
         oldAttackers.forEach((u) => {
           if (isLocInRect(u, gg_rct_Orc_attack_failed_return)) {

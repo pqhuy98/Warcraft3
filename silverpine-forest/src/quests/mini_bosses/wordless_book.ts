@@ -8,7 +8,7 @@ import { MODEL_DivineShieldTarget } from 'lib/resources/war3-models';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
 import { setIntervalFixedCount } from 'lib/trigger';
 import { fadeUnit } from 'lib/unit';
-import { pickRandom, waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil, waitUntilAsync } from 'lib/utils';
 import {
   Effect, Sound, Unit,
 } from 'w3ts';
@@ -44,8 +44,7 @@ export class WordlessBook extends BaseQuest {
 
     // Camera is darker when looking at cave
     let prevCameraIn = isLocInRect(cameraCenter(), areaRect);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(0.6, () => {
+    waitUntilAsync(0.6, () => {
       if (isLocInRect(cameraCenter(), areaRect)) {
         if (!prevCameraIn) {
           setCineFilter(rgbOut, rgbIn, 0.5);

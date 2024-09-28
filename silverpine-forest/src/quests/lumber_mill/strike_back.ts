@@ -172,7 +172,7 @@ export class StrikeBack extends BaseQuest {
       u.life = u.maxLife;
       setMinimapIconUnit(u, 'enemyStatic');
     });
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+
     waitUntil(3, () => {
       // wait until some undead is attacked
       const attackedUndead = undeads.find((u) => u.life < u.maxLife);
@@ -181,7 +181,7 @@ export class StrikeBack extends BaseQuest {
       // send whole base to help
       const attackedUndead = undeads.find((u) => u.life < u.maxLife);
       undeads.forEach((u) => setGuardPosition(u, attackedUndead, u.facing));
-    });
+    }).catch(() => null);
 
     // Set alliance settings
     setAllianceState2Way(mainPlayer, playerHumanAlliance, 'allied');

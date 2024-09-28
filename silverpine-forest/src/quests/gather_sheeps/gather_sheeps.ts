@@ -18,13 +18,11 @@ import { MODEL_SleepTarget } from 'lib/resources/war3-models';
 import { UNIT_Sheep } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
 import { removeGuardPosition } from 'lib/systems/unit_guard_position';
-import {
-  enableInteractSound, setAttention,
-} from 'lib/systems/unit_interaction';
+import { setAttention } from 'lib/systems/unit_interaction';
 import {
   enumUnitsWithDelay, getUnitsInRect, isUnitIdle, setNeverDie, setUnitFacingWithRate,
 } from 'lib/unit';
-import { pickRandom, waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil, waitUntilAsync } from 'lib/utils';
 import {
   Effect, sleep, Sound, Unit,
 } from 'w3ts';
@@ -137,8 +135,7 @@ export class GatherSheeps extends BaseQuest {
         const sleepEffect = Effect.createAttachment(MODEL_SleepTarget, sheepBoy, 'overhead');
         // mimic sleep animation
         let canSleep = true;
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        waitUntil(5, () => {
+        waitUntilAsync(5, () => {
           if (!sheepBoy.isAlive()) {
             sheepBoy.setTimeScale(1);
             sleepEffect.destroy();
@@ -166,8 +163,7 @@ export class GatherSheeps extends BaseQuest {
         // Quest done, now go home
         if (!this.isFailed()) {
           // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          playSpeech(sheepBoy, goHomeSound, traveler)
-            .then(() => enableInteractSound(sheepBoy));
+          playSpeech(sheepBoy, goHomeSound, traveler);
         }
 
         if (level === maxLevel) {

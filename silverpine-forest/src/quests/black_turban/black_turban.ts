@@ -19,6 +19,7 @@ import {
 } from 'lib/unit';
 import {
   pickRandom, pickRandomWeighted, shuffleArray, waitUntil,
+  waitUntilAsync,
 } from 'lib/utils';
 import { MapPlayer, sleep, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
@@ -152,8 +153,7 @@ export class BlackTurban extends BaseQuest {
 
     const isUnsafeLoc = (loc: Loc): boolean => safeRects.every((rect) => !isLocInRect(loc, rect));
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(1, () => {
+    waitUntilAsync(1, () => {
       if (!banditKing.isAlive()) {
         notifyEventCompleted('Black Turban Syndicate has been destroyed. They will no longer attack you at night.');
       }
@@ -242,8 +242,7 @@ export class BlackTurban extends BaseQuest {
       const banditSound = attempt < banditFirstSounds.length
         ? banditFirstSounds[attempt]
         : banditAgainSounds[attempt % banditAgainSounds.length];
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      waitUntil(1, () => {
+      waitUntilAsync(1, () => {
         if (Distance(leader, victim) < 700) {
           // eslint-disable-next-line @typescript-eslint/no-floating-promises
           playSpeech(leader, banditSound);
@@ -267,8 +266,7 @@ export class BlackTurban extends BaseQuest {
     // Make sure stucked bandits are eventually dead
     const initLocs = new Map(bandits.map((u) => [u, currentLoc(u)]));
     let bandits1 = bandits;
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(5, (idx) => {
+    waitUntilAsync(5, (idx) => {
       if (idx === 0) return false;
       bandits1.forEach((u) => {
         if (Distance(u, initLocs.get(u)) < 100) {

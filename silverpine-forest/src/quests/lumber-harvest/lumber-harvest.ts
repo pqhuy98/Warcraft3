@@ -28,7 +28,7 @@ import { setIntervalIndefinite } from 'lib/trigger';
 import {
   getUnitsInRect, getUnitsOfPlayer, isUnitIdle, isUnitRemoved, setNeverDie,
 } from 'lib/unit';
-import { pickRandom, waitUntil } from 'lib/utils';
+import { pickRandom, waitUntil, waitUntilAsync } from 'lib/utils';
 import { BlackTurban } from 'quests/black_turban/black_turban';
 import {
   Effect,
@@ -241,7 +241,7 @@ export class LumberHarvest extends BaseQuest {
     });
 
     await sleep(1);
-    await questLog.hint('You can train more peasants from Lumber Mill to chop down woods faster.');
+    questLog.hint('You can train more peasants from Lumber Mill to chop down woods faster.');
 
     await sleep(5);
     await play3dSound(wolfSoundPath, pickRandom(enemies));
@@ -252,53 +252,46 @@ export class LumberHarvest extends BaseQuest {
       if (debug) u.life = 1;
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     questLog.hint('Defend your camp by building Scout Towers then upgrade to Guard Tower, Cannon Tower, or Arcane Tower.');
 
     // Dialogues when wolves attack
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(1, () => {
+    waitUntilAsync(1, () => {
       if (this.isOver()) return true;
       const isAttacking = enemies.some((u) => !isUnitIdle(u));
       if (isAttacking) {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        (async (): Promise<void> => {
-          await playSpeechUnitType(UNIT_Peasant, peasantSounds[2]);
-
-          const watchTowers = treeRects.flatMap((r) => getUnitsInRect(r, (u) => u.typeId === UNIT_ScoutTower.id && u.isAlive()));
-          const attackTowers = treeRects.flatMap((r) => getUnitsInRect(r, (u) => attackTowerTypes.includes(u.typeId) && u.isAlive()));
-          if (attackTowers.length > 0) {
-            await playSpeechUnitType(UNIT_Footman, footmanSounds[3]);
-          } else if (watchTowers.length > 0) {
-            await playSpeechUnitType(UNIT_Footman, footmanSounds[8]);
-          } else {
-            await playSpeechUnitType(UNIT_Footman, footmanSounds[4]);
-            await questLog.hint('Lumber Mill can activate Call To Arms to convert all nearby Peasants to Militia.');
-          }
-
-          // Dialogues when all wolves are dead
-          await waitUntil(1, () => {
-            if (this.isOver()) return true;
-            const allEnemiesDead = enemies.every((u) => !u.isAlive());
-            if (allEnemiesDead) {
-            // eslint-disable-next-line @typescript-eslint/no-floating-promises
-              playSpeechUnitType(UNIT_Footman, footmanSounds[5]);
+        playSpeechUnitType(UNIT_Peasant, peasantSounds[2])
+          .then(async () => {
+            const watchTowers = treeRects.flatMap((r) => getUnitsInRect(r, (u) => u.typeId === UNIT_ScoutTower.id && u.isAlive()));
+            const attackTowers = treeRects.flatMap((r) => getUnitsInRect(r, (u) => attackTowerTypes.includes(u.typeId) && u.isAlive()));
+            if (attackTowers.length > 0) {
+              await playSpeechUnitType(UNIT_Footman, footmanSounds[3]);
+            } else if (watchTowers.length > 0) {
+              await playSpeechUnitType(UNIT_Footman, footmanSounds[8]);
+            } else {
+              await playSpeechUnitType(UNIT_Footman, footmanSounds[4]);
+              questLog.hint('Lumber Mill can activate Call To Arms to convert all nearby Peasants to Militia.');
             }
-            return allEnemiesDead;
-          });
-        })();
+
+            // Dialogues when all wolves are dead
+            await waitUntil(1, () => {
+              if (this.isOver()) return true;
+              const allEnemiesDead = enemies.every((u) => !u.isAlive());
+              if (allEnemiesDead) {
+                // eslint-disable-next-line @typescript-eslint/no-floating-promises
+                playSpeechUnitType(UNIT_Footman, footmanSounds[5]);
+              }
+              return allEnemiesDead;
+            });
+          }).catch(() => {});
       }
       return isAttacking || enemies.every((u) => !u.isAlive());
     });
 
     // Hint build more lumber mills
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     const initialTreeCount = trees.length;
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(1, () => {
+    waitUntilAsync(1, () => {
       if (this.isOver()) return true;
       if (trees.length === initialTreeCount - 10) {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         questLog.hint('Construct additional Lumber Mills to train more Peasants simultaneously and reduce the distance they travel to deliver lumber.');
         return true;
       }
@@ -306,8 +299,7 @@ export class LumberHarvest extends BaseQuest {
     });
 
     // Almost there dialogue
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    waitUntil(1, () => {
+    waitUntilAsync(1, () => {
       if (this.isOver()) return true;
       if (trees.length <= 5) {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -340,8 +332,7 @@ export class LumberHarvest extends BaseQuest {
 
       let humanBuildings = getUnitsOfPlayer(mainPlayer, (u) => humanBuildingTypes.includes(u.typeId));
 
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      waitUntil(1, () => {
+      waitUntilAsync(1, () => {
         humanUnits = humanUnits.filter((u) => !isUnitRemoved(u));
         humanBuildings = humanBuildings.filter((u) => u.isAlive());
         humanUnits.forEach((u) => {

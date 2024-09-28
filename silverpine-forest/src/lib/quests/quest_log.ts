@@ -97,14 +97,13 @@ export class QuestLog {
     await sleep(GetSoundDuration(bj_questUpdatedSound) / 1000);
   }
 
-  async hint(message: string): Promise<void> {
+  hint(message: string): void {
     ClearTextMessages();
     QuestMessageBJ(
       bj_FORCE_ALL_PLAYERS,
       bj_QUESTMESSAGE_HINT,
       `${colorize.yellow('HINT:')} ${message}`,
     );
-    await sleep(GetSoundDuration(bj_questHintSound) / 1000);
   }
 }
 

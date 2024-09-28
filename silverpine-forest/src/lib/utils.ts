@@ -117,7 +117,7 @@ export function isReforgedForcefully(resourcePath: string): boolean {
 /**
  * @returns true if predicate happened, false if timed out.
  */
-export async function waitUntil(interval: number, predicate: (idx: number) => boolean, timeout?: number): Promise<boolean> {
+export async function waitUntil(interval: number, predicate: (idx: number) => boolean, timeout?: number): Promise<void> {
   let duration = 0;
   let counter = 0;
   while (!predicate(counter)) {
@@ -125,10 +125,17 @@ export async function waitUntil(interval: number, predicate: (idx: number) => bo
     await sleep(interval);
     duration += interval;
     if (timeout && duration > timeout) {
-      return false;
+      return;
     }
   }
-  return true;
+}
+
+/**
+ * @returns true if predicate happened, false if timed out.
+ */
+export function waitUntilAsync(interval: number, predicate: (idx: number) => boolean, timeout?: number): void {
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  waitUntil(interval, predicate, timeout);
 }
 
 export function reverseFourCC(code: number): string {
