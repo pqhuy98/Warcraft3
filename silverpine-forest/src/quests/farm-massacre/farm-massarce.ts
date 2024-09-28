@@ -21,7 +21,7 @@ import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import {
   getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isBuilding,
 } from 'lib/unit';
-import { pickRandom, waitUntil, waitUntilAsync } from 'lib/utils';
+import { pickRandom, waitUntil, waitUntil } from 'lib/utils';
 import { sleep, Sound, Unit } from 'w3ts';
 
 import { BaseQuest, BaseQuestProps } from '../base';
@@ -69,8 +69,7 @@ export class FarmMassacre extends BaseQuest {
     undeadSpawnRects: rect[],
   }) {
     super(globals);
-    /* eslint-disable-next-line @typescript-eslint/no-floating-promises */
-    this.register();
+    void this.register();
   }
 
   private async register(): Promise<void> {
@@ -98,7 +97,7 @@ export class FarmMassacre extends BaseQuest {
       setUnitFlag(u, Flag.MUTE_INTERACTION_SOUND, true);
     });
 
-    waitUntilAsync(5, () => {
+    void waitUntil(5, () => {
       survivors.forEach((u) => {
         u.life = 1;
         u.setTimeScale(0.01);
@@ -108,7 +107,7 @@ export class FarmMassacre extends BaseQuest {
     });
 
     // Play sound when player realized outtpost and farm are destroyed
-    waitUntilAsync(1, () => {
+    void waitUntil(1, () => {
       const canSongStart = getUnitsOfPlayer(mainPlayer, (u) => u.isHero() && (isLocInRect(u, outpostRect) || isLocInRect(u, farmRect))).length > 0;
       if (canSongStart) {
         PlayThematicMusic('Sound\\Music\\mp3Music\\TragicConfrontation.mp3');

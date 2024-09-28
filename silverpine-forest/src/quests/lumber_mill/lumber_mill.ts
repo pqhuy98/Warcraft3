@@ -79,8 +79,7 @@ export class LumberMill extends BaseQuest {
     townKnight: Unit
   }) {
     super(globals);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.register();
+    void this.register();
   }
 
   private async register(): Promise<void> {

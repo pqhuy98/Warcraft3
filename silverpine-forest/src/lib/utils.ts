@@ -130,14 +130,6 @@ export async function waitUntil(interval: number, predicate: (idx: number) => bo
   }
 }
 
-/**
- * @returns true if predicate happened, false if timed out.
- */
-export function waitUntilAsync(interval: number, predicate: (idx: number) => boolean, timeout?: number): void {
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  waitUntil(interval, predicate, timeout);
-}
-
 export function reverseFourCC(code: number): string {
   // Extract each character from the 32-bit integer
   const char1 = String.fromCharCode((code >>> 24) & 0xFF);

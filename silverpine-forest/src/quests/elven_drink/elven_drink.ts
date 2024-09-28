@@ -146,8 +146,7 @@ export class ElvenDrink extends BaseQuest {
   }) {
     super(globals);
     neutralHostileTypes.sort((u1, u2) => u1.hp - u2.hp);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.register();
+    void this.register();
   }
 
   private async register(): Promise<void> {

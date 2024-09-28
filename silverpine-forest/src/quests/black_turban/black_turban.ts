@@ -19,7 +19,6 @@ import {
 } from 'lib/unit';
 import {
   pickRandom, pickRandomWeighted, shuffleArray, waitUntil,
-  waitUntilAsync,
 } from 'lib/utils';
 import { MapPlayer, sleep, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
@@ -131,8 +130,7 @@ export class BlackTurban extends BaseQuest {
     safeRects: rect[]
   }) {
     super(globals);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.register();
+    void this.register();
   }
 
   private async register(): Promise<void> {
@@ -153,7 +151,7 @@ export class BlackTurban extends BaseQuest {
 
     const isUnsafeLoc = (loc: Loc): boolean => safeRects.every((rect) => !isLocInRect(loc, rect));
 
-    waitUntilAsync(1, () => {
+    void waitUntil(1, () => {
       if (!banditKing.isAlive()) {
         notifyEventCompleted('Black Turban Syndicate has been destroyed. They will no longer attack you at night.');
       }
@@ -242,17 +240,15 @@ export class BlackTurban extends BaseQuest {
       const banditSound = attempt < banditFirstSounds.length
         ? banditFirstSounds[attempt]
         : banditAgainSounds[attempt % banditAgainSounds.length];
-      waitUntilAsync(1, () => {
+      void waitUntil(1, () => {
         if (Distance(leader, victim) < 700) {
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          playSpeech(leader, banditSound);
+          void playSpeech(leader, banditSound);
           return true;
         }
         return false;
       }, 20);
 
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      this.handleBanditAttack(bandits, victim);
+      void this.handleBanditAttack(bandits, victim);
 
       await waitUntil(2, () => getTimeS() - attackTimeS > 120);
     }
@@ -266,7 +262,7 @@ export class BlackTurban extends BaseQuest {
     // Make sure stucked bandits are eventually dead
     const initLocs = new Map(bandits.map((u) => [u, currentLoc(u)]));
     let bandits1 = bandits;
-    waitUntilAsync(5, (idx) => {
+    void waitUntil(5, (idx) => {
       if (idx === 0) return false;
       bandits1.forEach((u) => {
         if (Distance(u, initLocs.get(u)) < 100) {

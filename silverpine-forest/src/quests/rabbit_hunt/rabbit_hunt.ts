@@ -47,8 +47,7 @@ export class RabbitHunt extends BaseQuest {
     wheatFieldRects: rect[]
   }) {
     super(globals);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.register();
+    void this.register();
 
     onChatCommand('-cheat rh', true, () => {
       const { wheatFieldRects } = this.globals;

@@ -22,7 +22,7 @@ import { setAttention } from 'lib/systems/unit_interaction';
 import {
   enumUnitsWithDelay, getUnitsInRect, isUnitIdle, setNeverDie, setUnitFacingWithRate,
 } from 'lib/unit';
-import { pickRandom, waitUntil, waitUntilAsync } from 'lib/utils';
+import { pickRandom, waitUntil, waitUntil } from 'lib/utils';
 import {
   Effect, sleep, Sound, Unit,
 } from 'w3ts';
@@ -101,8 +101,7 @@ export class GatherSheeps extends BaseQuest {
     outroSounds[3] = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-outro-3.mp3', 'Timmy', outroDialogues[3]);
 
     goHomeSound = createDialogSound('QuestSounds\\__refined\\gather-sheeps\\gather-sheeps-timmy-go-home.mp3', 'Timmy', goHomeDialogue);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.register();
+    void this.register();
   }
 
   private async register(): Promise<void> {
@@ -135,7 +134,7 @@ export class GatherSheeps extends BaseQuest {
         const sleepEffect = Effect.createAttachment(MODEL_SleepTarget, sheepBoy, 'overhead');
         // mimic sleep animation
         let canSleep = true;
-        waitUntilAsync(5, () => {
+        void waitUntil(5, () => {
           if (!sheepBoy.isAlive()) {
             sheepBoy.setTimeScale(1);
             sleepEffect.destroy();
@@ -162,8 +161,7 @@ export class GatherSheeps extends BaseQuest {
 
         // Quest done, now go home
         if (!this.isFailed()) {
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          playSpeech(sheepBoy, goHomeSound, traveler);
+          void playSpeech(sheepBoy, goHomeSound, traveler);
         }
 
         if (level === maxLevel) {

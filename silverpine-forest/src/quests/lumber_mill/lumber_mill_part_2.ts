@@ -20,7 +20,7 @@ import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
 import { getUnitsInRangeOfLoc, setNeverDie, setUnitFacingWithRate } from 'lib/unit';
-import { waitUntil, waitUntilAsync } from 'lib/utils';
+import { waitUntil, waitUntil } from 'lib/utils';
 import {
   Unit,
 } from 'w3ts';
@@ -82,8 +82,7 @@ export class LumberMillPart2 extends BaseQuest {
     homeRect: rect
   }) {
     super(globals);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.register();
+    void this.register();
   }
 
   private async register(): Promise<void> {
@@ -148,8 +147,7 @@ export class LumberMillPart2 extends BaseQuest {
           u.issueImmediateOrder(OrderId.Stop);
           guardCurrentPosition(u);
           if (u.typeId === UNIT_Footman.id && !footmenFearSpoke) {
-            // eslint-disable-next-line @typescript-eslint/no-floating-promises
-            playSpeech(u, footmanFear);
+            void playSpeech(u, footmanFear);
             footmenFearSpoke = true;
           }
         }
@@ -157,8 +155,7 @@ export class LumberMillPart2 extends BaseQuest {
       return escortUnits.every((u) => Distance(u, lumberMillLoc) < distanceThreshold || !u.isAlive());
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    questLog.completeItem(0);
+    void questLog.completeItem(0);
 
     // Undead started attacking
     setAllianceState2Way(mainPlayer, playerHumanAlliance, 'allied');
@@ -166,7 +163,7 @@ export class LumberMillPart2 extends BaseQuest {
     setAllianceState2Way(mainPlayer, playerForsaken, 'enemy');
 
     removeGuardPosition(...undeadAttackers);
-    waitUntilAsync(1, () => { // non-blocking
+    void waitUntil(1, () => { // non-blocking
       const victim = [...footmen, traveler].find((u) => u.isAlive());
       if (!victim) return true;
       undeadAttackers.forEach((u) => setGuardPosition(u, victim, GetRandomDirectionDeg()));
@@ -197,7 +194,7 @@ export class LumberMillPart2 extends BaseQuest {
     await talkGroup2.speak(peter, peterRunForLife, null, null);
     talkGroup2.finish();
 
-    waitUntilAsync(1, () => { // make sure they enter their house, do not block thread
+    void waitUntil(1, () => { // make sure they enter their house, do not block thread
       if (isLocInRect(peter, homeRect)) peter.show = false;
       if (isLocInRect(john, homeRect)) john.show = false;
       const isDone = (isLocInRect(peter, homeRect) || !peter.isAlive())
@@ -214,7 +211,7 @@ export class LumberMillPart2 extends BaseQuest {
 
     // knight gareth casts protection if low till end of quest
     // so that he doesn't die accidentally
-    waitUntilAsync(1, () => {
+    void waitUntil(1, () => {
       if (knight.life < knight.maxLife - 300) {
         knight.issueImmediateOrder(OrderId.Divineshield);
         return true;
@@ -228,8 +225,7 @@ export class LumberMillPart2 extends BaseQuest {
       const newUndeadAlive = undeadAttackers.filter((u) => u.isAlive()).length;
       if (undeadAlive !== newUndeadAlive) {
         undeadAlive = newUndeadAlive;
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        questLog.updateItem(1, `${questItems[1]} (${undeadAlive} / ${undeadAttackers.length})`);
+        void questLog.updateItem(1, `${questItems[1]} (${undeadAlive} / ${undeadAttackers.length})`);
       }
       if (undeadAlive === 0) {
         footmen.filter((u) => u.isAlive()).forEach((u) => setTimeout(GetRandomReal(0, 2), () => u.kill()));
@@ -243,8 +239,7 @@ export class LumberMillPart2 extends BaseQuest {
     removeGuardPosition(...footmen, ...undeadAttackers);
 
     escortUnits.forEach((u) => u.shareVision(traveler.owner, false));
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    questLog.updateItem(1, `${questItems[1]} (${undeadAttackers.length} / ${undeadAttackers.length})`);
+    void questLog.updateItem(1, `${questItems[1]} (${undeadAttackers.length} / ${undeadAttackers.length})`);
     await questLog.completeItem(1);
     await questLog.insertItem(questItems[2]);
     traveler = await this.waitForTurnIn(knight);

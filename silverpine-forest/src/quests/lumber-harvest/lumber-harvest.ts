@@ -28,7 +28,7 @@ import { setIntervalIndefinite } from 'lib/trigger';
 import {
   getUnitsInRect, getUnitsOfPlayer, isUnitIdle, isUnitRemoved, setNeverDie,
 } from 'lib/unit';
-import { pickRandom, waitUntil, waitUntilAsync } from 'lib/utils';
+import { pickRandom, waitUntil, waitUntil } from 'lib/utils';
 import { BlackTurban } from 'quests/black_turban/black_turban';
 import {
   Effect,
@@ -154,8 +154,7 @@ export class LumberHarvest extends BaseQuest {
     treeRects: rect[]
   }) {
     super(globals);
-    /* eslint-disable-next-line @typescript-eslint/no-floating-promises */
-    this.register();
+    void this.register();
   }
 
   private async register(): Promise<void> {
@@ -255,7 +254,7 @@ export class LumberHarvest extends BaseQuest {
     questLog.hint('Defend your camp by building Scout Towers then upgrade to Guard Tower, Cannon Tower, or Arcane Tower.');
 
     // Dialogues when wolves attack
-    waitUntilAsync(1, () => {
+    void waitUntil(1, () => {
       if (this.isOver()) return true;
       const isAttacking = enemies.some((u) => !isUnitIdle(u));
       if (isAttacking) {
@@ -277,8 +276,7 @@ export class LumberHarvest extends BaseQuest {
               if (this.isOver()) return true;
               const allEnemiesDead = enemies.every((u) => !u.isAlive());
               if (allEnemiesDead) {
-                // eslint-disable-next-line @typescript-eslint/no-floating-promises
-                playSpeechUnitType(UNIT_Footman, footmanSounds[5]);
+                void playSpeechUnitType(UNIT_Footman, footmanSounds[5]);
               }
               return allEnemiesDead;
             });
@@ -289,7 +287,7 @@ export class LumberHarvest extends BaseQuest {
 
     // Hint build more lumber mills
     const initialTreeCount = trees.length;
-    waitUntilAsync(1, () => {
+    void waitUntil(1, () => {
       if (this.isOver()) return true;
       if (trees.length === initialTreeCount - 10) {
         questLog.hint('Construct additional Lumber Mills to train more Peasants simultaneously and reduce the distance they travel to deliver lumber.');
@@ -299,11 +297,10 @@ export class LumberHarvest extends BaseQuest {
     });
 
     // Almost there dialogue
-    waitUntilAsync(1, () => {
+    void waitUntil(1, () => {
       if (this.isOver()) return true;
       if (trees.length <= 5) {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        playSpeechUnitType(UNIT_Footman, footmanSounds[6]);
+        void playSpeechUnitType(UNIT_Footman, footmanSounds[6]);
         return true;
       }
       return false;
@@ -332,7 +329,7 @@ export class LumberHarvest extends BaseQuest {
 
       let humanBuildings = getUnitsOfPlayer(mainPlayer, (u) => humanBuildingTypes.includes(u.typeId));
 
-      waitUntilAsync(1, () => {
+      void waitUntil(1, () => {
         humanUnits = humanUnits.filter((u) => !isUnitRemoved(u));
         humanBuildings = humanBuildings.filter((u) => u.isAlive());
         humanUnits.forEach((u) => {

@@ -80,18 +80,29 @@ gg_rct_Wordless_book_boss_2 = nil
 gg_rct_Wordless_book_boss_3 = nil
 gg_rct_Orc_attack_failed_return = nil
 gg_rct_Black_turban_base = nil
+gg_rct_Farm_north_outpost = nil
+gg_rct_Farm_massacre_john_loc = nil
+gg_rct_Farm_massacre_Undead_spawn_2 = nil
+gg_rct_Farm_massacre_Undead_spawn_1 = nil
+gg_rct_Farm_massacre_Undead_spawn_3 = nil
+gg_rct_Farm_massacre_Undead_spawn_4 = nil
+gg_rct_Gilneas_camp = nil
+gg_rct_Shadowfang_peasants_lumber_2 = nil
 gg_snd_lich_king_stab_out = nil
 gg_snd_lichking_frostmourne_hungers = nil
+gg_snd_TragicConfrontation = ""
 gg_trg_Doodads = nil
 gg_trg_Unit_register = nil
 gg_trg_Doodads_register = nil
 gg_unit_nmoo_0068 = nil
+gg_unit_Ekee_0024 = nil
 gg_unit_nvil_0035 = nil
 gg_unit_nvk2_0064 = nil
 gg_unit_n008_0096 = nil
 gg_unit_n008_0942 = nil
 gg_unit_n008_0095 = nil
 gg_unit_Hamg_0109 = nil
+gg_unit_hfoo_0115 = nil
 gg_unit_nbld_0128 = nil
 gg_unit_hkni_0134 = nil
 gg_unit_Hpb1_0145 = nil
@@ -114,17 +125,6 @@ gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
-gg_rct_Farm_north_outpost = nil
-gg_rct_Farm_massacre_john_loc = nil
-gg_rct_Farm_massacre_Undead_spawn_2 = nil
-gg_rct_Farm_massacre_Undead_spawn_1 = nil
-gg_rct_Farm_massacre_Undead_spawn_3 = nil
-gg_rct_Farm_massacre_Undead_spawn_4 = nil
-gg_snd_TragicConfrontation = ""
-gg_unit_hfoo_0115 = nil
-gg_unit_Ekee_0024 = nil
-gg_rct_Gilneas_camp = nil
-gg_rct_Shadowfang_peasants_lumber_2 = nil
 function InitGlobals()
 end
 
@@ -1017,9 +1017,9 @@ local life
 
 u = BlzCreateUnitWithSkin(p, FourCC("ewsp"), -18648.1, -6329.3, 43.551, FourCC("ewsp"))
 u = BlzCreateUnitWithSkin(p, FourCC("earc"), -18631.0, -6848.3, 127.740, FourCC("earc"))
-u = BlzCreateUnitWithSkin(p, FourCC("earc"), -18617.1, -6615.3, -67.920, FourCC("earc"))
+u = BlzCreateUnitWithSkin(p, FourCC("earc"), -18617.1, -6615.3, 292.080, FourCC("earc"))
 u = BlzCreateUnitWithSkin(p, FourCC("esen"), -18492.0, -7101.6, 277.890, FourCC("esen"))
-u = BlzCreateUnitWithSkin(p, FourCC("edot"), -18409.5, -6634.9, -33.699, FourCC("edot"))
+u = BlzCreateUnitWithSkin(p, FourCC("edot"), -18409.5, -6634.9, 326.301, FourCC("edot"))
 SetUnitState(u, UNIT_STATE_MANA, 200)
 gg_unit_Ekee_0024 = BlzCreateUnitWithSkin(p, FourCC("Ekee"), -18123.8, -6730.1, 234.010, FourCC("Ekee"))
 SetHeroLevel(gg_unit_Ekee_0024, 6, false)

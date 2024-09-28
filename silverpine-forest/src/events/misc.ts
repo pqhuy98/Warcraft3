@@ -345,8 +345,7 @@ export class MiscEvents {
       });
       t.addAction(() => {
         const killer = Unit.fromHandle(GetKillingUnit());
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        playSpeech(killer, freshMeatSound);
+        void playSpeech(killer, freshMeatSound);
         killer.life = killer.maxLife;
       });
     });

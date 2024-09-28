@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Timer, Trigger } from 'w3ts';
 
 import { k0, k1 } from './debug/key_counter';

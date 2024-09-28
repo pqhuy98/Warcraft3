@@ -68,8 +68,7 @@ export default class WrathOfTheLichKing {
 
         caster.setAnimation(4);
         setTimeout(0, () => {
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          playSoundIsolate(gg_snd_lich_king_stab_out, 100, 0);
+          void playSoundIsolate(gg_snd_lich_king_stab_out, 100, 0);
           k1('wotlk1');
         });
 
@@ -138,8 +137,7 @@ export default class WrathOfTheLichKing {
 
         setTimeout(animationDurationSwordUp + animationDurationSwordSlam + 1, () => {
           if (caster.isAlive()) {
-            // eslint-disable-next-line @typescript-eslint/no-floating-promises
-            playSpeech(caster, Sound.fromHandle(gg_snd_lichking_frostmourne_hungers));
+            void playSpeech(caster, Sound.fromHandle(gg_snd_lichking_frostmourne_hungers));
           }
           k1('wotlk5');
         });

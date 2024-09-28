@@ -194,8 +194,7 @@ export class CementeryParty {
         const snd = pickRandom(isAggressive ? attackSounds.get(unit) : chatSounds.get(unit));
         if (snd) {
           const volume = !isAggressive ? GetRandomInt(1, 15) : GetRandomInt(15, 30);
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          playSoundUnit(unit, snd, volume);
+          void   playSoundUnit(unit, snd, volume);
         }
       }
     }));

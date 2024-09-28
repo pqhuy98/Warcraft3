@@ -39,6 +39,7 @@ module.exports = {
     },
   ],
   rules: {
+    "no-void": "off",
     "@stylistic/ts/type-annotation-spacing": "error",
     "@typescript-eslint/explicit-function-return-type": "warn",
     "@typescript-eslint/no-unsafe-enum-comparison": "off",

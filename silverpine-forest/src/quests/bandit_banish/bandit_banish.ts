@@ -14,7 +14,7 @@ import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
 import { buildTrigger } from 'lib/trigger';
 import { getUnitsInRangeOfLoc, isOrganic, setNeverDie } from 'lib/unit';
-import { waitUntil, waitUntilAsync } from 'lib/utils';
+import { waitUntil, waitUntil } from 'lib/utils';
 import {
   Effect,
   sleep,
@@ -104,8 +104,7 @@ export class BanditBanish extends BaseQuest {
     sightBlockersRect: rect
   }) {
     super(globals);
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.register();
+    void this.register();
   }
 
   private async register(): Promise<void> {
@@ -186,14 +185,12 @@ export class BanditBanish extends BaseQuest {
       bandit,
       (enemy) => enemy.isAlive() && enemy.owner === traveler.owner && enemy.isVisible(bandit.owner),
     ).length > 0));
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    playSpeech(banditLord, banditSounds[0]);
+    void playSpeech(banditLord, banditSounds[0]);
 
     // Play last words when bandit lords is low
-    waitUntilAsync(1, () => {
+    void waitUntil(1, () => {
       if (!banditLord.isAlive() || bandits.filter((u) => u.isAlive()).length <= 1) {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        playSpeech(banditLord, banditSounds[1]);
+        void playSpeech(banditLord, banditSounds[1]);
         return true;
       }
       return false;
