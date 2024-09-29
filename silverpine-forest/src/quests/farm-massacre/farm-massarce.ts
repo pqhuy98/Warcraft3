@@ -5,7 +5,7 @@ import {
 import {
   centerLocRect, isLocInRect, PolarProjection, tempLocation,
 } from 'lib/location';
-import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import { cinematicFadeOut, cinematicMode } from 'lib/quests/utils';
 import { getUnitSounds } from 'lib/resources/unit-sounds';
 import { ABILITY_DetectMagicSentinel, ABILITY_Locust } from 'lib/resources/war3-abilities';
@@ -26,13 +26,13 @@ import { sleep, Sound, Unit } from 'w3ts';
 
 import { BaseQuest, BaseQuestProps } from '../base';
 
-const footmanSound = createDialogSound(
+const footmanSound = dialogue(
   'QuestSounds\\__refined\\farm-massacre\\farm-massacre-footman-1.mp3',
   'Footman',
   'Arghh... They came... everyone... dead...',
 );
 footmanSound.setVolume(50);
-const johnSound = createDialogSound(
+const johnSound = dialogue(
   'QuestSounds\\__refined\\farm-massacre\\farm-massacre-john-1.mp3',
   'Villager John',
   'Run... before they get you...',

@@ -14,7 +14,7 @@ import {
 } from 'lib/location';
 import { log } from 'lib/log';
 import { isComputer, isUser, setAllianceState2Way } from 'lib/player';
-import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import { ABILITY_PaladinHolyLight, ABILITY_Wander } from 'lib/resources/war3-abilities';
 import { MODEL_BrewmasterTarget, MODEL_FrostNovaTarget, MODEL_InnerFireTarget } from 'lib/resources/war3-models';
 import { ORDER_AutoHarvestGold, ORDER_AutoHarvestLumber } from 'lib/resources/war3-orders';
@@ -335,7 +335,7 @@ export class MiscEvents {
     });
 
     // Butcher kills heroes
-    const freshMeatSound = createDialogSound('Sound\\Dialogue\\HumanExpCamp\\Human06x\\BUTCHER.WAV', 'Butcher', '...');
+    const freshMeatSound = dialogue('Sound\\Dialogue\\HumanExpCamp\\Human06x\\BUTCHER.WAV', 'Butcher', '...');
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
       t.addCondition(() => {

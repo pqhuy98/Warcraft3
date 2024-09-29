@@ -3,7 +3,7 @@ import { neutralPassive } from 'lib/constants';
 import {
   randomLocRect,
 } from 'lib/location';
-import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
@@ -29,12 +29,12 @@ const rewardItem = FourCC('manh'); // Manual of Health
 const rewardXp = 300;
 
 const jacobSounds = [
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\rabbit-hunt\\rabbit-hunt-jacob-intro.mp3',
     'Villager Jacob',
     'Hello there. Our wheat field is being overrun by rabbits, and they\'re destroying our crops. Could you help us by hunting down all the rabbits in the field?',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\rabbit-hunt\\rabbit-hunt-jacob-outro.mp3',
     'Villager Jacob',
     'With the rabbits gone, we have a chance to save our harvest. Thanks again, and please, stay safe out there.',

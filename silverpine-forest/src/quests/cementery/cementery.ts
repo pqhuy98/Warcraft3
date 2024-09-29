@@ -5,7 +5,7 @@ import {
 import {
   centerLocRect, Distance, isLocInRect, PolarProjection,
 } from 'lib/location';
-import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
@@ -56,23 +56,23 @@ const questItems = [
 const introSounds = [
   // Gwen - 11Labs Gigi
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady1-1.mp3',
       'Ghost Gwen',
       'Ugh, I can’t believe we didn’t get invited to the Phantom Fest. It’s like, the party of the century!',
     ),
 
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady1-2.mp3',
       'Ghost Gwen',
       'Seriously! And, I heard they’re serving ectoplasm cocktails. Like, what even is that? It sounds totally rad!',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady1-3.mp3',
       'Ghost Gwen',
       'You\'re right, Bella. Hey, you there, warrior! Wanna help some lovely ladies out?',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady1-4.mp3',
       'Ghost Gwen',
       'So, what do you say? Help us crash the party? It’ll be a haunted blast!',
@@ -80,22 +80,22 @@ const introSounds = [
   ],
   // Lila - 11Labs Jessica
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady2-1.mp3',
       'Ghost Lila',
       'I know, right? Everyone who’s anyone will be there. Elite ghosts, high-quality guys… It’s so unfair!',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady2-2.mp3',
       'Ghost Lila',
       'We need to find a way in, for real. But how? We don’t have invitations.',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady2-3.mp3',
       'Ghost Lila',
       'Yeah, there’s this wicked party, called Phantom Fest at the big Cemetery. Totally exclusive.',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady2-4.mp3',
       'Ghost Lila',
       'Pleaaase? You just need to pay a little visit for us. No biggie!',
@@ -103,22 +103,22 @@ const introSounds = [
   ],
   // Bella - 11Labs Lily
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady3-1.mp3',
       'Ghost Bella',
       'And did you hear? They’re having this super cool spectral dance-off! I would have so owned that dance floor.',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady3-2.mp3',
       'Ghost Bella',
       'Speaking of which, who’s that mortal coming up here? Maybe we can use him…',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady3-3.mp3',
       'Ghost Bella',
       'All the cool ghosts will be there. Like, elite level. We’re talking high-quality guys.',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady3-4.mp3',
       'Ghost Bella',
       'We bet you like adventure, right? This will be the most thrilling one yet!',
@@ -129,7 +129,7 @@ const introSounds = [
 const joinSounds = [
   // Gwen
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady1-5.mp3',
       'Ghost Gwen',
       'Hey, look at this place! It\'s even more spectral than we imagined! The grand Phantom Fest!',
@@ -137,7 +137,7 @@ const joinSounds = [
   ],
   // Lila
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady2-5.mp3',
       'Ghost Lila',
       'Totally! This is your chance to shine, mortal. Mingle with everyone. The more people you talk to, the cooler you\'ll be!',
@@ -148,7 +148,7 @@ const joinSounds = [
 const pooperSounds = [
   // Bella
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady3-5.mp3',
       'Ghost Bella',
       'Ugh, there\'s always one party pooper. That downer over there just started a scene.',
@@ -156,7 +156,7 @@ const pooperSounds = [
   ],
   // Gwen
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady1-6.mp3',
       'Ghost Gwen',
       'Stay sharp, mortal. Sometimes a little chaos can be a blast. Just keep your eyes open!',
@@ -167,7 +167,7 @@ const pooperSounds = [
 const midFightSounds = [
   // Lila
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady2-6.mp3',
       'Ghost Lila',
       'Oh, things are heating up! Everyone’s losing it!',
@@ -175,7 +175,7 @@ const midFightSounds = [
   ],
   // Gwen
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady1-7.mp3',
       'Ghost Gwen',
       'Quick! Take out as many of those crazies as you can. Trust us, nothing ups your coolness faster than surviving and thriving in a ghost brawl!',
@@ -186,7 +186,7 @@ const midFightSounds = [
 const winSounds = [
   // Bella
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady3-6.mp3',
       'Ghost Bella',
       'Wow! You really outdid yourself! You\'re the life of the party!',
@@ -194,7 +194,7 @@ const winSounds = [
   ],
   // Gwen
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady1-8.mp3',
       'Ghost Gwen',
       'Absolutely! We couldn\'t have crashed this party any better without you. You\'re legendary! We can\'t wait for the next Phantom Fest with you. Goodbye for now!',
@@ -205,7 +205,7 @@ const winSounds = [
 const loseSounds = [
   // Lila
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady2-7.mp3',
       'Ghost Lila',
       'Well, that was... something. It got a bit out of hand, but hey, you did great!',
@@ -213,7 +213,7 @@ const loseSounds = [
   ],
   // Gwen
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady1-9.mp3',
       'Ghost Gwen',
       'Yeah, maybe it wasn\'t perfect, but you still rocked it. Gotta say goodbye now, we\'re all too exhausted from the fun. See you in the afterlife!',
@@ -224,7 +224,7 @@ const loseSounds = [
 const leaveSounds = [
   // Lila
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady2-8.mp3',
       'Ghost Lila',
       'Oh no, you\'re leaving? Looks like we have no choice but to leave with you. We were finally starting to have some fun!',
@@ -232,7 +232,7 @@ const leaveSounds = [
   ],
   // Gwen
   [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\cementery\\cementary-lady1-10.mp3',
       'Ghost Gwen',
       'Leaving already, huh? That means we\'re out too. We were hoping you\'d stick around a bit longer. What a disappointment...',

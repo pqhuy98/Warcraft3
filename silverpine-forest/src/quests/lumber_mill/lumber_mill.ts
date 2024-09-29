@@ -6,7 +6,7 @@ import {
   templocation,
 } from 'lib/location';
 import { setAllianceState2Way } from 'lib/player';
-import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
@@ -35,34 +35,34 @@ const questItems = [
 ];
 const rewardXp = 600;
 
-const johnIntro = createDialogSound(
+const johnIntro = dialogue(
   'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-intro.mp3',
   'Villager John',
   "Ugh, we're never gonna fix this wheelbarrow without more lumber! The lumberjack team should've brought back wood hours ago.",
 );
-const peterIntro = createDialogSound(
+const peterIntro = dialogue(
   'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-intro.mp3',
   'Villager Peter',
   "Something's not right. Could you head southwest to the lumber mill and see what's taking so long? We really need that wood.",
 );
 
-const peterOutro1 = createDialogSound(
+const peterOutro1 = dialogue(
   'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-outro-1.mp3',
   'Villager Peter',
   "What?! The lumberjacks are dead and there's an undead base nearby? Forget the wheelbarrow, we need to report this to the army!",
 );
-const johnOutro1 = createDialogSound(
+const johnOutro1 = dialogue(
   'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-outro-1.mp3',
   'Villager John',
   "Thank you for bringing the lumber, but this is far more urgent. We're heading to town right away.",
 );
 
-const johnOutro2 = createDialogSound(
+const johnOutro2 = dialogue(
   'QuestSounds\\__refined\\lumber-mill\\lumber-mill-john-outro-2.mp3',
   'Villager John',
   'Oh my... Peter,... look at all the bodies!',
 );
-const peterOutro2 = createDialogSound(
+const peterOutro2 = dialogue(
   'QuestSounds\\__refined\\lumber-mill\\lumber-mill-peter-outro-2.mp3',
   'Villager Peter',
   'This... this is a massacre... We need to get out of here ... before they come back!',

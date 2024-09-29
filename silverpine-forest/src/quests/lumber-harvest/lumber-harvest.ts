@@ -10,7 +10,7 @@ import {
 import { getDestructablesInRect } from 'lib/destructable';
 import { Angle, Distance, PolarProjection } from 'lib/location';
 import { expandHull, getConvexHull, placeCircles } from 'lib/maths/convex_hull';
-import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import { QuestLog } from 'lib/quests/quest_log';
 import { TalkGroup } from 'lib/quests/talk_group';
 import {
@@ -46,47 +46,47 @@ const questItems = [
 ];
 
 const footmanSounds = [
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-footman-1.mp3',
     'Footman',
     'Listen up, everyone. We need to clear this forest so Shadowfang city can start constructing a new factory here.',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-footman-2.mp3',
     'Footman',
     'No excuses! We have to get this done. Keep your eyes sharp and stay together.',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-footman-3.mp3',
     'Footman',
     'Get a hold of yourselves! We need to defend our position. Start building watch towers, now!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-footman-4.mp3',
     'Footman',
     'Keep your positions! Those watch towers will help us fend them off. Trust in our defenses and fight back!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-footman-5.mp3',
     'Footman',
     'Where are the watch towers? I told you to build watch towers!! Damn it, hold the line with what we have and defend yourselves! We can\'t afford to fail now!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-footman-6.mp3',
     'Footman',
     'Well done, everyone. The wolves are gone. Let\'s finish chopping the trees.',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-footman-7.mp3',
     'Footman',
     'We\'re almost there! Just a few more trees and the land will be cleared for the new factory. Keep going!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-footman-8.mp3',
     'Footman',
     'Excellent work, everyone. Shadowfang city can now proceed with the construction thanks to your efforts. You’ve all earned some well-deserved rest.',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-footman-9.mp3',
     'Footman',
     'Watch towers!! Why didn\'t you upgrade the watch towers??!! Damn it, these basic towers are useless! Hold the line with what we have and defend yourselves! We can’t afford to fail now!',
@@ -94,22 +94,22 @@ const footmanSounds = [
 ];
 
 const peasantSounds = [
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-peasant-1.mp3',
     'Peasant',
     'But sir, this forest is known for its wolves…',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-peasant-2.mp3',
     'Peasant',
     'Did you hear that? Wolves! We\'re going to get eaten alive!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-peasant-3.mp3',
     'Peasant',
     'Wolves! They\'re attacking us!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-peasant-4.mp3',
     'Peasant',
     'We did it! The forest is cleared!',

@@ -4,7 +4,7 @@ import {
   centerLocRect, currentLoc, Distance, isLocInRect, Loc,
 } from 'lib/location';
 import { log } from 'lib/log';
-import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import { notifyEventCompleted } from 'lib/quests/quest_log';
 import { neutralHostileMap } from 'lib/resources/neutral_hostile';
 import {
@@ -37,12 +37,12 @@ const banditTypes: [UNIT_TYPE, number][] = [
 const weakestBanditPower = banditTypes.reduce((acc, [{ id }]) => Math.min(acc, neutralHostileMap.get(id).hp), 9999);
 
 const banditFirstSounds = [
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-1.mp3',
     'Black Turban\'s bandit',
     'You thought you could wipe out one of our camps and face no consequences? The Black Turban Syndicate doesn\'t forgive, and today we avenge our fallen brothers!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-12.mp3',
     'Black Turban\'s bandit',
     'We may have failed before, but the Black Turban Syndicate\'s vengeance always finds a way—ask those we drowned in the river; they\'ll tell you we never stop.',
@@ -50,57 +50,57 @@ const banditFirstSounds = [
 ];
 
 const banditAgainSounds = [
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-2.mp3',
     'Black Turban\'s bandit',
     'We\'re back, and this time we won\'t fail—consider this your final warning from the Black Turban Syndicate!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-3.mp3',
     'Black Turban\'s bandit',
     'Did you really believe you could escape our wrath? The Black Turban Syndicate always collects its debts!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-4.mp3',
     'Black Turban\'s bandit',
     'Time and time again, you\'ve slipped through our grasp, but the Black Turban Syndicate is relentless—we won\'t stop until vengeance is ours!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-5.mp3',
     'Black Turban\'s bandit',
     'You\'ve beaten us before, but the Black Turban Syndicate\'s resolve is unbreakable—we\'re here to settle this once and for all!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-6.mp3',
     'Black Turban\'s bandit',
     'No matter how many times we fall, we rise stronger—this time, you\'ll pay for every defeat you\'ve handed the Black Turban Syndicate!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-7.mp3',
     'Black Turban\'s bandit',
     'You\'ve escaped us before, but the shadows grow darker—the Black Turban Syndicate will haunt your every step until we have our revenge.',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-8.mp3',
     'Black Turban\'s bandit',
     'Every failure tightens our grip—tonight, the Black Turban Syndicate brings nightmares you can\'t escape.',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-9.mp3',
     'Black Turban\'s bandit',
     'You\'ve escaped our grasp before, but the Black Turban Syndicate will never relent—just like those who dared defy us in the past, whose screams still echo in the night!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-10.mp3',
     'Black Turban\'s bandit',
     'Your luck won\'t save you forever—the Black Turban Syndicate has a dark history with its enemies, and soon, you\'ll join the ranks of those who vanished into the shadows.',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-11.mp3',
     'Black Turban\'s bandit',
     'You\'ve escaped us too many times, but the Black Turban Syndicate never forgets—ever heard the screams of those we buried alive? Your turn is coming!',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\black-turban\\black-turban-bandit-13.mp3',
     'Black Turban\'s bandit',
     'The Black Turban Syndicate flayed our last defector alive and left him for the vultures; your fate will be even worse.',

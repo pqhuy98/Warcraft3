@@ -1,5 +1,5 @@
 import { getDestructablesInRect } from 'lib/destructable';
-import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import { UNIT_Knight, UNIT_MortarTeam } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
 import { removeAttention, UnitInteraction } from 'lib/systems/unit_interaction';
@@ -10,34 +10,34 @@ import { BaseQuest, BaseQuestProps } from '../base';
 
 const unitSounds = {
   [UNIT_Knight.id]: [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-1.mp3',
       'Knight',
       'Guards, open the gate!',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-2.mp3',
       'Knight',
       'Open the gate now!',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-knight-3.mp3',
       'Knight',
       'Get that gate open!',
     ),
   ],
   [UNIT_MortarTeam.id]: [
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-1.mp3',
       'Mortar team',
       'Open the gate for our visitor!',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-2.mp3',
       'Mortar team',
       'Let our friend through!',
     ),
-    createDialogSound(
+    dialogue(
       'QuestSounds\\__refined\\shadow-fang-gate\\shadow-fang-gate-mortar-3.mp3',
       'Mortar team',
       'Unlock the gate for our comrade!',

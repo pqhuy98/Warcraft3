@@ -7,7 +7,7 @@ import { generateFogLocsBehindTrees } from 'lib/destructable';
 import {
   currentLoc, Destroyable, Distance,
 } from 'lib/location';
-import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import { QuestLog } from 'lib/quests/quest_log';
 import { TalkGroup } from 'lib/quests/talk_group';
 import { cinematicFadeIn, cinematicFadeOut, setMinimapIconUnit } from 'lib/quests/utils';
@@ -38,101 +38,101 @@ type MonsterType = typeof neutralHostileTypes[number]
 const hardestMinimumLife = 2000;
 const hardestMinimumDamage = 100;
 
-const elfFirstSound = createDialogSound(
+const elfFirstSound = dialogue(
   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-1.mp3',
   'Thalandor',
   'Greetings, traveler! I am Thalandor, esteemed brewer of the finest elixirs in all of Silvermoon. You must try my latest creation—it\'s a blend so exquisite, it will make you see the world in a whole new light!',
 );
 
 const elfAgainSounds = [
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-3.mp3',
     'Thalandor',
     'Look who\'s back from their unexpected \'vacation\'! Ready to indulge in another taste of unparalleled brilliance—or should I say, visions?',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-2.mp3',
     'Thalandor',
     'Ah, you\'ve returned! I see my brew left a lasting impression... or a series of them. Care for another round of passionate, unforgettable dreams?',
   ),
-  // createDialogSound(
+  // dialogue(
   //   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-4.mp3',
   //   'Thalandor',
   //   'Remarkable! You survived the soul-stirring experience last time. Naturally, you\'d crave more of my exquisite, reality-bending creation.',
   // ),
-  // createDialogSound(
+  // dialogue(
   //   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-6.mp3',
   //   'Thalandor',
   //   'Well, you\'ve re-emerged from whatever dreams my concoction blessed you with! Eager for another round of ethereal escapades?',
   // ),
-  // createDialogSound(
+  // dialogue(
   //   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-7.mp3',
   //   'Thalandor',
   //   'Ah, there you are again! My neighbor, Lyndor, sipped my brew and swore he spent an afternoon having tea with a dragon; shall we see where it takes you this time?',
   // ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-8.mp3',
     'Thalandor',
     'Ah, back for more, are we? You remind me of brave Sir Lorsan who, after one sip, claimed he single-handedly defeated an army of orcs—while safely tucked in his bed, of course. Care for another round?',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-9.mp3',
     'Thalandor',
     'Ah, welcome back, brave soul! You know, the last villager claimed he saw a dozen Hydras dancing in his garden after just one sip. Care to challenge your senses again?',
   ),
-  // createDialogSound(
+  // dialogue(
   //   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-10.mp3',
   //   'Thalandor',
   //   'Look who\'s returned! A traveler from Lordaeron swore he conversed with an army of spectral orcs after enjoying my brew. Shall we see what marvels lie in store for you this time?',
   // ),
-  // createDialogSound(
+  // dialogue(
   //   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-11.mp3',
   //   'Thalandor',
   //   'Welcome, brave soul! My drink apparently made an orc compose poetry about rainbows—wonder what it will inspire in you this time! Ready for another sip?',
   // ),
-  // createDialogSound(
+  // dialogue(
   //   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-12.mp3',
   //   'Thalandor',
   //   'Well, if it isn\'t my most daring patron! One sip of my brew apparently convinced a paladin that his hammer was singing to him. Shall we toast to more enchanting experiences?',
   // ),
-  // createDialogSound(
+  // dialogue(
   //   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-13.mp3',
   //   'Thalandor',
   //   'Ah, you\'ve returned! The last knight who tried my brew claimed he battled shadowy nightmares for three nights straight. Ready for another encounter with the surreal?',
   // ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-14.mp3',
     'Thalandor',
     'Ah, you\'ve returned, brave soul! Last time, you spoke of a harrowing dream, surrounded by endless horrors. Dare you face another round?',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-15.mp3',
     'Thalandor',
     'I see you seek more of my brew. Be cautious—your nightmares grow darker with each drink. Ready to face them again?',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-16.mp3',
     'Thalandor',
     'Each sip plunges you deeper into more terrifying dreams. Are you sure you want to continue?',
   ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-17.mp3',
     'Thalandor',
     'Beware—your last nightmares were enough to shake even the strongest. This next sip may be your most frightening yet.',
   ),
-  // createDialogSound(
+  // dialogue(
   //   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-18.mp3',
   //   'Thalandor',
   //   'Each time you drink, the horrors you face become more dreadful. Ready to confront the darkness again?',
   // ),
-  createDialogSound(
+  dialogue(
     'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-19.mp3',
     'Thalandor',
     'I must warn you—your nightmares have grown alarmingly intense. Each drink pulls you deeper into a world of unspeakable horrors. Tread carefully, for the terror that awaits is beyond anything you\'ve faced.',
   ),
 ];
 
-const elfLastSound = createDialogSound(
+const elfLastSound = dialogue(
   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-20.mp3',
   'Thalandor',
   'This is your final drink, brave soul. Your last nightmares were filled with relentless, swarming monsters. I fear the darkness you will encounter now may be too great to endure. Drink, if you must, but know this is the last time I can in good conscience offer you my elixir.',

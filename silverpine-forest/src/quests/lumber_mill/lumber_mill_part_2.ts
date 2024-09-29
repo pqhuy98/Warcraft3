@@ -8,7 +8,7 @@ import {
   PolarProjection,
 } from 'lib/location';
 import { setAllianceState2Way } from 'lib/player';
-import { createDialogSound } from 'lib/quests/dialogue_sound';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
@@ -39,32 +39,32 @@ const questItems = [
 
 const rewardXp = 900;
 
-const johnIntro = createDialogSound(
+const johnIntro = dialogue(
   'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-john-intro.mp3',
   'Villager John',
   'Sir, we have dire news! Our farm\'s lumberjacks are dead, they were killed by undead near the mill!',
 );
-const knightIntro = createDialogSound(
+const knightIntro = dialogue(
   'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-knight-intro.mp3',
   'Knight Gareth',
   'Undead? Are you sure?... Fine... Soldiers, escort these peasants to the lumber mill and investigate further. But you peasants better not waste our time!',
 );
-const footmanFear = createDialogSound(
+const footmanFear = dialogue(
   'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-footman-1.mp3',
   'Footman',
   'This is a slaughter. They didn\'t stand a chance. Be on guard; we could be next.',
 );
-const footmanWarcry = createDialogSound(
+const footmanWarcry = dialogue(
   'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-footman-fight-1.mp3',
   'Footman',
   'The undead is attacking! Prepare for battle!',
 );
-const peterRunForLife = createDialogSound(
+const peterRunForLife = dialogue(
   'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-peter-run.mp3',
   'Villager Peter',
   'Undead! Run for your life!',
 );
-const knightOutro = createDialogSound(
+const knightOutro = dialogue(
   'QuestSounds\\__refined\\lumber-mill-part-2\\lumber-mill-part-2-knight-outro.mp3',
   'Knight Gareth',
   'All our men... gone?... This is a grave blow, beyond words. I must inform the mayor immediately. Your bravery is noted for taking down the Lich. But this loss... it\'s devastating.',
