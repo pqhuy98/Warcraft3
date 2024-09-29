@@ -41,7 +41,9 @@ export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, option
   }
   const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
 
-  sound.start();
+  PlayDialogueFromSpeakerEx(bj_FORCE_ALL_PLAYERS, unit.handle, unit.typeId, sound.handle, bj_TIMETYPE_ADD, 0, false);
+  ClearTextMessages();
+  // sound.start();
   const durationS = sound.duration / 1000;
 
   const speechText = sound.dialogueTextKey;

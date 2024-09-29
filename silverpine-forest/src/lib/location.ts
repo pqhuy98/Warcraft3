@@ -6,10 +6,9 @@ import {
   neutralPassive, UNIT_IPR_RECEIVER, UNIT_IPR_TRANSMITTER,
 } from './constants';
 import { log } from './log';
+import { DEG_TO_RAD, RAD_TO_DEG } from './maths/misc';
 import { ABILITY_Move } from './resources/war3-abilities';
 import { setIntervalIndefinite } from './trigger';
-
-export const RAD_TO_ANGLE = 180 / Math.PI;
 
 export interface Loc {
   x: number
@@ -80,8 +79,8 @@ export function getUnitXY(unit: Unit): Loc {
 
 export function PolarProjection(loc: Loc, offset: number, angleDeg: number): Loc {
   return {
-    x: loc.x + Math.cos(angleDeg / RAD_TO_ANGLE) * offset,
-    y: loc.y + Math.sin(angleDeg / RAD_TO_ANGLE) * offset,
+    x: loc.x + Math.cos(angleDeg * DEG_TO_RAD) * offset,
+    y: loc.y + Math.sin(angleDeg * DEG_TO_RAD) * offset,
   };
 }
 
@@ -89,7 +88,7 @@ export function PolarProjection(loc: Loc, offset: number, angleDeg: number): Loc
  * @return angle in degree
  */
 export function Angle(loc1: Loc, loc2: Loc): number {
-  return Math.atan2(loc2.y - loc1.y, loc2.x - loc1.x) * RAD_TO_ANGLE;
+  return Math.atan2(loc2.y - loc1.y, loc2.x - loc1.x) * RAD_TO_DEG;
 }
 
 export function Distance(loc1: Loc, loc2: Loc): number {
@@ -114,6 +113,12 @@ export function isLocInRect(loc: Loc, rect: rect): boolean {
 
 export function cameraCenter(): Loc {
   return fromTempLocation(GetCameraTargetPositionLoc());
+}
+
+export function meanLocs(locs: Loc[]): Loc {
+  const x = locs.reduce((acc, loc) => acc + loc.x, 0) / locs.length;
+  const y = locs.reduce((acc, loc) => acc + loc.y, 0) / locs.length;
+  return { x, y };
 }
 
 let iprTransmitter: Unit;

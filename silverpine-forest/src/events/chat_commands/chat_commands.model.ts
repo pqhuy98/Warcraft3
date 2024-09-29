@@ -74,3 +74,27 @@ function getHelpMessage(category: CommandCategory): string[] {
   }
   return result;
 }
+
+export function chatParamString(pattern: string, defaultValue: string) {
+  const data = { current: defaultValue };
+  onChatCommand(`${pattern} $1`, false, (msg) => {
+    data.current = msg.split(' ')[1];
+  });
+  return (): string => data.current;
+}
+
+export function chatParamReal(pattern: string, defaultValue: number) {
+  const data = { current: defaultValue };
+  onChatCommand(`${pattern} $1`, false, (msg) => {
+    data.current = parseFloat(msg.split(' ')[1]);
+  });
+  return (): number => data.current;
+}
+
+export function chatParamInt(pattern: string, defaultValue: number) {
+  const data = { current: defaultValue };
+  onChatCommand(`${pattern} $1`, false, (msg) => {
+    data.current = parseInt(msg.split(' ')[1], 10);
+  });
+  return (): number => data.current;
+}

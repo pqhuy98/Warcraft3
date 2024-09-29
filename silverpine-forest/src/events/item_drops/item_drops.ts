@@ -1,7 +1,11 @@
 import { getDestructablesInRect } from 'lib/destructable';
-import { buildTrigger } from 'lib/trigger';
-import { pickRandom } from 'lib/utils';
-import { Destructable, Widget } from 'w3ts';
+import { Loc } from 'lib/location';
+import { buildTrigger, setTimeout } from 'lib/trigger';
+import { getUnitsInRangeOfLoc } from 'lib/unit';
+import { pickRandom, unique } from 'lib/utils';
+import {
+  Destructable, Trigger, Unit, Widget,
+} from 'w3ts';
 
 import {
   ITEM_BundleofLumber_lmbr, ITEM_GoldCoins_gold, ITEM_ManualofHealth_manh, ITEM_RuneofGreaterHealing_rhe3,
@@ -13,19 +17,20 @@ import {
 
 const crateTypeIds = ['LTbx', 'LTbs', 'LTbr', 'LTcr'].map((code) => FourCC(code));
 
-export function registerItemDrops(): void {
-  let crateDropCount = 0;
+let destructableDeathTrigger: Trigger;
 
-  buildTrigger((t) => {
+export function registerItemDrops(): void {
+  destructableDeathTrigger = buildTrigger((t) => {
     getDestructablesInRect(GetWorldBounds())
       .forEach((d) => t.registerDeathEvent(d));
 
     t.addAction(() => {
       const d = Destructable.fromEvent();
 
-      if (isCrate(d) && (crateDropCount < 2 || GetRandomInt(1, 2) === 1)) {
-        dropItemOnDeath(d, pickRandom(instantConsumableDrops).id);
-        crateDropCount++;
+      if (isCrate(d)) {
+        const killer = getNearbyStrongestUnit(d);
+        dropItemOnDeath(d, getSuitableDrops(killer));
+        respawnLater(d, 120);
       }
     });
   });
@@ -49,22 +54,59 @@ export function dropItemOnDeath(widget: Widget, itemId: number): void {
   }
 }
 
-export const restorationDrops = [
+function getSuitableDrops(unit?: Unit): number {
+  const options = [...buffDrops, ...goldLumberDrops];
+  if (unit !== undefined) {
+    if (unit.life + 150 < unit.maxLife) {
+      options.push(...lifeDrops);
+    }
+    if (unit.mana + 150 < unit.maxMana) {
+      options.push(...manaDrops);
+    }
+    if (unit.isHero()) {
+      options.push(...statsUpDrops);
+    }
+  }
+  return pickRandom(unique(options.map((i) => i.id)));
+}
+
+function getNearbyStrongestUnit(loc: Loc): Unit | undefined {
+  const units = getUnitsInRangeOfLoc(500, loc, (u) => u.isAlive());
+  return units.reduce((best, u) => (best !== undefined && (
+    best.isHero() && !u.isHero()
+    || best.level >= u.level
+  ) ? best : u), undefined);
+}
+
+function respawnLater(d: Destructable, duration: number): void {
+  const typeId = d.typeId;
+  const { x, y } = d;
+  setTimeout(duration, () => {
+    const newD = Destructable.create(typeId, x, y);
+    destructableDeathTrigger.registerDeathEvent(newD);
+  });
+}
+
+const lifeDrops = [
   ITEM_RuneofGreaterHealing_rhe3,
-  ITEM_RuneofGreaterMana_rma2,
   ITEM_RuneofHealing_rhe2,
   ITEM_RuneofLesserHealing_rhe1,
+  ITEM_RuneofRestoration_rres,
+];
+
+const manaDrops = [
+  ITEM_RuneofGreaterMana_rma2,
   ITEM_RuneofMana_rman,
   ITEM_RuneofRestoration_rres,
 ];
 
-export const buffDrops = [
+const buffDrops = [
   ITEM_RuneofShielding_rsps,
   ITEM_RuneofSpeed_rspd,
   ITEM_RuneofSpiritLink_rspl,
 ];
 
-export const statsUpDrops = [
+const statsUpDrops = [
   ITEM_TomeofAgility2_tdx2,
   ITEM_TomeofAgility_tdex,
   ITEM_TomeofExperience_texp,
@@ -76,14 +118,9 @@ export const statsUpDrops = [
   ITEM_ManualofHealth_manh,
 ];
 
-export const goldLumberDrops = [
+const goldLumberDrops = [
   ITEM_GoldCoins_gold,
   ITEM_BundleofLumber_lmbr,
 ];
 
-export const instantConsumableDrops = [
-  ...restorationDrops,
-  ...buffDrops,
-  ...statsUpDrops,
-  ...goldLumberDrops,
-];
+export const restorationDrops = unique([...lifeDrops, ...manaDrops]);

@@ -1,8 +1,15 @@
+import { chatParamReal, onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { mainPlayer } from 'lib/constants';
-import { Frame } from 'w3ts';
+import { Camera, Effect, Frame } from 'w3ts';
 
-import { Loc, tempLocation } from './location';
-import { setTimeout } from './trigger';
+import {
+  Loc, meanLocs, temp, tempLocation,
+} from './location';
+import { log } from './log';
+import { meanAngles, RAD_TO_DEG } from './maths/misc';
+import { MODEL_FrostNovaTarget } from './resources/war3-models';
+import { setIntervalIndefinite, setTimeout } from './trigger';
+import { getUnitsFromGroup } from './unit';
 
 export function lockCameraBound(rects: rect[], locs: Loc[] = []): void {
   if (rects.length === 0 && locs.length === 0) return;
@@ -64,4 +71,148 @@ export function setCineFilter(
 
 export function panCameraSmart(loc: Loc, duration: number): void {
   SmartCameraPanBJ(GetLocalPlayer(), tempLocation(loc), duration);
+}
+
+export function setCamera(
+  loc: Loc,
+  distance: number,
+  attackAngle: number,
+  rotation: number,
+  duration: number,
+): void {
+  Camera.setField(CAMERA_FIELD_TARGET_DISTANCE, distance, duration);
+  Camera.setField(CAMERA_FIELD_ANGLE_OF_ATTACK, attackAngle, duration);
+  Camera.setField(CAMERA_FIELD_ROTATION, rotation, duration);
+  Camera.panTimed(loc.x, loc.y, duration, undefined);
+}
+
+export function registerCameraExperiments(): void {
+  setTimeout(0, () => {
+    onChatCommand('cams', true, () => {
+      const units = getUnitsFromGroup(GetUnitsSelectedAll(mainPlayer.handle));
+      const center = meanLocs(units);
+      const meanRotation = meanAngles(units.map((u) => u.facing + 180)) ?? GetRandomDirectionDeg();
+      units.forEach((u) => log(`${u.name} ${u.facing}`));
+      log('meanRotation', meanRotation);
+      setCamera(center, 1000, GetRandomReal(300, 345), meanRotation, 1);
+    });
+
+    let isLogging = false;
+    onChatCommand('cam', true, () => {
+      isLogging = !isLogging;
+      ClearTextMessages();
+      setIntervalIndefinite(1, () => {
+        if (!isLogging) return;
+        ClearTextMessages();
+        log('nearz - NEARZ', Camera.getField(CAMERA_FIELD_NEARZ));
+        log('farz - FARZ', Camera.getField(CAMERA_FIELD_FARZ));
+        log('angle - ANGLE_OF_ATTACK', Camera.getField(CAMERA_FIELD_ANGLE_OF_ATTACK) * RAD_TO_DEG);
+        log('fov - FIELD_OF_VIEW', Camera.getField(CAMERA_FIELD_FIELD_OF_VIEW) * RAD_TO_DEG);
+        log('lp - LOCAL_PITCH', Camera.getField(CAMERA_FIELD_LOCAL_PITCH) * RAD_TO_DEG);
+        log('lr - LOCAL_ROLL', Camera.getField(CAMERA_FIELD_LOCAL_ROLL) * RAD_TO_DEG);
+        log('ly - LOCAL_YAW', Camera.getField(CAMERA_FIELD_LOCAL_YAW) * RAD_TO_DEG);
+        log('roll - ROLL', Camera.getField(CAMERA_FIELD_ROLL) * RAD_TO_DEG);
+        log('rot - ROTATION', Camera.getField(CAMERA_FIELD_ROTATION) * RAD_TO_DEG);
+        log('zoff - ZOFFSET', Camera.getField(CAMERA_FIELD_ZOFFSET));
+        log('dis - TARGET_DISTANCE', Camera.getField(CAMERA_FIELD_TARGET_DISTANCE));
+      });
+    });
+
+    onChatCommand('camexp', true, () => {
+      const nearz = chatParamReal('nearz', Camera.getField(CAMERA_FIELD_NEARZ));
+      const farz = chatParamReal('farz', Camera.getField(CAMERA_FIELD_FARZ));
+      const angle = chatParamReal('angle', Camera.getField(CAMERA_FIELD_ANGLE_OF_ATTACK) * RAD_TO_DEG);
+      const fov = chatParamReal('fov', Camera.getField(CAMERA_FIELD_FIELD_OF_VIEW) * RAD_TO_DEG);
+      const lp = chatParamReal('lp', Camera.getField(CAMERA_FIELD_LOCAL_PITCH) * RAD_TO_DEG);
+      const lr = chatParamReal('lr', Camera.getField(CAMERA_FIELD_LOCAL_ROLL) * RAD_TO_DEG);
+      const ly = chatParamReal('ly', Camera.getField(CAMERA_FIELD_LOCAL_YAW) * RAD_TO_DEG);
+      const roll = chatParamReal('roll', Camera.getField(CAMERA_FIELD_ROLL) * RAD_TO_DEG);
+      const rot = chatParamReal('rot', Camera.getField(CAMERA_FIELD_ROTATION) * RAD_TO_DEG);
+      const zoff = chatParamReal('zoff', Camera.getField(CAMERA_FIELD_ZOFFSET));
+      const dis = chatParamReal('dis', Camera.getField(CAMERA_FIELD_TARGET_DISTANCE));
+
+      const interval = 0.03;
+      let eff: Effect;
+      setIntervalIndefinite(interval, (idx) => {
+        const target = temp(Camera.targetPoint);
+        if (idx % 33 === 0) {
+          if (eff) {
+            eff.destroy();
+          }
+          eff = Effect.create(MODEL_FrostNovaTarget, target.x, target.y);
+          eff.setHeight(target.z);
+        }
+
+        Camera.setField(CAMERA_FIELD_NEARZ, nearz(), 0);
+        Camera.setField(CAMERA_FIELD_FARZ, farz(), 0);
+        Camera.setField(CAMERA_FIELD_ANGLE_OF_ATTACK, angle(), 0);
+        Camera.setField(CAMERA_FIELD_FIELD_OF_VIEW, fov(), 0);
+        Camera.setField(CAMERA_FIELD_LOCAL_PITCH, lp(), 0);
+        Camera.setField(CAMERA_FIELD_LOCAL_ROLL, lr(), 0);
+        Camera.setField(CAMERA_FIELD_LOCAL_YAW, ly(), 0);
+        Camera.setField(CAMERA_FIELD_ROLL, roll(), 0);
+        Camera.setField(CAMERA_FIELD_ROTATION, rot(), 0);
+        Camera.setField(CAMERA_FIELD_ZOFFSET, zoff() + target.z, 0);
+        Camera.setField(CAMERA_FIELD_TARGET_DISTANCE, dis(), 0);
+      });
+    });
+
+    // const buttonFr = Frame.createType('MyIconButton', Frame.fromName('ConsoleUIBackdrop', 0), 0, 'BUTTON', 'ScoreScreenTabButtonTemplate');
+    // const iconFr = Frame.createType('MyIconButtonIcon', buttonFr, 0, 'BACKDROP', '');
+    // iconFr.setAllPoints(buttonFr);
+    // buttonFr.setSize(0.04, 0.04);
+    // iconFr.setTexture('ReplaceableTextures\\CommandButtons\\BTNMagicLariet.blp', 0, false);
+    // buttonFr.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.4, 0.3);
+
+    // buildTrigger((t) => {
+    //   t.registerPlayerMouseEvent(mainPlayer, bj_MOUSEEVENTTYPE_MOVE);
+    //   t.addAction(() => {
+    //     const mx = BlzGetTriggerPlayerMouseX();
+    //     const my = BlzGetTriggerPlayerMouseY();
+    //     const mz = GetLocationZ(tempLocation({ x: mx, y: my }));
+    //     const { x, y } = getMouseUiCoordinate(mx, my, mz);
+    //     log('x', x, 'y', y);
+    //     buttonFr.setAbsPoint(FRAMEPOINT_TOPLEFT, x, y);
+    //   });
+    // });
+  });
+}
+
+export function getMouseUiCoordinate(x: number, y: number, z: number): Loc {
+  const angleOfAttack = -Camera.getField(CAMERA_FIELD_ANGLE_OF_ATTACK);
+  const fieldOfView = Camera.getField(CAMERA_FIELD_FIELD_OF_VIEW);
+  const rotation = Camera.getField(CAMERA_FIELD_ROTATION) + bj_PI;
+
+  const cosAttack = Math.cos(angleOfAttack);
+  const sinAttack = Math.sin(angleOfAttack);
+
+  const cosRot = Math.cos(rotation);
+  const sinRot = Math.sin(rotation);
+
+  const M11 = cosAttack * cosRot;
+  const M12 = cosAttack * sinRot;
+  const M13 = sinAttack;
+
+  const M21 = -sinRot;
+  const M22 = cosRot;
+  const M23 = 0;
+
+  const M31 = -cosRot * sinAttack;
+  const M32 = -sinAttack * sinRot;
+  const M33 = cosAttack;
+
+  const dx = x - Camera.eyeX;
+  const dy = y - Camera.eyeY;
+  const dz = z - Camera.eyeZ;
+
+  const xPrime = M11 * dx + M12 * dy + M13 * dz;
+  const yPrime = M21 * dx + M22 * dy + M23 * dz;
+  const zPrime = M31 * dx + M32 * dy + M33 * dz;
+
+  const scaling = 1.04 / (2 * Math.tan(fieldOfView / 2));
+
+  const screenX = 0.4 - (scaling * yPrime / xPrime);
+  const screenY = 0.355 - (scaling * zPrime / xPrime);
+
+  return { x: screenX, y: screenY };
 }

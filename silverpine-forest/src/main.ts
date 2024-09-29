@@ -11,6 +11,7 @@ import { registerItemDrops } from 'events/item_drops/item_drops';
 import { MiscEvents } from 'events/misc';
 import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
 import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
+import { registerCameraExperiments } from 'lib/camera';
 import {
   ABILITY_ID_BLADE_DANCE,
   ABILITY_ID_CHAIN_LIGHTNING,
@@ -32,6 +33,7 @@ import {
   playerOrcishHorde,
   registerGlobalUnits,
 } from 'lib/constants';
+import { registerFrameUiExperiments } from 'lib/frame-ui';
 import {
   daemonTempCleanUp,
 } from 'lib/location';
@@ -64,6 +66,7 @@ function tsMain(): void {
   // Player settings
   configurePlayerSettings();
 
+  // Systems
   trackElapsedGameTime();
   daemonTieUnitToUnit();
   daemonDummyMaster();
@@ -71,10 +74,14 @@ function tsMain(): void {
   daemonQuestMarker();
   daemonGuardPosition();
   useReforgedIcons();
-  registerFloatTextExperiments();
   registerPreseveUnits();
   registerHearthStone();
   registerItemDrops();
+
+  // Experiments
+  registerFloatTextExperiments();
+  registerCameraExperiments();
+  registerFrameUiExperiments();
 
   // Miscs
   // Weather.changeWeather();

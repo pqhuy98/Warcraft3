@@ -161,3 +161,22 @@ export function range(n: number): number[] {
   for (let i = 0; i < n; i++) arr.push(i);
   return arr;
 }
+
+export const METAKEY_SHIFT = 1 << 0;
+export const METAKEY_CONTROL = 1 << 1;
+export const METAKEY_ALT = 1 << 2;
+export const METAKEY_WINDOWS = 1 << 3;
+
+export function unique<T>(arr: T[]): T[] {
+  const seen = new Set<T>();
+  const result: T[] = [];
+
+  for (const item of arr) {
+    if (!seen.has(item)) {
+      seen.add(item);
+      result.push(item);
+    }
+  }
+
+  return result;
+}
