@@ -125,6 +125,7 @@ gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
+gg_unit_hfoo_0100 = nil
 function InitGlobals()
 end
 
@@ -668,7 +669,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 7958.5, -8496.5, 247.334, FourCC("h
 gg_unit_n008_0095 = BlzCreateUnitWithSkin(p, FourCC("n008"), 8411.3, -6187.4, 339.541, FourCC("n008"))
 gg_unit_n008_0096 = BlzCreateUnitWithSkin(p, FourCC("n008"), 10431.3, -7768.9, 334.056, FourCC("n008"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 10849.9, -5894.3, 79.778, FourCC("hfoo"))
-u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 10653.8, -5870.3, 29.072, FourCC("hfoo"))
+gg_unit_hfoo_0100 = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 10653.8, -5870.3, 29.072, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 10564.0, -6041.9, 71.321, FourCC("hrif"))
 gg_unit_Hamg_0109 = BlzCreateUnitWithSkin(p, FourCC("Hamg"), 9244.9, -3405.8, 92.160, FourCC("Hamg"))
 SetHeroLevel(gg_unit_Hamg_0109, 10, false)
@@ -2297,6 +2298,7 @@ udg_tmp_unit = gg_unit_n00C_1135
 udg_tmp_unit = gg_unit_n007_0901
 udg_tmp_unit = gg_unit_Ekee_0024
 udg_tmp_unit = gg_unit_Ekee_0024
+udg_tmp_unit = gg_unit_hfoo_0100
 end
 
 function InitTrig_Unit_register()

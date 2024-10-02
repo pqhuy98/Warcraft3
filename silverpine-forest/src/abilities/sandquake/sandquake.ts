@@ -2,7 +2,7 @@ import { Impale } from 'abilities/impale/impale';
 import { k0, k1 } from 'lib/debug/key_counter';
 import {
   Angle,
-  Distance, fromTempLocation, getUnitXY, Loc,
+  Distance, fromTempLocation, Loc,
   PolarProjection,
   tempLocation,
 } from 'lib/location';
@@ -73,9 +73,9 @@ export default class Sandquake {
         const caster = Unit.fromEvent();
 
         let locXY = fromTempLocation(GetOrderPointLoc());
-        const targUnit = GetOrderTargetUnit();
-        if (targUnit && !locXY) {
-          locXY = getUnitXY(Unit.fromHandle(targUnit));
+        const target = Unit.fromHandle(GetOrderTargetUnit());
+        if (target && !locXY) {
+          locXY = target;
         }
 
         if (!locXY) return;
@@ -103,7 +103,7 @@ export default class Sandquake {
     k0('sndq');
     let tgloc = targetLocation;
     if (targetUnit && !tgloc) {
-      tgloc = getUnitXY(targetUnit);
+      tgloc = targetUnit;
     }
     Sandquake.unitDestination.set(caster, tgloc);
 
@@ -132,9 +132,8 @@ export default class Sandquake {
         return;
       }
 
-      const casterLoc = getUnitXY(caster);
-      const timeToReach = Distance(casterLoc, targetLoc) / speed;
-      const newLoc = PolarProjection(casterLoc, distancePerStep, timeToReach > 0.15 ? caster.facing : Angle(casterLoc, targetLoc));
+      const timeToReach = Distance(caster, targetLoc) / speed;
+      const newLoc = PolarProjection(caster, distancePerStep, timeToReach > 0.15 ? caster.facing : Angle(caster, targetLoc));
 
       caster.x = newLoc.x;
       caster.y = newLoc.y;
@@ -142,7 +141,7 @@ export default class Sandquake {
       BlzSetSpecialEffectPosition(sandstormEffect, newLoc.x, newLoc.y, 0);
       BlzSetSpecialEffectPosition(sandstormEffect2, newLoc.x, newLoc.y, 0);
 
-      SetUnitFacingTimed(caster.handle, Angle(casterLoc, targetLoc), 0.1 * timeToReach);
+      SetUnitFacingTimed(caster.handle, Angle(caster, targetLoc), 0.1 * timeToReach);
 
       for (let i = 0; i < 2; i++) {
         const angle = GetRandomDirectionDeg();
@@ -164,7 +163,7 @@ export default class Sandquake {
       if (idx % 6 === 0) {
         const nearbyEnemies = getUnitsInRangeOfLoc(
           radius,
-          casterLoc,
+          caster,
           (u) => Sandquake.Data.targetMatching(caster, u) && !this.affectedEnemies.has(u),
         );
 

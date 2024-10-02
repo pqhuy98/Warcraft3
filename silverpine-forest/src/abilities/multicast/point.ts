@@ -3,7 +3,7 @@ import { Angle, fromTempLocation, PolarProjection } from 'lib/location';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
-  createDummy, fadeUnit, getUnitScale, isDummy, safeRemoveDummy, setUnitScale, unitPolarProjection,
+  createDummy, fadeUnit, getUnitScale, isDummy, safeRemoveDummy, setUnitScale,
 } from 'lib/unit';
 import { Trigger, Unit } from 'w3ts';
 
@@ -40,7 +40,7 @@ export class MulticastPoint {
 
         for (let i = 0; i < this.Data.REPEAT_CAST; i++) {
           const offsetAngle = phase + i * 360.0 / this.Data.REPEAT_CAST;
-          const dummyLoc = unitPolarProjection(caster, 150, offsetAngle);
+          const dummyLoc = PolarProjection(caster, 150, offsetAngle);
           const dummyCastLoc = PolarProjection(targetLoc, offsetDistance, offsetAngle);
 
           const dummy = createDummy(caster.owner, dummyLoc.x, dummyLoc.y, caster, 999, Angle(dummyLoc, dummyCastLoc));

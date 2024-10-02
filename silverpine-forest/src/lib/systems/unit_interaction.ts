@@ -9,7 +9,7 @@ import {
   buildTrigger, getTimeS, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
 import {
-  distanceBetweenUnits, isOrganic, isUnitIdle, isUnitRemoved, setUnitFacingWithRate,
+  isOrganic, isUnitIdle, isUnitRemoved, setUnitFacingWithRate,
 } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
 import { MapPlayer, Unit } from 'w3ts';
@@ -49,7 +49,7 @@ export class UnitInteraction {
       t.addAction(() => {
         const unit = Unit.fromEvent();
         const target = Unit.fromHandle(GetOrderTargetUnit());
-        if (distanceBetweenUnits(unit, target) < nearDistance) {
+        if (Distance(unit, target) < nearDistance) {
           if (!checkUnitFlag(target, Flag.MUTE_INTERACTION_SOUND)) {
             this.playRandomSound(unit, target);
           }
@@ -94,7 +94,7 @@ export class UnitInteraction {
         }
 
         const isIdle = isUnitIdle(unit);
-        const shouldFace = distanceBetweenUnits(unit, facingToUnit) < maxRadius && isIdle && unit.isAlive();
+        const shouldFace = Distance(unit, facingToUnit) < maxRadius && isIdle && unit.isAlive();
         if (!shouldFace) {
           targets.delete(unit);
           if (isIdle && unit.isAlive()) {

@@ -22,7 +22,7 @@ export function setTimeout(durationS: number, callback: () => unknown): Timer {
 
 function setInterval(
   intervalS: number,
-  callback: (index: number, repeat: number) => unknown,
+  callback: (index: number, timer: Timer) => unknown,
   repeat?: number,
   cleanup?: () => unknown,
 ): Timer {
@@ -35,7 +35,7 @@ function setInterval(
       timer.destroy();
       return timer;
     }
-    setTimeout(0, () => callback(idx++, repeat));
+    setTimeout(0, () => callback(idx++, timer));
     timer.start(intervalS, true, () => {
       if (idx >= repeat) {
         timer.pause();
@@ -43,15 +43,15 @@ function setInterval(
         cleanup?.();
         k1('setitv');
       } else {
-        callback(idx++, repeat);
+        callback(idx++, timer);
       }
     });
   } else {
     let index = 0;
-    setTimeout(0, () => callback(index, -1));
+    setTimeout(0, () => callback(index, timer));
     timer.start(intervalS, true, () => {
       index++;
-      callback(index, -1);
+      callback(index, timer);
     });
   }
   return timer;
@@ -59,7 +59,7 @@ function setInterval(
 
 export function setIntervalIndefinite(
   intervalS: number,
-  callback: (index: number, repeat: number) => unknown,
+  callback: (index: number, timer: Timer) => unknown,
 ): Timer {
   return setInterval(intervalS, callback);
 }
@@ -67,7 +67,7 @@ export function setIntervalIndefinite(
 export function setIntervalFixedCount(
   intervalS: number,
   repeatCount: number,
-  callback: (index: number, repeat: number) => unknown,
+  callback: (index: number, timer: Timer) => unknown,
   cleanup?: () => unknown,
 ): Timer {
   return setInterval(intervalS, callback, repeatCount, cleanup);
@@ -76,7 +76,7 @@ export function setIntervalFixedCount(
 export function setIntervalForDuration(
   intervalS: number,
   durationS: number,
-  callback: (index: number, repeat: number) => unknown,
+  callback: (index: number, timer: Timer) => unknown,
   cleanup?: () => unknown,
 ): Timer {
   return setInterval(intervalS, callback, durationS / intervalS, cleanup);

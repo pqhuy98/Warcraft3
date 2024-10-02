@@ -99,10 +99,11 @@ export class StrikeBack extends BaseQuest {
 
     mayor.shareVision(traveler.owner, true);
 
-    const talkGroup = new TalkGroup([
-      knight, mayor,
+    const talkGroup = TalkGroup.create(
+      knight,
+      mayor,
       ...getUnitsInRangeOfLoc(500, mayor, (u) => !isBuilding(u)),
-    ]);
+    );
     await talkGroup.speak(knight, knightIntro1, mayor, knight);
     await talkGroup.speak(mayor, mayorIntro1, knight, knight);
     await talkGroup.speak(mayor, mayorIntro2, knight, knight);
@@ -200,10 +201,10 @@ export class StrikeBack extends BaseQuest {
     pauseGuardPosition(controllables, false);
 
     traveler = await this.waitForTurnIn(mayor);
-    const talkGroup2 = new TalkGroup([mayor, traveler]);
-    await talkGroup2.speak(mayor, mayorOutro1, traveler, traveler);
-    await talkGroup2.speak(mayor, mayorOutro2, traveler, traveler);
-    talkGroup2.finish();
+    talkGroup.resetTo(mayor, traveler);
+    await talkGroup.speak(mayor, mayorOutro1, traveler, traveler);
+    await talkGroup.speak(mayor, mayorOutro2, traveler, traveler);
+    talkGroup.finish();
 
     // grant vision of buildings
     getUnitsInRect(humanBaseRect, (u) => isBuilding(u) && u.owner === mayor.owner)

@@ -1,6 +1,6 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import {
-  Distance, getUnitXY, Loc, PolarProjection,
+  Distance, Loc,
   tempLocation,
 } from 'lib/location';
 import {
@@ -35,19 +35,6 @@ export function setAttackRange(unit: Unit, weaponIndex: number, value: number): 
     weaponIndex + 1,
     value - currentRange + secondRange,
   );
-}
-
-export function distanceBetweenUnits(u1: Unit, u2: Unit): number {
-  const l1 = getUnitXY(u1);
-  const l2 = getUnitXY(u2);
-  const result = Distance(l1, l2);
-  return result;
-}
-
-export function unitPolarProjection(unit: Unit, distance: number, angle: number): Loc {
-  const loc = getUnitXY(unit);
-  const newLoc = PolarProjection(loc, distance, angle);
-  return newLoc;
 }
 
 export function fadeUnit(
@@ -102,7 +89,8 @@ export function getUnitScale(u: Unit): number {
 export function growUnit(u: Unit, targetScale: number, duration: number, initialScale?: number): void {
   k0('grwu');
   const startingScale = initialScale ?? getUnitScale(u);
-  setIntervalForDuration(0.1, duration, (i, repeat) => {
+  const repeat = duration / 0.1;
+  setIntervalForDuration(0.1, duration, (i) => {
     const scale = i / repeat * (targetScale - startingScale) + startingScale;
     setUnitScale(u, scale);
   }, () => {

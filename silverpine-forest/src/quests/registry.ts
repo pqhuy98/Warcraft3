@@ -24,10 +24,19 @@ import { NightElfLanding } from './night-elf-landing/night-elf-landing';
 import { OrcAttack } from './orc_attack/orc_attack';
 import { RabbitHunt } from './rabbit_hunt/rabbit_hunt';
 import { ShadowFangGate } from './shadow_fang_city/shadow_fang_gate';
+import { Starting } from './starting/starting';
 
 export class QuestRegistry {
   static register(): void {
     setTimeout(0, () => {
+      // Starting
+      new Starting({
+        name: 'Starting',
+        footman: Unit.fromHandle(gg_unit_hfoo_0100),
+        dependencies: [],
+        cheatName: 'st',
+      });
+
       // GatherSheeps
       new GatherSheeps({
         name: 'Gather Sheeps',

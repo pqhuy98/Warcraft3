@@ -1,5 +1,4 @@
 import { k0, k1 } from 'lib/debug/key_counter';
-import { getUnitXY } from 'lib/location';
 import {
   ABILITY_AbolishMagicCreep, ABILITY_AuraCommandCreep, ABILITY_AuraDevotionCreep, ABILITY_AuraEnduranceCreep,
   ABILITY_BloodlustCreep, ABILITY_FrostArmorCreepOld, ABILITY_HealCreepHigh, ABILITY_InnerFireCreep,
@@ -167,10 +166,9 @@ export class PeriodBuff {
     }
 
     k0('pb-t');
-    const targetLoc = getUnitXY(this.target);
     const abilityId = ability.id;
 
-    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, 0.25);
+    const dummy = createDummy(this.target.owner, this.target.x, this.target.y, this.target, 0.25);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     dummy.issueTargetOrder(orderId, this.target);
@@ -188,10 +186,9 @@ export class PeriodBuff {
     }
     k0('pb-nt');
 
-    const targetLoc = getUnitXY(this.target);
     const abilityId = ability.id;
 
-    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, 0.25);
+    const dummy = createDummy(this.target.owner, this.target.x, this.target.y, this.target, 0.25);
     dummy.addAbility(abilityId);
     dummy.setAbilityLevel(abilityId, ability.levels);
     dummy.issueImmediateOrder(orderId);
@@ -209,10 +206,9 @@ export class PeriodBuff {
     }
 
     k0('pb-a');
-    const targetLoc = getUnitXY(this.target);
     const abilityId = ability.id;
 
-    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
+    const dummy = createDummy(this.target.owner, this.target.x, this.target.y, this.target, periodS);
     const scale = getUnitScale(this.target);
     setUnitScale(dummy, scale);
     dummy.addAbility(abilityId);
@@ -232,11 +228,10 @@ export class PeriodBuff {
     }
 
     k0('pb-aa');
-    const targetLoc = getUnitXY(this.target);
 
     const abilityId = ability.id;
 
-    const dummy = createDummy(this.target.owner, targetLoc.x, targetLoc.y, this.target, periodS);
+    const dummy = createDummy(this.target.owner, this.target.x, this.target.y, this.target, periodS);
     dummy.addAbility(abilityId);
     const scale = getUnitScale(this.target);
     setUnitScale(dummy, scale);

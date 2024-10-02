@@ -1,8 +1,7 @@
 import { ChainLightningMulticast } from 'abilities/chain_lightning/chain_lightning_multicast';
 import { ABILITY_ID_CHAIN_LIGHTNING, SUPPORT_ABILITY_ID_THUNDER_CLAP } from 'lib/constants';
 import {
-  fromTempLocation,
-  getUnitXY, Loc, PolarProjection,
+  fromTempLocation, Loc, PolarProjection,
 } from 'lib/location';
 import { LIGHTNING_FingerOfDeath } from 'lib/resources/war3-lightnings';
 import { MODEL_BoltImpact, MODEL_ThunderclapCaster } from 'lib/resources/war3-models';
@@ -49,12 +48,11 @@ export class ThunderBlink {
     targetLoc: Loc,
     abilityLevel: number,
   ) {
-    const casterLoc = getUnitXY(caster);
     const casterScale = getUnitScale(caster);
     const radius = ThunderBlink.Data.getEffectRadius();
 
     // Thunder Clap in place
-    const dummy1 = createDummy(caster.owner, casterLoc.x, casterLoc.y, caster, 1);
+    const dummy1 = createDummy(caster.owner, caster.x, caster.y, caster, 1);
     setUnitScale(dummy1, casterScale);
     dummy1.addAbility(SUPPORT_ABILITY_ID_THUNDER_CLAP);
     dummy1.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel);
@@ -67,7 +65,7 @@ export class ThunderBlink {
     dummy2.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel);
     dummy2.issueImmediateOrder(ORDER_thunderclap);
 
-    const blinkEffect1 = AddSpecialEffect(MODEL_ThunderclapCaster_classic, casterLoc.x, casterLoc.y);
+    const blinkEffect1 = AddSpecialEffect(MODEL_ThunderclapCaster_classic, caster.x, caster.y);
     BlzSetSpecialEffectColor(blinkEffect1, 255, 0, 0);
     DestroyEffect(blinkEffect1);
 
@@ -112,23 +110,24 @@ export class ThunderBlink {
     const lightnings = [...lightningsInner, ...lightningsOuter];
 
     const lnRadius = radius;
-    setIntervalForDuration(0.05, 0.5, (i, repeat) => {
+    const repeat = (0.5 / 0.05);
+    setIntervalForDuration(0.05, 0.5, (i) => {
       const distancePercent = i / repeat;
-      const currentCasterLoc = getUnitXY(caster);
       for (let j = 0; j < lightningsInner.length; j++) {
-        const lightningLoc = PolarProjection(currentCasterLoc, distancePercent * lnRadius, j * 360 / lightningCount);// + i * anglePhase / repeat);
-        MoveLightning(lightningsInner[j], true, currentCasterLoc.x, currentCasterLoc.y, lightningLoc.x, lightningLoc.y);
+        const lightningLoc = PolarProjection(caster, distancePercent * lnRadius, j * 360 / lightningCount);// + i * anglePhase / repeat);
+        MoveLightning(lightningsInner[j], true, caster.x, caster.y, lightningLoc.x, lightningLoc.y);
       }
 
       for (let j = 0; j < lightningsOuter.length; j++) {
-        const loc1 = PolarProjection(currentCasterLoc, distancePercent * lnRadius, j * 360 / lightningCount + i * anglePhase / repeat);
-        const loc2 = PolarProjection(currentCasterLoc, distancePercent * lnRadius, (j + 1) * 360 / lightningCount + i * anglePhase / repeat);
+        const loc1 = PolarProjection(caster, distancePercent * lnRadius, j * 360 / lightningCount + i * anglePhase / repeat);
+        const loc2 = PolarProjection(caster, distancePercent * lnRadius, (j + 1) * 360 / lightningCount + i * anglePhase / repeat);
         MoveLightning(lightningsInner[j], true, loc1.x, loc1.y, loc2.x, loc2.y);
       }
     }, () => {
-      setIntervalForDuration(0.03, 0.1, (i: number, repeat: number) => {
+      const repeat2 = 0.1 / 0.03;
+      setIntervalForDuration(0.03, 0.1, (i: number) => {
         for (const l of lightnings) {
-          SetLightningColor(l, 1, 1, 1, 1 - (i / repeat));
+          SetLightningColor(l, 1, 1, 1, 1 - (i / repeat2));
         }
       }, () => {
         for (const l of lightnings) {

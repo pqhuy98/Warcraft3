@@ -279,7 +279,7 @@ export class Cementery extends BaseQuest {
 
     await sleep(0.5);
 
-    const talkGroup = new TalkGroup([...ghostLadies, traveler]);
+    const talkGroup = TalkGroup.create(...ghostLadies, traveler);
 
     if (!debug) {
       await talkGroup.speak(ghostLadies[0], introSounds[0][0], ghostLadies[1], ghostLadies[0]);

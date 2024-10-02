@@ -246,10 +246,11 @@ export class OrcAttack extends BaseQuest {
     let traveler = await this.talkToQuestGiver(archmage, true);
     BlackTurban.disable();
 
-    const talkGroup = new TalkGroup([
-      traveler, archmage,
+    const talkGroup = TalkGroup.create(
+      traveler,
+      archmage,
       ...getUnitsInRangeOfLoc(800, archmage, (u) => u.isAlive() && isOrganic(u)),
-    ]);
+    );
     await talkGroup.speak(archmage, archMageSounds[0], traveler, traveler);
     await talkGroup.speak(archmage, archMageSounds[1], traveler, traveler);
     await talkGroup.speak(archmage, archMageSounds[2], traveler, traveler);
@@ -273,7 +274,7 @@ export class OrcAttack extends BaseQuest {
 
     await waitUntil(1, () => Distance(footman, archmage) < 500);
 
-    talkGroup.addUnit(footman);
+    talkGroup.add(footman);
     await talkGroup.speak(footman, footmanSounds[0], archmage, footman);
     await talkGroup.speak(archmage, archMageSounds[3], footman, footman);
     await sleep(1);
@@ -297,16 +298,18 @@ export class OrcAttack extends BaseQuest {
 
     traveler = await this.waitForTurnIn(footman);
 
-    const talkGroup2 = new TalkGroup([
-      traveler, captain, footman,
+    talkGroup.resetTo(
+      traveler,
+      captain,
+      footman,
       ...getUnitsInRangeOfLoc(800, captain, (u) => u.isAlive() && isOrganic(u)),
-    ]);
+    );
 
     // the orc prepares attack now to avoid waiting long
-    const orcAttackPromise = this.orcAttacking(humanShipyard, talkGroup2, traveler);
-    await talkGroup2.speak(footman, footmanSounds[2], captain, traveler);
-    await talkGroup2.speak(captain, captainSounds[0], traveler, traveler);
-    talkGroup2.finish();
+    const orcAttackPromise = this.orcAttacking(humanShipyard, traveler);
+    await talkGroup.speak(footman, footmanSounds[2], captain, traveler);
+    await talkGroup.speak(captain, captainSounds[0], traveler, traveler);
+    talkGroup.finish();
     PlayThematicMusic('Sound\\Music\\mp3Music\\Tension.mp3');
 
     captain.shareVision(traveler.owner, true);
@@ -350,7 +353,7 @@ export class OrcAttack extends BaseQuest {
     BlackTurban.enable();
   }
 
-  async orcAttacking(target: Unit, talkGroup: TalkGroup, traveler: Unit): Promise<'target dead' | 'no more wave'> {
+  async orcAttacking(target: Unit, traveler: Unit): Promise<'target dead' | 'no more wave'> {
     const {
       captain, footman, orcBaseRect, orcGatherRect, orcPlayer,
     } = this.globals;
@@ -411,7 +414,7 @@ export class OrcAttack extends BaseQuest {
           void (async (): Promise<void> => {
             for (const { unit, unitType, sound } of speeches[0]) {
               if (unit && isPreservedUnitAlive(unit)) {
-                await talkGroup.speak(unit, sound, null, null);
+                await playSpeech(unit, sound, null, null);
               } else if (unitType) {
                 const inCombat = (whichUnit: Unit): boolean => getUnitsInRangeOfLoc(
                   whichUnit.acquireRange,
@@ -424,7 +427,7 @@ export class OrcAttack extends BaseQuest {
                   () => attackers.some((attacker) => attacker.typeId === unitType.id && inCombat(attacker)),
                 );
                 const speaker = attackers.find((u) => u.typeId === unitType.id && inCombat(u));
-                await talkGroup.speak(speaker, sound, null, null);
+                await playSpeech(speaker, sound, null, null);
                 if (speaker.owner === orcPlayer) {
                   dropItemOnDeath(speaker, pickRandom(restorationDrops).id);
                 }

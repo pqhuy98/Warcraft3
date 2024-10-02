@@ -108,9 +108,9 @@ export class LumberMillPart2 extends BaseQuest {
     setAttention(peter, knight);
     [knight, ...footmen].forEach((u) => setAttention(u, peter));
 
-    const talkGroup1 = new TalkGroup([john, peter, knight, ...footmen, traveler]);
-    await talkGroup1.speak(john, johnIntro, knight, john);
-    const knightSpeech = talkGroup1.speak(knight, knightIntro, john, john);
+    const talkGroup = TalkGroup.create(john, peter, knight, ...footmen, traveler);
+    await talkGroup.speak(john, johnIntro, knight, john);
+    const knightSpeech = talkGroup.speak(knight, knightIntro, john, john);
     setTimeout(5, () => {
       // Knight now order footmen to help
       footmen.forEach((u) => setAttention(u, knight));
@@ -120,7 +120,7 @@ export class LumberMillPart2 extends BaseQuest {
       footmen.forEach((u) => setAttention(u, john));
     });
     await knightSpeech;
-    talkGroup1.finish();
+    talkGroup.finish();
 
     const questLog = await QuestLog.create({
       name: questName,
@@ -184,15 +184,15 @@ export class LumberMillPart2 extends BaseQuest {
     removeGuardPosition(...footmen);
     setNeverDie(john, true, 5);
     setNeverDie(peter, true, 5);
-    const talkGroup2 = new TalkGroup([john, peter, ...footmen]);
-    await talkGroup2.speak(footmen[0], footmanWarcry, null, null);
+    talkGroup.resetTo(john, peter, ...footmen);
+    await talkGroup.speak(footmen[0], footmanWarcry, null, null);
 
     // Peter and John run home
     const homeLoc = centerLocRect(homeRect);
     setGuardPosition(peter, homeLoc, 0);
     setGuardPosition(john, homeLoc, 0);
-    await talkGroup2.speak(peter, peterRunForLife, null, null);
-    talkGroup2.finish();
+    await talkGroup.speak(peter, peterRunForLife, null, null);
+    talkGroup.finish();
 
     void waitUntil(1, () => { // make sure they enter their house, do not block thread
       if (isLocInRect(peter, homeRect)) peter.show = false;

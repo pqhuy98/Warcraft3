@@ -54,16 +54,17 @@ export function createMinimapIconLoc(loc: Loc, type: keyof typeof IconStyles): m
   return icon;
 }
 
-export type QuestMarkerType = 'new' | 'turnin'
+export type QuestMarkerType = 'new' | 'turnin' | 'none'
 const modelPaths: Record<QuestMarkerType, string> = {
   new: MODEL_TalkToMe,
   turnin: MODEL_Quest_TurnIn,
+  none: '',
 };
 
 const questMarker = new Map<Unit, Effect>();
 export function enableQuestMarker(unit: Unit, mode: QuestMarkerType): void {
+  if (mode === 'none') return;
   if (questMarker.has(unit)) return;
-
   questMarker.set(unit, Effect.createAttachment(modelPaths[mode], unit, 'overhead'));
 }
 

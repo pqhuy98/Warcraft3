@@ -73,10 +73,6 @@ export function fromTempLocation(loc: location): Loc | undefined {
   return { x: point.x, y: point.y };
 }
 
-export function getUnitXY(unit: Unit): Loc {
-  return { x: unit.x, y: unit.y };
-}
-
 export function PolarProjection(loc: Loc, offset: number, angleDeg: number): Loc {
   return {
     x: loc.x + Math.cos(angleDeg * DEG_TO_RAD) * offset,
@@ -97,14 +93,6 @@ export function Distance(loc1: Loc, loc2: Loc): number {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-export function locX(loc: location): number {
-  return GetLocationX(loc);
-}
-
-export function locY(loc: location): number {
-  return GetLocationY(loc);
-}
-
 export function isLocInRect(loc: Loc, rect: rect): boolean {
   const Rect = Rectangle.fromHandle(rect);
   return Rect.minX - 10 <= loc.x && loc.x < Rect.maxX + 10
@@ -112,7 +100,7 @@ export function isLocInRect(loc: Loc, rect: rect): boolean {
 }
 
 export function cameraCenter(): Loc {
-  return fromTempLocation(GetCameraTargetPositionLoc());
+  return { x: GetCameraTargetPositionX(), y: GetCameraTargetPositionY() };
 }
 
 export function meanLocs(locs: Loc[]): Loc {

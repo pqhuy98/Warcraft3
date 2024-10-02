@@ -1,4 +1,3 @@
-import { getUnitXY } from 'lib/location';
 import { ABILITY_BloodMageSiphonMana } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger } from 'lib/trigger';
@@ -39,11 +38,9 @@ export class MulticastUnit {
         const abilityLevel = caster.getAbilityLevel(abilityId);
         const order = caster.currentOrder;
 
-        const targetLoc = getUnitXY(target);
-
         const nearby = getUnitsInRangeOfLoc(
           radius,
-          targetLoc,
+          target,
           (u) => u.isAlive()
             && u !== caster
             && !isBuilding(u)

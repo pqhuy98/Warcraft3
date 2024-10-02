@@ -135,7 +135,7 @@ export class BanditBanish extends BaseQuest {
       .forEach((u) => u.life = GetRandomReal(0.2, 0.6) * u.maxLife);
 
     // John asks to deliver item to outpost
-    const talkGroup = new TalkGroup([john, peter, traveler]);
+    const talkGroup = TalkGroup.create(john, peter, traveler);
     await talkGroup.speak(john, johnSounds[0], traveler, traveler);
     await sleep(1);
     await talkGroup.speak(john, johnSounds[1], traveler, traveler);
@@ -154,12 +154,14 @@ export class BanditBanish extends BaseQuest {
 
     traveler = await this.waitForTurnIn(archMage);
     // Archmage asks for help
-    const talkGroup2 = new TalkGroup([archMage, traveler,
+    talkGroup.resetTo(
+      archMage,
+      traveler,
       ...getUnitsInRangeOfLoc(800, archMage, (u) => u.isAlive() && isOrganic(u)),
-    ]);
-    await talkGroup2.speak(archMage, archMageSounds[0], traveler, traveler);
+    );
+    await talkGroup.speak(archMage, archMageSounds[0], traveler, traveler);
     await sleep(1.5);
-    await talkGroup2.speak(archMage, archMageSounds[1], traveler, traveler);
+    await talkGroup.speak(archMage, archMageSounds[1], traveler, traveler);
 
     // Archmage summons water elemental to help
     const summonTrigger = buildTrigger((t) => {
@@ -174,7 +176,7 @@ export class BanditBanish extends BaseQuest {
     await sleep(0.1);
     archMage.issueImmediateOrder(OrderId.Waterelemental);
 
-    talkGroup2.finish();
+    talkGroup.finish();
 
     await questLog.completeItem(0);
     await questLog.insertItem(questItems[1]);
@@ -215,9 +217,9 @@ export class BanditBanish extends BaseQuest {
     await questLog.insertItem(questItems[2]);
 
     traveler = await this.waitForTurnIn(archMage);
-    await talkGroup2.speak(archMage, archMageSounds[2], traveler, traveler);
+    await talkGroup.speak(archMage, archMageSounds[2], traveler, traveler);
     await sleep(0.5);
-    await talkGroup2.speak(archMage, archMageSounds[3], traveler, traveler);
+    await talkGroup.speak(archMage, archMageSounds[3], traveler, traveler);
 
     traveler.addExperience(rewardXp, true);
     traveler.addAbility(ABILITY_ArchMageWaterElemental.id);
@@ -228,9 +230,9 @@ export class BanditBanish extends BaseQuest {
     ]);
 
     await sleep(1.5);
-    await talkGroup2.speak(archMage, archMageSounds[4], traveler, traveler);
+    await talkGroup.speak(archMage, archMageSounds[4], traveler, traveler);
 
-    talkGroup2.finish();
+    talkGroup.finish();
     this.complete();
   }
 

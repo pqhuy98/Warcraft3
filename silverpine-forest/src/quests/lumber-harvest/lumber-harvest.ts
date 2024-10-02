@@ -177,7 +177,7 @@ export class LumberHarvest extends BaseQuest {
 
     SetFloatGameState(GAME_STATE_TIME_OF_DAY, 18);
 
-    const talkGroup = new TalkGroup([...footmen, ...peasants]);
+    const talkGroup = TalkGroup.create(...footmen, ...peasants);
     await talkGroup.speak(footmen[0], footmanSounds[0], peasants[0], footmen[0]);
     await talkGroup.speak(peasants[0], peasantSounds[0], footmen[0], peasants[0]);
     await talkGroup.speak(footmen[0], footmanSounds[1], peasants[0], footmen[0]);

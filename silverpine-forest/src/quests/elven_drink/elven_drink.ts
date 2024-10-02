@@ -175,7 +175,7 @@ export class ElvenDrink extends BaseQuest {
           ? elfAgainSounds[level % elfAgainSounds.length]
           : elfLastSound;
 
-      const talkGroup = new TalkGroup([traveler, questGiver]);
+      const talkGroup = TalkGroup.create(traveler, questGiver);
       await talkGroup.speak(questGiver, elfSpeech, traveler, traveler);
       firstElfSpeech = false;
 

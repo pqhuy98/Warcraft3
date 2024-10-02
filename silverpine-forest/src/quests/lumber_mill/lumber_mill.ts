@@ -124,7 +124,7 @@ export class LumberMill extends BaseQuest {
     peter.issueTargetOrder(OrderId.Smart, traveler);
     await sleep(0.5);
 
-    const talkGroup = new TalkGroup([john, peter, traveler]);
+    const talkGroup = TalkGroup.create(john, peter, traveler);
     await talkGroup.speak(john, johnIntro, traveler, traveler);
     await talkGroup.speak(peter, peterIntro, traveler, traveler);
     talkGroup.finish();

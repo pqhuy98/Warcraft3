@@ -212,7 +212,7 @@ export class GatherSheeps extends BaseQuest {
       }
     }, 4.2 / sheeps.length);
 
-    const talkGroup = new TalkGroup([sheepBoy, traveler]);
+    const talkGroup = TalkGroup.create(sheepBoy, traveler);
     await talkGroup.speak(sheepBoy, introSounds[level], null, sheepBoy);
     talkGroup.finish();
 

@@ -2,7 +2,7 @@ import Frostmourne from 'abilities/frostmourne/frostmourne';
 import { Weather, weatherBlizzard } from 'events/weather/weather';
 import { SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN } from 'lib/constants';
 import { k0, k1 } from 'lib/debug/key_counter';
-import { getUnitXY, PolarProjection } from 'lib/location';
+import { PolarProjection } from 'lib/location';
 import { MODEL_FreezingBreathMissile, MODEL_FrostNovaTarget } from 'lib/resources/war3-models';
 import { playSoundIsolate, playSpeech } from 'lib/sound';
 import { MovingTerrainEffect } from 'lib/systems/moving_terrain_effect';
@@ -170,14 +170,13 @@ export default class WrathOfTheLichKing {
     const radius = WrathOfTheLichKing.Data.getEffectRadius();
 
     const effectDurationS = musicDuration - animationDurationSwordUp - animationDurationSwordSlam - 1;
-    const casterLoc = getUnitXY(caster);
 
-    const dummy1 = createDummy(caster.owner, casterLoc.x, casterLoc.y, caster, 0.5);
+    const dummy1 = createDummy(caster.owner, caster.x, caster.y, caster, 0.5);
     dummy1.addAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN);
     dummy1.setAbilityLevel(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN, abilityLevel);
     dummy1.issueImmediateOrder(OrderId.Stomp);
 
-    const dummy2 = createDummy(caster.owner, casterLoc.x, casterLoc.y, caster, effectDurationS);
+    const dummy2 = createDummy(caster.owner, caster.x, caster.y, caster, effectDurationS);
     dummy2.addAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD);
     dummy2.setAbilityLevel(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, abilityLevel);
 
@@ -209,12 +208,11 @@ export default class WrathOfTheLichKing {
     k0('wotlkT1');
     const t1 = setIntervalForDuration(0.05, effectDurationS, () => {
       if (caster.isAlive()) {
-        const currentCasterLoc = getUnitXY(caster);
         // for (const eff of effects) {
         //   BlzSetSpecialEffectPosition(eff, loc.x, loc.y, 100);
         // }
-        dummy2.x = currentCasterLoc.x;
-        dummy2.y = currentCasterLoc.y;
+        dummy2.x = caster.x;
+        dummy2.y = caster.y;
       } else {
         cleanUp();
       }

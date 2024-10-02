@@ -1,5 +1,5 @@
 import {
-  Angle, getUnitXY, Loc, PolarProjection,
+  Angle, Loc, PolarProjection,
 } from 'lib/location';
 import { ABILITY_BladeMasterBladestorm, ABILITY_BladeMasterMirrorImage } from 'lib/resources/war3-abilities';
 import { buildTrigger, setTimeout } from 'lib/trigger';
@@ -39,7 +39,7 @@ export default class BladeDance {
 
         const nearbyCasterIllusions = getUnitsInRangeOfLoc(
           this.Data.getFindIllusionRadius(),
-          getUnitXY(caster),
+          caster,
           (u) => u.typeId === caster.typeId
             && u.owner === caster.owner
             && u.isIllusion(),
@@ -183,19 +183,16 @@ export default class BladeDance {
       this.endSpell();
     } else {
       // teleport if too far away
-      const casterLoc = getUnitXY(this.caster);
-      const targetLoc = getUnitXY(this.target);
-
       let newLoc: Loc;
       if (this.isCasterMeleeUnit) {
-        const angle = Angle(casterLoc, targetLoc) + GetRandomReal(-30, 30);
-        newLoc = PolarProjection(targetLoc, BladeDance.Data.getMeleeAttackDistance(), angle);
+        const angle = Angle(this.caster, this.target) + GetRandomReal(-30, 30);
+        newLoc = PolarProjection(this.target, BladeDance.Data.getMeleeAttackDistance(), angle);
       } else {
-        newLoc = PolarProjection(casterLoc, GetRandomReal(0, 50), GetRandomDirectionDeg());
+        newLoc = PolarProjection(this.caster, GetRandomReal(0, 50), GetRandomDirectionDeg());
       }
       SetUnitX(this.caster.handle, newLoc.x);
       SetUnitY(this.caster.handle, newLoc.y);
-      this.caster.setFacingEx(Angle(newLoc, targetLoc));
+      this.caster.setFacingEx(Angle(newLoc, this.target));
     }
   }
 
@@ -225,9 +222,7 @@ export default class BladeDance {
   }
 
   handleTargetUnattackable(): void {
-    const targetLoc = getUnitXY(this.target);
-
-    const nextTarget = this.findNextTarget(targetLoc);
+    const nextTarget = this.findNextTarget(this.target);
     if (nextTarget !== null) {
       this.setTarget(nextTarget);
     } else {

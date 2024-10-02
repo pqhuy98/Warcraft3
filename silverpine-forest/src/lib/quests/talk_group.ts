@@ -12,8 +12,12 @@ export class TalkGroup {
   constructor(public units: Unit[]) {
   }
 
-  addUnit(unit: Unit): void {
-    this.units.push(unit);
+  static create(...units: Unit[]): TalkGroup {
+    return TalkGroup.create(...units);
+  }
+
+  add(...units: Unit[]): void {
+    this.units.push(...units);
   }
 
   async speak(speakingUnit: Unit, sound: Sound, target: Unit | null, everyoneAttention: Unit | null): Promise<void> {
@@ -42,6 +46,10 @@ export class TalkGroup {
       setUnitFlag(u, Flag.UNBREAKABLE_ATTENTION, false);
       enableInteractSound(u);
     });
+  }
+
+  resetTo(...units: Unit[]): void {
+    this.units = units;
   }
 
   setEveryoneAttention(target: Unit): void {
