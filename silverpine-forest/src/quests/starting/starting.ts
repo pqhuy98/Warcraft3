@@ -73,6 +73,7 @@ export class Starting extends BaseQuest {
 
   private async register(): Promise<void> {
     const { footman } = this.globals;
+    footman.name = 'Footman Rick';
     await this.waitDependenciesDone();
 
     getUnitsInRect(gg_rct_Farm_region, (u) => isUnitType(u, UNIT_Peasant))
