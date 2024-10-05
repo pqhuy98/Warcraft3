@@ -3,6 +3,7 @@ import { Weather, weatherBlizzard } from 'events/weather/weather';
 import { SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN } from 'lib/constants';
 import { k0, k1 } from 'lib/debug/key_counter';
 import { PolarProjection } from 'lib/location';
+import { dialogue } from 'lib/quests/dialogue_sound';
 import { MODEL_FreezingBreathMissile, MODEL_FrostNovaTarget } from 'lib/resources/war3-models';
 import { playSoundIsolate, playSpeech } from 'lib/sound';
 import { MovingTerrainEffect } from 'lib/systems/moving_terrain_effect';
@@ -31,6 +32,9 @@ const musicDuration = 44.721;
 const snowyTerrainTypes = [
   FourCC('Iice'),
 ];
+
+const speechSound = dialogue('Sounds/lichking_frostmourne_hungers.mp3', 'Lich King', 'Frostmourne hungers...');
+const spellSound = Sound.create('Sounds/lichking_wrath_sound.mp3', false, false, false, 1, 1, 'DefaultEAXON');
 
 export default class WrathOfTheLichKing {
   static Data = {
@@ -68,7 +72,7 @@ export default class WrathOfTheLichKing {
 
         caster.setAnimation(4);
         setTimeout(0, () => {
-          void playSoundIsolate(gg_snd_lich_king_stab_out, 100, 0);
+          void playSoundIsolate(spellSound);
           k1('wotlk1');
         });
 
@@ -80,7 +84,7 @@ export default class WrathOfTheLichKing {
 
         const earlyStop = (): void => {
           caster.setTimeScale(1);
-          StopSoundBJ(gg_snd_lich_king_stab_out, false);
+          spellSound.stop(false, false);
           VolumeGroupReset();
           SetMusicVolume(100);
         };
@@ -137,7 +141,7 @@ export default class WrathOfTheLichKing {
 
         setTimeout(animationDurationSwordUp + animationDurationSwordSlam + 1, () => {
           if (caster.isAlive()) {
-            void playSpeech(caster, Sound.fromHandle(gg_snd_lichking_frostmourne_hungers));
+            void playSpeech(caster, speechSound);
           }
           k1('wotlk5');
         });
@@ -237,7 +241,7 @@ export default class WrathOfTheLichKing {
       //     DestroyEffect(eff);
       //   }
       // });
-      StopSoundBJ(gg_snd_lich_king_stab_out, true);
+      spellSound.stop(false, true);
       safeRemoveDummy(dummy2);
       Weather.changeWeather();
       VolumeGroupReset();

@@ -12,10 +12,11 @@ import { registerItemDrops } from 'events/item_drops/item_drops';
 import { MiscEvents } from 'events/misc';
 import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
 import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
+import { Weather } from 'events/weather/weather';
 import { registerCameraExperiments } from 'lib/camera';
 import {
   ABILITY_ID_BLADE_DANCE,
-  ABILITY_ID_CHAIN_LIGHTNING,
+  ABILITY_ID_CHAIN_LIGHTNING_ZEUS,
   ABILITY_ID_DEATH_COIL_LICH_KING,
   ABILITY_ID_DIVINE_FURY,
   ABILITY_ID_FROST_NOVA_LICH_KING,
@@ -86,7 +87,7 @@ function tsMain(): void {
   registerFrameUiExperiments();
 
   // Miscs
-  // Weather.changeWeather();
+  Weather.changeWeather();
   Impale.register();
   SummonBirthAnimation.register();
   MiscEvents.register();
@@ -97,7 +98,7 @@ function tsMain(): void {
 
   // Abilities
   ThunderBlink.register(ABILITY_ID_THUNDER_BLINK);
-  ChainLightning.register(ABILITY_ID_CHAIN_LIGHTNING);
+  ChainLightning.register(ABILITY_ID_CHAIN_LIGHTNING_ZEUS);
   BladeDance.register(ABILITY_ID_BLADE_DANCE);
   BladeDance.register(ABILITY_ID_DIVINE_FURY);
   Sandquake.register(ABILITY_ID_SANDQUAKE);

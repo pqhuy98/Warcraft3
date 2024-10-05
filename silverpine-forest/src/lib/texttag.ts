@@ -1,10 +1,10 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { sleep, TextTag } from 'w3ts';
+import { sleep, TextTag, Unit } from 'w3ts';
 
 import { playerMain } from './constants';
 import { Loc } from './location';
 import { log } from './log';
-import { getUnitsInRect } from './unit';
+import { getUnitScale, getUnitsInRect } from './unit';
 
 export interface TextTagConfig {
   r: number
@@ -100,9 +100,10 @@ export function createTextTag(text: string, loc: Loc, {
   return tt;
 }
 
-export function createDialogueTextTag(text: string, loc: Loc, durationS: number): TextTag {
-  return createTextTag(text, loc, {
+export function createDialogueTextTag(text: string, unit: Unit, durationS: number): TextTag {
+  return createTextTag(text, unit, {
     ...TTSetting.dialogue,
+    heightOffset: TTSetting.dialogue.heightOffset * getUnitScale(unit),
     lifespan: durationS + 0.5,
     fadepoint: durationS - 0.5,
     velocityUp: 0,

@@ -1,10 +1,10 @@
 import { MapPlayer } from 'w3ts';
 
 // Custom abilities
-export const ABILITY_ID_CHAIN_LIGHTNING = FourCC('A003:AOcl');
+export const ABILITY_ID_CHAIN_LIGHTNING_ZEUS = FourCC('A003:AOcl');
 
 export const ABILITY_ID_THUNDER_BLINK = FourCC('A00B:AEbl');
-export const SUPPORT_ABILITY_ID_THUNDER_CLAP = FourCC('A00C:AHtc');
+export const SUPPORT_ABILITY_ID_THUNDER_CLAP_ZEUS = FourCC('A00C:AHtc');
 
 export const ABILITY_ID_BLADE_DANCE = FourCC('A000:AHtb');
 export const ABILITY_ID_CRITICAL_STRIKE_SAMURO = FourCC('A002:AOrc');

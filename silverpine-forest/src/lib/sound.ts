@@ -89,15 +89,12 @@ export async function playSpeechUnitType(unitType: UNIT_TYPE, sound: Sound, opti
 }
 
 export async function playSoundIsolate(
-  sound: sound,
-  volume: number,
-  startingOffset: number,
+  sound: Sound,
 ): Promise<void> {
-  StopSound(sound, false, false);
+  sound.stop(false, false);
   SetMusicVolume(0);
-  PlaySoundFromOffsetBJ(sound, volume, startingOffset);
-  const duration = GetSoundDuration(sound);
-  await sleep(duration / 1000);
+  sound.start();
+  await sleep(sound.duration / 1000);
   SetMusicVolume(100);
 }
 

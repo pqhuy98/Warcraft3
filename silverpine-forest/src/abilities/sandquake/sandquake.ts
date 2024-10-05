@@ -4,7 +4,6 @@ import {
   Angle,
   Distance, fromTempLocation, Loc,
   PolarProjection,
-  tempLocation,
 } from 'lib/location';
 import { log } from 'lib/log';
 import {
@@ -25,13 +24,15 @@ import { MODEL_Sand_Tornado } from '../../lib/constants';
 
 const MODEL_EarthquakeTarget_classic = classic(MODEL_EarthquakeTarget);
 const MODEL_AncientProtectorMissile_classic = classic(MODEL_AncientProtectorMissile);
+const MODEL_Tornado_classic = classic(MODEL_Tornado);
+const hasTerrainDeformation = false;
 
 export default class Sandquake {
   static Data = {
     ABILITY_IDS: <number[]>[],
     getEffectRadius: (): number => (500),
     targetMatching: (caster: Unit, unit: Unit): boolean => unit.isAlive()
-      && unit.isEnemy(caster.getOwner())
+      && unit.isEnemy(caster.owner)
       && !unit.invulnerable
       && !isBuilding(unit)
       && !unit.isUnitType(UNIT_TYPE_FLYING)
@@ -118,11 +119,12 @@ export default class Sandquake {
     const distancePerStep = speed * intervalS;
 
     const sandstormEffect = AddSpecialEffect(MODEL_Sand_Tornado, caster.x, caster.y);
-    BlzSetSpecialEffectScale(sandstormEffect, (2));
+    BlzSetSpecialEffectMatrixScale(sandstormEffect, 2, 2, 0.1);
     BlzSetSpecialEffectTime(sandstormEffect, 0.51);
     BlzSetSpecialEffectTimeScale(sandstormEffect, 0.6);
 
-    const sandstormEffect2 = AddSpecialEffect(MODEL_Tornado, caster.x, caster.y);
+    const sandstormEffect2 = AddSpecialEffect(MODEL_Tornado_classic, caster.x, caster.y);
+    BlzSetSpecialEffectMatrixScale(sandstormEffect, 1, 1, 0.5);
     BlzSetSpecialEffectTimeScale(sandstormEffect2, 1);
 
     const timer = setIntervalIndefinite(intervalS, (idx) => {
@@ -148,15 +150,17 @@ export default class Sandquake {
         const distance = GetRandomReal(0, radius);
         const effLoc = PolarProjection(newLoc, distance, angle);
         const eff = AddSpecialEffect(MODEL_AncientProtectorMissile_classic, effLoc.x, effLoc.y);
-        BlzSetSpecialEffectScale(eff, (1));
         DestroyEffect(eff);
       }
 
       if (idx % 8 === 0) {
-        TerrainDeformationRandomBJ(0.5, tempLocation(newLoc), radius, -30, 30, 0.15);
+        if (hasTerrainDeformation) {
+          const durationMs = 250;
+          const updateIntervalMs = 150;
+          TerrainDeformRandom(newLoc.x, newLoc.y, radius, -30, 30, durationMs, updateIntervalMs);
+        }
         const effect = AddSpecialEffect(MODEL_EarthquakeTarget_classic, newLoc.x, newLoc.y);
-        BlzSetSpecialEffectScale(effect, (1));
-        BlzSetSpecialEffectYaw(effect, Math.random() * 2 * Math.PI);
+        BlzSetSpecialEffectYaw(effect, GetRandomReal(0, 2 * Math.PI));
         setTimeout(0.95, () => DestroyEffect(effect));
       }
 
@@ -168,7 +172,6 @@ export default class Sandquake {
         );
 
         for (const enumUnit of nearbyEnemies) {
-          if (this.affectedEnemies.has(enumUnit)) return;
           Impale.create({
             caster,
             target: enumUnit,

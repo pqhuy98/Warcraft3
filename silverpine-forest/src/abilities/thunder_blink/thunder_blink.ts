@@ -1,5 +1,5 @@
 import { ChainLightningMulticast } from 'abilities/chain_lightning/chain_lightning_multicast';
-import { ABILITY_ID_CHAIN_LIGHTNING, SUPPORT_ABILITY_ID_THUNDER_CLAP } from 'lib/constants';
+import { ABILITY_ID_CHAIN_LIGHTNING_ZEUS, SUPPORT_ABILITY_ID_THUNDER_CLAP_ZEUS } from 'lib/constants';
 import {
   fromTempLocation, Loc, PolarProjection,
 } from 'lib/location';
@@ -54,15 +54,15 @@ export class ThunderBlink {
     // Thunder Clap in place
     const dummy1 = createDummy(caster.owner, caster.x, caster.y, caster, 1);
     setUnitScale(dummy1, casterScale);
-    dummy1.addAbility(SUPPORT_ABILITY_ID_THUNDER_CLAP);
-    dummy1.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel);
+    dummy1.addAbility(SUPPORT_ABILITY_ID_THUNDER_CLAP_ZEUS);
+    dummy1.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP_ZEUS, abilityLevel);
     dummy1.issueImmediateOrder(ORDER_thunderclap);
 
     // Thunder Clap at target
     const dummy2 = createDummy(caster.owner, targetLoc.x, targetLoc.y, caster, 1);
     setUnitScale(dummy2, casterScale);
-    dummy2.addAbility(SUPPORT_ABILITY_ID_THUNDER_CLAP);
-    dummy2.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP, abilityLevel);
+    dummy2.addAbility(SUPPORT_ABILITY_ID_THUNDER_CLAP_ZEUS);
+    dummy2.setAbilityLevel(SUPPORT_ABILITY_ID_THUNDER_CLAP_ZEUS, abilityLevel);
     dummy2.issueImmediateOrder(ORDER_thunderclap);
 
     const blinkEffect1 = AddSpecialEffect(MODEL_ThunderclapCaster_classic, caster.x, caster.y);
@@ -70,18 +70,18 @@ export class ThunderBlink {
     DestroyEffect(blinkEffect1);
 
     const effectCenter = AddSpecialEffect(MODEL_ThunderclapCaster_classic, targetLoc.x, targetLoc.y);
-    BlzSetSpecialEffectScale(effectCenter, 4);
+    BlzSetSpecialEffectScale(effectCenter, 2);
     BlzSetSpecialEffectColor(effectCenter, 255, 0, 0);
     DestroyEffect(effectCenter);
 
     const effectCenter2 = AddSpecialEffect(MODEL_BoltImpact_classic, targetLoc.x, targetLoc.y);
-    BlzSetSpecialEffectScale(effectCenter2, 4);
+    BlzSetSpecialEffectScale(effectCenter2, 2);
     BlzSetSpecialEffectColor(effectCenter2, 255, 0, 0);
     DestroyEffect(effectCenter2);
 
     const anglePhase = GetRandomDirectionDeg();
 
-    const numberEffects = GetRandomInt(4, 6);
+    const numberEffects = GetRandomInt(3, 5);
     const layers = 2;
     const effectStep = (radius - (125)) / layers;
     for (let j = 0; j < layers; j++) {
@@ -100,41 +100,44 @@ export class ThunderBlink {
       }
     }
 
-    const lightningsInner: lightning[] = [];
-    const lightningsOuter: lightning[] = [];
-    const lightningCount = 15;
-    for (let i = 0; i < lightningCount; i++) {
-      lightningsInner.push(AddLightning(LIGHTNING_FingerOfDeath.code, true, targetLoc.x, targetLoc.y, targetLoc.x, targetLoc.y));
+    const createLightning = false;
+    if (createLightning) {
+      const lightningsInner: lightning[] = [];
+      const lightningsOuter: lightning[] = [];
+      const lightningCount = 15;
+      for (let i = 0; i < lightningCount; i++) {
+        lightningsInner.push(AddLightning(LIGHTNING_FingerOfDeath.code, true, targetLoc.x, targetLoc.y, targetLoc.x, targetLoc.y));
       // lightningsOuter.push(AddLightning(LIGHTNING_FingerOfDeath.code, true, locX(targetLoc), locY(targetLoc), locX(targetLoc), locY(targetLoc)))
-    }
-    const lightnings = [...lightningsInner, ...lightningsOuter];
-
-    const lnRadius = radius;
-    const repeat = (0.5 / 0.05);
-    setIntervalForDuration(0.05, 0.5, (i) => {
-      const distancePercent = i / repeat;
-      for (let j = 0; j < lightningsInner.length; j++) {
-        const lightningLoc = PolarProjection(caster, distancePercent * lnRadius, j * 360 / lightningCount);// + i * anglePhase / repeat);
-        MoveLightning(lightningsInner[j], true, caster.x, caster.y, lightningLoc.x, lightningLoc.y);
       }
+      const lightnings = [...lightningsInner, ...lightningsOuter];
 
-      for (let j = 0; j < lightningsOuter.length; j++) {
-        const loc1 = PolarProjection(caster, distancePercent * lnRadius, j * 360 / lightningCount + i * anglePhase / repeat);
-        const loc2 = PolarProjection(caster, distancePercent * lnRadius, (j + 1) * 360 / lightningCount + i * anglePhase / repeat);
-        MoveLightning(lightningsInner[j], true, loc1.x, loc1.y, loc2.x, loc2.y);
-      }
-    }, () => {
-      const repeat2 = 0.1 / 0.03;
-      setIntervalForDuration(0.03, 0.1, (i: number) => {
-        for (const l of lightnings) {
-          SetLightningColor(l, 1, 1, 1, 1 - (i / repeat2));
+      const lnRadius = radius;
+      const repeat = (0.5 / 0.05);
+      setIntervalForDuration(0.05, 0.5, (i) => {
+        const distancePercent = i / repeat;
+        for (let j = 0; j < lightningsInner.length; j++) {
+          const lightningLoc = PolarProjection(caster, distancePercent * lnRadius, j * 360 / lightningCount);// + i * anglePhase / repeat);
+          MoveLightning(lightningsInner[j], true, caster.x, caster.y, lightningLoc.x, lightningLoc.y);
+        }
+
+        for (let j = 0; j < lightningsOuter.length; j++) {
+          const loc1 = PolarProjection(caster, distancePercent * lnRadius, j * 360 / lightningCount + i * anglePhase / repeat);
+          const loc2 = PolarProjection(caster, distancePercent * lnRadius, (j + 1) * 360 / lightningCount + i * anglePhase / repeat);
+          MoveLightning(lightningsInner[j], true, loc1.x, loc1.y, loc2.x, loc2.y);
         }
       }, () => {
-        for (const l of lightnings) {
-          DestroyLightning(l);
-        }
+        const repeat2 = 0.1 / 0.03;
+        setIntervalForDuration(0.03, 0.1, (i: number) => {
+          for (const l of lightnings) {
+            SetLightningColor(l, 1, 1, 1, 1 - (i / repeat2));
+          }
+        }, () => {
+          for (const l of lightnings) {
+            DestroyLightning(l);
+          }
+        });
       });
-    });
+    }
 
     // Chain lightning around
     const nearby = getUnitsInRangeOfLoc(
@@ -148,8 +151,8 @@ export class ThunderBlink {
       const dummyCl = createDummy(caster.owner, caster.x, caster.y, caster, 1);
       setUnitScale(dummyCl, (1));
       ChainLightningMulticast.blackListCaster(dummyCl);
-      dummyCl.addAbility(ABILITY_ID_CHAIN_LIGHTNING);
-      dummyCl.setAbilityLevel(ABILITY_ID_CHAIN_LIGHTNING, abilityLevel);
+      dummyCl.addAbility(ABILITY_ID_CHAIN_LIGHTNING_ZEUS);
+      dummyCl.setAbilityLevel(ABILITY_ID_CHAIN_LIGHTNING_ZEUS, abilityLevel);
       dummyCl.issueTargetOrder(ORDER_chainlightning, enumUnit);
       tieUnitToUnit(dummyCl, caster);
     }, durationPerStep);
