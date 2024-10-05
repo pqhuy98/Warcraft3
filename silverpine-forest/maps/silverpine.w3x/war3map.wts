@@ -2455,3 +2455,9 @@ STRING 436
 Bottle 1
 }
 
+STRING 437
+// Units: n00D (Villager (Male)), Name (Name)
+{
+Villager (Male)
+}
+
