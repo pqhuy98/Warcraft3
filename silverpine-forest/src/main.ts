@@ -22,15 +22,16 @@ import {
   ABILITY_ID_SANDQUAKE,
   ABILITY_ID_THUNDER_BLINK,
   ABILITY_ID_WRATH_OF_THE_LICH_KING,
-  mainPlayer,
   neutralHostile,
   neutralPassive,
   playerBlackTurban,
   playerForsaken,
   playerHumanAlliance,
+  playerMain,
   playerMonsters,
   playerNightElfSentinels,
   playerOrcishHorde,
+  playerShadowfangCity,
   registerGlobalUnits,
 } from 'lib/constants';
 import { registerFrameUiExperiments } from 'lib/frame-ui';
@@ -39,6 +40,7 @@ import {
 } from 'lib/location';
 import { setAllianceState, setAllianceState2Way } from 'lib/player';
 import { cinematicFadeIn, cinematicFadeOut, daemonQuestMarker } from 'lib/quests/utils';
+import { ABILITY_Burrow } from 'lib/resources/war3-abilities';
 import { allUpgrades } from 'lib/resources/war3-upgrades';
 import { registerHearthStone } from 'lib/systems/hearth_stone';
 import { registerPreseveUnits } from 'lib/systems/preserve_unit';
@@ -119,7 +121,7 @@ function configurePlayerSettings(): void {
   SetReservedLocalHeroButtons(0);
 
   const heroOnlyPlayers = [
-    mainPlayer,
+    playerMain,
   ];
 
   for (let i = 0; i < 24; i++) {
@@ -137,40 +139,70 @@ function configurePlayerSettings(): void {
     }
 
     setAllianceState(neutralPassive, player, 'neutral vision');
-    if (player !== mainPlayer) {
+    if (player !== playerMain) {
       setAllianceState2Way(neutralHostile, player, 'neutral');
     }
-    fullUpgrade(player);
+    configureTechs(player);
+    player.setState(PLAYER_STATE_GIVES_BOUNTY, 1);
   }
 
-  fullUpgrade(neutralHostile);
-  fullUpgrade(neutralPassive);
+  configureTechs(neutralHostile);
+  configureTechs(neutralPassive);
 
   // Player Color
-  SetPlayerColorBJ(mainPlayer.handle, PLAYER_COLOR_PURPLE, true);
+  SetPlayerColorBJ(playerMain.handle, PLAYER_COLOR_PURPLE, true);
   SetPlayerColorBJ(playerHumanAlliance.handle, PLAYER_COLOR_BLUE, true);
+  SetPlayerColorBJ(playerShadowfangCity.handle, PLAYER_COLOR_BLUE, true);
   SetPlayerColorBJ(playerOrcishHorde.handle, PLAYER_COLOR_RED, true);
   SetPlayerColorBJ(playerNightElfSentinels.handle, PLAYER_COLOR_CYAN, true);
   SetPlayerColorBJ(playerBlackTurban.handle, PLAYER_COLOR_COAL, true);
   SetPlayerColorBJ(playerMonsters.handle, PLAYER_COLOR_COAL, true);
 
   // Player alliance
-  setAllianceState2Way(playerOrcishHorde, mainPlayer, 'enemy');
-  setAllianceState2Way(playerNightElfSentinels, mainPlayer, 'allied');
-  setAllianceState2Way(playerHumanAlliance, mainPlayer, 'allied');
-  setAllianceState2Way(playerForsaken, mainPlayer, 'enemy');
-  setAllianceState2Way(playerBlackTurban, mainPlayer, 'enemy');
-  setAllianceState2Way(playerMonsters, mainPlayer, 'enemy');
 
-  setAllianceState2Way(playerBlackTurban, playerHumanAlliance, 'enemy');
-  setAllianceState2Way(playerForsaken, playerHumanAlliance, 'enemy');
-  setAllianceState2Way(playerOrcishHorde, playerHumanAlliance, 'enemy');
+  // By default, all players are allied to each other
+  const allPlayers = [
+    playerMain,
+    playerHumanAlliance,
+    playerShadowfangCity,
+    playerOrcishHorde,
+    playerNightElfSentinels,
+    playerBlackTurban,
+    playerMonsters,
+  ];
+  for (const p1 of allPlayers) {
+    for (const p2 of allPlayers) {
+      if (p1 === p2) {
+        continue;
+      }
+      setAllianceState2Way(p1, p2, 'allied');
+    }
+  }
 
-  setAllianceState2Way(playerBlackTurban, playerNightElfSentinels, 'enemy');
+  // These players are enemies
+  setAllianceState2Way(playerMain, playerForsaken, 'enemy');
+  setAllianceState2Way(playerMain, playerOrcishHorde, 'enemy');
+  setAllianceState2Way(playerMain, playerBlackTurban, 'enemy');
+  setAllianceState2Way(playerMain, playerMonsters, 'enemy');
+
+  setAllianceState2Way(playerHumanAlliance, playerForsaken, 'enemy');
+  setAllianceState2Way(playerHumanAlliance, playerOrcishHorde, 'enemy');
+  setAllianceState2Way(playerHumanAlliance, playerBlackTurban, 'enemy');
+  setAllianceState2Way(playerHumanAlliance, playerMonsters, 'enemy');
+
+  setAllianceState2Way(playerShadowfangCity, playerForsaken, 'enemy');
+  setAllianceState2Way(playerShadowfangCity, playerOrcishHorde, 'enemy');
+  setAllianceState2Way(playerShadowfangCity, playerBlackTurban, 'enemy');
+  setAllianceState2Way(playerShadowfangCity, playerMonsters, 'enemy');
+
+  setAllianceState2Way(playerForsaken, playerOrcishHorde, 'enemy');
+
+  setAllianceState2Way(playerNightElfSentinels, playerBlackTurban, 'enemy');
 }
 
 addScriptHook(W3TS_HOOK.MAIN_AFTER, tsMain);
 
-function fullUpgrade(player: MapPlayer): void {
+function configureTechs(player: MapPlayer): void {
   allUpgrades.forEach((up) => player.addTechResearched(up, 99));
+  player.setAbilityAvailable(ABILITY_Burrow.id, false);
 }

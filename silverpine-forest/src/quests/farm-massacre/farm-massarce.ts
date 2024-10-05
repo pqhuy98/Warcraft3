@@ -1,6 +1,6 @@
 import { lockCameraBound, panCameraSmart, restoreCameraBound } from 'lib/camera';
 import {
-  mainPlayer, neutralPassive, playerForsaken, playerHumanAlliance,
+  playerMain, neutralPassive, playerForsaken, playerHumanAlliance,
 } from 'lib/constants';
 import {
   centerLocRect, isLocInRect, PolarProjection, tempLocation,
@@ -108,7 +108,7 @@ export class FarmMassacre extends BaseQuest {
 
     // Play sound when player realized outtpost and farm are destroyed
     void waitUntil(1, () => {
-      const canSongStart = getUnitsOfPlayer(mainPlayer, (u) => u.isHero() && (isLocInRect(u, outpostRect) || isLocInRect(u, farmRect))).length > 0;
+      const canSongStart = getUnitsOfPlayer(playerMain, (u) => u.isHero() && (isLocInRect(u, outpostRect) || isLocInRect(u, farmRect))).length > 0;
       if (canSongStart) {
         PlayThematicMusic('Sound\\Music\\mp3Music\\TragicConfrontation.mp3');
       }
@@ -225,7 +225,7 @@ export class FarmMassacre extends BaseQuest {
       removeGuardPosition(u);
     });
 
-    getUnitsOfPlayer(mainPlayer).forEach((u) => {
+    getUnitsOfPlayer(playerMain).forEach((u) => {
       if (u.isHero()) {
         removeRespawn(u);
         u.owner = neutralPassive;

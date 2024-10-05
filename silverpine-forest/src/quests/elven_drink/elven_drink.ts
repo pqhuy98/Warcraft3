@@ -23,7 +23,6 @@ import {
   BUFF_ID_GENERIC, enumUnitAbilities,
   getUnitsInRect,
   isBuilding,
-  setNeverDie,
 } from 'lib/unit';
 import { shuffleArray, waitUntil } from 'lib/utils';
 import {
@@ -155,7 +154,6 @@ export class ElvenDrink extends BaseQuest {
     questGiver.setField(UNIT_RF_CAST_POINT, 0);
     questGiver.setField(UNIT_RF_CAST_BACK_SWING, 0);
     questGiver.addAbility(FourCC('A00R'));
-    setNeverDie(questGiver, true);
 
     await this.waitDependenciesDone();
 

@@ -1,0 +1,178 @@
+globals
+
+    // Custom variables
+    player user = Player(4)
+
+endglobals
+
+// BUILD ORDER
+//------------------------------------------------
+function SetBuildOrderLoop takes nothing returns nothing
+    local integer freeCapacity
+    loop
+        call InitBuildArray()
+
+        set freeCapacity = GetUnitCountDone(CRYPT)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 8, GHOUL)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 6, CRYPT_FIEND)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 4, GARGOYLE)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 4, GARGOYLE)
+
+        set freeCapacity = GetUnitCountDone(SLAUGHTERHOUSE)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 4, ABOMINATION)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 2, MEAT_WAGON)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 2, OBS_STATUE)
+
+        set freeCapacity = GetUnitCountDone(DAMNED_TEMPLE)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 3, NECRO)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 3, BANSHEE)
+
+        set freeCapacity = GetUnitCountDone(BONEYARD)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 3, FROST_WYRM)
+
+        call SetBuildUnit(1, NECROPOLIS_1)
+        call SetBuildUnit(3, ACOLYTE)
+        call SetBuildUnit(1, UNDEAD_ALTAR)
+        call SetBuildUnit(1, CRYPT)
+        call SetBuildUnit(1, GRAVEYARD)
+        call SetBuildUnit(1, TOMB_OF_RELICS)
+        call SetBuildUnit(1, NECROPOLIS_2)
+        call SetBuildUnit(1, NECROPOLIS_3)
+        call SetBuildUnit(1, SLAUGHTERHOUSE)
+        call SetBuildUnit(1, DAMNED_TEMPLE)
+        call SetBuildUnit(1, SAC_PIT)
+        call SetBuildUnit(1, BONEYARD)
+
+        call SetBuildUnit(2, CRYPT)
+        call SetBuildUnit(2, SLAUGHTERHOUSE)
+        call SetBuildUnit(2, DAMNED_TEMPLE)
+        call SetBuildUnit(2, BONEYARD)
+
+        call SetBuildUnit(3, CRYPT)
+        call SetBuildUnit(3, SLAUGHTERHOUSE)
+        call SetBuildUnit(3, DAMNED_TEMPLE)
+        call SetBuildUnit(3, BONEYARD)
+
+        call SetBuildUnit(4, CRYPT)
+        call SetBuildUnit(4, SLAUGHTERHOUSE)
+        call SetBuildUnit(4, DAMNED_TEMPLE)
+
+        call SetBuildUnit(5, CRYPT)
+        call SetBuildUnit(5, SLAUGHTERHOUSE)
+
+        call SetBuildUnit(6, CRYPT)
+        call SetBuildUnit(6, SLAUGHTERHOUSE)
+
+        call SetBuildUnit(7, CRYPT)
+        call SetBuildUnit(7, SLAUGHTERHOUSE)
+
+        call SetBuildUnit(8, CRYPT)
+        call SetBuildUnit(8, SLAUGHTERHOUSE)
+
+        call Sleep(GetRandomInt(1, 3))
+    endloop
+endfunction
+
+// DEFENDERS
+//------------------------------------------------
+function SetDefenders takes nothing returns nothing
+
+endfunction
+
+// RESEARCH UPGRADES
+//------------------------------------------------
+function ResearchUpgrades takes nothing returns nothing
+    // no upgrade
+    return
+endfunction
+
+// ATTACK LOOP
+//------------------------------------------------
+function AttackLoop takes nothing returns nothing
+    call Sleep(10)
+    // // *** WAVE 1 ***
+    call InitAssaultGroup()
+    call CampaignAttacker(EASY, 8, GHOUL)
+    call CampaignAttacker(EASY, 6, CRYPT_FIEND)
+    call CampaignAttacker(EASY, 2, MEAT_WAGON)
+    call AdvSuicideOnPlayer(30, targetPlayer, startX, startY)
+
+    // // *** WAVE 2 ***
+    call InitAssaultGroup()
+    call CampaignAttacker(EASY, 8, GHOUL)
+    call CampaignAttacker(EASY, 6, CRYPT_FIEND)
+    call CampaignAttacker(EASY, 4, ABOMINATION)
+    call CampaignAttacker(EASY, 2, MEAT_WAGON)
+    call CampaignAttacker(EASY, 3, NECRO)
+    call CampaignAttacker(EASY, 3, BANSHEE)
+    call CampaignAttacker(EASY, 2, OBS_STATUE)
+    call AdvSuicideOnPlayer(30, targetPlayer, startX, startY)
+
+    loop
+        // *** WAVE 3+ ***
+        call InitAssaultGroup()
+        call CampaignAttacker(EASY, 8, GHOUL)
+        call CampaignAttacker(EASY, 6, CRYPT_FIEND)
+        call CampaignAttacker(EASY, 4, ABOMINATION)
+        call CampaignAttacker(EASY, 2, MEAT_WAGON)
+        call CampaignAttacker(EASY, 3, NECRO)
+        call CampaignAttacker(EASY, 3, BANSHEE)
+        call CampaignAttacker(EASY, 3, FROST_WYRM)
+        call CampaignAttacker(EASY, 4, GARGOYLE)
+        call CampaignAttacker(EASY, 2, OBS_STATUE)
+        call CampaignAttacker(EASY, 2, BLK_SPHINX)
+        call AdvSuicideOnPlayer(30, targetPlayer, startX, startY)
+
+        call Sleep(10)
+    endloop
+
+endfunction
+
+// COMMAND LOOP
+//------------------------------------------------
+function CommandLoop takes nothing returns nothing
+    local boolean unknownCmd
+    loop
+        loop
+            exitwhen CommandsWaiting() <= 0
+            set unknownCmd = not HandleCommonCommands()
+            if unknownCmd then
+                // custom command handling
+                call log("Receive unknown command: " + I2S2(GetLastCommand()))
+                call PopLastCommand()
+            endif
+        endloop
+        call Sleep(0.1)
+    endloop
+endfunction
+
+// MAIN
+//------------------------------------------------
+function main takes nothing returns nothing
+    call AdvSetDebug(user, true)
+    call log("starting undead-invasion.ai")
+    call AdvSetDebug(user, false)
+    call CampaignAI(ZIGGURAT_1, null)
+
+    // Define AI properties
+    call SetReplacements(9999, 9999, 9999)
+    call GroupTimedLife(true)
+    call AdvSetPrioritizeTownHalls(false)
+
+
+    // Define defenders
+    call SetDefenders()
+
+    // Start command loop for external signals
+    call StartThread(function CommandLoop)
+
+    // Define build order
+    call StartThread(function SetBuildOrderLoop)
+
+    // Start to research upgrades at timed intervals
+    call StartThread(function ResearchUpgrades)
+
+    // Launch attack waves as soon as possible (it depends on the commands received)
+    call AttackLoop()
+
+endfunction

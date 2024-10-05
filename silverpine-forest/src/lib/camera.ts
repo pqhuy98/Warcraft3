@@ -1,13 +1,12 @@
 import { chatParamReal, onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { mainPlayer } from 'lib/constants';
-import { Camera, Effect, Frame } from 'w3ts';
+import { playerMain } from 'lib/constants';
+import { Camera, Frame } from 'w3ts';
 
 import {
   Loc, meanLocs, temp, tempLocation,
 } from './location';
 import { log } from './log';
 import { meanAngles, RAD_TO_DEG } from './maths/misc';
-import { MODEL_FrostNovaTarget } from './resources/war3-models';
 import { setIntervalIndefinite, setTimeout } from './trigger';
 import { getUnitsFromGroup } from './unit';
 
@@ -39,13 +38,13 @@ export function lockCameraBound(rects: rect[], locs: Loc[] = []): void {
   Frame.fromOrigin(ORIGIN_FRAME_MINIMAP, 0).visible = false;
 
   const bound = Rect(minX, minY, maxX, maxY);
-  SetCameraBoundsToRectForPlayerBJ(mainPlayer.handle, bound);
+  SetCameraBoundsToRectForPlayerBJ(playerMain.handle, bound);
   RemoveRect(bound);
 }
 
 export function restoreCameraBound(): void {
   BlzChangeMinimapTerrainTex('war3mapMap.blp');
-  SetCameraBoundsToRectForPlayerBJ(mainPlayer.handle, GetCameraBoundsMapRect());
+  SetCameraBoundsToRectForPlayerBJ(playerMain.handle, GetCameraBoundsMapRect());
   Frame.fromOrigin(ORIGIN_FRAME_MINIMAP, 0).visible = true;
 }
 
@@ -89,7 +88,7 @@ export function setCamera(
 export function registerCameraExperiments(): void {
   setTimeout(0, () => {
     onChatCommand('cams', true, () => {
-      const units = getUnitsFromGroup(GetUnitsSelectedAll(mainPlayer.handle));
+      const units = getUnitsFromGroup(GetUnitsSelectedAll(playerMain.handle));
       const center = meanLocs(units);
       const meanRotation = meanAngles(units.map((u) => u.facing + 180)) ?? GetRandomDirectionDeg();
       units.forEach((u) => log(`${u.name} ${u.facing}`));
@@ -118,63 +117,44 @@ export function registerCameraExperiments(): void {
       });
     });
 
-    onChatCommand('camexp', true, () => {
-      const nearz = chatParamReal('nearz', Camera.getField(CAMERA_FIELD_NEARZ));
-      const farz = chatParamReal('farz', Camera.getField(CAMERA_FIELD_FARZ));
-      const angle = chatParamReal('angle', Camera.getField(CAMERA_FIELD_ANGLE_OF_ATTACK) * RAD_TO_DEG);
-      const fov = chatParamReal('fov', Camera.getField(CAMERA_FIELD_FIELD_OF_VIEW) * RAD_TO_DEG);
-      const lp = chatParamReal('lp', Camera.getField(CAMERA_FIELD_LOCAL_PITCH) * RAD_TO_DEG);
-      const lr = chatParamReal('lr', Camera.getField(CAMERA_FIELD_LOCAL_ROLL) * RAD_TO_DEG);
-      const ly = chatParamReal('ly', Camera.getField(CAMERA_FIELD_LOCAL_YAW) * RAD_TO_DEG);
-      const roll = chatParamReal('roll', Camera.getField(CAMERA_FIELD_ROLL) * RAD_TO_DEG);
-      const rot = chatParamReal('rot', Camera.getField(CAMERA_FIELD_ROTATION) * RAD_TO_DEG);
-      const zoff = chatParamReal('zoff', Camera.getField(CAMERA_FIELD_ZOFFSET));
-      const dis = chatParamReal('dis', Camera.getField(CAMERA_FIELD_TARGET_DISTANCE));
+    const nearz = chatParamReal('nearz', Camera.getField(CAMERA_FIELD_NEARZ));
+    const farz = chatParamReal('farz', Camera.getField(CAMERA_FIELD_FARZ));
+    const angle = chatParamReal('angle', Camera.getField(CAMERA_FIELD_ANGLE_OF_ATTACK) * RAD_TO_DEG);
+    const fov = chatParamReal('fov', Camera.getField(CAMERA_FIELD_FIELD_OF_VIEW) * RAD_TO_DEG);
+    const lp = chatParamReal('lp', Camera.getField(CAMERA_FIELD_LOCAL_PITCH) * RAD_TO_DEG);
+    const lr = chatParamReal('lr', Camera.getField(CAMERA_FIELD_LOCAL_ROLL) * RAD_TO_DEG);
+    const ly = chatParamReal('ly', Camera.getField(CAMERA_FIELD_LOCAL_YAW) * RAD_TO_DEG);
+    const roll = chatParamReal('roll', Camera.getField(CAMERA_FIELD_ROLL) * RAD_TO_DEG);
+    const rot = chatParamReal('rot', Camera.getField(CAMERA_FIELD_ROTATION) * RAD_TO_DEG);
+    const zoff = chatParamReal('zoff', Camera.getField(CAMERA_FIELD_ZOFFSET));
+    const dis = chatParamReal('dis', Camera.getField(CAMERA_FIELD_TARGET_DISTANCE));
 
-      const interval = 0.03;
-      let eff: Effect;
-      setIntervalIndefinite(interval, (idx) => {
-        const target = temp(Camera.targetPoint);
-        if (idx % 33 === 0) {
-          if (eff) {
-            eff.destroy();
-          }
-          eff = Effect.create(MODEL_FrostNovaTarget, target.x, target.y);
-          eff.setHeight(target.z);
-        }
-
-        Camera.setField(CAMERA_FIELD_NEARZ, nearz(), 0);
-        Camera.setField(CAMERA_FIELD_FARZ, farz(), 0);
-        Camera.setField(CAMERA_FIELD_ANGLE_OF_ATTACK, angle(), 0);
-        Camera.setField(CAMERA_FIELD_FIELD_OF_VIEW, fov(), 0);
-        Camera.setField(CAMERA_FIELD_LOCAL_PITCH, lp(), 0);
-        Camera.setField(CAMERA_FIELD_LOCAL_ROLL, lr(), 0);
-        Camera.setField(CAMERA_FIELD_LOCAL_YAW, ly(), 0);
-        Camera.setField(CAMERA_FIELD_ROLL, roll(), 0);
-        Camera.setField(CAMERA_FIELD_ROTATION, rot(), 0);
-        Camera.setField(CAMERA_FIELD_ZOFFSET, zoff() + target.z, 0);
-        Camera.setField(CAMERA_FIELD_TARGET_DISTANCE, dis(), 0);
-      });
+    const interval = 0.03;
+    const timer = setIntervalIndefinite(interval, () => {
+      const target = temp(Camera.targetPoint);
+      Camera.setField(CAMERA_FIELD_NEARZ, nearz(), 0);
+      Camera.setField(CAMERA_FIELD_FARZ, farz(), 0);
+      Camera.setField(CAMERA_FIELD_ANGLE_OF_ATTACK, angle(), 0);
+      Camera.setField(CAMERA_FIELD_FIELD_OF_VIEW, fov(), 0);
+      Camera.setField(CAMERA_FIELD_LOCAL_PITCH, lp(), 0);
+      Camera.setField(CAMERA_FIELD_LOCAL_ROLL, lr(), 0);
+      Camera.setField(CAMERA_FIELD_LOCAL_YAW, ly(), 0);
+      Camera.setField(CAMERA_FIELD_ROLL, roll(), 0);
+      Camera.setField(CAMERA_FIELD_ROTATION, rot(), 0);
+      Camera.setField(CAMERA_FIELD_ZOFFSET, zoff() + target.z, 0);
+      Camera.setField(CAMERA_FIELD_TARGET_DISTANCE, dis(), 0);
     });
+    timer.pause();
 
-    // const buttonFr = Frame.createType('MyIconButton', Frame.fromName('ConsoleUIBackdrop', 0), 0, 'BUTTON', 'ScoreScreenTabButtonTemplate');
-    // const iconFr = Frame.createType('MyIconButtonIcon', buttonFr, 0, 'BACKDROP', '');
-    // iconFr.setAllPoints(buttonFr);
-    // buttonFr.setSize(0.04, 0.04);
-    // iconFr.setTexture('ReplaceableTextures\\CommandButtons\\BTNMagicLariet.blp', 0, false);
-    // buttonFr.setAbsPoint(FRAMEPOINT_TOPLEFT, 0.4, 0.3);
-
-    // buildTrigger((t) => {
-    //   t.registerPlayerMouseEvent(mainPlayer, bj_MOUSEEVENTTYPE_MOVE);
-    //   t.addAction(() => {
-    //     const mx = BlzGetTriggerPlayerMouseX();
-    //     const my = BlzGetTriggerPlayerMouseY();
-    //     const mz = GetLocationZ(tempLocation({ x: mx, y: my }));
-    //     const { x, y } = getMouseUiCoordinate(mx, my, mz);
-    //     log('x', x, 'y', y);
-    //     buttonFr.setAbsPoint(FRAMEPOINT_TOPLEFT, x, y);
-    //   });
-    // });
+    let timerOn = false;
+    onChatCommand('camexp', true, () => {
+      timerOn = !timerOn;
+      if (timerOn) {
+        timer.resume();
+      } else {
+        timer.pause();
+      }
+    });
   });
 }
 

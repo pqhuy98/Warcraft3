@@ -1,4 +1,4 @@
-import { mainPlayer, playerForsaken } from 'lib/constants';
+import { playerForsaken, playerMain } from 'lib/constants';
 import {
   Angle,
   centerLocRect, isLocInRect, Loc,
@@ -16,7 +16,6 @@ import { UNIT_Ghoul, UNIT_Peasant } from 'lib/resources/war3-units';
 import { guardCurrentPosition, pauseGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setTimeout } from 'lib/trigger';
-import { setNeverDie } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   sleep, Unit,
@@ -93,8 +92,6 @@ export class LumberMill extends BaseQuest {
     } = this.globals;
     john.name = 'Villager John';
     peter.name = 'Villager Peter';
-    setNeverDie(john);
-    setNeverDie(peter);
 
     await this.waitDependenciesDone();
 
@@ -113,7 +110,7 @@ export class LumberMill extends BaseQuest {
       guardCurrentPosition(ghoul, { maxRadius: 1000, animation: 'stand channel' });
       ghouls.push(ghoul);
     });
-    setAllianceState2Way(mainPlayer, playerForsaken, 'enemy');
+    setAllianceState2Way(playerMain, playerForsaken, 'enemy');
 
     // Create lumber bundles
     CreateItemLoc(FourCC('lmbr'), templocation(GetRandomLocInRect(lumberMillCorpse1Rect)));
@@ -153,7 +150,7 @@ export class LumberMill extends BaseQuest {
     // Wait player to return
     traveler = await this.waitForTurnIn(peter);
     ghouls.forEach((u) => { u.isAlive() && u.destroy(); });
-    setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
+    setAllianceState2Way(playerMain, playerForsaken, 'neutral');
 
     // John and Peter's dialogues after hearing the news
     john.issueTargetOrder(OrderId.Smart, traveler);

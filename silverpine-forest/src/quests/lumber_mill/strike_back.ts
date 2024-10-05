@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import { mainPlayer, playerForsaken, playerHumanAlliance } from 'lib/constants';
+import { playerForsaken, playerHumanAlliance, playerMain } from 'lib/constants';
 import { centerLocRect, randomLocRect } from 'lib/location';
 import { setAllianceState2Way } from 'lib/player';
 import { dialogue } from 'lib/quests/dialogue_sound';
@@ -16,7 +16,7 @@ import {
   guardCurrentPosition, pauseGuardPosition, removeGuardPosition, setGuardPosition,
 } from 'lib/systems/unit_guard_position';
 import {
-  getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, setNeverDie,
+  getUnitsInRangeOfLoc, getUnitsInRect, isBuilding,
 } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
@@ -89,8 +89,6 @@ export class StrikeBack extends BaseQuest {
     knight.name = knightName;
     mayor.nameProper = mayorName;
     mayor.name = 'Mayor of Ambermill';
-    setNeverDie(mayor, true, 100);
-    setNeverDie(knight, true, 100);
     const undeadBuildings = getUnitsInRect(undeadBaseRect, (u) => u.owner === playerForsaken && isBuilding(u));
 
     await this.waitDependenciesDone();
@@ -126,10 +124,9 @@ export class StrikeBack extends BaseQuest {
     // Grant control of ally warriors
     controllables.forEach((u) => {
       guardCurrentPosition(u);
-      RescueUnitBJ(u.handle, mainPlayer.handle, false);
+      RescueUnitBJ(u.handle, playerMain.handle, false);
     });
     pauseGuardPosition(controllables, true);
-    setNeverDie(knight, false);
 
     // Prepare undead base
     const undeadQuota = {
@@ -184,9 +181,9 @@ export class StrikeBack extends BaseQuest {
     }).catch(() => null);
 
     // Set alliance settings
-    setAllianceState2Way(mainPlayer, playerHumanAlliance, 'allied');
+    setAllianceState2Way(playerMain, playerHumanAlliance, 'allied');
     setAllianceState2Way(playerHumanAlliance, playerForsaken, 'enemy');
-    setAllianceState2Way(mainPlayer, playerForsaken, 'enemy');
+    setAllianceState2Way(playerMain, playerForsaken, 'enemy');
 
     // Wait until success/failure
     await waitUntil(2, () => undeads.every((u) => !u.isAlive()));
@@ -232,7 +229,7 @@ export class StrikeBack extends BaseQuest {
     setGuardPosition(knight, knightNewLoc, 225);
 
     getUnitsInRect(humanBaseRect, (u) => u.owner === mayor.owner)
-      .forEach((u) => u.shareVision(mainPlayer, true));
-    setAllianceState2Way(mainPlayer, playerHumanAlliance, 'allied');
+      .forEach((u) => u.shareVision(playerMain, true));
+    setAllianceState2Way(playerMain, playerHumanAlliance, 'allied');
   }
 }

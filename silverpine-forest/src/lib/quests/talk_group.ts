@@ -1,7 +1,7 @@
 import { playSpeech } from 'lib/sound';
 import { Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
 import { enumUnitsWithDelay, isUnitIdle } from 'lib/unit';
-import { shuffleArray } from 'lib/utils';
+import { shuffleArray, unique } from 'lib/utils';
 import { Sound, Unit } from 'w3ts';
 
 import {
@@ -9,15 +9,17 @@ import {
 } from '../systems/unit_interaction';
 
 export class TalkGroup {
-  constructor(public units: Unit[]) {
+  private constructor(public units: Unit[]) {
+    this.units = unique(this.units);
   }
 
   static create(...units: Unit[]): TalkGroup {
-    return TalkGroup.create(...units);
+    return new TalkGroup(units);
   }
 
   add(...units: Unit[]): void {
     this.units.push(...units);
+    this.units = unique(this.units);
   }
 
   async speak(speakingUnit: Unit, sound: Sound, target: Unit | null, everyoneAttention: Unit | null): Promise<void> {

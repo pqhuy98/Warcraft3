@@ -1,4 +1,4 @@
-import { mainPlayer } from 'lib/constants';
+import { playerMain } from 'lib/constants';
 import { currentLoc, Loc } from 'lib/location';
 import { getUnitSounds } from 'lib/resources/unit-sounds';
 import {
@@ -53,7 +53,7 @@ export function registerHearthStone(): void {
   });
 
   // Existing player heroes has starting inn
-  getUnitsInRect(GetWorldBounds(), (u) => u.isHero() && u.owner === mainPlayer && !u.isIllusion())
+  getUnitsInRect(GetWorldBounds(), (u) => u.isHero() && u.owner === playerMain && !u.isIllusion())
     .forEach((u) => u.addItemById(itemTypeId));
 }
 

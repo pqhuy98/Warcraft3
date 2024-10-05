@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable unused-imports/no-unused-vars */
 import {
-  mainPlayer, playerBlackTurban, playerForsaken,
-  playerOrcishHorde,
+  playerBlackTurban, playerForsaken,
+  playerMain, playerOrcishHorde,
 } from 'lib/constants';
 import { setTimeout } from 'lib/trigger';
 import { getUnitsInRect, isBuilding } from 'lib/unit';
@@ -23,8 +23,9 @@ import { WordlessBook } from './mini_bosses/wordless_book';
 import { NightElfLanding } from './night-elf-landing/night-elf-landing';
 import { OrcAttack } from './orc_attack/orc_attack';
 import { RabbitHunt } from './rabbit_hunt/rabbit_hunt';
-import { ShadowFangGate } from './shadow_fang_city/shadow_fang_gate';
+import { ShadowFangGate } from './shadowfang_city/shadowfang_gate';
 import { Starting } from './starting/starting';
+import { UndeadInvasionQuest } from './undead_invasion/undead_invasion';
 
 export class QuestRegistry {
   static register(): void {
@@ -145,7 +146,7 @@ export class QuestRegistry {
       // Black Turban
       new BlackTurban({
         name: 'Black Turban',
-        victimPlayer: mainPlayer,
+        victimPlayer: playerMain,
         banditPlayer: playerBlackTurban,
         banditHomeEntranceRect: gg_rct_Waygate_island_back,
         banditHomeRect: gg_rct_Bandit_Base,
@@ -176,13 +177,13 @@ export class QuestRegistry {
       });
 
       // Shadow fang gate
-      new ShadowFangGate({
+      const shadowFangGate = new ShadowFangGate({
         name: 'Shadow Fang Gate',
         gateKeepers: [
           Unit.fromHandle(gg_unit_hkni_0680),
           Unit.fromHandle(gg_unit_hmtm_0682),
         ],
-        dependencies: [],
+        dependencies: [strikeBack],
         cheatName: 'sfg',
       });
 
@@ -217,6 +218,16 @@ export class QuestRegistry {
         cheatName: 'lh',
       });
 
+      const undeadInvasion = new UndeadInvasionQuest({
+        name: 'Undead Invasion',
+        undeadBaseRects: [
+          gg_rct_Shadowfang_peasants_lumber,
+          gg_rct_Shadowfang_peasants_lumber_2,
+        ],
+        dependencies: [lumberHarvest, shadowFangGate],
+        cheatName: 'ui',
+      });
+
       // Farm Massacre
       const farmMassacre = new FarmMassacre({
         name: 'Farm Massacre',
@@ -245,7 +256,11 @@ export class QuestRegistry {
       });
 
       setTimeout(0.1, () => {
-        // lumberHarvest.forceCompleteDependencies();
+        undeadInvasion.forceCompleteDependencies();
+        // Cheat('warpten');
+        // setTimeout(4, () => {
+        //   // Cheat('iseedeadpeople');
+        // });
       });
     });
   }

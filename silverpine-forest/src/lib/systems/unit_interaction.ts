@@ -1,4 +1,4 @@
-import { mainPlayer, neutralPassive } from 'lib/constants';
+import { neutralPassive, playerMain } from 'lib/constants';
 import {
   Angle, Distance, PolarProjection,
 } from 'lib/location';
@@ -41,7 +41,7 @@ export class UnitInteraction {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER);
       t.addCondition(() => {
         const target = Unit.fromHandle(GetOrderTargetUnit());
-        return Unit.fromEvent().owner === mainPlayer
+        return Unit.fromEvent().owner === playerMain
           && Unit.fromEvent().currentOrder === OrderId.Smart
           && target.owner.isPlayerAlly(Unit.fromEvent().owner)
           && target.isAlive();

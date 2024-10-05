@@ -1,4 +1,4 @@
-import { mainPlayer, neutralPassive } from 'lib/constants';
+import { playerMain, neutralPassive } from 'lib/constants';
 import { RandomSet } from 'lib/data_structures/random_set';
 import { randomLocRect } from 'lib/location';
 import { getUnitSounds } from 'lib/resources/unit-sounds';
@@ -101,7 +101,7 @@ export function spawnParty(partySpawnRect: rect): {
     // Create unit
     const unit = Unit.create(neutralPassive, goerType.id, loc.x, loc.y, GetRandomDirectionDeg());
     unit.setVertexColor(ghostR, ghostG, ghostB, ghostA);
-    unit.shareVision(mainPlayer, true);
+    unit.shareVision(playerMain, true);
     unit.maxLife = Math.max(100, unit.maxLife);
     unit.life = unit.maxLife;
     unit.removeAbility(ABILITY_ShadowMeld.id);

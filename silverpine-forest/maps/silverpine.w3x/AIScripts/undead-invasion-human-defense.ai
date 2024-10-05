@@ -1,0 +1,187 @@
+globals
+
+    // Custom variables
+    player user = Player(4)
+
+    integer PEASANT_max
+    integer FOOTMAN_max
+    integer HUMAN_CAPTAIN_max
+    integer KNIGHT_max
+    integer GRYPHON_max
+    integer PRIEST_max
+    integer RIFLEMAN_max
+    integer SORCERESS_max
+    integer MORTAR_max
+    integer ROCKET_TANK_max
+    integer COPTER_max
+
+    integer HOUSE_max
+    integer BARRACKS_max
+    integer WORKSHOP_max
+    integer SANCTUM_max
+    integer AVIARY_max
+    integer ARCANE_VAULT_max
+    integer HUMAN_ALTAR_max
+
+    integer VILLAGER_MAN_1_max
+    integer VILLAGER_MAN_2_max
+    integer VILLAGER_WOMAN_max
+    integer VILLAGER_KID_1_max
+    integer VILLAGER_KID_2_max
+
+endglobals
+
+// BUILD ORDER
+//------------------------------------------------
+function SetBuildOrderLoop takes nothing returns nothing
+    local integer freeCapacity
+
+    loop
+        call InitBuildArray()
+
+        // Manage army production
+        set freeCapacity = GetUnitCountDone(TOWN_HALL)
+        set freeCapacity = ManageUnitProduction(freeCapacity, PEASANT_max, PEASANT)
+
+        set freeCapacity = GetUnitCountDone(BARRACKS)
+        set freeCapacity = ManageUnitProduction(freeCapacity, FOOTMAN_max, FOOTMAN)
+        set freeCapacity = ManageUnitProduction(freeCapacity, HUMAN_CAPTAIN_max, HUMAN_CAPTAIN)
+        set freeCapacity = ManageUnitProduction(freeCapacity, KNIGHT_max, KNIGHT)
+        set freeCapacity = ManageUnitProduction(freeCapacity, RIFLEMAN_max, RIFLEMAN)
+
+        set freeCapacity = GetUnitCountDone(WORKSHOP)
+        set freeCapacity = ManageUnitProduction(freeCapacity, MORTAR_max, MORTAR)
+        set freeCapacity = ManageUnitProduction(freeCapacity, ROCKET_TANK_max, ROCKET_TANK)
+        set freeCapacity = ManageUnitProduction(freeCapacity, COPTER_max, COPTER)
+
+        set freeCapacity = GetUnitCountDone(SANCTUM)
+        set freeCapacity = ManageUnitProduction(freeCapacity, PRIEST_max, PRIEST)
+        set freeCapacity = ManageUnitProduction(freeCapacity, SORCERESS_max, SORCERESS)
+
+        set freeCapacity = GetUnitCountDone(AVIARY)
+        set freeCapacity = ManageUnitProduction(freeCapacity, GRYPHON_max, GRYPHON)
+
+        // Manage building construction
+        set freeCapacity = GetUnitCountDone(PEASANT)
+        set freeCapacity = ManageUnitProduction(freeCapacity, HOUSE_max, HOUSE)
+        set freeCapacity = ManageUnitProduction(freeCapacity, BARRACKS_max, BARRACKS)
+        set freeCapacity = ManageUnitProduction(freeCapacity, WORKSHOP_max, WORKSHOP)
+        set freeCapacity = ManageUnitProduction(freeCapacity, SANCTUM_max, SANCTUM)
+        set freeCapacity = ManageUnitProduction(freeCapacity, AVIARY_max, AVIARY)
+        set freeCapacity = ManageUnitProduction(freeCapacity, ARCANE_VAULT_max, ARCANE_VAULT)
+        set freeCapacity = ManageUnitProduction(freeCapacity, HUMAN_ALTAR_max, HUMAN_ALTAR)
+
+        // Make more villagers
+        
+        set freeCapacity = GetUnitCountDone(HOUSE)
+        set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_MAN_1_max, VILLAGER_MAN_1)
+        set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_MAN_2_max, VILLAGER_MAN_2)
+        set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_WOMAN_max, VILLAGER_WOMAN)
+        set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_KID_1_max, VILLAGER_KID_1)
+        set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_KID_2_max, VILLAGER_KID_2)
+
+        call Sleep(GetRandomInt(1, 3))
+    endloop
+endfunction
+
+// DEFENDERS
+//------------------------------------------------
+function SetDefenders takes nothing returns nothing
+
+    // call CampaignDefender(EASY, FOOTMAN_max / 2, FOOTMAN)
+    // call CampaignDefender(EASY, HUMAN_CAPTAIN_max / 2, HUMAN_CAPTAIN)
+    // call CampaignDefender(EASY, KNIGHT_max / 2, KNIGHT)
+    // call CampaignDefender(EASY, GRYPHON_max / 2, GRYPHON)
+    // call CampaignDefender(EASY, MORTAR_max / 2, MORTAR)
+    // call CampaignDefender(EASY, PRIEST_max / 2, PRIEST)
+    // call CampaignDefender(EASY, RIFLEMAN_max / 2, RIFLEMAN)
+    // call CampaignDefender(EASY, SORCERESS_max / 2, SORCERESS)
+    // call CampaignDefender(EASY, ROCKET_TANK_max / 2, ROCKET_TANK)
+    // call CampaignDefender(EASY, COPTER_max / 2, COPTER)
+endfunction
+
+// RESEARCH UPGRADES
+//------------------------------------------------
+function ResearchUpgrades takes nothing returns nothing
+    // no upgrade
+    return
+endfunction
+
+// ATTACK LOOP
+//------------------------------------------------
+function AttackLoop takes nothing returns nothing
+endfunction
+
+// COMMAND LOOP
+//------------------------------------------------
+function CommandLoop takes nothing returns nothing
+    local boolean unknownCmd
+    loop
+        loop
+            exitwhen CommandsWaiting() <= 0
+            set unknownCmd = not HandleCommonCommands()
+            if unknownCmd then
+                // custom command handling
+                call log("Receive unknown command: " + I2S2(GetLastCommand()))
+                call PopLastCommand()
+            endif
+        endloop
+        call Sleep(0.1)
+    endloop
+endfunction
+
+// MAIN
+//------------------------------------------------
+function main takes nothing returns nothing
+    call AdvSetDebug(user, true)
+    call log("starting undead-invasion-human-defense.ai")
+    call AdvSetDebug(user, false)
+    call CampaignAI(HOUSE, null)
+
+    // Define AI properties
+    call SetReplacements(9999, 9999, 9999)
+    call GroupTimedLife(true)
+
+    set PEASANT_max = GetUnitCountDone(PEASANT)
+    set FOOTMAN_max = GetUnitCountDone(FOOTMAN)
+    set HUMAN_CAPTAIN_max = GetUnitCountDone(HUMAN_CAPTAIN)
+    set KNIGHT_max = GetUnitCountDone(KNIGHT)
+    set GRYPHON_max = GetUnitCountDone(GRYPHON)
+    set MORTAR_max = GetUnitCountDone(MORTAR)
+    set PRIEST_max = GetUnitCountDone(PRIEST)
+    set RIFLEMAN_max = GetUnitCountDone(RIFLEMAN)
+    set SORCERESS_max = GetUnitCountDone(SORCERESS)
+    set ROCKET_TANK_max = GetUnitCountDone(ROCKET_TANK)
+    set COPTER_max = GetUnitCountDone(COPTER)
+    
+    set HOUSE_max = GetUnitCountDone(HOUSE)
+    set BARRACKS_max = GetUnitCountDone(BARRACKS)
+    set WORKSHOP_max = GetUnitCountDone(WORKSHOP)
+    set SANCTUM_max = GetUnitCountDone(SANCTUM)
+    set AVIARY_max = GetUnitCountDone(AVIARY)
+    set ARCANE_VAULT_max = GetUnitCountDone(ARCANE_VAULT)
+    set HUMAN_ALTAR_max = GetUnitCountDone(HUMAN_ALTAR)
+
+    set VILLAGER_MAN_1_max = GetUnitCountDone(VILLAGER_MAN_1)
+    set VILLAGER_MAN_2_max = GetUnitCountDone(VILLAGER_MAN_2)
+    set VILLAGER_WOMAN_max = GetUnitCountDone(VILLAGER_WOMAN)
+    set VILLAGER_KID_1_max = GetUnitCountDone(VILLAGER_KID_1)
+    set VILLAGER_KID_2_max = GetUnitCountDone(VILLAGER_KID_2)
+
+
+    // Define defenders
+    call SetDefenders()
+
+    // Start command loop for external signals
+    call StartThread(function CommandLoop)
+
+    // Define build order
+    call StartThread(function SetBuildOrderLoop)
+
+    // Start to research upgrades at timed intervals
+    call StartThread(function ResearchUpgrades)
+
+    // Launch attack waves as soon as possible (it depends on the commands received)
+    call AttackLoop()
+
+endfunction

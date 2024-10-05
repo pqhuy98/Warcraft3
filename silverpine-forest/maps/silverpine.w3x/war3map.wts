@@ -2307,3 +2307,13 @@ STRING 411
 Kills a target building unit instantly, recoup a portion of its gold cost.
 }
 
+STRING 412
+{
+Shadowfang Undead Invasion
+}
+
+STRING 413
+{
+Shadowfang City
+}
+

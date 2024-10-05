@@ -2,9 +2,9 @@ import { lockCameraBound, panCameraSmart, restoreCameraBound } from 'lib/camera'
 import {
   ABILITY_ID_DECONSTRUCT,
   DESTRUCTABLE_TREE,
-  mainPlayer,
   neutralHostile,
   playerHumanAlliance,
+  playerMain,
   UNIT_LumberMillQuest,
 } from 'lib/constants';
 import { getDestructablesInRect } from 'lib/destructable';
@@ -26,7 +26,7 @@ import { setGuardPosition } from 'lib/systems/unit_guard_position';
 import { createTextTag, TTSetting } from 'lib/texttag';
 import { setIntervalIndefinite } from 'lib/trigger';
 import {
-  getUnitsInRect, getUnitsOfPlayer, isUnitIdle, isUnitRemoved, setNeverDie,
+  getUnitsInRect, getUnitsOfPlayer, isUnitIdle, isUnitRemoved, isUnitType,
 } from 'lib/unit';
 import { pickRandom, waitUntil } from 'lib/utils';
 import { BlackTurban } from 'quests/black_turban/black_turban';
@@ -170,9 +170,6 @@ export class LumberHarvest extends BaseQuest {
     const footmen = units.filter((u) => u.typeId === UNIT_Footman.id);
     const peasants = units.filter((u) => u.typeId === UNIT_Peasant.id);
 
-    setNeverDie(footmen[0], true, 1);
-    setNeverDie(peasants[0], true, 1);
-
     const traveler = await this.talkToQuestGiver(footmen[0], true);
 
     SetFloatGameState(GAME_STATE_TIME_OF_DAY, 18);
@@ -183,7 +180,7 @@ export class LumberHarvest extends BaseQuest {
     await talkGroup.speak(footmen[0], footmanSounds[1], peasants[0], footmen[0]);
     talkGroup.finish();
 
-    const playerUnits = getUnitsInRect(GetWorldBounds(), (u) => u.owner === mainPlayer);
+    const playerUnits = getUnitsInRect(GetWorldBounds(), (u) => u.owner === playerMain);
     playerUnits.forEach((u) => {
       u.paused = true;
       u.show = false;
@@ -196,22 +193,22 @@ export class LumberHarvest extends BaseQuest {
     });
 
     // Grant player control
-    const oldColor = mainPlayer.color;
-    const oldGold = mainPlayer.getState(PLAYER_STATE_RESOURCE_GOLD);
-    const oldLumber = mainPlayer.getState(PLAYER_STATE_RESOURCE_LUMBER);
-    mainPlayer.color = PLAYER_COLOR_BLUE;
-    mainPlayer.setState(PLAYER_STATE_RESOURCE_GOLD, 1000);
-    mainPlayer.setState(PLAYER_STATE_RESOURCE_LUMBER, 300);
+    const oldColor = playerMain.color;
+    const oldGold = playerMain.getState(PLAYER_STATE_RESOURCE_GOLD);
+    const oldLumber = playerMain.getState(PLAYER_STATE_RESOURCE_LUMBER);
+    playerMain.color = PLAYER_COLOR_BLUE;
+    playerMain.setState(PLAYER_STATE_RESOURCE_GOLD, 1000);
+    playerMain.setState(PLAYER_STATE_RESOURCE_LUMBER, 300);
 
     units.forEach((u) => {
-      RescueUnitBJ(u.handle, mainPlayer.handle, false);
-      u.owner = mainPlayer;
+      RescueUnitBJ(u.handle, playerMain.handle, false);
+      u.owner = playerMain;
       if (u.isUnitType(UNIT_TYPE_PEON)) {
         u.issueImmediateOrder(ORDER_AutoHarvestLumber);
       }
     });
 
-    disabledTechs.forEach((t) => mainPlayer.setTechMaxAllowed(t.id, 0));
+    disabledTechs.forEach((t) => playerMain.setTechMaxAllowed(t.id, 0));
 
     // Create border effects
     const borderEffects: Effect[] = placeCircles(expandHull(getConvexHull([...trees, lumberMill]), effectDistance), effectDistance)
@@ -219,8 +216,8 @@ export class LumberHarvest extends BaseQuest {
 
     const enemies = treeRects.flatMap((r) => getUnitsInRect(r, (u) => u.owner === neutralHostile));
 
-    mainPlayer.setState(PLAYER_STATE_RESOURCE_GOLD, 500);
-    mainPlayer.setState(PLAYER_STATE_RESOURCE_LUMBER, 250);
+    playerMain.setState(PLAYER_STATE_RESOURCE_GOLD, 500);
+    playerMain.setState(PLAYER_STATE_RESOURCE_LUMBER, 250);
 
     // start quest
     lockCameraBound([], [lumberMill, ...trees]);
@@ -235,7 +232,7 @@ export class LumberHarvest extends BaseQuest {
 
     // grant gold per sec
     const timer = setIntervalIndefinite(1, () => {
-      mainPlayer.setState(PLAYER_STATE_RESOURCE_GOLD, mainPlayer.getState(PLAYER_STATE_RESOURCE_GOLD) + 10);
+      playerMain.setState(PLAYER_STATE_RESOURCE_GOLD, playerMain.getState(PLAYER_STATE_RESOURCE_GOLD) + 10);
       createTextTag('+10', lumberMill, TTSetting.gold);
     });
 
@@ -247,7 +244,7 @@ export class LumberHarvest extends BaseQuest {
     await playSpeechUnitType(UNIT_Peasant, peasantSounds[1]);
     await playSpeechUnitType(UNIT_Footman, footmanSounds[2]);
     enemies.forEach((u) => {
-      u.shareVision(mainPlayer, true);
+      u.shareVision(playerMain, true);
       if (debug) u.life = 1;
     });
 
@@ -318,16 +315,16 @@ export class LumberHarvest extends BaseQuest {
       await questLog.completeWithRewards([]);
 
       // All units enter Lumber Mill for resting
-      let humanUnits = getUnitsOfPlayer(mainPlayer, (u) => u.typeId === UNIT_Peasant.id || u.typeId === UNIT_Footman.id);
+      let humanUnits = getUnitsOfPlayer(playerMain, (u) => u.typeId === UNIT_Peasant.id || u.typeId === UNIT_Footman.id);
       humanUnits.forEach((u) => {
-        u.shareVision(mainPlayer, true);
+        u.shareVision(playerMain, true);
         setGuardPosition(u, PolarProjection(lumberMill, 100, Angle(lumberMill, u)), 0);
         if (u.typeId === UNIT_Peasant.id) {
           u.addAbility(ABILITY_ID_DECONSTRUCT);
         }
       });
 
-      let humanBuildings = getUnitsOfPlayer(mainPlayer, (u) => humanBuildingTypes.includes(u.typeId));
+      let humanBuildings = getUnitsOfPlayer(playerMain, (u) => humanBuildingTypes.includes(u.typeId));
 
       void waitUntil(1, () => {
         humanUnits = humanUnits.filter((u) => !isUnitRemoved(u));
@@ -347,7 +344,7 @@ export class LumberHarvest extends BaseQuest {
       });
 
       // Take back control
-      getUnitsOfPlayer(mainPlayer, (u) => !playerUnits.includes(u)).forEach((u) => {
+      getUnitsOfPlayer(playerMain, (u) => !playerUnits.includes(u)).forEach((u) => {
         u.owner = playerHumanAlliance;
         u.removeGuardPosition();
       });
@@ -365,12 +362,27 @@ export class LumberHarvest extends BaseQuest {
       u.show = true;
     });
 
-    mainPlayer.color = oldColor;
-    mainPlayer.setState(PLAYER_STATE_RESOURCE_GOLD, oldGold);
-    mainPlayer.setState(PLAYER_STATE_RESOURCE_LUMBER, oldLumber);
-    disabledTechs.forEach((t) => mainPlayer.setTechMaxAllowed(t.id, -1));
+    playerMain.color = oldColor;
+    playerMain.setState(PLAYER_STATE_RESOURCE_GOLD, oldGold);
+    playerMain.setState(PLAYER_STATE_RESOURCE_LUMBER, oldLumber);
+    disabledTechs.forEach((t) => playerMain.setTechMaxAllowed(t.id, -1));
     restoreCameraBound();
 
     BlackTurban.enable();
+  }
+
+  onForceComplete(): void {
+    const {
+      treeRects,
+    } = this.globals;
+    treeRects.flatMap((r) => getDestructablesInRect(r, (d) => d.typeId === DESTRUCTABLE_TREE))
+      .forEach((d) => d.life = 0);
+
+    const units = treeRects.flatMap((r) => getUnitsInRect(r, (u) => u.owner === playerHumanAlliance));
+    units.filter((u) => isUnitType(u, UNIT_Footman) || isUnitType(u, UNIT_Peasant))
+      .forEach((u) => u.destroy());
+
+    const enemies = treeRects.flatMap((r) => getUnitsInRect(r, (u) => u.owner === neutralHostile));
+    enemies.forEach((u) => u.kill());
   }
 }

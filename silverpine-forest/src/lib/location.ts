@@ -1,5 +1,7 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { Point, Rectangle, Unit } from 'w3ts';
+import {
+  MapPlayer, Point, Rectangle, Unit,
+} from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
 import {
@@ -142,4 +144,22 @@ export function isPointReachable(from: Loc, to: Loc): boolean {
     iprReceiver.disableAbility(ABILITY_Move.id, false, false);
   }
   return result;
+}
+
+export function isRectVisible(rect: rect, player: MapPlayer): boolean {
+  const corners: Loc[] = [
+    // center
+    { x: GetRectCenterX(rect), y: GetRectCenterY(rect) },
+    // 4 corners
+    { x: GetRectMinX(rect), y: GetRectMaxY(rect) },
+    { x: GetRectMaxX(rect), y: GetRectMaxY(rect) },
+    { x: GetRectMinX(rect), y: GetRectMinY(rect) },
+    { x: GetRectMaxX(rect), y: GetRectMinY(rect) },
+    // center of 4 sides
+    { x: GetRectCenterX(rect), y: GetRectMinY(rect) },
+    { x: GetRectCenterX(rect), y: GetRectMaxY(rect) },
+    { x: GetRectMaxX(rect), y: GetRectCenterY(rect) },
+    { x: GetRectMinX(rect), y: GetRectCenterY(rect) },
+  ];
+  return corners.some((loc) => player.coordsVisible(loc.x, loc.y));
 }

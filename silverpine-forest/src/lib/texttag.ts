@@ -1,7 +1,7 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { sleep, TextTag } from 'w3ts';
 
-import { mainPlayer } from './constants';
+import { playerMain } from './constants';
 import { Loc } from './location';
 import { log } from './log';
 import { getUnitsInRect } from './unit';
@@ -179,7 +179,7 @@ export function registerFloatTextExperiments(): void {
     log('text', text);
   });
 
-  const hero = getUnitsInRect(GetWorldBounds(), (u) => u.owner === mainPlayer && u.isHero())[0];
+  const hero = getUnitsInRect(GetWorldBounds(), (u) => u.owner === playerMain && u.isHero())[0];
 
   onChatCommand('-ttexp', true, async () => {
     for (;;) {

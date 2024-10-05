@@ -1,8 +1,8 @@
 import {
-  mainPlayer, neutralHostile, neutralPassive,
+  neutralHostile, neutralPassive,
   playerForsaken,
   playerHumanAlliance,
-  UNIT_Butcher,
+  playerMain, UNIT_Butcher,
 } from 'lib/constants';
 import { getDestructablesInRect } from 'lib/destructable';
 import {
@@ -46,7 +46,7 @@ import { OrderId } from 'w3ts/globals';
 
 import { onChatCommand } from './chat_commands/chat_commands.model';
 
-const defaultGuardDistance = 1000;
+const defaultGuardDistance = 1200;
 
 export class MiscEvents {
   static register(): void {
@@ -139,7 +139,7 @@ export class MiscEvents {
 
     // Testing isPointReachable
     onChatCommand('-ipr', true, () => {
-      const hero = getUnitsOfPlayer(mainPlayer)[0];
+      const hero = getUnitsOfPlayer(playerMain)[0];
       buildTrigger((t) => {
         t.registerUnitEvent(hero, EVENT_UNIT_ISSUED_POINT_ORDER);
         t.addAction(() => {
@@ -256,6 +256,16 @@ export class MiscEvents {
         u.addAbility(ABILITY_Wander.id);
         removeGuardPosition(u);
       });
+
+    buildTrigger((t) => {
+      TriggerRegisterEnterRectSimple(t.handle, gg_rct_Shadowfang_region);
+      t.addCondition(() => citizenIds.includes(Unit.fromEvent().typeId));
+      t.addAction(() => {
+        const u = Unit.fromEvent();
+        u.addAbility(ABILITY_Wander.id);
+        removeGuardPosition(u);
+      });
+    });
   }
 
   static preventFriendlyFire(): void {
@@ -352,7 +362,7 @@ export class MiscEvents {
 
     buildTrigger((t) => {
       TriggerRegisterEnterRectSimple(t.handle, gg_rct_Casle_entry);
-      t.addCondition(() => Unit.fromEvent().owner === mainPlayer);
+      t.addCondition(() => Unit.fromEvent().owner === playerMain);
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       t.addAction(async () => {
         ModifyGateBJ(bj_GATEOPERATION_OPEN, gg_dest_LTg3_8382);

@@ -219,13 +219,9 @@ export class OrcAttack extends BaseQuest {
     } = this.globals;
     footman.name = footmanName;
     captain.name = captainName;
-    setNeverDie(footman);
-    setNeverDie(captain);
-    setNeverDie(archmage);
 
     getUnitsInRect(orcBaseRect, (u) => u.owner === orcPlayer)
       .forEach((u) => {
-        setNeverDie(u);
         guardCurrentPosition(u, { maxRadius: 300 });
       });
 
@@ -257,6 +253,12 @@ export class OrcAttack extends BaseQuest {
     talkGroup.finish();
 
     // then footman arrives with urgent news
+    if (!footman.isAlive()) {
+      this.fail();
+      BlackTurban.enable();
+      return;
+    }
+
     const footmanNewLoc = centerLocRect(footManNewLocRec);
     footman.setPosition(footmanNewLoc.x, footmanNewLoc.y);
     pauseGuardPosition([footman], true);
@@ -315,8 +317,6 @@ export class OrcAttack extends BaseQuest {
     captain.shareVision(traveler.owner, true);
     getUnitsInRect(humanShipyardRect, (u) => u.isAlive() && u.owner === captain.owner)
       .forEach((u) => guardCurrentPosition(u));
-    setNeverDie(footman, false);
-    setNeverDie(captain, false);
     preserveUnit(captain);
 
     const questLog = await QuestLog.create({
@@ -336,6 +336,7 @@ export class OrcAttack extends BaseQuest {
         restoreUnit(captain, RestoreMode.BEFORE_DEATH);
         setNeverDie(captain, true, 50);
         captain.life = GetRandomReal(1, 50);
+        setTimeout(30, () => setNeverDie(captain, false));
       }
 
       await waitUntil(1, () => isUnitIdle(captain));
@@ -447,6 +448,7 @@ export class OrcAttack extends BaseQuest {
       // Continue to train next wave
       oldAttackers = attackers;
     }
+    orcBuildings.forEach((u) => setNeverDie(u, false));
 
     // wait last wave completes
     await waitUntil(1, () => oldAttackers.every((u) => !u.isAlive()) || !target.isAlive());

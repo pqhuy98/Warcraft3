@@ -13,7 +13,7 @@ import { MODEL_TomeOfRetrainingCaster } from 'lib/resources/war3-models';
 import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
 import { buildTrigger } from 'lib/trigger';
-import { getUnitsInRangeOfLoc, isOrganic, setNeverDie } from 'lib/unit';
+import { getUnitsInRangeOfLoc, isOrganic } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   Effect,
@@ -113,7 +113,6 @@ export class BanditBanish extends BaseQuest {
     } = this.globals;
     archMage.nameProper = archmageName.replace('Archmage ', '');
     archMage.name = 'Archmage of Northern Watch';
-    setNeverDie(archMage, true, 100);
 
     await this.waitDependenciesDone();
 

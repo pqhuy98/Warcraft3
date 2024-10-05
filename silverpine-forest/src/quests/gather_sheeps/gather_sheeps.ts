@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { mainPlayer, neutralPassive } from 'lib/constants';
+import { playerMain, neutralPassive } from 'lib/constants';
 import {
   Angle, centerLocRect, Distance, isLocInRect, PolarProjection,
   randomLocRect,
@@ -110,11 +110,10 @@ export class GatherSheeps extends BaseQuest {
       .flatMap((rect) => getUnitsInRect(rect))
       .filter((u) => u.typeId === UNIT_Sheep.id);
     sheepBoy.name = 'Timmy';
-    setNeverDie(sheepBoy);
     sheeps.forEach((u) => setNeverDie(u));
 
     onChatCommand('-cheat gs', true, () => {
-      sheeps.forEach((u) => { u.owner = mainPlayer; });
+      sheeps.forEach((u) => { u.owner = playerMain; });
     }, 'GameControl', "Grant control of all Timmy's sheeps.");
 
     await this.waitDependenciesDone();

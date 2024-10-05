@@ -1,7 +1,7 @@
 import { chatParamInt, chatParamString, onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { Frame } from 'w3ts';
 
-import { mainPlayer } from './constants';
+import { playerMain } from './constants';
 import { log } from './log';
 import { buildTrigger } from './trigger';
 import { METAKEY_CONTROL } from './utils';
@@ -10,7 +10,7 @@ export function registerFrameUiExperiments(): void {
   let hideUi = false;
   fname('ConsoleUIBackdrop').setSize(0, 0.0001);
   buildTrigger((t) => {
-    t.registerPlayerKeyEvent(mainPlayer, OSKEY_Z, METAKEY_CONTROL, true);
+    t.registerPlayerKeyEvent(playerMain, OSKEY_Z, METAKEY_CONTROL, true);
     t.addAction(() => {
       hideUi = !hideUi;
       Frame.hideOrigin(hideUi);

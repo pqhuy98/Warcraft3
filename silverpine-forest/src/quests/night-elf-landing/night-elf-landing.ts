@@ -1,7 +1,7 @@
 import { panCameraSmart } from 'lib/camera';
 import {
-  mainPlayer,
   playerHumanAlliance,
+  playerMain,
   playerNightElfSentinels,
 } from 'lib/constants';
 import { PolarProjection } from 'lib/location';
@@ -48,12 +48,12 @@ export class NightElfLanding extends BaseQuest {
 
     await this.waitDependenciesDone();
     BlackTurban.disable();
-    getUnitsInRect(GetWorldBounds(), (u) => u.owner === mainPlayer && !u.isHero())
+    getUnitsInRect(GetWorldBounds(), (u) => u.owner === playerMain && !u.isHero())
       .forEach((u) => u.destroy());
-    mainPlayer.color = PLAYER_COLOR_CYAN;
-    mainPlayer.setState(PLAYER_STATE_RESOURCE_GOLD, 1000);
-    mainPlayer.setState(PLAYER_STATE_RESOURCE_LUMBER, 500);
-    ClearSelectionForPlayer(mainPlayer.handle);
+    playerMain.color = PLAYER_COLOR_CYAN;
+    playerMain.setState(PLAYER_STATE_RESOURCE_GOLD, 1000);
+    playerMain.setState(PLAYER_STATE_RESOURCE_LUMBER, 500);
+    ClearSelectionForPlayer(playerMain.handle);
     panCameraSmart(elfHero, 0);
     elfHero.select(true);
     setRespawnLoc(elfHero, elfHero);
@@ -63,7 +63,7 @@ export class NightElfLanding extends BaseQuest {
     getUnitsInRect(baseRect, (u) => u.owner === playerNightElfSentinels)
       .forEach((u) => {
         if (!isBuilding(u) && !u.isUnitType(UNIT_TYPE_PEON) && !u.isUnitType(UNIT_TYPE_MECHANICAL)) {
-          u.owner = mainPlayer;
+          u.owner = playerMain;
           removeGuardPosition(u);
         }
         if (u.typeId === UNIT_AncientofWar.id) {
@@ -71,10 +71,10 @@ export class NightElfLanding extends BaseQuest {
         }
       });
 
-    setAllianceState2Way(mainPlayer, playerHumanAlliance, 'allied');
-    setAllianceState2Way(mainPlayer, playerNightElfSentinels, 'allied vision');
+    setAllianceState2Way(playerMain, playerHumanAlliance, 'allied');
+    setAllianceState2Way(playerMain, playerNightElfSentinels, 'allied vision');
     getUnitsInRect(GetWorldBounds())
-      .forEach((u) => u.shareVision(mainPlayer, false));
+      .forEach((u) => u.shareVision(playerMain, false));
 
     cinematicMode(true, 0);
     cinematicFadeOut(0);
@@ -112,7 +112,7 @@ export class NightElfLanding extends BaseQuest {
 
       ancientOfWar.setAnimation('stand work alternate');
       const spawnLoc = PolarProjection(ancientOfWar, 100, 255);
-      const spawnUnit = Unit.create(mainPlayer, pickRandom(spawnTypes), spawnLoc.x, spawnLoc.y, 255);
+      const spawnUnit = Unit.create(playerMain, pickRandom(spawnTypes), spawnLoc.x, spawnLoc.y, 255);
       if (elfHero.isAlive()) {
         spawnUnit.issueTargetOrder(OrderId.Smart, elfHero);
       }
@@ -132,7 +132,7 @@ export class NightElfLanding extends BaseQuest {
 
 function getUnitTypeCountMap(): Map<number, number> {
   const countMap = new Map<number, number>();
-  getUnitsOfPlayer(mainPlayer, (u) => u.isAlive()).forEach((u) => {
+  getUnitsOfPlayer(playerMain, (u) => u.isAlive()).forEach((u) => {
     const typeId = u.typeId;
     countMap.set(typeId, (countMap.get(typeId) ?? 0) + 1);
   });

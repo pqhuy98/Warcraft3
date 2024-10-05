@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { mainPlayer, playerForsaken, playerHumanAlliance } from 'lib/constants';
+import { playerForsaken, playerHumanAlliance, playerMain } from 'lib/constants';
 import {
   Angle,
   centerLocRect,
@@ -158,9 +158,9 @@ export class LumberMillPart2 extends BaseQuest {
     void questLog.completeItem(0);
 
     // Undead started attacking
-    setAllianceState2Way(mainPlayer, playerHumanAlliance, 'allied');
+    setAllianceState2Way(playerMain, playerHumanAlliance, 'allied');
     setAllianceState2Way(playerHumanAlliance, playerForsaken, 'enemy');
-    setAllianceState2Way(mainPlayer, playerForsaken, 'enemy');
+    setAllianceState2Way(playerMain, playerForsaken, 'enemy');
 
     removeGuardPosition(...undeadAttackers);
     void waitUntil(1, () => { // non-blocking
@@ -200,6 +200,8 @@ export class LumberMillPart2 extends BaseQuest {
       const isDone = (isLocInRect(peter, homeRect) || !peter.isAlive())
         && (isLocInRect(john, homeRect) || !john.isAlive());
       if (isDone) {
+        setNeverDie(john, false);
+        setNeverDie(peter, false);
         removeGuardPosition(peter, john);
       }
       return isDone;
@@ -244,9 +246,9 @@ export class LumberMillPart2 extends BaseQuest {
     await questLog.insertItem(questItems[2]);
     traveler = await this.waitForTurnIn(knight);
 
-    setAllianceState2Way(mainPlayer, playerHumanAlliance, 'neutral');
+    setAllianceState2Way(playerMain, playerHumanAlliance, 'neutral');
     setAllianceState2Way(playerHumanAlliance, playerForsaken, 'neutral');
-    setAllianceState2Way(mainPlayer, playerForsaken, 'neutral');
+    setAllianceState2Way(playerMain, playerForsaken, 'neutral');
 
     await playSpeech(knight, knightOutro, traveler);
 
@@ -257,6 +259,7 @@ export class LumberMillPart2 extends BaseQuest {
     await questLog.completeWithRewards([
       `${rewardXp} experience`,
     ]);
+    setNeverDie(knight, false);
 
     await waitUntil(1, () => Distance(knight, loc) < 50);
     this.complete();

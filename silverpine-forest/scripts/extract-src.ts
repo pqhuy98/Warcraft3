@@ -163,18 +163,20 @@ async function combineFiles() {
           .map(s => s.trim())
           .filter(s => s.length > 0)
           // convert comment lines from // to /* and */
-          .map(s => s.replace(/\/\/(.+)$/, "/*$1*/"))
-          .map(s => s.replace(/\/\* eslint-.+ \*\//g, ""))
-          .map(s => s.replace(/QuestSounds\\\\__refined\\\\.+\\\\[^-]+-/g, ""))
-          // if string ends with alpha numeric, then add new line
-          .map(s => s.replace(/[a-zA-Z0-9]$/, "$&\n"))
-          // if string ends with ], then add new line
-          .map(s => s.replace(/]$/, "$&\n"))
-          .join('');
-        const comment = `// File: ${file.replace(normRoot, "")}\n`;
+        //   .map(s => s.replace(/\/\/(.+)$/, "/*$1*/"))
+        //   .map(s => s.replace(/\/\* eslint-.+ \*\//g, ""))
+        //   .map(s => s.replace(/QuestSounds\\\\__refined\\\\.+\\\\[^-]+-/g, ""))
+        //   // if string ends with alpha numeric, then add new line
+        //   .map(s => s.replace(/[a-zA-Z0-9]$/, "$&\n"))
+        //   // if string ends with ], then add new line
+        //   .map(s => s.replace(/]$/, "$&\n"))
+          .join('\n');
+        const comment = `// File: ${normalizePath(file).replace(normRoot, "")}\n`;
         combinedCode += comment + fileContent + '\n';
         console.log(`Appended content from ${file}`);
     }
+
+    combinedCode = `You are a Warcraft 3 quest designer. Below are the existing quests and their code implementation writen in TypeScript using w3ts library and other custom functions in the project. Your response must be brief and concise. Do not repeat any information already mentioned in the conversation, for instance when asked to modify code, only give the code diff, not printing the whole code again. Or when asked to change dialogue, only print the diff.\n\n` + combinedCode
 
     // Write combined code to an output file
     fs.writeFileSync(outputFile, combinedCode);

@@ -175,12 +175,5 @@ export const logger = createLogger({
         loggerFormatFunc
       ),
     }),
-    new transports.File({
-      filename: "project.log",
-      format: combine(
-        timestamp(),
-        loggerFormatFunc
-      ),
-    }),
   ]
 });

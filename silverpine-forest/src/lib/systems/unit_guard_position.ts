@@ -73,6 +73,7 @@ export function guardCurrentPosition(unit: Unit, options?: GuardOptions): void {
 
 export function removeGuardPosition(...units: Unit[]): void {
   for (const u of units) {
+    if (isBuilding(u)) continue;
     u.removeGuardPosition();
     for (const priority of priorities) {
       unitPositions[priority].delete(u);
@@ -82,6 +83,7 @@ export function removeGuardPosition(...units: Unit[]): void {
 
 export function pauseGuardPosition(units: Unit[], isPaused: boolean): void {
   for (const u of units) {
+    if (isBuilding(u)) continue;
     u.removeGuardPosition();
     for (const priority of priorities) {
       if (unitPositions[priority].has(u)) {
