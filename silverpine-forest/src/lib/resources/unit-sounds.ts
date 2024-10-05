@@ -30608,6 +30608,29 @@ const unitSounds: UnitSounds[] = [
   },
 ];
 
+// Manually add missing data
+unitSounds.push(
+  {
+    id: 'ngog',
+    name: 'dog',
+    sounds: {
+      What: [
+        {
+          FileNames: 'Wolf1.wav,Wolf2.wav',
+          DirectoryBase: 'Units\\Critters\\Wolf\\',
+          Channel: 1,
+          SoundName: 'WolfWhat',
+        },
+      ],
+      Pissed: [],
+      YesAttack: [],
+      Yes: [],
+      Ready: [],
+      Warcry: [],
+    },
+  },
+);
+
 /**
  * Functions
  */

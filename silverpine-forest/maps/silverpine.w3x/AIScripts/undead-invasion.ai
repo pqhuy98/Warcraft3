@@ -92,24 +92,39 @@ function AttackLoop takes nothing returns nothing
     call Sleep(10)
     // // *** WAVE 1 ***
     call InitAssaultGroup()
-    call CampaignAttacker(EASY, 8, GHOUL)
-    call CampaignAttacker(EASY, 6, CRYPT_FIEND)
-    call CampaignAttacker(EASY, 2, MEAT_WAGON)
+    call CampaignAttacker(EASY, 5, GHOUL)
+    call CampaignAttacker(EASY, 4, CRYPT_FIEND)
+    call CampaignAttacker(EASY, 1, MEAT_WAGON)
     call AdvSuicideOnPlayer(30, targetPlayer, startX, startY)
 
     // // *** WAVE 2 ***
     call InitAssaultGroup()
     call CampaignAttacker(EASY, 8, GHOUL)
     call CampaignAttacker(EASY, 6, CRYPT_FIEND)
+    call CampaignAttacker(EASY, 2, MEAT_WAGON)
+    call AdvSuicideOnPlayer(30, targetPlayer, startX, startY)
+
+    // // *** WAVE 3 ***
+    call InitAssaultGroup()
+    call CampaignAttacker(EASY, 8, GHOUL)
+    call CampaignAttacker(EASY, 6, CRYPT_FIEND)
+    call CampaignAttacker(EASY, 2, MEAT_WAGON)
+    call CampaignAttacker(EASY, 3, NECRO)
+    call CampaignAttacker(EASY, 1, OBS_STATUE)
+    call AdvSuicideOnPlayer(30, targetPlayer, startX, startY)
+
+    // // *** WAVE 4 ***
+    call InitAssaultGroup()
+    call CampaignAttacker(EASY, 8, GHOUL)
+    call CampaignAttacker(EASY, 6, CRYPT_FIEND)
     call CampaignAttacker(EASY, 4, ABOMINATION)
     call CampaignAttacker(EASY, 2, MEAT_WAGON)
     call CampaignAttacker(EASY, 3, NECRO)
-    call CampaignAttacker(EASY, 3, BANSHEE)
     call CampaignAttacker(EASY, 2, OBS_STATUE)
     call AdvSuicideOnPlayer(30, targetPlayer, startX, startY)
 
     loop
-        // *** WAVE 3+ ***
+        // *** WAVE 5+ ***
         call InitAssaultGroup()
         call CampaignAttacker(EASY, 8, GHOUL)
         call CampaignAttacker(EASY, 6, CRYPT_FIEND)

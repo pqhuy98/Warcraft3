@@ -107,8 +107,9 @@ export function playGlobalSound(path: string): void {
   snd.killWhenDone();
 }
 
-export async function play3dSound(path: string, loc: Loc): Promise<void> {
+export async function play3dSound(path: string, loc: Loc, volume = 127): Promise<void> {
   const snd = Sound.create(path, false, false, false, 1, 1, 'DefaultEAXON');
+  snd.setVolume(volume);
   snd.setPosition(loc.x, loc.y, 0);
   snd.start();
   snd.killWhenDone();

@@ -141,3 +141,7 @@ export function cinematicFadeIn(duration: number): void {
 export function cinematicMode(isCinematic: boolean, duration: number): void {
   CinematicModeExBJ(isCinematic, bj_FORCE_ALL_PLAYERS, duration);
 }
+
+export function cinematicFadeOutIn(duration: number): void {
+  CinematicFadeBJ(bj_CINEFADETYPE_FADEOUTIN, duration, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+}

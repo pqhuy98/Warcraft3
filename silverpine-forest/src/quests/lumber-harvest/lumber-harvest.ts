@@ -3,8 +3,8 @@ import {
   ABILITY_ID_DECONSTRUCT,
   DESTRUCTABLE_TREE,
   neutralHostile,
-  playerHumanAlliance,
   playerMain,
+  playerShadowfangCity,
   UNIT_LumberMillQuest,
 } from 'lib/constants';
 import { getDestructablesInRect } from 'lib/destructable';
@@ -165,7 +165,7 @@ export class LumberHarvest extends BaseQuest {
     await this.waitDependenciesDone();
 
     BlackTurban.disable();
-    const units = treeRects.flatMap((r) => getUnitsInRect(r, (u) => u.owner === playerHumanAlliance));
+    const units = treeRects.flatMap((r) => getUnitsInRect(r, (u) => u.owner === playerShadowfangCity));
     const lumberMill = units.find((u) => u.typeId === UNIT_LumberMillQuest.id);
     const footmen = units.filter((u) => u.typeId === UNIT_Footman.id);
     const peasants = units.filter((u) => u.typeId === UNIT_Peasant.id);
@@ -345,7 +345,7 @@ export class LumberHarvest extends BaseQuest {
 
       // Take back control
       getUnitsOfPlayer(playerMain, (u) => !playerUnits.includes(u)).forEach((u) => {
-        u.owner = playerHumanAlliance;
+        u.owner = playerShadowfangCity;
         u.removeGuardPosition();
       });
 
@@ -378,7 +378,7 @@ export class LumberHarvest extends BaseQuest {
     treeRects.flatMap((r) => getDestructablesInRect(r, (d) => d.typeId === DESTRUCTABLE_TREE))
       .forEach((d) => d.life = 0);
 
-    const units = treeRects.flatMap((r) => getUnitsInRect(r, (u) => u.owner === playerHumanAlliance));
+    const units = treeRects.flatMap((r) => getUnitsInRect(r, (u) => u.owner === playerShadowfangCity));
     units.filter((u) => isUnitType(u, UNIT_Footman) || isUnitType(u, UNIT_Peasant))
       .forEach((u) => u.destroy());
 

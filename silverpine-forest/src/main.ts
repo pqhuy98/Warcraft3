@@ -7,6 +7,7 @@ import Sandquake from 'abilities/sandquake/sandquake';
 import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
 import WrathOfTheLichKing from 'abilities/wrath_of_the_lich_king/wrath_of_the_lich_king';
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
+import { registerHouseInterior } from 'events/house_interior/house_interior';
 import { registerItemDrops } from 'events/item_drops/item_drops';
 import { MiscEvents } from 'events/misc';
 import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
@@ -32,7 +33,6 @@ import {
   playerNightElfSentinels,
   playerOrcishHorde,
   playerShadowfangCity,
-  registerGlobalUnits,
 } from 'lib/constants';
 import { registerFrameUiExperiments } from 'lib/frame-ui';
 import {
@@ -63,7 +63,6 @@ function tsMain(): void {
   UnlockGameSpeedBJ();
   SetGameSpeed(MAP_SPEED_FASTEST);
   LockGameSpeedBJ();
-  registerGlobalUnits();
 
   // Player settings
   configurePlayerSettings();
@@ -79,6 +78,7 @@ function tsMain(): void {
   registerPreseveUnits();
   registerHearthStone();
   registerItemDrops();
+  registerHouseInterior();
 
   // Experiments
   registerFloatTextExperiments();

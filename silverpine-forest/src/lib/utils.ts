@@ -1,6 +1,8 @@
 /* eslint-disable no-bitwise */
 import { getElapsedTime, sleep } from 'w3ts';
 
+import { playerMain } from './constants';
+
 export function pickRandom<T>(array: T[]): T | undefined {
   if (array.length === 0) return undefined;
   return array[GetRandomInt(0, array.length - 1)];
@@ -162,6 +164,12 @@ export function range(n: number): number[] {
   return arr;
 }
 
+export function rangeBetween(l: number, r: number): number[] {
+  const arr: number[] = [];
+  for (let i = l; i <= r; i++) arr.push(i);
+  return arr;
+}
+
 export const METAKEY_SHIFT = 1 << 0;
 export const METAKEY_CONTROL = 1 << 1;
 export const METAKEY_ALT = 1 << 2;
@@ -179,4 +187,54 @@ export function unique<T>(arr: T[]): T[] {
   }
 
   return result;
+}
+
+export class AsyncQueue {
+  private queue: (() => Promise<unknown>)[] = [];
+
+  private jobNames: string[] = [];
+
+  private running: boolean = false;
+
+  // Method to add a job to the queue and automatically start processing if not already running
+  addJob(job: () => Promise<unknown>, jobName: string): void {
+    this.queue.push(job);
+    this.jobNames.push(jobName);
+
+    // If there is no job currently running, trigger the processing of the queue
+    if (!this.isRunning()) {
+      void this.processQueue();
+    }
+  }
+
+  // Internal method to process the queue
+  private async processQueue(): Promise<void> {
+    this.running = true;
+    while (this.queue.length > 0) {
+      const currentJob = this.queue.shift();
+      const currentJobName = this.jobNames.shift();
+      if (currentJob) {
+        try {
+          await currentJob();
+        } catch (error) {
+          DisplayTextToPlayer(playerMain.handle, 0, 0, `ASync queue job ${currentJobName} failed.`);
+        }
+        await sleep(0.25);
+      }
+    }
+    this.running = false;
+  }
+
+  pendingCount(): number {
+    return this.queue.length;
+  }
+
+  isRunning(): boolean {
+    return this.running;
+  }
+
+  // Method to print all job names in the queue
+  getJobNames(): string[] {
+    return [...this.jobNames];
+  }
 }

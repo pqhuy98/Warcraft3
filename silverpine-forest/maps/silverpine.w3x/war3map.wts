@@ -2317,3 +2317,141 @@ STRING 413
 Shadowfang City
 }
 
+STRING 414
+// Doodads: D00V (Wood Floor), Name (Name)
+{
+Wood Floor
+}
+
+STRING 415
+// Doodads: D00W (Wood Wall), Name (Name)
+{
+Wood Wall
+}
+
+STRING 416
+// Doodads: D00X (Wood Wall+Door), Name (Name)
+{
+Wood Wall+Door
+}
+
+STRING 417
+// Doodads: D00Y (Wood Door), Name (Name)
+{
+Wood Door
+}
+
+STRING 418
+// Units: h008 (Door), Name (Name)
+{
+Door
+}
+
+STRING 419
+// Units: h008 (Door), Tip (Tooltip - Basic)
+{
+Door
+}
+
+STRING 420
+// Units: h008 (Door), Ubertip (Tooltip - Extended)
+{
+Door
+}
+
+STRING 421
+// Doodads: D00Z (Wood Bed (single)), Name (Name)
+{
+Wood Bed (single)
+}
+
+STRING 422
+// Doodads: D010 (Window), Name (Name)
+{
+Window
+}
+
+STRING 423
+// Doodads: D011 (Bed shelf), Name (Name)
+{
+Bed shelf
+}
+
+STRING 424
+// Doodads: D012 (Candle), Name (Name)
+{
+Candle
+}
+
+STRING 425
+// Doodads: D013 (Wood cup (empty)), Name (Name)
+{
+Wood cup (empty)
+}
+
+STRING 426
+// Doodads: D014 (Oil lamp), Name (Name)
+{
+Oil lamp
+}
+
+STRING 427
+// Doodads: D015 (Carpet), Name (Name)
+{
+Carpet
+}
+
+STRING 428
+// Doodads: D016 (Food bucket (apple)), Name (Name)
+{
+Food bucket (apple)
+}
+
+STRING 429
+// Doodads: D017 (Food bucket corn)), Name (Name)
+{
+Food bucket corn)
+}
+
+STRING 430
+// Doodads: D018 (Bottle 4), Name (Name)
+{
+Bottle 4
+}
+
+STRING 431
+// Doodads: D019 (Bottle 3), Name (Name)
+{
+Bottle 3
+}
+
+STRING 432
+// Doodads: D01A (Bottle 2), Name (Name)
+{
+Bottle 2
+}
+
+STRING 433
+// Doodads: D01B (Bottle 1), Name (Name)
+{
+Bottle 1
+}
+
+STRING 434
+// Doodads: D01C (Bottle 5), Name (Name)
+{
+Bottle 5
+}
+
+STRING 435
+// Doodads: D01D (Bottle 6), Name (Name)
+{
+Bottle 6
+}
+
+STRING 436
+// Doodads: D01E (Bottle 1), Name (Name)
+{
+Bottle 1
+}
+

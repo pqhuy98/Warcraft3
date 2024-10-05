@@ -1,6 +1,4 @@
-import { Force, MapPlayer, Unit } from 'w3ts';
-
-import { setTimeout } from './trigger';
+import { MapPlayer } from 'w3ts';
 
 // Custom abilities
 export const ABILITY_ID_CHAIN_LIGHTNING = FourCC('A003:AOcl');
@@ -68,28 +66,3 @@ export const playerBlackTurban = MapPlayer.fromIndex(20);
 export const playerMonsters = MapPlayer.fromIndex(21);
 export const neutralHostile = MapPlayer.fromIndex(PLAYER_NEUTRAL_AGGRESSIVE);
 export const neutralPassive = MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE);
-
-// Forces
-export const lightForce = Force.create();
-for (const i of [1, 2]) lightForce.addPlayer(MapPlayer.fromIndex(i));
-export const darkForce = Force.create();
-for (const i of [0, 3]) darkForce.addPlayer(MapPlayer.fromIndex(i));
-
-// Important preplaced units
-export const globalUnits: Record<string, Unit> = {
-};
-
-const globalUnitColors = new Map<Unit, playercolor>();
-
-export function registerGlobalUnits(): void {
-  setTimeout(0, () => {
-    // globalUnitColors.set(globalUnits.fountainLight, PLAYER_COLOR_BLUE);
-    for (const [unit, color] of globalUnitColors) {
-      unit.color = color;
-    }
-  });
-}
-
-export function getGlobalUnitColor(unit: Unit): playercolor {
-  return globalUnitColors.get(unit) ?? PLAYER_COLOR_COAL;
-}

@@ -10,7 +10,7 @@ export enum Command {
   COMMAND_SET_TOWN_XY = 4,
 }
 
-const debug = true;
+const debug = false;
 
 export class AiCommand {
   static sendSetStartXy(player: MapPlayer, x: number, y: number): void {
