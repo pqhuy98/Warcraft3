@@ -3,6 +3,30 @@ import {
   playerForsaken,
   playerHumanAlliance,
   playerMain, UNIT_Butcher,
+  UNIT_Child_1a,
+  UNIT_Child_2a,
+  UNIT_Child_girl1,
+  UNIT_Child_girl2,
+  UNIT_Child_girl3,
+  UNIT_Villager_AgedFemale,
+  UNIT_Villager_AgedMale,
+  UNIT_Villager_Female1,
+  UNIT_Villager_Female2,
+  UNIT_Villager_Female3,
+  UNIT_Villager_Female4,
+  UNIT_Villager_Male1a,
+  UNIT_Villager_Male1b,
+  UNIT_Villager_Male1c,
+  UNIT_Villager_Male1d,
+  UNIT_Villager_Male2a,
+  UNIT_Villager_Male2b,
+  UNIT_Villager_Male2c,
+  UNIT_Villager_Male2d,
+  UNIT_Villager_oldguy1,
+  UNIT_Villager_oldguy2,
+  UNIT_Villager_oldguy3,
+  UNIT_Villager_oldguy4,
+  UNIT_Villager_oldguy5,
 } from 'lib/constants';
 import { getDestructablesInRect } from 'lib/destructable';
 import {
@@ -25,7 +49,7 @@ import {
   UNIT_Ghoul,
   UNIT_HeroShadowHunter,
   UNIT_Militia,
-  UNIT_Peasant, UNIT_Shaman, UNIT_VillagerKid, UNIT_VillagerKid2, UNIT_VillagerMan,
+  UNIT_Peasant, UNIT_Shaman, UNIT_TYPE, UNIT_VillagerKid, UNIT_VillagerKid2, UNIT_VillagerMan,
   UNIT_VillagerMan2, UNIT_VillagerWoman, UNIT_WitchDoctor,
   UNIT_Zombie,
 } from 'lib/resources/war3-units';
@@ -191,6 +215,7 @@ export class MiscEvents {
     this.preventFriendlyFire();
     this.castleEvents();
     this.shadowFangCitizens();
+    this.villagerSkinReplace();
   }
 
   // 9 footmen in Shadowfang practice
@@ -376,5 +401,79 @@ export class MiscEvents {
         t.enabled = true;
       });
     });
+  }
+
+  static villagerSkinReplace(): void {
+    const villagerIds = [
+      UNIT_VillagerMan,
+      UNIT_VillagerMan2,
+      UNIT_VillagerWoman,
+      UNIT_VillagerKid,
+      UNIT_VillagerKid2,
+    ].map((t) => t.id);
+
+    const replacementMap: Record<number, UNIT_TYPE[]> = {
+      [UNIT_VillagerMan.id]: [
+        UNIT_VillagerMan,
+        UNIT_Villager_Male1a,
+        UNIT_Villager_Male1b,
+        UNIT_Villager_Male1c,
+        UNIT_Villager_Male1d,
+        UNIT_Villager_oldguy1,
+        UNIT_Villager_oldguy2,
+      ],
+      [UNIT_VillagerMan2.id]: [
+        UNIT_VillagerMan2,
+        UNIT_Villager_Male2a,
+        UNIT_Villager_Male2b,
+        UNIT_Villager_Male2c,
+        UNIT_Villager_Male2d,
+        UNIT_Villager_AgedMale,
+        UNIT_Villager_oldguy3,
+        UNIT_Villager_oldguy4,
+        UNIT_Villager_oldguy5,
+      ],
+      [UNIT_VillagerWoman.id]: [
+        UNIT_VillagerWoman,
+        UNIT_Villager_Female1,
+        UNIT_Villager_Female2,
+        UNIT_Villager_Female3,
+        UNIT_Villager_Female4,
+        UNIT_Villager_AgedFemale,
+      ],
+      [UNIT_VillagerKid.id]: [
+        UNIT_VillagerKid,
+        UNIT_Child_1a,
+        UNIT_Child_girl1,
+      ],
+      [UNIT_VillagerKid2.id]: [
+        UNIT_VillagerKid2,
+        UNIT_Child_2a,
+        UNIT_Child_girl2,
+        UNIT_Child_girl3,
+      ],
+    };
+
+    const prototypes = new Map<number, Unit>();
+    const loc = centerLocRect(gg_rct_Unit_experiments);
+
+    for (const originalId of Object.keys(replacementMap)) {
+      const typeId = Number(originalId);
+      const replacements = replacementMap[typeId];
+      for (const replacement of replacements) {
+        const replacementTypeId = replacement.id;
+        prototypes.set(replacementTypeId, Unit.create(neutralPassive, replacementTypeId, loc.x, loc.y));
+      }
+    }
+
+    getUnitsInRect(GetWorldBounds(), (u) => villagerIds.includes(u.typeId))
+      .forEach((u) => {
+        const replacementId = pickRandom(replacementMap[u.typeId]).id;
+        u.skin = prototypes.get(replacementId).skin;
+      });
+
+    for (const u of prototypes.values()) {
+      u.destroy();
+    }
   }
 }

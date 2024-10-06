@@ -256,7 +256,7 @@ export class QuestRegistry {
       });
 
       setTimeout(0.1, () => {
-        undeadInvasion.forceCompleteDependencies();
+        // undeadInvasion.forceCompleteDependencies();
         // Cheat('warpten');
         // setTimeout(4, () => {
         //   // Cheat('iseedeadpeople');

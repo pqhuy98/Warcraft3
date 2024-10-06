@@ -396,7 +396,7 @@ export class UndeadInvasionQuest extends BaseQuest {
     // Units attacking with voice sounds
     buildTrigger((t) => {
       t.registerPlayerUnitEvent(playerUndeadInvader, EVENT_PLAYER_UNIT_ATTACKED, null);
-      t.addCondition(() => GetRandomInt(1, 20) === 1
+      t.addCondition(() => GetRandomInt(1, 30) === 1
         && !asyncQueue.isRunning()
         && Unit.fromHandle(GetAttacker()).owner === playerShadowfangCity
         && !isBuilding(Unit.fromHandle(GetAttacker())));

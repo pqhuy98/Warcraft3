@@ -13,7 +13,7 @@ const weathers = [
   // { effectId: "FDgl", name: "WESTRING_WEATHER_DUNGEONGREENFOG" },
   // { effectId: "FDrh", name: "WESTRING_WEATHER_DUNGEONHEAVYREDFOG" },
   // { effectId: "FDrl", name: "WESTRING_WEATHER_DUNGEONREDFOG" },
-  { effectId: 'FDwh', name: 'WESTRING_WEATHER_DUNGEONHEAVYWHITEFOG' },
+  // { effectId: 'FDwh', name: 'WESTRING_WEATHER_DUNGEONHEAVYWHITEFOG' },
   { effectId: 'FDwl', name: 'WESTRING_WEATHER_DUNGEONWHITEFOG' },
   { effectId: 'RLhr', name: 'WESTRING_WEATHER_LORDAERONHEAVYRAIN' },
   { effectId: 'RLlr', name: 'WESTRING_WEATHER_LORDAERONLIGHTRAIN' },
@@ -23,8 +23,8 @@ const weathers = [
   { effectId: 'LRaa', name: 'WESTRING_WEATHER_RAYSOFLIGHT' },
   { effectId: 'LRma', name: 'WESTRING_WEATHER_RAYSOFMOONLIGHT' },
   { effectId: 'WNcw', name: 'WESTRING_WEATHER_WIND' },
-  { effectId: 'WOcw', name: 'WESTRING_WEATHER_OUTLANDWIND' },
-  { effectId: 'WOlw', name: 'WESTRING_WEATHER_OUTLANDWINDLIGHT' },
+  // { effectId: 'WOcw', name: 'WESTRING_WEATHER_OUTLANDWIND' },
+  // { effectId: 'WOlw', name: 'WESTRING_WEATHER_OUTLANDWINDLIGHT' },
 ];
 
 export const weatherBlizzard = { effectId: 'SNbs', name: 'WESTRING_WEATHER_NORTHRENDBLIZZARD' };
@@ -36,7 +36,7 @@ export class Weather {
 
   static activeTimer = Timer.create();
 
-  static changeWeather(chosenWeatherType: typeof weathers[number] = pickRandom(weathers), duration: number = 60, noWeatherDelay: number = 10): void {
+  static changeWeather(chosenWeatherType: typeof weathers[number] = pickRandom(weathers), duration: number = 30, noWeatherDelay: number = 60): void {
     k0('cw0');
     k0('cw1');
     Weather.delayTimer.pause();

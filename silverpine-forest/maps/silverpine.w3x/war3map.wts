@@ -2455,9 +2455,165 @@ STRING 436
 Bottle 1
 }
 
-STRING 437
-// Units: n00D (Villager (Male)), Name (Name)
+STRING 438
+// Units: n00D (Villager), EditorSuffix (Name - Editor Suffix)
 {
-Villager (Male)
+ (Male1d)
+}
+
+STRING 439
+// Units: n00E (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Male1a)
+}
+
+STRING 440
+// Units: n00F (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Male1b)
+}
+
+STRING 441
+// Units: n00G (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Male1c)
+}
+
+STRING 442
+// Units: n00H (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (oldguy5)
+}
+
+STRING 443
+// Units: n00I (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Male2a)
+}
+
+STRING 444
+// Units: n00J (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Male2b)
+}
+
+STRING 445
+// Units: n00K (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Male2c)
+}
+
+STRING 446
+// Units: n00L (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (MaleRich)
+}
+
+STRING 447
+// Units: n00M (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Male2d)
+}
+
+STRING 448
+// Units: n00N (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (oldguy3)
+}
+
+STRING 449
+// Units: n00O (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (oldguy4)
+}
+
+STRING 450
+// Units: n00P (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (oldguy)
+}
+
+STRING 451
+// Units: n00Q (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (oldguy2)
+}
+
+STRING 452
+// Units: n00R (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Female3)
+}
+
+STRING 453
+// Units: n00S (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Female2)
+}
+
+STRING 454
+// Units: n00T (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Female1)
+}
+
+STRING 455
+// Units: n00U (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (Female4)
+}
+
+STRING 456
+// Units: n00V (Child), EditorSuffix (Name - Editor Suffix)
+{
+(1a)
+}
+
+STRING 457
+// Units: n00W (Child), EditorSuffix (Name - Editor Suffix)
+{
+ (2a)
+}
+
+STRING 458
+// Units: n00X (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (AgedFemale)
+}
+
+STRING 459
+// Units: n00Y (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (AgedMale)
+}
+
+STRING 460
+// Units: n00Z (Child), EditorSuffix (Name - Editor Suffix)
+{
+(girl1)
+}
+
+STRING 461
+// Units: n010 (Child), EditorSuffix (Name - Editor Suffix)
+{
+(girl2)
+}
+
+STRING 462
+// Units: n011 (Child), EditorSuffix (Name - Editor Suffix)
+{
+ (girl3)
+}
+
+STRING 463
+// Units: n012 (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (FemaleRich)
+}
+
+STRING 464
+// Units: n013 (Villager), EditorSuffix (Name - Editor Suffix)
+{
+ (AgedMale)
 }
 
