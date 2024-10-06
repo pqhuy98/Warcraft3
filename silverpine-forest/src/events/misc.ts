@@ -404,6 +404,13 @@ export class MiscEvents {
   }
 
   static villagerSkinReplace(): void {
+    const exceptionUnits = [
+      gg_unit_nvil_0035,
+      gg_unit_nvil_0414,
+      gg_unit_nvl2_0413,
+      gg_unit_nvk2_0064,
+    ];
+
     const villagerIds = [
       UNIT_VillagerMan,
       UNIT_VillagerMan2,
@@ -468,6 +475,7 @@ export class MiscEvents {
 
     getUnitsInRect(GetWorldBounds(), (u) => villagerIds.includes(u.typeId))
       .forEach((u) => {
+        if (exceptionUnits.includes(u.handle)) return;
         const replacementId = pickRandom(replacementMap[u.typeId]).id;
         u.skin = prototypes.get(replacementId).skin;
       });

@@ -19,10 +19,10 @@ const weathers = [
   { effectId: 'RLlr', name: 'WESTRING_WEATHER_LORDAERONLIGHTRAIN' },
   // { effectId: "SNbs", name: "WESTRING_WEATHER_NORTHRENDBLIZZARD" },
   // { effectId: "SNhs", name: "WESTRING_WEATHER_NORTHRENDHEAVYSNOW" },
-  // { effectId: "SNls", name: "WESTRING_WEATHER_NORTHRENDLIGHTSNOW" },
+  { effectId: 'SNls', name: 'WESTRING_WEATHER_NORTHRENDLIGHTSNOW' },
   { effectId: 'LRaa', name: 'WESTRING_WEATHER_RAYSOFLIGHT' },
   { effectId: 'LRma', name: 'WESTRING_WEATHER_RAYSOFMOONLIGHT' },
-  { effectId: 'WNcw', name: 'WESTRING_WEATHER_WIND' },
+  // { effectId: 'WNcw', name: 'WESTRING_WEATHER_WIND' },
   // { effectId: 'WOcw', name: 'WESTRING_WEATHER_OUTLANDWIND' },
   // { effectId: 'WOlw', name: 'WESTRING_WEATHER_OUTLANDWINDLIGHT' },
 ];

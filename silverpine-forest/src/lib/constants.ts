@@ -42,14 +42,21 @@ export const MODEL_Quest_TurnIn = 'Models\\QuestMark\\QuestTurnIn.mdx';
 
 // Custom unit types
 export const UNIT_TirionFordring = { code: 'H004', id: FourCC('H004') };
+export const UNIT_LichKing = { code: 'H001', id: FourCC('H001') };
+export const UNIT_Scortah = { code: 'U000', id: FourCC('U000') };
+export const UNIT_Zeus = { code: 'H002', id: FourCC('H002') };
+
 export const UNIT_IPR_TRANSMITTER = { code: 'h005', id: FourCC('h005') };
 export const UNIT_IPR_RECEIVER = { code: 'h006', id: FourCC('h006') };
+
 export const UNIT_Butcher = { code: 'u001', id: FourCC('u001') };
 export const UNIT_HarvestGolem = { code: 'n008', id: FourCC('n008') };
 export const UNIT_BigSludge_1 = { code: 'n009', id: FourCC('n009') };
 export const UNIT_BigSludge_2 = { code: 'n00A', id: FourCC('n00A') };
 export const UNIT_BigSludge_3 = { code: 'n00B', id: FourCC('n00B') };
 export const UNIT_LumberMillQuest = { code: 'h007', id: FourCC('h007') };
+export const UNIT_GiantMoonWell = { code: 'e000', id: FourCC('e000') };
+export const UNIT_WordlessBook = { code: 'n00C', id: FourCC('n00C') };
 
 export const UNIT_Child_1a = { code: 'n00V', id: FourCC('n00V') };
 export const UNIT_Child_2a = { code: 'n00W', id: FourCC('n00W') };

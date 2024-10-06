@@ -209,7 +209,7 @@ export class LumberMillPart2 extends BaseQuest {
 
     // Update quest log
     let undeadAlive = undeadAttackers.filter((u) => !u.isAlive()).length;
-    await questLog.insertItem(`${questItems[1]} (${undeadAlive} / ${undeadAttackers.length})`);
+    await questLog.insertItem(`${questItems[1]} (${undeadAlive} remaining)`);
 
     // knight gareth casts protection if low till end of quest
     // so that he doesn't die accidentally
@@ -227,7 +227,7 @@ export class LumberMillPart2 extends BaseQuest {
       const newUndeadAlive = undeadAttackers.filter((u) => u.isAlive()).length;
       if (undeadAlive !== newUndeadAlive) {
         undeadAlive = newUndeadAlive;
-        void questLog.updateItem(1, `${questItems[1]} (${undeadAlive} / ${undeadAttackers.length})`);
+        void questLog.updateItem(1, `${questItems[1]} (${undeadAlive} remaining)`);
       }
       if (undeadAlive === 0) {
         footmen.filter((u) => u.isAlive()).forEach((u) => setTimeout(GetRandomReal(0, 2), () => u.kill()));
@@ -241,7 +241,7 @@ export class LumberMillPart2 extends BaseQuest {
     removeGuardPosition(...footmen, ...undeadAttackers);
 
     escortUnits.forEach((u) => u.shareVision(traveler.owner, false));
-    void questLog.updateItem(1, `${questItems[1]} (${undeadAttackers.length} / ${undeadAttackers.length})`);
+    void questLog.updateItem(1, questItems[1]);
     await questLog.completeItem(1);
     await questLog.insertItem(questItems[2]);
     traveler = await this.waitForTurnIn(knight);

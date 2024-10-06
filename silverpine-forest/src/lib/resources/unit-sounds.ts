@@ -1,8 +1,18 @@
 import {
-  UNIT_BigSludge_1, UNIT_BigSludge_2, UNIT_BigSludge_3, UNIT_HarvestGolem,
+  UNIT_BigSludge_1, UNIT_BigSludge_2, UNIT_BigSludge_3, UNIT_Butcher, UNIT_GiantMoonWell, UNIT_HarvestGolem,
+  UNIT_LichKing,
+  UNIT_LumberMillQuest,
+  UNIT_Scortah,
+  UNIT_TirionFordring,
+  UNIT_WordlessBook,
+  UNIT_Zeus,
 } from 'lib/constants';
 
-import { UNIT_GoblinShredder, UNIT_SludgeMonstrosity, UNIT_TYPE } from './war3-units';
+import {
+  UNIT_Abomination,
+  UNIT_Akama, UNIT_BookOfSummoningPedestal, UNIT_GoblinShredder, UNIT_HeroCryptLord, UNIT_HeroMountainKing, UNIT_LumberMill, UNIT_MoonWell, UNIT_SludgeMonstrosity, UNIT_TYPE,
+  UNIT_Uther,
+} from './war3-units';
 
 /* eslint-disable max-len */
 interface SoundGroup {
@@ -30671,3 +30681,12 @@ addCustomUnitSound(UNIT_HarvestGolem, UNIT_GoblinShredder);
 addCustomUnitSound(UNIT_BigSludge_1, UNIT_SludgeMonstrosity);
 addCustomUnitSound(UNIT_BigSludge_2, UNIT_SludgeMonstrosity);
 addCustomUnitSound(UNIT_BigSludge_3, UNIT_SludgeMonstrosity);
+addCustomUnitSound(UNIT_Butcher, UNIT_Abomination);
+addCustomUnitSound(UNIT_GiantMoonWell, UNIT_MoonWell);
+addCustomUnitSound(UNIT_WordlessBook, UNIT_BookOfSummoningPedestal);
+addCustomUnitSound(UNIT_LumberMillQuest, UNIT_LumberMill);
+
+addCustomUnitSound(UNIT_LichKing, UNIT_Akama);
+addCustomUnitSound(UNIT_Scortah, UNIT_HeroCryptLord);
+addCustomUnitSound(UNIT_Zeus, UNIT_HeroMountainKing);
+addCustomUnitSound(UNIT_TirionFordring, UNIT_Uther);
