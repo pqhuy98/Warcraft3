@@ -1,5 +1,8 @@
 import { MapPlayer } from 'w3ts';
 
+// General constants
+export const terrainFogDefaultParams = [0, 1700, 3500, 1.5, 50 / 255, 128 / 255, 80 / 255] as const;
+
 // Custom abilities
 export const ABILITY_ID_CHAIN_LIGHTNING_ZEUS = FourCC('A003:AOcl');
 

@@ -3,7 +3,7 @@ import { getElapsedTime, sleep } from 'w3ts';
 
 import { playerMain } from './constants';
 
-export function pickRandom<T>(array: T[]): T | undefined {
+export function pickRandom<T>(array: readonly T[]): T | undefined {
   if (array.length === 0) return undefined;
   return array[GetRandomInt(0, array.length - 1)];
 }

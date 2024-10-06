@@ -2617,3 +2617,39 @@ STRING 464
  (AgedMale)
 }
 
+STRING 465
+// Doodads: D01F (Wood Wall 2), Name (Name)
+{
+Wood Wall 2
+}
+
+STRING 466
+// Doodads: D01G (Wood Wall 2.1), Name (Name)
+{
+Wood Wall 2.1
+}
+
+STRING 467
+// Doodads: D01H (Wood Wall+Door cheap), Name (Name)
+{
+Wood Wall+Door cheap
+}
+
+STRING 468
+// Doodads: D01I (Stone Wall Wood column), Name (Name)
+{
+Stone Wall Wood column
+}
+
+STRING 469
+// Doodads: D01J (Log Wall), Name (Name)
+{
+Log Wall
+}
+
+STRING 470
+// Doodads: D01L (Black Floor), Name (Name)
+{
+Black Floor
+}
+
