@@ -620,7 +620,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -8256.0, -23488.0, 270.000, FourCC(
 u = BlzCreateUnitWithSkin(p, FourCC("hwtw"), -7616.0, -20224.0, 270.000, FourCC("hwtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hwtw"), -8640.0, -21824.0, 270.000, FourCC("hwtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -10688.0, -23104.0, 270.000, FourCC("hgtw"))
-gg_unit_htow_1131 = BlzCreateUnitWithSkin(p, FourCC("htow"), 10688.0, -11328.0, 208.079, FourCC("htow"))
+gg_unit_htow_1131 = BlzCreateUnitWithSkin(p, FourCC("htow"), 10688.0, -11328.0, 270.000, FourCC("htow"))
 end
 
 function CreateUnitsForPlayer1()
