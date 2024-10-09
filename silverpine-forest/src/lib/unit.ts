@@ -334,9 +334,9 @@ export function isUnitIdle(unit: Unit): boolean {
     || unit.currentOrder === OrderId.Standdown;
 }
 
-export function setUnitFacingWithRate(unit: Unit, angle: number, rate: number = 180 / 0.75): void {
+export function setUnitFacingWithRate(unit: Unit, angle: number, degPerSec: number = 180 / 0.75): void {
   const angleDiff = angleDifference(unit.facing, angle);
-  SetUnitFacingTimed(unit.handle, angle, angleDiff / rate);
+  SetUnitFacingTimed(unit.handle, angle, angleDiff / degPerSec);
 }
 
 export function setUnitFacingTimed(unit: Unit, angle: number, duration = 0.75): void {

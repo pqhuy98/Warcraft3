@@ -101,7 +101,10 @@ export function createTextTag(text: string, loc: Loc, {
 }
 
 export function createDialogueTextTag(text: string, unit: Unit, durationS: number): TextTag {
-  return createTextTag(text, unit, {
+  return createTextTag(text, {
+    x: unit.x + 25,
+    y: unit.y,
+  }, {
     ...TTSetting.dialogue,
     heightOffset: TTSetting.dialogue.heightOffset * getUnitScale(unit),
     lifespan: durationS + 0.5,

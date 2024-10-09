@@ -2383,12 +2383,6 @@ STRING 424
 Candle
 }
 
-STRING 425
-// Doodads: D013 (Wood cup (empty)), Name (Name)
-{
-Wood cup (empty)
-}
-
 STRING 426
 // Doodads: D014 (Oil lamp), Name (Name)
 {
@@ -2651,5 +2645,77 @@ STRING 470
 // Doodads: D01L (Black Floor), Name (Name)
 {
 Black Floor
+}
+
+STRING 471
+// Doodads: D01K (Staircase), Name (Name)
+{
+Staircase
+}
+
+STRING 472
+// Doodads: D01M (Dock 2), Name (Name)
+{
+Dock 2
+}
+
+STRING 473
+// Doodads: D01N (Wood Desk), Name (Name)
+{
+Wood Desk
+}
+
+STRING 474
+// Doodads: D013 (Tableware (beer cup empty)), Name (Name)
+{
+Tableware (beer cup empty)
+}
+
+STRING 475
+// Doodads: D01O (Tableware (dish fork spoon)), Name (Name)
+{
+Tableware (dish fork spoon)
+}
+
+STRING 476
+// Doodads: D01P (Tableware (glass)), Name (Name)
+{
+Tableware (glass)
+}
+
+STRING 477
+// Doodads: D01Q (Tableware (dish)), Name (Name)
+{
+Tableware (dish)
+}
+
+STRING 478
+// Doodads: D01R (Tableware beer cup)), Name (Name)
+{
+Tableware beer cup)
+}
+
+STRING 479
+// Doodads: D01S (Trophy decoration (deer)), Name (Name)
+{
+Trophy decoration (deer)
+}
+
+STRING 480
+// Doodads: D01T (Trophy decoration (sword and shield)), Name (Name)
+{
+Trophy decoration (sword and shield)
+}
+
+STRING 481
+// Doodads: D01U (Bag), Name (Name)
+{
+Bag
+}
+
+STRING 482
+// Doodads: D01V (Wood Bed double)), Name (Name)
+{
+Wood Bed double)
 }
 

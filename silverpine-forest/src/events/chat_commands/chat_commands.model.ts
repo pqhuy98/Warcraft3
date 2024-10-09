@@ -1,4 +1,5 @@
 import { colorize } from 'lib/colorize';
+import { log } from 'lib/log';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import { MapPlayer, Quest, Trigger } from 'w3ts';
 
@@ -75,26 +76,35 @@ function getHelpMessage(category: CommandCategory): string[] {
   return result;
 }
 
-export function chatParamString(pattern: string, defaultValue: string) {
+export type ChatParam<T> = {current: T }
+
+export function chatParamString(pattern: string, defaultValue: string): ChatParam<string> {
   const data = { current: defaultValue };
   onChatCommand(`${pattern} $1`, false, (msg) => {
-    data.current = msg.split(' ')[1];
+    data.current = msg.split(' ').slice(1).join(' ');
+    log(`Set ${pattern} param: ${data.current}`);
   });
-  return (): string => data.current;
+  return data;
 }
 
-export function chatParamReal(pattern: string, defaultValue: number) {
-  const data = { current: defaultValue };
+export function chatParamReal(pattern: string, defaultValue: number): ChatParam<number> {
+  const data = {
+    current: defaultValue,
+  };
   onChatCommand(`${pattern} $1`, false, (msg) => {
     data.current = parseFloat(msg.split(' ')[1]);
+    log(`Set ${pattern} param: ${data.current}`);
   });
-  return (): number => data.current;
+
+  return data;
 }
 
-export function chatParamInt(pattern: string, defaultValue: number) {
+export function chatParamInt(pattern: string, defaultValue: number): ChatParam<number> {
   const data = { current: defaultValue };
   onChatCommand(`${pattern} $1`, false, (msg) => {
     data.current = parseInt(msg.split(' ')[1], 10);
+    log(`Set ${pattern} param: ${data.current}`);
   });
-  return (): number => data.current;
+
+  return data;
 }

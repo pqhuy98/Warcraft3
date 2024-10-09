@@ -220,6 +220,7 @@ export class QuestRegistry {
 
       const undeadInvasion = new UndeadInvasionQuest({
         name: 'Undead Invasion',
+        buildingKeep: Unit.fromHandle(gg_unit_hkee_1302),
         undeadBaseRects: [
           gg_rct_Shadowfang_peasants_lumber,
           gg_rct_Shadowfang_peasants_lumber_2,

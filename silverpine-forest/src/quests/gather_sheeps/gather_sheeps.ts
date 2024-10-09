@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { playerMain, neutralPassive } from 'lib/constants';
+import { neutralPassive, playerMain } from 'lib/constants';
 import {
   Angle, centerLocRect, Distance, isLocInRect, PolarProjection,
   randomLocRect,

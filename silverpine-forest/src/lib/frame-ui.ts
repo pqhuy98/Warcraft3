@@ -3,7 +3,8 @@ import { Frame } from 'w3ts';
 
 import { playerMain } from './constants';
 import { log } from './log';
-import { buildTrigger } from './trigger';
+import { QuestLog } from './quests/quest_log';
+import { buildTrigger, setTimeout } from './trigger';
 import { METAKEY_CONTROL } from './utils';
 
 export function registerFrameUiExperiments(): void {
@@ -14,8 +15,10 @@ export function registerFrameUiExperiments(): void {
     t.addAction(() => {
       hideUi = !hideUi;
       Frame.hideOrigin(hideUi);
+      Frame.fromOrigin(ORIGIN_FRAME_MINIMAP, 0).setVisible(true);
     });
   });
+  setTimeout(5, () => QuestLog.hint('You can press Ctrl+Z to hide/show game UI.'));
 
   const origin = chatParamInt('fo', 0);
   const name = chatParamString('fn', '');
@@ -48,13 +51,13 @@ export function registerFrameUiExperiments(): void {
   };
 
   onChatCommand('ftn', false, () => {
-    const frame = Frame.fromName(name(), idx());
+    const frame = Frame.fromName(name.current, idx.current);
     frame.visible = !frame.visible;
     log(frame.id);
   });
 
   onChatCommand('fto', true, () => {
-    const frame = Frame.fromOrigin(originMap[origin()], idx());
+    const frame = Frame.fromOrigin(originMap[origin.current], idx.current);
     frame.visible = !frame.visible;
     log(frame.id);
   });

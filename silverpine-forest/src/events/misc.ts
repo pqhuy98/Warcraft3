@@ -216,6 +216,7 @@ export class MiscEvents {
     this.castleEvents();
     this.shadowFangCitizens();
     this.villagerSkinReplace();
+    Unit.fromHandle(gg_unit_htow_1131).name = 'Ambermill Town Hall';
   }
 
   // 9 footmen in Shadowfang practice

@@ -2,6 +2,7 @@ import { neutralPassive, playerMain } from 'lib/constants';
 import {
   Angle, Distance, PolarProjection,
 } from 'lib/location';
+import { angleDifference } from 'lib/maths/misc';
 import { disableQuestMarker, enableQuestMarker, QuestMarkerType } from 'lib/quests/utils';
 import { getUnitSounds } from 'lib/resources/unit-sounds';
 import { checkUnitFlag, Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
@@ -12,7 +13,7 @@ import {
   isOrganic, isUnitIdle, isUnitRemoved, setUnitFacingWithRate,
 } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
-import { MapPlayer, Unit } from 'w3ts';
+import { MapPlayer, Timer, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
 interface InteractionData {
@@ -21,6 +22,7 @@ interface InteractionData {
   soundLastTimeS: number
   playedSounds: string[]
   maxRadius: number
+  isLooking: boolean
 }
 const targets = new Map<Unit, InteractionData>();
 
@@ -33,9 +35,13 @@ type Subscriber = (unit: Unit, target: Unit) => unknown
 
 const onceSubscribers = new Map<Unit, Subscriber[]>();
 
-const interval = 0.1;
+const interval = 0.01;
 
 export class UnitInteraction {
+  static timer: Timer = null;
+
+  static timerPaused = false;
+
   static register(): void {
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER);
@@ -84,24 +90,42 @@ export class UnitInteraction {
       });
     });
 
-    setIntervalIndefinite(interval, () => {
-      if (targets.size === 0) return;
+    this.timer = setIntervalIndefinite(interval, (idx) => {
+      if (idx === 0) return; // skip first execution
+      if (targets.size === 0) {
+        this.timer?.pause();
+        this.timerPaused = true;
+        return;
+      }
 
-      for (const [unit, { facingToUnit, oldFacing, maxRadius }] of targets) {
+      for (const [unit, data] of targets) {
         if (isUnitRemoved(unit)) {
           targets.delete(unit);
           continue;
         }
 
         const isIdle = isUnitIdle(unit);
+        const { facingToUnit, oldFacing, maxRadius } = data;
         const shouldFace = Distance(unit, facingToUnit) < maxRadius && isIdle && unit.isAlive();
         if (!shouldFace) {
           targets.delete(unit);
           if (isIdle && unit.isAlive()) {
             setUnitFacingWithRate(unit, oldFacing, 0.5);
           }
+          unit.resetLookAt();
+          data.isLooking = false;
         } else {
-          SetUnitFacingToFaceUnitTimed(unit.handle, facingToUnit.handle, 0.5);
+          const angleDiff = angleDifference(unit.facing, Angle(unit, facingToUnit));
+          if (angleDiff < 60 && !data.isLooking) {
+            unit.lookAt('head', facingToUnit, 0, 0, 70);
+            data.isLooking = true;
+          } else if (angleDiff > 80 && data.isLooking) {
+            unit.resetLookAt();
+            data.isLooking = false;
+          }
+          if (angleDiff > 45) {
+            SetUnitFacingToFaceUnitTimed(unit.handle, facingToUnit.handle, 0.5);
+          }
         }
       }
     });
@@ -215,7 +239,12 @@ export function setAttention(unitFrom: Unit, unitTo: Unit): void {
     soundLastTimeS: -99,
     playedSounds: [],
     maxRadius: Math.max(unfocusDistance, Distance(unitFrom, unitTo) + 200),
+    isLooking: false,
   });
+  if (UnitInteraction.timerPaused) {
+    UnitInteraction.timer?.resume();
+    UnitInteraction.timerPaused = false;
+  }
 }
 
 export function removeAttention(unit: Unit): void {

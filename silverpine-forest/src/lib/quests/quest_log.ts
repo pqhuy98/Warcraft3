@@ -98,6 +98,10 @@ export class QuestLog {
   }
 
   hint(message: string): void {
+    QuestLog.hint(message);
+  }
+
+  static hint(message: string): void {
     ClearTextMessages();
     QuestMessageBJ(
       bj_FORCE_ALL_PLAYERS,

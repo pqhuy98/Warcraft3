@@ -78,6 +78,7 @@ let deathSoundIds = [
 
 export class UndeadInvasionQuest extends BaseQuest {
   constructor(public globals: BaseQuestProps &{
+    buildingKeep: Unit,
     undeadBaseRects: rect[],
   }) {
     super(globals);
@@ -87,8 +88,10 @@ export class UndeadInvasionQuest extends BaseQuest {
   private async register(): Promise<void> {
     const {
       undeadBaseRects,
+      buildingKeep,
     } = this.globals;
 
+    buildingKeep.name = 'Shadowfang Keep';
     playerUndeadInvader.name = 'Undead Forsaken';
     playerUndeadInvader.color = PLAYER_COLOR_PURPLE;
 
@@ -340,9 +343,8 @@ export class UndeadInvasionQuest extends BaseQuest {
     });
 
     // Keep is under attack
-    const keep = Unit.fromHandle(gg_unit_hkee_1302);
     void waitUntil(1, () => {
-      const keepDamaged = keep.life < keep.maxLife && keep.life > 0;
+      const keepDamaged = buildingKeep.life < buildingKeep.maxLife && buildingKeep.life > 0;
       if (keepDamaged) {
         debug2 && print('keep is damaged');
 
@@ -354,7 +356,7 @@ export class UndeadInvasionQuest extends BaseQuest {
 
     // Keep is about to be destroyed
     void waitUntil(1, () => {
-      const keepSevereDamaged = keep.life * 8 < keep.maxLife;
+      const keepSevereDamaged = buildingKeep.life * 8 < buildingKeep.maxLife;
       if (keepSevereDamaged) {
         debug2 && print('keep is about to be destroyed');
         asyncQueue.addJob(() => playSpeechUnitType(UNIT_MortarTeam, dialogues[18]), 'd18');
