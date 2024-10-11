@@ -136,11 +136,11 @@ gg_unit_hfoo_0941 = nil
 gg_unit_u001_1000 = nil
 gg_unit_n00C_1135 = nil
 gg_unit_hkee_1302 = nil
+gg_unit_htow_1131 = nil
 gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
-gg_unit_htow_1131 = nil
 function InitGlobals()
 end
 
@@ -620,7 +620,6 @@ u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -8256.0, -23488.0, 270.000, FourCC(
 u = BlzCreateUnitWithSkin(p, FourCC("hwtw"), -7616.0, -20224.0, 270.000, FourCC("hwtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hwtw"), -8640.0, -21824.0, 270.000, FourCC("hwtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -10688.0, -23104.0, 270.000, FourCC("hgtw"))
-gg_unit_htow_1131 = BlzCreateUnitWithSkin(p, FourCC("htow"), 10688.0, -11328.0, 270.000, FourCC("htow"))
 end
 
 function CreateUnitsForPlayer1()
@@ -766,6 +765,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -7660.8, -18530.3, 39.607, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 2228.9, 3915.4, 289.345, FourCC("hmtm"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2261.9, 3460.6, 264.515, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2632.0, 3465.9, 259.383, FourCC("hfoo"))
+gg_unit_htow_1131 = BlzCreateUnitWithSkin(p, FourCC("htow"), 10688.0, -11328.0, 207.529, FourCC("htow"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhdl"), -10045.5, -22994.8, 42.798, FourCC("hhdl"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhdl"), -9846.3, -23125.1, 79.280, FourCC("hhdl"))
 end
@@ -976,7 +976,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("umtw"), 5221.6, 20091.5, 273.392, FourCC("u
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), 1990.0, 18526.4, 197.940, FourCC("uabo"))
 u = BlzCreateUnitWithSkin(p, FourCC("ucry"), 705.9, 22558.1, 252.866, FourCC("ucry"))
 u = BlzCreateUnitWithSkin(p, FourCC("uske"), 225.1, 21120.9, 208.206, FourCC("uske"))
-u = BlzCreateUnitWithSkin(p, FourCC("nsoc"), 3172.4, 20860.3, 228.877, FourCC("nsoc"))
+u = BlzCreateUnitWithSkin(p, FourCC("nsoc"), 3230.9, 20857.4, 228.877, FourCC("nsoc"))
 SetUnitState(u, UNIT_STATE_MANA, 400)
 u = BlzCreateUnitWithSkin(p, FourCC("uban"), 3232.6, 22810.3, 262.869, FourCC("uban"))
 SetUnitState(u, UNIT_STATE_MANA, 200)
@@ -1077,18 +1077,6 @@ SelectHeroSkill(u, FourCC("AEbl"))
 SelectHeroSkill(u, FourCC("AEbl"))
 SelectHeroSkill(u, FourCC("AEbl"))
 SelectHeroSkill(u, FourCC("AEsh"))
-u = BlzCreateUnitWithSkin(p, FourCC("H001"), 11769.6, -5197.6, 289.080, FourCC("H001"))
-SetHeroLevel(u, 30, false)
-SetUnitState(u, UNIT_STATE_MANA, 1410)
-u = BlzCreateUnitWithSkin(p, FourCC("U000"), 11509.5, -5161.2, 297.689, FourCC("U000"))
-SetHeroLevel(u, 30, false)
-SetUnitState(u, UNIT_STATE_MANA, 900)
-u = BlzCreateUnitWithSkin(p, FourCC("H002"), 11923.0, -5099.6, 278.295, FourCC("H002"))
-SetHeroLevel(u, 30, false)
-SetUnitState(u, UNIT_STATE_MANA, 1680)
-u = BlzCreateUnitWithSkin(p, FourCC("H004"), 11934.6, -5318.6, 261.440, FourCC("H004"))
-SetHeroLevel(u, 30, false)
-SetUnitState(u, UNIT_STATE_MANA, 1035)
 end
 
 function CreateBuildingsForPlayer6()
@@ -2119,6 +2107,18 @@ u = BlzCreateUnitWithSkin(p, FourCC("hsor"), -5243.6, -2267.3, 352.538, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), -5235.4, -2356.9, 356.875, FourCC("nvlw"))
 u = BlzCreateUnitWithSkin(p, FourCC("nhef"), -5231.5, -2452.2, 4.228, FourCC("nhef"))
 u = BlzCreateUnitWithSkin(p, FourCC("ndqt"), -4885.6, -1922.1, 278.034, FourCC("ndqt"))
+u = BlzCreateUnitWithSkin(p, FourCC("H001"), 17462.7, -1067.5, 270.000, FourCC("H001"))
+SetHeroLevel(u, 30, false)
+SetUnitState(u, UNIT_STATE_MANA, 1410)
+u = BlzCreateUnitWithSkin(p, FourCC("U000"), 17311.0, -1058.0, 270.000, FourCC("U000"))
+SetHeroLevel(u, 30, false)
+SetUnitState(u, UNIT_STATE_MANA, 900)
+u = BlzCreateUnitWithSkin(p, FourCC("H002"), 17616.0, -1092.0, 270.000, FourCC("H002"))
+SetHeroLevel(u, 30, false)
+SetUnitState(u, UNIT_STATE_MANA, 1680)
+u = BlzCreateUnitWithSkin(p, FourCC("H004"), 17760.5, -1098.7, 270.000, FourCC("H004"))
+SetHeroLevel(u, 30, false)
+SetUnitState(u, UNIT_STATE_MANA, 1035)
 end
 
 function CreatePlayerBuildings()
@@ -2289,7 +2289,7 @@ gg_rct_Farm_massacre_Undead_spawn_4 = Rect(10976.0, -9280.0, 11168.0, -9088.0)
 gg_rct_Gilneas_camp = Rect(-11200.0, -25088.0, -7264.0, -21536.0)
 gg_rct_Shadowfang_peasants_lumber_2 = Rect(-6624.0, -18816.0, -3808.0, -17120.0)
 gg_rct_Undead_invasion_startXY = Rect(-5760.0, -15264.0, -5472.0, -14848.0)
-gg_rct_shadowfang_guards = Rect(-9632.0, -16992.0, -7488.0, -14880.0)
+gg_rct_shadowfang_guards = Rect(-9088.0, -16960.0, -7488.0, -14880.0)
 gg_rct_House_1_out = Rect(-9728.0, -15360.0, -9600.0, -15232.0)
 gg_rct_House_1_in = Rect(16768.0, -7296.0, 16896.0, -7168.0)
 gg_rct_House_1_interior = Rect(16096.0, -7328.0, 17024.0, -6624.0)

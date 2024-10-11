@@ -10,6 +10,7 @@ import {
   buildTrigger, getTimeS, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
 import {
+  getUnitScale,
   isOrganic, isUnitIdle, isUnitRemoved, setUnitFacingWithRate,
 } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
@@ -17,7 +18,7 @@ import { MapPlayer, Timer, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
 interface InteractionData {
-  facingToUnit: Unit,
+  targetUnit: Unit,
   oldFacing: number
   soundLastTimeS: number
   playedSounds: string[]
@@ -30,6 +31,7 @@ const soundThrottleSet = new Set<Unit>();
 
 const nearDistance = 300;
 const unfocusDistance = 500;
+const lookAtHeight = 70;
 
 type Subscriber = (unit: Unit, target: Unit) => unknown
 
@@ -105,8 +107,8 @@ export class UnitInteraction {
         }
 
         const isIdle = isUnitIdle(unit);
-        const { facingToUnit, oldFacing, maxRadius } = data;
-        const shouldFace = Distance(unit, facingToUnit) < maxRadius && isIdle && unit.isAlive();
+        const { targetUnit, oldFacing, maxRadius } = data;
+        const shouldFace = Distance(unit, targetUnit) < maxRadius && isIdle && unit.isAlive();
         if (!shouldFace) {
           targets.delete(unit);
           if (isIdle && unit.isAlive()) {
@@ -115,16 +117,16 @@ export class UnitInteraction {
           unit.resetLookAt();
           data.isLooking = false;
         } else {
-          const angleDiff = angleDifference(unit.facing, Angle(unit, facingToUnit));
+          const angleDiff = angleDifference(unit.facing, Angle(unit, targetUnit));
           if (angleDiff < 60 && !data.isLooking) {
-            unit.lookAt('head', facingToUnit, 0, 0, 70);
+            unit.lookAt('head', targetUnit, 0, 0, lookAtHeight * getUnitScale(targetUnit));
             data.isLooking = true;
           } else if (angleDiff > 80 && data.isLooking) {
             unit.resetLookAt();
             data.isLooking = false;
           }
           if (angleDiff > 45) {
-            SetUnitFacingToFaceUnitTimed(unit.handle, facingToUnit.handle, 0.5);
+            SetUnitFacingToFaceUnitTimed(unit.handle, targetUnit.handle, 0.5);
           }
         }
       }
@@ -228,13 +230,13 @@ export class UnitInteraction {
 export function setAttention(unitFrom: Unit, unitTo: Unit): void {
   if (!unitFrom.isAlive()) return;
   if (unitFrom === unitTo) return;
-  if (targets.has(unitFrom) && targets.get(unitFrom).facingToUnit === unitTo) return;
+  if (targets.has(unitFrom) && targets.get(unitFrom).targetUnit === unitTo) return;
 
   unitFrom.issueImmediateOrder(OrderId.Stop);
   ResetUnitAnimation(unitFrom.handle);
   const oldFacing = targets.get(unitFrom)?.oldFacing ?? unitFrom.facing;
   targets.set(unitFrom, {
-    facingToUnit: unitTo,
+    targetUnit: unitTo,
     oldFacing,
     soundLastTimeS: -99,
     playedSounds: [],

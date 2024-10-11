@@ -48,27 +48,20 @@ export class Weather {
 
   static chosenWeatherType: typeof weathers[number] = null;
 
-  static changeWeather(chosenWeatherType: WeatherType = pickRandom(weathers), duration: number = GetRandomReal(10, 60), noWeatherDelay: number = GetRandomReal(45, 120)): void {
+  static changeWeather(chosenWeatherType: WeatherType = pickRandom(weathers), duration: number = GetRandomReal(30, 120), noWeatherDelay: number = GetRandomReal(60, 180)): void {
     k0('cw0');
     k0('cw1');
     this.delayTimer.pause();
     this.activeTimer.pause();
-    this.chosenWeatherType = null;
 
-    if (this.currentWeather) {
-      debug && log('stop current weather');
-      this.currentWeather.enable(false);
-      this.currentWeather = null;
-    }
+    this.chosenWeatherType = null;
+    this.destroyWeather();
 
     this.delayTimer.start(noWeatherDelay, false, () => {
       this.chosenWeatherType = chosenWeatherType;
-      if (this.currentWeather) {
-        this.currentWeather.destroy();
-      }
       debug && log(`start weather ${chosenWeatherType.name}, enable: ${this.isShow ? 'true' : 'false'}`);
       if (this.isShow) {
-        this.currentWeather = createGlobalWeather(this.chosenWeatherType);
+        this.createWeather(this.chosenWeatherType);
       }
       k1('cw0');
     });
@@ -81,17 +74,27 @@ export class Weather {
 
   static show(state: boolean): void {
     this.isShow = state;
-    if (this.currentWeather && !this.isShow) {
-      this.currentWeather.destroy();
-      this.currentWeather = null;
-    } else if (!this.currentWeather && this.isShow && this.chosenWeatherType) {
-      this.currentWeather = createGlobalWeather(this.chosenWeatherType);
+    if (!this.isShow) {
+      this.destroyWeather();
+    } else if (this.isShow && this.currentWeather == null && this.chosenWeatherType) {
+      this.createWeather(this.chosenWeatherType);
     }
   }
-}
 
-function createGlobalWeather(chosenWeatherType: WeatherType): WeatherEffect {
-  const weather = WeatherEffect.create(temp(Rectangle.getWorldBounds()), FourCC(chosenWeatherType.effectId));
-  weather.enable(true);
-  return weather;
+  static createWeather(chosenWeatherType: WeatherType): void {
+    this.destroyWeather();
+    this.currentWeather = WeatherEffect.create(
+      temp(Rectangle.getWorldBounds()),
+      FourCC(chosenWeatherType.effectId),
+    );
+    this.currentWeather.enable(true);
+  }
+
+  static destroyWeather(): void {
+    if (this.currentWeather) {
+      this.currentWeather.enable(false);
+      this.currentWeather.destroy();
+      this.currentWeather = null;
+    }
+  }
 }

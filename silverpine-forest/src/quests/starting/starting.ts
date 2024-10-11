@@ -79,7 +79,7 @@ export class Starting extends BaseQuest {
     getUnitsInRect(gg_rct_Farm_region, (u) => isUnitType(u, UNIT_Peasant))
       .forEach((u) => void this.peasantTalk(u));
 
-    const traveler = await this.talkToQuestGiver(footman, true);
+    const traveler = await this.talkToQuestGiver(footman, false);
     const talkGroup = TalkGroup.create(
       footman,
       traveler,
