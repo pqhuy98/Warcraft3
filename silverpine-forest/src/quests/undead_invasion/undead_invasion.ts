@@ -5,18 +5,24 @@ import {
 } from 'lib/constants';
 import {
   centerLocRect,
-  currentLoc, fromTempLocation, isRectVisible, Loc, PolarProjection,
+  currentLoc, fromTempLocation, isLocInRect, isRectVisible, Loc, PolarProjection,
 } from 'lib/location';
 import { log } from 'lib/log';
 import { setAllianceState2Way } from 'lib/player';
 import { getUnitSounds } from 'lib/resources/unit-sounds';
-import { ABILITY_BlightGrowthLarge, ABILITY_BlightGrowthSmall } from 'lib/resources/war3-abilities';
+import {
+  ABILITY_BlightGrowthLarge, ABILITY_BlightGrowthSmall, ABILITY_DeathKnightAnimateDead, ABILITY_DeathKnightDeathCoil, ABILITY_DeathKnightDeathPact, ABILITY_DeathKnightUnholyAura,
+} from 'lib/resources/war3-abilities';
+import { ITEM_OrbofCorruption_ocor } from 'lib/resources/war3-items';
+import { ORDER_attack } from 'lib/resources/war3-orders';
 import {
   UNIT_Abomination,
   UNIT_Acolyte, UNIT_AltarofDarkness, UNIT_BlackCitadel, UNIT_Boneyard, UNIT_Crypt,
+  UNIT_CryptFiend,
   UNIT_DagrenTheOrcslayer,
   UNIT_FlyingMachine,
-  UNIT_Footman, UNIT_Graveyard, UNIT_GryphonRider, UNIT_Knight, UNIT_MortarTeam, UNIT_Necromancer, UNIT_Peasant, UNIT_Priest, UNIT_Rifleman, UNIT_SacrificialPit,
+  UNIT_Footman, UNIT_Ghoul, UNIT_Graveyard, UNIT_GryphonRider, UNIT_HeroDeathKnight, UNIT_Knight,
+  UNIT_MeatWagon, UNIT_MortarTeam, UNIT_Necromancer, UNIT_Peasant, UNIT_Priest, UNIT_Rifleman, UNIT_SacrificialPit,
   UNIT_SiegeEngine,
   UNIT_SiegeEngineUpgraded,
   UNIT_Slaughterhouse, UNIT_Sorceress, UNIT_TempleoftheDamned, UNIT_TheCaptain, UNIT_TombOfRelics, UNIT_VillagerMan, UNIT_VillagerMan2, UNIT_VillagerWoman, UNIT_Ziggurat,
@@ -31,7 +37,7 @@ import {
   getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isBuilding, isUnitType,
 } from 'lib/unit';
 import {
-  AsyncQueue, pickRandom, rangeBetween, waitUntil,
+  AsyncQueue, pickRandom, range, rangeBetween, waitUntil,
 } from 'lib/utils';
 import { BaseQuest, BaseQuestProps } from 'quests/base';
 import { ShadowFangGate } from 'quests/shadowfang_city/shadowfang_gate';
@@ -94,6 +100,8 @@ export class UndeadInvasionQuest extends BaseQuest {
     buildingKeep.name = 'Shadowfang Keep';
     playerUndeadInvader.name = 'Undead Forsaken';
     playerUndeadInvader.color = PLAYER_COLOR_PURPLE;
+    const dagrenPaladin = Unit.fromHandle(gg_unit_Hdgo_0803);
+    dagrenPaladin.suspendExperience(true);
 
     for (const player of [playerShadowfangCity, playerUndeadInvader]) {
       player.setState(PLAYER_STATE_RESOURCE_GOLD, 3000000);
@@ -136,6 +144,23 @@ export class UndeadInvasionQuest extends BaseQuest {
     citadel.addAbility(ABILITY_BlightGrowthLarge.id);
     citadel.invulnerable = true;
 
+    let deathKnight: Unit = null;
+    buildTrigger((t) => {
+      TriggerRegisterEnterRectSimple(t.handle, GetWorldBounds());
+      t.addCondition(() => Unit.fromEvent().typeId === UNIT_HeroDeathKnight.id);
+      t.addAction(() => {
+        deathKnight = Unit.fromEvent();
+        deathKnight.setHeroLevel(10, false);
+        deathKnight.suspendExperience(true);
+        range(3).forEach(() => deathKnight.selectSkill(ABILITY_DeathKnightDeathCoil.id));
+        range(3).forEach(() => deathKnight.selectSkill(ABILITY_DeathKnightDeathPact.id));
+        range(3).forEach(() => deathKnight.selectSkill(ABILITY_DeathKnightUnholyAura.id));
+        deathKnight.selectSkill(ABILITY_DeathKnightAnimateDead.id);
+        deathKnight.addItemById(ITEM_OrbofCorruption_ocor.id);
+        deathKnight.recycleGuardPosition();
+      });
+    });
+
     const acolyte = Unit.create(
       playerUndeadInvader,
       UNIT_Acolyte.id,
@@ -148,15 +173,21 @@ export class UndeadInvasionQuest extends BaseQuest {
     if (debug) {
       // Create full base
       const startingUnits: Record<string, number> = {
-        [UNIT_AltarofDarkness.code]: 1,
-        [UNIT_Crypt.code]: 2,
-        [UNIT_Slaughterhouse.code]: 2,
-        [UNIT_TempleoftheDamned.code]: 2,
-        [UNIT_Boneyard.code]: 2,
-        [UNIT_Graveyard.code]: 1,
-        [UNIT_TombOfRelics.code]: 1,
-        [UNIT_SacrificialPit.code]: 1,
-        [UNIT_Ziggurat.code]: 13,
+        ...(debug ? {
+          [UNIT_AltarofDarkness.code]: 1,
+          [UNIT_Crypt.code]: 2,
+          [UNIT_Slaughterhouse.code]: 2,
+          [UNIT_TempleoftheDamned.code]: 2,
+          [UNIT_Boneyard.code]: 2,
+          [UNIT_Graveyard.code]: 1,
+          [UNIT_TombOfRelics.code]: 1,
+          [UNIT_SacrificialPit.code]: 1,
+          [UNIT_Ziggurat.code]: 13,
+        } : {}),
+        [UNIT_Ghoul.code]: 8,
+        [UNIT_CryptFiend.code]: 4,
+        [UNIT_MeatWagon.code]: 2,
+        [UNIT_Abomination.code]: 4,
       };
       for (const [code, count] of Object.entries(startingUnits)) {
         for (let i = 0; i < count; i++) {
@@ -267,7 +298,11 @@ export class UndeadInvasionQuest extends BaseQuest {
       await waitWaveStarts();
       debug2 && log('wave 3');
       await waitUntil(3.123, () => { // wait till necromancer are visible
-        const necros = getUnitsOfPlayer(playerUndeadInvader, (u) => isUnitType(u, UNIT_Necromancer) && u.isAlive() && u.isVisible(playerShadowfangCity));
+        const necros = getUnitsOfPlayer(
+          playerUndeadInvader,
+          (u) => isUnitType(u, UNIT_Necromancer) && u.isAlive()
+            && u.isVisible(playerShadowfangCity) && isLocInRect(u, gg_rct_shadowfang_guards),
+        );
         return necros.length > 0;
       });
       asyncQueue.addJob(() => playSpeechUnitType(UNIT_Rifleman, dialogues[6]), 'd6');
@@ -278,7 +313,11 @@ export class UndeadInvasionQuest extends BaseQuest {
       await waitWaveStarts();
       debug2 && log('wave 4');
       await waitUntil(3.123, () => { // wait till necromancer are visible
-        const abom = getUnitsOfPlayer(playerUndeadInvader, (u) => isUnitType(u, UNIT_Abomination) && u.isAlive() && u.isVisible(playerShadowfangCity));
+        const abom = getUnitsOfPlayer(
+          playerUndeadInvader,
+          (u) => isUnitType(u, UNIT_Abomination) && u.isAlive()
+            && u.isVisible(playerShadowfangCity) && isLocInRect(u, gg_rct_shadowfang_guards),
+        );
         return abom.length > 0;
       });
       asyncQueue.addJob(() => playSpeechUnitType(UNIT_MortarTeam, dialogues[8]), 'd8');
@@ -319,11 +358,17 @@ export class UndeadInvasionQuest extends BaseQuest {
         asyncQueue.addJob(() => playSpeechUnitType(UNIT_Footman, dialogues[23]), 'd23');
         asyncQueue.addJob(() => playSpeechUnitType(UNIT_DagrenTheOrcslayer, dialogues[24]), 'd24');
 
+        removeGuardPosition(dagrenPaladin);
+        dagrenPaladin.recycleGuardPosition();
         getUnitsInRect(gg_rct_Shadowfang_soldier_training, (u) => defenderIds.includes(u.typeId) && u.isAlive())
           .forEach((u) => {
             removeGuardPosition(u);
             u.recycleGuardPosition();
           });
+        AiCommand.sendIncludeHeroes(playerUndeadInvader);
+        if (deathKnight) {
+          deathKnight.issueOrderAt(ORDER_attack, gate.x, gate.y);
+        }
       }
       return gateDestroyed;
     });
@@ -379,7 +424,7 @@ export class UndeadInvasionQuest extends BaseQuest {
 
         const sound = pickRandom(deathSounds[unit.typeId]);
         if (!sound) {
-          log('no sound for', unit.name, unit.typeId, deathSounds[unit.typeId].length);
+          debug2 && log('no sound for', unit.name, unit.typeId, deathSounds[unit.typeId].length);
           return;
         }
         // remove from list
@@ -398,16 +443,16 @@ export class UndeadInvasionQuest extends BaseQuest {
     // Units attacking with voice sounds
     buildTrigger((t) => {
       t.registerPlayerUnitEvent(playerUndeadInvader, EVENT_PLAYER_UNIT_ATTACKED, null);
-      t.addCondition(() => GetRandomInt(1, 30) === 1
+      t.addCondition(() => GetRandomInt(1, 20) === 1
         && !asyncQueue.isRunning()
         && Unit.fromHandle(GetAttacker()).owner === playerShadowfangCity
         && !isBuilding(Unit.fromHandle(GetAttacker())));
       t.addAction(() => {
-        debug2 && log('attacker', Unit.fromHandle(GetAttacker()).name);
         const attacker = Unit.fromHandle(GetAttacker());
+        debug2 && log('attacker', attacker.name);
         const sound = pickRandom(getUnitSounds(attacker.typeId, 'YesAttack', 'Warcry'));
         if (!sound) return;
-        void play3dSound(sound, attacker, GetRandomInt(30, 80));
+        void play3dSound(sound, attacker, GetRandomInt(80, 127));
       });
     });
   }

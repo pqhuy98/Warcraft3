@@ -127,6 +127,7 @@ declare var gg_unit_nhem_0557: unit;
 declare var gg_unit_Ekee_0551: unit;
 declare var gg_unit_hmtm_0682: unit;
 declare var gg_unit_hkni_0680: unit;
+declare var gg_unit_Hdgo_0803: unit;
 declare var gg_unit_nvil_0414: unit;
 declare var gg_unit_n007_0901: unit;
 declare var gg_unit_hcth_0943: unit;

@@ -104,6 +104,10 @@ export class UnitInteraction {
         if (isUnitRemoved(unit)) {
           targets.delete(unit);
           continue;
+        } else if (!unit.isAlive()) {
+          unit.resetLookAt();
+          targets.delete(unit);
+          continue;
         }
 
         const isIdle = isUnitIdle(unit);
@@ -111,11 +115,10 @@ export class UnitInteraction {
         const shouldFace = Distance(unit, targetUnit) < maxRadius && isIdle && unit.isAlive();
         if (!shouldFace) {
           targets.delete(unit);
+          unit.resetLookAt();
           if (isIdle && unit.isAlive()) {
             setUnitFacingWithRate(unit, oldFacing, 0.5);
           }
-          unit.resetLookAt();
-          data.isLooking = false;
         } else {
           const angleDiff = angleDifference(unit.facing, Angle(unit, targetUnit));
           if (angleDiff < 60 && !data.isLooking) {
@@ -252,6 +255,7 @@ export function setAttention(unitFrom: Unit, unitTo: Unit): void {
 export function removeAttention(unit: Unit): void {
   const oldFacing = targets.get(unit)?.oldFacing ?? unit.facing;
   targets.delete(unit);
+  unit.resetLookAt();
   if (isUnitIdle(unit) && unit.isAlive()) {
     setUnitFacingWithRate(unit, oldFacing);
   }

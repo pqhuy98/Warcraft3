@@ -118,7 +118,7 @@ const peasantSounds = [
 
 const wolfSoundPath = 'QuestSounds\\__refined\\lumber-harvest\\lumber-harvest-wolf-1.mp3';
 
-const treeHp = 100;
+const treeHp = 75;
 const effectDistance = 75;
 const effectModels = [
   MODEL_GlowingRunes0,

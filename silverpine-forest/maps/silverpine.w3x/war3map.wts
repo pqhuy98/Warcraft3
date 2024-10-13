@@ -2443,12 +2443,6 @@ STRING 435
 Bottle 6
 }
 
-STRING 436
-// Doodads: D01E (Bottle 1), Name (Name)
-{
-Bottle 1
-}
-
 STRING 438
 // Units: n00D (Villager), EditorSuffix (Name - Editor Suffix)
 {

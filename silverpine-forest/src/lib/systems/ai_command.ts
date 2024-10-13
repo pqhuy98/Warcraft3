@@ -8,6 +8,8 @@ export enum Command {
   COMMAND_SET_TARGET_PLAYER_ID = 2,
   COMMAND_ADD_GUARD_POS = 3,
   COMMAND_SET_TOWN_XY = 4,
+
+  COMMAND_INCLUDE_HEROES = 1001
 }
 
 const debug = false;
@@ -31,6 +33,11 @@ export class AiCommand {
   static sendSetTownXy(player: MapPlayer, x: number, y: number): void {
     debug && log('sendSetTownXy', x, y);
     this.sendCommand(player, Command.COMMAND_SET_TOWN_XY, [x, y]);
+  }
+
+  static sendIncludeHeroes(player: MapPlayer): void {
+    debug && log('sendIncludeHeroes');
+    this.sendCommand(player, Command.COMMAND_INCLUDE_HEROES, [0]);
   }
 
   private static sendCommand(player: MapPlayer, command: Command, data: number[]): void {

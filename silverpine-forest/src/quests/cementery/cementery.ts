@@ -313,15 +313,17 @@ export class Cementery extends BaseQuest {
     traveler.shareVision(travelerPlayer, true);
     setNeverDie(traveler);
 
-    traveler.disableAbility(ABILITY_ShadowMeld.id, true, false);
-    for (const u of ghostLadies) {
-      u.removeAbility(ABILITY_Possession.id);
-      u.addAbility(ABILITY_ID_POSSESSION_TARGET_HERO);
-      u.issueTargetOrder(OrderId.Possession, traveler);
-    }
-
-    await waitUntil(0.5, () => traveler.owner !== travelerPlayer);
     talkGroup.finish();
+    traveler.disableAbility(ABILITY_ShadowMeld.id, true, false);
+    await waitUntil(1, () => {
+      if (traveler.owner !== travelerPlayer) return true;
+      for (const u of ghostLadies) {
+        u.removeAbility(ABILITY_Possession.id);
+        u.addAbility(ABILITY_ID_POSSESSION_TARGET_HERO);
+        u.issueTargetOrder(OrderId.Possession, traveler);
+      }
+      return false;
+    });
 
     setMinimapIconUnit(traveler, 'neutralActive');
     await sleep(1);

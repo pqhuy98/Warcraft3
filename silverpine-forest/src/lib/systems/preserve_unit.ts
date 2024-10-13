@@ -36,8 +36,9 @@ interface Data {
 }
 
 const preservedUnits = new Map<Unit, Data>();
+const debug = false;
 
-export function preserveUnit(unit: Unit): RestoreFunction {
+export function preserveUnit(unit: Unit): void {
   if (preservedUnits.has(unit)) {
     undoPreserveUnit(unit);
   }
@@ -89,6 +90,7 @@ export function preserveUnit(unit: Unit): RestoreFunction {
         }
         const killer = getDummyMaster(GetEventDamageSource());
         if (GetEventDamage() > unit.life) {
+          debug && log(`Preserved ${unit.name} is killed by ${killer.name}`);
           BlzSetEventDamage(0);
           // hide unit
           const unitLoc = currentLoc(unit);
@@ -114,7 +116,6 @@ export function preserveUnit(unit: Unit): RestoreFunction {
     isAlive: unit.isAlive(),
     restore,
   });
-  return restore;
 }
 
 export function undoPreserveUnit(unit: Unit): void {

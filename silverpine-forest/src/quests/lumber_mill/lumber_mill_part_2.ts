@@ -16,6 +16,10 @@ import { TalkGroup } from 'lib/quests/talk_group';
 import { ABILITY_DivineShieldCreep } from 'lib/resources/war3-abilities';
 import { UNIT_Footman } from 'lib/resources/war3-units';
 import { playSpeech } from 'lib/sound';
+import {
+  isPreservedUnitAlive, preserveUnit, RestoreMode, restoreUnit,
+  undoPreserveUnit,
+} from 'lib/systems/preserve_unit';
 import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
@@ -96,6 +100,7 @@ export class LumberMillPart2 extends BaseQuest {
     knight.maxMana = 125;
     knight.mana = knight.maxMana;
     setNeverDie(knight, true, 100);
+    undeadAttackers.forEach((u) => preserveUnit(u));
 
     await this.waitDependenciesDone();
 
@@ -127,6 +132,13 @@ export class LumberMillPart2 extends BaseQuest {
       description: questDescription,
       icon: questIcon,
       items: [questItems[0]],
+    });
+
+    undeadAttackers.forEach((u) => {
+      if (!isPreservedUnitAlive(u)) {
+        restoreUnit(u, RestoreMode.BEFORE_PRESERVE);
+        undoPreserveUnit(u);
+      }
     });
 
     // All units start moving to lumber mill
@@ -269,6 +281,7 @@ export class LumberMillPart2 extends BaseQuest {
     const {
       john, peter, homeRect, knight, mayor, footmen, undeadAttackers,
     } = this.globals;
+    setNeverDie(knight, false);
 
     const homeLoc = centerLocRect(homeRect);
     john.show = false;

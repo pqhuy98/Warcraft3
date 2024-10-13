@@ -179,6 +179,7 @@ globals
   constant integer MURADIN = 'Hmbr' 
   constant integer GARITHOS = 'Hlgr' 
   constant integer KAEL = 'Hkal' 
+  constant integer DAGREN = 'Hdgo'
 
   // human units 
   constant integer COPTER = 'hgyr' 

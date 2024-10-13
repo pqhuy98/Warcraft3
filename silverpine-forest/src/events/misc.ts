@@ -39,7 +39,9 @@ import {
 import { log } from 'lib/log';
 import { isComputer, isUser, setAllianceState2Way } from 'lib/player';
 import { dialogue } from 'lib/quests/dialogue_sound';
-import { ABILITY_PaladinHolyLight, ABILITY_Wander } from 'lib/resources/war3-abilities';
+import {
+  ABILITY_Harvest, ABILITY_PaladinHolyLight, ABILITY_Wander,
+} from 'lib/resources/war3-abilities';
 import { MODEL_BrewmasterTarget, MODEL_FrostNovaTarget, MODEL_InnerFireTarget } from 'lib/resources/war3-models';
 import { ORDER_AutoHarvestGold, ORDER_AutoHarvestLumber } from 'lib/resources/war3-orders';
 import {
@@ -277,10 +279,13 @@ export class MiscEvents {
       UNIT_VillagerKid2,
     ].map((t) => t.id);
 
-    getUnitsInRect(gg_rct_Shadowfang_region, (u) => citizenIds.includes(u.typeId))
+    getUnitsInRect(gg_rct_Shadowfang_region)
       .forEach((u) => {
-        u.addAbility(ABILITY_Wander.id);
-        removeGuardPosition(u);
+        if (citizenIds.includes(u.typeId)) {
+          u.addAbility(ABILITY_Wander.id);
+          removeGuardPosition(u);
+        }
+        u.removeAbility(ABILITY_Harvest.id);
       });
 
     buildTrigger((t) => {

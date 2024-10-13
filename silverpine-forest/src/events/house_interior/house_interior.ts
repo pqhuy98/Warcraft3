@@ -1,7 +1,7 @@
 import { chatParamReal, chatParamString, onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { Weather } from 'events/weather/weather';
 import { lockCameraBound, restoreCameraBound } from 'lib/camera';
-import { playerMain, terrainFogDefaultParams } from 'lib/constants';
+import { playerMain, playerShadowfangCity, terrainFogDefaultParams } from 'lib/constants';
 import {
   centerLocRect, isLocInRect, Loc, PolarProjection,
   temp,
@@ -11,10 +11,11 @@ import { cinematicFadeIn, cinematicFadeOut } from 'lib/quests/utils';
 import { ABILITY_Wander } from 'lib/resources/war3-abilities';
 import { ORDER_move, ORDER_stop } from 'lib/resources/war3-orders';
 import { creatWormHole } from 'lib/systems/worm_hole';
-import { setTimeout } from 'lib/trigger';
+import { getTimeS, setTimeout } from 'lib/trigger';
 import { makeFlyable } from 'lib/unit';
 import {
   Camera, FogModifier, Group, Rectangle,
+  Sound,
   Unit,
 } from 'w3ts';
 
@@ -24,7 +25,17 @@ const defaultCameraDistance = { value: 1650 };
 
 const fogMap = new Map<rect, FogModifier>();
 
-function registerHouse(rectOut: rect, rectIn: rect, interior: rect, entryAngleDeg: number, exitAngleDeg: number, rectOut2 = rectOut): void {
+function registerHouse(
+  rectOut: rect,
+  rectIn: rect,
+  interior: rect,
+  filter: (u: Unit) => boolean,
+  onEnter: (u: Unit) => unknown,
+  onExit: (u: Unit) => unknown,
+  entryAngleDeg: number,
+  exitAngleDeg: number,
+  rectOut2 = rectOut,
+): void {
   if (!fogMap.has(interior)) {
     fogMap.set(interior, FogModifier.fromRect(playerMain, FOG_OF_WAR_MASKED, Rectangle.fromHandle(interior), false, true));
   }
@@ -34,7 +45,7 @@ function registerHouse(rectOut: rect, rectIn: rect, interior: rect, entryAngleDe
   creatWormHole(
     rectOut,
     rectIn,
-    (u) => !u.isUnitType(UNIT_TYPE_FLYING) && u.isAlive(),
+    (u) => !u.isUnitType(UNIT_TYPE_FLYING) && u.isAlive() && filter(u),
     // when enter house
     (u, futureLoc) => {
       u.issueImmediateOrder(ORDER_stop);
@@ -70,6 +81,7 @@ function registerHouse(rectOut: rect, rectIn: rect, interior: rect, entryAngleDe
           Camera.panTimed(u.x, u.y, 0, null);
         }
       }
+      onEnter(u);
     },
     // when leave house
     (u, futureLoc) => {
@@ -102,6 +114,7 @@ function registerHouse(rectOut: rect, rectIn: rect, interior: rect, entryAngleDe
         };
         Camera.panTimed(newCamLoc.x, newCamLoc.y, 0, null);
       }
+      onExit(u);
     },
     fadeDuration,
   );
@@ -206,6 +219,9 @@ export function registerHouseInterior(): void {
     gg_rct_House_1_out,
     gg_rct_House_1_in,
     gg_rct_House_1_interior,
+    (u) => u.owner === playerMain && u.isHero(),
+    () => {},
+    () => {},
     90,
     270,
   );
@@ -213,22 +229,44 @@ export function registerHouseInterior(): void {
     gg_rct_House_1_out2,
     gg_rct_House_1_in2,
     gg_rct_House_1_interior,
+    (u) => u.owner === playerMain && u.isHero(),
+    () => {},
+    () => {},
     90 + 45,
     270 + 45,
   );
 
-  // House 2
+  // House 2 (tarvern)
+  const tarvernMusicPath = 'QuestSounds\\__refined\\ambient\\tarvern.mp3';
+  const tarvernMusic = Sound.create(tarvernMusicPath, true, false, false, 1, 1, 'DefaultEAXON');
+  const durationMs = tarvernMusic.duration;
   registerHouse(
     gg_rct_House_2_out,
     gg_rct_House_2_in,
     gg_rct_House_2_interior,
+    (u) => u.owner === playerMain || u.owner === playerShadowfangCity,
+    (u) => {
+      if (u.owner === playerMain && u.isHero()) {
+        tarvernMusic.start();
+        tarvernMusic.setPlayPosition((getTimeS() * 1000) % durationMs);
+      }
+    },
+    (u) => {
+      if (u.owner === playerMain && u.isHero()) {
+        tarvernMusic.stop(false, false);
+        ResumeMusic();
+      }
+    },
     90 + 45,
     270 + 45,
   );
-  registerHouse(
+  registerHouse( // 2nd floor
     gg_rct_House_2_floor_1,
     gg_rct_House_2_floor_2,
     gg_rct_House_2_interior_floor_2,
+    (u) => u.owner === playerMain || u.owner === playerShadowfangCity,
+    () => {},
+    () => {},
     270 + 45,
     270 + 45,
     gg_rct_House_2_floor_1to2,

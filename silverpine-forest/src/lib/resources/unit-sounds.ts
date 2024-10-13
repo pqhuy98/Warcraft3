@@ -30621,7 +30621,7 @@ const unitSounds: UnitSounds[] = [
 // Manually add missing data
 unitSounds.push(
   {
-    id: 'ngog',
+    id: 'ndog',
     name: 'dog',
     sounds: {
       What: [

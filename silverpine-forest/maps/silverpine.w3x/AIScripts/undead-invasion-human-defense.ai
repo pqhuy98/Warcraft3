@@ -15,19 +15,19 @@ globals
     integer ROCKET_TANK_max
     integer COPTER_max
 
-    integer HOUSE_max
-    integer BARRACKS_max
-    integer WORKSHOP_max
-    integer SANCTUM_max
-    integer AVIARY_max
-    integer ARCANE_VAULT_max
-    integer HUMAN_ALTAR_max
+    // integer HOUSE_max
+    // integer BARRACKS_max
+    // integer WORKSHOP_max
+    // integer SANCTUM_max
+    // integer AVIARY_max
+    // integer ARCANE_VAULT_max
+    // integer HUMAN_ALTAR_max
 
-    integer VILLAGER_MAN_1_max
-    integer VILLAGER_MAN_2_max
-    integer VILLAGER_WOMAN_max
-    integer VILLAGER_KID_1_max
-    integer VILLAGER_KID_2_max
+    // integer VILLAGER_MAN_1_max
+    // integer VILLAGER_MAN_2_max
+    // integer VILLAGER_WOMAN_max
+    // integer VILLAGER_KID_1_max
+    // integer VILLAGER_KID_2_max
 
 endglobals
 
@@ -40,6 +40,9 @@ function SetBuildOrderLoop takes nothing returns nothing
         call InitBuildArray()
 
         // Manage army production
+        set freeCapacity = GetUnitCountDone(HUMAN_ALTAR)
+        set freeCapacity = ManageUnitProduction(freeCapacity, 1, DAGREN)
+
         set freeCapacity = GetUnitCountDone(TOWN_HALL)
         set freeCapacity = ManageUnitProduction(freeCapacity, PEASANT_max, PEASANT)
 
@@ -62,23 +65,23 @@ function SetBuildOrderLoop takes nothing returns nothing
         set freeCapacity = ManageUnitProduction(freeCapacity, GRYPHON_max, GRYPHON)
 
         // Manage building construction
-        set freeCapacity = GetUnitCountDone(PEASANT)
-        set freeCapacity = ManageUnitProduction(freeCapacity, HOUSE_max, HOUSE)
-        set freeCapacity = ManageUnitProduction(freeCapacity, BARRACKS_max, BARRACKS)
-        set freeCapacity = ManageUnitProduction(freeCapacity, WORKSHOP_max, WORKSHOP)
-        set freeCapacity = ManageUnitProduction(freeCapacity, SANCTUM_max, SANCTUM)
-        set freeCapacity = ManageUnitProduction(freeCapacity, AVIARY_max, AVIARY)
-        set freeCapacity = ManageUnitProduction(freeCapacity, ARCANE_VAULT_max, ARCANE_VAULT)
-        set freeCapacity = ManageUnitProduction(freeCapacity, HUMAN_ALTAR_max, HUMAN_ALTAR)
+        // set freeCapacity = GetUnitCountDone(PEASANT)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, HOUSE_max, HOUSE)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, BARRACKS_max, BARRACKS)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, WORKSHOP_max, WORKSHOP)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, SANCTUM_max, SANCTUM)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, AVIARY_max, AVIARY)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, ARCANE_VAULT_max, ARCANE_VAULT)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, HUMAN_ALTAR_max, HUMAN_ALTAR)
 
         // Make more villagers
         
-        set freeCapacity = GetUnitCountDone(HOUSE)
-        set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_MAN_1_max, VILLAGER_MAN_1)
-        set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_MAN_2_max, VILLAGER_MAN_2)
-        set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_WOMAN_max, VILLAGER_WOMAN)
-        set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_KID_1_max, VILLAGER_KID_1)
-        set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_KID_2_max, VILLAGER_KID_2)
+        // set freeCapacity = GetUnitCountDone(HOUSE)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_MAN_1_max, VILLAGER_MAN_1)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_MAN_2_max, VILLAGER_MAN_2)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_WOMAN_max, VILLAGER_WOMAN)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_KID_1_max, VILLAGER_KID_1)
+        // set freeCapacity = ManageUnitProduction(freeCapacity, VILLAGER_KID_2_max, VILLAGER_KID_2)
 
         call Sleep(GetRandomInt(1, 3))
     endloop
@@ -133,7 +136,7 @@ endfunction
 // MAIN
 //------------------------------------------------
 function main takes nothing returns nothing
-    call AdvSetDebug(user, true)
+    // call AdvSetDebug(user, true)
     call log("starting undead-invasion-human-defense.ai")
     call AdvSetDebug(user, false)
     call CampaignAI(HOUSE, null)
@@ -154,19 +157,19 @@ function main takes nothing returns nothing
     set ROCKET_TANK_max = GetUnitCountDone(ROCKET_TANK)
     set COPTER_max = GetUnitCountDone(COPTER)
     
-    set HOUSE_max = GetUnitCountDone(HOUSE)
-    set BARRACKS_max = GetUnitCountDone(BARRACKS)
-    set WORKSHOP_max = GetUnitCountDone(WORKSHOP)
-    set SANCTUM_max = GetUnitCountDone(SANCTUM)
-    set AVIARY_max = GetUnitCountDone(AVIARY)
-    set ARCANE_VAULT_max = GetUnitCountDone(ARCANE_VAULT)
-    set HUMAN_ALTAR_max = GetUnitCountDone(HUMAN_ALTAR)
+    // set HOUSE_max = GetUnitCountDone(HOUSE)
+    // set BARRACKS_max = GetUnitCountDone(BARRACKS)
+    // set WORKSHOP_max = GetUnitCountDone(WORKSHOP)
+    // set SANCTUM_max = GetUnitCountDone(SANCTUM)
+    // set AVIARY_max = GetUnitCountDone(AVIARY)
+    // set ARCANE_VAULT_max = GetUnitCountDone(ARCANE_VAULT)
+    // set HUMAN_ALTAR_max = GetUnitCountDone(HUMAN_ALTAR)
 
-    set VILLAGER_MAN_1_max = GetUnitCountDone(VILLAGER_MAN_1)
-    set VILLAGER_MAN_2_max = GetUnitCountDone(VILLAGER_MAN_2)
-    set VILLAGER_WOMAN_max = GetUnitCountDone(VILLAGER_WOMAN)
-    set VILLAGER_KID_1_max = GetUnitCountDone(VILLAGER_KID_1)
-    set VILLAGER_KID_2_max = GetUnitCountDone(VILLAGER_KID_2)
+    // set VILLAGER_MAN_1_max = GetUnitCountDone(VILLAGER_MAN_1)
+    // set VILLAGER_MAN_2_max = GetUnitCountDone(VILLAGER_MAN_2)
+    // set VILLAGER_WOMAN_max = GetUnitCountDone(VILLAGER_WOMAN)
+    // set VILLAGER_KID_1_max = GetUnitCountDone(VILLAGER_KID_1)
+    // set VILLAGER_KID_2_max = GetUnitCountDone(VILLAGER_KID_2)
 
 
     // Define defenders
