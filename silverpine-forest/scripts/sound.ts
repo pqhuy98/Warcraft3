@@ -25,6 +25,7 @@ function transform(inputFilePath: string, cmd: ffmpeg.FfmpegCommand): ffmpeg.Ffm
         '-ar', '44100',        // Set sample rate to 44100 Hz
         '-b:a', '128k',        // Set audio bit rate to 128 kbps
         '-map_metadata', '-1', // Remove metadata
+        '-filter:a', 'volume=2.0', // Double the audio volume
     ]);
 }
 

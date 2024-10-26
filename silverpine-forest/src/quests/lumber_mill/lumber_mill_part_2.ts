@@ -23,7 +23,9 @@ import {
 import { guardCurrentPosition, removeGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setIntervalIndefinite, setTimeout } from 'lib/trigger';
-import { getUnitsInRangeOfLoc, setNeverDie, setUnitFacingWithRate } from 'lib/unit';
+import {
+  getMainHero, getUnitsInRangeOfLoc, setNeverDie, setUnitFacingWithRate,
+} from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   Unit,
@@ -298,5 +300,8 @@ export class LumberMillPart2 extends BaseQuest {
     knight.setPosition(loc.x, loc.y);
     knight.facing = Angle(loc, mayor);
     setGuardPosition(knight, loc, Angle(loc, mayor));
+
+    const traveler = getMainHero();
+    traveler.addExperience(rewardXp, true);
   }
 }

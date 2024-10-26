@@ -1,5 +1,6 @@
+import { playerMain } from 'lib/constants';
 import { getUnitSounds } from 'lib/resources/unit-sounds';
-import { play3dSound } from 'lib/sound';
+import { isSpeechPlaying, play3dSound } from 'lib/sound';
 import { buildTrigger, getTimeS } from 'lib/trigger';
 import { isBuilding } from 'lib/unit';
 import { pickRandom } from 'lib/utils';
@@ -15,7 +16,9 @@ export function registerFightingSounds(): void {
     t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED);
     t.addCondition(() => !isBuilding(Unit.fromHandle(GetAttacker())));
     t.addAction(() => {
+      if (isSpeechPlaying()) return;
       const attacker = Unit.fromHandle(GetAttacker());
+      if (attacker.owner === playerMain && attacker.isSelected(playerMain)) return;
       const now = getTimeS();
       let expectedTimeS = lastPlayed.doneTimeS + 0.5;
       if (attacker.typeId === lastPlayed.typeId) {

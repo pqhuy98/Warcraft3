@@ -3,7 +3,7 @@
 import { playerMain } from 'lib/constants';
 import { QuestLog } from 'lib/quests/quest_log';
 import { ABILITY_ArchMageWaterElemental } from 'lib/resources/war3-abilities';
-import { getUnitsInRangeOfLoc } from 'lib/unit';
+import { getMainHero, getUnitsInRangeOfLoc } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   sleep,
@@ -69,5 +69,9 @@ export class HiddenEnergies extends BaseQuest {
   }
 
   onForceComplete(): void {
+    const traveler = getMainHero();
+    if (traveler.getAbility(ABILITY_ArchMageWaterElemental.id)) {
+      traveler.incAbilityLevel(ABILITY_ArchMageWaterElemental.id);
+    }
   }
 }

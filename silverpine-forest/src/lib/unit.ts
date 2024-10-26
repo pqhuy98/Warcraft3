@@ -8,6 +8,7 @@ import {
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
+import { playerMain } from './constants';
 import { k0, k1 } from './debug/key_counter';
 import { log } from './log';
 import { angleDifference } from './maths/misc';
@@ -326,6 +327,10 @@ export function getUnitsOfPlayer(player: MapPlayer, filter?: (u: Unit) => boolea
   }
   DestroyGroup(group);
   return results;
+}
+
+export function getMainHero(): Unit {
+  return getUnitsOfPlayer(playerMain, (u) => u.isHero())[0];
 }
 
 export function isUnitIdle(unit: Unit): boolean {

@@ -117,6 +117,7 @@ export function meanLocs(locs: Loc[]): Loc {
 
 let iprTransmitter: Unit;
 let iprReceiver: Unit;
+const iprHideSpot = centerLocRect(gg_rct_Unit_experiments);
 
 // https://www.hiveworkshop.com/threads/is-point-reachable-1-0-2.353693/
 export function isPointReachable(from: Loc, to: Loc): boolean {
@@ -147,6 +148,8 @@ export function isPointReachable(from: Loc, to: Loc): boolean {
     iprReceiver.disableAbility(ABILITY_Move.id, true, false);
     iprReceiver.disableAbility(ABILITY_Move.id, false, false);
   }
+  iprReceiver.setPosition(iprHideSpot.x, iprHideSpot.y);
+  iprTransmitter.setPosition(iprHideSpot.x, iprHideSpot.y);
   return result;
 }
 

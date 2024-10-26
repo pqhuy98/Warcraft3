@@ -2,7 +2,7 @@
 
 import { getDestructablesInRect } from 'lib/destructable';
 import { centerLocRect } from 'lib/location';
-import { dialogue } from 'lib/quests/dialogue_sound';
+import { getDialogues } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
 } from 'lib/quests/quest_log';
@@ -13,7 +13,7 @@ import { MODEL_TomeOfRetrainingCaster } from 'lib/resources/war3-models';
 import { playSpeech } from 'lib/sound';
 import { guardCurrentPosition } from 'lib/systems/unit_guard_position';
 import { buildTrigger } from 'lib/trigger';
-import { getUnitsInRangeOfLoc, isOrganic } from 'lib/unit';
+import { getMainHero, getUnitsInRangeOfLoc, isOrganic } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   Effect,
@@ -35,62 +35,60 @@ const questItems = [
 
 const rewardXp = 1200;
 
-const villagerName = 'John';
 const archmageName = 'Archmage Landazar';
 
-const johnSounds = [
-  dialogue(
-    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-john-1.mp3',
-    villagerName,
-    'Thank the heavens you\'re back! You\'ve rid us of those dreadful undead, and the farm is safe once more. But there\'s still one more danger... up at the northern outpost.',
-  ),
-  dialogue(
-    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-john-2.mp3',
-    villagerName,
-    'I need you to do me one last favor. Deliver this to the soldiers stationed there. They could use it in these troubling times.',
-  ),
-];
-
-const archMageSounds = [
-  dialogue(
-    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-1.mp3',
-    archmageName,
-    'Ah, you must be the brave soul John mentioned. Our outpost is plagued by bandit threats, and we\'re too underpowered to fend them off alone.',
-  ),
-  dialogue(
-    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-2.mp3',
-    archmageName,
-    'You would take on the bandit camp for us? Your courage is truly remarkable. Unfortunately, our troops are too injured to assist you directly. I can only offer a Water Elemental to aid in your quest. May it serve you well.',
-  ),
-  dialogue(
-    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-3.mp3',
-    archmageName,
-    'You\'re back! I can\'t express how relieved we all are. You\'ve done something remarkable here.',
-  ),
-  dialogue(
-    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-4.mp3',
-    archmageName,
-    'To show my gratitude, let me teach you something invaluable—a spell to summon a Water Elemental. It’s a rare gift, use it well.',
-  ),
-  dialogue(
-    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-archmage-5.mp3',
-    archmageName,
-    'One more thing - near the south watch tower of the farm, by the cliff, there\'s a hidden spot where the land’s energies restore mana. It\'s a secret known to few.',
-  ),
-];
-
-const banditSounds = [
-  dialogue(
-    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-bandit-1.mp3',
-    'Bandit Lord',
-    'Well, look at that. Someone from the battered outpost dares to show up. Bold move!',
-  ),
-  dialogue(
-    'QuestSounds\\__refined\\bandit-banish\\bandit-banish-bandit-2.mp3',
-    'Bandit Lord',
-    'You... you think this is over? The Black Turban Syndicate won\'t let you get away with this.',
-  ),
-];
+const dialogues = getDialogues(
+  {
+    questName: 'bandit-banish',
+    dialogues: [
+      {
+        speaker: 'John',
+        text: "Thank the heavens you're back! Thanks to you, those dreadful undead are gone, and the farm is finally safe. We can't thank you enough for what you've done...",
+        fileName: 'bandit-banish-0-villagerman2.mp3',
+      },
+      {
+        speaker: 'John',
+        text: "I know you've done so much, but there's still trouble at the northern outpost. Can you deliver this vital supply to the soldiers there? It would make a real difference.",
+        fileName: 'bandit-banish-1-villagerman2.mp3',
+      },
+      {
+        speaker: 'Archmage Landazar',
+        text: "Ah, you must be the brave soul John mentioned. Our outpost is plagued by bandit threats, and we're too underpowered to fend them off alone.",
+        fileName: 'bandit-banish-2-archmage.mp3',
+      },
+      {
+        speaker: 'Archmage Landazar',
+        text: 'You would take on the bandit camp for us? Your courage is truly remarkable. Unfortunately, our troops are too injured to assist you directly. I can only offer a Water Elemental to aid in your quest. May it serve you well.',
+        fileName: 'bandit-banish-3-archmage.mp3',
+      },
+      {
+        speaker: 'Bandit Lord',
+        text: 'Ah, a wayward soul from the crippled outpost dares approach my Black Turban Syndicate. Such audacity! Prepare to meet your end, for I show no mercy to intruders.',
+        fileName: 'bandit-banish-4-bandit.mp3',
+      },
+      {
+        speaker: 'Bandit Lord',
+        text: 'You... you think this is over? The Black Turban Syndicate... shall avenge me',
+        fileName: 'bandit-banish-5-bandit.mp3',
+      },
+      {
+        speaker: 'Archmage Landazar',
+        text: "You've returned! By vanquishing the bandit menace, you've restored hope and safety to our lands. Truly, you are the beacon we desperately needed.",
+        fileName: 'bandit-banish-6-archmage.mp3',
+      },
+      {
+        speaker: 'Archmage Landazar',
+        text: 'To show my gratitude, let me teach you something invaluable—a spell to summon a Water Elemental. May it serve you wisely.',
+        fileName: 'bandit-banish-7-archmage.mp3',
+      },
+      {
+        speaker: 'Archmage Landazar',
+        text: 'For your noble actions, I entrust you with a rare secret—near the south watch tower, by the cliff, lies a spot where the land’s energies restore mana.',
+        fileName: 'bandit-banish-8-archmage.mp3',
+      },
+    ],
+  },
+);
 
 export class BanditBanish extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
@@ -135,9 +133,9 @@ export class BanditBanish extends BaseQuest {
 
     // John asks to deliver item to outpost
     const talkGroup = TalkGroup.create(john, peter, traveler);
-    await talkGroup.speak(john, johnSounds[0], traveler, traveler);
+    await talkGroup.speak(john, dialogues[0], traveler, traveler);
     await sleep(1);
-    await talkGroup.speak(john, johnSounds[1], traveler, traveler);
+    await talkGroup.speak(john, dialogues[1], traveler, traveler);
     talkGroup.finish();
 
     // Destroy sight blockers
@@ -158,9 +156,9 @@ export class BanditBanish extends BaseQuest {
       traveler,
       ...getUnitsInRangeOfLoc(800, archMage, (u) => u.isAlive() && isOrganic(u)),
     );
-    await talkGroup.speak(archMage, archMageSounds[0], traveler, traveler);
+    await talkGroup.speak(archMage, dialogues[2], traveler, traveler);
     await sleep(1.5);
-    await talkGroup.speak(archMage, archMageSounds[1], traveler, traveler);
+    await talkGroup.speak(archMage, dialogues[3], traveler, traveler);
 
     // Archmage summons water elemental to help
     const summonTrigger = buildTrigger((t) => {
@@ -186,12 +184,12 @@ export class BanditBanish extends BaseQuest {
       bandit,
       (enemy) => enemy.isAlive() && enemy.owner === traveler.owner && enemy.isVisible(bandit.owner),
     ).length > 0));
-    void playSpeech(banditLord, banditSounds[0]);
+    void playSpeech(banditLord, dialogues[4]);
 
     // Play last words when bandit lords is low
     void waitUntil(1, () => {
       if (!banditLord.isAlive() || bandits.filter((u) => u.isAlive()).length <= 1) {
-        void playSpeech(banditLord, banditSounds[1]);
+        void playSpeech(banditLord, dialogues[5]);
         return true;
       }
       return false;
@@ -216,12 +214,17 @@ export class BanditBanish extends BaseQuest {
     await questLog.insertItem(questItems[2]);
 
     traveler = await this.waitForTurnIn(archMage);
-    await talkGroup.speak(archMage, archMageSounds[2], traveler, traveler);
+    await talkGroup.speak(archMage, dialogues[6], traveler, traveler);
     await sleep(0.5);
-    await talkGroup.speak(archMage, archMageSounds[3], traveler, traveler);
+    await talkGroup.speak(archMage, dialogues[7], traveler, traveler);
 
     traveler.addExperience(rewardXp, true);
     traveler.addAbility(ABILITY_ArchMageWaterElemental.id);
+    BlzSetAbilityPosX(ABILITY_ArchMageWaterElemental.id, 1);
+    BlzSetAbilityActivatedPosX(ABILITY_ArchMageWaterElemental.id, 1);
+    BlzSetAbilityPosY(ABILITY_ArchMageWaterElemental.id, 2);
+    BlzSetAbilityActivatedPosY(ABILITY_ArchMageWaterElemental.id, 2);
+
     Effect.createAttachment(MODEL_TomeOfRetrainingCaster, traveler, 'origin').destroy();
     await questLog.completeWithRewards([
       `${GetAbilityName(ABILITY_ArchMageWaterElemental.id)}`,
@@ -229,7 +232,7 @@ export class BanditBanish extends BaseQuest {
     ]);
 
     await sleep(1.5);
-    await talkGroup.speak(archMage, archMageSounds[4], traveler, traveler);
+    await talkGroup.speak(archMage, dialogues[8], traveler, traveler);
 
     talkGroup.finish();
     this.complete();
@@ -253,5 +256,15 @@ export class BanditBanish extends BaseQuest {
     peter.setFacingEx(0);
     guardCurrentPosition(john);
     guardCurrentPosition(peter);
+
+    const traveler = getMainHero();
+    traveler.addExperience(rewardXp, true);
+    traveler.addAbility(ABILITY_ArchMageWaterElemental.id);
+    BlzSetAbilityPosX(ABILITY_ArchMageWaterElemental.id, 1);
+    BlzSetAbilityActivatedPosX(ABILITY_ArchMageWaterElemental.id, 1);
+    BlzSetAbilityPosY(ABILITY_ArchMageWaterElemental.id, 2);
+    BlzSetAbilityActivatedPosY(ABILITY_ArchMageWaterElemental.id, 2);
+
+    Effect.createAttachment(MODEL_TomeOfRetrainingCaster, traveler, 'origin').destroy();
   }
 }

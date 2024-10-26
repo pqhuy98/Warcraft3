@@ -1,6 +1,6 @@
 import { lockCameraBound, panCameraSmart, restoreCameraBound } from 'lib/camera';
 import {
-  playerMain, neutralPassive, playerForsaken, playerHumanAlliance,
+  neutralPassive, playerForsaken, playerHumanAlliance, playerMain,
 } from 'lib/constants';
 import {
   centerLocRect, isLocInRect, PolarProjection, tempLocation,

@@ -11,9 +11,12 @@ import { UNIT_TYPE } from './resources/war3-units';
 import { Flag, setUnitFlag } from './systems/unit_user_data_flag';
 import { createDialogueTextTag } from './texttag';
 
-/**
- * @param options.volumeGroupAdjustment
- */
+let playingSpeechCount = 0;
+
+export function isSpeechPlaying(): boolean {
+  return playingSpeechCount > 0;
+}
+
 export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, options?: {
   ignoreVolumeGroupAdjustment?: boolean
   disableInteraction?: boolean
@@ -43,7 +46,6 @@ export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, option
   }
   const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
 
-  PlayDialogueFromSpeakerEx(bj_FORCE_ALL_PLAYERS, unit.handle, unit.typeId, sound.handle, bj_TIMETYPE_ADD, 0, false);
   let isFloatText = !options || !options.ignoreVolumeGroupAdjustment;
   if (bj_cineModeAlreadyIn) isFloatText = false;
   if (!isLocInScreen(unit)) isFloatText = false;
@@ -51,7 +53,6 @@ export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, option
   if (isFloatText) {
     ClearTextMessages();
   }
-  // sound.start();
   const durationS = sound.duration / 1000;
 
   const speechText = sound.dialogueTextKey;
@@ -60,7 +61,10 @@ export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, option
     createDialogueTextTag(`${colorize.yellow(speakerName)}: ${speechText}`, unit, durationS);
   }
 
+  playingSpeechCount++;
+  PlayDialogueFromSpeakerEx(bj_FORCE_ALL_PLAYERS, unit.handle, unit.typeId, sound.handle, bj_TIMETYPE_ADD, 0, false);
   await sleep(durationS);
+  playingSpeechCount--;
   speakEffect.destroy();
 
   if (shouldSetVolumeGroup) {
@@ -86,10 +90,20 @@ export async function playSpeechUnitType(unitType: UNIT_TYPE, sound: Sound, opti
   const speechText = sound.dialogueTextKey;
   const speakerName = sound.dialogueSpeakerNameKey;
   if (speechText && speakerName) {
-    PlayDialogueFromSpeakerTypeEx(bj_FORCE_ALL_PLAYERS, GetLocalPlayer(), unitType.id, tempLocation(cameraCenter()), sound.handle, bj_TIMETYPE_ADD, 0, false);
+    playingSpeechCount++;
+    PlayDialogueFromSpeakerTypeEx(
+      bj_FORCE_ALL_PLAYERS,
+      GetLocalPlayer(),
+      unitType.id,
+      tempLocation(cameraCenter()),
+      sound.handle,
+      bj_TIMETYPE_ADD,
+      0,
+      false,
+    );
+    await sleep(sound.duration / 1000);
+    playingSpeechCount--;
   }
-
-  await sleep(sound.duration / 1000);
 
   if (shouldSetVolumeGroup) {
     VolumeGroupReset();

@@ -5,8 +5,6 @@
   "outputFolder": "./dist/bin",
   "launchArgs": [
     "-launch",
-    "-windowmode",
-    "fullscreen",
     "-nowfpause"
   ]
 }

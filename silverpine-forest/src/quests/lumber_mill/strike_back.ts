@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 
-import { playerForsaken, playerHumanAlliance, playerMain } from 'lib/constants';
+import { playerForsaken, playerMain } from 'lib/constants';
 import { centerLocRect, randomLocRect } from 'lib/location';
-import { setAllianceState2Way } from 'lib/player';
 import { dialogue } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
@@ -16,6 +15,7 @@ import {
   guardCurrentPosition, pauseGuardPosition, removeGuardPosition, setGuardPosition,
 } from 'lib/systems/unit_guard_position';
 import {
+  getMainHero,
   getUnitsInRangeOfLoc, getUnitsInRect, isBuilding,
 } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
@@ -180,11 +180,6 @@ export class StrikeBack extends BaseQuest {
       undeads.forEach((u) => setGuardPosition(u, attackedUndead, u.facing));
     }).catch(() => null);
 
-    // Set alliance settings
-    setAllianceState2Way(playerMain, playerHumanAlliance, 'allied');
-    setAllianceState2Way(playerHumanAlliance, playerForsaken, 'enemy');
-    setAllianceState2Way(playerMain, playerForsaken, 'enemy');
-
     // Wait until success/failure
     await waitUntil(2, () => undeads.every((u) => !u.isAlive()));
 
@@ -230,6 +225,8 @@ export class StrikeBack extends BaseQuest {
 
     getUnitsInRect(humanBaseRect, (u) => u.owner === mayor.owner)
       .forEach((u) => u.shareVision(playerMain, true));
-    setAllianceState2Way(playerMain, playerHumanAlliance, 'allied');
+
+    const traveler = getMainHero();
+    traveler.addExperience(rewardXp, true);
   }
 }

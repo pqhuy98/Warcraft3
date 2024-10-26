@@ -12,7 +12,7 @@ import {
 } from 'lib/quests/utils';
 import { playSpeech } from 'lib/sound';
 import { setIntervalForDuration } from 'lib/trigger';
-import { getUnitsInRect } from 'lib/unit';
+import { getMainHero, getUnitsInRect } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   Camera, CameraSetup, sleep, Unit,
@@ -144,5 +144,8 @@ export class RabbitHunt extends BaseQuest {
       .flatMap((r) => getUnitsInRect(r))
       .filter((u) => u.typeId === rabbitTypeId && u.isAlive())
       .forEach((u) => u.kill());
+
+    const traveler = getMainHero();
+    traveler.addExperience(rewardXp, true);
   }
 }

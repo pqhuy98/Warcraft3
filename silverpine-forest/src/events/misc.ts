@@ -62,7 +62,8 @@ import {
   buildTrigger, setIntervalFixedCount, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
 import {
-  getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isBuilding, isOrganic,
+  getMainHero,
+  getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, isOrganic,
 } from 'lib/unit';
 import { pickRandom, range } from 'lib/utils';
 import {
@@ -164,7 +165,7 @@ export class MiscEvents {
 
     // Testing isPointReachable
     onChatCommand('-ipr', true, () => {
-      const hero = getUnitsOfPlayer(playerMain)[0];
+      const hero = getMainHero();
       buildTrigger((t) => {
         t.registerUnitEvent(hero, EVENT_UNIT_ISSUED_POINT_ORDER);
         t.addAction(() => {

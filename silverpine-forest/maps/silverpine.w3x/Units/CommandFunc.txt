@@ -4,27 +4,27 @@ Buttonpos=0,-11
 
 [CmdAttack]
 Art=CommandAttack
-Buttonpos=2,1
+Buttonpos=0,1
 
 [CmdAttackGround]
 Art=CommandAttackGround
-Buttonpos=3,1
+Buttonpos=0,1
 
 [CmdCancel]
 Art=CommandCancel
-ButtonPos=3,2
+ButtonPos=0,2
 
 [CmdCancelBuild]
 Art=CommandCancel
-ButtonPos=3,2
+ButtonPos=0,2
 
 [CmdCancelTrain]
 Art=CommandCancel
-ButtonPos=3,2
+ButtonPos=0,2
 
 [CmdCancelRevive]
 Art=CommandCancel
-ButtonPos=3,2
+ButtonPos=0,2
 
 [CmdHoldPos]
 Art=CommandHoldPosition
@@ -45,8 +45,8 @@ PlacementModel=UI\Feedback\RallyPoint\RallyPoint.mdl
 
 [CmdSelectSkill]
 Art=CommandNewSkill
-Buttonpos=3,2
+Buttonpos=0,2
 
 [CmdStop]
 Art=CommandStop
-Buttonpos=3,1
+Buttonpos=1,1

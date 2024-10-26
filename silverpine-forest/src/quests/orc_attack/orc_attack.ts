@@ -31,6 +31,7 @@ import {
 import { guardCurrentPosition, pauseGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setTimeout } from 'lib/trigger';
 import {
+  getMainHero,
   getUnitsInRangeOfLoc, getUnitsInRect, isBuilding, isOrganic, isUnitIdle, setNeverDie,
 } from 'lib/unit';
 import { pickRandom, waitUntil } from 'lib/utils';
@@ -476,5 +477,7 @@ export class OrcAttack extends BaseQuest {
   }
 
   onForceComplete(): void {
+    const traveler = getMainHero();
+    traveler.addExperience(rewardXp, true);
   }
 }

@@ -16,6 +16,7 @@ import { UNIT_Ghoul, UNIT_Peasant } from 'lib/resources/war3-units';
 import { guardCurrentPosition, pauseGuardPosition, setGuardPosition } from 'lib/systems/unit_guard_position';
 import { setAttention } from 'lib/systems/unit_interaction';
 import { setTimeout } from 'lib/trigger';
+import { getMainHero } from 'lib/unit';
 import { waitUntil } from 'lib/utils';
 import {
   sleep, Unit,
@@ -232,5 +233,8 @@ export class LumberMill extends BaseQuest {
     setAttention(john, townKnight);
     setAttention(peter, townKnight);
     this.createCorpsesLumberMill();
+
+    const traveler = getMainHero();
+    traveler.addExperience(rewardXp, true);
   }
 }
