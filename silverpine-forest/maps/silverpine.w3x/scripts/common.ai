@@ -1,5 +1,5 @@
 //================================================================================================== 
-//  $Id: common.ai, v 2.0 2021/06/04 12:00:00 - InsaneMonster (Luca Pasqualini) $ 
+//  $Id: common.ai, v 2.0 2023/09/05 21:00:00 - InsaneMonster (Luca Pasqualini) $ 
 //================================================================================================== 
 native DebugS takes string str returns nothing 
 native DebugFI takes string str, integer val returns nothing 
@@ -745,65 +745,100 @@ globals
 
   //-------------------------------------------------------------------- 
 
-  player debug_player 
-  boolean debug = false 
+  player adv_debug_player 
+  boolean adv_debug = false 
 
-  boolean suicide = false 
+  boolean adv_suicide = false 
+  boolean adv_defeated = false 
 
-  integer wave_reach_goal_timeout_seconds = 300 
-  integer wave_enter_combat_timeout_seconds = 3 
-  integer wave_clear_goal_timeout_seconds = 60 
+  integer adv_wave_reach_goal_timeout_seconds = 300 
+  integer adv_wave_enter_combat_timeout_seconds = 5 
+  integer adv_wave_clear_goal_timeout_seconds = 60 
 
-  real continue_far_away_radius = 960.0 
-  real preferred_locations_radius = 640.0 
+  integer adv_wave_reach_goal_refresh_timeout_seconds = 60 
+  integer adv_wave_enter_combat_refresh_timeout_seconds = 1 
+  integer adv_wave_clear_goal_refresh_timeout_seconds = 12 
 
-  integer wave_reach_goal_sleep_seconds 
-  integer wave_enter_combat_sleep_seconds 
-  integer wave_clear_goal_sleep_seconds 
+  integer adv_wave_reach_start_return_refresh_timeout_seconds  = 30 
 
-  real defense_captain_home_x 
-  real defense_captain_home_y 
-  boolean defense_captain_home_set = false 
+  real adv_wave_attack_scatter_range = 125.0 
 
-  real attack_wave_gather_return_x 
-  real attack_wave_gather_return_y 
-  boolean attack_wave_gather_return_set = false 
+  real adv_continue_far_away_radius = 960.0 
+  real adv_preferred_locations_radius = 640.0 
 
-  location array preferred_locations 
-  integer preferred_locations_count = 0 
+  integer adv_wave_reach_goal_sleep_seconds 
+  integer adv_wave_enter_combat_sleep_seconds 
+  integer adv_wave_clear_goal_sleep_seconds 
 
-  location array preferred_locations_current 
-  integer preferred_locations_count_current = 0 
+  integer adv_wave_reach_goal_refresh_sleep_seconds 
+  integer adv_wave_enter_combat_refresh_sleep_seconds 
+  integer adv_wave_clear_goal_refresh_sleep_seconds 
 
-  boolean wood_peons_warriors = false 
+  integer adv_wave_reach_start_return_refresh_sleep_seconds 
 
-  boolean search_preferred_locations = true 
-  boolean search_everywhere = true 
-  boolean can_search_units = true 
-  boolean can_search_invulnerable = false 
-  boolean prioritize_town_halls = true 
-  boolean prioritize_nearest = true 
+  real adv_defense_captain_home_x 
+  real adv_defense_captain_home_y 
+  boolean adv_defense_captain_home_set = false 
 
-  boolean reach_goal_timeout = true 
-  boolean enter_combat_timeout = true 
-  boolean clear_goal_timeout = true 
-  integer continue_attack_percentage = 100 
-  boolean continue_attack_reduce_percentage_if_far_away = true 
-  integer continue_attack_reduce_percentage = 25 
+  real adv_attack_wave_gather_return_x 
+  real adv_attack_wave_gather_return_y 
+  boolean adv_attack_wave_gather_return_set = false 
 
-  unit array targetable_town_halls 
-  integer targetable_town_halls_count = 0 
+  location array adv_preferred_locations 
+  integer adv_preferred_locations_count = 0 
 
-  unit array targetable_buildings 
-  integer targetable_buildings_count = 0 
+  location array adv_preferred_locations_current 
+  integer adv_preferred_locations_count_current = 0 
 
-  unit array targetable_units 
-  integer targetable_units_count = 0 
+  boolean adv_wood_peons_warriors = false 
+  boolean adv_prevent_slow_chopping = false 
 
-  real last_target_x 
-  real last_target_y 
-  integer search_target_max_cycles_default = 100 
-  integer search_target_max_cycles_last_target = 10 
+  boolean adv_search_preferred_locations = true 
+  boolean adv_search_everywhere = true 
+
+  boolean adv_can_search_units = true 
+  boolean adv_can_search_invulnerable = false 
+
+  boolean adv_prioritize_town_halls = true 
+  boolean adv_prioritize_main_buildings = true 
+  boolean adv_prioritize_nearest = true 
+
+  boolean adv_reach_goal_timeout = true 
+  boolean adv_enter_combat_timeout = true 
+  boolean adv_clear_goal_timeout = true 
+
+  boolean adv_reach_goal_refresh_timeout = true 
+  boolean adv_enter_combat_refresh_timeout = true 
+  boolean adv_clear_goal_refresh_timeout = true 
+
+  boolean adv_reach_start_refresh_timeout = true 
+  boolean adv_reach_return_refresh_timeout = true 
+
+  boolean adv_attack_scatter = true 
+
+  integer adv_continue_attack_percentage = 100 
+  boolean adv_continue_attack_reduce_percentage_if_far_away = true 
+  integer adv_continue_attack_reduce_percentage = 25 
+
+  unit array adv_targetable_town_halls_main_buildings 
+  integer adv_targetable_town_halls_main_buildings_count = 0 
+
+  integer array adv_targetable_main_buildings_types 
+  integer adv_targetable_main_buildings_types_count = 0 
+
+  integer array adv_targetable_main_buildings_types_current 
+  integer adv_targetable_main_buildings_types_count_current = 0 
+
+  unit array adv_targetable_buildings 
+  integer adv_targetable_buildings_count = 0 
+
+  unit array adv_targetable_units 
+  integer adv_targetable_units_count = 0 
+
+  real adv_last_target_x 
+  real adv_last_target_y 
+  integer adv_search_target_max_cycles_default = 100 
+  integer adv_search_target_max_cycles_last_target = 10 
 
 
   // Extra globals
@@ -919,7 +954,8 @@ function SuicideSleep takes integer seconds returns nothing
   loop 
     exitwhen seconds <= 0 
     exitwhen allow_signal_abort and CommandsWaiting() != 0 
-    exitwhen suicide 
+    exitwhen adv_suicide 
+    exitwhen adv_defeated 
 
     if seconds >= 5 then 
       call Sleep(5) 
@@ -2515,7 +2551,11 @@ function CampaignAI takes integer farms, code heroes returns nothing
 
   call SetHeroesFlee(false) 
   call SetGroupsFlee(false) 
-  call SetSlowChopping(true) 
+
+  if not adv_prevent_slow_chopping then 
+    call SetSlowChopping(true) 
+  endif 
+
   call GroupTimedLife(false) 
   call SetCampaignAI() 
   call Sleep(0.1) 
@@ -2680,126 +2720,188 @@ function AdvIsUnitAlive takes unit u returns boolean
 endfunction 
 
 function log takes string message returns nothing 
-  if debug then 
-    call DisplayTextToPlayer(debug_player, 0, 0, message) 
+  if adv_debug then 
+    call DisplayTextToPlayer(adv_debug_player, 0, 0, message) 
   endif 
   call Trace(message) 
+endfunction 
+
+function AdvSetPreventSlowChopping takes boolean flag returns nothing 
+  set adv_prevent_slow_chopping = flag 
 endfunction 
 
 //============================================================================ 
 //  ADVANCED SETTINGS 
 //============================================================================ 
 function AdvSetDebug takes player debugPlayer, boolean flag returns nothing 
-  set debug_player = debugPlayer 
-  set debug = flag 
+  set adv_debug_player = debugPlayer 
+  set adv_debug = flag 
 endfunction 
 
 //============================================================================ 
 
 function AdvSetWaveReachGoalTimeoutSeconds takes integer seconds returns nothing 
-  set wave_reach_goal_timeout_seconds = seconds 
+  set adv_wave_reach_goal_timeout_seconds = seconds 
 endfunction 
 
 function AdvSetWaveEnterCombatTimeoutSeconds takes integer seconds returns nothing 
-  set wave_enter_combat_timeout_seconds = seconds 
+  set adv_wave_enter_combat_timeout_seconds = seconds 
 endfunction 
 
 function AdvSetWaveClearGoalTimeoutSeconds takes integer seconds returns nothing 
-  set wave_clear_goal_timeout_seconds = seconds 
+  set adv_wave_clear_goal_timeout_seconds = seconds 
+endfunction 
+
+function AdvSetWaveReachGoalRefreshSeconds takes integer seconds returns nothing 
+
+  set adv_wave_reach_goal_refresh_timeout_seconds = seconds 
+
+endfunction 
+
+function AdvSetWaveEnterCombatRefreshSeconds takes integer seconds returns nothing 
+
+  set adv_wave_enter_combat_refresh_timeout_seconds = seconds 
+
+endfunction 
+
+function AdvSetWaveClearGoalRefreshSeconds takes integer seconds returns nothing 
+
+  set adv_wave_clear_goal_refresh_timeout_seconds = seconds 
+
+endfunction 
+
+function AdvSetWaveReachStartReturnRefreshSeconds takes integer seconds returns nothing 
+
+  set adv_wave_reach_start_return_refresh_timeout_seconds = seconds 
+
+endfunction 
+
+function AdvSetWaveAttackScatterRange takes real range returns nothing 
+
+  set adv_wave_attack_scatter_range = range 
+
 endfunction 
 
 //============================================================================ 
 
 function AdvSetContinueFarAwayRadius takes real radius returns nothing 
-  set continue_far_away_radius = radius 
+  set adv_continue_far_away_radius = radius 
 endfunction 
 
 function AdvSetPreferredLocationsRadius takes real radius returns nothing 
-  set preferred_locations_radius = radius 
+  set adv_preferred_locations_radius = radius 
 endfunction 
 
 //============================================================================ 
 
 function AdvSetWoodPeonsWarriors takes boolean flag returns nothing 
-  set wood_peons_warriors = flag 
+  set adv_wood_peons_warriors = flag 
 endfunction 
 
 //============================================================================ 
 
 function AdvSetSearchPreferredLocations takes boolean flag returns nothing 
-  set search_preferred_locations = flag 
+  set adv_search_preferred_locations = flag 
 endfunction 
 
 function AdvSetSearchEverywhere takes boolean flag returns nothing 
-  set search_everywhere = flag 
+  set adv_search_everywhere = flag 
 endfunction 
 
 function AdvSetCanSearchUnit takes boolean flag returns nothing 
-  set can_search_units = flag 
+  set adv_can_search_units = flag 
 endfunction 
 
 function AdvSetCanSearchInvulnerable takes boolean flag returns nothing 
-  set can_search_invulnerable = flag 
+  set adv_can_search_invulnerable = flag 
 endfunction 
 
 //============================================================================ 
 
 function AdvSetPrioritizeTownHalls takes boolean flag returns nothing 
-  set prioritize_town_halls = flag 
+  set adv_prioritize_town_halls = flag 
+endfunction 
+
+function AdvSetPrioritizeMainBuildings takes boolean flag returns nothing 
+  set adv_prioritize_main_buildings = flag 
 endfunction 
 
 function AdvSetPrioritizeNearest takes boolean flag returns nothing 
-  set prioritize_nearest = flag 
+  set adv_prioritize_nearest = flag 
 endfunction 
 
 function AdvSetSearchTargetMaxCyclesDefault takes integer value returns nothing 
-  set search_target_max_cycles_default = value 
+  set adv_search_target_max_cycles_default = value 
 endfunction 
 
 function AdvSetSearchTargetMaxCyclesLastTarget takes integer value returns nothing 
-  set search_target_max_cycles_last_target = value 
+  set adv_search_target_max_cycles_last_target = value 
 endfunction 
 
 //============================================================================ 
 
 function AdvSetUseReachGoalTimeout takes boolean flag returns nothing 
-  set reach_goal_timeout = flag 
+  set adv_reach_goal_timeout = flag 
 endfunction 
 
 function AdvSetUseEnterCombatTimeout takes boolean flag returns nothing 
-  set reach_goal_timeout = flag 
+  set adv_reach_goal_timeout = flag 
 endfunction 
 
 function AdvSetUseClearGoalTimeout takes boolean flag returns nothing 
-  set enter_combat_timeout = flag 
+  set adv_enter_combat_timeout = flag 
+endfunction 
+
+function AdvSetUseReachGoalRefreshTimeout takes boolean flag returns nothing 
+  set adv_reach_goal_refresh_timeout = flag 
+endfunction 
+
+function AdvSetUseEnterCombatRefreshTimeout takes boolean flag returns nothing 
+  set adv_enter_combat_refresh_timeout = flag 
+endfunction 
+
+function AdvSetUseClearGoalRefreshTimeout takes boolean flag returns nothing 
+  set adv_clear_goal_refresh_timeout = flag 
+endfunction 
+
+function AdvSetUseReachStartRefreshTimeout takes boolean flag returns nothing 
+  set adv_reach_start_refresh_timeout = flag 
+endfunction 
+
+function AdvSetUseReachReturnRefreshTimeout takes boolean flag returns nothing 
+  set adv_reach_return_refresh_timeout = flag 
+endfunction 
+
+function AdvSetUseAttackScatter takes boolean flag returns nothing 
+  set adv_attack_scatter = flag 
 endfunction 
 
 //============================================================================ 
 
 function AdvSetContinueAttackPercentage takes integer percentage returns nothing 
-  set continue_attack_percentage = percentage 
+  set adv_continue_attack_percentage = percentage 
 endfunction 
 
 function AdvSetContinueAttackReducePercentageIfFarAway takes boolean flag returns nothing 
-  set continue_attack_reduce_percentage_if_far_away = flag 
+  set adv_continue_attack_reduce_percentage_if_far_away = flag 
 endfunction 
 
 function AdvSetContinueAttackReducePercentage takes integer percentage returns nothing 
-  set continue_attack_reduce_percentage = percentage 
+  set adv_continue_attack_reduce_percentage = percentage 
 endfunction 
 
 //============================================================================ 
 
 function AdvSetAttackWaveGatherReturnXY takes real x, real y returns nothing 
-  set attack_wave_gather_return_x = x 
-  set attack_wave_gather_return_y = y 
-  set attack_wave_gather_return_set = true 
+  set adv_attack_wave_gather_return_x = x 
+  set adv_attack_wave_gather_return_y = y 
+  set adv_attack_wave_gather_return_set = true 
 endfunction 
 
 function AdvSetDefenseCaptainHomeXY takes real x, real y returns nothing 
-  set defense_captain_home_x = x 
-  set defense_captain_home_y = y 
-  set defense_captain_home_set = true 
+  set adv_defense_captain_home_x = x 
+  set adv_defense_captain_home_y = y 
+  set adv_defense_captain_home_set = true 
 
 endfunction 
 
@@ -2807,29 +2909,28 @@ endfunction
 function AdvSetCaptainHome takes integer whichCaptain returns nothing 
 
   if whichCaptain == BOTH_CAPTAINS then 
-
-    if defense_captain_home_set then 
-      call SetCaptainHome(DEFENSE_CAPTAIN, defense_captain_home_x, defense_captain_home_y) 
+    if adv_defense_captain_home_set then 
+      call SetCaptainHome(DEFENSE_CAPTAIN, adv_defense_captain_home_x, adv_defense_captain_home_y) 
     endif 
 
-    if attack_wave_gather_return_set then 
-      call SetCaptainHome(ATTACK_CAPTAIN, attack_wave_gather_return_x, attack_wave_gather_return_y) 
+    if adv_attack_wave_gather_return_set then 
+      call SetCaptainHome(ATTACK_CAPTAIN, adv_attack_wave_gather_return_x, adv_attack_wave_gather_return_y) 
     endif 
 
     return 
 
   endif 
 
-  if defense_captain_home_set and whichCaptain == DEFENSE_CAPTAIN then 
+  if adv_defense_captain_home_set and whichCaptain == DEFENSE_CAPTAIN then 
 
-    call SetCaptainHome(DEFENSE_CAPTAIN, defense_captain_home_x, defense_captain_home_y) 
+    call SetCaptainHome(DEFENSE_CAPTAIN, adv_defense_captain_home_x, adv_defense_captain_home_y) 
     return 
 
   endif 
 
-  if attack_wave_gather_return_set and whichCaptain == ATTACK_CAPTAIN then 
+  if adv_attack_wave_gather_return_set and whichCaptain == ATTACK_CAPTAIN then 
 
-    call SetCaptainHome(ATTACK_CAPTAIN, attack_wave_gather_return_x, attack_wave_gather_return_y) 
+    call SetCaptainHome(ATTACK_CAPTAIN, adv_attack_wave_gather_return_x, adv_attack_wave_gather_return_y) 
     return 
 
   endif 
@@ -2839,74 +2940,158 @@ endfunction
 //============================================================================ 
 
 function AdvAddPreferredLocation takes real x, real y returns integer 
-  set preferred_locations[preferred_locations_count] = Location(x, y) 
-  set preferred_locations_count = preferred_locations_count + 1 
+  set adv_preferred_locations[adv_preferred_locations_count] = Location(x, y) 
+  set adv_preferred_locations_count = adv_preferred_locations_count + 1 
 
-  return preferred_locations_count 
+  return adv_preferred_locations_count 
 endfunction 
 
 function AdvSetPreferredLocationXY takes integer index, real x, real y returns nothing 
-  if index < preferred_locations_count then 
-    set preferred_locations[index] = Location(x, y) 
+  if index < adv_preferred_locations_count then 
+    call RemoveLocation(adv_preferred_locations[index]) 
+    set adv_preferred_locations[index] = Location(x, y) 
   endif 
+endfunction 
+
+function AdvRemovePreferredLocation takes integer index returns nothing 
+
+  if index >= adv_preferred_locations_count then 
+    return 
+  endif 
+
+  call RemoveLocation(adv_preferred_locations[index]) 
+  loop 
+
+    set index = index + 1 
+    exitwhen index >= adv_preferred_locations_count 
+
+    set adv_preferred_locations[index - 1] = adv_preferred_locations[index] 
+    set adv_preferred_locations[index] = null 
+
+  endloop 
+
+  set adv_preferred_locations_count = adv_preferred_locations_count - 1 
+
+endfunction 
+
+//============================================================================ 
+
+function AdvAddMainBuildingType takes integer unitId returns integer 
+
+  set adv_targetable_main_buildings_types[adv_targetable_main_buildings_types_count] = unitId 
+  set adv_targetable_main_buildings_types_count = adv_targetable_main_buildings_types_count + 1 
+
+  return adv_targetable_main_buildings_types_count 
+
+endfunction 
+
+function AdvSetMainBuildingTypeId takes integer index, integer unitId returns nothing 
+
+  if index < adv_targetable_main_buildings_types_count then 
+    set adv_targetable_main_buildings_types[index] = unitId 
+  endif 
+
+endfunction 
+
+function AdvRemoveMainBuildingType takes integer index returns nothing 
+
+  if index >= adv_targetable_main_buildings_types_count then 
+    return 
+  endif 
+
+  loop 
+
+    set index = index + 1 
+    exitwhen index >= adv_targetable_main_buildings_types_count 
+
+    set adv_targetable_main_buildings_types[index - 1] = adv_targetable_main_buildings_types[index] 
+
+  endloop 
+
+  set adv_targetable_main_buildings_types_count = adv_targetable_main_buildings_types_count - 1 
+
 endfunction 
 
 //============================================================================ 
 
 function AdvSetSuicide takes boolean flag returns nothing 
-  set suicide = flag 
+  set adv_suicide = flag 
+endfunction 
+
+function AdvSetDefeated takes boolean flag returns nothing 
+  set adv_defeated = flag 
 endfunction 
 
 //============================================================================ 
 // ADVANCED SUICIDE WAVE LAUNCH 
 //============================================================================ 
-function AdvGetRandomTargetableTownHall takes nothing returns unit 
-  local integer randomIndex = GetRandomInt(0, targetable_town_halls_count - 1) 
 
-  if targetable_town_halls_count <= 0 then 
+function AdvIsUnitMainBuilding takes unit u returns boolean 
+  local integer index = 0 
+
+  loop 
+
+    exitwhen index >= adv_targetable_main_buildings_types_count_current 
+
+    if GetUnitTypeId(u) == adv_targetable_main_buildings_types_current[index] then 
+      return true 
+    endif 
+
+    set index = index + 1 
+
+  endloop 
+
+  return false 
+
+endfunction 
+
+function AdvGetRandomTargetableTownHallMainBuilding takes nothing returns unit 
+  local integer randomIndex = GetRandomInt(0, adv_targetable_town_halls_main_buildings_count - 1) 
+
+  if adv_targetable_town_halls_main_buildings_count <= 0 then 
     return null 
   endif 
 
-  return targetable_town_halls[randomIndex] 
+  return adv_targetable_town_halls_main_buildings[randomIndex] 
 endfunction 
 
-function AdvGetNearestTargetableTownHall takes real x, real y returns unit 
+function AdvGetNearestTargetableTownHallMainBuilding takes real x, real y returns unit 
   local integer index = 0 
   local integer minDistanceIndex = 0 
   local real minDistance 
 
-  if targetable_town_halls_count <= 0 then 
+  if adv_targetable_town_halls_main_buildings_count <= 0 then 
     return null 
   endif 
 
-  set minDistance = AdvDistance(GetUnitX(targetable_town_halls[minDistanceIndex]), GetUnitY(targetable_town_halls[minDistanceIndex]), x, y) 
+  set minDistance = AdvDistance(GetUnitX(adv_targetable_town_halls_main_buildings[minDistanceIndex]), GetUnitY(adv_targetable_town_halls_main_buildings[minDistanceIndex]), x, y) 
 
   loop 
 
     set index = index + 1 
-    exitwhen index >= targetable_town_halls_count 
+    exitwhen index >= adv_targetable_town_halls_main_buildings_count 
 
-    if AdvDistance(GetUnitX(targetable_town_halls[index]), GetUnitY(targetable_town_halls[index]), x, y) < minDistance then 
+    if AdvDistance(GetUnitX(adv_targetable_town_halls_main_buildings[index]), GetUnitY(adv_targetable_town_halls_main_buildings[index]), x, y) < minDistance then 
       set minDistanceIndex = index 
-      set minDistance = AdvDistance(GetUnitX(targetable_town_halls[minDistanceIndex]), GetUnitY(targetable_town_halls[minDistanceIndex]), x, y) 
+      set minDistance = AdvDistance(GetUnitX(adv_targetable_town_halls_main_buildings[minDistanceIndex]), GetUnitY(adv_targetable_town_halls_main_buildings[minDistanceIndex]), x, y) 
     endif 
 
   endloop 
 
-  return targetable_town_halls[minDistanceIndex] 
+  return adv_targetable_town_halls_main_buildings[minDistanceIndex] 
 
 endfunction 
 
 //============================================================================ 
 
 function AdvGetRandomTargetableBuilding takes nothing returns unit 
-  local integer randomIndex = GetRandomInt(0, targetable_buildings_count - 1) 
+  local integer randomIndex = GetRandomInt(0, adv_targetable_buildings_count - 1) 
 
-  if targetable_buildings_count <= 0 then 
+  if adv_targetable_buildings_count <= 0 then 
     return null 
   endif 
 
-  return targetable_buildings[randomIndex] 
+  return adv_targetable_buildings[randomIndex] 
 endfunction 
 
 function AdvGetNearestTargetableBuilding takes real x, real y returns unit 
@@ -2914,38 +3099,38 @@ function AdvGetNearestTargetableBuilding takes real x, real y returns unit
   local integer minDistanceIndex = 0 
   local real minDistance 
 
-  if targetable_buildings_count <= 0 then 
+  if adv_targetable_buildings_count <= 0 then 
     return null 
   endif 
 
-  set minDistance = AdvDistance(GetUnitX(targetable_buildings[minDistanceIndex]), GetUnitY(targetable_buildings[minDistanceIndex]), x, y) 
+  set minDistance = AdvDistance(GetUnitX(adv_targetable_buildings[minDistanceIndex]), GetUnitY(adv_targetable_buildings[minDistanceIndex]), x, y) 
 
   loop 
 
     set index = index + 1 
-    exitwhen index >= targetable_buildings_count 
+    exitwhen index >= adv_targetable_buildings_count 
 
-    if AdvDistance(GetUnitX(targetable_buildings[index]), GetUnitY(targetable_buildings[index]), x, y) < minDistance then 
+    if AdvDistance(GetUnitX(adv_targetable_buildings[index]), GetUnitY(adv_targetable_buildings[index]), x, y) < minDistance then 
       set minDistanceIndex = index 
-      set minDistance = AdvDistance(GetUnitX(targetable_buildings[minDistanceIndex]), GetUnitY(targetable_buildings[minDistanceIndex]), x, y) 
+      set minDistance = AdvDistance(GetUnitX(adv_targetable_buildings[minDistanceIndex]), GetUnitY(adv_targetable_buildings[minDistanceIndex]), x, y) 
     endif 
 
   endloop 
 
-  return targetable_buildings[minDistanceIndex] 
+  return adv_targetable_buildings[minDistanceIndex] 
 
 endfunction 
 
 //============================================================================ 
 
 function AdvGetRandomTargetableUnit takes nothing returns unit 
-  local integer randomIndex = GetRandomInt(0, targetable_units_count - 1) 
+  local integer randomIndex = GetRandomInt(0, adv_targetable_units_count - 1) 
 
-  if targetable_units_count <= 0 then 
+  if adv_targetable_units_count <= 0 then 
     return null 
   endif 
 
-  return targetable_units[randomIndex] 
+  return adv_targetable_units[randomIndex] 
 endfunction 
 
 function AdvGetNearestTargetableUnit takes real x, real y returns unit 
@@ -2953,79 +3138,141 @@ function AdvGetNearestTargetableUnit takes real x, real y returns unit
   local integer minDistanceIndex = 0 
   local real minDistance 
 
-  if targetable_units_count <= 0 then 
+  if adv_targetable_units_count <= 0 then 
     return null 
   endif 
 
-  set minDistance = AdvDistance(GetUnitX(targetable_units[minDistanceIndex]), GetUnitY(targetable_units[minDistanceIndex]), x, y) 
+  set minDistance = AdvDistance(GetUnitX(adv_targetable_units[minDistanceIndex]), GetUnitY(adv_targetable_units[minDistanceIndex]), x, y) 
 
   loop 
 
     set index = index + 1 
-    exitwhen index >= targetable_units_count 
+    exitwhen index >= adv_targetable_units_count 
 
-    if AdvDistance(GetUnitX(targetable_units[index]), GetUnitY(targetable_units[index]), x, y) < minDistance then 
+    if AdvDistance(GetUnitX(adv_targetable_units[index]), GetUnitY(adv_targetable_units[index]), x, y) < minDistance then 
       set minDistanceIndex = index 
-      set minDistance = AdvDistance(GetUnitX(targetable_units[minDistanceIndex]), GetUnitY(targetable_units[minDistanceIndex]), x, y) 
+      set minDistance = AdvDistance(GetUnitX(adv_targetable_units[minDistanceIndex]), GetUnitY(adv_targetable_units[minDistanceIndex]), x, y) 
     endif 
 
   endloop 
 
-  return targetable_units[minDistanceIndex] 
+  return adv_targetable_units[minDistanceIndex] 
 
 endfunction 
 
 //============================================================================ 
 
-function AdvAssignTargetableTownHalls takes player targetPlayer, boolean preferredLocations returns boolean 
+function AdvAssignTargetableTownHallsMainBuildings takes player targetPlayer, boolean preferredLocations, boolean prioritizeTownHalls, boolean prioritizeMainBuildings returns boolean 
   local unit currentUnit = null 
   local group targetsGroup = CreateGroup() 
   local group tempGroup = CreateGroup() 
   local integer index = 0 
 
-  set targetable_town_halls_count = 0 
+  set adv_targetable_town_halls_main_buildings_count = 0 
 
   if preferredLocations then 
     loop 
-      call GroupEnumUnitsInRangeOfLoc(tempGroup, preferred_locations_current[index], preferred_locations_radius, null) 
+      call GroupEnumUnitsInRangeOfLoc(tempGroup, adv_preferred_locations_current[index], adv_preferred_locations_radius, null) 
       call BlzGroupAddGroupFast(tempGroup, targetsGroup) 
 
       set index = index + 1 
       call GroupClear(tempGroup) 
 
-      exitwhen index >= preferred_locations_count_current 
+      exitwhen index >= adv_preferred_locations_count_current 
     endloop 
   else 
     call GroupEnumUnitsOfPlayer(targetsGroup, targetPlayer, null) 
   endif 
+  call DestroyGroup(tempGroup) 
+  set tempGroup = null 
 
   if BlzGroupGetSize(targetsGroup) <= 0 then 
+    call DestroyGroup(targetsGroup) 
+    set targetsGroup = null 
     return false 
   endif 
 
-  loop 
+  // --- TOWN HALLS AND MAIN BUILDINGS --- 
+  if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
 
-    set currentUnit = FirstOfGroup(targetsGroup) 
+    loop 
 
-    exitwhen currentUnit == null 
+      set currentUnit = FirstOfGroup(targetsGroup) 
 
-    if GetOwningPlayer(currentUnit) == targetPlayer and IsUnitType(currentUnit, UNIT_TYPE_TOWNHALL) and IsUnitType(currentUnit, UNIT_TYPE_STRUCTURE) and AdvIsUnitAlive(currentUnit) then 
-      if not can_search_invulnerable then 
-        if not BlzIsUnitInvulnerable(currentUnit) then 
-          set targetable_town_halls[targetable_town_halls_count] = currentUnit 
-          set targetable_town_halls_count = targetable_town_halls_count + 1 
+      exitwhen currentUnit == null 
+
+      if GetOwningPlayer(currentUnit) == targetPlayer and(IsUnitType(currentUnit, UNIT_TYPE_TOWNHALL) or AdvIsUnitMainBuilding(currentUnit)) and IsUnitType(currentUnit, UNIT_TYPE_STRUCTURE) and AdvIsUnitAlive(currentUnit) then 
+        if not adv_can_search_invulnerable then 
+          if not BlzIsUnitInvulnerable(currentUnit) then 
+            set adv_targetable_town_halls_main_buildings[adv_targetable_town_halls_main_buildings_count] = currentUnit 
+            set adv_targetable_town_halls_main_buildings_count = adv_targetable_town_halls_main_buildings_count + 1 
+          endif 
+        else 
+          set adv_targetable_town_halls_main_buildings[adv_targetable_town_halls_main_buildings_count] = currentUnit 
+          set adv_targetable_town_halls_main_buildings_count = adv_targetable_town_halls_main_buildings_count + 1 
         endif 
-      else 
-        set targetable_town_halls[targetable_town_halls_count] = currentUnit 
-        set targetable_town_halls_count = targetable_town_halls_count + 1 
       endif 
-    endif 
 
-    call GroupRemoveUnit(targetsGroup, currentUnit) 
+      call GroupRemoveUnit(targetsGroup, currentUnit) 
 
-  endloop 
+    endloop 
 
-  if targetable_town_halls_count > 0 then 
+    // --- TOWN HALLS ONLY --- 
+  elseif prioritizeTownHalls then 
+
+    loop 
+
+      set currentUnit = FirstOfGroup(targetsGroup) 
+
+      exitwhen currentUnit == null 
+
+      if GetOwningPlayer(currentUnit) == targetPlayer and IsUnitType(currentUnit, UNIT_TYPE_TOWNHALL) and IsUnitType(currentUnit, UNIT_TYPE_STRUCTURE) and AdvIsUnitAlive(currentUnit) then 
+        if not adv_can_search_invulnerable then 
+          if not BlzIsUnitInvulnerable(currentUnit) then 
+            set adv_targetable_town_halls_main_buildings[adv_targetable_town_halls_main_buildings_count] = currentUnit 
+            set adv_targetable_town_halls_main_buildings_count = adv_targetable_town_halls_main_buildings_count + 1 
+          endif 
+        else 
+          set adv_targetable_town_halls_main_buildings[adv_targetable_town_halls_main_buildings_count] = currentUnit 
+          set adv_targetable_town_halls_main_buildings_count = adv_targetable_town_halls_main_buildings_count + 1 
+        endif 
+      endif 
+
+      call GroupRemoveUnit(targetsGroup, currentUnit) 
+
+    endloop 
+
+    // --- MAIN BUILDINGS ONLY --- 
+  elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then
+
+    loop 
+
+      set currentUnit = FirstOfGroup(targetsGroup) 
+
+      exitwhen currentUnit == null 
+
+      if GetOwningPlayer(currentUnit) == targetPlayer and AdvIsUnitMainBuilding(currentUnit) and IsUnitType(currentUnit, UNIT_TYPE_STRUCTURE) and AdvIsUnitAlive(currentUnit) then 
+        if not adv_can_search_invulnerable then 
+          if not BlzIsUnitInvulnerable(currentUnit) then 
+            set adv_targetable_town_halls_main_buildings[adv_targetable_town_halls_main_buildings_count] = currentUnit 
+            set adv_targetable_town_halls_main_buildings_count = adv_targetable_town_halls_main_buildings_count + 1 
+          endif 
+        else 
+          set adv_targetable_town_halls_main_buildings[adv_targetable_town_halls_main_buildings_count] = currentUnit 
+          set adv_targetable_town_halls_main_buildings_count = adv_targetable_town_halls_main_buildings_count + 1 
+        endif 
+      endif 
+
+      call GroupRemoveUnit(targetsGroup, currentUnit) 
+
+    endloop 
+
+  endif 
+
+  call DestroyGroup(targetsGroup) 
+  set targetsGroup = null 
+
+  if adv_targetable_town_halls_main_buildings_count > 0 then 
     return true 
   endif 
 
@@ -3041,23 +3288,28 @@ function AdvAssignTargetableBuildings takes player targetPlayer, boolean preferr
   local group tempGroup = CreateGroup() 
   local integer index = 0 
 
-  set targetable_buildings_count = 0 
+  set adv_targetable_buildings_count = 0 
 
   if preferredLocations then 
     loop 
-      call GroupEnumUnitsInRangeOfLoc(tempGroup, preferred_locations_current[index], preferred_locations_radius, null) 
+      call GroupEnumUnitsInRangeOfLoc(tempGroup, adv_preferred_locations_current[index], adv_preferred_locations_radius, null) 
       call BlzGroupAddGroupFast(tempGroup, targetsGroup) 
 
       set index = index + 1 
       call GroupClear(tempGroup) 
 
-      exitwhen index >= preferred_locations_count_current 
+      exitwhen index >= adv_preferred_locations_count_current 
     endloop 
   else 
     call GroupEnumUnitsOfPlayer(targetsGroup, targetPlayer, null) 
   endif 
 
+  call DestroyGroup(tempGroup) 
+  set tempGroup = null 
+
   if BlzGroupGetSize(targetsGroup) <= 0 then 
+    call DestroyGroup(targetsGroup) 
+    set targetsGroup = null 
     return false 
   endif 
 
@@ -3068,14 +3320,14 @@ function AdvAssignTargetableBuildings takes player targetPlayer, boolean preferr
     exitwhen currentUnit == null 
 
     if GetOwningPlayer(currentUnit) == targetPlayer and IsUnitType(currentUnit, UNIT_TYPE_STRUCTURE) and AdvIsUnitAlive(currentUnit) then 
-      if not can_search_invulnerable then 
+      if not adv_can_search_invulnerable then 
         if not BlzIsUnitInvulnerable(currentUnit) then 
-          set targetable_buildings[targetable_buildings_count] = currentUnit 
-          set targetable_buildings_count = targetable_buildings_count + 1 
+          set adv_targetable_buildings[adv_targetable_buildings_count] = currentUnit 
+          set adv_targetable_buildings_count = adv_targetable_buildings_count + 1
         endif 
       else 
-        set targetable_buildings[targetable_buildings_count] = currentUnit 
-        set targetable_buildings_count = targetable_buildings_count + 1 
+        set adv_targetable_buildings[adv_targetable_buildings_count] = currentUnit 
+        set adv_targetable_buildings_count = adv_targetable_buildings_count + 1
       endif 
     endif 
 
@@ -3083,7 +3335,10 @@ function AdvAssignTargetableBuildings takes player targetPlayer, boolean preferr
 
   endloop 
 
-  if targetable_buildings_count > 0 then 
+  call DestroyGroup(targetsGroup) 
+  set targetsGroup = null 
+
+  if adv_targetable_buildings_count > 0 then 
     return true 
   endif 
 
@@ -3099,23 +3354,29 @@ function AdvAssignTargetableUnits takes player targetPlayer, boolean preferredLo
   local group tempGroup = CreateGroup() 
   local integer index = 0 
 
-  set targetable_units_count = 0 
+  set adv_targetable_units_count = 0 
 
   if preferredLocations then 
     loop 
-      call GroupEnumUnitsInRangeOfLoc(tempGroup, preferred_locations_current[index], preferred_locations_radius, null) 
+      call GroupEnumUnitsInRangeOfLoc(tempGroup, adv_preferred_locations_current[index], adv_preferred_locations_radius, null) 
       call BlzGroupAddGroupFast(tempGroup, targetsGroup) 
 
       set index = index + 1 
       call GroupClear(tempGroup) 
 
-      exitwhen index >= preferred_locations_count_current 
+      exitwhen index >= adv_preferred_locations_count_current 
     endloop 
   else 
     call GroupEnumUnitsOfPlayer(targetsGroup, targetPlayer, null) 
   endif 
 
+  call DestroyGroup(tempGroup) 
+  set tempGroup = null 
+
   if BlzGroupGetSize(targetsGroup) <= 0 then 
+    call DestroyGroup(targetsGroup) 
+    set targetsGroup = null 
+
     return false 
   endif 
 
@@ -3126,14 +3387,14 @@ function AdvAssignTargetableUnits takes player targetPlayer, boolean preferredLo
     exitwhen currentUnit == null 
 
     if GetOwningPlayer(currentUnit) == targetPlayer and AdvIsUnitAlive(currentUnit) then 
-      if not can_search_invulnerable then 
+      if not adv_can_search_invulnerable then 
         if not BlzIsUnitInvulnerable(currentUnit) then 
-          set targetable_units[targetable_units_count] = currentUnit 
-          set targetable_units_count = targetable_units_count + 1 
+          set adv_targetable_units[adv_targetable_units_count] = currentUnit 
+          set adv_targetable_units_count = adv_targetable_units_count + 1
         endif 
       else 
-        set targetable_units[targetable_units_count] = currentUnit 
-        set targetable_units_count = targetable_units_count + 1 
+        set adv_targetable_units[adv_targetable_units_count] = currentUnit 
+        set adv_targetable_units_count = adv_targetable_units_count + 1
       endif 
     endif 
 
@@ -3141,7 +3402,10 @@ function AdvAssignTargetableUnits takes player targetPlayer, boolean preferredLo
 
   endloop 
 
-  if targetable_units_count > 0 then 
+  call DestroyGroup(targetsGroup) 
+  set targetsGroup = null 
+
+  if adv_targetable_units_count > 0 then 
     return true 
   endif 
 
@@ -3151,7 +3415,7 @@ endfunction
 
 //============================================================================ 
 
-function AdvSuicideWaveLaunch takes player targetPlayer, real startX, real startY, boolean searchPreferredLocations, boolean searchEverywhere, boolean canSearchUnits, boolean prioritizeTownHalls, boolean prioritizeNearest, boolean useLastTarget returns boolean 
+function AdvSuicideWaveLaunch takes player targetPlayer, real startX, real startY, boolean attackScatter, real attackScatterRange, boolean searchPreferredLocations, boolean searchEverywhere, boolean canSearchUnits, boolean prioritizeTownHalls, boolean prioritizeMainBuildings, boolean prioritizeNearest, boolean useLastTarget returns boolean 
   local unit target = null 
   local integer index = 0 
   local real targetX 
@@ -3160,8 +3424,8 @@ function AdvSuicideWaveLaunch takes player targetPlayer, real startX, real start
 
   // Set the start coordinates 
   if useLastTarget then 
-    set startX = last_target_x 
-    set startY = last_target_y 
+    set startX = adv_last_target_x 
+    set startY = adv_last_target_y 
   endif 
 
   call log("AI Info: searching for a target...") 
@@ -3169,73 +3433,127 @@ function AdvSuicideWaveLaunch takes player targetPlayer, real startX, real start
   // --- LOOP UNTIL TARGET IS FOUND OR TIMEOUT IS REACHED --- 
   loop 
 
-    exitwhen suicide 
+    exitwhen adv_suicide 
+    exitwhen adv_defeated 
 
     // --- CACHE PREFERRED LOCATIONS --- 
-    set preferred_locations_count_current = 0 
-    if searchPreferredLocations and preferred_locations_count > 0 then 
+    set adv_preferred_locations_count_current = 0
+    if searchPreferredLocations and adv_preferred_locations_count > 0 then 
 
-      set preferred_locations_count_current = preferred_locations_count 
+      set adv_preferred_locations_count_current = adv_preferred_locations_count 
       loop 
 
-        set preferred_locations_current[index] = preferred_locations[index] 
+        set adv_preferred_locations_current[index] = adv_preferred_locations[index] 
 
         set index = index + 1 
-        exitwhen index >= preferred_locations_count_current 
+        exitwhen index >= adv_preferred_locations_count_current 
       endloop 
 
     endif 
 
-    // --- TOWN HALLS PREFERRED LOCATIONS --- 
-    if searchPreferredLocations and prioritizeTownHalls and preferred_locations_count_current > 0 then 
+    // --- CACHE MAIN BUILDINGS TYPES --- 
+    set adv_targetable_main_buildings_types_count_current = 0
+    if prioritizeMainBuildings and adv_targetable_main_buildings_types_count > 0 then 
 
-      call log("AI Info: looking for target town halls at preferred locations...") 
+      set adv_targetable_main_buildings_types_count_current = adv_targetable_main_buildings_types_count 
+      loop 
 
-      if AdvAssignTargetableTownHalls(targetPlayer, true) then 
-        call log("AI Info: at least one targetable town hall found!") 
+        set adv_targetable_main_buildings_types_current[index] = adv_targetable_main_buildings_types[index] 
+
+        set index = index + 1 
+        exitwhen index >= adv_targetable_main_buildings_types_count_current 
+      endloop 
+
+    endif 
+
+    // --- TOWN HALLS AND MAIN BUILDINGS PREFERRED LOCATIONS --- 
+    if searchPreferredLocations and(prioritizeTownHalls or(prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0)) and adv_preferred_locations_count_current > 0 then 
+
+      if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+        call log("AI Info: looking for target town halls and main buildings at preferred locations...") 
+      elseif prioritizeTownHalls then 
+        call log("AI Info: looking for target town halls at preferred locations...") 
+      elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+        call log("AI Info: looking for target main buildings at preferred locations...") 
+      endif 
+
+      if AdvAssignTargetableTownHallsMainBuildings(targetPlayer, true, prioritizeTownHalls, prioritizeMainBuildings) then 
+
+        if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: at least one targetable town hall or main building found!") 
+        elseif prioritizeTownHalls then 
+          call log("AI Info: at least one targetable town hall found!") 
+        elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: at least one targetable main building found!") 
+        endif 
 
         if prioritizeNearest then 
-          call log("AI Info: looking for the nearest town hall...") 
 
-          // Nearest town hall 
-          set target = AdvGetNearestTargetableTownHall(startX, startY) 
+          if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+            call log("AI Info: looking for the nearest town hall or main building...") 
+          elseif prioritizeTownHalls then 
+            call log("AI Info: looking for the nearest town hall...") 
+          elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+            call log("AI Info: looking for the nearest main building...") 
+          endif 
+
+          // Nearest town hall or main building 
+          set target = AdvGetNearestTargetableTownHallMainBuilding(startX, startY) 
 
         else 
-          call log("AI Info: looking for a random town hall target...") 
-        
-          // Random town hall 
-          set target = AdvGetRandomTargetableTownHall() 
-        endif 
+          if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+            call log("AI Info: looking for a random town hall or main building target...") 
+          elseif prioritizeTownHalls then 
+            call log("AI Info: looking for a random town hall target...") 
+          elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+            call log("AI Info: looking for a random main building target...") 
+          endif 
+
+          // Random town hall or main building 
+          set target = AdvGetRandomTargetableTownHallMainBuilding() 
+        endif
 
       endif 
 
       if target == null then 
-        call log("AI Info: town hall target not found!") 
+        if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: town hall or main building target not found!") 
+        elseif prioritizeTownHalls then 
+          call log("AI Info: town hall target not found!") 
+        elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: town main building not found!") 
+        endif
       else 
-        call log("AI Info: town hall target found!") 
+        if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: town hall or main building target found!") 
+        elseif prioritizeTownHalls then 
+          call log("AI Info: town hall target found!") 
+        elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: town main building found!") 
+        endif
       endif 
 
     endif 
 
     exitwhen target != null 
 
-    // --- BUILDINGS PREFERRED LOCATIONS --- 
-    if searchPreferredLocations and preferred_locations_count_current > 0 then 
+    // --- GENERIC BUILDINGS PREFERRED LOCATIONS --- 
+    if searchPreferredLocations and adv_preferred_locations_count_current > 0 then 
 
-      call log("AI Info: looking for target buildings at preferred locations...") 
+      call log("AI Info: looking for target generic buildings at preferred locations...") 
 
-      if AdvAssignTargetableBuildings(targetPlayer, true) then 
-        call log("AI Info: at least one targetable building found!") 
+      if AdvAssignTargetableBuildings(targetPlayer, true) then
+        call log("AI Info: at least one targetable generic building found!") 
 
         if prioritizeNearest then 
-          call log("AI Info: looking for the nearest building...") 
+          call log("AI Info: looking for the nearest generic building...") 
 
           // Nearest building 
           set target = AdvGetNearestTargetableBuilding(startX, startY) 
 
         else 
-          call log("AI Info: looking for a random building...") 
-        
+          call log("AI Info: looking for a random generic building...") 
+
           // Random building 
           set target = AdvGetRandomTargetableBuilding() 
         endif 
@@ -3243,74 +3561,111 @@ function AdvSuicideWaveLaunch takes player targetPlayer, real startX, real start
       endif 
 
       if target == null then 
-        call log("AI Info: building target not found!") 
+        call log("AI Info: generic building target not found!") 
       else 
-        call log("AI Info: building target found!") 
+        call log("AI Info: generic building target found!") 
       endif 
 
     endif 
 
     exitwhen target != null 
 
-    // --- TOWN HALLS EVERYWHERE ---- 
-    if searchEverywhere and prioritizeTownHalls then 
+    // --- TOWN HALLS AND MAIN BUILDINGS EVERYWHERE ---- 
+    if searchEverywhere and(prioritizeTownHalls or(prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0)) then 
 
-      call log("AI Info: looking for target town halls anywhere on the map...") 
+      if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+        call log("AI Info: looking for target town halls and main buildings anywhere on the map...") 
+      elseif prioritizeTownHalls then 
+        call log("AI Info: looking for target town halls anywhere on the map....") 
+      elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+        call log("AI Info: looking for target main buildings anywhere on the map...") 
+      endif 
 
-      if AdvAssignTargetableTownHalls(targetPlayer, false) then 
-        call log("AI Info: at least one targetable town hall found!") 
+      if AdvAssignTargetableTownHallsMainBuildings(targetPlayer, false, prioritizeTownHalls, prioritizeMainBuildings) then 
+
+        if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: at least one targetable town hall or main building found!") 
+        elseif prioritizeTownHalls then 
+          call log("AI Info: at least one targetable town hall found!") 
+        elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: at least one targetable main building found!") 
+        endif 
 
         if prioritizeNearest then 
-          call log("AI Info: looking for the nearest town hall...") 
 
-          // Nearest town hall 
-          set target = AdvGetNearestTargetableTownHall(startX, startY) 
+          if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+            call log("AI Info: looking for the nearest town hall or main building...") 
+          elseif prioritizeTownHalls then 
+            call log("AI Info: looking for the nearest town hall...") 
+          elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+            call log("AI Info: looking for the nearest main building...") 
+          endif 
+
+          // Nearest town hall or main building 
+          set target = AdvGetNearestTargetableTownHallMainBuilding(startX, startY) 
 
         else 
-          call log("AI Info: looking for a random town hall target...") 
-        
-          // Random town hall 
-          set target = AdvGetRandomTargetableTownHall() 
-        endif 
+          if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+            call log("AI Info: looking for a random town hall or main building target...") 
+          elseif prioritizeTownHalls then 
+            call log("AI Info: looking for a random town hall target...") 
+          elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+            call log("AI Info: looking for a random main building target...") 
+          endif 
+
+          // Random town hall or main building 
+          set target = AdvGetRandomTargetableTownHallMainBuilding() 
+        endif
 
       endif 
 
       if target == null then 
-        call log("AI Info: town hall target not found!") 
+        if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: town hall or main building target not found!") 
+        elseif prioritizeTownHalls then 
+          call log("AI Info: town hall target not found!") 
+        elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: town main building not found!") 
+        endif
       else 
-        call log("AI Info: town hall target found!") 
+        if prioritizeTownHalls and prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: town hall or main building target found!") 
+        elseif prioritizeTownHalls then 
+          call log("AI Info: town hall target found!") 
+        elseif prioritizeMainBuildings and adv_targetable_main_buildings_types_count_current > 0 then 
+          call log("AI Info: town main building found!") 
+        endif
       endif 
-
 
     endif 
 
     exitwhen target != null 
 
-    // --- BUILDINGS EVERYWHERE --- 
+    // --- GENERIC BUILDINGS EVERYWHERE --- 
     if searchEverywhere then 
 
-      call log("AI Info: looking for target buildings anywhere on the map...") 
+      call log("AI Info: looking for target generic buildings anywhere on the map...") 
 
-      if AdvAssignTargetableBuildings(targetPlayer, false) then 
-        call log("AI Info: at least one targetable building found!") 
+      if AdvAssignTargetableBuildings(targetPlayer, false) then
+        call log("AI Info: at least one targetable generic building found!") 
 
         if prioritizeNearest then 
-          call log("AI Info: looking for the nearest building...") 
+          call log("AI Info: looking for the nearest generic building...") 
 
           // Nearest building 
           set target = AdvGetNearestTargetableBuilding(startX, startY) 
 
         else 
-          call log("AI Info: looking for a random building...") 
-        
+          call log("AI Info: looking for a random generic building...") 
+
           // Random building 
           set target = AdvGetRandomTargetableBuilding() 
         endif 
 
         if target == null then 
-          call log("AI Info: building target not found!") 
+          call log("AI Info: generic building target not found!") 
         else 
-          call log("AI Info: building target found!") 
+          call log("AI Info: generic building target found!") 
         endif 
 
       endif 
@@ -3320,7 +3675,7 @@ function AdvSuicideWaveLaunch takes player targetPlayer, real startX, real start
     exitwhen target != null 
 
     // --- UNITS PREFERRED LOCATIONS --- 
-    if canSearchUnits and searchPreferredLocations and preferred_locations_count_current > 0 then 
+    if canSearchUnits and searchPreferredLocations and adv_preferred_locations_count_current > 0 then 
 
       call log("AI Info: looking for target units at preferred locations...") 
 
@@ -3389,13 +3744,13 @@ function AdvSuicideWaveLaunch takes player targetPlayer, real startX, real start
     set searchTargetCycle = searchTargetCycle + 1 
 
     // When using the last target as start point, we are continuing the attack, so cycle less times (a negative value means to cycle forever) 
-    if search_target_max_cycles_last_target > -1 then 
-      exitwhen useLastTarget and searchTargetCycle > search_target_max_cycles_last_target 
+    if adv_search_target_max_cycles_last_target > -1 then 
+      exitwhen useLastTarget and searchTargetCycle > adv_search_target_max_cycles_last_target 
     endif 
 
     // Cycles timeout (a negative value means to cycle forever) 
-    if search_target_max_cycles_default > -1 then 
-      exitwhen searchTargetCycle > search_target_max_cycles_default 
+    if adv_search_target_max_cycles_default > -1 then 
+      exitwhen searchTargetCycle > adv_search_target_max_cycles_default 
     endif 
 
     call log("AI Info: no target found, trying again...") 
@@ -3411,15 +3766,25 @@ function AdvSuicideWaveLaunch takes player targetPlayer, real startX, real start
     set targetX = GetUnitX(target) 
     set targetY = GetUnitY(target) 
 
-    // Send the captain to attack and store last targets 
-    set last_target_x = targetX 
-    set last_target_y = targetY 
+    // Store last targets 
+    set adv_last_target_x = targetX 
+    set adv_last_target_y = targetY 
+ 
+    // Scatter target if required to increase variability and possibly improve pathing 
+    if attackScatter then 
+      set targetX = targetX + GetRandomReal(-attackScatterRange, attackScatterRange) 
+      set targetY = targetY + GetRandomReal(-attackScatterRange, attackScatterRange) 
+    endif 
+
+    // Send the captain to attack 
     call SetCaptainHome(ATTACK_CAPTAIN, targetX, targetY) 
     call CaptainAttack(targetX, targetY) 
 
-    if not suicide then 
+    if not adv_suicide and not adv_defeated then 
       call Sleep(5) 
     endif 
+
+    set target = null 
 
     // Target found 
     return true 
@@ -3439,13 +3804,15 @@ endfunction
 function AdvWaveReachGoalSleep takes integer seconds returns nothing 
 
   // Decrease counter seconds to reach the goal 
-  set wave_reach_goal_sleep_seconds = wave_reach_goal_sleep_seconds - seconds 
+  set adv_wave_reach_goal_sleep_seconds = adv_wave_reach_goal_sleep_seconds - seconds 
+  set adv_wave_reach_goal_refresh_sleep_seconds = adv_wave_reach_goal_refresh_sleep_seconds - seconds 
 
   // Wait with precision 
   loop 
 
     exitwhen seconds <= 0 
-    exitwhen suicide 
+    exitwhen adv_suicide 
+    exitwhen adv_defeated 
 
     if seconds >= 5 then 
       call Sleep(5) 
@@ -3462,13 +3829,15 @@ endfunction
 function AdvWaveEnterCombatSleep takes integer seconds returns nothing 
 
   // Decrease counter seconds to enter combat 
-  set wave_enter_combat_sleep_seconds = wave_enter_combat_sleep_seconds - seconds 
+  set adv_wave_enter_combat_sleep_seconds = adv_wave_enter_combat_sleep_seconds - seconds 
+  set adv_wave_enter_combat_refresh_sleep_seconds = adv_wave_enter_combat_refresh_sleep_seconds - seconds 
 
   // Wait with precision 
   loop 
 
     exitwhen seconds <= 0 
-    exitwhen suicide 
+    exitwhen adv_suicide 
+    exitwhen adv_defeated 
 
     if seconds >= 5 then 
       call Sleep(5) 
@@ -3485,13 +3854,15 @@ endfunction
 function AdvWaveClearGoalSleep takes integer seconds returns nothing 
 
   // Decrease counter seconds to die 
-  set wave_clear_goal_sleep_seconds = wave_clear_goal_sleep_seconds - seconds 
+  set adv_wave_clear_goal_sleep_seconds = adv_wave_clear_goal_sleep_seconds - seconds 
+  set adv_wave_clear_goal_refresh_sleep_seconds = adv_wave_clear_goal_refresh_sleep_seconds - seconds 
 
   // Wait with precision 
   loop 
 
     exitwhen seconds <= 0 
-    exitwhen suicide 
+    exitwhen adv_suicide 
+    exitwhen adv_defeated 
 
     if seconds >= 5 then 
       call Sleep(5) 
@@ -3507,15 +3878,17 @@ endfunction
 
 //============================================================================ 
 
-function AdvSuicideWaveRoutineReachGoal takes boolean timeout returns integer 
+function AdvSuicideWaveRoutineReachGoal takes boolean timeout, boolean timeoutRefresh, real targetX, real targetY, boolean attackScatter, real attackScatterRange returns integer 
   local boolean goalReached = false 
   local boolean combatEntered = false 
   local boolean allDead = false 
   local boolean outOfTime = false 
+  local real finalTargetX = targetX 
+  local real finalTargetY = targetY 
 
   loop 
 
-    exitwhen suicide 
+    exitwhen adv_suicide 
 
     // Goal reached 
     if CaptainAtGoal() then 
@@ -3538,10 +3911,31 @@ function AdvSuicideWaveRoutineReachGoal takes boolean timeout returns integer
 
     // Out of time 
     if timeout then 
-      if wave_reach_goal_sleep_seconds < -wave_reach_goal_timeout_seconds then 
+      if adv_wave_reach_goal_sleep_seconds < -adv_wave_reach_goal_timeout_seconds then 
         set outOfTime = true 
       endif 
-      exitwhen wave_reach_goal_sleep_seconds < -wave_reach_goal_timeout_seconds 
+      exitwhen adv_wave_reach_goal_sleep_seconds < -adv_wave_reach_goal_timeout_seconds 
+    endif 
+
+    // Refresh 
+    if timeoutRefresh then 
+      if adv_wave_reach_goal_refresh_sleep_seconds < -adv_wave_reach_goal_refresh_timeout_seconds then 
+
+        if attackScatter then 
+          set finalTargetX = finalTargetX + GetRandomReal(-attackScatterRange, attackScatterRange) 
+          set finalTargetY = finalTargetY + GetRandomReal(-attackScatterRange, attackScatterRange) 
+        endif 
+
+        call SetCaptainHome(ATTACK_CAPTAIN, finalTargetX, finalTargetX)
+        call CaptainAttack(finalTargetX, finalTargetY) 
+
+        if attackScatter then 
+          set finalTargetX = targetX 
+          set finalTargetY = targetY 
+        endif 
+
+        set adv_wave_reach_goal_refresh_sleep_seconds = 0 
+      endif 
     endif 
 
   endloop 
@@ -3560,16 +3954,22 @@ function AdvSuicideWaveRoutineReachGoal takes boolean timeout returns integer
     return 0 
   endif 
 
+  // Return invalid value just in case 
+  return - 2 
+
 endfunction 
 
-function AdvSuicideWaveRoutineEnterCombat takes boolean timeout returns integer 
+function AdvSuicideWaveRoutineEnterCombat takes boolean timeout, boolean timeoutRefresh, real targetX, real targetY, boolean attackScatter, real attackScatterRange returns integer 
   local boolean combatEntered = false 
   local boolean allDead = false 
   local boolean outOfTime = false 
+  local real finalTargetX = targetX 
+  local real finalTargetY = targetY 
 
   loop 
 
-    exitwhen suicide 
+    exitwhen adv_suicide 
+    exitwhen adv_defeated 
 
     // Combat 
     if CaptainInCombat(true) then 
@@ -3587,10 +3987,31 @@ function AdvSuicideWaveRoutineEnterCombat takes boolean timeout returns integer
 
     // Out of time 
     if timeout then 
-      if wave_reach_goal_sleep_seconds < -wave_reach_goal_timeout_seconds then 
+      if adv_wave_reach_goal_sleep_seconds < -adv_wave_reach_goal_timeout_seconds then 
         set outOfTime = true 
       endif 
-      exitwhen wave_enter_combat_sleep_seconds < -wave_enter_combat_timeout_seconds 
+      exitwhen adv_wave_enter_combat_sleep_seconds < -adv_wave_enter_combat_timeout_seconds 
+    endif 
+
+    // Refresh 
+    if timeoutRefresh then 
+      if adv_wave_enter_combat_refresh_sleep_seconds < -adv_wave_enter_combat_refresh_timeout_seconds then 
+
+        if attackScatter then 
+          set finalTargetX = finalTargetX + GetRandomReal(-attackScatterRange, attackScatterRange) 
+          set finalTargetY = finalTargetY + GetRandomReal(-attackScatterRange, attackScatterRange) 
+        endif 
+
+        call SetCaptainHome(ATTACK_CAPTAIN, finalTargetX, finalTargetX)
+        call CaptainAttack(finalTargetX, finalTargetY) 
+
+        if attackScatter then 
+          set finalTargetX = targetX 
+          set finalTargetY = targetY 
+        endif 
+
+        set adv_wave_enter_combat_refresh_sleep_seconds = 0 
+      endif 
     endif 
 
   endloop 
@@ -3606,16 +4027,22 @@ function AdvSuicideWaveRoutineEnterCombat takes boolean timeout returns integer
     return 0 
   endif 
 
+  // Return invalid value just in case 
+  return - 2 
+
 endfunction 
 
-function AdvSuicideWaveRoutineClearGoal takes boolean timeout returns integer 
+function AdvSuicideWaveRoutineClearGoal takes boolean timeout, boolean timeoutRefresh, real targetX, real targetY, boolean attackScatter, real attackScatterRange returns integer 
   local boolean goalCleared = false 
   local boolean allDead = false 
   local boolean outOfTime = false 
+  local real finalTargetX = targetX 
+  local real finalTargetY = targetY 
 
   loop 
 
-    exitwhen suicide 
+    exitwhen adv_suicide 
+    exitwhen adv_defeated 
 
     // Goal cleared 
     if not CaptainInCombat(true) then 
@@ -3633,10 +4060,31 @@ function AdvSuicideWaveRoutineClearGoal takes boolean timeout returns integer
 
     // Out of time 
     if timeout then 
-      if wave_reach_goal_sleep_seconds < -wave_reach_goal_timeout_seconds then 
+      if adv_wave_reach_goal_sleep_seconds < -adv_wave_reach_goal_timeout_seconds then 
         set outOfTime = true 
       endif 
-      exitwhen wave_clear_goal_sleep_seconds < -wave_clear_goal_timeout_seconds 
+      exitwhen adv_wave_clear_goal_sleep_seconds < -adv_wave_clear_goal_timeout_seconds 
+    endif 
+
+    // Refresh 
+    if timeoutRefresh then 
+      if adv_wave_clear_goal_refresh_sleep_seconds < -adv_wave_clear_goal_refresh_timeout_seconds then 
+
+        if attackScatter then 
+          set finalTargetX = finalTargetX + GetRandomReal(-attackScatterRange, attackScatterRange) 
+          set finalTargetY = finalTargetY + GetRandomReal(-attackScatterRange, attackScatterRange) 
+        endif 
+
+        call SetCaptainHome(ATTACK_CAPTAIN, finalTargetX, finalTargetX)
+        call CaptainAttack(finalTargetX, finalTargetY) 
+
+        if attackScatter then 
+          set finalTargetX = targetX 
+          set finalTargetY = targetY 
+        endif 
+
+        set adv_wave_clear_goal_refresh_sleep_seconds = 0 
+      endif 
     endif 
 
   endloop 
@@ -3652,31 +4100,35 @@ function AdvSuicideWaveRoutineClearGoal takes boolean timeout returns integer
     return 0 
   endif 
 
+  // Return invalid value just in case 
+  return - 2 
+
 endfunction 
 
 //============================================================================ 
 
-function AdvSuicideWaveRoutine takes player targetPlayer, real startX, real startY, boolean reachGoalTimeout, boolean enterCombatTimeout, boolean clearGoalTimeout, integer continuePercentage returns nothing 
+function AdvSuicideWaveRoutine takes player targetPlayer, real startX, real startY, boolean reachGoalTimeout, boolean reachGoalRefreshTimeout, boolean enterCombatTimeout, boolean enterCombatRefreshTimeout, boolean clearGoalTimeout, boolean clearGoalRefreshTimeout, boolean attackScatter, real attackScatterRange, integer continuePercentage returns nothing 
   local integer continuePercentageNew = continuePercentage 
-  local real previousTargetX = last_target_x 
-  local real previousTargetY = last_target_y 
+  local real previousTargetX = adv_last_target_x 
+  local real previousTargetY = adv_last_target_y 
   local integer state = 0 
   local boolean combatEnteredBeforeGoal = false 
   local boolean goalReached = false 
   local boolean combatEntered = false 
   local boolean goalCleared = false 
-  local boolean continueAttackReducePercentageIfFarAway = continue_attack_reduce_percentage_if_far_away 
+  local boolean continueAttackReducePercentageIfFarAway = adv_continue_attack_reduce_percentage_if_far_away 
   local boolean newTargetFound = false 
 
   // Reset all timeout seconds 
-  set wave_reach_goal_sleep_seconds = 0 
-  set wave_enter_combat_sleep_seconds = 0 
-  set wave_clear_goal_sleep_seconds = 0 
+  set adv_wave_reach_goal_sleep_seconds = 0 
+  set adv_wave_enter_combat_sleep_seconds = 0 
+  set adv_wave_clear_goal_sleep_seconds = 0 
 
   call log("AI Info: waiting for attack wave to reach goal...") 
 
   // --- WAIT TO REACH GOAL (OR DIE) --- 
-  set state = AdvSuicideWaveRoutineReachGoal(reachGoalTimeout) 
+  // At this point previous target refers to the current target 
+  set state = AdvSuicideWaveRoutineReachGoal(reachGoalTimeout, reachGoalRefreshTimeout, previousTargetX, previousTargetY, attackScatter, attackScatterRange) 
 
   // Timeout 
   if state == 0 then 
@@ -3715,7 +4167,8 @@ function AdvSuicideWaveRoutine takes player targetPlayer, real startX, real star
   call log("AI Info: waiting for attack wave to enter combat...") 
 
   // --- WAIT TO ENTER COMBAT (OR DIE) --- 
-  set state = AdvSuicideWaveRoutineEnterCombat(enterCombatTimeout) 
+  // At this point previous target refers to the current target 
+  set state = AdvSuicideWaveRoutineEnterCombat(enterCombatTimeout, enterCombatRefreshTimeout, previousTargetX, previousTargetY, attackScatter, attackScatterRange) 
 
   // Timeout 
   if state == 0 then 
@@ -3743,7 +4196,8 @@ function AdvSuicideWaveRoutine takes player targetPlayer, real startX, real star
   call log("AI Info: waiting for attack wave to clear goal...") 
 
   // --- WAIT TO CLEAR GOAL (OR DIE) --- 
-  set state = AdvSuicideWaveRoutineClearGoal(clearGoalTimeout) 
+  // At this point previous target refers to the current target 
+  set state = AdvSuicideWaveRoutineClearGoal(clearGoalTimeout, clearGoalRefreshTimeout, previousTargetX, previousTargetY, attackScatter, attackScatterRange) 
 
   // Timeout 
   if state == 0 then 
@@ -3776,7 +4230,7 @@ function AdvSuicideWaveRoutine takes player targetPlayer, real startX, real star
     call SetCaptainHome(ATTACK_CAPTAIN, startX, startY) 
     call CaptainAttack(startX, startY) 
 
-    if not suicide then 
+    if not adv_suicide and not adv_defeated then 
       call Sleep(1) 
     endif 
 
@@ -3788,7 +4242,8 @@ function AdvSuicideWaveRoutine takes player targetPlayer, real startX, real star
 
       call Sleep(1) 
 
-      exitwhen suicide 
+      exitwhen adv_suicide 
+      exitwhen adv_defeated 
       exitwhen CaptainAtGoal() 
 
     endloop 
@@ -3799,7 +4254,7 @@ function AdvSuicideWaveRoutine takes player targetPlayer, real startX, real star
     call ResetCaptainLocs() 
     call AdvSetCaptainHome(BOTH_CAPTAINS) 
 
-    if not suicide then 
+    if not adv_suicide and not adv_defeated then 
       call Sleep(2) 
     endif 
 
@@ -3808,61 +4263,75 @@ function AdvSuicideWaveRoutine takes player targetPlayer, real startX, real star
   endif 
 
   // --- ATTACK FINISHED CONTINUE (IF REQUIRED) --- 
-  call log("AI Info: attack wave finished duty, checking if  should continue...") 
+  call log("AI Info: attack wave finished duty, checking if should continue...")
 
   // If attack wave has not fought before reaching goal and then never fought again, it must continue 
   if goalReached and not combatEnteredBeforeGoal and not combatEntered then 
 
-    call log("AI Info: attack wave never fought at goal nor to reach it, forcing continue...") 
+    call log("AI Info: attack wave never fought at goal nor to reach it, forcing continue...")
 
     set continuePercentage = 100 
     set continueAttackReducePercentageIfFarAway = false 
   endif 
 
-  if not suicide and not CaptainIsEmpty() and GetRandomInt(0, 100) <= continuePercentage then 
+  if not adv_suicide and not adv_defeated and not CaptainIsEmpty() and GetRandomInt(0, 100) <= continuePercentage then 
 
     call log("AI Info: attack wave continues to another target!") 
 
-    set newTargetFound = AdvSuicideWaveLaunch(targetPlayer, 0.0, 0.0, false, true, can_search_units, false, true, true) 
+    set newTargetFound = AdvSuicideWaveLaunch(targetPlayer, 0.0, 0.0, adv_attack_scatter, adv_wave_attack_scatter_range, false, true, adv_can_search_units, false, false, true, true) 
 
     if newTargetFound then 
       // If target is not close to previous one, decrease the continue percentage (if required) 
-      if continueAttackReducePercentageIfFarAway and AdvDistance(previousTargetX, previousTargetY, last_target_x, last_target_y) > continue_far_away_radius then 
+      if continueAttackReducePercentageIfFarAway and AdvDistance(previousTargetX, previousTargetY, adv_last_target_x, adv_last_target_y) > adv_continue_far_away_radius then 
         call log("AI Info: reducing percentage of continuing again...") 
 
-        set continuePercentageNew = continuePercentageNew - continue_attack_reduce_percentage 
+        set continuePercentageNew = continuePercentageNew - adv_continue_attack_reduce_percentage 
       endif 
 
-      call AdvSuicideWaveRoutine(targetPlayer, startX, startY, reach_goal_timeout, enter_combat_timeout, clear_goal_timeout, continuePercentageNew) 
+      call AdvSuicideWaveRoutine(targetPlayer, startX, startY, adv_reach_goal_timeout, adv_reach_goal_refresh_timeout, adv_enter_combat_timeout, adv_enter_combat_refresh_timeout, adv_clear_goal_timeout, adv_clear_goal_refresh_timeout, adv_attack_scatter, adv_wave_attack_scatter_range, continuePercentageNew) 
 
-      return 
+      return
     endif 
 
   endif 
 
   // --- ATTACK FINISHED GO HOME --- 
-  call log("AI Info: attack wave does not continue, going back home...") 
+  call log("AI Info: attack wave does not continue, going back to start position...") 
 
   call SetCaptainHome(ATTACK_CAPTAIN, startX, startY) 
   call CaptainAttack(startX, startY) 
 
   // Wait for the captain to go back home 
+  set adv_wave_reach_start_return_refresh_sleep_seconds = 0 
+
   loop 
 
     call Sleep(1) 
 
-    exitwhen suicide 
+    // Refresh 
+    set adv_wave_reach_start_return_refresh_sleep_seconds = adv_wave_reach_start_return_refresh_sleep_seconds - 1 
+    if adv_reach_return_refresh_timeout then 
+      if adv_wave_reach_start_return_refresh_sleep_seconds < -adv_wave_reach_start_return_refresh_timeout_seconds then
+        call SetCaptainHome(ATTACK_CAPTAIN, startX, startY) 
+        call CaptainAttack(startX, startY) 
+
+        set adv_wave_reach_start_return_refresh_sleep_seconds = 0 
+      endif 
+    endif 
+
+    exitwhen adv_suicide 
+    exitwhen adv_defeated 
     exitwhen CaptainAtGoal() 
 
   endloop 
 
-  call log("AI Info: returned home!") 
+  call log("AI Info: returned to start position, reset to home!") 
 
   call ClearCaptainTargets() 
   call ResetCaptainLocs() 
   call AdvSetCaptainHome(BOTH_CAPTAINS) 
 
-  if not suicide then 
+  if not adv_suicide and not adv_defeated then 
     call Sleep(2) 
   endif 
 
@@ -3881,21 +4350,19 @@ function AdvSuicideOnPlayer takes integer seconds, player targetPlayer, real sta
   call ResetCaptainLocs() 
   call AdvSetCaptainHome(BOTH_CAPTAINS) 
 
-  call log("1") 
-  if not suicide then 
+  if not adv_suicide and not adv_defeated then 
     call Sleep(2) 
   endif 
 
   // Prepare attack for given seconds 
   if not PrepSuicideOnPlayer(seconds) then 
-    call log("not PrepSuicideOnPlayer(seconds), returns early") 
     return 
   endif 
 
   call log("AI Info: wait is over!") 
 
   // If necessary (e.g. undead race), save the wood peons before attack group is prepared 
-  if wood_peons_warriors then 
+  if adv_wood_peons_warriors then 
     set woodPeons = campaign_wood_peons 
     set campaign_wood_peons = 0 
   endif 
@@ -3904,9 +4371,10 @@ function AdvSuicideOnPlayer takes integer seconds, player targetPlayer, real sta
 
   loop 
 
-    exitwhen suicide 
+    exitwhen adv_suicide 
+    exitwhen adv_defeated 
 
-    call FormGroup(5, true) 
+    call FormGroup(5, true)
     exitwhen sleep_seconds <= 0 
 
   endloop 
@@ -3914,7 +4382,7 @@ function AdvSuicideOnPlayer takes integer seconds, player targetPlayer, real sta
   call log("AI Info: group formed!") 
 
   // If necessary (e.g. undead race), reset the wood peons after attack group is ready 
-  if wood_peons_warriors then 
+  if adv_wood_peons_warriors then 
     set campaign_wood_peons = woodPeons 
   endif 
 
@@ -3924,12 +4392,27 @@ function AdvSuicideOnPlayer takes integer seconds, player targetPlayer, real sta
   call SetCaptainHome(ATTACK_CAPTAIN, startX, startY) 
   call CaptainAttack(startX, startY) 
 
+  // Wait for the captain to reach start position 
+  set adv_wave_reach_start_return_refresh_sleep_seconds = 0 
+
   loop 
 
     call Sleep(1) 
 
-    exitwhen suicide 
-    exitwhen CaptainAtGoal() 
+    // Refresh 
+    set adv_wave_reach_start_return_refresh_sleep_seconds = adv_wave_reach_start_return_refresh_sleep_seconds - 1 
+    if adv_reach_start_refresh_timeout then 
+      if adv_wave_reach_start_return_refresh_sleep_seconds < -adv_wave_reach_start_return_refresh_timeout_seconds then
+        call SetCaptainHome(ATTACK_CAPTAIN, startX, startY) 
+        call CaptainAttack(startX, startY) 
+
+        set adv_wave_reach_start_return_refresh_sleep_seconds = 0 
+      endif 
+    endif 
+
+    exitwhen adv_suicide 
+    exitwhen adv_defeated 
+    exitwhen CaptainAtGoal()
     exitwhen CaptainIsEmpty() 
 
   endloop 
@@ -3942,13 +4425,13 @@ function AdvSuicideOnPlayer takes integer seconds, player targetPlayer, real sta
   call log("AI Info: start position reached!") 
 
   // Launch the wave against a suitable target 
-  set targetFound = AdvSuicideWaveLaunch(targetPlayer, startX, startY, search_preferred_locations, search_everywhere, can_search_units, prioritize_town_halls, prioritize_nearest, false) 
+  set targetFound = AdvSuicideWaveLaunch(targetPlayer, startX, startY, adv_attack_scatter, adv_wave_attack_scatter_range, adv_search_preferred_locations, adv_search_everywhere, adv_can_search_units, adv_prioritize_town_halls, adv_prioritize_main_buildings, adv_prioritize_nearest, false) 
 
   set harass_length = 0 
 
   // Start the wave routine if there is a target 
   if targetFound then 
-    call AdvSuicideWaveRoutine(targetPlayer, startX, startY, reach_goal_timeout, enter_combat_timeout, clear_goal_timeout, continue_attack_percentage) 
+    call AdvSuicideWaveRoutine(targetPlayer, startX, startY, adv_reach_goal_timeout, adv_reach_goal_refresh_timeout, adv_enter_combat_timeout, adv_enter_combat_refresh_timeout, adv_clear_goal_timeout, adv_clear_goal_refresh_timeout, adv_attack_scatter, adv_wave_attack_scatter_range, adv_continue_attack_percentage) 
   endif 
 
 endfunction 
@@ -3958,11 +4441,11 @@ endfunction
 function AdvSuicideOnPlayerEx takes integer easy, integer med, integer hard, player targetPlayer, real startX, real startY returns nothing 
 
   if difficulty == EASY then 
-    call AdvSuicideOnPlayer(easy, targetPlayer, startX, startY) 
+    call AdvSuicideOnPlayer(easy, targetPlayer, startX, startY)
   elseif difficulty == NORMAL then 
-    call AdvSuicideOnPlayer(med, targetPlayer, startX, startY) 
+    call AdvSuicideOnPlayer(med, targetPlayer, startX, startY)
   else 
-    call AdvSuicideOnPlayer(hard, targetPlayer, startX, startY) 
+    call AdvSuicideOnPlayer(hard, targetPlayer, startX, startY)
   endif 
 
 endfunction

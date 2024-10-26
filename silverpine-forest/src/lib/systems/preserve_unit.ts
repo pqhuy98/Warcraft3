@@ -158,6 +158,7 @@ export function registerPreseveUnits(): void {
 }
 
 export function isPreservedUnitAlive(unit: Unit): boolean {
+  if (!unit.isAlive()) return false;
   return preservedUnits.has(unit)
     ? preservedUnits.get(unit).isAlive
     : unit.isAlive();

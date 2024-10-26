@@ -5,11 +5,14 @@ import {
 } from 'w3ts';
 
 import {
-  Loc, meanLocs, temp, tempLocation,
+  currentLoc,
+  Distance,
+  Loc, locZ, temp, tempLocation,
 } from './location';
 import { log } from './log';
 import { meanAngles, RAD_TO_DEG } from './maths/misc';
 import { ORDER_holdposition } from './resources/war3-orders';
+import { setCinematicCamera } from './sandbox/advance-camera-setup';
 import { buildTrigger, setIntervalIndefinite, setTimeout } from './trigger';
 import { getUnitsFromGroup, getUnitsOfPlayer } from './unit';
 
@@ -92,11 +95,32 @@ export function registerCameraExperiments(): void {
   setTimeout(0, () => {
     onChatCommand('cams', true, () => {
       const units = getUnitsFromGroup(GetUnitsSelectedAll(playerMain.handle));
-      const center = meanLocs(units);
+      const test = true;
+      if (test) {
+        setCinematicCamera(units);
+        return;
+      }
+      const mainUnit = units[0];
+
+      // Find where the camera's target should be
+      const center = {
+        x: units.reduce((acc, unit) => acc + unit.x, 0) / units.length,
+        y: units.reduce((acc, unit) => acc + unit.y, 0) / units.length,
+      };
+
+      // Calculate camera's rotation so that we see all unit's faces
       const meanRotation = meanAngles(units.map((u) => u.facing + 180)) ?? GetRandomDirectionDeg();
-      units.forEach((u) => log(`${u.name} ${u.facing}`));
-      log('meanRotation', meanRotation);
-      setCamera(center, 1000, GetRandomReal(300, 345), meanRotation, 1);
+      const mainUnitRotation = mainUnit.facing + 180;
+
+      const duration = 0;
+      const distance = 1000;
+      const attackAngle = GetRandomReal(290, 330);
+      const rotation = mainUnitRotation * 0.9 + meanRotation * 0.1;
+
+      Camera.setField(CAMERA_FIELD_TARGET_DISTANCE, distance, duration);
+      Camera.setField(CAMERA_FIELD_ANGLE_OF_ATTACK, attackAngle, duration);
+      Camera.setField(CAMERA_FIELD_ROTATION, rotation, duration);
+      Camera.panTimed(center.x, center.y, duration, undefined);
     });
 
     let isLogging = false;
@@ -167,39 +191,66 @@ export function registerCameraExperiments(): void {
     let lastMoving = false;
     const anglePerTick = 120 * deltaT;
     const lockZ = chatParamInt('lockz', 1);
-    const animIdx = chatParamInt('ai', 1);
+    const animIdx = chatParamInt('ai', 2);
+    const loc = currentLoc(hero);
+    let facing = hero.facing;
 
     const updateFps = (): void => {
       // rotate
       if (pressed.a !== pressed.d) {
-        hero.setFacingEx(hero.facing + (pressed.a ? anglePerTick : -anglePerTick));
+        facing += (pressed.a ? anglePerTick : -anglePerTick);
+        facing = ((facing % 360) + 360) % 360;
       }
 
       // move forward/backward/left/right
       let moving = false;
-      let movingAngle = 0;
+      let movingBackward = false;
+      let movingAngle = facing;
       if (pressed.q || pressed.e) {
-        movingAngle = pressed.q ? 45 : -45;
+        movingAngle += pressed.q ? 90 : -90;
+        if (pressed.w || pressed.s) {
+          movingAngle += (pressed.w ? -45 : 45) * (pressed.q ? 1 : -1);
+        }
         moving = true;
       } else if (pressed.w || pressed.s) {
-        movingAngle = pressed.w ? 0 : 180;
+        movingAngle += pressed.w ? 0 : 180;
         moving = true;
+        movingBackward = pressed.s;
       }
 
       if (moving) {
-        movingAngle = Deg2Rad(hero.facing + movingAngle);
-        hero.x += Math.cos(movingAngle) * hero.moveSpeed * deltaT;
-        hero.y += Math.sin(movingAngle) * hero.moveSpeed * deltaT;
-        if (!lastMoving) {
-          log('play walk 1');
-          hero.setAnimation(animIdx.current);
+        loc.x += Math.cos(Deg2Rad(movingAngle)) * hero.moveSpeed * deltaT;
+        loc.y += Math.sin(Deg2Rad(movingAngle)) * hero.moveSpeed * deltaT;
+
+        // if (!lastMoving) {
+        hero.setAnimation(animIdx.current);
+        if (movingBackward) {
+          hero.setTimeScale(-1);
+        } else {
+          hero.setTimeScale(1);
         }
+        // }
+        hero.facing = movingAngle;
       } else {
-        hero.issueImmediateOrder(ORDER_holdposition);
+        if (lastMoving) {
+          ResetUnitAnimation(hero.handle);
+          hero.queueAnimation('stand');
+        }
       }
       lastMoving = moving;
+      const distance = Distance(hero, loc);
+      if (distance < 200) {
+        if (distance > 1) {
+          hero.issueImmediateOrder(ORDER_holdposition);
+          hero.x = loc.x;
+          hero.y = loc.y;
+        }
+      } else {
+        loc.x = hero.x;
+        loc.y = hero.y;
+      }
 
-      Camera.setField(CAMERA_FIELD_ROTATION, hero.facing, 0.02);
+      Camera.setField(CAMERA_FIELD_ROTATION, facing, 0.02);
       Camera.setField(CAMERA_FIELD_ANGLE_OF_ATTACK, angle.current, 0);
       Camera.setField(CAMERA_FIELD_TARGET_DISTANCE, dis.current, 0);
       Camera.setField(CAMERA_FIELD_LOCAL_PITCH, lp.current, 0);
@@ -208,11 +259,11 @@ export function registerCameraExperiments(): void {
 
     function updateFpsSlow(): void {
       if (lockZ.current !== 0) {
-        const wantedHeight = hero.z + 300;
+        const wantedHeight = hero.z + zoff.current;
         if (Camera.eyeZ - wantedHeight > 50) {
-          Camera.setField(CAMERA_FIELD_ZOFFSET, Camera.getField(CAMERA_FIELD_ZOFFSET) - 50, deltaTSlow);
-        } else if (wantedHeight - Camera.eyeZ > 50) {
-          Camera.setField(CAMERA_FIELD_ZOFFSET, Camera.getField(CAMERA_FIELD_ZOFFSET) + 50, deltaTSlow);
+          Camera.setField(CAMERA_FIELD_ZOFFSET, Camera.getField(CAMERA_FIELD_ZOFFSET) - 10, deltaTSlow);
+        } else if (wantedHeight - Camera.eyeZ > 10) {
+          Camera.setField(CAMERA_FIELD_ZOFFSET, Camera.getField(CAMERA_FIELD_ZOFFSET) + 10, deltaTSlow);
         }
       }
     }
@@ -270,8 +321,10 @@ export function registerCameraExperiments(): void {
         timerFps = setIntervalIndefinite(deltaT, () => updateFps());
         timerFps2 = setIntervalIndefinite(deltaTSlow, () => updateFpsSlow());
       } else {
+        timerFps.pause();
         timerFps.destroy();
         timerFps = null;
+        timerFps2.pause();
         timerFps2.destroy();
         timerFps2 = null;
         triggers.forEach((t) => t.destroy());
@@ -280,7 +333,7 @@ export function registerCameraExperiments(): void {
   });
 }
 
-export function getMouseUiCoordinate(x: number, y: number, z: number): Loc {
+export function world2UiCoord(x: number, y: number, z: number): Loc {
   const angleOfAttack = -Camera.getField(CAMERA_FIELD_ANGLE_OF_ATTACK);
   const fieldOfView = Camera.getField(CAMERA_FIELD_FIELD_OF_VIEW);
   const rotation = Camera.getField(CAMERA_FIELD_ROTATION) + bj_PI;
@@ -317,4 +370,35 @@ export function getMouseUiCoordinate(x: number, y: number, z: number): Loc {
   const screenY = 0.355 - (scaling * zPrime / xPrime);
 
   return { x: screenX, y: screenY };
+}
+
+export function isLocInScreen(loc: Loc): boolean {
+  const uiLoc = world2UiCoord(loc.x, loc.y, locZ(loc));
+
+  const screenWidth = BlzGetLocalClientWidth();
+  const screenHeight = BlzGetLocalClientHeight();
+
+  // Calculate the screen's aspect ratio
+  const screenAspectRatio = screenWidth / screenHeight;
+
+  // Center of 4:3 UI rectangle is at (0.4, 0.3)
+  const centerX = 0.4;
+  const centerY = 0.3;
+
+  // Default bounds based on the 4:3 aspect ratio
+  let uiWidthHalf = 0.4; // Half of 0.8
+  const uiHeightHalf = 0.3; // Half of 0.6
+
+  // Adjust width bounds for wider aspect ratios
+  if (screenAspectRatio > (4 / 3)) {
+    uiWidthHalf *= screenAspectRatio / (4 / 3);
+  }
+
+  // Height adjustment is not necessary for wider screens as 0 to 0.6 should still fit in the center
+
+  // Check if uiLoc is within the adjusted UI boundaries
+  const inScreenWidth = uiLoc.x >= (centerX - uiWidthHalf) && uiLoc.x <= (centerX + uiWidthHalf);
+  const inScreenHeight = uiLoc.y >= (centerY - uiHeightHalf) && uiLoc.y <= (centerY + uiHeightHalf);
+
+  return inScreenWidth && inScreenHeight;
 }

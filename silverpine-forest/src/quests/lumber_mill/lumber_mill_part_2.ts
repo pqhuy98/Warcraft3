@@ -220,7 +220,7 @@ export class LumberMillPart2 extends BaseQuest {
     });
 
     // Update quest log
-    let undeadAlive = undeadAttackers.filter((u) => !u.isAlive()).length;
+    let undeadAlive = undeadAttackers.filter((u) => !isPreservedUnitAlive(u)).length;
     await questLog.insertItem(`${questItems[1]} (${undeadAlive} remaining)`);
 
     // knight gareth casts protection if low till end of quest
@@ -236,7 +236,7 @@ export class LumberMillPart2 extends BaseQuest {
     // wait until all undeads and footmen die, or player dies
 
     const killTimer = setIntervalIndefinite(10, () => {
-      const newUndeadAlive = undeadAttackers.filter((u) => u.isAlive()).length;
+      const newUndeadAlive = undeadAttackers.filter((u) => isPreservedUnitAlive(u)).length;
       if (undeadAlive !== newUndeadAlive) {
         undeadAlive = newUndeadAlive;
         void questLog.updateItem(1, `${questItems[1]} (${undeadAlive} remaining)`);
@@ -246,7 +246,7 @@ export class LumberMillPart2 extends BaseQuest {
       }
     });
 
-    await waitUntil(1, () => [...footmen, ...undeadAttackers].every((u) => !u.isAlive()));
+    await waitUntil(1, () => [...footmen, ...undeadAttackers].every((u) => !isPreservedUnitAlive(u)));
     killTimer.pause();
     killTimer.destroy();
 

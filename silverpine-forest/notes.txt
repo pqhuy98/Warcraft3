@@ -1,6 +1,32 @@
-Design 3 quests that continue the story player reaches Shadowfang city. Player perform some activity in city. 
+I want to implement an Warcraft 3 auto-camera system automatically choose the best cinematic camera angle that shows all units in the cinematic close-up. The project is in TypeScript, uses the w3ts library. There should be one main unit talking that the camera should try to show its face. But the camera should also show other units in the cinematic. The camera should try to show units in an angle that no units are occluded by other units, if that is not possible then prioritize showing the main unit's face. Units are in 3D world, assume them to be 3D cylinders with heights to be 2x their diameter. You can control the camera's target point (x/y on the ground), its rotation, distance to target point, attack angle.
 
-After clearing the forest outskirt of Shadowfang city, the player goes enter the shadowfang city and enjoy urban activities. During this time, a horde of undead notice the cleaned forest area, and build a base there without the player notice. Only when the undead starts attacking the lumber mill, the human notices. Write some dialogue for the Footman in "Lumber Harvest" when he notices this. Short and brief, explain what is happening, express his disappointment that the factory plan will be canceled, and their efforts in clearing the dangerous forest with wolves is gone. Be specific to remind the player about their previous quest Lumber Harvest.
+Attack angle is quite strange, if it's 270 then the camera looks top down. If it's 270-360 then the camera looks slightly tilted down which what I want. If it's 0-270 then the camera looks very weird, so I want to avoid that.
 
-The undead starts sending increasingly powerful waves to attack Shadowfang. The defenders of shadowfang includes Mortar Teams, Paladin, footmen, riflemen. Initially the shadowfang gate blocks their entrance, holding against many waves. Eventually the undead destroys the gate and swarm the city. Write dialogues for those events mentioned above. Also dialogues from citizens in horror.
+Below is  the code I have so far, which is very simple:
 
+function setCinematicCamera(units: Unit[]) {
+  // units: all units needs to be in camera view
+  const mainUnit = units[0]
+
+  // Find where the camera's target should be
+  const center = {
+    x: units.reduce((acc, unit) => acc + unit.x, 0) / units.length,
+    y: units.reduce((acc, unit) => acc + unit.y, 0) / units.length,
+  };
+
+  // Calculate camera's rotation so that we see all unit's faces
+  const meanRotation = meanAngles(units.map((u) => u.facing + 180)) ?? GetRandomDirectionDeg();
+  const mainUnitRotation = mainUnit.facing + 180;
+
+  const duration = 0;
+  const distance = 1000;
+  const attackAngle = GetRandomReal(290, 330);
+  const rotation = mainUnitRotation * 0.9 + meanRotation * 0.1;
+
+  Camera.setField(CAMERA_FIELD_TARGET_DISTANCE, distance, duration);
+  Camera.setField(CAMERA_FIELD_ANGLE_OF_ATTACK, attackAngle, duration);
+  Camera.setField(CAMERA_FIELD_ROTATION, rotation, duration);
+  Camera.panTimed(center.x, center.y, duration, undefined);
+}
+
+This code doesn't take into account the units' heights and occlusion, so it's not very good. main unit may be occluded by other units in front of it. Also the distance is hard-coded to 1000 which is not good, if the units are close  to each other then the camera should be closer, if the units are far away from each other then the camera should be further away, so that the units cover most of the screen.

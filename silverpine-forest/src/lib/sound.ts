@@ -3,6 +3,7 @@ import {
   Effect, sleep, Sound, Unit,
 } from 'w3ts';
 
+import { isLocInScreen } from './camera';
 import { colorize } from './colorize';
 import { MODEL_Chat_Bubble } from './constants';
 import { cameraCenter, Loc, tempLocation } from './location';
@@ -16,6 +17,7 @@ import { createDialogueTextTag } from './texttag';
 export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, options?: {
   ignoreVolumeGroupAdjustment?: boolean
   disableInteraction?: boolean
+  isFloatText?: boolean
 }): Promise<void> {
   if (target) {
     setAttention(unit, target);
@@ -29,26 +31,32 @@ export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, option
     bj_TRANSMISSION_IND_ALPHA,
   );
 
-  const shouldDisableInteraction = !options || options?.disableInteraction;
+  const shouldDisableInteraction = !options || options.disableInteraction;
   if (shouldDisableInteraction) {
     disableInteractSound(unit);
     setUnitFlag(unit, Flag.UNBREAKABLE_ATTENTION, true);
   }
 
-  const shouldSetVolumeGroup = !options || !options?.ignoreVolumeGroupAdjustment;
+  const shouldSetVolumeGroup = !options || !options.ignoreVolumeGroupAdjustment;
   if (shouldSetVolumeGroup) {
     SetSpeechVolumeGroupsBJ();
   }
   const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
 
   PlayDialogueFromSpeakerEx(bj_FORCE_ALL_PLAYERS, unit.handle, unit.typeId, sound.handle, bj_TIMETYPE_ADD, 0, false);
-  ClearTextMessages();
+  let isFloatText = !options || !options.ignoreVolumeGroupAdjustment;
+  if (bj_cineModeAlreadyIn) isFloatText = false;
+  if (!isLocInScreen(unit)) isFloatText = false;
+
+  if (isFloatText) {
+    ClearTextMessages();
+  }
   // sound.start();
   const durationS = sound.duration / 1000;
 
   const speechText = sound.dialogueTextKey;
   const speakerName = sound.dialogueSpeakerNameKey;
-  if (speechText && speakerName) {
+  if (speechText && speakerName && isFloatText) {
     createDialogueTextTag(`${colorize.yellow(speakerName)}: ${speechText}`, unit, durationS);
   }
 

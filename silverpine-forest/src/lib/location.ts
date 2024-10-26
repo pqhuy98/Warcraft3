@@ -48,6 +48,10 @@ export function randomLocRect(rect: rect): Loc {
   };
 }
 
+export function locZ(loc: Loc): number {
+  return GetLocationZ(tempLocation(loc));
+}
+
 export function currentLoc(loc: Loc): Loc {
   return { x: loc.x, y: loc.y };
 }

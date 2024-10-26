@@ -103,6 +103,8 @@ gg_rct_House_2_floor_1 = nil
 gg_rct_House_2_floor_2 = nil
 gg_rct_House_2_interior_floor_2 = nil
 gg_rct_House_2_floor_1to2 = nil
+gg_cam_Camera_001 = nil
+gg_cam_Camera_002 = nil
 gg_snd_TragicConfrontation = ""
 gg_trg_Doodads = nil
 gg_trg_Unit_register = nil
@@ -1070,7 +1072,7 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 12100.0, -5229.1, 195.880, FourCC("Ewar"))
+u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 8580.0, -7405.1, 195.880, FourCC("Ewar"))
 SetHeroLevel(u, 5, false)
 SetUnitState(u, UNIT_STATE_MANA, 345)
 SelectHeroSkill(u, FourCC("AEfk"))
@@ -2327,6 +2329,35 @@ gg_rct_House_2_interior_floor_2 = Rect(18592.0, -7616.0, 19584.0, -6656.0)
 gg_rct_House_2_floor_1to2 = Rect(15168.0, -6784.0, 15296.0, -6720.0)
 end
 
+function CreateCameras()
+gg_cam_Camera_001 = CreateCameraSetup()
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_ZOFFSET, 0.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_ROTATION, 95.2, 0.0)
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_ANGLE_OF_ATTACK, 355.2, 0.0)
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_TARGET_DISTANCE, 790.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_ROLL, 0.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_FIELD_OF_VIEW, 90.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_FARZ, 5400.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_NEARZ, 16.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_LOCAL_PITCH, 0.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_LOCAL_YAW, 0.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_001, CAMERA_FIELD_LOCAL_ROLL, 0.0, 0.0)
+CameraSetupSetDestPosition(gg_cam_Camera_001, 8240.7, -6952.5, 0.0)
+gg_cam_Camera_002 = CreateCameraSetup()
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_ZOFFSET, 0.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_ROTATION, 248.7, 0.0)
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_ANGLE_OF_ATTACK, 344.6, 0.0)
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_TARGET_DISTANCE, 1051.5, 0.0)
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_ROLL, 0.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_FIELD_OF_VIEW, 90.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_FARZ, 5400.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_NEARZ, 16.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_LOCAL_PITCH, 0.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_LOCAL_YAW, 0.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_002, CAMERA_FIELD_LOCAL_ROLL, 0.0, 0.0)
+CameraSetupSetDestPosition(gg_cam_Camera_002, 9956.3, -6424.2, 0.0)
+end
+
 function Trig_Doodads_Actions()
 SetTimeOfDay(18.00)
 SetSkyModel("Environment\\Sky\\LordaeronFallSky\\LordaeronFallSky.mdl")
@@ -3201,6 +3232,7 @@ SetAmbientNightSound("AshenvaleNight")
 SetMapMusic("Music", true, 0)
 InitSounds()
 CreateRegions()
+CreateCameras()
 InitUpgrades()
 CreateAllDestructables()
 CreateAllItems()
@@ -3221,7 +3253,7 @@ DefineStartLocation(0, -9472.0, -25152.0)
 DefineStartLocation(1, -9152.0, -25216.0)
 DefineStartLocation(2, -9344.0, -25152.0)
 DefineStartLocation(3, -9600.0, -25088.0)
-DefineStartLocation(4, 12096.0, -5248.0)
+DefineStartLocation(4, 8576.0, -7424.0)
 DefineStartLocation(5, -4736.0, -16576.0)
 DefineStartLocation(6, -9664.0, -16000.0)
 DefineStartLocation(7, -9664.0, -25344.0)

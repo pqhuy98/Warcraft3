@@ -139,9 +139,38 @@ export function cinematicFadeIn(duration: number): void {
 }
 
 export function cinematicMode(isCinematic: boolean, duration: number): void {
+  if (isCinematic) {
+    setupCinematicFrame();
+  }
   CinematicModeExBJ(isCinematic, bj_FORCE_ALL_PLAYERS, duration);
 }
 
 export function cinematicFadeOutIn(duration: number): void {
   CinematicFadeBJ(bj_CINEFADETYPE_FADEOUTIN, duration, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
+}
+
+function setupCinematicFrame(): void {
+  // Hide portrait during cinematic
+  BlzFrameClearAllPoints(BlzGetFrameByName('HDCinematicPortraitCover', 0));
+  BlzFrameSetAbsPoint(BlzGetFrameByName('HDCinematicPortraitCover', 0), FRAMEPOINT_BOTTOMLEFT, 0.0, 0.0);
+  BlzFrameSetAbsPoint(BlzGetFrameByName('HDCinematicPortraitCover', 0), FRAMEPOINT_TOPRIGHT, 0.0, 0.0);
+
+  // Remove the background by moving it (hiding does not work)
+  BlzFrameClearAllPoints(BlzGetFrameByName('HDCinematicBackground', 0));
+  BlzFrameSetAbsPoint(BlzGetFrameByName('HDCinematicBackground', 0), FRAMEPOINT_BOTTOMLEFT, 0.0, 0.0);
+  BlzFrameSetAbsPoint(BlzGetFrameByName('HDCinematicBackground', 0), FRAMEPOINT_TOPRIGHT, 0.0, 0.0);
+
+  // Set the cinematic dialogue text rectangle to the bottom center portion of the screen
+  BlzFrameClearAllPoints(BlzGetFrameByName('CinematicDialogueText', 0));
+  BlzFrameSetAbsPoint(BlzGetFrameByName('CinematicDialogueText', 0), FRAMEPOINT_BOTTOMLEFT, 0.0, 0.035);
+  BlzFrameSetAbsPoint(BlzGetFrameByName('CinematicDialogueText', 0), FRAMEPOINT_TOPRIGHT, 0.8, 0.075);
+
+  // Set the cinematic speaker text rectangle to the bottom center portion of the screen (above dialogue text)
+  BlzFrameClearAllPoints(BlzGetFrameByName('CinematicSpeakerText', 0));
+  BlzFrameSetAbsPoint(BlzGetFrameByName('CinematicSpeakerText', 0), FRAMEPOINT_BOTTOMLEFT, 0.0, 0.085);
+  BlzFrameSetAbsPoint(BlzGetFrameByName('CinematicSpeakerText', 0), FRAMEPOINT_TOPRIGHT, 0.8, 0.95);
+
+  // Set both cinematic speaker and cinematic dialogue text alignment to center
+  BlzFrameSetTextAlignment(BlzGetFrameByName('CinematicDialogueText', 0), TEXT_JUSTIFY_TOP, TEXT_JUSTIFY_CENTER);
+  BlzFrameSetTextAlignment(BlzGetFrameByName('CinematicSpeakerText', 0), TEXT_JUSTIFY_BOTTOM, TEXT_JUSTIFY_CENTER);
 }

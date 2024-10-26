@@ -101,6 +101,8 @@ declare var gg_rct_House_2_floor_1: rect;
 declare var gg_rct_House_2_floor_2: rect;
 declare var gg_rct_House_2_interior_floor_2: rect;
 declare var gg_rct_House_2_floor_1to2: rect;
+declare var gg_cam_Camera_001: camerasetup;
+declare var gg_cam_Camera_002: camerasetup;
 declare var gg_snd_TragicConfrontation: string;
 declare var gg_trg_Doodads: trigger;
 declare var gg_trg_Unit_register: trigger;

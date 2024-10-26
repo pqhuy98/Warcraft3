@@ -7,6 +7,7 @@ import Sandquake from 'abilities/sandquake/sandquake';
 import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
 import WrathOfTheLichKing from 'abilities/wrath_of_the_lich_king/wrath_of_the_lich_king';
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
+import { registerFightingSounds } from 'events/fighting_sounds/fighting_sounds';
 import { registerHouseInterior } from 'events/house_interior/house_interior';
 import { registerItemDrops } from 'events/item_drops/item_drops';
 import { MiscEvents } from 'events/misc';
@@ -80,6 +81,7 @@ function tsMain(): void {
   registerHearthStone();
   registerItemDrops();
   registerHouseInterior();
+  registerFightingSounds();
 
   // Experiments
   registerFloatTextExperiments();

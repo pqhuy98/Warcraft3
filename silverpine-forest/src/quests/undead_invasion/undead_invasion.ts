@@ -9,7 +9,6 @@ import {
 } from 'lib/location';
 import { log } from 'lib/log';
 import { setAllianceState2Way } from 'lib/player';
-import { getUnitSounds } from 'lib/resources/unit-sounds';
 import {
   ABILITY_BlightGrowthLarge, ABILITY_BlightGrowthSmall, ABILITY_DeathKnightAnimateDead, ABILITY_DeathKnightDeathCoil, ABILITY_DeathKnightDeathPact, ABILITY_DeathKnightUnholyAura,
 } from 'lib/resources/war3-abilities';
@@ -27,14 +26,14 @@ import {
   UNIT_SiegeEngineUpgraded,
   UNIT_Slaughterhouse, UNIT_Sorceress, UNIT_TempleoftheDamned, UNIT_TheCaptain, UNIT_TombOfRelics, UNIT_VillagerMan, UNIT_VillagerMan2, UNIT_VillagerWoman, UNIT_Ziggurat,
 } from 'lib/resources/war3-units';
-import { play3dSound, playSpeech, playSpeechUnitType } from 'lib/sound';
+import { playSpeech, playSpeechUnitType } from 'lib/sound';
 import {
   AiCommand,
 } from 'lib/systems/ai_command';
 import { removeGuardPosition } from 'lib/systems/unit_guard_position';
 import { buildTrigger, getTimeS, setTimeout } from 'lib/trigger';
 import {
-  getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isBuilding, isUnitType,
+  getUnitsInRangeOfLoc, getUnitsInRect, getUnitsOfPlayer, isUnitType,
 } from 'lib/unit';
 import {
   AsyncQueue, pickRandom, range, rangeBetween, waitUntil,
@@ -437,22 +436,6 @@ export class UndeadInvasionQuest extends BaseQuest {
             sound,
           );
         }, `d-${unit.name}`);
-      });
-    });
-
-    // Units attacking with voice sounds
-    buildTrigger((t) => {
-      t.registerPlayerUnitEvent(playerUndeadInvader, EVENT_PLAYER_UNIT_ATTACKED, null);
-      t.addCondition(() => GetRandomInt(1, 20) === 1
-        && !asyncQueue.isRunning()
-        && Unit.fromHandle(GetAttacker()).owner === playerShadowfangCity
-        && !isBuilding(Unit.fromHandle(GetAttacker())));
-      t.addAction(() => {
-        const attacker = Unit.fromHandle(GetAttacker());
-        debug2 && log('attacker', attacker.name);
-        const sound = pickRandom(getUnitSounds(attacker.typeId, 'YesAttack', 'Warcry'));
-        if (!sound) return;
-        void play3dSound(sound, attacker, GetRandomInt(80, 127));
       });
     });
   }
