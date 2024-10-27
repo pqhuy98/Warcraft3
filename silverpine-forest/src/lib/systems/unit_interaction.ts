@@ -92,11 +92,17 @@ export class UnitInteraction {
       });
     });
 
+    this.startTimerIfStopped();
+  }
+
+  static startTimerIfStopped(): void {
+    if (this.timer) return;
     this.timer = setIntervalIndefinite(interval, (idx) => {
       if (idx === 0) return; // skip first execution
       if (targets.size === 0) {
-        this.timer?.pause();
-        this.timerPaused = true;
+        this.timer.pause();
+        this.timer.destroy();
+        this.timer = null;
         return;
       }
 
@@ -246,10 +252,7 @@ export function setAttention(unitFrom: Unit, unitTo: Unit): void {
     maxRadius: Math.max(unfocusDistance, Distance(unitFrom, unitTo) + 200),
     isLooking: false,
   });
-  if (UnitInteraction.timerPaused) {
-    UnitInteraction.timer?.resume();
-    UnitInteraction.timerPaused = false;
-  }
+  UnitInteraction.startTimerIfStopped();
 }
 
 export function removeAttention(unit: Unit): void {

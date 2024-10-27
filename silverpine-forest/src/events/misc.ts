@@ -147,8 +147,6 @@ export class MiscEvents {
         }
       });
 
-    // Shadowfang training footmen
-
     // Mayor Ambermill casts holy light
     const mayor = Unit.fromHandle(gg_unit_Hpb1_0145);
     setIntervalIndefinite(3, () => {
@@ -465,27 +463,9 @@ function villagerSkinReplace(): void {
       UNIT_Child_girl3,
     ],
   };
-
-  const prototypes = new Map<number, Unit>();
-  const loc = centerLocRect(gg_rct_Unit_experiments);
-
-  for (const originalId of Object.keys(replacementMap)) {
-    const typeId = Number(originalId);
-    const replacements = replacementMap[typeId];
-    for (const replacement of replacements) {
-      const replacementTypeId = replacement.id;
-      prototypes.set(replacementTypeId, Unit.create(neutralPassive, replacementTypeId, loc.x, loc.y));
-    }
-  }
-
   getUnitsInRect(GetWorldBounds(), (u) => villagerIds.includes(u.typeId))
     .forEach((u) => {
       if (exceptionUnits.includes(u.handle)) return;
-      const replacementId = pickRandom(replacementMap[u.typeId]).id;
-      u.skin = prototypes.get(replacementId).skin;
+      u.skin = pickRandom(replacementMap[u.typeId]).id;
     });
-
-  for (const u of prototypes.values()) {
-    u.destroy();
-  }
 }

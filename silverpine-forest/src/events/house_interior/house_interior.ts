@@ -8,7 +8,6 @@ import {
 } from 'lib/location';
 import { log } from 'lib/log';
 import { cinematicFadeIn, cinematicFadeOut } from 'lib/quests/utils';
-import { ABILITY_Wander } from 'lib/resources/war3-abilities';
 import { ORDER_move, ORDER_stop } from 'lib/resources/war3-orders';
 import { creatWormHole } from 'lib/systems/worm_hole';
 import { getTimeS, setTimeout } from 'lib/trigger';
@@ -61,10 +60,6 @@ function registerHouse(
     (u) => {
       const loc = PolarProjection(centerLocRect(rectIn), walkDistance, entryAngleDeg);
       u.issueOrderAt(ORDER_move, loc.x, loc.y);
-      if (u.getAbility(ABILITY_Wander.id) !== undefined) {
-        u.removeAbility(ABILITY_Wander.id);
-        u.addAbility(ABILITY_Wander.id);
-      }
 
       if (u.owner === playerMain && u.isHero()) {
         cinematicFadeIn(fadeDuration);
@@ -98,10 +93,6 @@ function registerHouse(
     (u) => {
       const loc = PolarProjection(centerLocRect(rectOut), walkDistance, exitAngleDeg);
       u.issueOrderAt(ORDER_move, loc.x, loc.y);
-      if (u.getAbility(ABILITY_Wander.id)) {
-        u.removeAbility(ABILITY_Wander.id);
-        u.addAbility(ABILITY_Wander.id);
-      }
 
       if (u.owner === playerMain && u.isHero()) {
         cinematicFadeIn(fadeDuration);

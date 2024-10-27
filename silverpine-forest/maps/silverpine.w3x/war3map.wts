@@ -2341,24 +2341,6 @@ STRING 417
 Wood Door
 }
 
-STRING 418
-// Units: h008 (Door), Name (Name)
-{
-Door
-}
-
-STRING 419
-// Units: h008 (Door), Tip (Tooltip - Basic)
-{
-Door
-}
-
-STRING 420
-// Units: h008 (Door), Ubertip (Tooltip - Extended)
-{
-Door
-}
-
 STRING 421
 // Doodads: D00Z (Wood Bed (single)), Name (Name)
 {
@@ -2711,5 +2693,143 @@ STRING 482
 // Doodads: D01V (Wood Bed double)), Name (Name)
 {
 Wood Bed double)
+}
+
+STRING 484
+// Units: h008 (Buy Ability), Name (Name)
+{
+Buy Ability
+}
+
+STRING 485
+// Units: h008 (Buy Ability), Tip (Tooltip - Basic)
+{
+Buy Ability
+}
+
+STRING 486
+// Items: I002 (Buy Ability), Ubertip (Tooltip - Extended)
+{
+Browse and purchase powerful abilities from this vendor.
+}
+
+STRING 487
+// Items: I002 (Buy Ability), Description (Description)
+{
+Browse and purchase powerful abilities from this vendor.
+}
+
+STRING 488
+// Abilities: A00W (Ability 2), Name (Name)
+{
+Ability 2
+}
+
+STRING 490
+// Abilities: A00X (Ability 3), Name (Name)
+{
+Ability 3
+}
+
+STRING 492
+// Abilities: A00V (Ability 1), Name (Name)
+{
+Ability 1
+}
+
+STRING 494
+// Abilities: A00Z (Ability 4), Name (Name)
+{
+Ability 4
+}
+
+STRING 496
+// Abilities: A00Z (Ability 4), Tip (Tooltip - Normal)
+{
+Ability 4
+}
+
+STRING 497
+// Abilities: A00Z (Ability 4), Ubertip (Tooltip - Normal - Extended)
+{
+Ability 4
+}
+
+STRING 498
+// Abilities: A00V (Ability 1), Tip (Tooltip - Normal)
+{
+Ability 1
+}
+
+STRING 499
+// Abilities: A00V (Ability 1), Ubertip (Tooltip - Normal - Extended)
+{
+Ability 1
+}
+
+STRING 500
+// Abilities: A00W (Ability 2), Tip (Tooltip - Normal)
+{
+Ability 2
+}
+
+STRING 501
+// Abilities: A00W (Ability 2), Ubertip (Tooltip - Normal - Extended)
+{
+Ability 2
+}
+
+STRING 502
+// Abilities: A00X (Ability 3), Tip (Tooltip - Normal)
+{
+Ability 3
+}
+
+STRING 503
+// Abilities: A00X (Ability 3), Ubertip (Tooltip - Normal - Extended)
+{
+Ability 3
+}
+
+STRING 504
+// Units: h008 (Buy Ability), Ubertip (Tooltip - Extended)
+{
+Buy Ability
+}
+
+STRING 505
+// Items: I002 (Buy Ability), Name (Name)
+{
+Buy Ability
+}
+
+STRING 506
+// Items: I002 (Buy Ability), Tip (Tooltip - Basic)
+{
+Buy Ability
+}
+
+STRING 507
+// Abilities: A00Y (Ability 4), Name (Name)
+{
+Ability 4
+}
+
+STRING 508
+// Abilities: A010 (Ability 1), Name (Name)
+{
+Ability 1
+}
+
+STRING 509
+// Abilities: A011 (Ability 2), Name (Name)
+{
+Ability 2
+}
+
+STRING 510
+// Abilities: A012 (Ability 3), Name (Name)
+{
+Ability 3
 }
 

@@ -46,7 +46,7 @@ export default class Frostmourne {
 
   static soulScale = new Map<Unit, number>();
 
-  static timer: Timer;
+  static timer: Timer = null;
 
   static isTimerPaused = false;
 
@@ -68,13 +68,19 @@ export default class Frostmourne {
       });
     });
 
-    const worldBounds = Rectangle.getWorldBounds();
+    this.startTimerIfStopped();
+  }
 
+  static startTimerIfStopped(): void {
+    if (this.timer) return;
+
+    const worldBounds = Rectangle.getWorldBounds();
     const interval = 0.03;
     this.timer = setIntervalIndefinite(interval, () => {
       if (this.soulTarget.size === 0) {
         this.timer.pause();
-        this.isTimerPaused = true;
+        this.timer.destroy();
+        this.timer = null;
       }
 
       const distancePerStep = Frostmourne.Data.getSoulReturnSpeed() * interval;
@@ -129,10 +135,7 @@ export default class Frostmourne {
       const speed = finalHeight / estimatedReturnTime;
       soul.setflyHeight(finalHeight, speed);
       k0('fstm2');
-      if (this.isTimerPaused) {
-        this.isTimerPaused = false;
-        this.timer.resume();
-      }
+      this.startTimerIfStopped();
     });
   }
 }

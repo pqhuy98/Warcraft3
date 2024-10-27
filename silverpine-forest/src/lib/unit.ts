@@ -100,49 +100,46 @@ export function growUnit(u: Unit, targetScale: number, duration: number, initial
 }
 
 const unitTies = new Map<Unit, Unit>();
-let tieUnitTimer: Timer;
-let isTieUnitTimerPaused = true;
+let tieUnitTimer: Timer = null;
 
 export function tieUnitToUnit(tiedUnit: Unit, targetUnit: Unit): void {
   k0('tu2u');
   unitTies.set(tiedUnit, targetUnit);
   relocateUnitToUnit(tiedUnit, targetUnit);
-  if (isTieUnitTimerPaused) {
-    isTieUnitTimerPaused = false;
-    tieUnitTimer.resume();
+  if (!tieUnitTimer) {
+    tieUnitTimer = setIntervalIndefinite(0.03, () => {
+      if (unitTies.size === 0) {
+        tieUnitTimer.pause();
+        tieUnitTimer.destroy();
+        tieUnitTimer = null;
+        return;
+      }
+      for (const [tied, target] of unitTies) {
+        relocateUnitToUnit(tied, target);
+      }
+    });
   }
 }
 
-export function daemonTieUnitToUnit(): void {
-  tieUnitTimer = setIntervalIndefinite(0.03, () => {
-    if (unitTies.size === 0) {
-      tieUnitTimer.pause();
-      isTieUnitTimerPaused = true;
-      return;
-    }
-
-    for (const [tied, target] of unitTies) {
-      relocateUnitToUnit(tied, target);
-    }
-  });
-
-  onChatCommand('-tu2u', true, () => { log('unitTies', unitTies.size); }, 'Debug', 'Print number of units that are tied to another unit.');
+export function untieUnit(tiedUnit: Unit): void {
+  unitTies.delete(tiedUnit);
+  k1('tu2u');
 }
 
 function relocateUnitToUnit(tiedUnit: Unit, targetUnit: Unit): void {
-  if (isUnitRemoved(tiedUnit) || isUnitRemoved(targetUnit)) {
+  if (isUnitRemoved(tiedUnit) || isUnitRemoved(targetUnit) || !tiedUnit.isAlive()) {
     unitTies.delete(tiedUnit);
+    k1('tu2u');
     return;
   }
 
-  if (!tiedUnit.isAlive()) {
-    unitTies.delete(tiedUnit);
-    k1('tu2u');
-  } else {
-    tiedUnit.x = targetUnit.x;
-    tiedUnit.y = targetUnit.y;
-    tiedUnit.setflyHeight(targetUnit.getflyHeight(), 0);
-  }
+  tiedUnit.x = targetUnit.x;
+  tiedUnit.y = targetUnit.y;
+  tiedUnit.setflyHeight(targetUnit.getflyHeight(), 0);
+}
+
+export function registerTieUnitToUnit(): void {
+  onChatCommand('-tu2u', true, () => { log('unitTies', unitTies.size); }, 'Debug', 'Print number of units that are tied to another unit.');
 }
 
 export function getUnitsFromGroup(group: group): Unit[] {

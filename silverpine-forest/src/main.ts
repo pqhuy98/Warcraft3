@@ -45,13 +45,14 @@ import { cinematicFadeIn, cinematicFadeOut, daemonQuestMarker } from 'lib/quests
 import { ABILITY_Burrow } from 'lib/resources/war3-abilities';
 import { allUpgrades } from 'lib/resources/war3-upgrades';
 import { registerHearthStone } from 'lib/systems/hearth_stone';
+import { registerAbilityVending } from 'lib/systems/item_vending';
 import { registerPreseveUnits } from 'lib/systems/preserve_unit';
 import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
 import { UnitInteraction } from 'lib/systems/unit_interaction';
 import { registerFloatTextExperiments } from 'lib/texttag';
 import { setTimeout, trackElapsedGameTime } from 'lib/trigger';
 import {
-  daemonDummyMaster, daemonTieUnitToUnit,
+  daemonDummyMaster, registerTieUnitToUnit,
 } from 'lib/unit';
 import { QuestRegistry } from 'quests/registry';
 import {
@@ -71,7 +72,7 @@ function tsMain(): void {
 
   // Systems
   trackElapsedGameTime();
-  daemonTieUnitToUnit();
+  registerTieUnitToUnit();
   daemonDummyMaster();
   daemonTempCleanUp();
   daemonQuestMarker();
@@ -82,6 +83,7 @@ function tsMain(): void {
   registerItemDrops();
   registerHouseInterior();
   registerFightingSounds();
+  registerAbilityVending();
 
   // Experiments
   registerFloatTextExperiments();

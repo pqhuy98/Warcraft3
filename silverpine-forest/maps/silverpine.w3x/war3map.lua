@@ -623,6 +623,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -8256.0, -23488.0, 270.000, FourCC(
 u = BlzCreateUnitWithSkin(p, FourCC("hwtw"), -7616.0, -20224.0, 270.000, FourCC("hwtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hwtw"), -8640.0, -21824.0, 270.000, FourCC("hwtw"))
 u = BlzCreateUnitWithSkin(p, FourCC("hgtw"), -10688.0, -23104.0, 270.000, FourCC("hgtw"))
+gg_unit_htow_1131 = BlzCreateUnitWithSkin(p, FourCC("htow"), 10688.0, -11328.0, 207.529, FourCC("htow"))
 end
 
 function CreateUnitsForPlayer1()
@@ -768,7 +769,6 @@ u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -7660.8, -18530.3, 39.607, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 2228.9, 3915.4, 289.345, FourCC("hmtm"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2261.9, 3460.6, 264.515, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2632.0, 3465.9, 259.383, FourCC("hfoo"))
-gg_unit_htow_1131 = BlzCreateUnitWithSkin(p, FourCC("htow"), 10688.0, -11328.0, 207.529, FourCC("htow"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhdl"), -10045.5, -22994.8, 42.798, FourCC("hhdl"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhdl"), -9846.3, -23125.1, 79.280, FourCC("hhdl"))
 end
@@ -1072,14 +1072,10 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 8580.0, -7405.1, 195.880, FourCC("Ewar"))
+u = BlzCreateUnitWithSkin(p, FourCC("H001"), 12325.8, -5222.1, 270.000, FourCC("H001"))
 SetHeroLevel(u, 5, false)
-SetUnitState(u, UNIT_STATE_MANA, 345)
-SelectHeroSkill(u, FourCC("AEfk"))
-SelectHeroSkill(u, FourCC("AEbl"))
-SelectHeroSkill(u, FourCC("AEbl"))
-SelectHeroSkill(u, FourCC("AEbl"))
-SelectHeroSkill(u, FourCC("AEsh"))
+SetUnitState(u, UNIT_STATE_MANA, 630)
+UnitAddItemToSlotById(u, FourCC("I000"), 0)
 end
 
 function CreateBuildingsForPlayer6()
@@ -1989,6 +1985,14 @@ u = BlzCreateUnitWithSkin(p, FourCC("nrac"), 8368.0, -10666.0, 268.078, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("nrac"), 7518.0, -19892.2, 168.898, FourCC("nrac"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10507.0, -8718.2, 209.153, FourCC("nshe"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10451.9, -8882.1, 202.166, FourCC("nshe"))
+u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 17895.6, -1112.7, 195.880, FourCC("Ewar"))
+SetHeroLevel(u, 5, false)
+SetUnitState(u, UNIT_STATE_MANA, 345)
+SelectHeroSkill(u, FourCC("AEfk"))
+SelectHeroSkill(u, FourCC("AEbl"))
+SelectHeroSkill(u, FourCC("AEbl"))
+SelectHeroSkill(u, FourCC("AEbl"))
+SelectHeroSkill(u, FourCC("AEsh"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10301.2, -8820.2, 315.328, FourCC("nshe"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10236.9, -8912.2, 267.470, FourCC("nshe"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10349.7, -8897.4, 306.682, FourCC("nshe"))
@@ -2131,9 +2135,6 @@ u = BlzCreateUnitWithSkin(p, FourCC("hsor"), -5243.6, -2267.3, 352.538, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), -5235.4, -2356.9, 356.875, FourCC("nvlw"))
 u = BlzCreateUnitWithSkin(p, FourCC("nhef"), -5231.5, -2452.2, 4.228, FourCC("nhef"))
 u = BlzCreateUnitWithSkin(p, FourCC("ndqt"), -4885.6, -1922.1, 278.034, FourCC("ndqt"))
-u = BlzCreateUnitWithSkin(p, FourCC("H001"), 17462.7, -1067.5, 270.000, FourCC("H001"))
-SetHeroLevel(u, 30, false)
-SetUnitState(u, UNIT_STATE_MANA, 1410)
 u = BlzCreateUnitWithSkin(p, FourCC("U000"), 17311.0, -1058.0, 270.000, FourCC("U000"))
 SetHeroLevel(u, 30, false)
 SetUnitState(u, UNIT_STATE_MANA, 900)
@@ -3253,7 +3254,7 @@ DefineStartLocation(0, -9472.0, -25152.0)
 DefineStartLocation(1, -9152.0, -25216.0)
 DefineStartLocation(2, -9344.0, -25152.0)
 DefineStartLocation(3, -9600.0, -25088.0)
-DefineStartLocation(4, 8576.0, -7424.0)
+DefineStartLocation(4, 12288.0, -5248.0)
 DefineStartLocation(5, -4736.0, -16576.0)
 DefineStartLocation(6, -9664.0, -16000.0)
 DefineStartLocation(7, -9664.0, -25344.0)

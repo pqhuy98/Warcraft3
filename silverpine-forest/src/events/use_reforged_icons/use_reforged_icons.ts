@@ -1,7 +1,6 @@
 import { temp } from 'lib/location';
 import { buildTrigger } from 'lib/trigger';
 import { isDummy } from 'lib/unit';
-import { isReforgedForcefully, reforged } from 'lib/utils';
 import { Group, Unit } from 'w3ts';
 
 const excludedAbilityIds = [
@@ -31,11 +30,11 @@ function updateReforgedIcons(unit: Unit): void {
         continue;
       }
       abilitySet.add(id);
-      const iconPath = BlzGetAbilityIcon(id);
-      if (!isReforgedForcefully(iconPath)) {
-        BlzSetAbilityIcon(id, reforged(BlzGetAbilityIcon(id)));
-        BlzSetAbilityActivatedIcon(id, reforged(BlzGetAbilityActivatedIcon(id)));
-      }
+      // const iconPath = BlzGetAbilityIcon(id);
+      // if (!isReforgedForcefully(iconPath)) {
+      //   BlzSetAbilityIcon(id, reforged(BlzGetAbilityIcon(id)));
+      //   BlzSetAbilityActivatedIcon(id, reforged(BlzGetAbilityActivatedIcon(id)));
+      // }
       if (BlzGetAbilityPosY(id) === 2) {
         BlzSetAbilityPosY(id, 0);
         BlzSetAbilityActivatedPosY(id, 0);
