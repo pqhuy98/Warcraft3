@@ -142,3 +142,4 @@ declare var gg_dest_LTg3_4633: destructable;
 declare var gg_dest_LTg3_8382: destructable;
 declare var gg_dest_YTcx_0002: destructable;
 declare var gg_dest_YTcx_0001: destructable;
+declare var gg_unit_hsor_1325: unit;

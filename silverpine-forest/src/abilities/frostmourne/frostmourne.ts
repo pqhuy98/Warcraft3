@@ -30,7 +30,7 @@ export default class Frostmourne {
     LIFE_PERCENT_RESTORED_PER_SOUL: 0.02,
     MANA_PERCENT_RESTORED_PER_SOUL: 0.01,
     getSoulReturnSpeed: (): number => (700),
-    getSoulEffectFinalHeight: (): number => (150),
+    getSoulEffectFinalHeight: (): number => (100),
     targetMatching: (killer: Unit, victim: Unit): boolean => !victim.isAlive()
       && !victim.isUnitType(UNIT_TYPE_MECHANICAL)
       && !victim.isIllusion()
@@ -124,7 +124,7 @@ export default class Frostmourne {
     const scale = Math.min(2, victim.level / 5);
     setTimeout(GetRandomReal(0, scale), () => {
       const soul = createDummy(killer.owner, victim.x, victim.y, killer, 0);
-      setUnitScale(soul, (scale * 1.5));
+      setUnitScale(soul, scale);
       this.soulScale.set(soul, scale);
       const effect = Effect.createAttachment(Frostmourne.Data.SOUL_MODEL, soul, 'origin');
 
@@ -132,7 +132,7 @@ export default class Frostmourne {
       this.soulEffect.set(soul, effect);
       const estimatedReturnTime = Distance(victim, killer) / Frostmourne.Data.getSoulReturnSpeed();
       const finalHeight = Frostmourne.Data.getSoulEffectFinalHeight();
-      const speed = finalHeight / estimatedReturnTime;
+      const speed = finalHeight / estimatedReturnTime * Math.max(1, 1 / scale);
       soul.setflyHeight(finalHeight, speed);
       k0('fstm2');
       this.startTimerIfStopped();

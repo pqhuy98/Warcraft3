@@ -1,6 +1,7 @@
 import { k0, k1 } from 'lib/debug/key_counter';
 import { temp } from 'lib/location';
 import { log } from 'lib/log';
+import { setTimeout } from 'lib/trigger';
 import { pickRandom } from 'lib/utils';
 import { Rectangle, Timer, WeatherEffect } from 'w3ts';
 
@@ -93,7 +94,8 @@ export class Weather {
   static destroyWeather(): void {
     if (this.currentWeather) {
       this.currentWeather.enable(false);
-      this.currentWeather.destroy();
+      const weather = this.currentWeather;
+      setTimeout(3, () => weather.destroy());
       this.currentWeather = null;
     }
   }

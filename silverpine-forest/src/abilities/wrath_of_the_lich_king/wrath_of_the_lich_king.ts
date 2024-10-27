@@ -3,6 +3,7 @@ import { Weather, weatherBlizzard } from 'events/weather/weather';
 import { SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN } from 'lib/constants';
 import { k0, k1 } from 'lib/debug/key_counter';
 import { PolarProjection } from 'lib/location';
+import { getCircleCoordinates } from 'lib/maths/geometric_coordinates';
 import { dialogue } from 'lib/quests/dialogue_sound';
 import { MODEL_FreezingBreathMissile, MODEL_FrostNovaTarget } from 'lib/resources/war3-models';
 import { playSoundIsolate, playSpeech } from 'lib/sound';
@@ -51,6 +52,7 @@ export default class WrathOfTheLichKing {
 
   static register(registeredAbilityId: number): void {
     WrathOfTheLichKing.Data.ABILITY_IDS.push(registeredAbilityId);
+    getCircleCoordinates(this.Data.getEffectRadius() / 32);
 
     buildTrigger((t) => {
       t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT);

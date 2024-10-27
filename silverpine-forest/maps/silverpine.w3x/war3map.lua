@@ -144,6 +144,7 @@ gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
+gg_unit_hsor_1325 = nil
 function InitGlobals()
 end
 
@@ -771,6 +772,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2261.9, 3460.6, 264.515, FourCC("hf
 u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2632.0, 3465.9, 259.383, FourCC("hfoo"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhdl"), -10045.5, -22994.8, 42.798, FourCC("hhdl"))
 u = BlzCreateUnitWithSkin(p, FourCC("hhdl"), -9846.3, -23125.1, 79.280, FourCC("hhdl"))
+gg_unit_hsor_1325 = BlzCreateUnitWithSkin(p, FourCC("hsor"), 9776.8, -10118.6, 266.160, FourCC("hsor"))
 end
 
 function CreateBuildingsForPlayer2()
@@ -1072,7 +1074,7 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("H001"), 12325.8, -5222.1, 270.000, FourCC("H001"))
+u = BlzCreateUnitWithSkin(p, FourCC("H001"), 12308.2, -5389.1, 270.000, FourCC("H001"))
 SetHeroLevel(u, 5, false)
 SetUnitState(u, UNIT_STATE_MANA, 630)
 UnitAddItemToSlotById(u, FourCC("I000"), 0)
@@ -1326,9 +1328,8 @@ u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 15011.3, -7269.4, 350.420, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), 15086.3, -7272.3, 189.639, FourCC("nvil"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 15284.0, -7034.8, 138.196, FourCC("nvl2"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), 15344.5, -6976.6, 153.757, FourCC("nvil"))
-u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 15273.4, -7259.8, 151.895, FourCC("nvlw"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), 15336.5, -6828.6, 134.515, FourCC("nvil"))
-u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 15267.8, -7304.4, 156.502, FourCC("nvlw"))
+u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 15259.2, -7268.2, 156.502, FourCC("nvlw"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), 19182.1, -6941.2, 134.612, FourCC("nvil"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvil"), 19241.2, -7014.7, 318.748, FourCC("nvil"))
 u = BlzCreateUnitWithSkin(p, FourCC("nvl2"), 19183.8, -7047.3, 349.441, FourCC("nvl2"))
@@ -1985,7 +1986,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("nrac"), 8368.0, -10666.0, 268.078, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("nrac"), 7518.0, -19892.2, 168.898, FourCC("nrac"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10507.0, -8718.2, 209.153, FourCC("nshe"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10451.9, -8882.1, 202.166, FourCC("nshe"))
-u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 17895.6, -1112.7, 195.880, FourCC("Ewar"))
+u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 12299.9, -5226.7, 195.880, FourCC("Ewar"))
 SetHeroLevel(u, 5, false)
 SetUnitState(u, UNIT_STATE_MANA, 345)
 SelectHeroSkill(u, FourCC("AEfk"))
@@ -2406,6 +2407,7 @@ udg_tmp_unit = gg_unit_hfoo_0100
 udg_tmp_unit = gg_unit_hkee_1302
 udg_tmp_unit = gg_unit_htow_1131
 udg_tmp_unit = gg_unit_Hdgo_0803
+udg_tmp_unit = gg_unit_hsor_1325
 end
 
 function InitTrig_Unit_register()

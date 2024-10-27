@@ -1,5 +1,7 @@
 import { chatParamInt, chatParamReal, onChatCommand } from 'events/chat_commands/chat_commands.model';
-import { playerMain } from 'lib/constants';
+import { SmallUnitModel } from 'events/small_unit_model/small_unit_model';
+import { getScalingFactor } from 'events/small_unit_model/small_unit_model.constant';
+import { playerMain, UNIT_LichKing } from 'lib/constants';
 import {
   Camera, Frame, Timer, Trigger,
 } from 'w3ts';
@@ -12,6 +14,7 @@ import {
 import { log } from './log';
 import { meanAngles, RAD_TO_DEG } from './maths/misc';
 import { ORDER_holdposition } from './resources/war3-orders';
+import { UNIT_HeroWarden } from './resources/war3-units';
 import { setCinematicCamera } from './sandbox/advance-camera-setup';
 import { buildTrigger, setIntervalIndefinite, setTimeout } from './trigger';
 import { getUnitsFromGroup, getUnitsOfPlayer } from './unit';
@@ -156,9 +159,7 @@ export function registerCameraExperiments(): void {
     const zoff = chatParamReal('zoff', Camera.getField(CAMERA_FIELD_ZOFFSET));
     const dis = chatParamReal('dis', Camera.getField(CAMERA_FIELD_TARGET_DISTANCE));
 
-    const interval = 0.03;
-    const timer = setIntervalIndefinite(interval, (idx) => {
-      if (idx === 0) return; // Do not run in the first instance
+    onChatCommand('camexp', true, () => {
       const target = temp(Camera.targetPoint);
       Camera.setField(CAMERA_FIELD_NEARZ, nearz.current, 0);
       Camera.setField(CAMERA_FIELD_FARZ, farz.current, 0);
@@ -172,28 +173,22 @@ export function registerCameraExperiments(): void {
       Camera.setField(CAMERA_FIELD_ZOFFSET, zoff.current + target.z, 0);
       Camera.setField(CAMERA_FIELD_TARGET_DISTANCE, dis.current, 0);
     });
-    timer.pause();
-
-    let timerOn = false;
-    onChatCommand('camexp', true, () => {
-      timerOn = !timerOn;
-      if (timerOn) {
-        timer.resume();
-      } else {
-        timer.pause();
-      }
-    });
 
     // Fps camera
     const hero = getUnitsOfPlayer(playerMain, (u) => u.isHero())[0];
     const deltaT = 0.01;
-    const deltaTSlow = 0.1;
+    const deltaTSlow = deltaT * 10;
     let lastMoving = false;
     const anglePerTick = 120 * deltaT;
     const lockZ = chatParamInt('lockz', 1);
     const animIdx = chatParamInt('ai', 2);
     const loc = currentLoc(hero);
     let facing = hero.facing;
+
+    const walkAnimMap: Record<number, number> = {
+      [UNIT_HeroWarden.id]: 2,
+      [UNIT_LichKing.id]: 7,
+    };
 
     const updateFps = (): void => {
       // rotate
@@ -222,14 +217,12 @@ export function registerCameraExperiments(): void {
         loc.x += Math.cos(Deg2Rad(movingAngle)) * hero.moveSpeed * deltaT;
         loc.y += Math.sin(Deg2Rad(movingAngle)) * hero.moveSpeed * deltaT;
 
-        // if (!lastMoving) {
-        hero.setAnimation(animIdx.current);
+        hero.setAnimation(walkAnimMap[hero.typeId] ?? animIdx.current);
         if (movingBackward) {
           hero.setTimeScale(-1);
         } else {
           hero.setTimeScale(1);
         }
-        // }
         hero.facing = movingAngle;
       } else {
         if (lastMoving) {
@@ -248,22 +241,23 @@ export function registerCameraExperiments(): void {
       } else {
         loc.x = hero.x;
         loc.y = hero.y;
+        facing = hero.facing;
       }
 
-      Camera.setField(CAMERA_FIELD_ROTATION, facing, 0.02);
+      Camera.setField(CAMERA_FIELD_ROTATION, facing, deltaT * 1.5);
       Camera.setField(CAMERA_FIELD_ANGLE_OF_ATTACK, angle.current, 0);
-      Camera.setField(CAMERA_FIELD_TARGET_DISTANCE, dis.current, 0);
+      Camera.setField(CAMERA_FIELD_TARGET_DISTANCE, getScalingFactor() * dis.current, 0);
       Camera.setField(CAMERA_FIELD_LOCAL_PITCH, lp.current, 0);
-      Camera.panTimed(hero.x, hero.y, 0.02, undefined);
+      Camera.panTimed(hero.x, hero.y, deltaT * 1.5, undefined);
     };
 
     function updateFpsSlow(): void {
       if (lockZ.current !== 0) {
-        const wantedHeight = hero.z + zoff.current;
-        if (Camera.eyeZ - wantedHeight > 50) {
-          Camera.setField(CAMERA_FIELD_ZOFFSET, Camera.getField(CAMERA_FIELD_ZOFFSET) - 10, deltaTSlow);
+        const wantedHeight = hero.z + getScalingFactor() * zoff.current;
+        if (Camera.eyeZ - wantedHeight > 10) {
+          Camera.setField(CAMERA_FIELD_ZOFFSET, Camera.getField(CAMERA_FIELD_ZOFFSET) - 5, deltaTSlow);
         } else if (wantedHeight - Camera.eyeZ > 10) {
-          Camera.setField(CAMERA_FIELD_ZOFFSET, Camera.getField(CAMERA_FIELD_ZOFFSET) + 10, deltaTSlow);
+          Camera.setField(CAMERA_FIELD_ZOFFSET, Camera.getField(CAMERA_FIELD_ZOFFSET) + 5, deltaTSlow);
         }
       }
     }
@@ -317,9 +311,12 @@ export function registerCameraExperiments(): void {
         angle.current = 335;
         lp.current = 15;
         dis.current = 1200;
-        zoff.current = -100;
+        zoff.current = 350;
         timerFps = setIntervalIndefinite(deltaT, () => updateFps());
         timerFps2 = setIntervalIndefinite(deltaTSlow, () => updateFpsSlow());
+        FogMaskEnable(false);
+        FogEnable(false);
+        SmallUnitModel.setScalingFactor(0.5);
       } else {
         timerFps.pause();
         timerFps.destroy();
@@ -328,6 +325,10 @@ export function registerCameraExperiments(): void {
         timerFps2.destroy();
         timerFps2 = null;
         triggers.forEach((t) => t.destroy());
+        FogMaskEnable(true);
+        FogEnable(true);
+        Camera.reset(0);
+        SmallUnitModel.setScalingFactor(1);
       }
     });
   });

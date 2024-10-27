@@ -11,6 +11,7 @@ import { registerFightingSounds } from 'events/fighting_sounds/fighting_sounds';
 import { registerHouseInterior } from 'events/house_interior/house_interior';
 import { registerItemDrops } from 'events/item_drops/item_drops';
 import { MiscEvents } from 'events/misc';
+import { SmallUnitModel } from 'events/small_unit_model/small_unit_model';
 import { SummonBirthAnimation } from 'events/summon/summon_birth_animation';
 import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
 import { Weather } from 'events/weather/weather';
@@ -96,6 +97,7 @@ function tsMain(): void {
   SummonBirthAnimation.register();
   MiscEvents.register();
   UnitInteraction.register();
+  SmallUnitModel.register();
 
   // Quests
   QuestRegistry.register();

@@ -63,7 +63,9 @@ export class MovingTerrainEffect {
     this.chatTrigger1 = onChatCommand('-tcc', true, () => log('circleCoordinates', circleCoordinates.length), 'Debug', 'Show number of circle coordinates.');
     this.chatTrigger2 = onChatCommand('-tqs', true, () => log('titleQueue', this.tileQueue.getValidLength(), this.tileQueue.getTrueLength()), 'Debug', 'Show number of tiles in queue.');
 
-    this.timer = setIntervalIndefinite(0.05, () => {
+    const interval = 0.05;
+    this.timer = setIntervalIndefinite(interval, (loopIdx) => {
+      if (loopIdx < 3 / interval && loopIdx % 3 !== 0) return;
       if (!unit.isAlive()) return;
       for (let i = 0; i < 20; i++) {
         const { x: dx, y: dy } = circleCoordinates[idx++];
