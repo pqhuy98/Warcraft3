@@ -10,7 +10,7 @@ import {
   StringsTranslator,
   TerrainTranslator,
   UnitsTranslator
-} from 'wc3maptranslator';
+} from './wc3maptranslator';
 import { PNG } from "pngjs"
 import * as sharp from 'sharp';
 import * as path from 'path';

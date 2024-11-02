@@ -13,7 +13,7 @@
     "lint": "eslint src/**/*.ts --fix",
     "sandbox-terrain": "ts-node --transpile-only scripts/sandbox/sandbox-terrain.ts",
     "sandbox-doodads-csv": "ts-node --transpile-only scripts/sandbox/doodads-csv.ts",
-    "sandbox": "ts-node --transpile-only scripts/sandbox/sandbox.ts"
+    "sandbox": "tsx scripts/sandbox/sandbox.ts"
   },
   "dependencies": {
     "w3ts": "^3.0.2",
@@ -47,6 +47,7 @@
     "tsconfig-paths": "3.9.0",
     "tstl-doender-plugin": "^1.1.0",
     "tsutils": "3.17.1",
+    "tsx": "^4.19.2",
     "typescript": "^5.4.2",
     "typescript-eslint": "^7.12.0",
     "typescript-to-lua": "^1.25.1",
