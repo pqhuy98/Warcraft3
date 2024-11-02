@@ -143,3 +143,8 @@ declare var gg_dest_LTg3_8382: destructable;
 declare var gg_dest_YTcx_0002: destructable;
 declare var gg_dest_YTcx_0001: destructable;
 declare var gg_unit_hsor_1325: unit;
+declare var gg_unit_Ntin_0734: unit;
+declare var gg_unit_Hamg_0807: unit;
+declare var gg_unit_Hmkg_0802: unit;
+declare var gg_unit_Oshd_0649: unit;
+declare var gg_unit_Ulic_0219: unit;

@@ -1,9 +1,18 @@
 import { colorize } from 'lib/colorize';
 import {
-  ABILITY_AuraDevotionCreep,
-  ABILITY_AuraEnduranceCreep,
-  ABILITY_BlizzardCreep, ABILITY_BloodlustCreep, ABILITY_FrostNovaCreep, ABILITY_Inferno, ABILITY_NeutralBuilding, ABILITY_PaladinHolyLight, ABILITY_PurchaseItem, ABILITY_SellItem,
-  ABILITY_UnholyAuraCreep,
+  ABILITY_ArchMageBlizzard,
+  ABILITY_ArchMageBrillianceAura,
+  ABILITY_ArchMageMassTeleport,
+  ABILITY_ArchMageWaterElemental,
+  ABILITY_FireBolt,
+  ABILITY_Invisibility, ABILITY_KeeperEntanglingRoots, ABILITY_KeeperForceOfNature,
+  ABILITY_KeeperThornsAura, ABILITY_KeeperTranquility, ABILITY_LichDarkRitual, ABILITY_LichDeathAndDecay, ABILITY_LichFrostArmorAutocast, ABILITY_LichFrostNova,
+  ABILITY_MountainKingBash, ABILITY_MountainKingThunderBolt, ABILITY_MountainKingThunderClap, ABILITY_NeutralBuilding, ABILITY_PaladinDevotionAura, ABILITY_PaladinDivineShield,
+  ABILITY_PaladinHolyLight, ABILITY_PaladinResurrection, ABILITY_PolymorphCreep, ABILITY_SellItem,
+  ABILITY_ShadowHunterHealingWave,
+  ABILITY_ShadowHunterHex,
+  ABILITY_ShadowHunterSerpentWard,
+  ABILITY_ShadowHunterVoodooo,
 } from 'lib/resources/war3-abilities';
 import { MODEL_TomeOfRetrainingCaster } from 'lib/resources/war3-models';
 import { buildTrigger, setTimeout } from 'lib/trigger';
@@ -14,18 +23,27 @@ const buyItemId = FourCC('I002');
 const dummyVendorId = FourCC('h008');
 
 const dummyAbilities = [
-  'A010',
-  'A011',
-  'A012',
-  'A00Y',
+  'A010', // 1
+  'A011', // 2
+  'A012', // 3
+  'A00Y', // 4
+  'A00V', // 5
+  'A00W', // 6
+  'A00X', // 7
+  'A00Z', // 8
+  'A013', // 9
+  'A014', // 10
+  'A015', // 11
+  'A016', // 12
 ].map((code) => FourCC(code));
 
 let globalGoldCost = 100;
+const globalGoldCostIncrement = 50;
 const errorSound = CreateSoundFromLabel('InterfaceError', false, false, false, 10, 10);
 
 export function registerAbilitySeller(vendor: Unit, abilityIds: number[]): void {
   vendor.addAbility(ABILITY_NeutralBuilding.id); // Select Hero
-  vendor.addAbility(ABILITY_PurchaseItem.id); // Shop Purchase Item
+  // vendor.addAbility(ABILITY_PurchaseItem.id); // Shop Purchase Item
   vendor.addAbility(ABILITY_SellItem.id); // Sell Items
   vendor.addItemToStock(buyItemId, 1, 1);
 
@@ -77,7 +95,7 @@ export function registerAbilitySeller(vendor: Unit, abilityIds: number[]): void 
 
           // Charge gold
           dummy.owner.setState(PLAYER_STATE_RESOURCE_GOLD, dummy.owner.getState(PLAYER_STATE_RESOURCE_GOLD) - globalGoldCost);
-          globalGoldCost *= 2;
+          globalGoldCost += globalGoldCostIncrement;
 
           // Level ability up
           if (buyer.getAbility(abilityId)) {
@@ -144,18 +162,69 @@ function syncDummyToBuyer(dummy: Unit, buyer: Unit, abilityIds: number[]): void 
 
 export function registerAbilityVending(): void {
   setTimeout(0, () => {
-    registerAbilitySeller(Unit.fromHandle(gg_unit_nvil_0035), [
-      ABILITY_PaladinHolyLight,
-      ABILITY_Inferno,
-      ABILITY_BloodlustCreep,
-      ABILITY_FrostNovaCreep,
+    // Ambermill socceress
+    registerAbilitySeller(Unit.fromHandle(gg_unit_hsor_1325), [
+      ABILITY_PolymorphCreep,
+      ABILITY_Invisibility,
     ].map((abi) => abi.id));
 
-    registerAbilitySeller(Unit.fromHandle(gg_unit_nvl2_0413), [
-      ABILITY_BlizzardCreep,
-      ABILITY_AuraEnduranceCreep,
-      ABILITY_UnholyAuraCreep,
-      ABILITY_AuraDevotionCreep,
+    // Ambermill Major
+    registerAbilitySeller(Unit.fromHandle(gg_unit_Hpb1_0145), [
+      ABILITY_PaladinHolyLight,
+    ].map((abi) => abi.id));
+
+    // Sir Dagren of Shadowfang city
+    registerAbilitySeller(Unit.fromHandle(gg_unit_Hdgo_0803), [
+      ABILITY_PaladinHolyLight,
+      ABILITY_PaladinDivineShield,
+      ABILITY_PaladinDevotionAura,
+      ABILITY_PaladinResurrection,
+    ].map((abi) => abi.id));
+
+    // Tinker of Shadowfang city
+    registerAbilitySeller(Unit.fromHandle(gg_unit_Ntin_0734), [
+      { id: FourCC('ANs3') }, // Pocket Factory upgrade 3
+      { id: FourCC('ANc3') }, // Rocket Cluster upgrade 3
+    ].map((abi) => abi.id));
+
+    // Archmage of Shadowfang city
+    registerAbilitySeller(Unit.fromHandle(gg_unit_Hamg_0807), [
+      ABILITY_ArchMageBlizzard,
+      ABILITY_ArchMageWaterElemental,
+      ABILITY_ArchMageBrillianceAura,
+      ABILITY_ArchMageMassTeleport,
+      ABILITY_FireBolt,
+    ].map((abi) => abi.id));
+
+    // Mountain King of Shadowfang city
+    registerAbilitySeller(Unit.fromHandle(gg_unit_Hmkg_0802), [
+      ABILITY_MountainKingThunderBolt,
+      ABILITY_MountainKingThunderClap,
+      ABILITY_MountainKingBash,
+    ].map((abi) => abi.id));
+
+    // Neutral Keeper of the Grove
+    registerAbilitySeller(Unit.fromHandle(gg_unit_Ekee_0551), [
+      ABILITY_KeeperEntanglingRoots,
+      ABILITY_KeeperForceOfNature,
+      ABILITY_KeeperThornsAura,
+      ABILITY_KeeperTranquility,
+    ].map((abi) => abi.id));
+
+    // Ambermill Lich
+    registerAbilitySeller(Unit.fromHandle(gg_unit_Ulic_0219), [
+      ABILITY_LichFrostNova,
+      ABILITY_LichFrostArmorAutocast,
+      ABILITY_LichDarkRitual,
+      ABILITY_LichDeathAndDecay,
+    ].map((abi) => abi.id));
+
+    // West Shore Shadow Hunter
+    registerAbilitySeller(Unit.fromHandle(gg_unit_Oshd_0649), [
+      ABILITY_ShadowHunterHealingWave,
+      ABILITY_ShadowHunterHex,
+      ABILITY_ShadowHunterSerpentWard,
+      ABILITY_ShadowHunterVoodooo,
     ].map((abi) => abi.id));
   });
 }

@@ -20,13 +20,17 @@ function transform(inputFilePath: string, cmd: ffmpeg.FfmpegCommand): ffmpeg.Ffm
             'aecho=1:0.88:50:0.4',
         ])
     }
-    return cmd.outputOptions([
+    const options = [
         '-ac', '1',            // Ensure mono audio
         '-ar', '44100',        // Set sample rate to 44100 Hz
         '-b:a', '128k',        // Set audio bit rate to 128 kbps
         '-map_metadata', '-1', // Remove metadata
-        '-filter:a', 'volume=2.0', // Double the audio volume
-    ]);
+    ]
+    if (!inputFilePath.includes("farm-massacre")) {
+        options.push('-filter:a', 'volume=2.0'); // Double the audio volume
+    }
+
+    return cmd.outputOptions(options);
 }
 
 // Function to process audio files

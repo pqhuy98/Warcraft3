@@ -2720,75 +2720,27 @@ Browse and purchase powerful abilities from this vendor.
 }
 
 STRING 488
-// Abilities: A00W (Ability 2), Name (Name)
+// Abilities: A011 (Ability 2), Name (Name)
 {
 Ability 2
 }
 
 STRING 490
-// Abilities: A00X (Ability 3), Name (Name)
+// Abilities: A012 (Ability 3), Name (Name)
 {
 Ability 3
 }
 
 STRING 492
-// Abilities: A00V (Ability 1), Name (Name)
+// Abilities: A010 (Ability 1), Name (Name)
 {
 Ability 1
 }
 
 STRING 494
-// Abilities: A00Z (Ability 4), Name (Name)
+// Abilities: A00Y (Ability 4), Name (Name)
 {
 Ability 4
-}
-
-STRING 496
-// Abilities: A00Z (Ability 4), Tip (Tooltip - Normal)
-{
-Ability 4
-}
-
-STRING 497
-// Abilities: A00Z (Ability 4), Ubertip (Tooltip - Normal - Extended)
-{
-Ability 4
-}
-
-STRING 498
-// Abilities: A00V (Ability 1), Tip (Tooltip - Normal)
-{
-Ability 1
-}
-
-STRING 499
-// Abilities: A00V (Ability 1), Ubertip (Tooltip - Normal - Extended)
-{
-Ability 1
-}
-
-STRING 500
-// Abilities: A00W (Ability 2), Tip (Tooltip - Normal)
-{
-Ability 2
-}
-
-STRING 501
-// Abilities: A00W (Ability 2), Ubertip (Tooltip - Normal - Extended)
-{
-Ability 2
-}
-
-STRING 502
-// Abilities: A00X (Ability 3), Tip (Tooltip - Normal)
-{
-Ability 3
-}
-
-STRING 503
-// Abilities: A00X (Ability 3), Ubertip (Tooltip - Normal - Extended)
-{
-Ability 3
 }
 
 STRING 504
@@ -2809,27 +2761,87 @@ STRING 506
 Buy Ability
 }
 
-STRING 507
-// Abilities: A00Y (Ability 4), Name (Name)
+STRING 511
+// Abilities: A00V (Ability 5), Name (Name)
 {
-Ability 4
+Ability 5
 }
 
-STRING 508
-// Abilities: A010 (Ability 1), Name (Name)
+STRING 512
+// Abilities: A00W (Ability 6), Name (Name)
 {
-Ability 1
+Ability 6
 }
 
-STRING 509
-// Abilities: A011 (Ability 2), Name (Name)
+STRING 513
+// Abilities: A00X (Ability 7), Name (Name)
 {
-Ability 2
+Ability 7
 }
 
-STRING 510
-// Abilities: A012 (Ability 3), Name (Name)
+STRING 514
+// Abilities: A00Z (Ability 8), Name (Name)
 {
-Ability 3
+Ability 8
+}
+
+STRING 515
+// Abilities: A013 (Ability 9), Name (Name)
+{
+Ability 9
+}
+
+STRING 516
+// Abilities: A014 (Ability 10), Name (Name)
+{
+Ability 10
+}
+
+STRING 517
+// Abilities: A015 (Ability 11), Name (Name)
+{
+Ability 11
+}
+
+STRING 518
+// Abilities: A016 (Ability 12), Name (Name)
+{
+Ability 12
+}
+
+STRING 519
+// Abilities: ANfb (Firebolt), Tip (Tooltip - Normal)
+{
+Firebolt - [|cffffcc00Level 2|r]
+}
+
+STRING 520
+// Abilities: ANfb (Firebolt), Tip (Tooltip - Normal)
+{
+Firebolt - [|cffffcc00Level 1|r]
+}
+
+STRING 521
+// Abilities: ANfb (Firebolt), Tip (Tooltip - Normal)
+{
+Firebolt - [|cffffcc00Level 3|r]
+}
+
+STRING 522
+// Abilities: ANfb (Firebolt), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a fiery bolt that stuns a target enemy unit for <ANfb,Dur1> seconds and deals <ANfb,DataA1> damage.
+}
+
+STRING 523
+// Abilities: ANfb (Firebolt), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a fiery bolt that stuns a target enemy unit for <ANfb,Dur2> seconds and deals <ANfb,DataA2> damage.
+}
+
+STRING 524
+// Abilities: ANfb (Firebolt), Ubertip (Tooltip - Normal - Extended)
+{
+Hurls a fiery bolt that stuns a target enemy unit for <ANfb,Dur3> seconds and deals <ANfb,DataA3> damage.
 }
 
