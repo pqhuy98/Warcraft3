@@ -1,4 +1,5 @@
 import { colorize } from 'lib/colorize';
+import { playerMain } from 'lib/constants';
 import {
   ABILITY_ArchMageBlizzard,
   ABILITY_ArchMageBrillianceAura,
@@ -7,8 +8,8 @@ import {
   ABILITY_FireBolt,
   ABILITY_Invisibility, ABILITY_KeeperEntanglingRoots, ABILITY_KeeperForceOfNature,
   ABILITY_KeeperThornsAura, ABILITY_KeeperTranquility, ABILITY_LichDarkRitual, ABILITY_LichDeathAndDecay, ABILITY_LichFrostArmorAutocast, ABILITY_LichFrostNova,
-  ABILITY_MountainKingBash, ABILITY_MountainKingThunderBolt, ABILITY_MountainKingThunderClap, ABILITY_NeutralBuilding, ABILITY_PaladinDevotionAura, ABILITY_PaladinDivineShield,
-  ABILITY_PaladinHolyLight, ABILITY_PaladinResurrection, ABILITY_PolymorphCreep, ABILITY_SellItem,
+  ABILITY_MountainKingBash, ABILITY_MountainKingThunderBolt, ABILITY_MountainKingThunderClap, ABILITY_PaladinDevotionAura, ABILITY_PaladinDivineShield,
+  ABILITY_PaladinHolyLight, ABILITY_PaladinResurrection, ABILITY_PolymorphCreep,
   ABILITY_ShadowHunterHealingWave,
   ABILITY_ShadowHunterHex,
   ABILITY_ShadowHunterSerpentWard,
@@ -19,7 +20,8 @@ import { buildTrigger, setTimeout } from 'lib/trigger';
 import { setUnitScale, tieUnitToUnit } from 'lib/unit';
 import { Effect, MapPlayer, Unit } from 'w3ts';
 
-const buyItemId = FourCC('I002');
+import { UnitInteraction } from './unit_interaction';
+
 const dummyVendorId = FourCC('h008');
 
 const dummyAbilities = [
@@ -42,80 +44,79 @@ const globalGoldCostIncrement = 50;
 const errorSound = CreateSoundFromLabel('InterfaceError', false, false, false, 10, 10);
 
 export function registerAbilitySeller(vendor: Unit, abilityIds: number[]): void {
-  vendor.addAbility(ABILITY_NeutralBuilding.id); // Select Hero
-  // vendor.addAbility(ABILITY_PurchaseItem.id); // Shop Purchase Item
-  vendor.addAbility(ABILITY_SellItem.id); // Sell Items
-  vendor.addItemToStock(buyItemId, 1, 1);
+  UnitInteraction.onStart(vendor, (buyer) => {
+    if (buyer.owner !== playerMain || !buyer.owner.isPlayerAlly(vendor.owner)) {
+      // don't sell to enemy or NPC
+      return;
+    }
 
-  buildTrigger((t) => {
-    t.registerUnitEvent(vendor, EVENT_UNIT_SELL_ITEM);
-    t.addCondition(() => GetItemTypeId(GetSoldItem()) === buyItemId);
-    t.addAction(() => {
-      const buyer = Unit.fromHandle(GetBuyingUnit());
+    if (abilityIds.every((abilityId) => hasMaxLevelAbility(buyer, abilityId))) {
+      // nothing to sell
+      return;
+    }
 
-      const dummy = Unit.create(buyer.owner, dummyVendorId, vendor.x, vendor.y);
-      dummy.skin = vendor.skin;
-      dummy.selectionScale = 0.001;
-      dummy.maxLife = vendor.maxLife;
-      dummy.life = dummy.maxLife;
-      dummy.color = vendor.owner.color;
-      setUnitScale(dummy, 0);
-      tieUnitToUnit(dummy, vendor);
+    const dummy = Unit.create(buyer.owner, dummyVendorId, vendor.x, vendor.y);
+    dummy.skin = vendor.skin;
+    dummy.selectionScale = 0.001;
+    dummy.maxLife = vendor.maxLife;
+    dummy.life = dummy.maxLife;
+    dummy.color = vendor.owner.color;
+    setUnitScale(dummy, 0);
+    tieUnitToUnit(dummy, vendor);
 
-      const abiMap = new Map<number, number>();
+    const abiMap = new Map<number, number>();
 
-      abilityIds.forEach((abilityId, i) => {
-        const dummyAbilityId = dummyAbilities[i];
-        dummy.addAbility(dummyAbilityId);
-        abiMap.set(dummyAbilityId, abilityId);
-      });
-      syncDummyToBuyer(dummy, buyer, abilityIds);
+    abilityIds.forEach((abilityId, i) => {
+      const dummyAbilityId = dummyAbilities[i];
+      dummy.addAbility(dummyAbilityId);
+      abiMap.set(dummyAbilityId, abilityId);
+    });
+    syncDummyToBuyer(dummy, buyer, abilityIds);
 
-      SelectUnitForPlayerSingle(dummy.handle, buyer.owner.handle);
+    SelectUnitForPlayerSingle(dummy.handle, buyer.owner.handle);
 
-      // Run when dummyAbilities are casted, equivalent to buying the ability
-      const learnTrigger = buildTrigger((t2) => {
-        t2.registerUnitEvent(dummy, EVENT_UNIT_SPELL_EFFECT);
-        t2.addCondition(() => dummyAbilities.includes(GetSpellAbilityId()));
-        t2.addAction(() => {
-          const dummyAbilityId = GetSpellAbilityId();
-          const abilityId = abiMap.get(dummyAbilityId);
+    // Run when dummyAbilities are casted, equivalent to buying the ability
+    const learnTrigger = buildTrigger((t2) => {
+      t2.registerUnitEvent(dummy, EVENT_UNIT_SPELL_EFFECT);
+      t2.addCondition(() => dummyAbilities.includes(GetSpellAbilityId()));
+      t2.addAction(() => {
+        const dummyAbilityId = GetSpellAbilityId();
+        const abilityId = abiMap.get(dummyAbilityId);
 
-          // Check not enough gold
-          if (dummy.owner.getState(PLAYER_STATE_RESOURCE_GOLD) < globalGoldCost) {
-            let msg = 'Not enough gold.';
-            msg = `\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n|cffffcc00${msg}|r`;
-            if (MapPlayer.fromLocal() === dummy.owner) {
-              ClearTextMessages();
-              DisplayTimedTextToPlayer(dummy.owner.handle, 0.52, 0.96, 2.00, msg);
-              StartSound(errorSound);
-            }
-            return;
+        // Check not enough gold
+        if (dummy.owner.getState(PLAYER_STATE_RESOURCE_GOLD) < globalGoldCost) {
+          let msg = 'Not enough gold.';
+          msg = `\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n|cffffcc00${msg}|r`;
+          if (MapPlayer.fromLocal() === dummy.owner) {
+            ClearTextMessages();
+            DisplayTimedTextToPlayer(dummy.owner.handle, 0.52, 0.96, 2.00, msg);
+            StartSound(errorSound);
           }
+          return;
+        }
 
-          // Charge gold
-          dummy.owner.setState(PLAYER_STATE_RESOURCE_GOLD, dummy.owner.getState(PLAYER_STATE_RESOURCE_GOLD) - globalGoldCost);
-          globalGoldCost += globalGoldCostIncrement;
+        // Charge gold
+        dummy.owner.setState(PLAYER_STATE_RESOURCE_GOLD, dummy.owner.getState(PLAYER_STATE_RESOURCE_GOLD) - globalGoldCost);
+        globalGoldCost += globalGoldCostIncrement;
 
-          // Level ability up
-          if (buyer.getAbility(abilityId)) {
-            buyer.incAbilityLevel(abilityId);
-          } else {
-            buyer.addAbility(abilityId);
-          }
-          Effect.createAttachment(MODEL_TomeOfRetrainingCaster, buyer, 'origin').destroy();
+        // Level ability up
+        if (buyer.getAbility(abilityId)) {
+          buyer.incAbilityLevel(abilityId);
+        } else {
+          buyer.addAbility(abilityId);
+        }
+        Effect.createAttachment(MODEL_TomeOfRetrainingCaster, buyer, 'origin').destroy();
 
-          // Sync
-          syncDummyToBuyer(dummy, buyer, abilityIds);
-        });
+        // Sync
+        syncDummyToBuyer(dummy, buyer, abilityIds);
       });
+    });
 
-      buildTrigger((t3) => {
-        t3.registerUnitEvent(dummy, EVENT_UNIT_DESELECTED);
-        t3.addAction(() => {
-          learnTrigger.destroy();
-          dummy.destroy();
-        });
+    buildTrigger((t3) => {
+      t3.registerUnitEvent(dummy, EVENT_UNIT_DESELECTED);
+      t3.addAction(() => {
+        learnTrigger.destroy();
+        dummy.destroy();
       });
     });
   });

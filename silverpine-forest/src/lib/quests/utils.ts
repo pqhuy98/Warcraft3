@@ -1,5 +1,6 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { MODEL_Quest_TurnIn } from 'lib/constants';
+import { isShowingUi, showUi } from 'lib/frame-ui';
 import { log } from 'lib/log';
 import { MODEL_TalkToMe } from 'lib/resources/war3-models';
 import { isUnitRemoved } from 'lib/unit';
@@ -138,9 +139,16 @@ export function cinematicFadeIn(duration: number): void {
   CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, duration, 'ReplaceableTextures\\CameraMasks\\White_mask.blp', 0, 0, 0, 0);
 }
 
+let lastShowUi = true;
 export function cinematicMode(isCinematic: boolean, duration: number): void {
   if (isCinematic) {
+    lastShowUi = isShowingUi();
+    // force show ui
+    showUi(true);
     setupCinematicFrame();
+  } else {
+    // restore ui
+    showUi(lastShowUi);
   }
   CinematicModeExBJ(isCinematic, bj_FORCE_ALL_PLAYERS, duration);
 }

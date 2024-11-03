@@ -10,6 +10,7 @@ import { cameraCenter, Loc, tempLocation } from './location';
 import { UNIT_TYPE } from './resources/war3-units';
 import { Flag, setUnitFlag } from './systems/unit_user_data_flag';
 import { createDialogueTextTag } from './texttag';
+import { resetVolumeSpeech, setVolumeSpeech } from './utils';
 
 let playingSpeechCount = 0;
 
@@ -42,17 +43,14 @@ export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, option
 
   const shouldSetVolumeGroup = !options || !options.ignoreVolumeGroupAdjustment;
   if (shouldSetVolumeGroup) {
-    SetSpeechVolumeGroupsBJ();
+    setVolumeSpeech();
   }
   const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
 
-  let isFloatText = !options || !options.ignoreVolumeGroupAdjustment;
+  let isFloatText = !options || !options.isFloatText;
   if (bj_cineModeAlreadyIn) isFloatText = false;
   if (!isLocInScreen(unit)) isFloatText = false;
 
-  if (isFloatText) {
-    ClearTextMessages();
-  }
   const durationS = sound.duration / 1000;
 
   const speechText = sound.dialogueTextKey;
@@ -63,12 +61,15 @@ export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, option
 
   playingSpeechCount++;
   PlayDialogueFromSpeakerEx(bj_FORCE_ALL_PLAYERS, unit.handle, unit.typeId, sound.handle, bj_TIMETYPE_ADD, 0, false);
+  if (isFloatText) {
+    ClearTextMessages();
+  }
   await sleep(durationS);
   playingSpeechCount--;
   speakEffect.destroy();
 
   if (shouldSetVolumeGroup) {
-    VolumeGroupReset();
+    resetVolumeSpeech();
   }
   if (shouldDisableInteraction) {
     setUnitFlag(unit, Flag.UNBREAKABLE_ATTENTION, false);

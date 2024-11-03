@@ -7,15 +7,25 @@ import { QuestLog } from './quests/quest_log';
 import { buildTrigger, setTimeout } from './trigger';
 import { METAKEY_CONTROL } from './utils';
 
+let isShowUi = false;
+
+export function showUi(show: boolean): void {
+  isShowUi = show;
+  Frame.hideOrigin(!isShowUi);
+  Frame.fromOrigin(ORIGIN_FRAME_MINIMAP, 0).setVisible(true);
+}
+
+export function isShowingUi(): boolean {
+  return isShowUi;
+}
+
 export function registerFrameUiExperiments(): void {
-  let hideUi = false;
   fname('ConsoleUIBackdrop').setSize(0, 0.0001);
   buildTrigger((t) => {
     t.registerPlayerKeyEvent(playerMain, OSKEY_Z, METAKEY_CONTROL, true);
     t.addAction(() => {
-      hideUi = !hideUi;
-      Frame.hideOrigin(hideUi);
-      Frame.fromOrigin(ORIGIN_FRAME_MINIMAP, 0).setVisible(true);
+      if (bj_cineModeAlreadyIn) return;
+      showUi(!isShowUi);
     });
   });
   setTimeout(5, () => QuestLog.hint('You can press Ctrl+Z to hide/show game UI.'));

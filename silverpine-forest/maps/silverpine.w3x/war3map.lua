@@ -1079,9 +1079,8 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("H001"), -15147.8, -16397.1, 270.000, FourCC("H001"))
-SetHeroLevel(u, 5, false)
-SetUnitState(u, UNIT_STATE_MANA, 630)
+u = BlzCreateUnitWithSkin(p, FourCC("H001"), 12435.9, -5237.8, 176.377, FourCC("H001"))
+SetUnitState(u, UNIT_STATE_MANA, 510)
 UnitAddItemToSlotById(u, FourCC("I000"), 0)
 end
 
@@ -1991,7 +1990,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("nrac"), 8368.0, -10666.0, 268.078, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("nrac"), 7518.0, -19892.2, 168.898, FourCC("nrac"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10507.0, -8718.2, 209.153, FourCC("nshe"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10451.9, -8882.1, 202.166, FourCC("nshe"))
-u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), -15156.1, -16234.7, 195.880, FourCC("Ewar"))
+u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 12491.9, -5226.7, 195.880, FourCC("Ewar"))
 SetHeroLevel(u, 5, false)
 SetUnitState(u, UNIT_STATE_MANA, 345)
 SelectHeroSkill(u, FourCC("AEfk"))
@@ -3064,7 +3063,7 @@ SetPlayerController(Player(3), MAP_CONTROL_COMPUTER)
 SetPlayerStartLocation(Player(4), 4)
 ForcePlayerStartLocation(Player(4), 4)
 SetPlayerColor(Player(4), ConvertPlayerColor(4))
-SetPlayerRacePreference(Player(4), RACE_PREF_NIGHTELF)
+SetPlayerRacePreference(Player(4), RACE_PREF_UNDEAD)
 SetPlayerRaceSelectable(Player(4), false)
 SetPlayerController(Player(4), MAP_CONTROL_USER)
 SetPlayerStartLocation(Player(5), 5)
@@ -3266,7 +3265,7 @@ DefineStartLocation(0, -9472.0, -25152.0)
 DefineStartLocation(1, -9152.0, -25216.0)
 DefineStartLocation(2, -9344.0, -25152.0)
 DefineStartLocation(3, -9600.0, -25088.0)
-DefineStartLocation(4, -15168.0, -16256.0)
+DefineStartLocation(4, 12480.0, -5248.0)
 DefineStartLocation(5, -4736.0, -16576.0)
 DefineStartLocation(6, -9664.0, -16000.0)
 DefineStartLocation(7, -9664.0, -25344.0)

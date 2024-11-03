@@ -238,3 +238,16 @@ export class AsyncQueue {
     return [...this.jobNames];
   }
 }
+
+let speechCount = 0;
+export function setVolumeSpeech(): void {
+  speechCount++;
+  SetSpeechVolumeGroupsBJ();
+}
+
+export function resetVolumeSpeech(): void {
+  speechCount = Math.max(speechCount - 1, 0);
+  if (speechCount === 0) {
+    VolumeGroupReset();
+  }
+}

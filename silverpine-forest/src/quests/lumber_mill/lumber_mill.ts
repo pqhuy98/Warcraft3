@@ -1,4 +1,4 @@
-import { playerForsaken, playerMain } from 'lib/constants';
+import { playerForsaken, playerHumanAlliance, playerMain } from 'lib/constants';
 import {
   Angle,
   centerLocRect, isLocInRect, Loc,
@@ -152,6 +152,7 @@ export class LumberMill extends BaseQuest {
     traveler = await this.waitForTurnIn(peter);
     ghouls.forEach((u) => { u.isAlive() && u.destroy(); });
     setAllianceState2Way(playerMain, playerForsaken, 'neutral');
+    setAllianceState2Way(playerHumanAlliance, playerForsaken, 'neutral');
 
     // John and Peter's dialogues after hearing the news
     john.issueTargetOrder(OrderId.Smart, traveler);
@@ -198,6 +199,8 @@ export class LumberMill extends BaseQuest {
       travelToRect(peter, townRect2, townKnight),
     ]);
     disableQuestMarker(john);
+    setAllianceState2Way(playerMain, playerForsaken, 'enemy');
+    setAllianceState2Way(playerHumanAlliance, playerForsaken, 'enemy');
     this.complete();
   }
 

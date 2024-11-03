@@ -45,6 +45,8 @@ const jacobSounds = [
   ),
 ];
 
+const playCinematic = false;
+
 export class RabbitHunt extends BaseQuest {
   constructor(public globals: BaseQuestProps & {
     jacob: Unit
@@ -71,19 +73,21 @@ export class RabbitHunt extends BaseQuest {
     let traveler = await this.talkToQuestGiver(jacob, true);
     jacob.shareVision(traveler.owner, true);
 
-    cinematicMode(true, 0.5);
-    cinematicFadeOut(0.5);
-    cinematicFadeIn(0.5);
-    const cam1 = CameraSetup.fromHandle(gg_cam_Camera_001);
-    const cam2 = CameraSetup.fromHandle(gg_cam_Camera_002);
-    cam1.applyForceDuration(true, 0);
-    cam2.applyForceDuration(true, 700);
-    await sleep(1);
-    void (async (): Promise<void> => {
-      await sleep(5);
-      cam2.applyForceDuration(true, 0);
-      cam1.applyForceDuration(true, 700);
-    })();
+    if (playCinematic) {
+      cinematicMode(true, 0.5);
+      cinematicFadeOut(0.5);
+      cinematicFadeIn(0.5);
+      const cam1 = CameraSetup.fromHandle(gg_cam_Camera_001);
+      const cam2 = CameraSetup.fromHandle(gg_cam_Camera_002);
+      cam1.applyForceDuration(true, 0);
+      cam2.applyForceDuration(true, 700);
+      await sleep(1);
+      void (async (): Promise<void> => {
+        await sleep(5);
+        cam2.applyForceDuration(true, 0);
+        cam1.applyForceDuration(true, 700);
+      })();
+    }
 
     // spawns rabbits
     const wheatFieldsAreas = wheatFieldRects.map((r) => GetRectWidthBJ(r) * GetRectHeightBJ(r));
@@ -104,12 +108,14 @@ export class RabbitHunt extends BaseQuest {
 
     await playSpeech(jacob, jacobSounds[0], traveler);
 
-    await sleep(1);
-    cinematicFadeOut(0.5);
-    cinematicFadeIn(0.5);
-    cinematicMode(false, 0.5);
-    Camera.reset(0);
-    Camera.panTimed(traveler.x, traveler.y, 0, undefined);
+    if (playCinematic) {
+      await sleep(1);
+      cinematicFadeOut(0.5);
+      cinematicFadeIn(0.5);
+      cinematicMode(false, 0.5);
+      Camera.reset(0);
+      Camera.panTimed(traveler.x, traveler.y, 0, undefined);
+    }
 
     const questLog = await QuestLog.create({
       name: questName,
@@ -119,9 +125,8 @@ export class RabbitHunt extends BaseQuest {
     });
 
     // Wait till no living rabbits in field
-    await waitUntil(1, () => wheatFieldRects
-      .flatMap((r) => getUnitsInRect(r))
-      .filter((u) => u.typeId === rabbitTypeId && u.isAlive()).length === 0);
+    const rabitsInRect = (r: rect): Unit[] => getUnitsInRect(r, (u) => u.typeId === rabbitTypeId && u.isAlive());
+    await waitUntil(1, () => wheatFieldRects.every((r) => rabitsInRect(r).length === 0));
 
     await questLog.completeItem(0);
 

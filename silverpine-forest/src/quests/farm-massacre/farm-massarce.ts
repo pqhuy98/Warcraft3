@@ -166,6 +166,7 @@ export class FarmMassacre extends BaseQuest {
     await sleep(1);
     cinematicMode(true, 2);
     undeads.forEach((unit) => unit.destroy());
+    traveler.owner = neutralPassive;
     await sleep(2);
     restoreCameraBound();
     EndThematicMusic();

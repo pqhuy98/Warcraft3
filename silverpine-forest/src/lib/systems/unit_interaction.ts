@@ -13,7 +13,7 @@ import {
   getUnitScale,
   isOrganic, isUnitIdle, isUnitRemoved, setUnitFacingWithRate,
 } from 'lib/unit';
-import { pickRandom } from 'lib/utils';
+import { pickRandom, resetVolumeSpeech, setVolumeSpeech } from 'lib/utils';
 import { MapPlayer, Timer, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
@@ -29,13 +29,15 @@ const targets = new Map<Unit, InteractionData>();
 
 const soundThrottleSet = new Set<Unit>();
 
-const nearDistance = 300;
+const interactionDistance = 500;
 const unfocusDistance = 500;
 const lookAtHeight = 70;
 
 type Subscriber = (unit: Unit, target: Unit) => unknown
 
-const onceSubscribers = new Map<Unit, Subscriber[]>();
+const onceSubscribers = new WeakMap<Unit, Set<Subscriber>>();
+const foreverSubscribers = new WeakMap<Unit, Set<Subscriber>>();
+const subscriberSetMap = new WeakMap<Subscriber, Set<Subscriber>>();
 
 const interval = 0.01;
 
@@ -57,7 +59,7 @@ export class UnitInteraction {
       t.addAction(() => {
         const unit = Unit.fromEvent();
         const target = Unit.fromHandle(GetOrderTargetUnit());
-        if (Distance(unit, target) < nearDistance) {
+        if (Distance(unit, target) < interactionDistance) {
           if (!checkUnitFlag(target, Flag.MUTE_INTERACTION_SOUND)) {
             this.playRandomSound(unit, target);
           }
@@ -85,8 +87,16 @@ export class UnitInteraction {
             const callbacks = onceSubscribers.get(target);
             for (const callback of callbacks) {
               callback(unit, target);
+              subscriberSetMap.delete(callback);
             }
             onceSubscribers.delete(target);
+          }
+
+          if (foreverSubscribers.has(target)) {
+            const callbacks = foreverSubscribers.get(target);
+            for (const callback of callbacks) {
+              callback(unit, target);
+            }
           }
         }
       });
@@ -118,8 +128,13 @@ export class UnitInteraction {
 
         const isIdle = isUnitIdle(unit);
         const { targetUnit, oldFacing, maxRadius } = data;
-        const shouldFace = Distance(unit, targetUnit) < maxRadius && isIdle && unit.isAlive();
-        if (!shouldFace) {
+
+        const breakableAttention = !checkUnitFlag(unit, Flag.UNBREAKABLE_ATTENTION);
+        const shouldNotFace = !isIdle || !unit.isAlive() || (
+          breakableAttention && Distance(unit, targetUnit) >= maxRadius
+        );
+
+        if (shouldNotFace) {
           targets.delete(unit);
           unit.resetLookAt();
           if (isIdle && unit.isAlive()) {
@@ -180,11 +195,11 @@ export class UnitInteraction {
       if (soundPath != null) {
         const snd = CreateSound(soundPath, false, true, true, 1, 1, 'DefaultEAXON');
         SetSoundChannel(snd, 0);
-        muteUnitSound();
+        setVolumeSpeech();
         PlaySoundOnUnitBJ(snd, 100, target.handle);
         KillSoundWhenDone(snd);
         setTimeout(GetSoundDuration(snd) / 1000, () => {
-          unmuteUnitSound();
+          resetVolumeSpeech();
           soundThrottleSet.delete(target);
           if (targets.has(target)) {
             const data1 = targets.get(target);
@@ -209,11 +224,30 @@ export class UnitInteraction {
 
   static onStartOnce(unit: Unit, callback: Subscriber): ReturnType<Subscriber> {
     if (onceSubscribers.has(unit)) {
-      onceSubscribers.get(unit).push(callback);
+      onceSubscribers.get(unit).add(callback);
     } else {
-      onceSubscribers.set(unit, [callback]);
+      onceSubscribers.set(unit, new Set([callback]));
     }
+    subscriberSetMap.set(callback, onceSubscribers.get(unit));
     return callback;
+  }
+
+  static onStart(unit: Unit, callback: Subscriber): ReturnType<Subscriber> {
+    if (foreverSubscribers.has(unit)) {
+      foreverSubscribers.get(unit).add(callback);
+    } else {
+      foreverSubscribers.set(unit, new Set([callback]));
+    }
+    subscriberSetMap.set(callback, foreverSubscribers.get(unit));
+    return callback;
+  }
+
+  static stopCallback(callback: Subscriber): void {
+    const set = subscriberSetMap.get(callback);
+    if (set != null) {
+      set.delete(callback);
+      subscriberSetMap.delete(callback);
+    }
   }
 
   static waitUntilQuestTalk(target: Unit, mode: QuestMarkerType): Promise<{ unit: Unit, target: Unit }> {
@@ -275,18 +309,5 @@ export function enableInteractSound(unit: Unit): void {
 export function disableInteractSound(...units: Unit[]): void {
   for (const unit of units) {
     setUnitFlag(unit, Flag.MUTE_INTERACTION_SOUND, true);
-  }
-}
-
-let unitSoundMute = 0;
-function muteUnitSound(): void {
-  unitSoundMute++;
-  VolumeGroupSetVolume(SOUND_VOLUMEGROUP_UNITSOUNDS, 0);
-}
-
-function unmuteUnitSound(): void {
-  unitSoundMute--;
-  if (unitSoundMute === 0) {
-    VolumeGroupSetVolume(SOUND_VOLUMEGROUP_UNITSOUNDS, 1);
   }
 }

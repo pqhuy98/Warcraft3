@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import { playerForsaken, playerHumanAlliance, playerMain } from 'lib/constants';
 import {
   Angle,
   centerLocRect,
@@ -7,7 +6,6 @@ import {
   isLocInRect,
   PolarProjection,
 } from 'lib/location';
-import { setAllianceState2Way } from 'lib/player';
 import { dialogue } from 'lib/quests/dialogue_sound';
 import {
   QuestLog,
@@ -172,9 +170,6 @@ export class LumberMillPart2 extends BaseQuest {
     void questLog.completeItem(0);
 
     // Undead started attacking
-    setAllianceState2Way(playerMain, playerHumanAlliance, 'allied');
-    setAllianceState2Way(playerHumanAlliance, playerForsaken, 'enemy');
-    setAllianceState2Way(playerMain, playerForsaken, 'enemy');
 
     removeGuardPosition(...undeadAttackers);
     void waitUntil(1, () => { // non-blocking
@@ -259,10 +254,6 @@ export class LumberMillPart2 extends BaseQuest {
     await questLog.completeItem(1);
     await questLog.insertItem(questItems[2]);
     traveler = await this.waitForTurnIn(knight);
-
-    setAllianceState2Way(playerMain, playerHumanAlliance, 'neutral');
-    setAllianceState2Way(playerHumanAlliance, playerForsaken, 'neutral');
-    setAllianceState2Way(playerMain, playerForsaken, 'neutral');
 
     await playSpeech(knight, knightOutro, traveler);
 
