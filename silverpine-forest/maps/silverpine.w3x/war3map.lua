@@ -127,11 +127,16 @@ gg_unit_hfoo_0149 = nil
 gg_unit_hfoo_0150 = nil
 gg_unit_hfoo_0151 = nil
 gg_unit_nvl2_0413 = nil
+gg_unit_Ulic_0219 = nil
 gg_unit_nhem_0557 = nil
 gg_unit_Ekee_0551 = nil
+gg_unit_Oshd_0649 = nil
 gg_unit_hmtm_0682 = nil
 gg_unit_hkni_0680 = nil
+gg_unit_Ntin_0734 = nil
+gg_unit_Hmkg_0802 = nil
 gg_unit_Hdgo_0803 = nil
+gg_unit_Hamg_0807 = nil
 gg_unit_nvil_0414 = nil
 gg_unit_n007_0901 = nil
 gg_unit_hcth_0943 = nil
@@ -140,16 +145,11 @@ gg_unit_u001_1000 = nil
 gg_unit_n00C_1135 = nil
 gg_unit_hkee_1302 = nil
 gg_unit_htow_1131 = nil
+gg_unit_hsor_1325 = nil
 gg_dest_LTg3_4633 = nil
 gg_dest_LTg3_8382 = nil
 gg_dest_YTcx_0002 = nil
 gg_dest_YTcx_0001 = nil
-gg_unit_hsor_1325 = nil
-gg_unit_Ntin_0734 = nil
-gg_unit_Hamg_0807 = nil
-gg_unit_Hmkg_0802 = nil
-gg_unit_Oshd_0649 = nil
-gg_unit_Ulic_0219 = nil
 function InitGlobals()
 end
 
