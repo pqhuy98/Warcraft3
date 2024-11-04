@@ -1,6 +1,8 @@
 # wc3-ts-template
  An easy to use template to get you started coding in TypeScript for Warcraft III maps.
 
+Hive Workshop: https://www.hiveworkshop.com/threads/lich-kings-journey-in-silverpine-forest.356430
+
 Setup Guide: [Getting Started](https://cipherxof.github.io/w3ts/docs/getting-started).
 
 ## Features
