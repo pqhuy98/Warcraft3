@@ -6,6 +6,7 @@ import { MulticastUnit } from 'abilities/multicast/unit';
 import Sandquake from 'abilities/sandquake/sandquake';
 import { ThunderBlink } from 'abilities/thunder_blink/thunder_blink';
 import WrathOfTheLichKing from 'abilities/wrath_of_the_lich_king/wrath_of_the_lich_king';
+import { registerAbilityLocation } from 'events/ability_location/ability_location';
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
 import { registerFightingSounds } from 'events/fighting_sounds/fighting_sounds';
 import { registerHouseInterior } from 'events/house_interior/house_interior';
@@ -13,7 +14,6 @@ import { registerItemDrops } from 'events/item_drops/item_drops';
 import { MiscEvents } from 'events/misc';
 import { SmallUnitModel } from 'events/small_unit_model/small_unit_model';
 import { SummonBirthAnimation } from 'events/summon/summon_birth_animation';
-import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
 import { Weather } from 'events/weather/weather';
 import { registerCameraExperiments } from 'lib/camera';
 import {
@@ -78,7 +78,7 @@ function tsMain(): void {
   daemonTempCleanUp();
   daemonQuestMarker();
   daemonGuardPosition();
-  useReforgedIcons();
+  registerAbilityLocation();
   registerPreseveUnits();
   registerHearthStone();
   registerItemDrops();

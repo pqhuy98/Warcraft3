@@ -20,7 +20,6 @@ export function isShowingUi(): boolean {
 }
 
 export function registerFrameUiExperiments(): void {
-  fname('ConsoleUIBackdrop').setSize(0, 0.0001);
   buildTrigger((t) => {
     t.registerPlayerKeyEvent(playerMain, OSKEY_Z, METAKEY_CONTROL, true);
     t.addAction(() => {

@@ -15,6 +15,7 @@ import { ScortahAi } from 'ai/custom/scortah-ai';
 import { ZeusAi } from 'ai/custom/zeus-ai';
 import { LightForceAi } from 'ai/light_force_ai';
 import { FactionInterestingEvents } from 'ai/observer/interesting_events/faction_interesting_events';
+import { registerAbilityLocation } from 'events/ability_location/ability_location';
 import { AutoPanCamera } from 'events/autopan_camera/autopan_camera';
 import { BuildingSelectionCircle } from 'events/building_selection_circle/building_selection_circle';
 import { registerChatCommands } from 'events/chat_commands/chat_commands';
@@ -26,7 +27,6 @@ import {
 } from 'events/small_unit_model/small_unit_model';
 import { PrototypeUnits } from 'events/special_units/prototype_units';
 import { SummonBirthAnimation } from 'events/summon_birth_animation/summon_birth_animation';
-import { useReforgedIcons } from 'events/use_reforged_icons/use_reforged_icons';
 import { Weather } from 'events/weather/weather';
 import {
   ABILITY_ID_BLADE_DANCE,
@@ -110,7 +110,7 @@ function tsMain() {
   upgradeTownHallAllPlayers();
 
   registerAi();
-  useReforgedIcons();
+  registerAbilityLocation();
   trackElapsedGameTime();
   daemonTieUnitToUnit();
   daemonDummyMaster();

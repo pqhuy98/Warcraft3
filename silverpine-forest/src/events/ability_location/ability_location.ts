@@ -9,19 +9,19 @@ const excludedAbilityIds = [
 
 const abilitySet = new Set<number>(excludedAbilityIds);
 
-export function useReforgedIcons(): void {
+export function registerAbilityLocation(): void {
   const units = temp(Group.fromHandle(GetUnitsInRectAll(GetWorldBounds())));
-  units.for(() => updateReforgedIcons(Unit.fromEnum()));
+  units.for(() => updateAbilityLocation(Unit.fromEnum()));
 
   buildTrigger((t) => {
     TriggerRegisterEnterRectSimple(t.handle, GetEntireMapRect());
     t.registerAnyUnitEvent(EVENT_PLAYER_HERO_SKILL);
     t.addCondition(() => !isDummy(Unit.fromEvent()));
-    t.addAction(() => updateReforgedIcons(Unit.fromEvent()));
+    t.addAction(() => updateAbilityLocation(Unit.fromEvent()));
   });
 }
 
-function updateReforgedIcons(unit: Unit): void {
+function updateAbilityLocation(unit: Unit): void {
   for (let i = 0; ; i++) {
     const ability = unit.getAbilityByIndex(i);
     if (ability) {
@@ -30,11 +30,6 @@ function updateReforgedIcons(unit: Unit): void {
         continue;
       }
       abilitySet.add(id);
-      // const iconPath = BlzGetAbilityIcon(id);
-      // if (!isReforgedForcefully(iconPath)) {
-      //   BlzSetAbilityIcon(id, reforged(BlzGetAbilityIcon(id)));
-      //   BlzSetAbilityActivatedIcon(id, reforged(BlzGetAbilityActivatedIcon(id)));
-      // }
       if (BlzGetAbilityPosY(id) === 2) {
         BlzSetAbilityPosY(id, 0);
         BlzSetAbilityActivatedPosY(id, 0);
