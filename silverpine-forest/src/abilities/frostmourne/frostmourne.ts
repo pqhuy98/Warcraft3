@@ -1,11 +1,9 @@
 import { k0, k1 } from 'lib/debug/key_counter';
-import {
-  Angle, Distance, PolarProjection,
-} from 'lib/location';
+import { Angle, Distance, PolarProjection } from 'lib/location';
 import { MODEL_ZigguratMissile } from 'lib/resources/war3-models';
 import { checkUnitFlag, Flag, setUnitFlag } from 'lib/systems/unit_user_data_flag';
 import {
-  buildTrigger, setIntervalIndefinite,
+  buildTrigger, getTimeS, setIntervalIndefinite,
   setTimeout,
 } from 'lib/trigger';
 import {
@@ -22,6 +20,14 @@ import {
   Timer,
   Unit,
 } from 'w3ts';
+
+interface SoulData {
+  target: Unit
+  effect: Effect
+  scale: number
+  angle: number
+  createdAtS: number
+}
 
 export default class Frostmourne {
   static Data = {
@@ -40,11 +46,7 @@ export default class Frostmourne {
       && victim !== killer,
   };
 
-  static soulTarget = new Map<Unit, Unit>();
-
-  static soulEffect = new Map<Unit, Effect>();
-
-  static soulScale = new Map<Unit, number>();
+  static soulsMap = new Map<Unit, SoulData>();
 
   static timer: Timer = null;
 
@@ -77,19 +79,20 @@ export default class Frostmourne {
     const worldBounds = Rectangle.getWorldBounds();
     const interval = 0.03;
     this.timer = setIntervalIndefinite(interval, () => {
-      if (this.soulTarget.size === 0) {
+      if (this.soulsMap.size === 0) {
         this.timer.pause();
         this.timer.destroy();
         this.timer = null;
       }
 
       const distancePerStep = Frostmourne.Data.getSoulReturnSpeed() * interval;
+      const now = getTimeS();
 
-      for (const soul of this.soulTarget.keys()) {
-        const target = this.soulTarget.get(soul);
+      for (const soul of this.soulsMap.keys()) {
+        const data = this.soulsMap.get(soul);
+        const { target, scale, effect } = data;
         if (!target || Distance(soul, target) < distancePerStep) {
           if (target.isAlive()) {
-            const scale = this.soulScale.get(soul) ?? 1;
             target.life += target.maxLife * (0.25 + scale) * Frostmourne.Data.LIFE_PERCENT_RESTORED_PER_SOUL;
             target.mana += target.maxMana * (0.25 + scale) * Frostmourne.Data.MANA_PERCENT_RESTORED_PER_SOUL;
           }
@@ -97,20 +100,33 @@ export default class Frostmourne {
           soul.x = worldBounds.maxX - 1;
           soul.y = worldBounds.maxY - 1;
 
-          const eff = this.soulEffect.get(soul);
-          this.soulTarget.delete(soul);
-          this.soulEffect.delete(soul);
-          this.soulScale.delete(soul);
+          this.soulsMap.delete(soul);
 
-          eff.destroy();
+          effect.destroy();
           safeRemoveDummy(soul);
 
           k1('fstm');
           k1('fstm2');
         } else {
-          const newLoc = PolarProjection(soul, distancePerStep, Angle(soul, target));
+          const newLoc = PolarProjection(soul, distancePerStep, data.angle);
           soul.x = newLoc.x;
           soul.y = newLoc.y;
+          let expectAngle = Angle(soul, target);
+          if (expectAngle - data.angle > 180) {
+            expectAngle -= 360;
+          }
+          if (expectAngle - data.angle < -180) {
+            expectAngle += 360;
+          }
+          if (Math.abs(data.angle - expectAngle) < 10 || now - data.createdAtS > 1) {
+            data.angle = expectAngle;
+          } else {
+            let delta = (expectAngle - data.angle) * 0.1;
+            if (Math.abs(delta) < 10) {
+              delta = Math.sign(delta) * 10;
+            }
+            data.angle += delta;
+          }
         }
       }
     });
@@ -123,17 +139,20 @@ export default class Frostmourne {
     setUnitFlag(victim, Flag.FROSTMOURNE_SOUL_HARVESTED, true);
     const scale = Math.min(2, victim.level / 5);
     setTimeout(GetRandomReal(0, scale), () => {
-      const soul = createDummy(killer.owner, victim.x, victim.y, killer, 0);
+      const soul = createDummy(killer.owner, victim.x, victim.y, killer, 0, GetRandomDirectionDeg());
       setUnitScale(soul, scale);
-      this.soulScale.set(soul, scale);
       const effect = Effect.createAttachment(Frostmourne.Data.SOUL_MODEL, soul, 'origin');
-
-      this.soulTarget.set(soul, killer);
-      this.soulEffect.set(soul, effect);
+      this.soulsMap.set(soul, {
+        target: killer,
+        effect,
+        scale,
+        angle: soul.facing,
+        createdAtS: getTimeS(),
+      });
       const estimatedReturnTime = Distance(victim, killer) / Frostmourne.Data.getSoulReturnSpeed();
       const finalHeight = Frostmourne.Data.getSoulEffectFinalHeight();
-      const speed = finalHeight / estimatedReturnTime * Math.max(1, 1 / scale);
-      soul.setflyHeight(finalHeight, speed);
+      const zSpeed = finalHeight / estimatedReturnTime * Math.max(1, 1 / scale);
+      soul.setflyHeight(finalHeight, zSpeed);
       k0('fstm2');
       this.startTimerIfStopped();
     });
