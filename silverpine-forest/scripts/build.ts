@@ -32,6 +32,7 @@ export function createMapFromDir(output: string, dir: string) {
   map.archive.resizeHashtable(files.length);
 
   for (const fileName of files) {
+    logger.info("Packing " + fileName);
     const contents = toArrayBuffer(fs.readFileSync(fileName));
     const archivePath = path.relative(dir, fileName);
     const imported = map.import(archivePath, contents);
