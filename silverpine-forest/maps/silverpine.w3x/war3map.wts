@@ -2845,3 +2845,27 @@ STRING 524
 Hurls a fiery bolt that stuns a target enemy unit for <ANfb,Dur3> seconds and deals <ANfb,DataA3> damage.
 }
 
+STRING 526
+// Units: U002 (Death Knight), Propernames (Proper Names)
+{
+Darion Mograine
+}
+
+STRING 527
+// Units: U002 (Death Knight), Awakentip (Tooltip - Awaken)
+{
+Revive Darion Mograine
+}
+
+STRING 528
+// Units: U002 (Death Knight), Tip (Tooltip - Basic)
+{
+Summon Darion Mograine
+}
+
+STRING 529
+// Units: U002 (Death Knight), Revivetip (Tooltip - Revive)
+{
+Revive Darion Mograine
+}
+

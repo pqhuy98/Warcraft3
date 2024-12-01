@@ -1,6 +1,8 @@
 import Frostmourne from 'abilities/frostmourne/frostmourne';
 import { Weather, weatherBlizzard } from 'events/weather/weather';
-import { SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN } from 'lib/constants';
+import {
+  MODEL_Shadow_Tornado, MODEL_Water_Tornado, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN,
+} from 'lib/constants';
 import { k0, k1 } from 'lib/debug/key_counter';
 import { PolarProjection } from 'lib/location';
 import { getCircleCoordinates } from 'lib/maths/geometric_coordinates';
@@ -198,25 +200,24 @@ export default class WrathOfTheLichKing {
       },
     });
 
-    // const effects: effect[] = [];
-    // for (let i = 3; i <= 2; i++) {
-    //   const eff = AddSpecialEffect(i === 1 ? MODEL_Shadow_Tornado : MODEL_Water_Tornado, caster.x, caster.y);
-    //   const scaleXy = 3.3 * i;
-    //   BlzSetSpecialEffectMatrixScale(eff, scaleXy, scaleXy, 3);
-    //   BlzSetSpecialEffectTime(eff, 0.51);
-    //   BlzSetSpecialEffectTimeScale(eff, 0.15 + (2 - i) * 0.10);
-    //   BlzSetSpecialEffectHeight(eff, 500);
-    //   effects.push(eff);
-    // }
+    const effects: effect[] = [];
+    for (let i = 1; i < 2; i++) {
+      const eff = AddSpecialEffect(i === 1 ? MODEL_Shadow_Tornado : MODEL_Water_Tornado, caster.x, caster.y);
+      const scaleXy = 3 * (i + 1);
+      BlzSetSpecialEffectMatrixScale(eff, scaleXy, scaleXy, 0.1);
+      BlzSetSpecialEffectTime(eff, 0.51);
+      BlzSetSpecialEffectTimeScale(eff, 0.15 + (2 - i) * 0.10);
+      effects.push(eff);
+    }
 
     let cleanUp: () => void;
 
     k0('wotlkT1');
     const t1 = setIntervalForDuration(0.05, effectDurationS, () => {
       if (caster.isAlive()) {
-        // for (const eff of effects) {
-        //   BlzSetSpecialEffectPosition(eff, loc.x, loc.y, 100);
-        // }
+        for (const eff of effects) {
+          BlzSetSpecialEffectPosition(eff, caster.x, caster.y, caster.z);
+        }
         dummy2.x = caster.x;
         dummy2.y = caster.y;
       } else {
@@ -238,11 +239,11 @@ export default class WrathOfTheLichKing {
 
     cleanUp = (): void => {
       movingTerrainEffect.destroy();
-      // setTimeout(1, () => {
-      //   for (const eff of effects) {
-      //     DestroyEffect(eff);
-      //   }
-      // });
+      setTimeout(1, () => {
+        for (const eff of effects) {
+          DestroyEffect(eff);
+        }
+      });
       spellSound.stop(false, true);
       safeRemoveDummy(dummy2);
       Weather.changeWeather();

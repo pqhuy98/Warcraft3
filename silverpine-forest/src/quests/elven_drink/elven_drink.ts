@@ -2,7 +2,9 @@
 import { MulticastNoTarget } from 'abilities/multicast/no-target';
 import { MulticastPoint } from 'abilities/multicast/point';
 import { MulticastUnit } from 'abilities/multicast/unit';
-import { playerMonsters } from 'lib/constants';
+import {
+  ABILITY_ID_DEATH_COIL_LICH_KING, ABILITY_ID_FROST_BOLT_LICH_KING, ABILITY_ID_FROST_NOVA_LICH_KING, ABILITY_ID_WRATH_OF_THE_LICH_KING, playerMonsters,
+} from 'lib/constants';
 import { generateFogLocsBehindTrees } from 'lib/destructable';
 import {
   currentLoc, Destroyable, Distance,
@@ -34,8 +36,8 @@ import { BaseQuest, BaseQuestProps } from '../base';
 
 type MonsterType = typeof neutralHostileTypes[number]
 
-const hardestMinimumLife = 2000;
-const hardestMinimumDamage = 100;
+const hardestMinimumLife = 3000;
+const hardestMinimumDamage = 150;
 
 const elfFirstSound = dialogue(
   'QuestSounds\\__refined\\elven-drink\\elven-drink-elf-1.mp3',
@@ -202,11 +204,11 @@ export class ElvenDrink extends BaseQuest {
       if (completed) {
         const rewards: string[] = [];
 
-        const bonusLife = level * 50;
+        const bonusLife = 100;
         traveler.maxLife += bonusLife;
         rewards.push(`+${bonusLife} max life`);
 
-        const bonusDamage = 30;
+        const bonusDamage = 10;
         for (let i = 0; i < 2; i++) {
           traveler.setBaseDamage(traveler.getBaseDamage(i) + bonusDamage, i);
         }
@@ -262,6 +264,17 @@ export class ElvenDrink extends BaseQuest {
       const toClean: Destroyable[] = [];
 
       enumUnitAbilities(traveler, (_, id) => {
+        if ([
+          ABILITY_ID_DEATH_COIL_LICH_KING,
+          ABILITY_ID_FROST_NOVA_LICH_KING,
+          ABILITY_ID_FROST_BOLT_LICH_KING,
+          ABILITY_ID_WRATH_OF_THE_LICH_KING,
+        ].includes(id)) {
+          // these abilities are too powerful, don't make them even stronger
+          return;
+        }
+
+        // make  ability stronger by enable multicasting
         toClean.push(MulticastNoTarget.register(id, traveler));
         toClean.push(MulticastPoint.register(id, traveler));
         toClean.push(MulticastUnit.register(id, traveler));
@@ -284,6 +297,11 @@ export class ElvenDrink extends BaseQuest {
           });
         }),
       );
+
+      // Character gains less XP
+      const oldHandicapXp = traveler.owner.handicapXp;
+      traveler.owner.handicapXp = oldHandicapXp * 0.1;
+      toClean.push({ destroy: () => traveler.owner.handicapXp = oldHandicapXp });
 
       // Enemy spawns
       traveler.shareVision(playerMonsters, true);
@@ -385,7 +403,7 @@ export class ElvenDrink extends BaseQuest {
         t.addAction(() => {
           const summoned = Unit.fromHandle(GetSummonedUnit());
           summons.addUnit(summoned);
-          summoned.applyTimedLife(BUFF_ID_GENERIC, cooldownResetIntervalS * 2);
+          summoned.applyTimedLife(BUFF_ID_GENERIC, cooldownResetIntervalS * 1.5);
         });
       }));
 

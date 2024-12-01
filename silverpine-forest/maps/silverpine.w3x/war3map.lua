@@ -2149,6 +2149,7 @@ SetUnitState(u, UNIT_STATE_MANA, 1680)
 u = BlzCreateUnitWithSkin(p, FourCC("H004"), 17760.5, -1098.7, 270.000, FourCC("H004"))
 SetHeroLevel(u, 30, false)
 SetUnitState(u, UNIT_STATE_MANA, 1035)
+u = BlzCreateUnitWithSkin(p, FourCC("U002"), 12561.0, -5469.8, 181.770, FourCC("U002"))
 end
 
 function CreatePlayerBuildings()

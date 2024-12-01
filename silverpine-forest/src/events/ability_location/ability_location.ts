@@ -37,10 +37,9 @@ function updateAbilityLocation(unit: Unit): void {
         BlzSetAbilityPosY(id, 2);
         BlzSetAbilityActivatedPosY(id, 2);
       } else if (BlzGetAbilityPosY(id) === 1) {
-        if (BlzGetAbilityPosX(id) > 1) {
-          BlzSetAbilityPosX(id, BlzGetAbilityPosX(id) - 1);
-          BlzSetAbilityActivatedPosX(id, BlzGetAbilityPosX(id) - 1);
-        }
+        const xMapping = [0, 2, 3, 1];
+        BlzSetAbilityPosX(id, xMapping[BlzGetAbilityPosX(id)]);
+        BlzSetAbilityActivatedPosX(id, xMapping[BlzGetAbilityActivatedPosX(id)]);
       }
     } else {
       break;
