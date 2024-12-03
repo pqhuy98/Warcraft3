@@ -54,7 +54,7 @@ export class MulticastNoTarget {
         dummy.skin = caster.skin;
         const scale = getUnitScale(caster);
         setUnitScale(dummy, scale);
-        dummy.setVertexColor(255, 255, 0, 128);
+        dummy.setVertexColor(200, 200, 255, 128);
         dummy.setField(UNIT_RF_CAST_POINT, castPoint);
         dummy.addAbility(abiId);
         dummy.setAbilityLevel(abiId, abiLevel);
@@ -94,7 +94,7 @@ export class MulticastNoTarget {
             tLimit.destroy();
             RemoveLocation(targetLoc);
             k0('mcnt-f');
-            fadeUnit(dummy, 255, 255, 0, 128, 0, fadeDuration, () => {
+            fadeUnit(dummy, 200, 200, 255, 128, 0, fadeDuration, () => {
               safeRemoveDummy(dummy);
               k1('mcnt-f');
             });

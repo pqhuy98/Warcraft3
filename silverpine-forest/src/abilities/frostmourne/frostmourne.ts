@@ -14,6 +14,7 @@ import {
   safeRemoveDummy,
   setUnitScale,
 } from 'lib/unit';
+import { classic } from 'lib/utils';
 import {
   Effect,
   Rectangle,
@@ -26,13 +27,13 @@ interface SoulData {
   effect: Effect
   scale: number
   angle: number
-  createdAtS: number
+  returnAtS: number
 }
 
 export default class Frostmourne {
   static Data = {
     ABILITY_IDS: <number[]>[],
-    SOUL_MODEL: MODEL_ZigguratMissile,
+    SOUL_MODEL: classic(MODEL_ZigguratMissile),
     LIFE_PERCENT_RESTORED_PER_SOUL: 0.02,
     MANA_PERCENT_RESTORED_PER_SOUL: 0.01,
     getSoulReturnSpeed: (): number => (700),
@@ -91,7 +92,7 @@ export default class Frostmourne {
       for (const soul of this.soulsMap.keys()) {
         const data = this.soulsMap.get(soul);
         const { target, scale, effect } = data;
-        if (!target || Distance(soul, target) < distancePerStep) {
+        if (!target || (Distance(soul, target) < distancePerStep && data.returnAtS < now)) {
           if (target.isAlive()) {
             target.life += target.maxLife * (0.25 + scale) * Frostmourne.Data.LIFE_PERCENT_RESTORED_PER_SOUL;
             target.mana += target.maxMana * (0.25 + scale) * Frostmourne.Data.MANA_PERCENT_RESTORED_PER_SOUL;
@@ -118,7 +119,7 @@ export default class Frostmourne {
           if (expectAngle - data.angle < -180) {
             expectAngle += 360;
           }
-          if (Math.abs(data.angle - expectAngle) < 10 || now - data.createdAtS > 1) {
+          if (Math.abs(data.angle - expectAngle) < 10 || data.returnAtS < now) {
             data.angle = expectAngle;
           } else {
             let delta = (expectAngle - data.angle) * 0.1;
@@ -140,14 +141,14 @@ export default class Frostmourne {
     const scale = Math.min(2, victim.level / 5);
     setTimeout(GetRandomReal(0, scale), () => {
       const soul = createDummy(killer.owner, victim.x, victim.y, killer, 0, GetRandomDirectionDeg());
-      setUnitScale(soul, scale);
+      setUnitScale(soul, Math.max(0.5, scale));
       const effect = Effect.createAttachment(Frostmourne.Data.SOUL_MODEL, soul, 'origin');
       this.soulsMap.set(soul, {
         target: killer,
         effect,
         scale,
         angle: soul.facing,
-        createdAtS: getTimeS(),
+        returnAtS: getTimeS() + GetRandomReal(1, 2),
       });
       const estimatedReturnTime = Distance(victim, killer) / Frostmourne.Data.getSoulReturnSpeed();
       const finalHeight = Frostmourne.Data.getSoulEffectFinalHeight();

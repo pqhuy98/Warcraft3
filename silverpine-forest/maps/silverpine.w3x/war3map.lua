@@ -1079,7 +1079,7 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("H001"), 12435.9, -5237.8, 176.377, FourCC("H001"))
+u = BlzCreateUnitWithSkin(p, FourCC("H001"), 12422.6, -5397.6, 176.377, FourCC("H001"))
 SetUnitState(u, UNIT_STATE_MANA, 510)
 UnitAddItemToSlotById(u, FourCC("I000"), 0)
 end
@@ -1990,7 +1990,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("nrac"), 8368.0, -10666.0, 268.078, FourCC("
 u = BlzCreateUnitWithSkin(p, FourCC("nrac"), 7518.0, -19892.2, 168.898, FourCC("nrac"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10507.0, -8718.2, 209.153, FourCC("nshe"))
 u = BlzCreateUnitWithSkin(p, FourCC("nshe"), 10451.9, -8882.1, 202.166, FourCC("nshe"))
-u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 12491.9, -5226.7, 195.880, FourCC("Ewar"))
+u = BlzCreateUnitWithSkin(p, FourCC("Ewar"), 12630.1, -5329.9, 195.880, FourCC("Ewar"))
 SetHeroLevel(u, 5, false)
 SetUnitState(u, UNIT_STATE_MANA, 345)
 SelectHeroSkill(u, FourCC("AEfk"))
@@ -2149,7 +2149,7 @@ SetUnitState(u, UNIT_STATE_MANA, 1680)
 u = BlzCreateUnitWithSkin(p, FourCC("H004"), 17760.5, -1098.7, 270.000, FourCC("H004"))
 SetHeroLevel(u, 30, false)
 SetUnitState(u, UNIT_STATE_MANA, 1035)
-u = BlzCreateUnitWithSkin(p, FourCC("U002"), 12561.0, -5469.8, 181.770, FourCC("U002"))
+u = BlzCreateUnitWithSkin(p, FourCC("U002"), 12350.9, -4911.2, 240.360, FourCC("U002"))
 end
 
 function CreatePlayerBuildings()

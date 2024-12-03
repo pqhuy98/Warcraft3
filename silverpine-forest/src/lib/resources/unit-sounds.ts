@@ -1,5 +1,5 @@
 import {
-  UNIT_BigSludge_1, UNIT_BigSludge_2, UNIT_BigSludge_3, UNIT_Butcher, UNIT_GiantMoonWell, UNIT_HarvestGolem,
+  UNIT_BigSludge_1, UNIT_BigSludge_2, UNIT_BigSludge_3, UNIT_Butcher, UNIT_DarionMograine, UNIT_GiantMoonWell, UNIT_HarvestGolem,
   UNIT_LichKing,
   UNIT_LumberMillQuest,
   UNIT_Scortah,
@@ -10,7 +10,7 @@ import {
 
 import {
   UNIT_Abomination,
-  UNIT_Akama, UNIT_BookOfSummoningPedestal, UNIT_GoblinShredder, UNIT_HeroCryptLord, UNIT_HeroMountainKing, UNIT_LumberMill, UNIT_MoonWell, UNIT_SludgeMonstrosity, UNIT_TYPE,
+  UNIT_Akama, UNIT_BookOfSummoningPedestal, UNIT_GoblinShredder, UNIT_HeroCryptLord, UNIT_HeroDeathKnight, UNIT_HeroMountainKing, UNIT_LumberMill, UNIT_MoonWell, UNIT_SludgeMonstrosity, UNIT_TYPE,
   UNIT_Uther,
 } from './war3-units';
 
@@ -30690,3 +30690,4 @@ addCustomUnitSound(UNIT_LichKing, UNIT_Akama);
 addCustomUnitSound(UNIT_Scortah, UNIT_HeroCryptLord);
 addCustomUnitSound(UNIT_Zeus, UNIT_HeroMountainKing);
 addCustomUnitSound(UNIT_TirionFordring, UNIT_Uther);
+addCustomUnitSound(UNIT_DarionMograine, UNIT_HeroDeathKnight);

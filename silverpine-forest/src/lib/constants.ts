@@ -48,6 +48,7 @@ export const UNIT_TirionFordring = { code: 'H004', id: FourCC('H004') };
 export const UNIT_LichKing = { code: 'H001', id: FourCC('H001') };
 export const UNIT_Scortah = { code: 'U000', id: FourCC('U000') };
 export const UNIT_Zeus = { code: 'H002', id: FourCC('H002') };
+export const UNIT_DarionMograine = { code: 'U002', id: FourCC('U002') };
 
 export const UNIT_IPR_TRANSMITTER = { code: 'h005', id: FourCC('h005') };
 export const UNIT_IPR_RECEIVER = { code: 'h006', id: FourCC('h006') };

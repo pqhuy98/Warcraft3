@@ -1,9 +1,12 @@
+import { ABILITY_ID_DEATH_COIL_LICH_KING } from 'lib/constants';
+import { Angle, PolarProjection } from 'lib/location';
 import { ABILITY_BloodMageSiphonMana } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger } from 'lib/trigger';
 import {
   createDummy, enumUnitsWithDelay, getUnitScale, getUnitsInRangeOfLoc, isBuilding, isDummy,
   isWard,
+  makeFlyable,
   setUnitScale,
   tieUnitToUnit,
 } from 'lib/unit';
@@ -63,8 +66,16 @@ export class MulticastUnit {
         }
 
         enumUnitsWithDelay(nearby, (unit) => {
-          if (!singleDummy || !dummy) {
+          if (!singleDummy || !dummy || abilityId === ABILITY_ID_DEATH_COIL_LICH_KING) {
             dummy = this.createDummyWithAbility(caster, dummyCastDuration, abilityId, abilityLevel);
+          }
+
+          if (abilityId === ABILITY_ID_DEATH_COIL_LICH_KING) {
+            const loc = PolarProjection(caster, GetRandomReal(300, 400), 2 * Angle(caster, target) - Angle(caster, unit) + 180);
+            dummy.x = loc.x;
+            dummy.y = loc.y;
+            makeFlyable(dummy);
+            dummy.setflyHeight(GetRandomReal(caster.defaultFlyHeight + 200, caster.defaultFlyHeight + 400), 0);
           }
 
           dummy.issueTargetOrder(order, unit);

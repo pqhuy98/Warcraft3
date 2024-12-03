@@ -2869,3 +2869,9 @@ STRING 529
 Revive Darion Mograine
 }
 
+STRING 530
+// Units: U002 (Death Knight), EditorSuffix (Name - Editor Suffix)
+{
+(Darion Mograine)
+}
+
