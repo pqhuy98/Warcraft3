@@ -12,6 +12,8 @@ import {
 } from 'lib/unit';
 import { Trigger, Unit } from 'w3ts';
 
+import { ABILITY_ID_FROST_BOLT_LICH_KING } from '../../lib/constants';
+
 export class MulticastUnit {
   static Data = {
     getEffectRadius: (): number => (500),
@@ -70,7 +72,7 @@ export class MulticastUnit {
             dummy = this.createDummyWithAbility(caster, dummyCastDuration, abilityId, abilityLevel);
           }
 
-          if (abilityId === ABILITY_ID_DEATH_COIL_LICH_KING) {
+          if ([ABILITY_ID_DEATH_COIL_LICH_KING, ABILITY_ID_FROST_BOLT_LICH_KING].includes(abilityId)) {
             const loc = PolarProjection(caster, GetRandomReal(300, 400), 2 * Angle(caster, target) - Angle(caster, unit) + 180);
             dummy.x = loc.x;
             dummy.y = loc.y;

@@ -1,0 +1,10 @@
+[Misc]
+FoodCeiling=300
+GoldMineMaxGold=1000000000
+HeroFactorXP=100
+LowGoldAmount=30000
+MaxHeroLevel=100
+MaxUnitLevel=100
+MaxUnitSpeed=522.0
+MinUnitSpeed=100.0
+

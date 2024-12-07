@@ -1079,7 +1079,7 @@ local unitID
 local t
 local life
 
-u = BlzCreateUnitWithSkin(p, FourCC("H001"), 12422.6, -5397.6, 176.377, FourCC("H001"))
+u = BlzCreateUnitWithSkin(p, FourCC("H001"), 12483.9, -5242.3, 212.870, FourCC("H001"))
 SetUnitState(u, UNIT_STATE_MANA, 510)
 UnitAddItemToSlotById(u, FourCC("I000"), 0)
 end

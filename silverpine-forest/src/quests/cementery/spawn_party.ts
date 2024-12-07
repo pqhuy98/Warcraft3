@@ -1,4 +1,4 @@
-import { playerMain, neutralPassive } from 'lib/constants';
+import { neutralPassive, playerMain } from 'lib/constants';
 import { RandomSet } from 'lib/data_structures/random_set';
 import { randomLocRect } from 'lib/location';
 import { getUnitSounds } from 'lib/resources/unit-sounds';
