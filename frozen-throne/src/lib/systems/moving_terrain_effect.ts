@@ -51,6 +51,7 @@ export class MovingTerrainEffect {
             timestamp: getTimeS(),
             value: v,
           });
+          onSetTile?.(v.loc.x, v.loc.y);
         } else {
           setTimeout(GetRandomReal(0.1, 1), () => {
             SetTerrainType(v.loc.x, v.loc.y, v.typeId, -1, 1, 1);

@@ -12,7 +12,6 @@ import { registerFightingSounds } from 'events/fighting_sounds/fighting_sounds';
 import { registerItemDrops } from 'events/item_drops/item_drops';
 import { MiscEvents } from 'events/misc';
 import { SummonBirthAnimation } from 'events/summon/summon_birth_animation';
-import { Weather } from 'events/weather/weather';
 import { registerCameraExperiments } from 'lib/camera';
 import {
   ABILITY_ID_BLADE_DANCE,
@@ -26,7 +25,11 @@ import {
   ABILITY_ID_WRATH_OF_THE_LICH_KING,
   neutralHostile,
   neutralPassive,
+  playerHumanAlliance,
   playerMain,
+  playerNightElf,
+  playerOrcishHorde,
+  playerUndeadForsaken,
 } from 'lib/constants';
 import { registerFrameUiExperiments } from 'lib/frame-ui';
 import {
@@ -82,7 +85,6 @@ function tsMain(): void {
   registerFrameUiExperiments();
 
   // Miscs
-  Weather.changeWeather();
   Impale.register();
   SummonBirthAnimation.register();
   MiscEvents.register();
@@ -99,6 +101,7 @@ function tsMain(): void {
   Sandquake.register(ABILITY_ID_SANDQUAKE);
   WrathOfTheLichKing.register(ABILITY_ID_WRATH_OF_THE_LICH_KING);
   Frostmourne.register(ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION);
+  // HowOfTerrorLichKing.register(ABILITY_ID_HOWL_OF_TERROR_LICH_KING);
 
   // Multicasts
   MulticastUnit.register(ABILITY_ID_DEATH_COIL_LICH_KING);
@@ -116,22 +119,10 @@ function tsMain(): void {
 function configurePlayerSettings(): void {
   SetReservedLocalHeroButtons(0);
 
-  const heroOnlyPlayers = [
-    playerMain,
-  ];
-
   for (let i = 0; i < 24; i++) {
     const player = MapPlayer.fromIndex(i);
     if (player.slotState === PLAYER_SLOT_STATE_EMPTY) {
       continue;
-    }
-
-    if (heroOnlyPlayers.includes(player)) {
-      player.setState(PLAYER_STATE_RESOURCE_GOLD, 1000);
-      player.setState(PLAYER_STATE_RESOURCE_LUMBER, 200);
-    } else {
-      player.setState(PLAYER_STATE_RESOURCE_GOLD, GetRandomInt(500000, 999999));
-      player.setState(PLAYER_STATE_RESOURCE_LUMBER, GetRandomInt(100000, 500000));
     }
 
     setAllianceState(neutralPassive, player, 'neutral vision');
@@ -147,9 +138,16 @@ function configurePlayerSettings(): void {
 
   // Player Color
   SetPlayerColorBJ(playerMain.handle, PLAYER_COLOR_PURPLE, true);
+  SetPlayerColorBJ(playerOrcishHorde.handle, PLAYER_COLOR_RED, true);
+  SetPlayerColorBJ(playerUndeadForsaken.handle, PLAYER_COLOR_BLUE, true);
+  SetPlayerColorBJ(playerNightElf.handle, PLAYER_COLOR_CYAN, true);
+  SetPlayerColorBJ(playerHumanAlliance.handle, PLAYER_COLOR_LIGHT_BLUE, true);
 }
 
 addScriptHook(W3TS_HOOK.MAIN_AFTER, tsMain);
+addScriptHook(W3TS_HOOK.MAIN_BEFORE, () => {
+
+});
 
 function configureTechs(player: MapPlayer): void {
   allUpgrades.forEach((up) => player.addTechResearched(up, 99));

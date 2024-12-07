@@ -3,16 +3,14 @@ import { Frame } from 'w3ts';
 
 import { playerMain } from './constants';
 import { log } from './log';
-import { QuestLog } from './quests/quest_log';
-import { buildTrigger, setTimeout } from './trigger';
+import { buildTrigger } from './trigger';
 import { METAKEY_CONTROL } from './utils';
 
 let isShowUi = false;
 
 export function showUi(show: boolean): void {
   isShowUi = show;
-  Frame.hideOrigin(!isShowUi);
-  Frame.fromOrigin(ORIGIN_FRAME_MINIMAP, 0).setVisible(true);
+  // Frame.hideOrigin(!isShowUi);
 }
 
 export function isShowingUi(): boolean {
@@ -27,7 +25,7 @@ export function registerFrameUiExperiments(): void {
       showUi(!isShowUi);
     });
   });
-  setTimeout(5, () => QuestLog.hint('You can press Ctrl+Z to hide/show game UI.'));
+  // setTimeout(5, () => QuestLog.hint('You can press Ctrl+Z to hide/show game UI.'));
 
   const origin = chatParamInt('fo', 0);
   const name = chatParamString('fn', '');

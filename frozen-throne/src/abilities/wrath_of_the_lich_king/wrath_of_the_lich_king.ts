@@ -34,6 +34,7 @@ const musicDuration = 44.721;
 
 const snowyTerrainTypes = [
   FourCC('Iice'),
+  FourCC('Ibkb'),
 ];
 
 const speechSound = dialogue('Sounds/lichking_frostmourne_hungers.mp3', 'Lich King', 'Frostmourne hungers...');
@@ -74,7 +75,7 @@ export default class WrathOfTheLichKing {
         const abilityId = GetSpellAbilityId();
         const abilityLevel = caster.getAbilityLevel(GetSpellAbilityId());
 
-        caster.setAnimation(4);
+        caster.setAnimation(5);
         setTimeout(0, () => {
           void playSoundIsolate(spellSound);
           k1('wotlk1');
@@ -112,7 +113,7 @@ export default class WrathOfTheLichKing {
             k1('wotlk3');
             return;
           }
-          caster.setAnimation('spell slam');
+          caster.setAnimation('cinematic swordupdown');
           caster.setTimeScale(3);
           k1('wotlk3');
         });
@@ -191,7 +192,7 @@ export default class WrathOfTheLichKing {
     const movingTerrainEffect = new MovingTerrainEffect({
       unit: caster,
       radius,
-      durationS: 3,
+      durationS: 9,
       terrainTypes: snowyTerrainTypes,
       onSetTile: (x, y): void => Effect.create(MODEL_FrostNovaTarget, x, y).destroy(),
       onUnsetTile: (x, y): void => {
@@ -216,7 +217,7 @@ export default class WrathOfTheLichKing {
     const t1 = setIntervalForDuration(0.05, effectDurationS, () => {
       if (caster.isAlive()) {
         for (const eff of effects) {
-          BlzSetSpecialEffectPosition(eff, caster.x, caster.y, caster.z);
+          BlzSetSpecialEffectPosition(eff, caster.x, caster.y, caster.z + 50);
         }
         dummy2.x = caster.x;
         dummy2.y = caster.y;

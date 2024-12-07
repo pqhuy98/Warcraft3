@@ -1,14 +1,4 @@
-﻿STRING 1
-{
-Player 1
-}
-
-STRING 2
-{
-Force 1
-}
-
-STRING 3
+﻿STRING 3
 // Doodads: D000 (throne 1), Name (Name)
 {
 throne 1
@@ -22,7 +12,7 @@ throne 2
 
 STRING 5
 {
-Just another Warcraft III map
+Frozen Throne
 }
 
 STRING 6
@@ -32,7 +22,7 @@ Any
 
 STRING 7
 {
-Nondescript
+Frozen Throne
 }
 
 STRING 8
@@ -107,7 +97,6 @@ Revive Zeus
 }
 
 STRING 24
-// Units: H001 (Lich King), Name (Name)
 {
 Lich King
 }
@@ -1903,12 +1892,6 @@ STRING 363
 (No Graphic)
 }
 
-STRING 364
-// Abilities: A00T (Possession), EditorSuffix (Editor Suffix)
-{
-(Target Hero)
-}
-
 STRING 368
 // Abilities: A00Y (Ability 4), Name (Name)
 {
@@ -2069,5 +2052,53 @@ STRING 394
 // Buffs/Effects: X000 (Blizzard), EditorSuffix (Editor Suffix)
 {
 (Effect) (Lich King)
+}
+
+STRING 395
+{
+The Horde
+}
+
+STRING 396
+{
+The Alliance
+}
+
+STRING 397
+{
+Undead Scource
+}
+
+STRING 398
+{
+The Crusaders
+}
+
+STRING 399
+// Units: H001 (Lich King), Name (Name)
+{
+Lich King
+}
+
+STRING 400
+{
+Frozen Throne
+}
+
+STRING 401
+{
+At the peak of the Frozen Throne, the Lich King stands, Frostmourne glowing with icy power. Below, the crusaders of the Alliance and Horde gather, their weapons ready and their resolve unshaken. The storm howls around them, but their eyes are fixed on the dark figure above.
+}
+
+STRING 402
+// Doodads: D003 (throne 4), Name (Name)
+{
+throne 4
+}
+
+STRING 403
+// Doodads: D004 (throne 5), Name (Name)
+{
+throne 5
 }
 
