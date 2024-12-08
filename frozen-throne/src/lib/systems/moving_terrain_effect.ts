@@ -15,7 +15,7 @@ interface Props {
   radius: number,
   durationS: number,
   terrainTypes: number[],
-  onSetTile?: (x: number, y: number) => unknown,
+  onSetTile?: (x: number, y: number, isRenewal: boolean) => unknown,
   onUnsetTile?: (x: number, y: number) => unknown
 }
 
@@ -51,7 +51,7 @@ export class MovingTerrainEffect {
             timestamp: getTimeS(),
             value: v,
           });
-          onSetTile?.(v.loc.x, v.loc.y);
+          onSetTile?.(v.loc.x, v.loc.y, true);
         } else {
           setTimeout(GetRandomReal(0.1, 1), () => {
             SetTerrainType(v.loc.x, v.loc.y, v.typeId, -1, 1, 1);
@@ -89,7 +89,7 @@ export class MovingTerrainEffect {
           },
         });
         SetTerrainType(x, y, pickRandom(terrainTypes), -1, 1, 1);
-        onSetTile?.(x, y);
+        onSetTile?.(x, y, false);
       }
     });
   }

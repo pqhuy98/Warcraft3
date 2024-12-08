@@ -47,7 +47,8 @@ export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, option
   }
   const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
 
-  let isFloatText = !options || !options.isFloatText;
+  let isFloatText = false; // default
+  if (options?.isFloatText) isFloatText = true;
   if (bj_cineModeAlreadyIn) isFloatText = false;
   if (!isLocInScreen(unit)) isFloatText = false;
 

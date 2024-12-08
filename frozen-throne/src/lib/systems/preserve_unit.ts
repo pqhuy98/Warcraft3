@@ -5,7 +5,8 @@ import {
 } from 'lib/location';
 import { log } from 'lib/log';
 import { buildTrigger } from 'lib/trigger';
-import { createDummy, getDummyMaster } from 'lib/unit';
+import { createDummy, getDummyMaster, isUnitRemoved } from 'lib/unit';
+import { reverseFourCC } from 'lib/utils';
 import { Group, Trigger, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
@@ -17,6 +18,7 @@ export enum RestoreMode {
 type RestoreFunction = (mode: RestoreMode) => void
 
 interface UnitSave {
+  typeId: string
   lifePercent: number
   manaPercent: number
   position: Loc
@@ -38,6 +40,14 @@ interface Data {
 const preservedUnits = new Map<Unit, Data>();
 const debug = false;
 
+// const specialBuffs = [
+//   'B000',
+//   'B001',
+//   'B004',
+//   'B005',
+//   'BHds', // divine shield
+// ];
+
 export function preserveUnit(unit: Unit): void {
   if (preservedUnits.has(unit)) {
     undoPreserveUnit(unit);
@@ -52,27 +62,43 @@ export function preserveUnit(unit: Unit): void {
     const data = preservedUnits.get(unit);
     if (!data) {
       log(`Warn: cannot restore a no-longer-preserved unit: ${unit.name}`);
+      return;
     }
+
+    if (isUnitRemoved(unit)) {
+      log(`Warn: cannot restore a removed unit with typeId: ${data.saveOriginal.typeId}`);
+      undoPreserveUnit(unit);
+      return;
+    }
+
+    debug && log(`Restoring ${unit.name} from ${mode}`);
 
     const { decoy } = data;
     const save = mode === RestoreMode.BEFORE_PRESERVE ? data.saveOriginal : data.saveBeforeDeath;
     if (save == null) {
-      log(`Warn: cannot restore an alive unit to before death: ${unit.name}`);
+      log(`Warn: cannot find save of unit: ${unit.name}, mode = ${mode}`);
+      return;
     }
 
     if (unit.isHero() && !unit.isAlive()) {
+      debug && log(`Reviving hero ${unit.name}`);
       unit.revive(save.position.x, save.position.y, false);
     }
 
     restoreFromSave(unit, save);
 
     // dispell all buffs
+    debug && log(`Dispelling all buffs from ${unit.name}`);
+    unit.removeBuffs(true, false);
     const dummy = createDummy(unit.owner, unit.x, unit.y, unit, 1);
     dummy.addAbility(ABILITY_ID_PURGE_NO_GRAPHIC);
     dummy.issueTargetOrder(OrderId.Purge, unit);
 
     // remove decoy
-    if (decoy) decoy.destroy();
+    if (decoy) {
+      debug && log('removing decoy');
+      decoy.destroy();
+    }
     data.isAlive = true;
   };
 
@@ -82,14 +108,13 @@ export function preserveUnit(unit: Unit): void {
       t.registerUnitEvent(unit, EVENT_UNIT_DAMAGING);
       t.addCondition(() => GetEventDamage() > 0);
       t.addAction(() => {
-        const data = preservedUnits.get(unit);
-        data.saveBeforeDeath = saveUnit(unit);
-
         if (unit.isHero()) {
           return;
         }
-        const killer = getDummyMaster(GetEventDamageSource());
         if (GetEventDamage() > unit.life) {
+          const data = preservedUnits.get(unit);
+          data.saveBeforeDeath = saveUnit(unit);
+          const killer = getDummyMaster(GetEventDamageSource());
           debug && log(`Preserved ${unit.name} is killed by ${killer.name}`);
           BlzSetEventDamage(0);
           // hide unit
@@ -105,13 +130,13 @@ export function preserveUnit(unit: Unit): void {
 
           // create decoy
           const decoy = Unit.create(unit.owner, unit.typeId, unitLoc.x, unitLoc.y, unit.facing);
-          killer.damageTarget(decoy.handle, Math.max(GetEventDamage(), decoy.life + 1), false, false, ATTACK_TYPE_CHAOS, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS);
+          killer.damageTarget(decoy.handle, Math.max(GetEventDamage(), decoy.life + 999), false, false, ATTACK_TYPE_CHAOS, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS);
           data.decoy = decoy;
           data.isAlive = false;
         }
       });
     }),
-    // original data before dying
+    // original data when preserve
     saveOriginal: saveUnit(unit),
     isAlive: unit.isAlive(),
     restore,
@@ -164,6 +189,10 @@ export function isPreservedUnitAlive(unit: Unit): boolean {
     : unit.isAlive();
 }
 
+export function isUnitPreserved(unit: Unit): boolean {
+  return preservedUnits.has(unit);
+}
+
 function restoreFromSave(unit: Unit, save: UnitSave): void {
   unit.life = save.lifePercent * unit.maxLife;
   unit.mana = save.manaPercent * unit.maxMana;
@@ -180,6 +209,7 @@ function restoreFromSave(unit: Unit, save: UnitSave): void {
 
 function saveUnit(unit: Unit): UnitSave {
   return {
+    typeId: reverseFourCC(unit.typeId),
     lifePercent: unit.life / unit.maxLife,
     manaPercent: unit.mana / unit.maxMana,
     position: currentLoc(unit),

@@ -7,7 +7,7 @@ import { k0, k1 } from 'lib/debug/key_counter';
 import { PolarProjection } from 'lib/location';
 import { getCircleCoordinates } from 'lib/maths/geometric_coordinates';
 import { dialogue } from 'lib/quests/dialogue_sound';
-import { MODEL_FreezingBreathMissile, MODEL_FrostNovaTarget } from 'lib/resources/war3-models';
+import { MODEL_BlizzardTarget, MODEL_FreezingBreathMissile, MODEL_FrostNovaTarget } from 'lib/resources/war3-models';
 import { playSoundIsolate, playSpeech } from 'lib/sound';
 import { MovingTerrainEffect } from 'lib/systems/moving_terrain_effect';
 import {
@@ -192,9 +192,17 @@ export default class WrathOfTheLichKing {
     const movingTerrainEffect = new MovingTerrainEffect({
       unit: caster,
       radius,
-      durationS: 9,
+      durationS: 3,
       terrainTypes: snowyTerrainTypes,
-      onSetTile: (x, y): void => Effect.create(MODEL_FrostNovaTarget, x, y).destroy(),
+      onSetTile: (x, y, isRenewal): void => {
+        if (!isRenewal) {
+          Effect.create(MODEL_FrostNovaTarget, x, y).destroy();
+        } else if (GetRandomInt(1, 4) === 1) {
+          const eff = Effect.create(MODEL_BlizzardTarget, x, y);
+          eff.setRoll(Deg2Rad(GetRandomDirectionDeg()));
+          eff.destroy();
+        }
+      },
       onUnsetTile: (x, y): void => {
         const eff = Effect.create(MODEL_FreezingBreathMissile, x, y);
         setTimeout(0.02, () => eff.destroy());

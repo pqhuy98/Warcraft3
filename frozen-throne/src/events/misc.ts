@@ -1,44 +1,37 @@
 import {
   neutralPassive,
-  playerHumanAlliance,
   playerMain,
-  playerNightElf,
-  playerOrcishHorde,
 } from 'lib/constants';
-import {
-  Angle,
-  currentLoc, Distance, fromTempLocation, isPointReachable, Loc,
-} from 'lib/location';
+import { fromTempLocation, isPointReachable } from 'lib/location';
 import { log } from 'lib/log';
-import { isUser, setAllianceState2Way } from 'lib/player';
-import { cinematicFadeIn, cinematicFadeOut, cinematicMode } from 'lib/quests/utils';
-import { ABILITY_RootAncientProtector, ABILITY_RootAncients } from 'lib/resources/war3-abilities';
+import { isUser } from 'lib/player';
+import { cinematicFadeOut, cinematicMode } from 'lib/quests/utils';
+import { ABILITY_Bearform, ABILITY_RavenFormDruid, ABILITY_StoneForm } from 'lib/resources/war3-abilities';
 import { MODEL_FrostNovaTarget } from 'lib/resources/war3-models';
 import {
-  buildTrigger, setTimeout,
+  buildTrigger, setIntervalIndefinite, setTimeout,
 } from 'lib/trigger';
 import {
-  getMainHero, getUnitsInRect,
+  getMainHero,
+  getUnitsInRect,
 } from 'lib/unit';
-import { waitUntil } from 'lib/utils';
 import {
-  Camera,
-  CameraSetup, Effect, FogModifier, Rectangle, sleep, Unit,
+  CameraSetup, Effect, Unit,
 } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
 
-import { playerForsaken } from '../../../silverpine-forest/src/lib/constants';
 import { onChatCommand } from './chat_commands/chat_commands.model';
-import { Weather, weatherBlizzard } from './weather/weather';
 
 export class MiscEvents {
   static register(): void {
-    cinematicMode(true, 0);
     cinematicFadeOut(0);
+    cinematicMode(true, 0);
     setTimeout(0.0, () => this.run());
   }
 
   static run(): void {
+    CameraSetup.fromHandle(gg_cam_Birdeye_view).apply(true, false);
+
     // Testing isPointReachable
     onChatCommand('-ipr', true, () => {
       const hero = getMainHero();
@@ -56,139 +49,42 @@ export class MiscEvents {
       });
     });
 
-    // Lich King sits
+    // Lich King stunned animation
     const lichKing = Unit.fromHandle(gg_unit_H001_0052);
-    const throneLoc = currentLoc(lichKing);
-    lichKingSit(throneLoc, 270);
-    onChatCommand('sit', true, () => {
-      lichKingSit(throneLoc, 270);
-    });
-
-    // Crusaders attack
-    const tirion = Unit.fromHandle(gg_unit_H004_0000);
-    const crusaders = getUnitsInRect(GetWorldBounds(), (u) => u.owner.isPlayerEnemy(playerMain));
-    crusaders.forEach((c) => {
-      c.addAnimationProps('ready', true);
-      c.paused = true;
-      c.acquireRange = 500;
-    });
-
-    const attack = (): void => {
-      crusaders.forEach((c) => {
-        c.paused = false;
-        c.acquireRange = 10000;
-        c.issueTargetOrder(OrderId.Attack, lichKing);
-      });
-    };
-
+    const orderStunned = 851973; // https://www.hiveworkshop.com/threads/is-it-possible-to-detect-stun.322295/#post-3402696
+    let isStunned = false;
     buildTrigger((t) => {
-      crusaders.forEach((u) => {
-        t.registerUnitEvent(u, EVENT_UNIT_ACQUIRED_TARGET);
-        t.registerUnitEvent(u, EVENT_UNIT_ATTACKED);
-        t.registerUnitEvent(u, EVENT_UNIT_DAMAGING);
-      });
+      t.registerUnitEvent(lichKing, EVENT_UNIT_ISSUED_ORDER);
+      t.addCondition(() => lichKing.currentOrder === orderStunned && lichKing.paused === false);
       t.addAction(() => {
-        t.destroy();
-        attack();
-      });
-      void waitUntil(0.5, () => Distance(lichKing, tirion) < 750).then(() => {
-        t.destroy();
-        attack();
+        lichKing.setAnimation('cinematic stun');
+        isStunned = true;
       });
     });
-
-    // Others
-    preventFriendlyFire();
-
-    void trailerCamera();
-    getUnitsInRect(GetWorldBounds()).forEach((u) => {
-      if (u.getAbility(ABILITY_RootAncientProtector.id) || u.getAbility(ABILITY_RootAncients.id)) {
-        u.removeAbility(ABILITY_RootAncientProtector.id);
-        u.removeAbility(ABILITY_RootAncients.id);
-        setTimeout(0.1, () => u.facing = Angle(u, tirion));
+    setIntervalIndefinite(0.1, () => {
+      if (lichKing.currentOrder === orderStunned && lichKing.paused === false && !isStunned) {
+        lichKing.setAnimation('cinematic stun');
+        isStunned = true;
+      } else if (isStunned) {
+        isStunned = false;
+        ResetUnitAnimation(lichKing.handle);
       }
     });
 
-    Weather.changeWeather(weatherBlizzard);
+    // crusader bear and crows cannot morph back
+    getUnitsInRect(GetWorldBounds(), (u) => u.owner.isPlayerEnemy(playerMain))
+      .forEach((u) => {
+        u.removeAbility(ABILITY_Bearform.id);
+        u.removeAbility(ABILITY_RavenFormDruid.id);
+        u.removeAbility(ABILITY_StoneForm.id);
+      });
+
+    // Others
+    preventFriendlyFire();
   }
 }
 
-async function trailerCamera(): Promise<void> {
-  CameraSetup.fromHandle(gg_cam_Camera_001).applyForceDurationSmooth(true, 0, 1, 1, 1);
-
-  await sleep(5);
-  cinematicFadeIn(1);
-
-  CameraSetup.fromHandle(gg_cam_Camera_002).applyForceDurationSmooth(true, 8, 0, 0, 1);
-  await sleep(8);
-
-  CameraSetup.fromHandle(gg_cam_Camera_003).applyForceDurationSmooth(true, 10, 0, 0, 1);
-  await sleep(10);
-
-  CameraSetup.fromHandle(gg_cam_Camera_004).applyForceDurationSmooth(true, 10, 0, 0, 1);
-  await sleep(10);
-
-  CameraSetup.fromHandle(gg_cam_Camera_005).applyForceDurationSmooth(true, 3, 0, 0, 1);
-  await sleep(3);
-
-  cinematicFadeOut(1);
-  await sleep(1);
-
-  Camera.reset(0);
-  const lichKing = Unit.fromHandle(gg_unit_H001_0052);
-  Camera.panTimed(lichKing.x, lichKing.y, 0, undefined);
-  [
-    playerMain,
-    playerOrcishHorde,
-    playerHumanAlliance,
-    playerNightElf,
-    playerForsaken,
-  ].forEach((p) => {
-    FogModifier.fromRect(p, FOG_OF_WAR_VISIBLE, Rectangle.getWorldBounds(), true, false).start();
-  });
-
-  cinematicFadeIn(1);
-  cinematicMode(false, 1);
-}
-
-function lichKingSit(loc: Loc, facing: number): void {
-  const lichKing = Unit.fromHandle(gg_unit_H001_0052);
-  lichKing.setPosition(loc.x, loc.y);
-  lichKing.setFacingEx(facing);
-  lichKing.setAnimation(34);
-  lichKing.paused = true;
-  buildTrigger((t) => {
-    t.registerUnitEvent(lichKing, EVENT_UNIT_SELECTED);
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    t.addAction(async () => {
-      t.destroy();
-      await sleep(1);
-      lichKing.setAnimation(35);
-      await sleep(2.662);
-      lichKing.paused = false;
-      lichKing.setAnimation('stand');
-      lichKing.queueAnimation('stand');
-    });
-  });
-}
-
 function preventFriendlyFire(): void {
-  // Players become hostile if being friendly fired
-  false && buildTrigger((t) => {
-    t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_DEATH);
-    t.addCondition(() => {
-      const killer = Unit.fromHandle(GetKillingUnit());
-      const victim = Unit.fromHandle(GetDyingUnit());
-      if (victim.owner === neutralPassive) return false;
-      return victim.owner !== killer.owner && victim.isAlly(killer.owner);
-    });
-    t.addAction(() => {
-      const killer = Unit.fromHandle(GetKillingUnit());
-      const victim = Unit.fromHandle(GetDyingUnit());
-      setAllianceState2Way(victim.owner, killer.owner, 'enemy');
-    });
-  });
-
   // All players cannot attack allies
   buildTrigger((t) => {
     t.registerAnyUnitEvent(EVENT_PLAYER_UNIT_ATTACKED);
