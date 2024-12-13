@@ -21,7 +21,7 @@ module.exports = {
     'unused-imports',
     'simple-import-sort'
   ],
-  ignorePatterns: ['**/war3map.d.ts', `${__dirname}/scripts/*`, '**/*.ai'],
+  ignorePatterns: ['**/war3map.d.ts', `${__dirname}/scripts/*`, '**/*.ai', "**/maps/**/*"],
   overrides: [
     {
       files: ['*.ts'],

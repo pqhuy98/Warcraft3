@@ -35,8 +35,14 @@ export function setMinimapIconUnit(unit: Unit, style: IconStyle): minimapicon {
     }
   }
 
-  CampaignMinimapIconUnitBJ(unit.handle, IconStyles[style]);
-  const icon = GetLastCreatedMinimapIcon();
+  let icon: minimapicon;
+  if (style === 'boss') {
+    CreateMinimapIconOnUnitBJ(unit.handle, 255, 255, 255, 'Models\\BossMinimapIcon\\BossMinimapIcon.mdx', FOG_OF_WAR_MASKED);
+  } else {
+    CampaignMinimapIconUnitBJ(unit.handle, IconStyles[style]);
+    icon = GetLastCreatedMinimapIcon();
+  }
+
   unitMinimapIcon.set(unit, { icon, style });
   return icon;
 }

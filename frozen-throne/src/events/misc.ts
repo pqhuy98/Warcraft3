@@ -14,6 +14,7 @@ import {
 import {
   getMainHero,
   getUnitsInRect,
+  isUnitIdle,
 } from 'lib/unit';
 import {
   CameraSetup, Effect, Unit,
@@ -55,28 +56,36 @@ export class MiscEvents {
     let isStunned = false;
     buildTrigger((t) => {
       t.registerUnitEvent(lichKing, EVENT_UNIT_ISSUED_ORDER);
-      t.addCondition(() => lichKing.currentOrder === orderStunned && lichKing.paused === false);
+      t.addCondition(() => lichKing.currentOrder === orderStunned && !isStunned && !lichKing.paused && lichKing.isAlive());
       t.addAction(() => {
         lichKing.setAnimation('cinematic stun');
         isStunned = true;
       });
     });
     setIntervalIndefinite(0.1, () => {
-      if (lichKing.currentOrder === orderStunned && lichKing.paused === false && !isStunned) {
-        lichKing.setAnimation('cinematic stun');
-        isStunned = true;
+      if (!lichKing.isAlive()) {
+        return;
+      }
+      if (lichKing.currentOrder === orderStunned) {
+        if (!lichKing.paused && !isStunned) {
+          lichKing.setAnimation('cinematic stun');
+          isStunned = true;
+        }
       } else if (isStunned) {
         isStunned = false;
-        ResetUnitAnimation(lichKing.handle);
+        if (isUnitIdle(lichKing)) {
+          ResetUnitAnimation(lichKing.handle);
+        }
       }
     });
 
-    // crusader bear and crows cannot morph back
+    // prepare preplaced crusaders
     getUnitsInRect(GetWorldBounds(), (u) => u.owner.isPlayerEnemy(playerMain))
       .forEach((u) => {
         u.removeAbility(ABILITY_Bearform.id);
         u.removeAbility(ABILITY_RavenFormDruid.id);
         u.removeAbility(ABILITY_StoneForm.id);
+        u.addAnimationProps('ready', true);
       });
 
     // Others

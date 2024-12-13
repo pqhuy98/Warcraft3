@@ -38,7 +38,7 @@ const dialogues = getDialogues(
   },
 );
 
-const skip = false;
+const skip = true;
 
 export class IntroCinematic extends BaseQuest {
   static lichKingSitLoc: Loc;
@@ -98,7 +98,7 @@ export class IntroCinematic extends BaseQuest {
     await goToCam(gg_cam_Camera_004, 10);
     await goToCam(gg_cam_Camera_005, 14);
     await goToCam(gg_cam_Camera_006, 10);
-    await goToCam(gg_cam_Camera_007, 11, 9);
+    await goToCam(gg_cam_Camera_007, 11.5, 9);
 
     cinematicFadeOut(2);
     await sleep(2);

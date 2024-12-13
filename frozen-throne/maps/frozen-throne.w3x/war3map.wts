@@ -2102,3 +2102,9 @@ STRING 403
 throne 5
 }
 
+STRING 407
+// Abilities: A00N (Channel), EditorSuffix (Editor Suffix)
+{
+ (Unit)
+}
+

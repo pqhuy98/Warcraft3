@@ -38,6 +38,7 @@ export class ArmyManager {
       }
       unit.life = unit.maxLife;
       unit.mana = unit.maxMana;
+      unit.resetCooldown();
       unit.removeBuffs(true, true);
       unit.setPosition(data.loc.x, data.loc.y);
       unit.setFacingEx(data.facing);

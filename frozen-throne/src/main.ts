@@ -129,13 +129,18 @@ function configurePlayerSettings(): void {
       setAllianceState2Way(neutralHostile, player, 'neutral');
     }
     configureTechs(player);
-    player.setState(PLAYER_STATE_GIVES_BOUNTY, 1);
+    // player.setState(PLAYER_STATE_GIVES_BOUNTY, 1);
   }
 
   configureTechs(neutralHostile);
   configureTechs(neutralPassive);
 
   // Player Color
+  playerMain.name = 'The Lich King';
+  playerOrcishHorde.name = 'Orcish Horde';
+  playerUndeadForsaken.name = 'Undead Forsaken';
+  playerNightElf.name = 'Sentinels';
+  playerHumanAlliance.name = 'Valiance Expedition';
   SetPlayerColorBJ(playerMain.handle, PLAYER_COLOR_PURPLE, true);
   SetPlayerColorBJ(playerOrcishHorde.handle, PLAYER_COLOR_RED, true);
   SetPlayerColorBJ(playerUndeadForsaken.handle, PLAYER_COLOR_BLUE, true);

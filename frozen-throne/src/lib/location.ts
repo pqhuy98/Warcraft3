@@ -170,3 +170,17 @@ export function isRectVisible(rect: rect, player: MapPlayer): boolean {
   ];
   return corners.some((loc) => player.coordsVisible(loc.x, loc.y));
 }
+
+export function randomLocInRects(rects: rect[]): Loc {
+  const rectAreas = rects.map((r) => GetRectWidthBJ(r) * GetRectHeightBJ(r));
+  const totalArea = rectAreas.reduce((acc, v) => acc + v, 0);
+  const dice = GetRandomReal(0, totalArea);
+  let accumArea = 0;
+  for (const fieldRect of rects) {
+    accumArea += GetRectWidthBJ(fieldRect) * GetRectHeightBJ(fieldRect);
+    if (accumArea >= dice) {
+      return randomLocRect(fieldRect);
+    }
+  }
+  throw new Error('randomLocInRects: this should never happen');
+}

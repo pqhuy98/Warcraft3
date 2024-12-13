@@ -35,7 +35,7 @@ export default class Frostmourne {
     ABILITY_IDS: <number[]>[],
     SOUL_MODEL: classic(MODEL_ZigguratMissile),
     LIFE_PERCENT_RESTORED_PER_SOUL: 0.02,
-    MANA_PERCENT_RESTORED_PER_SOUL: 0.01,
+    MANA_PERCENT_RESTORED_PER_SOUL: 0.02,
     getSoulReturnSpeed: (): number => (700),
     getSoulEffectFinalHeight: (): number => (100),
     targetMatching: (killer: Unit, victim: Unit): boolean => !victim.isAlive()
@@ -138,10 +138,10 @@ export default class Frostmourne {
 
     k0('fstm');
     setUnitFlag(victim, Flag.FROSTMOURNE_SOUL_HARVESTED, true);
-    const scale = Math.min(2, victim.level / 5);
+    const scale = victim.level / 5;
     setTimeout(GetRandomReal(0, scale), () => {
       const soul = createDummy(killer.owner, victim.x, victim.y, killer, 0, GetRandomDirectionDeg());
-      setUnitScale(soul, Math.max(0.5, scale));
+      setUnitScale(soul, Math.max(0.5, Math.min(2, scale)));
       const effect = Effect.createAttachment(Frostmourne.Data.SOUL_MODEL, soul, 'origin');
       this.soulsMap.set(soul, {
         target: killer,

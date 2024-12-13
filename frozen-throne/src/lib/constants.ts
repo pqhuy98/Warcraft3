@@ -30,6 +30,7 @@ export const ABILITY_ID_BOOK_OF_TELEPORTATION = FourCC('A00K:AHmt');
 export const ABILITY_ID_MONSOON_THRALL = FourCC('A00L:ACmo');
 
 export const ABILITY_ID_PURGE_NO_GRAPHIC = FourCC('A00S:Aprg');
+export const ABILITY_ID_CHANNEL_UNIT = FourCC('A00N');
 
 // Custom Models
 export const MODEL_Sand_Tornado = 'Models\\Tornado\\SandTornado.mdx';

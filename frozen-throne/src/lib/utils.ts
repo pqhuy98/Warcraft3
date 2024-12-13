@@ -189,38 +189,47 @@ export function unique<T>(arr: T[]): T[] {
   return result;
 }
 
+interface JobData {
+  job: () => Promise<unknown>;
+  jobName: string;
+  resolve: () => void;
+}
+
 export class AsyncQueue {
-  private queue: (() => Promise<unknown>)[] = [];
+  private queue: JobData[] = [];
 
   private jobNames: string[] = [];
 
   private running: boolean = false;
 
   // Method to add a job to the queue and automatically start processing if not already running
-  addJob(job: () => Promise<unknown>, jobName: string): void {
-    this.queue.push(job);
-    this.jobNames.push(jobName);
+  addJob(job: () => Promise<unknown>, jobName: string): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.queue.push({
+        job,
+        jobName,
+        resolve,
+      });
 
-    // If there is no job currently running, trigger the processing of the queue
-    if (!this.isRunning()) {
-      void this.processQueue();
-    }
+      // If there is no job currently running, trigger the processing of the queue
+      if (!this.isRunning()) {
+        void this.processQueue();
+      }
+    });
   }
 
   // Internal method to process the queue
   private async processQueue(): Promise<void> {
     this.running = true;
     while (this.queue.length > 0) {
-      const currentJob = this.queue.shift();
-      const currentJobName = this.jobNames.shift();
-      if (currentJob) {
-        try {
-          await currentJob();
-        } catch (error) {
-          DisplayTextToPlayer(playerMain.handle, 0, 0, `ASync queue job ${currentJobName} failed.`);
-        }
-        await sleep(0.25);
+      const { job, jobName, resolve } = this.queue.shift();
+      try {
+        await job();
+        resolve();
+      } catch (error) {
+        DisplayTextToPlayer(playerMain.handle, 0, 0, `ASync queue job ${jobName} failed.`);
       }
+      await sleep(0.25);
     }
     this.running = false;
   }

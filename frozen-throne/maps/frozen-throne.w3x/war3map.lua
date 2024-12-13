@@ -1,12 +1,12 @@
 udg_registered_unit = nil
 gg_rct_Unit_experiments = nil
-gg_rct_Region_001 = nil
-gg_rct_Region_002 = nil
-gg_rct_Region_003 = nil
-gg_rct_Region_004 = nil
-gg_rct_Region_005 = nil
-gg_rct_Region_006 = nil
-gg_rct_Region_007 = nil
+gg_rct_Spawn_001 = nil
+gg_rct_Spawn_002 = nil
+gg_rct_Spawn_003 = nil
+gg_rct_Spawn_004 = nil
+gg_rct_Spawn_005 = nil
+gg_rct_Spawn_006 = nil
+gg_rct_Spawn_007 = nil
 gg_cam_Birdeye_view = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
@@ -16,12 +16,12 @@ gg_cam_Camera_005 = nil
 gg_cam_Camera_006 = nil
 gg_cam_Camera_007 = nil
 gg_snd_ir_frozenthrone_07 = ""
+gg_snd_Invincible = ""
 gg_trg_Melee_Initialization = nil
 gg_trg_Camera_constant = nil
 gg_trg_Unit_register = nil
 gg_unit_H001_0052 = nil
 gg_unit_H004_0000 = nil
-gg_snd_Invincible = ""
 function InitGlobals()
 end
 
@@ -143,8 +143,9 @@ SelectHeroSkill(u, FourCC("AUau"))
 SelectHeroSkill(u, FourCC("AUau"))
 SelectHeroSkill(u, FourCC("AUau"))
 SelectHeroSkill(u, FourCC("AUan"))
+u = BlzCreateUnitWithSkin(p, FourCC("uabo"), 783.9, -1906.6, 90.027, FourCC("uabo"))
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), 585.5, -2095.6, 112.395, FourCC("uabo"))
-u = BlzCreateUnitWithSkin(p, FourCC("uabo"), 429.0, -1631.4, 102.981, FourCC("uabo"))
+u = BlzCreateUnitWithSkin(p, FourCC("uabo"), 484.4, -1598.3, 102.981, FourCC("uabo"))
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), 242.7, -1722.5, 97.896, FourCC("uabo"))
 u = BlzCreateUnitWithSkin(p, FourCC("uabo"), 580.4, -1427.6, 108.222, FourCC("uabo"))
 u = BlzCreateUnitWithSkin(p, FourCC("ugho"), 302.9, -1861.5, 98.853, FourCC("ugho"))
@@ -167,14 +168,11 @@ u = BlzCreateUnitWithSkin(p, FourCC("nskm"), 147.6, -2008.1, 113.221, FourCC("ns
 u = BlzCreateUnitWithSkin(p, FourCC("nskm"), 92.3, -1868.7, 83.903, FourCC("nskm"))
 u = BlzCreateUnitWithSkin(p, FourCC("nskm"), 338.8, -2148.9, 98.668, FourCC("nskm"))
 u = BlzCreateUnitWithSkin(p, FourCC("nska"), 418.0, -1796.1, 101.831, FourCC("nska"))
-u = BlzCreateUnitWithSkin(p, FourCC("ufro"), 465.4, -2048.3, 101.717, FourCC("ufro"))
-u = BlzCreateUnitWithSkin(p, FourCC("ufro"), 241.9, -1905.3, 111.771, FourCC("ufro"))
-u = BlzCreateUnitWithSkin(p, FourCC("ufro"), 254.4, -2164.4, 110.872, FourCC("ufro"))
-u = BlzCreateUnitWithSkin(p, FourCC("ugar"), 381.3, -1793.6, 100.977, FourCC("ugar"))
+u = BlzCreateUnitWithSkin(p, FourCC("uban"), 680.9, -1555.6, 119.641, FourCC("uban"))
+u = BlzCreateUnitWithSkin(p, FourCC("nskg"), 329.7, -1571.3, 105.949, FourCC("nskg"))
+u = BlzCreateUnitWithSkin(p, FourCC("ugar"), 345.0, -1820.4, 100.977, FourCC("ugar"))
 u = BlzCreateUnitWithSkin(p, FourCC("ugar"), 752.8, -1804.4, 108.870, FourCC("ugar"))
 u = BlzCreateUnitWithSkin(p, FourCC("ugar"), 150.1, -2027.9, 106.531, FourCC("ugar"))
-u = BlzCreateUnitWithSkin(p, FourCC("ufro"), 774.4, -1963.9, 106.379, FourCC("ufro"))
-u = BlzCreateUnitWithSkin(p, FourCC("ufro"), 548.9, -1749.8, 105.283, FourCC("ufro"))
 u = BlzCreateUnitWithSkin(p, FourCC("Ulic"), 485.5, -1304.0, 106.817, FourCC("Ulic"))
 SetHeroLevel(u, 10, false)
 SetUnitState(u, UNIT_STATE_MANA, 750)
@@ -256,7 +254,6 @@ SetUnitState(u, UNIT_STATE_MANA, 200)
 u = BlzCreateUnitWithSkin(p, FourCC("esen"), -898.9, -2129.8, 75.659, FourCC("esen"))
 u = BlzCreateUnitWithSkin(p, FourCC("earc"), -147.0, -2279.8, 91.366, FourCC("earc"))
 u = BlzCreateUnitWithSkin(p, FourCC("emtg"), -290.6, -2198.8, 88.412, FourCC("emtg"))
-u = BlzCreateUnitWithSkin(p, FourCC("ehip"), -800.9, -2029.8, 77.181, FourCC("ehip"))
 u = BlzCreateUnitWithSkin(p, FourCC("edry"), -559.7, -2319.6, 83.132, FourCC("edry"))
 u = BlzCreateUnitWithSkin(p, FourCC("edry"), -1001.1, -2079.9, 73.332, FourCC("edry"))
 u = BlzCreateUnitWithSkin(p, FourCC("Ekee"), -797.7, -1441.2, 73.654, FourCC("Ekee"))
@@ -315,6 +312,7 @@ u = BlzCreateUnitWithSkin(p, FourCC("edry"), -138.4, -2108.7, 91.640, FourCC("ed
 u = BlzCreateUnitWithSkin(p, FourCC("edry"), -924.6, -1771.8, 72.974, FourCC("edry"))
 u = BlzCreateUnitWithSkin(p, FourCC("edoc"), -134.8, -1679.6, 76.815, FourCC("edoc"))
 SetUnitState(u, UNIT_STATE_MANA, 200)
+u = BlzCreateUnitWithSkin(p, FourCC("ehpr"), -876.6, -1717.1, 28.141, FourCC("ehpr"))
 end
 
 function CreateUnitsForPlayer4()
@@ -325,8 +323,8 @@ local t
 local life
 
 gg_unit_H001_0052 = BlzCreateUnitWithSkin(p, FourCC("H001"), -86.8, 1394.1, 270.000, FourCC("H001"))
-SetHeroLevel(gg_unit_H001_0052, 30, false)
-SetUnitState(gg_unit_H001_0052, UNIT_STATE_MANA, 1845)
+SetHeroLevel(gg_unit_H001_0052, 16, false)
+SetUnitState(gg_unit_H001_0052, UNIT_STATE_MANA, 1155)
 UnitAddItemToSlotById(gg_unit_H001_0052, FourCC("I000"), 0)
 end
 
@@ -487,13 +485,13 @@ function CreateRegions()
 local we
 
 gg_rct_Unit_experiments = Rect(-4096.0, -4096.0, -3936.0, -3936.0)
-gg_rct_Region_001 = Rect(-2016.0, -1408.0, -1632.0, -32.0)
-gg_rct_Region_002 = Rect(-1856.0, -2016.0, -1344.0, -1472.0)
-gg_rct_Region_003 = Rect(-1312.0, -2496.0, -640.0, -2080.0)
-gg_rct_Region_004 = Rect(-608.0, -2848.0, 352.0, -2464.0)
-gg_rct_Region_005 = Rect(352.0, -2464.0, 1088.0, -2048.0)
-gg_rct_Region_006 = Rect(1120.0, -2016.0, 1664.0, -1440.0)
-gg_rct_Region_007 = Rect(1376.0, -1376.0, 1760.0, 64.0)
+gg_rct_Spawn_001 = Rect(-2080.0, -1312.0, -1536.0, -512.0)
+gg_rct_Spawn_002 = Rect(-1856.0, -2016.0, -1344.0, -1472.0)
+gg_rct_Spawn_003 = Rect(-1344.0, -2464.0, -608.0, -2016.0)
+gg_rct_Spawn_004 = Rect(-608.0, -2848.0, 352.0, -2464.0)
+gg_rct_Spawn_005 = Rect(352.0, -2464.0, 1088.0, -2048.0)
+gg_rct_Spawn_006 = Rect(1088.0, -2016.0, 1568.0, -1472.0)
+gg_rct_Spawn_007 = Rect(1280.0, -1344.0, 1824.0, -416.0)
 end
 
 function CreateCameras()
@@ -592,7 +590,7 @@ gg_cam_Camera_007 = CreateCameraSetup()
 CameraSetupSetField(gg_cam_Camera_007, CAMERA_FIELD_ZOFFSET, 0.0, 0.0)
 CameraSetupSetField(gg_cam_Camera_007, CAMERA_FIELD_ROTATION, 89.4, 0.0)
 CameraSetupSetField(gg_cam_Camera_007, CAMERA_FIELD_ANGLE_OF_ATTACK, 351.8, 0.0)
-CameraSetupSetField(gg_cam_Camera_007, CAMERA_FIELD_TARGET_DISTANCE, 869.0, 0.0)
+CameraSetupSetField(gg_cam_Camera_007, CAMERA_FIELD_TARGET_DISTANCE, 790.0, 0.0)
 CameraSetupSetField(gg_cam_Camera_007, CAMERA_FIELD_ROLL, 0.0, 0.0)
 CameraSetupSetField(gg_cam_Camera_007, CAMERA_FIELD_FIELD_OF_VIEW, 90.0, 0.0)
 CameraSetupSetField(gg_cam_Camera_007, CAMERA_FIELD_FARZ, 10000.0, 0.0)
