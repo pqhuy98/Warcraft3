@@ -1,9 +1,10 @@
 import Frostmourne from 'abilities/frostmourne/frostmourne';
 import { Weather, weatherBlizzard } from 'events/weather/weather';
 import {
-  MODEL_Shadow_Tornado, MODEL_Water_Tornado, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN,
+  MODEL_Shadow_Tornado, MODEL_Water_Tornado, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD,
+  SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_SPELL_IMMUNITY, SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN,
 } from 'lib/constants';
-import { k0, k1 } from 'lib/debug/key_counter';
+import { getDestructablesInRange } from 'lib/destructable';
 import { PolarProjection } from 'lib/location';
 import { getCircleCoordinates } from 'lib/maths/geometric_coordinates';
 import { dialogue } from 'lib/quests/dialogue_sound';
@@ -37,7 +38,8 @@ const snowyTerrainTypes = [
   FourCC('Ibkb'),
 ];
 
-const speechSound = dialogue('Sounds/lichking_frostmourne_hungers.mp3', 'Lich King', 'Frostmourne hungers...');
+export const soundFrostmourneHunger = dialogue('Sounds/lichking_frostmourne_hungers.mp3', 'Lich King', 'Frostmourne hungers...');
+const speechSound2 = dialogue('Sounds/lichking_freeze_icy_husk.mp3', 'Lich King', 'I will freeze you from within until all that remains is an icy husk!');
 const spellSound = Sound.create('Sounds/lichking_wrath_sound.mp3', false, false, false, 1, 1, 'DefaultEAXON');
 
 export default class WrathOfTheLichKing {
@@ -62,29 +64,19 @@ export default class WrathOfTheLichKing {
       t.addCondition(() => GetSpellAbilityId() === registeredAbilityId);
       t.addAction(() => {
         const radius = WrathOfTheLichKing.Data.getEffectRadius();
-
-        k0('wotlk');
-        k0('wotlk1');
-        k0('wotlk2');
-        k0('wotlk3');
-        k0('wotlk4');
-        k0('wotlk5');
-        k0('wotlk6');
-
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
         const abilityId = GetSpellAbilityId();
         const abilityLevel = caster.getAbilityLevel(GetSpellAbilityId());
+        caster.addAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_SPELL_IMMUNITY);
 
         caster.setAnimation(5);
         setTimeout(0, () => {
           void playSoundIsolate(spellSound);
-          k1('wotlk1');
         });
 
         caster.setTimeScale(8);
         setTimeout(0.03, () => {
           caster.setTimeScale(1);
-          k1('wotlk2');
         });
 
         const earlyStop = (): void => {
@@ -92,6 +84,7 @@ export default class WrathOfTheLichKing {
           spellSound.stop(false, false);
           VolumeGroupReset();
           SetMusicVolume(100);
+          caster.removeAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_SPELL_IMMUNITY);
         };
 
         setTimeout(0.2, () => {
@@ -110,19 +103,15 @@ export default class WrathOfTheLichKing {
         setTimeout(animationDurationSwordUp, () => {
           if (!caster.isAlive()) {
             earlyStop();
-            k1('wotlk3');
             return;
           }
           caster.setAnimation('cinematic swordupdown');
           caster.setTimeScale(3);
-          k1('wotlk3');
         });
 
         setTimeout(animationDurationSwordUp + animationDurationSwordSlam, () => {
           if (!caster.isAlive()) {
             earlyStop();
-            k1('wotlk');
-            k1('wotlk4');
             return;
           }
           const casterLoc = PolarProjection(caster, (125), caster.facing);
@@ -132,23 +121,24 @@ export default class WrathOfTheLichKing {
           setTimeout(15, () => {
             ub.finish();
             ub.destroy();
-            k1('wotlk4');
           });
+          caster.removeAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_SPELL_IMMUNITY);
 
           new WrathOfTheLichKing(
             abilityId,
             caster,
             abilityLevel,
           );
-
-          PingMinimapEx(caster.x, caster.y, 6, 0, 0, 255, false);
         });
 
         setTimeout(animationDurationSwordUp + animationDurationSwordSlam + 1, () => {
           if (caster.isAlive()) {
-            void playSpeech(caster, speechSound);
+            void playSpeech(caster, soundFrostmourneHunger).then(() => {
+              if (GetRandomInt(1, 5) === 5) {
+                void playSpeech(caster, speechSound2);
+              }
+            });
           }
-          k1('wotlk5');
         });
 
         setTimeout(totalAnimationDuration, () => {
@@ -156,7 +146,6 @@ export default class WrathOfTheLichKing {
           if (caster.isAlive()) {
             caster.queueAnimation('stand');
           }
-          k1('wotlk6');
         });
       });
     });
@@ -167,6 +156,7 @@ export default class WrathOfTheLichKing {
       t.addAction(() => {
         const caster = Unit.fromHandle(GetSpellAbilityUnit());
         caster.setTimeScale(1);
+        caster.removeAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_SPELL_IMMUNITY);
       });
     });
   }
@@ -188,6 +178,15 @@ export default class WrathOfTheLichKing {
     const dummy2 = createDummy(caster.owner, caster.x, caster.y, caster, effectDurationS);
     dummy2.addAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD);
     dummy2.setAbilityLevel(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD, abilityLevel);
+
+    getDestructablesInRange(radius, caster, (d) => d.typeId === FourCC('B000'))
+      .forEach((d) => {
+        d.setAnimSpeed(0.5);
+        d.kill();
+        // setTimeout((16764 - 13731) / 1000 / 0.5, () => {
+        //   d.setAnimSpeed(0);
+        // });
+      });
 
     const movingTerrainEffect = new MovingTerrainEffect({
       unit: caster,
@@ -221,7 +220,6 @@ export default class WrathOfTheLichKing {
 
     let cleanUp: () => void;
 
-    k0('wotlkT1');
     const t1 = setIntervalForDuration(0.05, effectDurationS, () => {
       if (caster.isAlive()) {
         for (const eff of effects) {
@@ -234,14 +232,12 @@ export default class WrathOfTheLichKing {
       }
     });
 
-    k0('wotlkT2');
     const t2 = setIntervalForDuration(1, effectDurationS, () => {
       if (caster.isAlive()) {
         dummy2.issueOrderAt(OrderId.Blizzard, caster.x, caster.y);
       }
     });
 
-    k0('wotlkT3');
     const t3 = setTimeout(effectDurationS, () => {
       cleanUp();
     });
@@ -260,20 +256,12 @@ export default class WrathOfTheLichKing {
       SetMusicVolume(100);
       t1.pause();
       t1.destroy();
-      k1('setitv');
 
       t2.pause();
       t2.destroy();
-      k1('setitv');
 
       t3.pause();
       t3.destroy();
-      k1('setitv');
-
-      k1('wotlk');
-      k1('wotlkT1');
-      k1('wotlkT2');
-      k1('wotlkT3');
     };
 
     Weather.changeWeather(weatherBlizzard, effectDurationS, 0);

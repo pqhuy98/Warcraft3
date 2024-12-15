@@ -21,3 +21,4 @@ declare var gg_trg_Camera_constant: trigger;
 declare var gg_trg_Unit_register: trigger;
 declare var gg_unit_H001_0052: unit;
 declare var gg_unit_H004_0000: unit;
+declare var gg_rct_Frozen_Throne_center: rect;

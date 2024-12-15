@@ -82,10 +82,9 @@ export class MiscEvents {
     // prepare preplaced crusaders
     getUnitsInRect(GetWorldBounds(), (u) => u.owner.isPlayerEnemy(playerMain))
       .forEach((u) => {
-        u.removeAbility(ABILITY_Bearform.id);
-        u.removeAbility(ABILITY_RavenFormDruid.id);
-        u.removeAbility(ABILITY_StoneForm.id);
-        u.addAnimationProps('ready', true);
+        u.disableAbility(ABILITY_Bearform.id, true, false);
+        u.disableAbility(ABILITY_RavenFormDruid.id, true, false);
+        u.disableAbility(ABILITY_StoneForm.id, true, false);
       });
 
     // Others

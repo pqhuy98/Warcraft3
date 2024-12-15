@@ -198,8 +198,6 @@ interface JobData {
 export class AsyncQueue {
   private queue: JobData[] = [];
 
-  private jobNames: string[] = [];
-
   private running: boolean = false;
 
   // Method to add a job to the queue and automatically start processing if not already running
@@ -234,7 +232,7 @@ export class AsyncQueue {
     this.running = false;
   }
 
-  pendingCount(): number {
+  backlogSize(): number {
     return this.queue.length;
   }
 
@@ -242,9 +240,8 @@ export class AsyncQueue {
     return this.running;
   }
 
-  // Method to print all job names in the queue
-  getJobNames(): string[] {
-    return [...this.jobNames];
+  clear(): void {
+    this.queue = [];
   }
 }
 

@@ -97,6 +97,7 @@ Revive Zeus
 }
 
 STRING 24
+// Units: H001 (Lich King), Name (Name)
 {
 Lich King
 }
@@ -2074,20 +2075,14 @@ STRING 398
 The Crusaders
 }
 
-STRING 399
-// Units: H001 (Lich King), Name (Name)
-{
-Lich King
-}
-
 STRING 400
 {
-Frozen Throne
+The Frozen Throne
 }
 
 STRING 401
 {
-At the peak of the Frozen Throne, the Lich King stands, Frostmourne glowing with icy power. Below, the crusaders of the Alliance and Horde gather, their weapons ready and their resolve unshaken. The storm howls around them, but their eyes are fixed on the dark figure above.
+Champions of the Argent Tournament, led by Tirion Fordring, stormed Icecrown Citadel and defeated the Lich King's mightiest servants and ascended the Frozen Throne. Atop the spire, the Lich King had been long waiting for Tirion's assault, knowing that Tirion would bring with him Azeroth's greatest heroes, who could then be killed and resurrected as powerful masters of the Scourge.
 }
 
 STRING 402
@@ -2106,5 +2101,22 @@ STRING 407
 // Abilities: A00N (Channel), EditorSuffix (Editor Suffix)
 {
  (Unit)
+}
+
+STRING 408
+// Abilities: A00R (Spell Immunity), EditorSuffix (Editor Suffix)
+{
+ (Wrath of the Lich King)
+}
+
+STRING 409
+{
+The Lich King
+}
+
+STRING 410
+// Destructibles: B000 (Iceshard standing), Name (Name)
+{
+Iceshard standing
 }
 

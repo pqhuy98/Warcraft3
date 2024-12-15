@@ -1,7 +1,8 @@
 import { onChatCommand } from 'events/chat_commands/chat_commands.model';
 import { Weather } from 'events/weather/weather';
 import {
-  playerHumanAlliance, playerMain, playerNightElf, playerOrcishHorde,
+  ABILITY_ID_DOMINATION_AURA,
+  playerHumanAlliance, playerLichKingNpc, playerMain, playerNightElf, playerOrcishHorde,
 } from 'lib/constants';
 import { currentLoc, Loc } from 'lib/location';
 import { getDialogues } from 'lib/quests/dialogue_sound';
@@ -20,7 +21,7 @@ const dialogues = getDialogues(
     questName: 'intro-cinematic',
     dialogues: [
       {
-        speaker: 'Lich King',
+        speaker: 'The Lich King',
         text: "So the Light's vaunted justice has finally arrived? Shall I lay down Frostmourne and throw myself at your mercy, Fordring?",
         fileName: '0-lichking.mp3',
       },
@@ -30,7 +31,7 @@ const dialogues = getDialogues(
         fileName: '1-tirion.mp3',
       },
       {
-        speaker: 'Lich King',
+        speaker: 'The Lich King',
         text: "You'll learn of that first hand. When my work is complete, you will beg for mercy -- and I will deny you. Your anguished cries will be testament to my unbridled power...",
         fileName: '2-lichking.mp3',
       },
@@ -49,13 +50,7 @@ export class IntroCinematic extends BaseQuest {
   }) {
     super(globals);
     IntroCinematic.lichKingSitLoc = currentLoc(globals.lichKing);
-
-    if (skip) {
-      this.finalize();
-      return;
-    }
-
-    void this.playCinematic().then(() => this.finalize());
+    IntroCinematic.lichKingSit(this.globals.lichKing);
 
     // debug commands
     onChatCommand('sit', true, () => {
@@ -64,11 +59,19 @@ export class IntroCinematic extends BaseQuest {
     onChatCommand('intro', true, () => {
       void this.playCinematic();
     });
+
+    if (skip) {
+      this.finalize();
+      return;
+    }
+
+    void this.playCinematic().then(() => this.finalize());
   }
 
   private async playCinematic(): Promise<void> {
     const { lichKing, tirion } = this.globals;
     IntroCinematic.lichKingSit(lichKing);
+    lichKing.disableAbility(ABILITY_ID_DOMINATION_AURA, true, false);
 
     Weather.show(false);
 
@@ -102,25 +105,28 @@ export class IntroCinematic extends BaseQuest {
 
     cinematicFadeOut(2);
     await sleep(2);
+    lichKing.disableAbility(ABILITY_ID_DOMINATION_AURA, false, false);
     Weather.show(true);
   }
 
   static lichKingSit(lichKing: Unit, loc = IntroCinematic.lichKingSitLoc, facing: number = 270): void {
+    if (lichKing.paused) return;
+    lichKing.paused = true;
     lichKing.setPosition(loc.x, loc.y);
     lichKing.setFacingEx(facing);
     lichKing.setAnimation(34);
-    lichKing.paused = true;
     buildTrigger((t) => {
       t.registerUnitEvent(lichKing, EVENT_UNIT_SELECTED);
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       t.addAction(async () => {
         t.destroy();
+        if (!lichKing.paused) return;
         await sleep(0.5);
         lichKing.setAnimation(35);
-        await sleep(2.667);
-        lichKing.paused = false;
+        await sleep(2.66);
         lichKing.setAnimation('stand');
         lichKing.queueAnimation('stand');
+        lichKing.paused = false;
       });
     });
   }
@@ -129,6 +135,7 @@ export class IntroCinematic extends BaseQuest {
     this.complete();
     [
       playerMain,
+      playerLichKingNpc,
       playerOrcishHorde,
       playerHumanAlliance,
       playerNightElf,

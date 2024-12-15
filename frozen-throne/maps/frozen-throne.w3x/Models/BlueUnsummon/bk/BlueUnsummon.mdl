@@ -1,0 +1,490 @@
+//This model was converted from MDX by ogre-lord's Java MDX API and Retera's Java MDL API
+// Saved by Retera's MDL Toolkit on Sun Dec 15 07:11:32 EET 2024
+Version {
+	FormatVersion 1100,
+}
+Model "UnsummonTarget" {
+	NumHelpers 9,
+	NumParticleEmitters2 3,
+	NumRibbonEmitters 3,
+	BlendTime 150,
+	MinimumExtent { 0, 0, 0 },
+	MaximumExtent { 0, 0, 0 },
+	BoundsRadius 0,
+}
+Sequences 2 {
+	Anim "Stand" {
+		Interval { 0, 60000 },
+		MinimumExtent { 0, 0, 0 },
+		MaximumExtent { 0, 0, 0 },
+		BoundsRadius 0,
+	}
+	Anim "Death" {
+		Interval { 62633, 64300 },
+		NonLooping,
+		MinimumExtent { 0, 0, 0 },
+		MaximumExtent { 0, 0, 0 },
+		BoundsRadius 0,
+	}
+}
+GlobalSequences 10 {
+	Duration 3867,
+	Duration 1633,
+	Duration 1100,
+	Duration 1833,
+	Duration 1333,
+	Duration 367,
+	Duration 2600,
+	Duration 2133,
+	Duration 2967,
+	Duration 2467,
+}
+Textures 5 {
+	Bitmap {
+		Image "Models\BlueUnsummon\BlueUnsummon.blp",
+	}
+	Bitmap {
+		Image "Textures\Ghost2.blp",
+	}
+	Bitmap {
+		Image "Textures\GenericGlow2c.blp",
+	}
+	Bitmap {
+		Image "Textures\Clouds8x8Mod.blp",
+	}
+	Bitmap {
+		Image "Textures\star6.blp",
+	}
+}
+Materials 1 {
+	Material {
+		Layer {
+			FilterMode AddAlpha,
+			Unshaded,
+			TwoSided,
+			ShaderTypeId 0, //SD
+			static TextureID 0,
+		}
+	}
+}
+Helper "Dummy11" {
+	ObjectId 0,
+	Scaling 3 {
+		Bezier,
+		GlobalSeqId 0,
+		0: { 1, 1, 1 },
+			InTan { 0, 0, 0 },
+			OutTan { 1.27294, 1.27294, 1.27294 },
+		2000: { 0.617284, 0.617284, 0.617284 },
+			InTan { 0.626696, 0.626696, 0.626696 },
+			OutTan { 0.626068, 0.626068, 0.626068 },
+		3867: { 1, 1, 1 },
+			InTan { 1.25474, 1.25474, 1.25474 },
+			OutTan { 0, 0, 0 },
+	}
+	Rotation 9 {
+		Hermite,
+		GlobalSeqId 1,
+		0: { 0, 0, 0, 1 },
+			InTan { 0, 0, 0, 1 },
+			OutTan { 0, 0, 0, 1 },
+		200: { 0, 0, 0.38167486, -0.9242966 },
+			InTan { 0, 0, 0.38167486, -0.9242966 },
+			OutTan { 0, 0, 0.38167486, -0.9242966 },
+		400: { 0, 0, 0.70556206, -0.7086481 },
+			InTan { 0, 0, 0.70556164, -0.7086486 },
+			OutTan { 0, 0, 0.70556164, -0.7086486 },
+		600: { 0, 0, 0.9226218, -0.38570592 },
+			InTan { 0, 0, 0.9283264, -0.37176618 },
+			OutTan { 0, 0, 0.9283264, -0.37176618 },
+		833: { 0, 0, 0.99999046, -0.004364552 },
+			InTan { 0, 0, 0.99981135, -0.019425308 },
+			OutTan { 0, 0, 0.99981135, -0.019425308 },
+		1033: { 0, 0, 0.9259533, 0.37763816 },
+			InTan { 0, 0, 0.9259533, 0.37763816 },
+			OutTan { 0, 0, 0.9259533, 0.37763816 },
+		1233: { 0, 0, 0.71172017, 0.70246315 },
+			InTan { 0, 0, 0.71172017, 0.70246315 },
+			OutTan { 0, 0, 0.71172017, 0.70246315 },
+		1433: { 0, 0, -0.38972718, -0.92093045 },
+			InTan { 0, 0, -0.38972718, -0.92093045 },
+			OutTan { 0, 0, -0.38972718, -0.92093045 },
+		1633: { 0, 0, -0.0087264, -0.999962 },
+			InTan { 0, 0, -0.0087264, -0.999962 },
+			OutTan { 0, 0, -0.0087264, -0.999962 },
+	}
+}
+Helper "Dummy07" {
+	ObjectId 1,
+	Parent 0,	// "Dummy11"
+	Translation 3 {
+		Hermite,
+		GlobalSeqId 0,
+		0: { 0, 0, 0 },
+			InTan { 0, 0, 0 },
+			OutTan { 0, 0, 367.983 },
+		2000: { 0, 0, 245.322 },
+			InTan { 0, 0, 0 },
+			OutTan { 0, 0, 0 },
+		3867: { 0, 0, 0 },
+			InTan { 0, 0, -367.983 },
+			OutTan { 0, 0, 0 },
+	}
+}
+Helper "Dummy04" {
+	ObjectId 2,
+	Parent 1,	// "Dummy07"
+	Translation 3 {
+		Bezier,
+		GlobalSeqId 2,
+		0: { 0, 0, 0 },
+			InTan { 0, 0, 0 },
+			OutTan { 0, 0, 10.0048 },
+		367: { 0, 0, 20.0095 },
+			InTan { 0, 0, 16.6746 },
+			OutTan { 0, 0, 26.6793 },
+		1100: { 0, 0, 0 },
+			InTan { 0, 0, 20.0095 },
+			OutTan { 0, 0, 0 },
+	}
+	Rotation 3 {
+		Hermite,
+		GlobalSeqId 3,
+		0: { 0, 0, 0, 1 },
+			InTan { 0, 0, 0, 1 },
+			OutTan { 0, 0, 0, 1 },
+		1033: { -0.1865241, 0, 0, -0.9824505 },
+			InTan { -0.22765806, 0, 0, -0.97374123 },
+			OutTan { -0.23345797, 0, 0, -0.97236687 },
+		1833: { 0, 0, 0, 1 },
+			InTan { 0, 0, 0, 1 },
+			OutTan { 0, 0, 0, 1 },
+	}
+}
+Helper "Dummy05" {
+	ObjectId 3,
+	Parent 2,	// "Dummy04"
+	Rotation 7 {
+		Hermite,
+		GlobalSeqId 4,
+		0: { 0, 0, 0, 1 },
+			InTan { 0, 0, 0, 1 },
+			OutTan { 0, 0, 0, 1 },
+		200: { -0.07444591, -0.17094402, -0.33102503, 0.92501813 },
+			InTan { -0.0711821, -0.16345, -0.316513, 0.931685 },
+			OutTan { -0.073405735, -0.16855608, -0.32640016, 0.9271804 },
+		533: { -0.18047802, -0.41441807, -0.8025001, 0.38946006 },
+			InTan { -0.17979605, -0.41285315, -0.7994683, 0.39758816 },
+			OutTan { -0.18102202, -0.41566706, -0.8049191, 0.38282806 },
+		700: { -0.19594803, -0.44994006, -0.8712861, 0.0043644304 },
+			InTan { -0.19594704, -0.44993907, -0.8712841, 0.0048668506 },
+			OutTan { -0.19594704, -0.44993907, -0.8712841, 0.0048668506 },
+		867: { -0.18082294, -0.41520986, -0.8040327, -0.38527286 },
+			InTan { -0.17906098, -0.41116494, -0.79619986, -0.40613595 },
+			OutTan { -0.17907405, -0.4111931, -0.79625416, -0.4059951 },
+		1133: { -0.13791695, -0.3166889, -0.61325276, -0.7103578 },
+			InTan { -0.14626893, -0.33586589, -0.6503888, -0.66542774 },
+			OutTan { -0.14714307, -0.3378741, -0.65427625, -0.66038823 },
+		1333: { -0.00170997, -0.00392651, -0.00760347, -0.999962 },
+			InTan { -0.00170997, -0.00392651, -0.00760347, -0.999962 },
+			OutTan { -0.00170997, -0.00392651, -0.00760347, -0.999962 },
+	}
+}
+Helper "Dummy06" {
+	ObjectId 4,
+	Parent 3,	// "Dummy05"
+	Translation 3 {
+		Bezier,
+		GlobalSeqId 5,
+		0: { 0, 0, 0 },
+			InTan { 0, 0, 0 },
+			OutTan { -2.24114, -1.59995, -9.96528 },
+		167: { -3.66733, -1.10693, -16.3068 },
+			InTan { -3.46359, -1.96893, -15.4009 },
+			OutTan { -3.91181, -0.0725373, -17.3939 },
+		367: { 0, 7.31406, 0 },
+			InTan { -2.68937, 2.73446, -11.9583 },
+			OutTan { 0, 0, 0 },
+	}
+}
+Helper "Dummy03" {
+	ObjectId 5,
+	Parent 1,	// "Dummy07"
+	Rotation 5 {
+		Hermite,
+		GlobalSeqId 6,
+		0: { 0, 0, 0, 1 },
+			InTan { 0, 0, 0, 1 },
+			OutTan { 0, 0, 0, 1 },
+		700: { 0, -0.444673, 0, -0.895693 },
+			InTan { 0, -0.449902, 0, -0.893078 },
+			OutTan { 0, -0.45041794, 0, -0.89281785 },
+		1333: { 0, -0.7372773, 0, -0.6755903 },
+			InTan { 0, -0.795977, 0, -0.605327 },
+			OutTan { 0, -0.7945145, 0, -0.6072454 },
+		2000: { 0, -0.429222, 0, -0.903199 },
+			InTan { 0, -0.44005814, 0, -0.8979693 },
+			OutTan { 0, -0.4404011, 0, -0.8978012 },
+		2600: { 0, 0, 0, 1 },
+			InTan { 0, 0, 0, 1 },
+			OutTan { 0, 0, 0, 1 },
+	}
+}
+Helper "Dummy01" {
+	ObjectId 6,
+	Parent 5,	// "Dummy03"
+	Translation 3 {
+		Bezier,
+		GlobalSeqId 7,
+		0: { 0, 0, 0 },
+			InTan { 0, 0, 0 },
+			OutTan { -7.04391, 0, 14.7679 },
+		833: { -12.8772, 0, 26.9975 },
+			InTan { -11.3363, 0, 23.767 },
+			OutTan { -15.2809, 0, 32.0371 },
+		2133: { 0, 0, 0 },
+			InTan { -10.9885, 0, 23.0379 },
+			OutTan { 0, 0, 0 },
+	}
+}
+Helper "Dummy08" {
+	ObjectId 7,
+	Parent 1,	// "Dummy07"
+	Rotation 5 {
+		Hermite,
+		GlobalSeqId 8,
+		0: { 0, 0, 0, 1 },
+			InTan { 0, 0, 0, 1 },
+			OutTan { 0, 0, 0, 1 },
+		800: { -0.26761103, 0.19858703, 0.29441702, 0.8956931 },
+			InTan { -0.27473396, 0.20387296, 0.30225396, 0.8897189 },
+			OutTan { -0.2746081, 0.2037791, 0.30211514, 0.8898264 },
+		1633: { -0.44370484, 0.32926187, 0.48815084, 0.67558974 },
+			InTan { -0.47718, 0.354103, 0.524979, 0.60935 },
+			OutTan { -0.480163, 0.356317, 0.528261, 0.602845 },
+		2333: { -0.25831205, 0.19168705, 0.28418705, 0.90319926 },
+			InTan { -0.26469707, 0.19642508, 0.29121208, 0.8980803 },
+			OutTan { -0.26489288, 0.19657092, 0.29142785, 0.8979206 },
+		2967: { 0, 0, 0, 1 },
+			InTan { 0, 0, 0, 1 },
+			OutTan { 0, 0, 0, 1 },
+	}
+}
+Helper "Dummy10" {
+	ObjectId 8,
+	Parent 7,	// "Dummy08"
+	Translation 3 {
+		Bezier,
+		GlobalSeqId 9,
+		0: { 0, 0, 0 },
+			InTan { 0, 0, 0 },
+			OutTan { 4.80446, 12.4807, -4.05134 },
+		1000: { 8.57012, 22.2629, -7.22672 },
+			InTan { 7.66117, 19.9017, -6.46025 },
+			OutTan { 9.90325, 25.7261, -8.35087 },
+		2467: { 0, 0, 0 },
+			InTan { 7.04654, 18.3051, -5.94197 },
+			OutTan { 0, 0, 0 },
+	}
+}
+PivotPoints 16 {
+	{ -0.813509, 0, 136.206 },
+	{ 32.7972, -0.653267, 15.0309 },
+	{ -122.404, -0.70937, 148.898 },
+	{ -122.404, -1.12559, 143.496 },
+	{ -110.567, -12.0512, 144.254 },
+	{ -122.06, -0.724524, 151.46 },
+	{ -116.627, -29.274, 162.684 },
+	{ -122.06, -0.724524, 151.46 },
+	{ -90.1455, -21.2901, 138.143 },
+	{ 1.4641, 5.42918, 331.435 },
+	{ 1.46409, -0.579346, 164.386 },
+	{ 0.593867, -0.413409, 123.645 },
+	{ -0.744449, -0.623049, 106.255 },
+	{ -116.139, -12.7566, 145.6 },
+	{ -123.711, -23.3751, 163.17 },
+	{ -97.2029, -23.9804, 139.602 },
+}
+ParticleEmitter2 "BlizParticle01" {
+	ObjectId 9,
+	Unshaded,
+	static Speed 200,
+	static Variation 0.32,
+	static Latitude 0,
+	static Gravity 0,
+	Visibility 3 {
+		DontInterp,
+		0: 1,
+		59267: 0,
+		62633: 0,
+	}
+	LifeSpan 2,
+	static EmissionRate 8,
+	static Width 40,
+	static Length 40,
+	Additive,
+	Rows 1,
+	Columns 1,
+	Tail,
+	TailLength 2,
+	Time 0.5,
+	SegmentColor {
+		Color { 1, 1, 1 },
+		Color { 1, 1, 1 },
+		Color { 1, 1, 1 },
+	},
+	Alpha {100, 180, 0},
+	ParticleScaling {10, 40, 10},
+	LifeSpanUVAnim {0, 0, 1},
+	DecayUVAnim {0, 0, 1},
+	TailUVAnim {0, 0, 1},
+	TailDecayUVAnim {0, 0, 1},
+	TextureID 1,
+}
+ParticleEmitter2 "BlizParticle05" {
+	ObjectId 10,
+	Unshaded,
+	static Speed 160,
+	static Variation 0,
+	static Latitude 0,
+	static Gravity 0,
+	Visibility 3 {
+		DontInterp,
+		0: 1,
+		58933: 0,
+		62633: 0,
+	}
+	LifeSpan 2.2,
+	static EmissionRate 8,
+	static Width 0,
+	static Length 0,
+	Additive,
+	Rows 1,
+	Columns 1,
+	Head,
+	TailLength 2,
+	Time 0.5,
+	SegmentColor {
+		Color { 0.886275, 0.027451, 0.027451 },
+		Color { 1, 1, 1 },
+		Color { 0.886275, 0.027451, 0.027451 },
+	},
+	Alpha {50, 200, 0},
+	ParticleScaling {220, 110, 70},
+	LifeSpanUVAnim {0, 0, 1},
+	DecayUVAnim {0, 0, 1},
+	TailUVAnim {0, 0, 1},
+	TailDecayUVAnim {0, 0, 1},
+	TextureID 2,
+}
+ParticleEmitter2 "BlizParticle022222" {
+	ObjectId 12,
+	Unshaded,
+	Speed 1 {
+		Linear,
+		62633: 400,
+	}
+	static Variation 0,
+	Latitude 1 {
+		Linear,
+		62633: 180,
+	}
+	static Gravity 0,
+	Visibility 3 {
+		DontInterp,
+		0: 0,
+		62633: 1,
+		63067: 0,
+	}
+	LifeSpan 0.38,
+	EmissionRate 1 {
+		Linear,
+		62633: 79.2,
+	}
+	Width 1 {
+		Linear,
+		62633: 0,
+	}
+	Length 1 {
+		Linear,
+		62633: 0,
+	}
+	Additive,
+	Rows 1,
+	Columns 1,
+	Tail,
+	TailLength 0.8,
+	Time 0.75,
+	SegmentColor {
+		Color { 1, 1, 1 },
+		Color { 1, 0.0470588, 0 },
+		Color { 1, 0.737255, 0.0313726 },
+	},
+	Alpha {0, 255, 0},
+	ParticleScaling {9.1, 41, 1.7},
+	LifeSpanUVAnim {0, 32, 1},
+	DecayUVAnim {33, 63, 1},
+	TailUVAnim {0, 0, 1},
+	TailDecayUVAnim {0, 0, 1},
+	TextureID 4,
+}
+RibbonEmitter "BlizRibbon02" {
+	ObjectId 13,
+	Parent 4,	// "Dummy06"
+	static HeightAbove 30,
+	static HeightBelow 30,
+	static Alpha 1,
+	static Color { 1, 1, 1 },
+	static TextureSlot 0,
+	Visibility 3 {
+		DontInterp,
+		0: 1,
+		58700: 0,
+		62633: 0,
+	}
+	EmissionRate 34,
+	LifeSpan 0.6000000238418579,
+	Rows 1,
+	Columns 1,
+	MaterialID 0,
+}
+RibbonEmitter "BlizRibbon01" {
+	ObjectId 14,
+	Parent 6,	// "Dummy01"
+	static HeightAbove 45,
+	static HeightBelow 45,
+	static Alpha 0.9,
+	static Color { 1, 1, 1 },
+	static TextureSlot 0,
+	Visibility 3 {
+		DontInterp,
+		0: 1,
+		58700: 0,
+		62633: 0,
+	}
+	EmissionRate 40,
+	LifeSpan 1.0,
+	Rows 1,
+	Columns 1,
+	MaterialID 0,
+}
+RibbonEmitter "BlizRibbon03" {
+	ObjectId 15,
+	Parent 8,	// "Dummy10"
+	static HeightAbove 30,
+	static HeightBelow 30,
+	static Alpha 1,
+	static Color { 1, 1, 1 },
+	static TextureSlot 0,
+	Visibility 3 {
+		DontInterp,
+		0: 1,
+		58700: 0,
+		62633: 0,
+	}
+	EmissionRate 35,
+	LifeSpan 1.0,
+	Rows 1,
+	Columns 1,
+	MaterialID 0,
+}

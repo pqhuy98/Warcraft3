@@ -10,9 +10,11 @@ import { cameraCenter, Loc, tempLocation } from './location';
 import { UNIT_TYPE } from './resources/war3-units';
 import { Flag, setUnitFlag } from './systems/unit_user_data_flag';
 import { createDialogueTextTag } from './texttag';
-import { resetVolumeSpeech, setVolumeSpeech } from './utils';
+import { AsyncQueue, resetVolumeSpeech, setVolumeSpeech } from './utils';
 
 let playingSpeechCount = 0;
+
+export const speechQueue = new AsyncQueue();
 
 export function isSpeechPlaying(): boolean {
   return playingSpeechCount > 0;
@@ -22,60 +24,72 @@ export async function playSpeech(unit: Unit, sound: Sound, target?: Unit, option
   ignoreVolumeGroupAdjustment?: boolean
   disableInteraction?: boolean
   isFloatText?: boolean
+  isQueue?: boolean
 }): Promise<void> {
-  if (target) {
-    setAttention(unit, target);
-  }
-  // white circle on ground
-  UnitAddIndicator(
-    unit.handle,
-    bj_TRANSMISSION_IND_RED,
-    bj_TRANSMISSION_IND_BLUE,
-    bj_TRANSMISSION_IND_GREEN,
-    bj_TRANSMISSION_IND_ALPHA,
-  );
+  const speech = async (): Promise<void> => {
+    if (target) {
+      setAttention(unit, target);
+    }
+    // white circle on ground
+    UnitAddIndicator(
+      unit.handle,
+      bj_TRANSMISSION_IND_RED,
+      bj_TRANSMISSION_IND_BLUE,
+      bj_TRANSMISSION_IND_GREEN,
+      bj_TRANSMISSION_IND_ALPHA,
+    );
 
-  const shouldDisableInteraction = !options || options.disableInteraction;
-  if (shouldDisableInteraction) {
-    disableInteractSound(unit);
-    setUnitFlag(unit, Flag.UNBREAKABLE_ATTENTION, true);
-  }
+    const shouldDisableInteraction = !options || options.disableInteraction;
+    if (shouldDisableInteraction) {
+      disableInteractSound(unit);
+      setUnitFlag(unit, Flag.UNBREAKABLE_ATTENTION, true);
+    }
 
-  const shouldSetVolumeGroup = !options || !options.ignoreVolumeGroupAdjustment;
-  if (shouldSetVolumeGroup) {
-    setVolumeSpeech();
-  }
-  const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
+    const shouldSetVolumeGroup = !options || !options.ignoreVolumeGroupAdjustment;
+    if (shouldSetVolumeGroup) {
+      setVolumeSpeech();
+    }
+    const speakEffect = Effect.createAttachment(MODEL_Chat_Bubble, unit, 'overhead');
 
-  let isFloatText = false; // default
-  if (options?.isFloatText) isFloatText = true;
-  if (bj_cineModeAlreadyIn) isFloatText = false;
-  if (!isLocInScreen(unit)) isFloatText = false;
+    let isFloatText = false; // default
+    if (options?.isFloatText) isFloatText = true;
+    if (bj_cineModeAlreadyIn) isFloatText = false;
+    if (!isLocInScreen(unit)) isFloatText = false;
 
-  const durationS = sound.duration / 1000;
+    const durationS = sound.duration / 1000;
 
-  const speechText = sound.dialogueTextKey;
-  const speakerName = sound.dialogueSpeakerNameKey;
-  if (speechText && speakerName && isFloatText) {
-    createDialogueTextTag(`${colorize.yellow(speakerName)}: ${speechText}`, unit, durationS);
-  }
+    const speechText = sound.dialogueTextKey;
+    const speakerName = sound.dialogueSpeakerNameKey;
+    if (speechText && speakerName && isFloatText) {
+      createDialogueTextTag(`${colorize.yellow(speakerName)}: ${speechText}`, unit, durationS);
+    }
 
-  playingSpeechCount++;
-  PlayDialogueFromSpeakerEx(bj_FORCE_ALL_PLAYERS, unit.handle, unit.typeId, sound.handle, bj_TIMETYPE_ADD, 0, false);
-  if (isFloatText) {
-    ClearTextMessages();
-  }
-  await sleep(durationS);
-  playingSpeechCount--;
-  speakEffect.destroy();
+    playingSpeechCount++;
+    PlayDialogueFromSpeakerEx(bj_FORCE_ALL_PLAYERS, unit.handle, unit.typeId, sound.handle, bj_TIMETYPE_ADD, 0, false);
+    if (isFloatText) {
+      ClearTextMessages();
+    }
+    await sleep(durationS);
+    playingSpeechCount--;
+    speakEffect.destroy();
 
-  if (shouldSetVolumeGroup) {
-    resetVolumeSpeech();
+    if (shouldSetVolumeGroup) {
+      resetVolumeSpeech();
+    }
+    if (shouldDisableInteraction) {
+      setUnitFlag(unit, Flag.UNBREAKABLE_ATTENTION, false);
+      enableInteractSound(unit);
+    }
+  };
+
+  let isQueue = true;
+  if (options && options.isQueue === false) {
+    isQueue = false;
   }
-  if (shouldDisableInteraction) {
-    setUnitFlag(unit, Flag.UNBREAKABLE_ATTENTION, false);
-    enableInteractSound(unit);
+  if (isQueue) {
+    return speechQueue.addJob(speech, `playSpeech-${unit.name}`);
   }
+  return speech();
 }
 
 /**
@@ -122,10 +136,11 @@ export async function playSoundIsolate(
   SetMusicVolume(100);
 }
 
-export function playGlobalSound(path: string): void {
+export async function playGlobalSound(path: string): Promise<void> {
   const snd = Sound.create(path, false, false, false, 1, 1, 'DefaultEAXON');
   snd.start();
   snd.killWhenDone();
+  await sleep(snd.duration / 1000);
 }
 
 export async function play3dSound(path: string, loc: Loc, volume = 127): Promise<void> {

@@ -17,6 +17,7 @@ export const ABILITY_ID_SANDQUAKE = FourCC('A006:AOs2');
 export const ABILITY_ID_WRATH_OF_THE_LICH_KING = FourCC('A00A:ANcl');
 export const SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_STUN = FourCC('A008:AOw2');
 export const SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_BLIZZARD = FourCC('A00D:AHbz');
+export const SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_SPELL_IMMUNITY = FourCC('A00R');
 
 export const ABILITY_ID_ARMY_OF_DEATH = FourCC('A007:AUan');
 export const ABILITY_ID_DEATH_COIL_LICH_KING = FourCC('A00I:AUdc');
@@ -31,6 +32,9 @@ export const ABILITY_ID_MONSOON_THRALL = FourCC('A00L:ACmo');
 
 export const ABILITY_ID_PURGE_NO_GRAPHIC = FourCC('A00S:Aprg');
 export const ABILITY_ID_CHANNEL_UNIT = FourCC('A00N');
+
+// Custom buffs
+export const BUFF_ID_FROZEN = FourCC('B000');
 
 // Custom Models
 export const MODEL_Sand_Tornado = 'Models\\Tornado\\SandTornado.mdx';
@@ -58,5 +62,6 @@ export const playerOrcishHorde = MapPlayer.fromIndex(0);
 export const playerUndeadForsaken = MapPlayer.fromIndex(1);
 export const playerNightElf = MapPlayer.fromIndex(2);
 export const playerHumanAlliance = MapPlayer.fromIndex(9);
+export const playerLichKingNpc = MapPlayer.fromIndex(3);
 export const neutralHostile = MapPlayer.fromIndex(PLAYER_NEUTRAL_AGGRESSIVE);
 export const neutralPassive = MapPlayer.fromIndex(PLAYER_NEUTRAL_PASSIVE);

@@ -29,6 +29,7 @@ import {
   neutralHostile,
   neutralPassive,
   playerHumanAlliance,
+  playerLichKingNpc,
   playerMain,
   playerNightElf,
   playerOrcishHorde,
@@ -137,11 +138,15 @@ function configurePlayerSettings(): void {
 
   // Player Color
   playerMain.name = 'The Lich King';
+  playerLichKingNpc.name = 'The Lich King';
+
   playerOrcishHorde.name = 'Orcish Horde';
   playerUndeadForsaken.name = 'Undead Forsaken';
   playerNightElf.name = 'Sentinels';
   playerHumanAlliance.name = 'Valiance Expedition';
   SetPlayerColorBJ(playerMain.handle, PLAYER_COLOR_PURPLE, true);
+  SetPlayerColorBJ(playerLichKingNpc.handle, PLAYER_COLOR_PURPLE, true);
+
   SetPlayerColorBJ(playerOrcishHorde.handle, PLAYER_COLOR_RED, true);
   SetPlayerColorBJ(playerUndeadForsaken.handle, PLAYER_COLOR_BLUE, true);
   SetPlayerColorBJ(playerNightElf.handle, PLAYER_COLOR_CYAN, true);

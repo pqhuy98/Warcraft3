@@ -336,6 +336,11 @@ export function isUnitIdle(unit: Unit): boolean {
     || unit.currentOrder === OrderId.Standdown;
 }
 
+export function isUnitStunned(unit: Unit): boolean {
+  const orderStunned = 851973; // https://www.hiveworkshop.com/threads/is-it-possible-to-detect-stun.322295/#post-3402696
+  return unit.currentOrder === orderStunned;
+}
+
 export function setUnitFacingWithRate(unit: Unit, angle: number, degPerSec: number = 180 / 0.75): void {
   const angleDiff = angleDifference(unit.facing, angle);
   SetUnitFacingTimed(unit.handle, angle, angleDiff / degPerSec);
@@ -376,8 +381,8 @@ export function isUnitRemoved(unit: Unit): boolean {
 const invulnerableTriggers = new Map<Unit, Trigger>();
 
 export function setNeverDie(unit: Unit, state = true, lowestHp: number = unit.maxLife): void {
-  if (state && invulnerableTriggers.has(unit)) return;
-
+  const has = invulnerableTriggers.has(unit);
+  if (state && has || !state && !has) return;
   if (state) {
     invulnerableTriggers.set(unit, buildTrigger((t) => {
       t.registerUnitEvent(unit, EVENT_UNIT_DAMAGING);

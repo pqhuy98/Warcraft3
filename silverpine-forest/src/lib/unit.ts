@@ -376,8 +376,8 @@ export function isUnitRemoved(unit: Unit): boolean {
 const invulnerableTriggers = new Map<Unit, Trigger>();
 
 export function setNeverDie(unit: Unit, state = true, lowestHp: number = unit.maxLife): void {
-  if (state && invulnerableTriggers.has(unit)) return;
-
+  const has = invulnerableTriggers.has(unit);
+  if (state && has || !state && !has) return;
   if (state) {
     invulnerableTriggers.set(unit, buildTrigger((t) => {
       t.registerUnitEvent(unit, EVENT_UNIT_DAMAGING);
