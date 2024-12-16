@@ -39,7 +39,7 @@ const dialogues = getDialogues(
   },
 );
 
-const skip = true;
+const skip = false;
 
 export class IntroCinematic extends BaseQuest {
   static lichKingSitLoc: Loc;
