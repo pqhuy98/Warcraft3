@@ -3,7 +3,8 @@ import { Angle, fromTempLocation, PolarProjection } from 'lib/location';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
-  createDummy, fadeUnit, getUnitScale, isDummy, safeRemoveDummy, setUnitScale,
+  createDummy, getUnitScale, isDummy, safeRemoveDummy, setUnitScale,
+  transitionUnitColor,
 } from 'lib/unit';
 import { Trigger, Unit } from 'w3ts';
 
@@ -64,10 +65,20 @@ export class MulticastPoint {
               t2.destroy();
               k1('mcpt');
               k0('mcpt-f');
-              fadeUnit(dummy, 255, 255, 0, 128, 0, 1, () => {
-                safeRemoveDummy(dummy);
-                k1('mcpt-f');
-              });
+              transitionUnitColor(
+                dummy,
+                {
+                  r: 255, g: 255, b: 0, a: 128,
+                },
+                {
+                  r: 255, g: 255, b: 0, a: 0,
+                },
+                1,
+                () => {
+                  safeRemoveDummy(dummy);
+                  k1('mcpt-f');
+                },
+              );
             });
             if (OrderId2String(order) === 'forceofnature'
               || OrderId2String(order) === 'blink') {

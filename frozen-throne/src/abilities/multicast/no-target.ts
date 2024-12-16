@@ -4,9 +4,10 @@ import { ABILITY_BladeMasterBladestorm } from 'lib/resources/war3-abilities';
 import { getSpellType } from 'lib/spell';
 import { buildTrigger, setTimeout } from 'lib/trigger';
 import {
-  createDummy, fadeUnit, getUnitScale, growUnit, isDummy,
+  createDummy, getUnitScale, growUnit, isDummy,
   safeRemoveDummy,
   setUnitScale,
+  transitionUnitColor,
 } from 'lib/unit';
 import { Timer, Trigger, Unit } from 'w3ts';
 import { OrderId } from 'w3ts/globals';
@@ -94,10 +95,20 @@ export class MulticastNoTarget {
             tLimit.destroy();
             RemoveLocation(targetLoc);
             k0('mcnt-f');
-            fadeUnit(dummy, 200, 200, 255, 128, 0, fadeDuration, () => {
-              safeRemoveDummy(dummy);
-              k1('mcnt-f');
-            });
+            transitionUnitColor(
+              dummy,
+              {
+                r: 200, g: 200, b: 255, a: 128,
+              },
+              {
+                r: 200, g: 200, b: 255, a: 0,
+              },
+              fadeDuration,
+              () => {
+                safeRemoveDummy(dummy);
+                k1('mcnt-f');
+              },
+            );
             k1('mcnt');
           };
 

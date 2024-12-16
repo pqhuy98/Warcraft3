@@ -17,7 +17,9 @@ import {
   ABILITY_BurrowScarabLvl2, ABILITY_BurrowScarabLvl3, ABILITY_CreepSleep, ABILITY_Move, ABILITY_RavenFormMedivh,
 } from './resources/war3-abilities';
 import { UNIT_TYPE } from './resources/war3-units';
-import { buildTrigger, setIntervalForDuration, setIntervalIndefinite } from './trigger';
+import {
+  buildTrigger, setIntervalForDuration, setIntervalIndefinite,
+} from './trigger';
 
 export const BUFF_ID_GENERIC = FourCC('BTLF');
 export const UNIT_ID_DUMMY = FourCC('h000:hfoo');
@@ -38,43 +40,66 @@ export function setAttackRange(unit: Unit, weaponIndex: number, value: number): 
   );
 }
 
-export function fadeUnit(
+interface RGBA {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+}
+
+export function transitionUnitColor(
   u: Unit,
-  red: number,
-  green: number,
-  blue: number,
-  alphaOld: number,
-  alphaNew: number,
+  colorOld: RGBA,
+  colorNew: RGBA,
   duration: number,
   onComplete?: () => void,
   checkCancel?: () => boolean,
 ): void {
   k0('fade');
-  const t = Timer.create();
+  const intervalS = 1.0 / 30;
 
-  const TICK_TIME = 1.0 / 30;
-  const alphaBonusPerTick = (alphaNew - alphaOld) / duration * TICK_TIME;
-  let newAlpha = alphaOld;
+  // Calculate change per tick for each color component
+  const changePerTick: RGBA = {
+    r: (colorNew.r - colorOld.r) / duration * intervalS,
+    g: (colorNew.g - colorOld.g) / duration * intervalS,
+    b: (colorNew.b - colorOld.b) / duration * intervalS,
+    a: (colorNew.a - colorOld.a) / duration * intervalS,
+  };
 
-  t.start(TICK_TIME, true, () => {
-    newAlpha += alphaBonusPerTick;
+  // Initialize the current color
+  const currentColor: RGBA = { ...colorOld };
+
+  setIntervalForDuration(intervalS, duration, (i, t) => {
+    // Update each color component
+    currentColor.r += changePerTick.r;
+    currentColor.g += changePerTick.g;
+    currentColor.b += changePerTick.b;
+    currentColor.a += changePerTick.a;
 
     if (checkCancel?.()) {
-      // fading is cancelled
+      // Transition is cancelled
       t.pause();
       t.destroy();
       k1('fade');
       return;
     }
-    if (newAlpha <= 0) {
-      // fading is completed
-      t.pause();
-      t.destroy();
-      k1('fade');
-      onComplete?.();
-    }
 
-    u.setVertexColor(red, green, blue, Math.min(255, Math.max(0, Math.round(newAlpha))));
+    // Apply the color to the unit
+    u.setVertexColor(
+      Math.min(255, Math.max(0, Math.round(currentColor.r))),
+      Math.min(255, Math.max(0, Math.round(currentColor.g))),
+      Math.min(255, Math.max(0, Math.round(currentColor.b))),
+      Math.min(255, Math.max(0, Math.round(currentColor.a))),
+    );
+  }, () => { // finally
+    u.setVertexColor(
+      Math.min(255, Math.max(0, Math.round(colorNew.r))),
+      Math.min(255, Math.max(0, Math.round(colorNew.g))),
+      Math.min(255, Math.max(0, Math.round(colorNew.b))),
+      Math.min(255, Math.max(0, Math.round(colorNew.a))),
+    );
+    k1('fade');
+    onComplete?.();
   });
 }
 

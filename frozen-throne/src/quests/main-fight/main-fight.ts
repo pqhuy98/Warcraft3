@@ -21,8 +21,11 @@ import {
   cinematicFadeIn, cinematicFadeOut, cinematicMode, createMinimapIconLoc, setMinimapIconUnit,
 } from 'lib/quests/utils';
 import {
-  ABILITY_Bearform, ABILITY_CairneReincarnation, ABILITY_ChieftainReincarnation, ABILITY_Locust,
-  ABILITY_MagicImmunityCreep, ABILITY_PaladinResurrection, ABILITY_RavenFormDruid, ABILITY_ShadowMeld, ABILITY_ShadowMeldAkama, ABILITY_ShadowMeldInstant, ABILITY_StoneForm,
+  ABILITY_ArchMageBrillianceAura,
+  ABILITY_Bearform, ABILITY_CairneReincarnation, ABILITY_ChieftainEnduranceAura, ABILITY_ChieftainReincarnation, ABILITY_DeathKnightUnholyAura, ABILITY_DreadlordVampiricAura,
+  ABILITY_KeeperThornsAura, ABILITY_Locust,
+  ABILITY_MagicImmunityCreep, ABILITY_PaladinDevotionAura, ABILITY_PaladinResurrection,
+  ABILITY_PriestessTrueshotAura, ABILITY_RavenFormDruid, ABILITY_ShadowMeld, ABILITY_ShadowMeldAkama, ABILITY_ShadowMeldInstant, ABILITY_Sphere, ABILITY_StoneForm,
 } from 'lib/resources/war3-abilities';
 import { ALL_LIGHTNINGS, LIGHTNING_ManaDrain } from 'lib/resources/war3-lightnings';
 import {
@@ -50,6 +53,7 @@ import {
   enumUnitsWithDelay,
   getUnitScale, getUnitsInRect, isUnitIdle, isUnitStunned, makeFlyable, setNeverDie,
   setUnitScale,
+  transitionUnitColor,
 } from 'lib/unit';
 import {
   AsyncQueue,
@@ -494,12 +498,13 @@ export class MainFight extends BaseQuest {
 
       if (u.isHero() && !u.isIllusion()) {
         const corpse = Unit.create(neutralPassive, u.typeId, u.x, u.y, u.facing);
+        prepareCrusader(corpse);
         corpse.setAnimation('death');
         fakeCorpse.set(u, corpse);
         corpse.addAbility(ABILITY_Locust.id);
         corpse.invulnerable = true;
         corpse.color = u.owner.color;
-        setTimeout(6, () => corpse.setTimeScale(0));
+        corpse.removeAbility(ABILITY_Sphere.id);
       }
     }, delayPerUnit);
     await sleep(units.length * delayPerUnit);
@@ -566,12 +571,10 @@ export class MainFight extends BaseQuest {
       await tirionUnfreeze.unfreeze();
       tirion.disableAbility(ABILITY_PaladinResurrection.id, true, false);
       tirion.setHeroLevel(85, true);
+      tirion.life = tirion.maxLife;
       tirion.mana = tirion.maxMana;
       setAllianceState(lichKing.owner, tirion.owner, 'neutral');
 
-      // tirion.setHeroLevel(80, true);
-      // tirion.life = tirion.maxLife;
-      // tirion.mana = tirion.maxMana;
       tirion.facing = Angle(tirion, lichKing);
       removeGuardPosition(tirion);
 
@@ -671,7 +674,9 @@ export class MainFight extends BaseQuest {
         // await playSpeech(lichKing, dialogues[16]);
       }
 
-      await playSpeech(lichKing, soundFrostmourneHunger);
+      if (!debug3) {
+        await playSpeech(lichKing, soundFrostmourneHunger);
+      }
       ClearSelection();
       lichKing.select(true);
       lichKing.paused = false;
@@ -704,32 +709,63 @@ export class MainFight extends BaseQuest {
       PlayThematicMusic('Sound\\Music\\mp3Music\\TragicConfrontation.mp3');
       void playSpeech(lichKing, dialogues[14]);
       tirion.invulnerable = false;
+
+      const passives = [
+        ABILITY_Sphere, ABILITY_PaladinDevotionAura, ABILITY_ArchMageBrillianceAura,
+        ABILITY_KeeperThornsAura, ABILITY_PriestessTrueshotAura,
+        ABILITY_DeathKnightUnholyAura, ABILITY_DreadlordVampiricAura,
+        ABILITY_ChieftainEnduranceAura,
+      ];
+
       for (const hero of heroes) {
-        const corpse = fakeCorpse.get(hero);
+        try {
+          const corpse = fakeCorpse.get(hero);
+          hero.setPathing(false);
+          hero.show = true;
+          hero.setOwner(playerLichKingNpc, false);
 
-        hero.revive(corpse.x, corpse.y, false);
-        hero.paused = true;
-        hero.invulnerable = true;
-        hero.setAnimation('death');
-        hero.setTimeScale(100);
+          if (corpse) {
+            hero.revive(corpse.x, corpse.y, false);
+            hero.setFacingEx(corpse.facing);
+            corpse.destroy();
+          } else {
+            hero.revive(hero.x, hero.y, false);
+          }
+          passives.forEach((ability) => hero.disableAbility(ability.id, true, false));
+          hero.paused = true;
+          hero.invulnerable = true;
+          hero.mana = hero.maxMana;
+          hero.setAnimation('death');
+          hero.setTimeScale(100);
 
-        await sleep(1);
-        hero.setOwner(playerLichKingNpc, true);
-        const effect = Effect.create(MODEL_DarkSummonTarget, hero.x, hero.y);
-        hero.setVertexColor(100, 50, 50, 255);
-        corpse.destroy();
-        hero.show = true;
-        hero.setTimeScale(-0.03);
-        hero.queueAnimation('stand 1');
-        setTimeout(6, () => {
-          hero.paused = false;
-          hero.invulnerable = false;
-          hero.setTimeScale(1);
-          removeGuardPosition(hero);
-          hero.acquireRange = 10000;
-          hero.issueOrderAt(OrderId.Attack, tirion.x, tirion.y);
-          effect.destroy();
-        });
+          await sleep(1);
+          const effect = Effect.create(MODEL_DarkSummonTarget, hero.x, hero.y);
+          transitionUnitColor(
+            hero,
+            {
+              r: 255, g: 255, b: 255, a: 255,
+            },
+            {
+              r: 100, g: 50, b: 50, a: 255,
+            },
+            3,
+          );
+          hero.setTimeScale(-0.03);
+          hero.queueAnimation('stand 1');
+          setTimeout(5, () => {
+            hero.paused = false;
+            hero.invulnerable = false;
+            hero.setPathing(true);
+            hero.setTimeScale(1);
+            removeGuardPosition(hero);
+            hero.acquireRange = 10000;
+            hero.issueOrderAt(OrderId.Attack, tirion.x, tirion.y);
+            effect.destroy();
+            passives.forEach((ability) => hero.disableAbility(ability.id, false, false));
+          });
+        } catch (e) {
+          // log(`cannot raise ${hero.name}`);
+        }
       }
       await sleep(6);
       heroRaising2.destroy();
@@ -754,11 +790,6 @@ export class MainFight extends BaseQuest {
       await sleep(4);
       MeleeVictoryDialogBJ(lichKing.owner.handle, true);
     }
-
-    // lichKing.setHeroLevel(80, true);
-    // lichKing.life = lichKing.maxLife;
-    // lichKing.mana = lichKing.maxMana;
-    // lichKing.paused = false;
   }
 
   private async waitForBattle(crusaders: Unit[]): Promise<void> {
@@ -1174,6 +1205,7 @@ export class MainFight extends BaseQuest {
     raiseDeadSound.setPosition(lichKing.x, lichKing.y, 450);
     raiseDeadSound.start();
 
+    const lightnings = new Map<Unit, lightning>();
     timers.push(setIntervalIndefinite(1, () => {
       const swordLoc = getLichKingSpellChannelSwordLoc(lichKing);
       effect1.x = swordLoc.bottom.x;
@@ -1186,13 +1218,21 @@ export class MainFight extends BaseQuest {
       effect3.y = swordLoc.top.y;
       effect3.z = swordLoc.top.z;
 
-      const lightnings: lightning[] = [];
       for (const hero of heroes) {
         if (hero === tirion) continue;
-        if (GetRandomInt(1, 2) !== 1 || hero.isAlive() && !hero.paused) continue;
+        if (!hero.isAlive() && GetRandomInt(1, 2) !== 1 || hero.isAlive() && !hero.paused) {
+          if (lightnings.get(hero)) {
+            DestroyLightning(lightnings.get(hero));
+            lightnings.delete(hero);
+          }
+          continue;
+        }
 
         Effect.create(MODEL_AnimateDeadTarget, hero.x, hero.y).destroy();
-        lightnings.push(AddLightningEx(
+        if (lightnings.has(hero)) {
+          continue;
+        }
+        const l = AddLightningEx(
           LIGHTNING_ManaDrain.code,
           false,
           hero.x,
@@ -1201,9 +1241,9 @@ export class MainFight extends BaseQuest {
           swordLoc.top.x,
           swordLoc.top.y,
           swordLoc.top.z,
-        ));
+        );
+        lightnings.set(hero, l);
       }
-      setTimeout(1, () => lightnings.forEach((l) => DestroyLightning(l)));
     }));
 
     return {
@@ -1216,6 +1256,9 @@ export class MainFight extends BaseQuest {
         raiseDeadSound.stop(true, true);
         lichKing.setPathing(true);
         lichKing.paused = false;
+        for (const l of lightnings.values()) {
+          DestroyLightning(l);
+        }
       },
     };
   }

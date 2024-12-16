@@ -183,9 +183,9 @@ export default class WrathOfTheLichKing {
       .forEach((d) => {
         d.setAnimSpeed(0.5);
         d.kill();
-        // setTimeout((16764 - 13731) / 1000 / 0.5, () => {
-        //   d.setAnimSpeed(0);
-        // });
+        setTimeout((16664 - 13731) / 1000 / 0.5, () => {
+          d.setAnimSpeed(0);
+        });
       });
 
     const movingTerrainEffect = new MovingTerrainEffect({
