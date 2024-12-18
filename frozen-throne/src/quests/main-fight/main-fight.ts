@@ -204,7 +204,7 @@ const customKillDialogues = getDialogues(
     dialogues: [
       {
         speaker: 'The Lich King',
-        text: 'I will not make the same mistake again, Sylvanas. This time, there will be no escape. You will all serve me in dead!',
+        text: 'I will not make the same mistake again, Sylvanas. This time, there will be no escape. You will all serve me in death!',
         fileName: 'lichking-kill-sylvanas.mp3',
       },
     ],
@@ -457,17 +457,22 @@ export class MainFight extends BaseQuest {
     });
 
     // King King prepare to kill everyone
+    PlayThematicMusic('Sounds\\Invincible.mp3');
     lichKing.setPosition(lichKing.x, lichKing.y);
     lichKing.paused = true;
     lichKing.facing = 270;
     lichKing.setAnimation('spell channel 1');
     Camera.pan(lichKing.x, lichKing.y, undefined);
     lichKing.removeBuffs(false, true);
+    const loc = getLichKingSpellChannelSwordLoc(lichKing, 270);
+    const eff1 = Effect.create('Models\\BlueUnsummon\\BlueUnsummon.mdx', loc.bottom.x, loc.bottom.y);
+    eff1.z = loc.bottom.z;
 
     if (!debug2) {
       await sleep(3);
     }
 
+    eff1.destroy();
     lichKing.setAnimation('cinematic swordupdown');
     lichKing.setTimeScale(3);
 
@@ -521,7 +526,6 @@ export class MainFight extends BaseQuest {
       }));
 
     // Lich King talks after killing everyone
-    PlayThematicMusic('Sounds\\Invincible.mp3');
     lichKing.paused = false;
     if (!debug2) {
       lichKing.removeBuffs(false, true);
@@ -542,10 +546,11 @@ export class MainFight extends BaseQuest {
       await playSpeech(lichKing, dialogues[4], null);
     }
 
-    const timescaleParam = chatParamInt('ts', 2);
+    const timescaleParam = chatParamInt('ts', 1.5);
     const breakPointParam = chatParamReal('bp', 0.4);
     const distance = chatParamReal('dis', 600);
-    for (let i = 0; i < 10; i++) {
+
+    for (let i = 0; i < 1; i++) { // when debuging, change this 1 to higher to replay
       // Lich King runs to center
       const heroRaising = await this.lichKingGoToCenterRaiseHeroes(heroes);
 
@@ -582,7 +587,7 @@ export class MainFight extends BaseQuest {
       const swordLoc = getLichKingSpellChannelSwordLoc(lichKing);
       const swordLocXy = swordLoc.bottom;
       const leapLoc = PolarProjection(lichKing, distance.current, Angle(swordLocXy, tirion));
-      setGuardPosition(tirion, leapLoc, Angle(leapLoc, swordLocXy), { maxRadius: 25 });
+      setGuardPosition(tirion, leapLoc, Angle(leapLoc, swordLocXy), { maxRadius: 50 });
       await waitUntil(0.1, () => Distance(tirion, leapLoc) < 50 && angleDifference(tirion.facing, Angle(tirion, swordLocXy)) < 5);
 
       // Tirion leap
@@ -1179,7 +1184,8 @@ export class MainFight extends BaseQuest {
     }
 
     // Lich King casts raise hero
-    setGuardPosition(lichKing, arenaCenter, Angle(arenaCenter, tirion), { maxRadius: 25 });
+    const lichKingFacing = 270;
+    setGuardPosition(lichKing, arenaCenter, lichKingFacing, { maxRadius: 25 });
     lichKing.issueOrderAt(ORDER_move, arenaCenter.x, arenaCenter.y);
     await waitUntil(1, () => Distance(lichKing, arenaCenter) < 50);
 
@@ -1190,7 +1196,6 @@ export class MainFight extends BaseQuest {
 
     lichKing.removeAbility(ABILITY_Locust.id);
     lichKing.paused = true;
-    const lichKingFacing = 270;
     lichKing.facing = lichKingFacing;
     lichKing.setAnimation(21);
 
@@ -1207,7 +1212,7 @@ export class MainFight extends BaseQuest {
 
     const lightnings = new Map<Unit, lightning>();
     timers.push(setIntervalIndefinite(1, () => {
-      const swordLoc = getLichKingSpellChannelSwordLoc(lichKing);
+      const swordLoc = getLichKingSpellChannelSwordLoc(lichKing, lichKingFacing);
       effect1.x = swordLoc.bottom.x;
       effect1.y = swordLoc.bottom.y;
       effect1.z = swordLoc.bottom.z;
@@ -1268,9 +1273,9 @@ interface LocXYZ extends Loc {
   z: number;
 }
 
-function getLichKingSpellChannelSwordLoc(lichKing: Unit): { top: LocXYZ; bottom: LocXYZ } {
+function getLichKingSpellChannelSwordLoc(lichKing: Unit, facing: number = lichKing.facing): { top: LocXYZ; bottom: LocXYZ } {
   const scale = getUnitScale(lichKing) / 1.2;
-  const swordLocXy = PolarProjection(lichKing, scale * 100, lichKing.facing - 10);
+  const swordLocXy = PolarProjection(lichKing, scale * 100, facing - 10);
   const swordLocZ = locZ(lichKing) + scale * 450;
   return {
     top: { ...swordLocXy, z: swordLocZ },
