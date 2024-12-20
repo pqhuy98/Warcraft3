@@ -2120,3 +2120,27 @@ STRING 410
 Iceshard standing
 }
 
+STRING 411
+// Units: h003 (Iceshard Standing), Name (Name)
+{
+Iceshard Standing
+}
+
+STRING 412
+// Units: h003 (Iceshard Standing), Tip (Tooltip - Basic)
+{
+Iceshard Standing
+}
+
+STRING 413
+// Units: h003 (Iceshard Standing), Ubertip (Tooltip - Extended)
+{
+Iceshard Standing
+}
+
+STRING 414
+// Doodads: D005 (Soul), Name (Name)
+{
+Soul
+}
+

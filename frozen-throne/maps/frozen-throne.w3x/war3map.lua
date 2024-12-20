@@ -7,6 +7,7 @@ gg_rct_Spawn_004 = nil
 gg_rct_Spawn_005 = nil
 gg_rct_Spawn_006 = nil
 gg_rct_Spawn_007 = nil
+gg_rct_Frozen_Throne_center = nil
 gg_cam_Birdeye_view = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
@@ -22,7 +23,10 @@ gg_trg_Camera_constant = nil
 gg_trg_Unit_register = nil
 gg_unit_H001_0052 = nil
 gg_unit_H004_0000 = nil
-gg_rct_Frozen_Throne_center = nil
+gg_unit_h003_0140 = nil
+gg_unit_h003_0141 = nil
+gg_unit_h003_0148 = nil
+gg_unit_h003_0147 = nil
 function InitGlobals()
 end
 
@@ -476,6 +480,10 @@ u = BlzCreateUnitWithSkin(p, FourCC("hspt"), -1420.7, -1263.2, 53.108, FourCC("h
 SetUnitState(u, UNIT_STATE_MANA, 250)
 u = BlzCreateUnitWithSkin(p, FourCC("hspt"), -1570.5, -1599.7, 54.912, FourCC("hspt"))
 SetUnitState(u, UNIT_STATE_MANA, 250)
+gg_unit_h003_0140 = BlzCreateUnitWithSkin(p, FourCC("h003"), -930.4, 92.3, 176.985, FourCC("h003"))
+gg_unit_h003_0141 = BlzCreateUnitWithSkin(p, FourCC("h003"), 745.3, 34.8, 89.137, FourCC("h003"))
+gg_unit_h003_0147 = BlzCreateUnitWithSkin(p, FourCC("h003"), 746.2, -1707.2, 2.435, FourCC("h003"))
+gg_unit_h003_0148 = BlzCreateUnitWithSkin(p, FourCC("h003"), -1024.8, -1707.7, 258.464, FourCC("h003"))
 end
 
 function CreatePlayerBuildings()
@@ -642,6 +650,10 @@ end
 function Trig_Unit_register_Actions()
 udg_registered_unit = gg_unit_H001_0052
 udg_registered_unit = gg_unit_H004_0000
+udg_registered_unit = gg_unit_h003_0140
+udg_registered_unit = gg_unit_h003_0141
+udg_registered_unit = gg_unit_h003_0147
+udg_registered_unit = gg_unit_h003_0148
 end
 
 function InitTrig_Unit_register()

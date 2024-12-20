@@ -9,7 +9,6 @@ import {
   neutralPassive,
   playerHumanAlliance, playerLichKingNpc, playerMain, playerNightElf, playerOrcishHorde, playerUndeadForsaken,
 } from 'lib/constants';
-import { getDestructablesInRect } from 'lib/destructable';
 import {
   Angle, centerLocRect, Destroyable, Distance, Loc, locZ, PolarProjection, randomLocInRects,
 } from 'lib/location';
@@ -225,7 +224,7 @@ function prepareCrusader(unit: Unit): void {
 
 const requiredHeroSouls = 30;
 const debugRaiseHeores = false;
-const debug1 = false;
+const debug1 = true;
 const debug2 = false;
 const debug3 = false;
 
@@ -515,15 +514,18 @@ export class MainFight extends BaseQuest {
     await sleep(units.length * delayPerUnit);
 
     // Kill all destructables
-    getDestructablesInRect(GetWorldBounds(), (d) => d.typeId === FourCC('B000'))
-      .forEach((des) => setTimeout(GetRandomReal(0, 0.5), () => {
-        const d = des;
-        d.setAnimSpeed(0.5);
-        d.kill();
-        setTimeout((16664 - 13731) / 1000 / 0.5, () => {
-          d.setAnimSpeed(0);
-        });
-      }));
+    [gg_unit_h003_0140,
+      gg_unit_h003_0141,
+      gg_unit_h003_0147,
+      gg_unit_h003_0148,
+    ].forEach((u) => {
+      const unit = Unit.fromHandle(u);
+      unit.setTimeScale(0.5);
+      unit.setAnimation('death');
+      setTimeout((16680 - 13731) / 1000 / 0.5, () => {
+        unit.setTimeScale(0);
+      });
+    });
 
     // Lich King talks after killing everyone
     lichKing.paused = false;

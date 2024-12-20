@@ -39,8 +39,8 @@ const snowyTerrainTypes = [
 ];
 
 export const soundFrostmourneHunger = dialogue('Sounds/lichking_frostmourne_hungers.mp3', 'Lich King', 'Frostmourne hungers...');
-const speechSound2 = dialogue('Sounds/lichking_freeze_icy_husk.mp3', 'Lich King', 'I will freeze you from within until all that remains is an icy husk!');
-const spellSound = Sound.create('Sounds/lichking_wrath_sound.mp3', false, false, false, 1, 1, 'DefaultEAXON');
+const soundIcyHusk = dialogue('Sounds/lichking_freeze_icy_husk.mp3', 'Lich King', 'I will freeze you from within until all that remains is an icy husk!');
+const soundMusic = Sound.create('Sounds/lichking_wrath_sound.mp3', false, false, false, 1, 1, 'DefaultEAXON');
 
 export default class WrathOfTheLichKing {
   static Data = {
@@ -71,7 +71,7 @@ export default class WrathOfTheLichKing {
 
         caster.setAnimation(5);
         setTimeout(0, () => {
-          void playSoundIsolate(spellSound);
+          void playSoundIsolate(soundMusic);
         });
 
         caster.setTimeScale(8);
@@ -81,7 +81,7 @@ export default class WrathOfTheLichKing {
 
         const earlyStop = (): void => {
           caster.setTimeScale(1);
-          spellSound.stop(false, false);
+          soundMusic.stop(false, false);
           VolumeGroupReset();
           SetMusicVolume(100);
           caster.removeAbility(SUPPORT_ABILITY_ID_WRATH_OF_THE_LICH_KING_SPELL_IMMUNITY);
@@ -133,11 +133,7 @@ export default class WrathOfTheLichKing {
 
         setTimeout(animationDurationSwordUp + animationDurationSwordSlam + 1, () => {
           if (caster.isAlive()) {
-            void playSpeech(caster, soundFrostmourneHunger).then(() => {
-              if (GetRandomInt(1, 5) === 5) {
-                void playSpeech(caster, speechSound2);
-              }
-            });
+            void playSpeech(caster, GetRandomInt(1, 2) === 1 ? soundFrostmourneHunger : soundIcyHusk);
           }
         });
 
@@ -249,7 +245,7 @@ export default class WrathOfTheLichKing {
           DestroyEffect(eff);
         }
       });
-      spellSound.stop(false, true);
+      soundMusic.stop(false, true);
       safeRemoveDummy(dummy2);
       Weather.changeWeather();
       VolumeGroupReset();
