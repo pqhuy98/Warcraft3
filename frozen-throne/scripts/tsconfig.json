@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": [
+      "es2021"
+    ],
+    "moduleResolution": "node",
+    "strictNullChecks": true
+  },
+  "include": [
+    "./*.ts"
+  ],
+}

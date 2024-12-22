@@ -33,6 +33,15 @@ module.exports = {
       },
     },
     {
+      files: [__dirname + '/scripts/*.ts'],
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: './scripts/tsconfig.json',
+        tsconfigRootDir: __dirname + "/scripts",
+      },
+    },
+    {
       files: ['.eslintrc.js'],
       parser: 'espree', // or another JavaScript parser
       env: { node: true },

@@ -1,0 +1,3863 @@
+[
+  {
+    "id": "2554247",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree02.obj",
+    "position": [
+      15233.69921875,
+      23083.572265625,
+      116.13052368164062
+    ],
+    "rotation": 310.45013427734375,
+    "scale": 1.2724609375
+  },
+  {
+    "id": "2553539",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree02.obj",
+    "position": [
+      15088.6279296875,
+      22987.212890625,
+      103.00373077392578
+    ],
+    "rotation": -10.5,
+    "scale": 1
+  },
+  {
+    "id": "2553940",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      15182.96484375,
+      22942.873046875,
+      101.33988189697266
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2554898",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      15363.119140625,
+      23111.84375,
+      133.3820037841797
+    ],
+    "rotation": 121,
+    "scale": 1
+  },
+  {
+    "id": "2559615",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14925.802734375,
+      23126.693359375,
+      5.897665977478027
+    ],
+    "rotation": 127,
+    "scale": 1
+  },
+  {
+    "id": "2554245",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      15263.6240234375,
+      22971.28125,
+      116.2181396484375
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2552440",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree02.obj",
+    "position": [
+      14920.615234375,
+      22953.005859375,
+      99.94246673583984
+    ],
+    "rotation": 220.0848388671875,
+    "scale": 0.8310546875
+  },
+  {
+    "id": "2555520",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree04.obj",
+    "position": [
+      15460.44921875,
+      23064.484375,
+      132.7220001220703
+    ],
+    "rotation": 311.00982666015625,
+    "scale": 0.8466796875
+  },
+  {
+    "id": "2559617",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree03.obj",
+    "position": [
+      15001.3984375,
+      23185.052734375,
+      6.054347991943359
+    ],
+    "rotation": 112.30301666259766,
+    "scale": 0.7509765625
+  },
+  {
+    "id": "2554887",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree03.obj",
+    "position": [
+      15334.7802734375,
+      22912.009765625,
+      117.73944854736328
+    ],
+    "rotation": 148.90225219726562,
+    "scale": 0.732421875
+  },
+  {
+    "id": "2553269",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      15041.93359375,
+      22946.30078125,
+      99.84989929199219
+    ],
+    "rotation": 0,
+    "scale": 0.7099609375
+  },
+  {
+    "id": "2559614",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14934.15234375,
+      23124.072265625,
+      7.786695957183838
+    ],
+    "rotation": 127,
+    "scale": 0.669921875
+  },
+  {
+    "id": "2554617",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree06.obj",
+    "position": [
+      15316.60546875,
+      22991.8359375,
+      115.7796401977539
+    ],
+    "rotation": 169.58432006835938,
+    "scale": 0.6005859375
+  },
+  {
+    "id": "2555121",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      15368.244140625,
+      23113.31640625,
+      134.0589141845703
+    ],
+    "rotation": 113,
+    "scale": 0.55859375
+  },
+  {
+    "id": "2554891",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      15339.587890625,
+      22951.984375,
+      116.32421875
+    ],
+    "rotation": -39,
+    "scale": 0.4296875
+  },
+  {
+    "id": "2555516",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      15456.427734375,
+      23060.8515625,
+      131.2217254638672
+    ],
+    "rotation": -2.5,
+    "scale": 0.3291015625
+  },
+  {
+    "id": "2554120",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\tree\\elwynnlog02.obj",
+    "position": [
+      15205.2548828125,
+      22950.85546875,
+      101.91224670410156
+    ],
+    "rotation": 196.2095947265625,
+    "scale": 0.7998046875
+  },
+  {
+    "id": "2554892",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      15338.8623046875,
+      22949.42578125,
+      116.27483367919922
+    ],
+    "rotation": -39,
+    "scale": 0.2197265625
+  },
+  {
+    "id": "2554893",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      15336.9765625,
+      22950.3984375,
+      116.2271499633789
+    ],
+    "rotation": -84.5,
+    "scale": 0.2197265625
+  },
+  {
+    "id": "2554409",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntreemid01.obj",
+    "position": [
+      15280.013671875,
+      22968.568359375,
+      117.0142593383789
+    ],
+    "rotation": 173.68890380859375,
+    "scale": 1.2255859375
+  },
+  {
+    "id": "2553769",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntreemid01.obj",
+    "position": [
+      15160.8828125,
+      22941.65625,
+      100.13263702392578
+    ],
+    "rotation": 202.5472412109375,
+    "scale": 1.306640625
+  },
+  {
+    "id": "2555118",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\ballista\\ballista.obj",
+    "position": [
+      15398.9267578125,
+      23054.28515625,
+      132.7434844970703
+    ],
+    "rotation": -101,
+    "scale": 1
+  },
+  {
+    "id": "2554129",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntreemid01.obj",
+    "position": [
+      15231.654296875,
+      23033.05078125,
+      116.11253356933594
+    ],
+    "rotation": -1.201904058456421,
+    "scale": 1.2041015625
+  },
+  {
+    "id": "2554406",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntreemid01.obj",
+    "position": [
+      15279.93359375,
+      22978.701171875,
+      116.48615264892578
+    ],
+    "rotation": -86.201904296875,
+    "scale": 1.2041015625
+  },
+  {
+    "id": "2552835",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntreemid01.obj",
+    "position": [
+      14970.5859375,
+      22952.453125,
+      103.80043029785156
+    ],
+    "rotation": 84.92965698242188,
+    "scale": 0.99609375
+  },
+  {
+    "id": "2555291",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntreemid01.obj",
+    "position": [
+      15418.396484375,
+      22958.974609375,
+      116.0961685180664
+    ],
+    "rotation": 69.757080078125,
+    "scale": 0.9765625
+  },
+  {
+    "id": "2553101",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntreemid01.obj",
+    "position": [
+      15000.388671875,
+      22954.17578125,
+      104.2593994140625
+    ],
+    "rotation": -35.79949951171875,
+    "scale": 0.9453125
+  },
+  {
+    "id": "2554629",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntreemid01.obj",
+    "position": [
+      15326.365234375,
+      23021.958984375,
+      115.89679718017578
+    ],
+    "rotation": 186.2953643798828,
+    "scale": 0.93359375
+  },
+  {
+    "id": "2553667",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\stumps\\elwynntreestump01.obj",
+    "position": [
+      15119.5361328125,
+      22952.234375,
+      99.50691223144531
+    ],
+    "rotation": 243,
+    "scale": 1.5986328125
+  },
+  {
+    "id": "2553258",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallwagon\\westfallwagon01.obj",
+    "position": [
+      15038.3984375,
+      22931.58984375,
+      101.34432220458984
+    ],
+    "rotation": 241,
+    "scale": 1
+  },
+  {
+    "id": "2555119",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\banners\\crimsonbanner01.obj",
+    "position": [
+      15393.240234375,
+      23062.638671875,
+      148.59344482421875
+    ],
+    "rotation": -93.5,
+    "scale": 2.0498046875
+  },
+  {
+    "id": "2555519",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\banners\\crimsonbanner01.obj",
+    "position": [
+      15437.5986328125,
+      23058.8359375,
+      148.4507598876953
+    ],
+    "rotation": -95,
+    "scale": 2.0498046875
+  },
+  {
+    "id": "2553668",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15121.6796875,
+      22986.8828125,
+      102.525390625
+    ],
+    "rotation": 216.06646728515625,
+    "scale": 1.1953125
+  },
+  {
+    "id": "2553095",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15006.7978515625,
+      22931.921875,
+      103.12638854980469
+    ],
+    "rotation": 224.9833984375,
+    "scale": 1.171875
+  },
+  {
+    "id": "2553772",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15159.623046875,
+      22942.447265625,
+      100.1040267944336
+    ],
+    "rotation": 52.12884521484375,
+    "scale": 1.1796875
+  },
+  {
+    "id": "2552844",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14999.091796875,
+      22967.15234375,
+      105.28543853759766
+    ],
+    "rotation": 327.44927978515625,
+    "scale": 1.185546875
+  },
+  {
+    "id": "2555120",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfalltreestump01.obj",
+    "position": [
+      15367.591796875,
+      23106.8359375,
+      132.7757110595703
+    ],
+    "rotation": 113,
+    "scale": 0.759765625
+  },
+  {
+    "id": "2553941",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15178.8583984375,
+      22999.509765625,
+      104.29459381103516
+    ],
+    "rotation": 249.8065185546875,
+    "scale": 1.228515625
+  },
+  {
+    "id": "2554635",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15315.6591796875,
+      23035.322265625,
+      115.81475067138672
+    ],
+    "rotation": 249.41566467285156,
+    "scale": 1.072265625
+  },
+  {
+    "id": "2552837",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14998.6298828125,
+      22952.1015625,
+      104.09059143066406
+    ],
+    "rotation": 297.2831726074219,
+    "scale": 1.123046875
+  },
+  {
+    "id": "2555315",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\stonepyres\\stonepyre01.obj",
+    "position": [
+      15405.146484375,
+      23035.328125,
+      131.2851104736328
+    ],
+    "rotation": -4.5,
+    "scale": 1
+  },
+  {
+    "id": "2555317",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\stonepyres\\stonepyre01.obj",
+    "position": [
+      15422.693359375,
+      23033.90625,
+      130.933837890625
+    ],
+    "rotation": -3.5,
+    "scale": 1
+  },
+  {
+    "id": "2554405",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15295.8798828125,
+      22952.958984375,
+      116.022216796875
+    ],
+    "rotation": 197.5665283203125,
+    "scale": 1.18359375
+  },
+  {
+    "id": "2555517",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\cargonetboxes\\deadminecargonetboxes.obj",
+    "position": [
+      15434.587890625,
+      23051.7109375,
+      132.65809631347656
+    ],
+    "rotation": 0,
+    "scale": 2
+  },
+  {
+    "id": "2554408",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15278.2998046875,
+      22969.5390625,
+      117.03762817382812
+    ],
+    "rotation": 220.5,
+    "scale": 1
+  },
+  {
+    "id": "2554410",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15283.654296875,
+      22972.099609375,
+      116.54643249511719
+    ],
+    "rotation": 220.5,
+    "scale": 1
+  },
+  {
+    "id": "2554121",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\stumps\\elwynntreestump02.obj",
+    "position": [
+      15215.3115234375,
+      22953.83203125,
+      102.88176727294922
+    ],
+    "rotation": 92.22479248046875,
+    "scale": 1.5166015625
+  },
+  {
+    "id": "2553771",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15157.6455078125,
+      22950.650390625,
+      100.14108276367188
+    ],
+    "rotation": 236.66650390625,
+    "scale": 1.0029296875
+  },
+  {
+    "id": "2554123",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15203.1552734375,
+      22946.57421875,
+      102.92588806152344
+    ],
+    "rotation": 255.70635986328125,
+    "scale": 1.123046875
+  },
+  {
+    "id": "2554636",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15318.958984375,
+      23051.21484375,
+      115.17362213134766
+    ],
+    "rotation": 270.00274658203125,
+    "scale": 1.2197265625
+  },
+  {
+    "id": "2554244",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15265.5654296875,
+      22965.880859375,
+      116.38140106201172
+    ],
+    "rotation": 64,
+    "scale": 1
+  },
+  {
+    "id": "2555521",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfalltreestump02.obj",
+    "position": [
+      15454.490234375,
+      23065.390625,
+      132.85220336914062
+    ],
+    "rotation": 54.52552795410156,
+    "scale": 0.841796875
+  },
+  {
+    "id": "2552662",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14964.287109375,
+      22967.357421875,
+      104.90042877197266
+    ],
+    "rotation": 73.9100341796875,
+    "scale": 1.0634765625
+  },
+  {
+    "id": "2553526",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15070.49609375,
+      22954.802734375,
+      100.42698669433594
+    ],
+    "rotation": 338.0733642578125,
+    "scale": 0.9853515625
+  },
+  {
+    "id": "2553665",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15116.052734375,
+      22943.828125,
+      99.87200164794922
+    ],
+    "rotation": 141.96142578125,
+    "scale": 0.8818359375
+  },
+  {
+    "id": "2555522",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15454.748046875,
+      23059.775390625,
+      132.83294677734375
+    ],
+    "rotation": 246.5721435546875,
+    "scale": 0.9296875
+  },
+  {
+    "id": "2555304",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15424.0810546875,
+      23023.98046875,
+      127.95696258544922
+    ],
+    "rotation": -44.5933837890625,
+    "scale": 1.2197265625
+  },
+  {
+    "id": "2555302",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15403.6142578125,
+      23002.99609375,
+      123.96875
+    ],
+    "rotation": -51.5933837890625,
+    "scale": 1.2197265625
+  },
+  {
+    "id": "2555513",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15461.9423828125,
+      22965.056640625,
+      115.85694885253906
+    ],
+    "rotation": -52.0933837890625,
+    "scale": 1.2197265625
+  },
+  {
+    "id": "2555311",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15424.169921875,
+      23041.14453125,
+      132.33685302734375
+    ],
+    "rotation": -164.08433532714844,
+    "scale": 1.1923828125
+  },
+  {
+    "id": "2555293",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15428.37109375,
+      22992.15234375,
+      118.48561096191406
+    ],
+    "rotation": -85.08433532714844,
+    "scale": 1.1923828125
+  },
+  {
+    "id": "2555303",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15405.79296875,
+      23020.0234375,
+      127.12589263916016
+    ],
+    "rotation": -171.08433532714844,
+    "scale": 1.1923828125
+  },
+  {
+    "id": "2554122",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15206.13671875,
+      22947.0625,
+      102.88504791259766
+    ],
+    "rotation": 133.831298828125,
+    "scale": 0.8349609375
+  },
+  {
+    "id": "2553666",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15116.7958984375,
+      22946.3515625,
+      99.75215148925781
+    ],
+    "rotation": 358.442626953125,
+    "scale": 1.1103515625
+  },
+  {
+    "id": "2555523",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15458.990234375,
+      23059.873046875,
+      132.6125030517578
+    ],
+    "rotation": 261.0721435546875,
+    "scale": 0.9296875
+  },
+  {
+    "id": "2553100",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15012.6591796875,
+      22959.177734375,
+      104.87713623046875
+    ],
+    "rotation": 130.9859619140625,
+    "scale": 0.806640625
+  },
+  {
+    "id": "2554637",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15333.1328125,
+      23057.38671875,
+      115.98885345458984
+    ],
+    "rotation": 266.11346435546875,
+    "scale": 1.0546875
+  },
+  {
+    "id": "2555292",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15402.931640625,
+      22997.466796875,
+      122.91594696044922
+    ],
+    "rotation": -200.01222229003906,
+    "scale": 1.12109375
+  },
+  {
+    "id": "2555305",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15424.0791015625,
+      23018.40625,
+      126.21283721923828
+    ],
+    "rotation": -193.01222229003906,
+    "scale": 1.12109375
+  },
+  {
+    "id": "2555515",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15446.662109375,
+      22968.72265625,
+      115.81640625
+    ],
+    "rotation": -200.51222229003906,
+    "scale": 1.12109375
+  },
+  {
+    "id": "2553770",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15161.0986328125,
+      22941.232421875,
+      100.13855743408203
+    ],
+    "rotation": 151.39898681640625,
+    "scale": 0.8173828125
+  },
+  {
+    "id": "2554124",
+    "model": "maps\\world\\critter\\butterflies\\butterflypurple01.obj",
+    "position": [
+      15202.0234375,
+      22958.5546875,
+      103.38829803466797
+    ],
+    "rotation": 72.02032470703125,
+    "scale": 1.1767578125
+  },
+  {
+    "id": "2553527",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15085.3134765625,
+      22950.779296875,
+      100.69574737548828
+    ],
+    "rotation": 203.838134765625,
+    "scale": 0.837890625
+  },
+  {
+    "id": "2552838",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14995.68359375,
+      22951.103515625,
+      103.94442749023438
+    ],
+    "rotation": 21.188323974609375,
+    "scale": 0.8447265625
+  },
+  {
+    "id": "2553268",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15066.333984375,
+      22951.609375,
+      100.47602844238281
+    ],
+    "rotation": 111.81403350830078,
+    "scale": 0.8359375
+  },
+  {
+    "id": "2554896",
+    "model": "maps\\world\\lordaeron\\plagueland\\passivedoodads\\bushes\\plaguelandwesternbush03.obj",
+    "position": [
+      15337.4580078125,
+      22952.859375,
+      116.1498794555664
+    ],
+    "rotation": -39,
+    "scale": 0.779296875
+  },
+  {
+    "id": "2554624",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\stumps\\elwynntreestump02.obj",
+    "position": [
+      15325.94921875,
+      23017.197265625,
+      115.9428482055664
+    ],
+    "rotation": 169.56268310546875,
+    "scale": 1.0498046875
+  },
+  {
+    "id": "2554897",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15336.3642578125,
+      22944.291015625,
+      116.08621978759766
+    ],
+    "rotation": 195.91566467285156,
+    "scale": 1.01171875
+  },
+  {
+    "id": "2553538",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15084.822265625,
+      22984.09375,
+      104.1553726196289
+    ],
+    "rotation": 270,
+    "scale": 1
+  },
+  {
+    "id": "2554886",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15336.4521484375,
+      22932.373046875,
+      116.06844329833984
+    ],
+    "rotation": 200.41566467285156,
+    "scale": 1.0009765625
+  },
+  {
+    "id": "2555301",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15404.5634765625,
+      23011.248046875,
+      125.3116226196289
+    ],
+    "rotation": -242.4647216796875,
+    "scale": 0.998046875
+  },
+  {
+    "id": "2555514",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\trees\\elwynntree01\\elwynnpine02.obj",
+    "position": [
+      15437.037109375,
+      22990.3125,
+      117.28243255615234
+    ],
+    "rotation": -156.4647216796875,
+    "scale": 0.998046875
+  },
+  {
+    "id": "2555289",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15420.099609375,
+      22930.6953125,
+      116.20226287841797
+    ],
+    "rotation": 266.5721435546875,
+    "scale": 0.9296875
+  },
+  {
+    "id": "2554126",
+    "model": "maps\\world\\critter\\butterflies\\butterflywhite01.obj",
+    "position": [
+      15205.7548828125,
+      22941.609375,
+      102.8509292602539
+    ],
+    "rotation": 78.568359375,
+    "scale": 1.109375
+  },
+  {
+    "id": "2552661",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14959.1552734375,
+      22966.82421875,
+      104.32405853271484
+    ],
+    "rotation": 267.84661865234375,
+    "scale": 0.884765625
+  },
+  {
+    "id": "2554413",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant04.obj",
+    "position": [
+      15279.8740234375,
+      23010.28125,
+      115.86736297607422
+    ],
+    "rotation": 162.11416625976562,
+    "scale": 1.201171875
+  },
+  {
+    "id": "2553939",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15197.65234375,
+      22951.921875,
+      103.00607299804688
+    ],
+    "rotation": 338.4468994140625,
+    "scale": 0.6796875
+  },
+  {
+    "id": "2554130",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15231.4873046875,
+      23030.28515625,
+      115.73683166503906
+    ],
+    "rotation": 248,
+    "scale": 0.669921875
+  },
+  {
+    "id": "2554621",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant04.obj",
+    "position": [
+      15313.5048828125,
+      23026.6640625,
+      116.05882263183594
+    ],
+    "rotation": 365.349365234375,
+    "scale": 1.150390625
+  },
+  {
+    "id": "2555297",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15405.4921875,
+      22986.318359375,
+      119.50923919677734
+    ],
+    "rotation": -274.5,
+    "scale": 1
+  },
+  {
+    "id": "2554638",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\tables\\inntable.obj",
+    "position": [
+      15331.13671875,
+      23050.853515625,
+      116.00328063964844
+    ],
+    "rotation": 246.5,
+    "scale": 1
+  },
+  {
+    "id": "2554407",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15277.1640625,
+      22978.625,
+      116.08219146728516
+    ],
+    "rotation": 163,
+    "scale": 0.669921875
+  },
+  {
+    "id": "2555298",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15420.466796875,
+      22994.916015625,
+      120.447021484375
+    ],
+    "rotation": -454.5,
+    "scale": 1
+  },
+  {
+    "id": "2555299",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15420.7548828125,
+      22998.98046875,
+      121.45762634277344
+    ],
+    "rotation": -453.5,
+    "scale": 1
+  },
+  {
+    "id": "2555307",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15421.0478515625,
+      23003.09375,
+      122.39102935791016
+    ],
+    "rotation": -451.5,
+    "scale": 1
+  },
+  {
+    "id": "2554627",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      15329.951171875,
+      23022.74609375,
+      115.9006118774414
+    ],
+    "rotation": 96.4024658203125,
+    "scale": 0.748046875
+  },
+  {
+    "id": "2555295",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15405.1328125,
+      22982.2578125,
+      118.2410888671875
+    ],
+    "rotation": -274,
+    "scale": 1
+  },
+  {
+    "id": "2554417",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant05.obj",
+    "position": [
+      15277.091796875,
+      23013.419921875,
+      115.51078033447266
+    ],
+    "rotation": 68.299072265625,
+    "scale": 1.201171875
+  },
+  {
+    "id": "2554894",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\bushes\\tirisfallgladebush03.obj",
+    "position": [
+      15337.93359375,
+      22949.966796875,
+      116.21243286132812
+    ],
+    "rotation": -39,
+    "scale": 1
+  },
+  {
+    "id": "2554414",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant04.obj",
+    "position": [
+      15278.1435546875,
+      23012.1875,
+      116.18739318847656
+    ],
+    "rotation": 290.78997802734375,
+    "scale": 1.05859375
+  },
+  {
+    "id": "2554633",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15327.8671875,
+      23019.65625,
+      116.1198501586914
+    ],
+    "rotation": 101.5,
+    "scale": 1
+  },
+  {
+    "id": "2555296",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15404.7685546875,
+      22978.1484375,
+      117.20674896240234
+    ],
+    "rotation": -272.5,
+    "scale": 1
+  },
+  {
+    "id": "2554895",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\bushes\\tirisfallgladebush03.obj",
+    "position": [
+      15339.7060546875,
+      22949.765625,
+      116.32701110839844
+    ],
+    "rotation": -39,
+    "scale": 1
+  },
+  {
+    "id": "2554416",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant05.obj",
+    "position": [
+      15269.509765625,
+      23027.85546875,
+      115.52591705322266
+    ],
+    "rotation": 362.3838195800781,
+    "scale": 1.1796875
+  },
+  {
+    "id": "2554125",
+    "model": "maps\\world\\critter\\butterflies\\butterflypurple01.obj",
+    "position": [
+      15205.8271484375,
+      22956.62890625,
+      103.16520690917969
+    ],
+    "rotation": 258.4530029296875,
+    "scale": 0.8916015625
+  },
+  {
+    "id": "2555312",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15406.0048828125,
+      23037.59375,
+      132.28062438964844
+    ],
+    "rotation": -447.5,
+    "scale": 1
+  },
+  {
+    "id": "2552836",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14996.1259765625,
+      22964.7421875,
+      105.01570129394531
+    ],
+    "rotation": 269,
+    "scale": 0.759765625
+  },
+  {
+    "id": "2553274",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15042.9921875,
+      22969.046875,
+      105.12185668945312
+    ],
+    "rotation": -190,
+    "scale": 1
+  },
+  {
+    "id": "2554632",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15328.68359375,
+      23023.654296875,
+      116.1197280883789
+    ],
+    "rotation": 79,
+    "scale": 1
+  },
+  {
+    "id": "2553276",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15051.0810546875,
+      22967.685546875,
+      104.66100311279297
+    ],
+    "rotation": -187,
+    "scale": 1
+  },
+  {
+    "id": "2553775",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15157.849609375,
+      22983.412109375,
+      102.34343719482422
+    ],
+    "rotation": -372,
+    "scale": 1
+  },
+  {
+    "id": "2553777",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15149.8154296875,
+      22985.056640625,
+      102.22415924072266
+    ],
+    "rotation": -369,
+    "scale": 1
+  },
+  {
+    "id": "2553275",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15047.01171875,
+      22968.373046875,
+      104.79109954833984
+    ],
+    "rotation": -189,
+    "scale": 1
+  },
+  {
+    "id": "2553776",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15153.857421875,
+      22984.23046875,
+      102.19815826416016
+    ],
+    "rotation": -371,
+    "scale": 1
+  },
+  {
+    "id": "2554899",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\bushes\\tirisfallgladebush03.obj",
+    "position": [
+      15366.2548828125,
+      23104.62890625,
+      133.47779846191406
+    ],
+    "rotation": 113,
+    "scale": 1
+  },
+  {
+    "id": "2554639",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\benches\\innbench.obj",
+    "position": [
+      15329.748046875,
+      23048.638671875,
+      115.9675521850586
+    ],
+    "rotation": 245.5,
+    "scale": 1
+  },
+  {
+    "id": "2554640",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\benches\\innbench.obj",
+    "position": [
+      15332.302734375,
+      23053.2421875,
+      115.98065948486328
+    ],
+    "rotation": 244,
+    "scale": 1
+  },
+  {
+    "id": "2552840",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14995.060546875,
+      22962.6875,
+      105.26329803466797
+    ],
+    "rotation": 24,
+    "scale": 1
+  },
+  {
+    "id": "2552841",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14991.349609375,
+      22961,
+      104.96424102783203
+    ],
+    "rotation": 25,
+    "scale": 1
+  },
+  {
+    "id": "2552842",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14987.5927734375,
+      22959.294921875,
+      104.85899353027344
+    ],
+    "rotation": 27,
+    "scale": 1
+  },
+  {
+    "id": "2554415",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant04.obj",
+    "position": [
+      15269.6435546875,
+      23026.875,
+      115.49903869628906
+    ],
+    "rotation": 236.4766845703125,
+    "scale": 0.9267578125
+  },
+  {
+    "id": "2554623",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant05.obj",
+    "position": [
+      15314.146484375,
+      23028.453125,
+      115.82894134521484
+    ],
+    "rotation": 324.8017578125,
+    "scale": 1.0361328125
+  },
+  {
+    "id": "2552839",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\lamppost\\westfalllamppost01.obj",
+    "position": [
+      14982.748046875,
+      22957.03515625,
+      104.18183898925781
+    ],
+    "rotation": 202,
+    "scale": 1
+  },
+  {
+    "id": "2553273",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\lamppost\\westfalllamppost01.obj",
+    "position": [
+      15056.3623046875,
+      22966.8515625,
+      103.82711791992188
+    ],
+    "rotation": -12,
+    "scale": 1
+  },
+  {
+    "id": "2553774",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\lamppost\\westfalllamppost01.obj",
+    "position": [
+      15144.5654296875,
+      22986.076171875,
+      101.62921142578125
+    ],
+    "rotation": -194,
+    "scale": 1
+  },
+  {
+    "id": "2554630",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\lamppost\\westfalllamppost01.obj",
+    "position": [
+      15325.8828125,
+      23014.91796875,
+      115.9678726196289
+    ],
+    "rotation": 166.5,
+    "scale": 1
+  },
+  {
+    "id": "2555294",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\lamppost\\westfalllamppost01.obj",
+    "position": [
+      15404.349609375,
+      22972.818359375,
+      116.22154235839844
+    ],
+    "rotation": -97.5,
+    "scale": 1
+  },
+  {
+    "id": "2555306",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\lamppost\\westfalllamppost01.obj",
+    "position": [
+      15421.373046875,
+      23008.431640625,
+      123.37506866455078
+    ],
+    "rotation": -276.5,
+    "scale": 1
+  },
+  {
+    "id": "2554418",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant04.obj",
+    "position": [
+      15281.8046875,
+      23009.6875,
+      115.95774841308594
+    ],
+    "rotation": 276.188720703125,
+    "scale": 0.873046875
+  },
+  {
+    "id": "2554631",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15331.1328125,
+      23027,
+      116.1202163696289
+    ],
+    "rotation": 53.5,
+    "scale": 1
+  },
+  {
+    "id": "2553530",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15073.4580078125,
+      22957.94921875,
+      100.60298919677734
+    ],
+    "rotation": 227,
+    "scale": 1
+  },
+  {
+    "id": "2554620",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant04.obj",
+    "position": [
+      15312.51171875,
+      23024.72265625,
+      116.35511779785156
+    ],
+    "rotation": 339.57879638671875,
+    "scale": 0.810546875
+  },
+  {
+    "id": "2553531",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15079.19921875,
+      22958.13671875,
+      100.93775939941406
+    ],
+    "rotation": 315,
+    "scale": 1
+  },
+  {
+    "id": "2555309",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\banners\\crimsonbanner01.obj",
+    "position": [
+      15422.685546875,
+      23032.716796875,
+      132.32122802734375
+    ],
+    "rotation": -93.5,
+    "scale": 0.728515625
+  },
+  {
+    "id": "2555316",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\banners\\crimsonbanner01.obj",
+    "position": [
+      15405.1171875,
+      23034.138671875,
+      132.73487854003906
+    ],
+    "rotation": -94.5,
+    "scale": 0.728515625
+  },
+  {
+    "id": "2554618",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant04.obj",
+    "position": [
+      15303.7109375,
+      23013.50390625,
+      115.12711334228516
+    ],
+    "rotation": 342.111083984375,
+    "scale": 0.7880859375
+  },
+  {
+    "id": "2553528",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15067.40234375,
+      22952.0546875,
+      100.43257904052734
+    ],
+    "rotation": 223.5,
+    "scale": 1
+  },
+  {
+    "id": "2553533",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15085.1279296875,
+      22952.0234375,
+      100.74577331542969
+    ],
+    "rotation": 313,
+    "scale": 1
+  },
+  {
+    "id": "2553529",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15070.3828125,
+      22954.966796875,
+      100.43551635742188
+    ],
+    "rotation": 224,
+    "scale": 1
+  },
+  {
+    "id": "2554619",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant04.obj",
+    "position": [
+      15302.5703125,
+      23012.787109375,
+      115.19302368164062
+    ],
+    "rotation": 323.53265380859375,
+    "scale": 0.7705078125
+  },
+  {
+    "id": "2553272",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15064.4892578125,
+      22949.134765625,
+      100.51190948486328
+    ],
+    "rotation": 225,
+    "scale": 1
+  },
+  {
+    "id": "2553535",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15090.8583984375,
+      22946.1171875,
+      100.8060073852539
+    ],
+    "rotation": 313.5,
+    "scale": 1
+  },
+  {
+    "id": "2553270",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15058.6171875,
+      22943.390625,
+      100.51759338378906
+    ],
+    "rotation": 224.5,
+    "scale": 1
+  },
+  {
+    "id": "2553534",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15088.0205078125,
+      22949.083984375,
+      100.8036117553711
+    ],
+    "rotation": 314.5,
+    "scale": 1
+  },
+  {
+    "id": "2553536",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15093.71484375,
+      22943.162109375,
+      100.73751068115234
+    ],
+    "rotation": 314,
+    "scale": 1
+  },
+  {
+    "id": "2553532",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15082.2109375,
+      22955.12890625,
+      100.80660247802734
+    ],
+    "rotation": 316,
+    "scale": 1
+  },
+  {
+    "id": "2553271",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      15061.5458984375,
+      22946.271484375,
+      100.54422760009766
+    ],
+    "rotation": 224.5,
+    "scale": 1
+  },
+  {
+    "id": "2554645",
+    "model": "maps\\world\\generic\\passivedoodads\\misc\\wheelbarrow\\caveminewheelbarrow01.obj",
+    "position": [
+      15320.201171875,
+      23038.3125,
+      116.5064926147461
+    ],
+    "rotation": 243,
+    "scale": 1
+  },
+  {
+    "id": "2554622",
+    "model": "maps\\world\\azeroth\\swamposorrow\\passivedoodads\\plants\\swampplant05.obj",
+    "position": [
+      15302.2197265625,
+      23012.0703125,
+      115.16793060302734
+    ],
+    "rotation": 188.66036987304688,
+    "scale": 0.826171875
+  },
+  {
+    "id": "2555314",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\crates\\stormwindcrate01.obj",
+    "position": [
+      15429.5029296875,
+      23053.42578125,
+      132.69131469726562
+    ],
+    "rotation": 22.5,
+    "scale": 1.80859375
+  },
+  {
+    "id": "2603879",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      14956.2041015625,
+      23120.75,
+      6.635583877563477
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603881",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      14993.19921875,
+      23071.306640625,
+      14.916215896606445
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603880",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      14965.240234375,
+      23126.431640625,
+      6.196135997772217
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603882",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      15041.0458984375,
+      23064.65625,
+      36.53461456298828
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603883",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      15091.076171875,
+      23043.638671875,
+      73.20779418945312
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603884",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      15127.9736328125,
+      23051.037109375,
+      100.61183166503906
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603885",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      15125.482421875,
+      23029.771484375,
+      100.91412353515625
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2555518",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\crates\\stormwindcrate01.obj",
+    "position": [
+      15440.3583984375,
+      23052.248046875,
+      132.54869079589844
+    ],
+    "rotation": 3,
+    "scale": 1.9697265625
+  },
+  {
+    "id": "2553525",
+    "model": "maps\\world\\azeroth\\duskwood\\passivedoodads\\bush\\pumpkin01.obj",
+    "position": [
+      15071.498046875,
+      22934.865234375,
+      100.60214233398438
+    ],
+    "rotation": 319.67071533203125,
+    "scale": 0.697265625
+  },
+  {
+    "id": "2554634",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfencepost.obj",
+    "position": [
+      15328.669921875,
+      23015.48828125,
+      116.13136291503906
+    ],
+    "rotation": 192,
+    "scale": 1
+  },
+  {
+    "id": "2555308",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfencepost.obj",
+    "position": [
+      15421.1279296875,
+      23007.150390625,
+      123.31329345703125
+    ],
+    "rotation": -357.5,
+    "scale": 1
+  },
+  {
+    "id": "2552843",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfencepost.obj",
+    "position": [
+      14983.8466796875,
+      22957.341796875,
+      104.8941879272461
+    ],
+    "rotation": 119,
+    "scale": 1
+  },
+  {
+    "id": "2553277",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfencepost.obj",
+    "position": [
+      15055.2802734375,
+      22967.2109375,
+      104.70352172851562
+    ],
+    "rotation": -95,
+    "scale": 1
+  },
+  {
+    "id": "2553537",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfencepost.obj",
+    "position": [
+      15076.2578125,
+      22960.9453125,
+      101.24447631835938
+    ],
+    "rotation": 310.5,
+    "scale": 1
+  },
+  {
+    "id": "2553778",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfencepost.obj",
+    "position": [
+      15145.6328125,
+      22985.677734375,
+      102.33645629882812
+    ],
+    "rotation": -277,
+    "scale": 1
+  },
+  {
+    "id": "2555300",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfencepost.obj",
+    "position": [
+      15404.6240234375,
+      22973.921875,
+      116.53526306152344
+    ],
+    "rotation": -180.5,
+    "scale": 1
+  },
+  {
+    "id": "2555313",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfencepost.obj",
+    "position": [
+      15405.8271484375,
+      23041.7578125,
+      132.77020263671875
+    ],
+    "rotation": -359,
+    "scale": 1
+  },
+  {
+    "id": "2553260",
+    "model": "maps\\world\\azeroth\\duskwood\\passivedoodads\\bush\\pumpkin01.obj",
+    "position": [
+      15037.990234375,
+      22931.888671875,
+      102.5038833618164
+    ],
+    "rotation": 350.5,
+    "scale": 0.619140625
+  },
+  {
+    "id": "2553524",
+    "model": "maps\\world\\azeroth\\duskwood\\passivedoodads\\bush\\pumpkin01.obj",
+    "position": [
+      15078.3779296875,
+      22935.435546875,
+      100.67681121826172
+    ],
+    "rotation": 217.3189697265625,
+    "scale": 0.57421875
+  },
+  {
+    "id": "2554412",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\detail\\elwynnrock2\\elwynnrock2.obj",
+    "position": [
+      15276.8642578125,
+      22971.28125,
+      116.99198150634766
+    ],
+    "rotation": -75.88671875,
+    "scale": 2.421875
+  },
+  {
+    "id": "2554411",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\detail\\elwynnrock2\\elwynnrock2.obj",
+    "position": [
+      15277.365234375,
+      22972.185546875,
+      116.89031219482422
+    ],
+    "rotation": -14.92169189453125,
+    "scale": 2.119140625
+  },
+  {
+    "id": "2554628",
+    "model": "maps\\world\\khazmodan\\wetlands\\passivedoodads\\bushes\\wetlandgrass02.obj",
+    "position": [
+      15325.2421875,
+      23014.92578125,
+      116.14505004882812
+    ],
+    "rotation": 163.113525390625,
+    "scale": 1.0859375
+  },
+  {
+    "id": "2554626",
+    "model": "maps\\world\\generic\\passivedoodads\\barrel\\barrel01.obj",
+    "position": [
+      15326.13671875,
+      23013.912109375,
+      116.43081665039062
+    ],
+    "rotation": 124,
+    "scale": 1
+  },
+  {
+    "id": "2554625",
+    "model": "maps\\world\\generic\\passivedoodads\\barrel\\barrel01.obj",
+    "position": [
+      15326.6767578125,
+      23014.732421875,
+      116.01300811767578
+    ],
+    "rotation": 180,
+    "scale": 1
+  },
+  {
+    "id": "2554641",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\lanterns\\generallantern02.obj",
+    "position": [
+      15332.5146484375,
+      23050.8203125,
+      116.97022247314453
+    ],
+    "rotation": 180,
+    "scale": 0.6484375
+  },
+  {
+    "id": "2554642",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\books\\generalbook01.obj",
+    "position": [
+      15330.1298828125,
+      23050.62890625,
+      116.97234344482422
+    ],
+    "rotation": 180,
+    "scale": 1
+  },
+  {
+    "id": "2554643",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\utensils\\plate.obj",
+    "position": [
+      15332.02734375,
+      23049.583984375,
+      117.00385284423828
+    ],
+    "rotation": 180,
+    "scale": 1
+  },
+  {
+    "id": "2554644",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\utensils\\stein.obj",
+    "position": [
+      15332.0703125,
+      23050.091796875,
+      116.990966796875
+    ],
+    "rotation": 180,
+    "scale": 1
+  },
+  {
+    "id": "2554127",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\keepwall\\wallpiece01_set0.obj",
+    "position": [
+      15219.427734375,
+      23024.279296875,
+      116.12371063232422
+    ],
+    "rotation": -0.5,
+    "scale": 1
+  },
+  {
+    "id": "2554128",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\keepwall\\wallpost01_set0.obj",
+    "position": [
+      15219.5546875,
+      23024.05859375,
+      119.58553314208984
+    ],
+    "rotation": -3,
+    "scale": 1
+  },
+  {
+    "id": "2554131",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\keepwall\\wallpost01_set0.obj",
+    "position": [
+      15219.857421875,
+      23072.1484375,
+      119.71456146240234
+    ],
+    "rotation": -4.5,
+    "scale": 1
+  },
+  {
+    "id": "2554241",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\keepwall\\wallpiece01_set0.obj",
+    "position": [
+      15262.9404296875,
+      22917.984375,
+      116.1052017211914
+    ],
+    "rotation": 19,
+    "scale": 1
+  },
+  {
+    "id": "2554243",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\keepwall\\wallpost01_set0.obj",
+    "position": [
+      15247.5673828125,
+      22962.71875,
+      119.56712341308594
+    ],
+    "rotation": 15,
+    "scale": 1
+  },
+  {
+    "id": "2554246",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\redridge_blacksmith\\redridge_blacksmith_set0.obj",
+    "position": [
+      15254.8642578125,
+      23068.302734375,
+      115.84812927246094
+    ],
+    "rotation": -268.5,
+    "scale": 1
+  },
+  {
+    "id": "2554616",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\redridge_inn\\redridge_inn_set2.obj",
+    "position": [
+      15314.8203125,
+      22941.5546875,
+      116.2281494140625
+    ],
+    "rotation": -1,
+    "scale": 1
+  },
+  {
+    "id": "2554646",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\redridge_human_farm\\redridge_human_farm_set1.obj",
+    "position": [
+      15326.8046875,
+      23034.55078125,
+      113.0123062133789
+    ],
+    "rotation": -391.5,
+    "scale": 1
+  },
+  {
+    "id": "2555290",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\redridge_human_farm\\redridge_human_farm_set2.obj",
+    "position": [
+      15410.3623046875,
+      22945.14453125,
+      113.03206634521484
+    ],
+    "rotation": -423.5,
+    "scale": 1
+  },
+  {
+    "id": "2555310",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\redridge_barracks\\redridge_barracks_set2.obj",
+    "position": [
+      15414.841796875,
+      23053.994140625,
+      136.63980102539062
+    ],
+    "rotation": 264.91217041015625,
+    "scale": 1
+  },
+  {
+    "id": "2559547",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\prison_camp\\prisonguardtower_set0.obj",
+    "position": [
+      14983.4609375,
+      23179.6640625,
+      1.5012379884719849
+    ],
+    "rotation": -244,
+    "scale": 1
+  },
+  {
+    "id": "2625231",
+    "model": "maps\\world\\wmo\\dungeon\\md_pirateship\\pirateship_plank_set0.obj",
+    "position": [
+      14958.279296875,
+      23258.572265625,
+      7.96415376663208
+    ],
+    "rotation": -23.939453125,
+    "scale": 1
+  },
+  {
+    "id": "2551701",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14726.755859375,
+      22986.77734375,
+      107.19275665283203
+    ],
+    "rotation": 88,
+    "scale": 1
+  },
+  {
+    "id": "2559615",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14925.802734375,
+      23126.693359375,
+      5.897665977478027
+    ],
+    "rotation": 127,
+    "scale": 1
+  },
+  {
+    "id": "2559619",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14760.021484375,
+      23162.875,
+      6.304388046264648
+    ],
+    "rotation": 78.5,
+    "scale": 1
+  },
+  {
+    "id": "2559623",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14681.0546875,
+      23059.244140625,
+      55.70726776123047
+    ],
+    "rotation": 75.5,
+    "scale": 1
+  },
+  {
+    "id": "2552440",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree02.obj",
+    "position": [
+      14920.615234375,
+      22953.005859375,
+      99.94246673583984
+    ],
+    "rotation": 220.0848388671875,
+    "scale": 0.8310546875
+  },
+  {
+    "id": "2551969",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree02.obj",
+    "position": [
+      14786.94921875,
+      22934.416015625,
+      98.972900390625
+    ],
+    "rotation": 88,
+    "scale": 0.6591796875
+  },
+  {
+    "id": "2552117",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree03.obj",
+    "position": [
+      14822.23046875,
+      22984.5546875,
+      99.18771362304688
+    ],
+    "rotation": 73.30301666259766,
+    "scale": 0.7509765625
+  },
+  {
+    "id": "2559621",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree03.obj",
+    "position": [
+      14815.447265625,
+      23123.326171875,
+      6.351117134094238
+    ],
+    "rotation": 51.303016662597656,
+    "scale": 0.7509765625
+  },
+  {
+    "id": "2559625",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree03.obj",
+    "position": [
+      14729.0146484375,
+      23108.662109375,
+      53.457733154296875
+    ],
+    "rotation": 73.30301666259766,
+    "scale": 0.7509765625
+  },
+  {
+    "id": "2551608",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree02.obj",
+    "position": [
+      14696.3427734375,
+      22993.02734375,
+      109.79792022705078
+    ],
+    "rotation": 43,
+    "scale": 0.619140625
+  },
+  {
+    "id": "2559616",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree02.obj",
+    "position": [
+      14898.2333984375,
+      23112.412109375,
+      6.3517069816589355
+    ],
+    "rotation": 82,
+    "scale": 0.619140625
+  },
+  {
+    "id": "2559620",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree02.obj",
+    "position": [
+      14723.7021484375,
+      23185.31640625,
+      7.462180137634277
+    ],
+    "rotation": 30.5,
+    "scale": 0.619140625
+  },
+  {
+    "id": "2559624",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree02.obj",
+    "position": [
+      14703.740234375,
+      23042.76953125,
+      56.67558288574219
+    ],
+    "rotation": 30.5,
+    "scale": 0.619140625
+  },
+  {
+    "id": "2552334",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14876.8447265625,
+      22955.21875,
+      101.23091888427734
+    ],
+    "rotation": -31.5,
+    "scale": 0.7099609375
+  },
+  {
+    "id": "2551503",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14664.4365234375,
+      22968.19921875,
+      106.00360870361328
+    ],
+    "rotation": 106.5,
+    "scale": 0.69921875
+  },
+  {
+    "id": "2551360",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14612.58984375,
+      22963,
+      115.9427490234375
+    ],
+    "rotation": 114.5,
+    "scale": 0.69921875
+  },
+  {
+    "id": "2551702",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14731.5927734375,
+      22979.484375,
+      102.0513687133789
+    ],
+    "rotation": 88,
+    "scale": 0.669921875
+  },
+  {
+    "id": "2559614",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14934.15234375,
+      23124.072265625,
+      7.786695957183838
+    ],
+    "rotation": 127,
+    "scale": 0.669921875
+  },
+  {
+    "id": "2559618",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14766.49609375,
+      23161.39453125,
+      5.049688816070557
+    ],
+    "rotation": 88.5,
+    "scale": 0.669921875
+  },
+  {
+    "id": "2559622",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14684.19921875,
+      23051.078125,
+      56.14182662963867
+    ],
+    "rotation": 75.5,
+    "scale": 0.669921875
+  },
+  {
+    "id": "2551700",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree03.obj",
+    "position": [
+      14706.490234375,
+      22916.2734375,
+      103.45403289794922
+    ],
+    "rotation": 156.9707794189453,
+    "scale": 0.576171875
+  },
+  {
+    "id": "2551967",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfallgladecanopytree05.obj",
+    "position": [
+      14792.306640625,
+      22933.701171875,
+      99.83466339111328
+    ],
+    "rotation": 88,
+    "scale": 0.55859375
+  },
+  {
+    "id": "2551361",
+    "model": "maps\\world\\generic\\dwarf\\passivedoodads\\excavationbarriers\\excavationbarrier01_pvpcollision.obj",
+    "position": [
+      14622.85546875,
+      22951.916015625,
+      103.28729248046875
+    ],
+    "rotation": 197,
+    "scale": 1
+  },
+  {
+    "id": "2551364",
+    "model": "maps\\world\\generic\\dwarf\\passivedoodads\\excavationbarriers\\excavationbarrier02_pvpcollision.obj",
+    "position": [
+      14630.5615234375,
+      22993.453125,
+      121.1585464477539
+    ],
+    "rotation": 102,
+    "scale": 1
+  },
+  {
+    "id": "2551504",
+    "model": "maps\\world\\generic\\dwarf\\passivedoodads\\excavationbarriers\\excavationbarrier02_pvpcollision.obj",
+    "position": [
+      14649.1435546875,
+      22996.763671875,
+      114.781982421875
+    ],
+    "rotation": 126,
+    "scale": 1
+  },
+  {
+    "id": "2551362",
+    "model": "maps\\world\\generic\\dwarf\\passivedoodads\\excavationbarriers\\excavationbarrier02_pvpcollision.obj",
+    "position": [
+      14626.3427734375,
+      22938.20703125,
+      106.31392669677734
+    ],
+    "rotation": 188.5,
+    "scale": 1
+  },
+  {
+    "id": "2551500",
+    "model": "maps\\world\\generic\\dwarf\\passivedoodads\\excavationbarriers\\excavationbarrier02_pvpcollision.obj",
+    "position": [
+      14665.755859375,
+      22943.568359375,
+      97.0199966430664
+    ],
+    "rotation": 76,
+    "scale": 1
+  },
+  {
+    "id": "2551508",
+    "model": "maps\\world\\generic\\dwarf\\passivedoodads\\excavationbarriers\\excavationbarrier02_pvpcollision.obj",
+    "position": [
+      14659.462890625,
+      23008.228515625,
+      115.01856994628906
+    ],
+    "rotation": 155.5,
+    "scale": 1
+  },
+  {
+    "id": "2559538",
+    "model": "maps\\world\\azeroth\\duskwood\\passivedoodads\\trees\\duskwoodfallentree.obj",
+    "position": [
+      14921.6435546875,
+      23197.609375,
+      1.3606009483337402
+    ],
+    "rotation": -266.5,
+    "scale": 1
+  },
+  {
+    "id": "2559532",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\trees\\redridgefallentree01.obj",
+    "position": [
+      14819.7802734375,
+      23187.31640625,
+      6.453248977661133
+    ],
+    "rotation": -57.5,
+    "scale": 1.359375
+  },
+  {
+    "id": "2559535",
+    "model": "maps\\world\\azeroth\\duskwood\\passivedoodads\\trees\\duskwoodfallentree.obj",
+    "position": [
+      14917.16796875,
+      23142.671875,
+      6.018877983093262
+    ],
+    "rotation": -237,
+    "scale": 1
+  },
+  {
+    "id": "2559540",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\trees\\redridgefallentree01.obj",
+    "position": [
+      14915.2021484375,
+      23208.04296875,
+      0.5594710111618042
+    ],
+    "rotation": -34.5,
+    "scale": 1.359375
+  },
+  {
+    "id": "2559534",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\trees\\redridgefallentree02.obj",
+    "position": [
+      14834.681640625,
+      23180.6796875,
+      5.195868015289307
+    ],
+    "rotation": -183.5,
+    "scale": 1
+  },
+  {
+    "id": "2559536",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\trees\\redridgefallentree02.obj",
+    "position": [
+      14904.2529296875,
+      23151.98046875,
+      5.350211143493652
+    ],
+    "rotation": -181.5,
+    "scale": 1
+  },
+  {
+    "id": "2625234",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\rowboat\\rowboat01.obj",
+    "position": [
+      14900.7841796875,
+      23246.3671875,
+      -0.1754390001296997
+    ],
+    "rotation": 67.18900299072266,
+    "scale": 1.3642578125
+  },
+  {
+    "id": "2625235",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\rowboat\\rowboat01.obj",
+    "position": [
+      14848.857421875,
+      23250.98828125,
+      0.09443499892950058
+    ],
+    "rotation": 108.18900299072266,
+    "scale": 1.3642578125
+  },
+  {
+    "id": "2559533",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\trees\\redridgefallentree01.obj",
+    "position": [
+      14822.3515625,
+      23170.291015625,
+      5.835720062255859
+    ],
+    "rotation": -282,
+    "scale": 1
+  },
+  {
+    "id": "2551480",
+    "model": "maps\\world\\azeroth\\elwynn\\buildings\\goldmine\\goldminetracks.obj",
+    "position": [
+      14641.763671875,
+      22938.0625,
+      105.01348876953125
+    ],
+    "rotation": -63.5,
+    "scale": 1.109375
+  },
+  {
+    "id": "2551478",
+    "model": "maps\\world\\azeroth\\elwynn\\buildings\\goldmine\\goldminetracks.obj",
+    "position": [
+      14635.951171875,
+      22948.375,
+      104.616943359375
+    ],
+    "rotation": 116.5,
+    "scale": 1.0986328125
+  },
+  {
+    "id": "2551485",
+    "model": "maps\\world\\azeroth\\elwynn\\buildings\\goldmine\\goldminetracks.obj",
+    "position": [
+      14645.2734375,
+      22955.28125,
+      104.532470703125
+    ],
+    "rotation": 28,
+    "scale": 1.109375
+  },
+  {
+    "id": "2551486",
+    "model": "maps\\world\\azeroth\\elwynn\\buildings\\goldmine\\goldminetracks.obj",
+    "position": [
+      14656.0927734375,
+      22961.400390625,
+      105.13923645019531
+    ],
+    "rotation": 28.5,
+    "scale": 1.109375
+  },
+  {
+    "id": "2625232",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\rowboat\\rowboat01.obj",
+    "position": [
+      14890.5771484375,
+      23270.74609375,
+      -0.6554179787635803
+    ],
+    "rotation": -133.81100463867188,
+    "scale": 1.294921875
+  },
+  {
+    "id": "2559537",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\trees\\redridgefallentree01.obj",
+    "position": [
+      14915.43359375,
+      23155.529296875,
+      5.715869903564453
+    ],
+    "rotation": -300.5,
+    "scale": 1
+  },
+  {
+    "id": "2559539",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\trees\\redridgefallentree01.obj",
+    "position": [
+      14926.6279296875,
+      23208.484375,
+      0.631335973739624
+    ],
+    "rotation": -327.5,
+    "scale": 1
+  },
+  {
+    "id": "2551494",
+    "model": "maps\\world\\azeroth\\karazahn\\passivedoodads\\brokencart\\kn_brokencart.obj",
+    "position": [
+      14650.35546875,
+      22947.890625,
+      104.35307312011719
+    ],
+    "rotation": -30.731552124023438,
+    "scale": 1
+  },
+  {
+    "id": "2551481",
+    "model": "maps\\world\\generic\\dwarf\\passivedoodads\\excavationcrane\\excavationcrane.obj",
+    "position": [
+      14646.05859375,
+      22941.69140625,
+      104.63108825683594
+    ],
+    "rotation": -163,
+    "scale": 1.1591796875
+  },
+  {
+    "id": "2625233",
+    "model": "maps\\world\\azeroth\\redridge\\passivedoodads\\rowboat\\rowboat01.obj",
+    "position": [
+      14860.1923828125,
+      23267.650390625,
+      -0.5916569828987122
+    ],
+    "rotation": 80.23906707763672,
+    "scale": 1.0947265625
+  },
+  {
+    "id": "2552345",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14887.4990234375,
+      22974.55078125,
+      100.48870849609375
+    ],
+    "rotation": 250.2789306640625,
+    "scale": 1.2236328125
+  },
+  {
+    "id": "2552346",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfalltreestump02.obj",
+    "position": [
+      14891.619140625,
+      22976.068359375,
+      99.86943817138672
+    ],
+    "rotation": -174.22500610351562,
+    "scale": 1.2109375
+  },
+  {
+    "id": "2552343",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfalltreestump01.obj",
+    "position": [
+      14897.9697265625,
+      22950.732421875,
+      101.29707336425781
+    ],
+    "rotation": -325.0176086425781,
+    "scale": 0.6767578125
+  },
+  {
+    "id": "2551477",
+    "model": "maps\\world\\azeroth\\elwynn\\buildings\\goldmine\\goldminetrackcurve.obj",
+    "position": [
+      14636.5361328125,
+      22951.296875,
+      104.51191711425781
+    ],
+    "rotation": -155,
+    "scale": 1.119140625
+  },
+  {
+    "id": "2552207",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\haywagon\\westfallhaywagon.obj",
+    "position": [
+      14862.9296875,
+      22957.349609375,
+      101.02854919433594
+    ],
+    "rotation": 88,
+    "scale": 1
+  },
+  {
+    "id": "2551505",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\dredge\\cavekobolddredge.obj",
+    "position": [
+      14662.7802734375,
+      22998.23046875,
+      112.1396713256836
+    ],
+    "rotation": 283.76806640625,
+    "scale": 1
+  },
+  {
+    "id": "2551363",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\minemachine\\cavekoboldminemachine.obj",
+    "position": [
+      14629.15234375,
+      22947.490234375,
+      104.67046356201172
+    ],
+    "rotation": 83.5,
+    "scale": 1
+  },
+  {
+    "id": "2551507",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\caveminepump\\minepump01.obj",
+    "position": [
+      14659.5654296875,
+      22979.232421875,
+      110.05013275146484
+    ],
+    "rotation": 301.5,
+    "scale": 1.109375
+  },
+  {
+    "id": "2603871",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14717.603515625,
+      23120.98046875,
+      56.72951126098633
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603869",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14706.6640625,
+      23040.46484375,
+      56.92744827270508
+    ],
+    "rotation": -22.5,
+    "scale": 0.859375
+  },
+  {
+    "id": "2552210",
+    "model": "maps\\world\\environment\\doodad\\carnival\\haybail01.obj",
+    "position": [
+      14837.365234375,
+      22940.1484375,
+      101.28471374511719
+    ],
+    "rotation": -145,
+    "scale": 1.0498046875
+  },
+  {
+    "id": "2552347",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\trees\\tirisfalltreestump01.obj",
+    "position": [
+      14895.294921875,
+      22970.6171875,
+      100.43717193603516
+    ],
+    "rotation": -305.0176086425781,
+    "scale": 0.4765625
+  },
+  {
+    "id": "2551506",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\ramrod\\deadminegiantramrod.obj",
+    "position": [
+      14666.2216796875,
+      22998.005859375,
+      111.20599365234375
+    ],
+    "rotation": 196.2059326171875,
+    "scale": 1
+  },
+  {
+    "id": "2603868",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14685.7216796875,
+      23050.46484375,
+      56.96592330932617
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603864",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14688.634765625,
+      23084.162109375,
+      56.93608474731445
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603865",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14677.3486328125,
+      23087.029296875,
+      56.94697952270508
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603866",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14685.05859375,
+      23057.552734375,
+      56.9294319152832
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603867",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14679.82421875,
+      23063.0390625,
+      56.92748260498047
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603870",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14731.7392578125,
+      23110.21875,
+      56.01329803466797
+    ],
+    "rotation": 0,
+    "scale": 0.8486328125
+  },
+  {
+    "id": "2552208",
+    "model": "maps\\world\\environment\\doodad\\carnival\\haybail02.obj",
+    "position": [
+      14862.3740234375,
+      22941.009765625,
+      101.60575103759766
+    ],
+    "rotation": 47,
+    "scale": 1
+  },
+  {
+    "id": "2551609",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\outhouse\\outhouse.obj",
+    "position": [
+      14668.4560546875,
+      22968.125,
+      109.21082305908203
+    ],
+    "rotation": 89.52499389648438,
+    "scale": 1
+  },
+  {
+    "id": "2552339",
+    "model": "maps\\world\\environment\\doodad\\carnival\\haybail02.obj",
+    "position": [
+      14879.810546875,
+      22937.00390625,
+      101.57866668701172
+    ],
+    "rotation": 261.5,
+    "scale": 1.0693359375
+  },
+  {
+    "id": "2603863",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\cargonetboxes\\deadminecargonetboxes.obj",
+    "position": [
+      14701.029296875,
+      23081.92578125,
+      56.92730712890625
+    ],
+    "rotation": -13.5,
+    "scale": 1
+  },
+  {
+    "id": "2552202",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14859.6552734375,
+      22946.34375,
+      101.18724822998047
+    ],
+    "rotation": 51.31402587890625,
+    "scale": 0.576171875
+  },
+  {
+    "id": "2552342",
+    "model": "maps\\world\\generic\\troll\\passivedoodads\\troughs\\trough.obj",
+    "position": [
+      14868.943359375,
+      22940.4375,
+      101.31314086914062
+    ],
+    "rotation": 76.5,
+    "scale": 0.6298828125
+  },
+  {
+    "id": "2552336",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14868.052734375,
+      22942.72265625,
+      101.3001480102539
+    ],
+    "rotation": 164.5,
+    "scale": 1
+  },
+  {
+    "id": "2552338",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14876.0341796875,
+      22940.462890625,
+      101.2686996459961
+    ],
+    "rotation": 163.5,
+    "scale": 1
+  },
+  {
+    "id": "2552204",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14864.1123046875,
+      22943.873046875,
+      101.27816772460938
+    ],
+    "rotation": 164,
+    "scale": 1
+  },
+  {
+    "id": "2552116",
+    "model": "maps\\world\\generic\\troll\\passivedoodads\\troughs\\trough.obj",
+    "position": [
+      14832.162109375,
+      22936.232421875,
+      101.04945373535156
+    ],
+    "rotation": 124.5,
+    "scale": 0.6298828125
+  },
+  {
+    "id": "2552203",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14860.162109375,
+      22945.00390625,
+      101.21893310546875
+    ],
+    "rotation": 164,
+    "scale": 1
+  },
+  {
+    "id": "2552337",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14872.029296875,
+      22941.625,
+      101.29219055175781
+    ],
+    "rotation": 163,
+    "scale": 1
+  },
+  {
+    "id": "2552335",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\bush\\elwynnbush09.obj",
+    "position": [
+      14875.9267578125,
+      22941.615234375,
+      101.25227355957031
+    ],
+    "rotation": 309.5733642578125,
+    "scale": 0.5166015625
+  },
+  {
+    "id": "2552438",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14910.8603515625,
+      22935.240234375,
+      101.76817321777344
+    ],
+    "rotation": -206,
+    "scale": 1
+  },
+  {
+    "id": "2552439",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14914.5361328125,
+      22933.482421875,
+      101.68023681640625
+    ],
+    "rotation": -205,
+    "scale": 1
+  },
+  {
+    "id": "2552218",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14844.912109375,
+      22955.724609375,
+      100.56156921386719
+    ],
+    "rotation": 224.98403930664062,
+    "scale": 1
+  },
+  {
+    "id": "2552225",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14850.3603515625,
+      22955.806640625,
+      100.70262145996094
+    ],
+    "rotation": 136.0250244140625,
+    "scale": 1
+  },
+  {
+    "id": "2552226",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14851.318359375,
+      22955.75,
+      100.73253631591797
+    ],
+    "rotation": 230.77401733398438,
+    "scale": 1
+  },
+  {
+    "id": "2552219",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14845.13671875,
+      22954.77734375,
+      100.5841064453125
+    ],
+    "rotation": 37.837215423583984,
+    "scale": 1
+  },
+  {
+    "id": "2552220",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14844.216796875,
+      22954.421875,
+      100.5229721069336
+    ],
+    "rotation": 142.4741973876953,
+    "scale": 1
+  },
+  {
+    "id": "2552228",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14847.7421875,
+      22955.869140625,
+      100.62564849853516
+    ],
+    "rotation": 232.73155212402344,
+    "scale": 1
+  },
+  {
+    "id": "2552223",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14845.3623046875,
+      22948.755859375,
+      100.77867889404297
+    ],
+    "rotation": 35.6508674621582,
+    "scale": 1
+  },
+  {
+    "id": "2551482",
+    "model": "maps\\world\\generic\\passivedoodads\\barrel\\brokenbarrel01.obj",
+    "position": [
+      14636.9716796875,
+      22939.638671875,
+      105.0650634765625
+    ],
+    "rotation": 51.44670104980469,
+    "scale": 1
+  },
+  {
+    "id": "2552206",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14838.9853515625,
+      22944.712890625,
+      100.8341064453125
+    ],
+    "rotation": 38,
+    "scale": 1
+  },
+  {
+    "id": "2552113",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14825.9541015625,
+      22934.525390625,
+      100.91838073730469
+    ],
+    "rotation": 37.5,
+    "scale": 1
+  },
+  {
+    "id": "2552114",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14829.2216796875,
+      22937.07421875,
+      100.94447326660156
+    ],
+    "rotation": 38,
+    "scale": 1
+  },
+  {
+    "id": "2552205",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14835.693359375,
+      22942.15625,
+      100.90088653564453
+    ],
+    "rotation": 37.5,
+    "scale": 1
+  },
+  {
+    "id": "2552115",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfence.obj",
+    "position": [
+      14832.4453125,
+      22939.640625,
+      100.94085693359375
+    ],
+    "rotation": 38.5,
+    "scale": 1
+  },
+  {
+    "id": "2552212",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14839.107421875,
+      22951.052734375,
+      100.73760986328125
+    ],
+    "rotation": 250.6049346923828,
+    "scale": 1
+  },
+  {
+    "id": "2552213",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14839.591796875,
+      22949.78125,
+      100.9192886352539
+    ],
+    "rotation": 109.12967681884766,
+    "scale": 1
+  },
+  {
+    "id": "2552211",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14838.5302734375,
+      22949.78125,
+      100.62503814697266
+    ],
+    "rotation": 343.1016540527344,
+    "scale": 1
+  },
+  {
+    "id": "2551613",
+    "model": "maps\\world\\generic\\passivedoodads\\misc\\wheelbarrow\\caveminewheelbarrow01.obj",
+    "position": [
+      14671.8984375,
+      22992.875,
+      110.14237213134766
+    ],
+    "rotation": 159.33755493164062,
+    "scale": 1
+  },
+  {
+    "id": "2551489",
+    "model": "maps\\world\\generic\\passivedoodads\\misc\\wheelbarrow\\caveminewheelbarrow01.obj",
+    "position": [
+      14641.0029296875,
+      22956.375,
+      104.44203186035156
+    ],
+    "rotation": -25.641708374023438,
+    "scale": 1
+  },
+  {
+    "id": "2603878",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      14837.541015625,
+      23091.572265625,
+      8.793499946594238
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603876",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      14781.240234375,
+      23047.130859375,
+      57.4144287109375
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603877",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      14850.4541015625,
+      23080.37109375,
+      10.2195463180542
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2552230",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\harness\\harness.obj",
+    "position": [
+      14858.8779296875,
+      22944.216796875,
+      101.21417236328125
+    ],
+    "rotation": 306.85089111328125,
+    "scale": 1
+  },
+  {
+    "id": "2552224",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14847.3896484375,
+      22954.62890625,
+      100.64308166503906
+    ],
+    "rotation": 263.2286071777344,
+    "scale": 1
+  },
+  {
+    "id": "2551611",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\cargoboxes\\deadminecargoboxes.obj",
+    "position": [
+      14669.7529296875,
+      22998.310546875,
+      110.87890625
+    ],
+    "rotation": -8.15032958984375,
+    "scale": 1
+  },
+  {
+    "id": "2552221",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14843.9140625,
+      22948.1015625,
+      100.77374267578125
+    ],
+    "rotation": 6.657063007354736,
+    "scale": 1
+  },
+  {
+    "id": "2552227",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14850.7978515625,
+      22954.525390625,
+      100.74275970458984
+    ],
+    "rotation": 354.8517761230469,
+    "scale": 1
+  },
+  {
+    "id": "2552229",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14848.3330078125,
+      22954.84765625,
+      100.66441345214844
+    ],
+    "rotation": 185.10244750976562,
+    "scale": 1
+  },
+  {
+    "id": "2603875",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      14776.646484375,
+      23033.953125,
+      57.52642059326172
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603872",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      14761.8203125,
+      23062.416015625,
+      57.86738967895508
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2551968",
+    "model": "maps\\world\\lordaeron\\tirisfalglade\\passivedoodads\\bushes\\tirisfallgladebush03.obj",
+    "position": [
+      14790.5205078125,
+      22933.80859375,
+      100.91229248046875
+    ],
+    "rotation": 88,
+    "scale": 0.8984375
+  },
+  {
+    "id": "2603873",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      14714.337890625,
+      23078.787109375,
+      56.92728042602539
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2603874",
+    "model": "maps\\world\\generic\\passivedoodads\\lights\\generaltorch01.obj",
+    "position": [
+      14726.6455078125,
+      23095.2265625,
+      56.86603927612305
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2552222",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\haypiles\\shadowfanghaypile02.obj",
+    "position": [
+      14844.8173828125,
+      22947.171875,
+      100.82813262939453
+    ],
+    "rotation": 90.47431945800781,
+    "scale": 1
+  },
+  {
+    "id": "2603861",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\cargoboxes\\deadminecargoboxes.obj",
+    "position": [
+      14718.82421875,
+      23109.4375,
+      56.9152717590332
+    ],
+    "rotation": -2.5,
+    "scale": 1
+  },
+  {
+    "id": "2551488",
+    "model": "maps\\world\\generic\\passivedoodads\\misc\\minecars\\caveminecar01.obj",
+    "position": [
+      14653.0185546875,
+      22959.4296875,
+      104.76761627197266
+    ],
+    "rotation": 32.5,
+    "scale": 1
+  },
+  {
+    "id": "2603862",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\cargoboxes\\deadminecargoboxes.obj",
+    "position": [
+      14700.6279296875,
+      23078.3203125,
+      56.92728042602539
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2625397",
+    "model": "maps\\world\\generic\\passivedoodads\\misc\\minecars\\caveminecar01.obj",
+    "position": [
+      14643.904296875,
+      22933.86328125,
+      105.40109252929688
+    ],
+    "rotation": -65.5,
+    "scale": 1
+  },
+  {
+    "id": "2552344",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallfence\\westfallfencepost.obj",
+    "position": [
+      14880.037109375,
+      22939.287109375,
+      101.50736999511719
+    ],
+    "rotation": -197,
+    "scale": 1
+  },
+  {
+    "id": "2552246",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\crates\\crategrainempty.obj",
+    "position": [
+      14839.3759765625,
+      22936.7578125,
+      101.14190673828125
+    ],
+    "rotation": 49.55902099609375,
+    "scale": 1
+  },
+  {
+    "id": "2551490",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\miningsifters\\miningsifter02.obj",
+    "position": [
+      14642.490234375,
+      22959.966796875,
+      104.642822265625
+    ],
+    "rotation": 78.08653259277344,
+    "scale": 1
+  },
+  {
+    "id": "2552214",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\haystacks\\haystack01.obj",
+    "position": [
+      14839.5966796875,
+      22947.896484375,
+      100.70939636230469
+    ],
+    "rotation": 26.542924880981445,
+    "scale": 1
+  },
+  {
+    "id": "2552215",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\haystacks\\haystack01.obj",
+    "position": [
+      14838.5703125,
+      22947.62109375,
+      100.7084732055664
+    ],
+    "rotation": 337.05810546875,
+    "scale": 1
+  },
+  {
+    "id": "2552217",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\haystacks\\haystack01.obj",
+    "position": [
+      14839.7216796875,
+      22947.921875,
+      101.41214752197266
+    ],
+    "rotation": 33.64030838012695,
+    "scale": 1
+  },
+  {
+    "id": "2551491",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\miningsifters\\miningsifter01.obj",
+    "position": [
+      14643.3310546875,
+      22957.232421875,
+      104.66741943359375
+    ],
+    "rotation": 91.77606201171875,
+    "scale": 1
+  },
+  {
+    "id": "2551614",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\shovel\\shovel.obj",
+    "position": [
+      14671.3046875,
+      22992.201171875,
+      110.02366638183594
+    ],
+    "rotation": 64.7781982421875,
+    "scale": 1
+  },
+  {
+    "id": "2551610",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\ropes\\cavekoboldropecoil.obj",
+    "position": [
+      14670.505859375,
+      22992.404296875,
+      110.24018096923828
+    ],
+    "rotation": 71.09577941894531,
+    "scale": 1
+  },
+  {
+    "id": "2552233",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\shovel\\shovel.obj",
+    "position": [
+      14855.3271484375,
+      22955.17578125,
+      100.7606430053711
+    ],
+    "rotation": 78.00778198242188,
+    "scale": 1
+  },
+  {
+    "id": "2552216",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\haystacks\\haystack01.obj",
+    "position": [
+      14839.8154296875,
+      22952.697265625,
+      100.5506362915039
+    ],
+    "rotation": 1.4713590145111084,
+    "scale": 1
+  },
+  {
+    "id": "2552340",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\haystacks\\haystack01.obj",
+    "position": [
+      14882.638671875,
+      22936.21875,
+      101.29077911376953
+    ],
+    "rotation": 0,
+    "scale": 1
+  },
+  {
+    "id": "2552236",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\crates\\replacecrate01.obj",
+    "position": [
+      14858.380859375,
+      22937.326171875,
+      101.31022644042969
+    ],
+    "rotation": -55.904693603515625,
+    "scale": 1
+  },
+  {
+    "id": "2552234",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\crates\\replacecrate01.obj",
+    "position": [
+      14858.32421875,
+      22937.54296875,
+      101.94320678710938
+    ],
+    "rotation": -12.493011474609375,
+    "scale": 1
+  },
+  {
+    "id": "2552341",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\haystacks\\haystack01.obj",
+    "position": [
+      14883.1484375,
+      22934.62890625,
+      101.3095703125
+    ],
+    "rotation": 18,
+    "scale": 0.7998046875
+  },
+  {
+    "id": "2551479",
+    "model": "maps\\world\\generic\\gnome\\passivedoodads\\gears&levers\\gnomelever.obj",
+    "position": [
+      14636.8310546875,
+      22949.849609375,
+      104.63445281982422
+    ],
+    "rotation": 187,
+    "scale": 1
+  },
+  {
+    "id": "2552239",
+    "model": "maps\\world\\generic\\passivedoodads\\furniture\\containers\\sack01.obj",
+    "position": [
+      14842.7021484375,
+      22937.640625,
+      101.1611099243164
+    ],
+    "rotation": -129.07249450683594,
+    "scale": 1
+  },
+  {
+    "id": "2552241",
+    "model": "maps\\world\\generic\\passivedoodads\\furniture\\containers\\sack01.obj",
+    "position": [
+      14841.2890625,
+      22937.7109375,
+      101.13738250732422
+    ],
+    "rotation": -151.41937255859375,
+    "scale": 1
+  },
+  {
+    "id": "2552240",
+    "model": "maps\\world\\generic\\passivedoodads\\furniture\\containers\\sack01.obj",
+    "position": [
+      14841.9765625,
+      22937.505859375,
+      101.15396881103516
+    ],
+    "rotation": -46.09022521972656,
+    "scale": 1
+  },
+  {
+    "id": "2552209",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\haystacks\\haystack01.obj",
+    "position": [
+      14863.7333984375,
+      22938.357421875,
+      101.32295989990234
+    ],
+    "rotation": 0,
+    "scale": 0.7998046875
+  },
+  {
+    "id": "2552235",
+    "model": "maps\\world\\generic\\passivedoodads\\furniture\\containers\\sack01.obj",
+    "position": [
+      14857.708984375,
+      22938.03125,
+      101.29740142822266
+    ],
+    "rotation": -70.84296417236328,
+    "scale": 1
+  },
+  {
+    "id": "2552242",
+    "model": "maps\\world\\generic\\passivedoodads\\furniture\\containers\\sack01.obj",
+    "position": [
+      14841.7333984375,
+      22937.890625,
+      101.13580322265625
+    ],
+    "rotation": -71.26067352294922,
+    "scale": 1
+  },
+  {
+    "id": "2552243",
+    "model": "maps\\world\\generic\\passivedoodads\\furniture\\containers\\sack01.obj",
+    "position": [
+      14841.7646484375,
+      22937.625,
+      101.36356353759766
+    ],
+    "rotation": -18.546661376953125,
+    "scale": 1
+  },
+  {
+    "id": "2552237",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\crates\\replacecrate02.obj",
+    "position": [
+      14857.0927734375,
+      22937.49609375,
+      101.31620025634766
+    ],
+    "rotation": 24.302780151367188,
+    "scale": 1
+  },
+  {
+    "id": "2619724",
+    "model": "maps\\world\\generic\\ogre\\passivedoodads\\poodad\\poodad01.obj",
+    "position": [
+      14845.1240234375,
+      22952.373046875,
+      100.65043640136719
+    ],
+    "rotation": -0.5,
+    "scale": 0.5986328125
+  },
+  {
+    "id": "2552245",
+    "model": "maps\\world\\generic\\passivedoodads\\furniture\\containers\\barrel02.obj",
+    "position": [
+      14840.40234375,
+      22937.599609375,
+      101.0205307006836
+    ],
+    "rotation": -89.465576171875,
+    "scale": 1
+  },
+  {
+    "id": "2551483",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\buckets\\cavekoboldbucket.obj",
+    "position": [
+      14643.91796875,
+      22938.546875,
+      104.78114318847656
+    ],
+    "rotation": 324.36810302734375,
+    "scale": 1
+  },
+  {
+    "id": "2551492",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\pick\\pick.obj",
+    "position": [
+      14641.5546875,
+      22956.2734375,
+      105.104736328125
+    ],
+    "rotation": 346.61444091796875,
+    "scale": 1
+  },
+  {
+    "id": "2619725",
+    "model": "maps\\world\\generic\\ogre\\passivedoodads\\poodad\\poodad01.obj",
+    "position": [
+      14855.3154296875,
+      22954.78515625,
+      100.9400405883789
+    ],
+    "rotation": -16,
+    "scale": 0.5986328125
+  },
+  {
+    "id": "2619723",
+    "model": "maps\\world\\generic\\ogre\\passivedoodads\\poodad\\poodad01.obj",
+    "position": [
+      14844.8271484375,
+      22952.21875,
+      100.64859008789062
+    ],
+    "rotation": 0,
+    "scale": 0.7890625
+  },
+  {
+    "id": "2552238",
+    "model": "maps\\world\\generic\\passivedoodads\\furniture\\containers\\sack02.obj",
+    "position": [
+      14857.10546875,
+      22937.39453125,
+      102.00357818603516
+    ],
+    "rotation": 24.005157470703125,
+    "scale": 1
+  },
+  {
+    "id": "2552244",
+    "model": "maps\\world\\generic\\passivedoodads\\furniture\\containers\\sack02.obj",
+    "position": [
+      14843.3935546875,
+      22937.70703125,
+      101.1705093383789
+    ],
+    "rotation": -171.8435821533203,
+    "scale": 1
+  },
+  {
+    "id": "2552232",
+    "model": "maps\\world\\generic\\human\\passivedoodads\\lanterns\\generallantern01.obj",
+    "position": [
+      14855.1259765625,
+      22944.494140625,
+      101.65042877197266
+    ],
+    "rotation": -119.5519027709961,
+    "scale": 0.5791015625
+  },
+  {
+    "id": "2551612",
+    "model": "maps\\world\\azeroth\\elwynn\\passivedoodads\\jars\\jar03.obj",
+    "position": [
+      14669.8798828125,
+      22996.900390625,
+      110.69965362548828
+    ],
+    "rotation": -123.5,
+    "scale": 1
+  },
+  {
+    "id": "2552231",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\westfallchair\\westfallchair.obj",
+    "position": [
+      14855.115234375,
+      22944.44140625,
+      101.14205932617188
+    ],
+    "rotation": -4.384307861328125,
+    "scale": 1
+  },
+  {
+    "id": "2551484",
+    "model": "maps\\world\\azeroth\\westfall\\passivedoodads\\utensils\\bowl.obj",
+    "position": [
+      14643.8330078125,
+      22937.9296875,
+      104.99022674560547
+    ],
+    "rotation": 229.267578125,
+    "scale": 1
+  },
+  {
+    "id": "2551502",
+    "model": "maps\\world\\wmo\\dungeon\\md_goldmine\\md_goldmine_varianta_set0.obj",
+    "position": [
+      14636.4267578125,
+      22970.61328125,
+      119.4842529296875
+    ],
+    "rotation": -50,
+    "scale": 1
+  },
+  {
+    "id": "2559451",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\guardtower\\guardtower_set0.obj",
+    "position": [
+      14689.591796875,
+      23112.201171875,
+      61.52099609375
+    ],
+    "rotation": 320.00006103515625,
+    "scale": 1
+  },
+  {
+    "id": "2559545",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\prison_camp\\prisonguardtower_set0.obj",
+    "position": [
+      14755.193359375,
+      23177.232421875,
+      1.7682420015335083
+    ],
+    "rotation": -222.5,
+    "scale": 1
+  },
+  {
+    "id": "2559546",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\prison_camp\\prisonguardtower_set0.obj",
+    "position": [
+      14876.3203125,
+      23097.607421875,
+      3.09430193901062
+    ],
+    "rotation": -267,
+    "scale": 1
+  },
+  {
+    "id": "2625230",
+    "model": "maps\\world\\wmo\\dungeon\\md_pirateship\\pirateship_plank_set0.obj",
+    "position": [
+      14803.2421875,
+      23267.125,
+      7.901191234588623
+    ],
+    "rotation": 13.560546875,
+    "scale": 1
+  },
+  {
+    "id": "2625231",
+    "model": "maps\\world\\wmo\\dungeon\\md_pirateship\\pirateship_plank_set0.obj",
+    "position": [
+      14958.279296875,
+      23258.572265625,
+      7.96415376663208
+    ],
+    "rotation": -23.939453125,
+    "scale": 1
+  },
+  {
+    "id": "2626812",
+    "model": "maps\\world\\wmo\\azeroth\\buildings\\guardtower\\guardtower_destroyed_set0.obj",
+    "position": [
+      14690.384765625,
+      23111.640625,
+      61.30091094970703
+    ],
+    "rotation": 320.00006103515625,
+    "scale": 1
+  }
+]

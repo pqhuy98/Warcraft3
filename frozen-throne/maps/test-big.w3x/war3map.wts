@@ -1,0 +1,22 @@
+﻿STRING 1
+{
+Player 1
+}
+
+STRING 2
+{
+Force 1
+}
+
+STRING 4
+// Doodads: D000 (Terrain mdl.mdx), Name (Name)
+{
+Terrain mdl.mdx
+}
+
+STRING 5
+// Doodads: D001 (Terrain retera), Name (Name)
+{
+Terrain retera
+}
+
