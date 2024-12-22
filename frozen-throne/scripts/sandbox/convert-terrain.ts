@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, rmdir, rmdirSync, unlinkSync, writeFileSync } from 'fs';
 import {
   DoodadsTranslator,
   ObjectsTranslator,
@@ -10,6 +10,7 @@ import { extractWowExportData } from './convert-objmdl';
 import path from 'path';
 import { ObjectType } from './wc3maptranslator/data/ObjectModificationTable';
 import { generateFourCC } from './utils';
+import { assetPrefix, hMax, hMin, verticalHorizontalRatio } from './config';
 
 
 function print(arr: unknown[][]) {
@@ -18,10 +19,7 @@ function print(arr: unknown[][]) {
   }
 }
 
-// const hMin = 0
-// const hMax = 16383
-const hMin = 7680
-const hMax = 14336
+
 const stepPerTile = 4096/32
 const maxGameHeightDiff = (hMax - hMin) / 4
 
@@ -130,10 +128,10 @@ async function main() {
 
   terrainAdts.forEach(([mdl]) => {
     const id = generateFourCC("D").codeString + ":YOtf"
-    const fileName = mdl.model.name.replaceAll("\\", "/")
+    const fileName = path.join(assetPrefix, mdl.model.name).replaceAll("\\", "/")
     doodadsData.custom[id] = [
       {id: "dfil", type: "string", level: 0, column: 0, value: fileName},
-      {id: "dnam", type: "string", level: 0, column: 0, value: fileName},
+      {id: "dnam", type: "string", level: 0, column: 0, value: path.basename(fileName)},
       {id: "dmas", type: "unreal", level: 0, column: 0, value: 100},
       {id: "dmis", type: "unreal", level: 0, column: 0, value: 1},
       {id: "dvis", type: "unreal", level: 0, column: 0, value: 99999},
@@ -161,13 +159,13 @@ async function main() {
 
   const doodadName2Id = new Map<string, string>()
   wowDoodads.forEach((doodad) => {
-    const fileName = doodad.model.replaceAll("\\", "/")
+    const fileName = path.join(assetPrefix, doodad.model).replaceAll("\\", "/")
     if (!doodadName2Id.has(fileName)) {
       const id = generateFourCC("D").codeString + ":YOtf"
       doodadName2Id.set(fileName, id)
       doodadsData.custom[id] = [
         {id: "dfil", type: "string", level: 0, column: 0, value: fileName},
-        {id: "dnam", type: "string", level: 0, column: 0, value: fileName},
+        {id: "dnam", type: "string", level: 0, column: 0, value: path.basename(fileName)},
         {id: "dmas", type: "unreal", level: 0, column: 0, value: 100},
         {id: "dmis", type: "unreal", level: 0, column: 0, value: 1},
         {id: "dvis", type: "unreal", level: 0, column: 0, value: 99999},
@@ -204,6 +202,12 @@ async function main() {
 
   writeFileSync(w3dPath, ObjectsTranslator.jsonToWar(ObjectType.Doodads, doodadsData).buffer)
   writeFileSync(dooPath, DoodadsTranslator.jsonToWar(doodads).buffer)
+  const shadowPath = path.join(mapPath, "war3map.shd")
+  try {
+    unlinkSync(path.join(mapPath, "war3map.shd"))
+  } catch (e) {
+    // ignore
+  }
 }
 
 function computeTerrainHeightMap(terrains: MDL[]) {
@@ -225,8 +229,8 @@ function computeTerrainHeightMap(terrains: MDL[]) {
   const ratio = (2047.8 - -2048) / size[2];
   const gameHeight = size[0] * ratio;
   const gameWidth = size[1] * ratio;
-  const h1 = gameHeight / stepPerTile * 2
-  const w1 = gameWidth / stepPerTile * 2
+  const h1 = gameHeight / stepPerTile / verticalHorizontalRatio
+  const w1 = gameWidth / stepPerTile / verticalHorizontalRatio
 
   const height = Math.ceil(h1);
   const width = Math.ceil(w1);

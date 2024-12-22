@@ -5,7 +5,7 @@ import { glob } from 'glob';
 import path from 'path';
 import { blp2Image } from './blp/blp';
 import { MDL } from './objmdl/mdl';
-import { skipMaterials, terrainHeightClampPercent, terrainOnly } from './config';
+import { assetPrefix, skipAssets, skipTerrainTexture, terrainHeightClampPercent } from './config';
 
 const wowExportPath = "C:/Users/quang/wow.export/";
 const mapPath = "maps/test-big.w3x/";
@@ -14,9 +14,13 @@ function isTerrainFile(filePath: string) {
   return path.basename(filePath).startsWith("adt_")
 }
 
+function isTerrainTexture(filePath: string) {
+  return path.basename(filePath).startsWith("tex_")
+}
+
 export async function extractWowExportData() {
   let objFiles = await glob(wowExportPath + "/**/*.obj")
-  if (terrainOnly) {
+  if (skipAssets) {
     objFiles = objFiles.filter(f => isTerrainFile(f))
   }
 
@@ -28,8 +32,8 @@ export async function extractWowExportData() {
     console.log("Converting", objFile)
     const {mdl, mtlPaths} = convertObjMdl(objFile, wowExportPath)
 
-    const outputFile = objFile
-      .replace(path.normalize(wowExportPath), path.normalize(mapPath))  
+    let outputFile = objFile
+      .replace(path.normalize(wowExportPath), path.join(path.normalize(mapPath), assetPrefix))
       .replace(".obj", ".mdl")
 
     if (!isTerrainFile(objFile)) {
@@ -41,19 +45,23 @@ export async function extractWowExportData() {
       console.log("Store terrain for post-processing", outputFile)
     }
 
-    !skipMaterials && mtlPaths.forEach(mtlPath => {
-      if (processedMaterials.has(mtlPath)) {
-        return
-      }
-      const fromPath = path.join(wowExportPath, mtlPath)
-      const toPath = path.join(mapPath, mtlPath.replace(".png", ".blp"))
-      console.log("Converting", fromPath, "to", toPath)
-      blp2Image(fromPath, toPath, "blp")
-      processedMaterials.add(mtlPath)
-    })
+    if (!skipAssets) {
+      mtlPaths.forEach(mtlPath => {
+        if (processedMaterials.has(mtlPath)) {
+          return
+        }
+        if (skipTerrainTexture && isTerrainTexture(mtlPath)) {
+          return
+        }
+        const fromPath = path.join(wowExportPath, mtlPath)
+        const toPath = path.join(mapPath, assetPrefix, mtlPath.replace(".png", ".blp"))
+        console.log("Converting", fromPath, "to", toPath)
+        blp2Image(fromPath, toPath, "blp")
+        processedMaterials.add(mtlPath)
+      })
+    }
 
     console.log("--------------------------------")
-   
   })
 
   // Post-process terrain files. Conpute center point and translates all vertices
@@ -123,8 +131,6 @@ export async function extractWowExportData() {
     mdl.sync()
   })
 
-
-
   console.log("After translation, extents:", min, max)
 
   const wowDoodads = await readDoodadsCsv(wowExportPath)
@@ -153,7 +159,6 @@ export async function extractWowExportData() {
     dmax[2] - dmin[2],
   ]
   console.log("dmin", dmin, "dmax", dmax, "ddiff", ddiff)
-  writeFileSync(path.join(__dirname, "resources", "wowrows.json"), JSON.stringify(wowDoodads, null, 2))
 
   return {wowDoodads, terrainAdts}
 }

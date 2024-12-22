@@ -1,3 +1,5 @@
+import { readFileSync } from "fs";
+
 export interface Material {
   name: string;
   Ns?: number;
@@ -13,7 +15,15 @@ export interface Material {
 export class MTLFile {
   materials: Material[] = [];
 
-  constructor(mtlContent: string) {
+  constructor(filePath: string) {
+    let mtlContent: string
+    try {
+      mtlContent = readFileSync(filePath, "utf-8")
+    } catch (e) {
+      console.error("Cannot read mtl file", filePath, " - skip it")
+      return;
+    }
+
     const lines = mtlContent.split('\n');
     let currentMaterial: Material | null = null;
 

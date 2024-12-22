@@ -3,10 +3,11 @@ import { IFace, OBJFile } from './obj';
 import { MDL } from './mdl';
 import * as path from 'path';
 import { MTLFile } from './mtl';
+import { assetPrefix, getFilterMode } from '../config';
 
 export function convertObjMdl(objFilePath: string, assetRoot: string) {
   const obj = new OBJFile(readFileSync(objFilePath, "utf-8")).parse();
-  const mtl = new MTLFile(readFileSync(objFilePath.replace(/\.obj$/, '.mtl'), "utf-8"))
+  const mtl = new MTLFile(objFilePath.replace(/\.obj$/, '.mtl'))
 
   const mdl = new MDL({
     formatVersion: 800,
@@ -30,14 +31,14 @@ export function convertObjMdl(objFilePath: string, assetRoot: string) {
     const materialRelativePath = path.relative(assetRoot, path.join(parentDir, material.map_Kd!))
     mtlPaths.add(materialRelativePath);
     mdl.textures.push({
-      image: materialRelativePath.replace(".png", ".blp"),
+      image: path.join(assetPrefix, materialRelativePath.replace(".png", ".blp")),
       wrapHeight: true,
       wrapWidth: true
     })
     mdl.materials.push({
       constantColor: true,
       layers: [
-        {textureId: mdl.textures.length - 1, filterMode: 'Blend'}
+        {textureId: mdl.textures.length - 1, filterMode: getFilterMode(materialRelativePath)}
       ]
     })
   })

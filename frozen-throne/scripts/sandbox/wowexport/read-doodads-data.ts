@@ -69,8 +69,8 @@ async function readAllCSVFiles(pattern: string, separator: string, wowExportPath
     return doodads
   }))).flat();
   console.log(`Total rows of ${pattern}: ${allDoodads.length}`);
+
   // Remove doodads with same ids
-  
   const ids = new Set<string>()
   const result: Doodad[] = []
   allDoodads.forEach(d => {
@@ -90,10 +90,3 @@ export async function readDoodadsCsv(wowExportPath: string) {
   return doodads
 }
 
-function f(s: string) {
-  return parseFloat(s)
-}
-
-function percent(v: string, low: number, high: number) {
-  return (f(v) - low) / (high - low)
-}
