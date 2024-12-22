@@ -16,11 +16,11 @@
     "sound": "ts-node --transpile-only scripts/sound.ts",
     "extract-src": "ts-node --transpile-only scripts/extract-src.ts",
     "sandbox-terrain": "tsx scripts/sandbox/convert-terrain.ts",
-    "sandbox-objmdl": "ts-node --transpile-only scripts/sandbox/convert-objmdl.ts"
+    "sandbox-objmdl": "tsx scripts/sandbox/convert-objmdl.ts",
+    "sandbox-discovery": "tsx scripts/terrain-discovery/index.ts"
   },
   "dependencies": {
-    "w3ts": "^3.0.2",
-    "wc3maptranslator": "^4.0.4"
+    "w3ts": "^3.0.2"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-ts": "^2.8.0",
@@ -60,6 +60,7 @@
     "typescript-to-lua": "^1.25.1",
     "war3-transformer": "2.0.0",
     "war3tstlhelper": "1.0.1",
+    "wc3maptranslator": "^4.0.4",
     "winston": "3.3.3"
   },
   "watch": {

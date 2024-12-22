@@ -1,9 +1,15 @@
 import { readFileSync, writeFileSync } from 'fs';
 import {
   DoodadsTranslator,
+  ObjectsTranslator,
   TerrainTranslator,
 } from './wc3maptranslator';
 import { Terrain } from './wc3maptranslator/data/Terrain';
+import { MDL } from './objmdl/mdl';
+import { extractWowExportData } from './convert-objmdl';
+import path from 'path';
+import { ObjectType } from './wc3maptranslator/data/ObjectModificationTable';
+import { generateFourCC } from './utils';
 
 
 function print(arr: unknown[][]) {
@@ -12,8 +18,12 @@ function print(arr: unknown[][]) {
   }
 }
 
-const hMin = 0
-const hMax = 16383
+// const hMin = 0
+// const hMax = 16383
+const hMin = 7680
+const hMax = 14336
+const stepPerTile = 4096/32
+const maxGameHeightDiff = (hMax - hMin) / 4
 
 function gameHeightToDataHeight(gameHeight: number) {
   return (gameHeight + 2048) / (2048 * 2) * (hMax - hMin) + hMin
@@ -68,47 +78,13 @@ function Max(arr: number[][]) {
   return arr.flat().reduce((acc, v) => Math.max(acc, v), arr[0][0])
 }
 
+const mapPath = "./maps/test-big.w3x"
+
 async function main() {
-  const w3ePathOutput = ".\\maps\\test-big.w3x\\war3map.w3e"
-  // const w3ePathInput = ".\\maps\\test-small.w3x\\war3map.w3e"
-  const dooPath = ".\\maps\\test-big.w3x\\war3map.doo"
+  const {terrainAdts, wowDoodads } = await extractWowExportData()
 
-  const doodads = DoodadsTranslator.warToJson(readFileSync(dooPath)).json
-  console.log(JSON.stringify(doodads))
-
-  // const terrData = TerrainTranslator.warToJson(readFileSync(w3ePathInput)).json
-  // writeFileSync("dist/terrain.json", JSON.stringify(
-  //   terrData,
-  //   null, 2))
-
-
-
-
-
-  // console.log("GroundHeight:", terrData.groundHeight.length, "x", terrData.groundHeight[0].length)
-  // print(terrData.flags)
-
-  // const stop = true
-  // if (stop) {
-  //   return;
-  // }
-
-  // console.log("groundHeight", terrData.groundHeight.length, "min", Min(terrData.groundHeight), "max", Max(terrData.groundHeight))
-  // console.log("waterHeight", terrData.waterHeight.length, "min", Min(terrData.waterHeight), "max", Max(terrData.waterHeight))
-  // console.log("boundaryFlag", terrData.boundaryFlag.length)
-  // console.log("flags", terrData.flags.length, "min", Min(terrData.flags), "max", Max(terrData.flags))
-  // console.log("groundTexture", terrData.groundTexture.length, "min", Min(terrData.groundTexture), "max", Max(terrData.groundTexture))
-  // console.log("groundVariation", terrData.groundVariation.length, "min", Min(terrData.groundVariation), "max", Max(terrData.groundVariation))
-  // console.log("cliffVariation", terrData.cliffVariation.length, "min", Min(terrData.cliffVariation), "max", Max(terrData.cliffVariation))
-  // console.log("cliffTexture", terrData.cliffTexture.length, "min", Min(terrData.cliffTexture), "max", Max(terrData.cliffTexture))
-  // console.log("layerHeight", terrData.layerHeight.length, "min", Min(terrData.layerHeight), "max", Max(terrData.layerHeight))
-
-  // const width = terrData.groundHeight.length
-  // const height = terrData.groundHeight[0].length
-
-
-  
-  const {heightMap, height, width} = readObjHeightMap()
+  // Terrain
+  const {heightMap, height, width, size: terrainSize} = computeTerrainHeightMap(terrainAdts.map(t => t[0]))
   console.log("getInitialTerrain", {height, width})
 
   const terrData = getInitialTerrain(height, width)
@@ -131,60 +107,124 @@ async function main() {
   }
 
   console.log("groundHeight", terrData.groundHeight.length, "min", Min(terrData.groundHeight), "max", Max(terrData.groundHeight))
+  writeFileSync(path.join(mapPath, "war3map.w3e"), TerrainTranslator.jsonToWar(terrData).buffer)
 
-  const ddSize = readTerrainMdl()
-  const ddRatio = {
-    x: height / 32 * 4096 / ddSize[0] * 100,
-    y: width / 32 * 4096 / ddSize[1] * 100,
-    z: (2047.8 - -2048) / ddSize[2] * 100,
-  }
-  console.log(ddRatio)
 
-  writeFileSync(w3ePathOutput, TerrainTranslator.jsonToWar(terrData).buffer)
+  const mapSize = [height * stepPerTile, width * stepPerTile, maxGameHeightDiff]
+  const scale = [mapSize[0] / terrainSize[0], mapSize[1] / terrainSize[1], mapSize[2] / terrainSize[2]]
+  console.log("mapSize", mapSize)
+  console.log("terrainSize", terrainSize)
+
+  // Doodads
+  const w3dPath = path.join(mapPath, "war3map.w3d")
+  const doodadsData = ObjectsTranslator.warToJson(ObjectType.Doodads, readFileSync(w3dPath)).json
+  
+  const dooPath = path.join(mapPath, "war3map.doo")
+  const doodads = DoodadsTranslator.warToJson(readFileSync(dooPath)).json
+
+  // reset everything
+  // console.log(JSON.stringify(doodads, null, 2))
+
+  doodadsData.custom = {}
+  doodads[0] = []
+
+  terrainAdts.forEach(([mdl]) => {
+    const id = generateFourCC("D").codeString + ":YOtf"
+    const fileName = mdl.model.name.replaceAll("\\", "/")
+    doodadsData.custom[id] = [
+      {id: "dfil", type: "string", level: 0, column: 0, value: fileName},
+      {id: "dnam", type: "string", level: 0, column: 0, value: fileName},
+      {id: "dmas", type: "unreal", level: 0, column: 0, value: 100},
+      {id: "dmis", type: "unreal", level: 0, column: 0, value: 1},
+      {id: "dvis", type: "unreal", level: 0, column: 0, value: 99999},
+      {id: "duch", type: "int", level: 0, column: 0, value: 1},
+      {id: "dsnd", type: "string", level: 0, column: 0, value: ""},
+    ]
+    const id4Chars = id.slice(0, 4)
+    doodads[0].push({
+        "type": id4Chars,
+        "variation": 0,
+        "position": [0, 0, 2679.892],
+        "angle": 270,
+        "scale": scale,
+        "skinId": id4Chars,
+        "flags": {
+          "visible": true,
+          "solid": true
+        },
+        "life": 100,
+        "randomItemSetPtr": -1,
+        "droppedItemSets": [],
+        "id": doodads[0].length
+    })
+  })
+
+  const doodadName2Id = new Map<string, string>()
+  wowDoodads.forEach((doodad) => {
+    const fileName = doodad.model.replaceAll("\\", "/")
+    if (!doodadName2Id.has(fileName)) {
+      const id = generateFourCC("D").codeString + ":YOtf"
+      doodadName2Id.set(fileName, id)
+      doodadsData.custom[id] = [
+        {id: "dfil", type: "string", level: 0, column: 0, value: fileName},
+        {id: "dnam", type: "string", level: 0, column: 0, value: fileName},
+        {id: "dmas", type: "unreal", level: 0, column: 0, value: 100},
+        {id: "dmis", type: "unreal", level: 0, column: 0, value: 1},
+        {id: "dvis", type: "unreal", level: 0, column: 0, value: 99999},
+        {id: "duch", type: "int", level: 0, column: 0, value: 1},
+        {id: "dsnd", type: "string", level: 0, column: 0, value: ""},
+      ]
+    }
+    const id = doodadName2Id.get(fileName)!
+    const id4Chars = id.slice(0, 4)
+    const ddScale = (scale[0] + scale[1])/2
+    doodads[0].push({
+      "type": id4Chars,
+      "variation": 0,
+      "position": [
+        doodad.position[1] * scale[1],
+        -doodad.position[0] * scale[0],
+        doodad.position[2] * scale[2],
+      ],
+      "angle": doodad.rotation,
+      "scale": [ddScale, ddScale, ddScale],
+      "skinId": id4Chars,
+      "flags": {
+        "visible": true,
+        "solid": true
+      },
+      "life": 100,
+      "randomItemSetPtr": -1,
+      "droppedItemSets": [],
+      "id": doodads[0].length
+    })
+  })
+
+  // console.log(JSON.stringify(doodadsData, null, 2))
+
+  writeFileSync(w3dPath, ObjectsTranslator.jsonToWar(ObjectType.Doodads, doodadsData).buffer)
+  writeFileSync(dooPath, DoodadsTranslator.jsonToWar(doodads).buffer)
 }
 
-function readObjHeightMap() {
-  const objPath = "scripts\\sandbox\\resources\\terrain-only.obj"
-  const obj = readFileSync(objPath, "utf-8")
-  const lines = obj.split("\n")
-  const vertices: number[][] = []
-  const faces = []
-  for(let i = 0; i < lines.length; i++) {
-    const line = lines[i]
-    if (line.startsWith("v ")) {
-      const vertex = line.split(" ")
-      vertices.push([
-        parseFloat(vertex[1]),
-        parseFloat(vertex[2]),
-        parseFloat(vertex[3]),
-      ])
-    }
-  }
+function computeTerrainHeightMap(terrains: MDL[]) {
+  const min = [Infinity, Infinity, Infinity]
+  const max = [-Infinity, -Infinity, -Infinity]
 
-
-  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity, minZ = Infinity, maxZ = -Infinity;
-
-  vertices.forEach(vertex => {
-    const x = vertex[0];
-    const y = vertex[1];
-    const z = vertex[2];
-    minX = Math.min(minX, x);
-    minY = Math.min(minY, y);
-    minZ = Math.min(minZ, z);
-    maxX = Math.max(maxX, x);
-    maxY = Math.max(maxY, y);
-    maxZ = Math.max(maxZ, z);
+  terrains.forEach(terrain => {
+    min[0] = Math.min(min[0], terrain.model.minimumExtent[0])
+    min[1] = Math.min(min[1], terrain.model.minimumExtent[1])
+    min[2] = Math.min(min[2], terrain.model.minimumExtent[2])
+    max[0] = Math.max(max[0], terrain.model.maximumExtent[0])
+    max[1] = Math.max(max[1], terrain.model.maximumExtent[1])
+    max[2] = Math.max(max[2], terrain.model.maximumExtent[2])
   });
 
-  const dx = maxX - minX;
-  const dy = maxY - minY;
-  const dz = maxZ - minZ;
-  console.log({dz, dx, dy })
+  const size = [max[0] - min[0], max[1] - min[1], max[2] - min[2]]
+  console.log({ size })
 
-  const ratio = (2047.8 - -2048) / dy;
-  const gameHeight = dz * ratio;
-  const gameWidth = dx * ratio;
-  const stepPerTile = 4096/32
+  const ratio = (2047.8 - -2048) / size[2];
+  const gameHeight = size[0] * ratio;
+  const gameWidth = size[1] * ratio;
   const h1 = gameHeight / stepPerTile * 2
   const w1 = gameWidth / stepPerTile * 2
 
@@ -194,38 +234,20 @@ function readObjHeightMap() {
   console.log({ratio, width, height})
 
   const heightMap = Array.from({ length: height + 1 }, () => Array(width + 1).fill(0));
-  vertices.forEach(vertex => {
-    const x = vertex[0];
-    const y = vertex[1];
-    const z = vertex[2];
-    // swap axes
-    const x1 = 1-(z - minZ) / dz;
-    const y1 = 1-(x - minX) / dx;
-    const z1 = (y - minY) / dy;
-    const i = Math.round(x1 * height);
-    const j = Math.round(y1 * width);
-    heightMap[i][j] = z1;
-  })
+  terrains.forEach(terrain => terrain.geosets
+    .forEach(geoset => geoset.vertices.forEach(v => {
+      const percent = [
+        (v[0] - min[0]) / size[0],
+        (v[1] - min[1]) / size[1],
+        (v[2] - min[2]) / size[2],
+      ];
+      const i = Math.round(percent[0] * height);
+      const j = Math.round(percent[1] * width);
+      heightMap[i][j] = percent[2];
+    }))
+  )
 
-  return {heightMap, height, width};
-}
-
-function readTerrainMdl() {
-  const mdlPath = "maps\\test-big.w3x\\terrain-only2.mdl"
-  const lines = readFileSync(mdlPath, "utf-8").split("\n").map(l => l.trim()) as string[]
-  const minExtentLine = lines.filter(l => l.startsWith("MinimumExtent"))[0]; // 'MinimumExtent { -1132.0558, -953.8664, -207.44075 },'
-  const maxExtentLine = lines.filter(l => l.startsWith("MaximumExtent"))[0];
-
-  function extract(s) {
-    return s.replace(",", "")
-    .split(" ").slice(2, 5)
-    .map(v => parseFloat(v))
-  }
-
-  const minExtent = extract(minExtentLine)
-  const maxExtent = extract(maxExtentLine)
-
-  return [maxExtent[0] - minExtent[0], maxExtent[1] - minExtent[1], maxExtent[2] - minExtent[2]]
+  return {heightMap, height, width, ratio, size};
 }
 
 main()

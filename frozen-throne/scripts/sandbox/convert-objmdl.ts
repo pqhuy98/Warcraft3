@@ -2,19 +2,10 @@ import { mkdirSync, writeFileSync } from 'fs';
 import { convertObjMdl } from "./objmdl";
 import { readDoodadsCsv } from './wowexport/read-doodads-data';
 import { glob } from 'glob';
-import * as path from 'path';
+import path from 'path';
 import { blp2Image } from './blp/blp';
 import { MDL } from './objmdl/mdl';
-
-// const filePath = "scripts\\sandbox\\resources\\elwynnrock2.obj"
-// const path = "scripts\\sandbox\\resources\\terrain-only.obj"
-
-// const now =  new Date()
-// const mdl = convertObjMdl(filePath)
-// writeFileSync(filePath.replace(".obj", ".mdl"), mdl.toString())
-// console.log("Finished in", new Date().getTime() - now.getTime(), "ms")
-
-// true && process.exit(0)
+import { skipMaterials, terrainHeightClampPercent, terrainOnly } from './config';
 
 const wowExportPath = "C:/Users/quang/wow.export/";
 const mapPath = "maps/test-big.w3x/";
@@ -23,9 +14,11 @@ function isTerrainFile(filePath: string) {
   return path.basename(filePath).startsWith("adt_")
 }
 
-(async () => {
+export async function extractWowExportData() {
   let objFiles = await glob(wowExportPath + "/**/*.obj")
-  objFiles = objFiles.filter(f => isTerrainFile(f))
+  if (terrainOnly) {
+    objFiles = objFiles.filter(f => isTerrainFile(f))
+  }
 
   const processedMaterials = new Set<string>()
   const terrainAdts: [MDL, string][] = []
@@ -48,7 +41,7 @@ function isTerrainFile(filePath: string) {
       console.log("Store terrain for post-processing", outputFile)
     }
 
-    false && mtlPaths.forEach(mtlPath => {
+    !skipMaterials && mtlPaths.forEach(mtlPath => {
       if (processedMaterials.has(mtlPath)) {
         return
       }
@@ -83,34 +76,84 @@ function isTerrainFile(filePath: string) {
   console.log("Dimension", (max[0] - min[0]), (max[1] - min[1]), (max[2] - min[2]))
   console.log("Total center", center)
 
-  terrainAdts.forEach(([mdl, outputFile]) => {
-    mdl.geosets.forEach(geoset => {
-      geoset.vertices.forEach(v => {
-        v[0] -= center[0]
-        v[1] -= center[1]
-        v[2] -= center[2]
-      })
-    })
-    mdl.sync()
-    writeFileSync(outputFile, mdl.toString())
+  // find vertex closest to center
+  let closestVertex = terrainAdts[0][0].geosets[0].vertices[0]
+  const distance = (v: number[]) => {
+    return Math.sqrt(
+      (v[0] - center[0]) ** 2 +
+      (v[1] - center[1]) ** 2
+    )
+  }
+  const vertices =  terrainAdts.flatMap(mdl => mdl[0].geosets.flatMap(geoset => geoset.vertices))
+  vertices.forEach(v => {
+    const d = distance(v)
+    if (d < distance(closestVertex)) {
+      closestVertex = v
+    }
+  })
+  
+  // X, Y are center, Z is the height of  the closest vertex to center
+  // so that after translation, the center is at (0, 0, 0)
+  const delta = [center[0], center[1], closestVertex[2]]
+  vertices.forEach(v => {
+    v[0] -= delta[0]
+    v[1] -= delta[1]
+    v[2] -= delta[2]
+  })
+  min[0] -= delta[0]
+  min[1] -= delta[1]
+  min[2] -= delta[2]
+  max[0] -= delta[0]
+  max[1] -= delta[1]
+  max[2] -= delta[2]
+
+  // Clamp lowest vertices
+  const threshold = (max[2] - min[2]) * terrainHeightClampPercent + min[2]
+  vertices.forEach(v => {
+    v[2] = Math.max(v[2], threshold)
   })
 
-  min[0] -= center[0]
-  min[1] -= center[1]
-  min[2] -= center[2]
-  min[0] -= center[0]
-  min[1] -= center[1]
-  min[2] -= center[2]
+  console.log("Translation delta", delta)
+  terrainAdts.forEach(([mdl, outputFile]) => {
+    mdl.sync()
+    mdl.setInfiniteExtents()
+    mkdirSync(path.dirname(outputFile), { recursive: true })
+    writeFileSync(outputFile, mdl.toString())
+    console.log("Wrote terrain file", outputFile);
+    mdl.sync()
+  })
+
+
 
   console.log("After translation, extents:", min, max)
 
-  const wowRows = await readDoodadsCsv(wowExportPath)
+  const wowDoodads = await readDoodadsCsv(wowExportPath)
   
-  wowRows.forEach(row => {
-
+  wowDoodads.forEach(row => {
+    row.model = row.model.replace(".obj", ".mdl")
+    row.position[0] -= delta[0]
+    row.position[1] -= delta[1]
+    row.position[2] -= delta[2]
   })
 
-  writeFileSync(path.join(__dirname, "resources", "wowrows.json"), JSON.stringify(wowRows, null, 2))
 
+  const dmin = [
+    wowDoodads.reduce((acc, r) => Math.min(acc, r.position[0]), wowDoodads[0].position[0]),
+    wowDoodads.reduce((acc, r) => Math.min(acc, r.position[1]), wowDoodads[0].position[1]),
+    wowDoodads.reduce((acc, r) => Math.min(acc, r.position[2]), wowDoodads[0].position[2]),
+  ]
+  const dmax = [
+    wowDoodads.reduce((acc, r) => Math.max(acc, r.position[0]), wowDoodads[0].position[0]),
+    wowDoodads.reduce((acc, r) => Math.max(acc, r.position[1]), wowDoodads[0].position[1]),
+    wowDoodads.reduce((acc, r) => Math.max(acc, r.position[2]), wowDoodads[0].position[2]),
+  ]
+  const ddiff = [
+    dmax[0] - dmin[0],
+    dmax[1] - dmin[1],
+    dmax[2] - dmin[2],
+  ]
+  console.log("dmin", dmin, "dmax", dmax, "ddiff", ddiff)
+  writeFileSync(path.join(__dirname, "resources", "wowrows.json"), JSON.stringify(wowDoodads, null, 2))
 
-})()
+  return {wowDoodads, terrainAdts}
+}

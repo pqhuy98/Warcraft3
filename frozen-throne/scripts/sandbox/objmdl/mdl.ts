@@ -282,7 +282,6 @@ ${this.pivotPoints.map(pivotPoint => `	{ ${f(pivotPoint[0])}, ${f(pivotPoint[1])
 	}
 
 	toString() {
-		this.sync()
 		return `// Saved by Huy's custom OBJ-MDL converter
 ${this.versionToString()}
 ${this.modelToString()}
@@ -323,7 +322,6 @@ ${this.pivotPointsToString()}
 			this.model.boundsRadius = this.geosets.reduce((a, b) => Math.max(a, b.boundsRadius), 0)
 		}
 
-
 		this.sequences.forEach(s => {
 			s.minimumExtent = [...this.model.minimumExtent]
 			s.maximumExtent = [...this.model.maximumExtent]
@@ -345,7 +343,26 @@ ${this.pivotPointsToString()}
 				]
 			}
 		})
-		
+	}
+
+	setInfiniteExtents() {
+		const INF = 999999
+		this.model.minimumExtent = [-INF, -INF, -INF]
+		this.model.maximumExtent = [INF, INF, INF]
+		this.model.boundsRadius = INF
+		this.geosets.forEach(geoset => {
+			geoset.minimumExtent = [-INF, -INF, -INF]
+			geoset.maximumExtent = [INF, INF, INF]
+			geoset.boundsRadius = INF
+			geoset.anim.minimumExtent = [-INF, -INF, -INF]
+			geoset.anim.maximumExtent = [INF, INF, INF]
+			geoset.anim.boundsRadius = INF
+		})
+		this.sequences.forEach(s => {
+			s.minimumExtent = [-INF, -INF, -INF]
+			s.maximumExtent = [INF, INF, INF]
+			s.boundsRadius = INF
+		})
 	}
 }
 

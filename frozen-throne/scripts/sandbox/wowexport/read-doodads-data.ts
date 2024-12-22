@@ -1,6 +1,6 @@
 import * as path from 'path';
 import {glob} from 'glob';
-import * as csv from 'csv-parser';
+import csv from 'csv-parser';
 import { createReadStream, writeFileSync } from 'fs';
 
 interface WowRow {
@@ -24,6 +24,9 @@ export interface Doodad {
   rotation: number
   scale: number
 }
+
+// WoW coordinate system
+const maxSize = 51200 / 3
 
 const readCSVFile = (file: string, separator: string): Promise<WowRow[]> => {
   const rows: WowRow[] = []
@@ -54,83 +57,37 @@ async function readAllCSVFiles(pattern: string, separator: string, wowExportPath
     throw new Error('No files found matching the pattern.');
   }
 
-  const rows = (await Promise.all(files.map(async file => {
+  const allDoodads = (await Promise.all(files.map(async file => {
     const doodads = (await readCSVFile(file, separator))
     .map(row => (<Doodad>{
       id: row.ModelId,
-      model: path.relative(wowExportPath, path.join(file, row.ModelFile)),
-      position: [parseFloat(row.PositionZ), parseFloat(row.PositionX), parseFloat(row.PositionY)],
+      model: path.relative(wowExportPath, path.join(path.dirname(file), row.ModelFile)),
+      position: [maxSize - parseFloat(row.PositionZ), maxSize - parseFloat(row.PositionX), parseFloat(row.PositionY)],
       rotation: parseFloat(row.RotationY),
       scale: parseFloat(row.ScaleFactor)
     }))
     return doodads
   }))).flat();
-  console.log(`Total rows of ${pattern}: ${rows.length}`);
-  return rows
+  console.log(`Total rows of ${pattern}: ${allDoodads.length}`);
+  // Remove doodads with same ids
+  
+  const ids = new Set<string>()
+  const result: Doodad[] = []
+  allDoodads.forEach(d => {
+    if (!ids.has(d.id)) {
+      ids.add(d.id)
+      result.push(d)
+    }
+  })
+
+  return result
 };
 
 export async function readDoodadsCsv(wowExportPath: string) {
   const globPattern = path.join(wowExportPath, "**/*.csv")
     .replaceAll(path.sep, "/");
   const doodads: Doodad[] = await readAllCSVFiles(globPattern, ";", wowExportPath)
-
-  const minX = doodads.reduce((acc, r) => Math.min(acc, r.position[0]), doodads[0].position[0])
-  const maxX = doodads.reduce((acc, r) => Math.max(acc, r.position[0]), doodads[0].position[0])
-  const minY = doodads.reduce((acc, r) => Math.min(acc, r.position[1]), doodads[0].position[1])
-  const maxY = doodads.reduce((acc, r) => Math.max(acc, r.position[1]), doodads[0].position[1])
-  const minZ = doodads.reduce((acc, r) => Math.min(acc, r.position[2]), doodads[0].position[2])
-  const maxZ = doodads.reduce((acc, r) => Math.max(acc, r.position[2]), doodads[0].position[2])
-  console.log(maxX - minX, {minX, maxX})
-  console.log(maxY - minY, {minY, maxY})
-  console.log(maxZ - minZ, {minZ, maxZ})
   return doodads
-
-  // const addedObj = new Set<string>()
-  // const result: DoodadPlacement[] = []
-  // let unmapped = 0
-  // let duped = 0
-  // wowRows.forEach((row, i) => {
-  //   // if (!row.ModelFile.includes("icecrown_citadel_exterior_set0") && !row.ModelFile.includes("icecrown_gate_01_set0")) {
-  //   //   return
-  //   // }
-
-  //   const dedupKey = [row.FileDataID, row.ModelId, row.PositionX, row.PositionY, row.PositionZ].join(":")
-  //   if (addedObj.has(dedupKey)) {
-  //     duped++
-  //     return
-  //   } else {
-  //     addedObj.add(dedupKey)
-  //   }
-
-  //   if (mapping[row.ModelFile].length === 0) {
-  //     unmapped++
-  //     return;
-  //   }
-  //   const chosenWc3 = mapping[row.ModelFile][Math.floor(mapping[row.ModelFile].length * Math.random())]
-  //   const wc3Equiv = w3cRows.find(r => r.file === chosenWc3)!
-  //   result.push({
-  //     type: wc3Equiv.doodID,
-
-  //     variation: Math.floor(Math.random() * wc3Equiv.numVar),
-  //     position: [
-  //       percent(row.PositionX, wowMinX, wowMaxX), // rotate 180deg
-  //       1 - percent(row.PositionZ, wowMinZ, wowMaxZ), // rotate 180deg
-  //       percent(row.PositionY, wowMinY, wowMaxY), // Exported data has Y to be height
-  //     ],
-  //     angle: parseFloat(row.RotationX),
-  //     scale: [parseFloat(row.ScaleFactor), parseFloat(row.ScaleFactor), parseFloat(row.ScaleFactor)],
-  //     skinId: wc3Equiv.doodID,
-  //     flags: {
-  //       visible: true,
-  //       solid: true
-  //     },
-  //     life: 100,
-  //     id: i + 1
-  //   })
-  // })
-  // console.log("Unmapped WoW objects:", unmapped)
-  // console.log("Mapped WoW objects:", addedObj.size)
-  // console.log("Ignored duplicated WoW objects:", duped)
 }
 
 function f(s: string) {

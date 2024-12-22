@@ -8,7 +8,10 @@ export function convertObjMdl(objFilePath: string, assetRoot: string) {
   const obj = new OBJFile(readFileSync(objFilePath, "utf-8")).parse();
   const mtl = new MTLFile(readFileSync(objFilePath.replace(/\.obj$/, '.mtl'), "utf-8"))
 
-  const mdl = new MDL({formatVersion: 800, name: path.basename(objFilePath)});
+  const mdl = new MDL({
+    formatVersion: 800,
+    name: path.relative(assetRoot, objFilePath).replace(".obj", ".mdl")
+  });
 
   const groups = new Map<string, IFace[]>();
   obj.models[0].faces.forEach(f => {
@@ -24,17 +27,17 @@ export function convertObjMdl(objFilePath: string, assetRoot: string) {
   const mtlPaths = new Set<string>();
   mtl.materials.forEach((material) => {
     matMap.set(material.name, mdl.materials.length)
-    const materialPath = path.relative(assetRoot, path.join(parentDir, material.map_Kd!))
-    mtlPaths.add(materialPath);
+    const materialRelativePath = path.relative(assetRoot, path.join(parentDir, material.map_Kd!))
+    mtlPaths.add(materialRelativePath);
     mdl.textures.push({
-      image: materialPath.replace(".png", ".blp"),
+      image: materialRelativePath.replace(".png", ".blp"),
       wrapHeight: true,
       wrapWidth: true
     })
     mdl.materials.push({
       constantColor: true,
       layers: [
-        {textureId: mdl.textures.length - 1, filterMode: 'None'}
+        {textureId: mdl.textures.length - 1, filterMode: 'Blend'}
       ]
     })
   })
@@ -82,9 +85,6 @@ export function convertObjMdl(objFilePath: string, assetRoot: string) {
 
           const objT = obj.models[0].textureCoords[v.textureCoordsIndex-1]
           geoset.tVertices.push([objT.u, 1 - objT.v])
-          if (Math.abs(objT.u) > 1 || Math.abs(objT.v) > 1) {
-            // console.error("TVertice out of range 0-1", objT)
-          }
         }
         geoset.faces.triangles.push(vMap.get(v.vertexIndex)!)
       })
