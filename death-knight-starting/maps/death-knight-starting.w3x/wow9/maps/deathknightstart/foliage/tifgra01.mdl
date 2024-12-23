@@ -1,0 +1,105 @@
+// Saved by Huy's custom OBJ-MDL converter
+Version {
+  FormatVersion 800,
+}
+Model "maps\deathknightstart\foliage\tifgra01.mdl" {
+  NumGeosets 1,
+  NumBones 1,
+  BlendTime 0,
+  MinimumExtent { -0.389895, -0.354484, -0.010268 },
+  MaximumExtent { 0.411062, 0.334134, 1.056868 },
+  BoundsRadius 1.114739,
+}
+Sequences 1 {
+  Anim "Stand" {
+    Interval { 333, 1333 },
+    MinimumExtent { -0.389895, -0.354484, -0.010268 },
+    MaximumExtent { 0.411062, 0.334134, 1.056868 },
+    BoundsRadius 1.114739,
+  }
+}
+Textures 1 {
+  Bitmap {
+    Image "wow9\world\nodxt\detail\tirisfalldetaildoodads.blp",
+    WrapWidth,
+    WrapHeight,
+  }
+}
+Materials 1 {
+  Material {
+    ConstantColor,
+    Layer {
+      FilterMode None,
+      static TextureID 0,
+      TwoSided,
+    }
+  }
+}
+Geoset {
+  Vertices 8 {
+		{ 0.003893, -0.354484, 1.056868 },
+		{ 0.003893, -0.259757, -0.010268 },
+		{ 0.003893, 0.334134, 1.053878 },
+		{ -0.358588, 0.00136, -0.010268 },
+		{ -0.389895, -0.005583, 0.755894 },
+		{ 0.379755, 0.00136, -0.010268 },
+		{ 0.411062, -0.005583, 0.779956 },
+		{ 0.003893, 0.26136, -0.010268 },
+  }
+  Normals 8 {
+		{ 0, 0, 1 },
+		{ 0, 0, 1 },
+		{ 0, 0, 1 },
+		{ 0.999959, 0.009062, 0 },
+		{ 0.99996, 0.00893, -0.000278 },
+		{ 0.99996, 0.00893, -0.000278 },
+		{ 0.999961, 0.008797, -0.000556 },
+		{ 0, 0, 1 },
+  }
+  TVertices 8 {
+		{ 0.496094, 0.503906 },
+		{ 0.496094, 0.746094 },
+		{ 0.257813, 0.503906 },
+		{ 0.257813, 0.746094 },
+		{ 0.257813, 0.503906 },
+		{ 0.496094, 0.746094 },
+		{ 0.496094, 0.503906 },
+		{ 0.257813, 0.746094 },
+  }
+  VertexGroup {
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+  }
+  Faces 1 12 {
+    Triangles {
+      { 0, 1, 2, 3, 4, 5, 6, 5, 4, 7, 2, 1 },
+    }
+  }
+  Groups 1 1 {
+    Matrices { 0 },
+  }
+  MinimumExtent { -0.389895, -0.354484, -0.010268 },
+  MaximumExtent { 0.411062, 0.334134, 1.056868 },
+  BoundsRadius 1.114739,
+  Anim {
+    MinimumExtent { -0.389895, -0.354484, -0.010268 },
+    MaximumExtent { 0.411062, 0.334134, 1.056868 },
+    BoundsRadius 1.114739,
+  }
+  MaterialID 0,
+  SelectionGroup 0,
+}
+Bone "Geoset0" {
+  ObjectId 0,
+  GeosetId 0,
+  GeosetAnimId None,
+}
+PivotPoints 1 {
+	{ 0.010584, -0.010175, 0.5233 },
+}

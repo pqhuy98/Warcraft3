@@ -1,0 +1,43 @@
+{
+  "name": "wc3-silverspine-forest",
+  "version": "1.1.0",
+  "description": "",
+  "author": "Huy Pham",
+  "license": "MIT",
+  "main": "src/main.ts",
+  "scripts": {
+    "lint": "eslint src/**/*.ts --fix",
+    "convert": "tsx convert.ts",
+    "discover": "tsx discover.ts"
+  },
+  "dependencies": {
+    "@stylistic/eslint-plugin-ts": "^2.8.0",
+    "@types/fluent-ffmpeg": "^2.1.26",
+    "@types/fs-extra": "8.1.1",
+    "@types/glob": "^8.1.0",
+    "@types/node": "12.19.1",
+    "@types/pako": "1.0.1",
+    "@types/pngjs": "^6.0.5",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-simple-import-sort": "^12.1.0",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "fs-extra": "8.1.0",
+    "glob": "^11.0.0",
+    "ieee754": "^1.2.1",
+    "intn": "^1.0.0",
+    "round-to": "^6.0.0",
+    "tsconfig-paths": "3.9.0",
+    "tsutils": "3.17.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.4.2",
+    "typescript-eslint": "^7.12.0",
+    "wc3maptranslator": "^4.0.4"
+  }
+}

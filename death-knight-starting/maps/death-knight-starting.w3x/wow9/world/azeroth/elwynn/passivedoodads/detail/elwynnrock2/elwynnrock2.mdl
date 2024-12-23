@@ -1,0 +1,105 @@
+// Saved by Huy's custom OBJ-MDL converter
+Version {
+  FormatVersion 800,
+}
+Model "world\azeroth\elwynn\passivedoodads\detail\elwynnrock2\elwynnrock2.mdl" {
+  NumGeosets 1,
+  NumBones 1,
+  BlendTime 0,
+  MinimumExtent { -0.199697, -0.259586, 0 },
+  MaximumExtent { 0.246588, 0.211348, 0.147769 },
+  BoundsRadius 0.311585,
+}
+Sequences 1 {
+  Anim "Stand" {
+    Interval { 333, 1333 },
+    MinimumExtent { -0.199697, -0.259586, 0 },
+    MaximumExtent { 0.246588, 0.211348, 0.147769 },
+    BoundsRadius 0.311585,
+  }
+}
+Textures 1 {
+  Bitmap {
+    Image "wow9\world\azeroth\elwynn\passivedoodads\detail\elwynnrock2\elwynnrock2skin.blp",
+    WrapWidth,
+    WrapHeight,
+  }
+}
+Materials 1 {
+  Material {
+    ConstantColor,
+    Layer {
+      FilterMode None,
+      static TextureID 0,
+      TwoSided,
+    }
+  }
+}
+Geoset {
+  Vertices 8 {
+		{ -0.118445, -0.17299, 0.123167 },
+		{ -0.199697, 0.038744, 0 },
+		{ -0.172337, -0.259586, 0 },
+		{ 0.034518, -0.092679, 0.147769 },
+		{ 0.147115, 0.211348, 0 },
+		{ -0.074058, 0.201412, 0 },
+		{ 0.246588, -0.006097, 0 },
+		{ 0.147115, -0.209728, 0 },
+  }
+  Normals 8 {
+		{ -0.410238, 0.864216, -0.291266 },
+		{ 0.2122, 0.786653, -0.579783 },
+		{ -0.595613, 0.634373, -0.492765 },
+		{ 0.074376, 0.989486, 0.124039 },
+		{ 0.348263, 0.904394, 0.246544 },
+		{ 0.377432, 0.902762, -0.206316 },
+		{ -0.041537, 0.811723, 0.582563 },
+		{ -0.63607, 0.688296, 0.348802 },
+  }
+  TVertices 8 {
+		{ 0.760386, 0.839957 },
+		{ 0.989633, 0.475342 },
+		{ 0.98562, 0.989839 },
+		{ 0.427849, 0.570559 },
+		{ 0.00805, 0.012577 },
+		{ 0.992584, 0.0095 },
+		{ 0.012341, 0.4666 },
+		{ 0.006076, 0.990354 },
+  }
+  VertexGroup {
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+  }
+  Faces 1 24 {
+    Triangles {
+      { 0, 1, 2, 3, 4, 5, 3, 5, 1, 3, 1, 0, 3, 6, 4, 3, 7, 6, 3, 0, 7, 0, 2, 7 },
+    }
+  }
+  Groups 1 1 {
+    Matrices { 0 },
+  }
+  MinimumExtent { -0.199697, -0.259586, 0 },
+  MaximumExtent { 0.246588, 0.211348, 0.147769 },
+  BoundsRadius 0.311585,
+  Anim {
+    MinimumExtent { -0.199697, -0.259586, 0 },
+    MaximumExtent { 0.246588, 0.211348, 0.147769 },
+    BoundsRadius 0.311585,
+  }
+  MaterialID 0,
+  SelectionGroup 0,
+}
+Bone "Geoset0" {
+  ObjectId 0,
+  GeosetId 0,
+  GeosetAnimId None,
+}
+PivotPoints 1 {
+	{ 0.023445, -0.024119, 0.073885 },
+}

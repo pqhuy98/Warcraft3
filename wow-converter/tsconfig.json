@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": [
+      "es2021"
+    ],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strictNullChecks": true
+  },
+  "include": ["src/*.ts", "*.ts", "src/wowexport/extract-wowexport.ts"  ],
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circle Coverage Test</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="800" height="600"></canvas>
+  <script>
+    function findBestCircle(x, y, radius) {
+      if (x.length === 0 || y.length === 0 || x.length !== y.length) {
+        return undefined
+      }
+
+      const n = x.length
+
+      // Function to calculate the squared distance between two points (i, j).
+      const distanceSquared = (i, j) =>
+        (x[i] - x[j]) * (x[i] - x[j]) + (y[i] - y[j]) * (y[i] - y[j])
+
+      const radiusSquared = radius * radius
+      let bestCenter = undefined
+      let maxCoveredPoints = 0
+
+      // We will consider every pair of points (i, j) as potential circle centers and every single point.
+      for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+          const midX = (x[i] + x[j]) / 2
+          const midY = (y[i] + y[j]) / 2
+
+          // Check if the midpoint can be a solution
+          const d2 = distanceSquared(i, j)
+          if (d2 <= 4 * radiusSquared) {
+            // Pythagorean theorem for the circle's diameter
+            // Current midpoint (midX, midY) is considered as a center
+            for (let k = 0; k < n; k++) {
+              const centerOptions = [
+                { x: midX, y: midY },
+                { x: x[i], y: y[i] },
+                { x: x[j], y: y[j] }
+              ]
+
+              for (const { x: centerX, y: centerY } of centerOptions) {
+                let coveredPoints = 0
+
+                for (let l = 0; l < n; l++) {
+                  if (
+                    Math.pow(x[l] - centerX, 2) + Math.pow(y[l] - centerY, 2) <=
+                    radiusSquared
+                  ) {
+                    coveredPoints++
+                  }
+                }
+
+                if (coveredPoints > maxCoveredPoints) {
+                  maxCoveredPoints = coveredPoints
+                  bestCenter = { x: centerX, y: centerY }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      return bestCenter
+    }
+  </script>
+  <script>
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const points = [];
+    const radius = 50;
+
+    // Event listener for canvas clicks
+    canvas.addEventListener('click', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+      points.push({ x: mouseX, y: mouseY });
+      redraw();
+    });
+
+    function redraw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const xCoords = points.map(point => point.x);
+      const yCoords = points.map(point => point.y);
+      const bestCircle = findBestCircle(xCoords, yCoords, radius);
+
+      points.forEach(point => drawPoint(point.x, point.y));
+      if (bestCircle) {
+        drawCircle(bestCircle.x, bestCircle.y, radius);
+      }
+    }
+
+    function drawPoint(x, y) {
+      ctx.beginPath();
+      ctx.arc(x, y, 3, 0, 2 * Math.PI);
+      ctx.fillStyle = 'blue';
+      ctx.fill();
+    }
+
+    function drawCircle(x, y, radius) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = 'red';
+      ctx.stroke();
+    }
+
+    // Initial draw
+    redraw();
+  </script>
+</body>
+
+</html>
