@@ -33,12 +33,15 @@ export async function extractWowExportData() {
       .replace('.obj', '.mdl');
 
     if (!isTerrainFile(objFile)) {
-      console.log('Converted doodad to', outputFile);
+      console.log('Convert doodad to', outputFile);
       mkdirSync(path.dirname(outputFile), { recursive: true });
+      if (mdl.model.boundsRadius > 200) { // extremely large model
+        mdl.setInfiniteExtents();
+      }
       writeFileSync(outputFile, mdl.toString());
     } else {
       terrainAdts.push([mdl, outputFile]);
-      console.log('Store terrain for post-processing', outputFile);
+      console.log('Store terrain for later post-processing', outputFile);
     }
 
     if (updateTextures) {
@@ -73,33 +76,20 @@ export async function extractWowExportData() {
 
   const center = [(min[0] + max[0]) / 2, (min[1] + max[1]) / 2, (min[2] + max[2]) / 2];
 
-  console.log('Total min/max extents', min, max);
+  console.log('Initial min/max extents', min, max);
   console.log('Dimension', (max[0] - min[0]), (max[1] - min[1]), (max[2] - min[2]));
-  console.log('Total center', center);
-
-  // find vertex closest to center (only X, Y coordinates are used)
-  let closestVertex = terrainAdts[0][0].geosets[0].vertices[0];
-  const distance = (v: number[]) => Math.sqrt((v[0] - center[0]) ** 2 + (v[1] - center[1]) ** 2);
-  const vertices = terrainAdts.flatMap((mdl) => mdl[0].geosets.flatMap((geoset) => geoset.vertices));
-  vertices.forEach((v) => {
-    const d = distance(v);
-    if (d < distance(closestVertex)) {
-      closestVertex = v;
-    }
-  });
+  console.log('Initial center', center);
 
   // For delta, X, Y are center, Z is the height of the closest vertex to center
   // so that after translation, the center is at (0, 0, 0)
-  const zDiff = max[2] - min[2];
-  let zLower = min[2] + zDiff * terrainHeightClampPercent.lower;
-  let zUpper = min[2] + zDiff * terrainHeightClampPercent.upper;
   const delta = [
     center[0],
     center[1],
-    Math.max(zLower, Math.min(zUpper, closestVertex[2])),
+    center[2],
   ];
   console.log('Translation delta', delta);
-  vertices.forEach((v) => {
+  const adtVertices = terrainAdts.flatMap(([mdl]) => mdl.geosets.flatMap((geoset) => geoset.vertices));
+  adtVertices.forEach((v) => {
     v[0] -= delta[0];
     v[1] -= delta[1];
     v[2] -= delta[2];
@@ -110,8 +100,6 @@ export async function extractWowExportData() {
   max[0] -= delta[0];
   max[1] -= delta[1];
   max[2] -= delta[2];
-  zLower -= delta[2];
-  zUpper -= delta[2];
 
   terrainAdts.forEach(([mdl, outputFile]) => {
     mdl.sync();
@@ -126,11 +114,16 @@ export async function extractWowExportData() {
 
   const wowDoodads = await readDoodadsCsv(wowExportPath);
 
+  const zDiff = max[2] - min[2];
+  const zLower = min[2] + zDiff * terrainHeightClampPercent.lower;
   wowDoodads.forEach((row) => {
     row.model = row.model.replace('.obj', '.mdl');
     row.position[0] -= delta[0];
     row.position[1] -= delta[1];
     row.position[2] -= delta[2];
+    // For doodad Z, make it so that 0 corresponds to highest playable terrain point
+    // (not highest model point)
+    row.position[2] -= zLower;
   });
 
   const dmin = [

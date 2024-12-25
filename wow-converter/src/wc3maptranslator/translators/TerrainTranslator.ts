@@ -1,6 +1,5 @@
 /* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-bitwise */
 import { type JsonResult, type WarResult } from '../CommonInterfaces';
 import { Terrain } from '../data/Terrain';
 import { HexBuffer } from '../HexBuffer';

@@ -11,7 +11,8 @@ enum flag {
   // 2= normal tree (visible and solid)
   undefined = 0,
   visible = 1,
-  solid = 2
+  solid = 2,
+  solid_custom_height = 6
 }
 
 export class DoodadsTranslator implements Translator<[Doodad[], SpecialDoodad[]]> {
@@ -78,8 +79,9 @@ export class DoodadsTranslator implements Translator<[Doodad[], SpecialDoodad[]]
          |  yes    |  no   |     1      |
          |  yes    |  yes  |     2      | */
       let treeFlag = 2; // default: normal tree
-      if (tree.flags == null) tree.flags = { visible: true, solid: true }; // defaults if no flags are specified
-      if (!tree.flags.visible && !tree.flags.solid) treeFlag = 0;
+      if (tree.flags == null) tree.flags = { visible: true, solid: true, customHeight: false }; // defaults if no flags are specified
+      if (tree.flags.customHeight) treeFlag = 6;
+      else if (!tree.flags.visible && !tree.flags.solid) treeFlag = 0;
       else if (tree.flags.visible && !tree.flags.solid) treeFlag = 1;
       else if (tree.flags.visible && tree.flags.solid) treeFlag = 2;
       // Note: invisible and solid is not an option
@@ -134,7 +136,7 @@ export class DoodadsTranslator implements Translator<[Doodad[], SpecialDoodad[]]
         angle: -1,
         scale: [0, 0, 0],
         skinId: '',
-        flags: { visible: true, solid: true },
+        flags: { visible: true, solid: true, customHeight: false },
         life: -1,
         randomItemSetPtr: 0,
         droppedItemSets: [],
@@ -157,8 +159,9 @@ export class DoodadsTranslator implements Translator<[Doodad[], SpecialDoodad[]]
 
       const flags: flag = outBufferToJSON.readByte();
       doodad.flags = {
-        visible: flags === flag.visible || flags === flag.solid,
-        solid: flags === flag.solid,
+        visible: flags === flag.visible || flags === flag.solid || flags === flag.solid_custom_height,
+        solid: flags === flag.solid || flags === flag.solid_custom_height,
+        customHeight: flags === flag.solid_custom_height,
       };
 
       doodad.life = outBufferToJSON.readByte(); // as a %

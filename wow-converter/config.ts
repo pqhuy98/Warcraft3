@@ -1,27 +1,27 @@
 export const wowExportPath = 'C:/Users/quang/wow.export/';
-export const mapPath = '../death-knight-starting\\maps\\death-knight-starting.w3x';
-export const assetPrefix = 'wow9\\';
+export const mapPath = 'maps/test-64x64.w3x';
+// export const mapPath = '../death-knight-starting\\maps\\death-knight-starting.w3x';
+export const assetPrefix = 'wow7\\';
 
 // Fine-tuned parameters
 export const terrainHeightClampPercent = {
-  upper: 0.8,
-  lower: 0.5,
+  upper: 1,
+  lower: 0,
 };
 export const verticalHorizontalRatio = 1;
-export const waterHeight = -275;
-export const defaultFilterMode = 'None';
-// export const defaultFilterMode = "Transparent"
+export const waterZThreshold = -1400;
+// export const defaultFilterMode = 'None';
+export const defaultFilterMode = 'Transparent';
 
 // Control parameters
-export const updateDoodadModels = true;
-export const updateTextures = false;
-export const updateDoodads = false;
+export const updateDoodadModels = true; // false to not skip this step
+export const updateTextures = true;
+export const updateDoodads = true;
 
 // Map generation configs
-export const hMin = 256;
-export const hMax = 14336;
-// export const hMin = 7680
-// export const hMax = 14336
+export const dataHeightMin = 1;
+// export const dataHeightMax = 16383; // Blizzard magic number
+export const dataHeightMax = 13823; // Blizzard magic number
 
 const noneFilterPatterns = [
   'textures\\walls',
@@ -51,9 +51,13 @@ const transparentFilterPatterns = [
   'alpha',
   'ash04',
   '\\glow',
-  'genericglow',
   'elwynnmiscrope03',
   'textures\\decoration',
+  '_glow',
+  'jlo_worc_chainsr',
+];
+const additiveFilterPatterns = [
+  'genericglow',
 ];
 
 export function getFilterMode(filePath: string): string {
@@ -62,6 +66,9 @@ export function getFilterMode(filePath: string): string {
   }
   if (transparentFilterPatterns.some((pattern) => filePath.includes(pattern))) {
     return 'Transparent';
+  }
+  if (additiveFilterPatterns.some((pattern) => filePath.includes(pattern))) {
+    return 'Additive';
   }
   return defaultFilterMode;
 }

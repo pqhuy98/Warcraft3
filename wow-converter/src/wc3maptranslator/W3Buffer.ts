@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
-const roundTo = require('round-to');
+import { roundTo } from 'round-to';
 
 export class W3Buffer {
   private _offset = 0;

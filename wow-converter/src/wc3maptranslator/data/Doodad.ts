@@ -18,6 +18,7 @@ interface Doodad {
 interface DoodadFlag {
   visible: boolean
   solid: boolean
+  customHeight: boolean
 }
 
 interface SpecialDoodad {

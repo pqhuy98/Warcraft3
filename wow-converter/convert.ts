@@ -4,7 +4,8 @@ import {
 import path from 'path';
 
 import {
-  assetPrefix, hMax, hMin, mapPath, terrainHeightClampPercent, updateDoodads, verticalHorizontalRatio, waterHeight,
+  assetPrefix, dataHeightMax, dataHeightMin, mapPath, terrainHeightClampPercent, updateDoodads, verticalHorizontalRatio,
+  waterZThreshold,
 } from './config';
 import { MDL } from './src/objmdl/mdl';
 import { generateFourCC } from './src/utils';
@@ -17,18 +18,20 @@ import { ObjectModificationTable, ObjectType } from './src/wc3maptranslator/data
 import { Terrain } from './src/wc3maptranslator/data/Terrain';
 import { extractWowExportData } from './src/wowexport/extract-wowexport';
 
-const stepPerTile = 4096 / 32;
-const maxGameHeightDiff = (hMax - hMin) / 4;
+const distancePerTile = 4096 / 32;
+const maxGameHeightDiff = (dataHeightMax - dataHeightMin) / 4;
+const inGameLowestZ = dataHeightToGameZ(dataHeightMin);
+const inGameHighestZ = dataHeightToGameZ(dataHeightMax);
 
-function gameHeightToDataHeight(gameHeight: number): number {
-  return Math.floor((gameHeight + 2048) / (2048 * 2) * 16383);
-  /*
-  Code -> ingame
-  -350 -> -400
-  -300 -> -380
-  -275 -> 349
-  -250 -> -335
-  */
+console.log('inGameLowestZ', inGameLowestZ);
+console.log('inGameHighestZ', inGameHighestZ);
+
+function dataHeightToGameZ(dataHeight: number): number {
+  return (dataHeight - 5632) / 4; // Blizzard magic number
+}
+
+function waterZToDataHeight(waterZ: number): number {
+  return Math.round((waterZ + 728) * 4) + 5632; // Blizzard magic numbers
 }
 
 function getInitialTerrain(height: number, width: number): Terrain {
@@ -40,14 +43,15 @@ function getInitialTerrain(height: number, width: number): Terrain {
     tilePalette: ['Ldrt', 'Ldro', 'Ldrg', 'Lrok', 'Lgrs', 'Lgrd'],
     cliffTilePalette: ['CLdi', 'CLgr'],
     map: {
-      width,
       height,
-      offset: { x: -2048 / 32 * width, y: -2048 / 32 * height },
+      width,
+      // 32x32 map has offset -2048,-2048.
+      offset: { x: -distancePerTile / 2 * width, y: -distancePerTile / 2 * height }, // Scale it according to above.
     },
     // "Masks"
 
-    groundHeight: fill(0),
-    waterHeight: fill(192),
+    groundHeight: fill((dataHeightMin + dataHeightMax) >> 1),
+    waterHeight: fill(dataHeightMin + 728 / 4),
 
     // boundaryFlag: 0: not boundary, 1: boundary. Can be all 0
     boundaryFlag: fill(false),
@@ -92,17 +96,19 @@ async function main() {
   const terrData = getInitialTerrain(height, width);
   for (let i = 0; i < heightMap.length; i++) {
     for (let j = 0; j < heightMap[i].length; j++) {
-      terrData.groundHeight[i][j] = Math.ceil(heightMap[i][j] * (hMax - hMin) + hMin);
+      terrData.groundHeight[i][j] = Math.ceil(heightMap[i][j] * (dataHeightMax - dataHeightMin) + dataHeightMin);
     }
   }
 
-  const waterHeightThreshold = gameHeightToDataHeight(waterHeight);
+  const waterHeightThreshold = waterZToDataHeight(waterZThreshold);
   for (let i = 0; i < heightMap.length; i++) {
     for (let j = 0; j < heightMap[i].length; j++) {
       if (terrData.groundHeight[i][j] < waterHeightThreshold) {
-        terrData.flags[i][j] = 64;
+        terrData.flags[i][j] |= 64;
         terrData.waterHeight[i][j] = waterHeightThreshold;
         terrData.groundHeight[i][j] = Math.min(terrData.groundHeight[i][j], waterHeightThreshold - 1);
+        // Make sure we don't overflow the limit
+        terrData.groundHeight[i][j] = Math.max(dataHeightMin, Math.min(dataHeightMax, terrData.groundHeight[i][j]));
       }
     }
   }
@@ -110,7 +116,7 @@ async function main() {
   console.log('groundHeight', terrData.groundHeight.length, 'min', Min(terrData.groundHeight), 'max', Max(terrData.groundHeight));
   writeFileSync(path.join(mapPath, 'war3map.w3e'), TerrainTranslator.jsonToWar(terrData).buffer);
 
-  const mapSize = [height * stepPerTile, width * stepPerTile, maxGameHeightDiff];
+  const mapSize = [height * distancePerTile, width * distancePerTile, maxGameHeightDiff];
   const scale = [
     mapSize[0] / terrainSize[0],
     mapSize[1] / terrainSize[1],
@@ -118,6 +124,7 @@ async function main() {
   ];
   console.log('mapSize', mapSize);
   console.log('terrainSize', terrainSize);
+  console.log('scale', scale);
 
   // Doodads
   const doodadsData: ObjectModificationTable = {
@@ -156,13 +163,17 @@ async function main() {
     doodads[0].push({
       type: id4Chars,
       variation: 0,
-      position: [0, 0, 0],
+      position: [
+        0, 0,
+        dataHeightToGameZ((dataHeightMax - dataHeightMin) / (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower) * (0.5 - terrainHeightClampPercent.lower) + dataHeightMin),
+      ],
       angle: 90,
-      scale,
+      scale: [scale[1], scale[0], scale[2]], // in-game X and Y are swapped.
       skinId: id4Chars,
       flags: {
         visible: true,
         solid: true,
+        customHeight: true,
       },
       life: 100,
       randomItemSetPtr: -1,
@@ -204,13 +215,17 @@ async function main() {
     const id = doodadName2Id.get(fileName)!;
     const id4Chars = id.slice(0, 4);
     const ddScale = (scale[0] + scale[1]) / 2;
+    const inGameX = -doodad.position[1] * scale[1]; // in-game X and Y are swapped.
+    const inGameY = doodad.position[0] * scale[0];
+    const inGameZ = (doodad.position[2] * scale[2] + inGameLowestZ) + 3;
+
     doodads[0].push({
       type: id4Chars,
       variation: 0,
       position: [
-        -doodad.position[1] * scale[1],
-        doodad.position[0] * scale[0],
-        doodad.position[2] * scale[2], // doesn't seem to work
+        inGameX,
+        inGameY,
+        inGameZ,
       ],
       angle: doodad.rotation + 180,
       scale: [ddScale, ddScale, ddScale],
@@ -218,6 +233,7 @@ async function main() {
       flags: {
         visible: true,
         solid: true,
+        customHeight: true,
       },
       life: 100,
       randomItemSetPtr: -1,
@@ -254,16 +270,15 @@ function computeTerrainHeightMap(terrains: MDL[]) {
   const size = [max[0] - min[0], max[1] - min[1], max[2] - min[2]];
   console.log({ size });
 
-  const ratio = (2047.8 - -2048) / (size[2] * (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower));
-  const gameHeight = size[0] * ratio;
-  const gameWidth = size[1] * ratio;
-  const h1 = gameHeight / stepPerTile / verticalHorizontalRatio;
-  const w1 = gameWidth / stepPerTile / verticalHorizontalRatio;
+  const ratioZ = maxGameHeightDiff / (size[2] * (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower));
+  const ratioXY = ratioZ / verticalHorizontalRatio;
+  const h1 = size[0] / distancePerTile * ratioXY;
+  const w1 = size[1] / distancePerTile * ratioXY;
 
   const height = Math.ceil(h1 / 4) * 4;
   const width = Math.ceil(w1 / 4) * 4;
 
-  console.log({ ratio, width, height });
+  console.log({ ratio: ratioZ, width, height });
 
   const heightMap = Array.from({ length: height + 1 }, () => Array<number>(width + 1).fill(0));
   terrains.forEach((terrain) => terrain.geosets
@@ -279,7 +294,7 @@ function computeTerrainHeightMap(terrains: MDL[]) {
     })));
 
   return {
-    heightMap, height, width, ratio, size,
+    heightMap, height, width, size,
   };
 }
 

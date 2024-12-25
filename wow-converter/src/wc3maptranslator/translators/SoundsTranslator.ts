@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { type JsonResult, type WarResult } from '../CommonInterfaces';
 import { type Sound } from '../data/Sound';

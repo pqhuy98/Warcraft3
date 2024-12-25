@@ -14,7 +14,6 @@ export function generateFourCC(startLetter: string) {
   const codeString = startLetter.toUpperCase() + numericPart;
   const fourCC = codeString
     .split('')
-    // eslint-disable-next-line no-bitwise
     .reduce((acc, char, index) => acc | (char.charCodeAt(0) << (8 * (3 - index))), 0);
 
   globalCounter++; // Increment the global counter for the next call
