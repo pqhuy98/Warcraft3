@@ -10,12 +10,12 @@ export const terrainHeightClampPercent = {
 };
 export const verticalHorizontalRatio = 1;
 export const waterZThreshold = -1400;
-// export const defaultFilterMode = 'None';
-export const defaultFilterMode = 'Transparent';
+export const defaultFilterMode = 'None';
+// export const defaultFilterMode = 'Transparent';
 
 // Control parameters
-export const updateDoodadModels = true; // false to not skip this step
-export const updateTextures = true;
+export const updateDoodadModels = false; // false to not skip this step
+export const updateTextures = false;
 export const updateDoodads = true;
 
 // Map generation configs
