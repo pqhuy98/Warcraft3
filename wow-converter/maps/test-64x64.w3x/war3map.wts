@@ -1,0 +1,3584 @@
+﻿STRING 2
+{
+Force 1
+}
+
+STRING 613
+// Doodads: D151 (zzz orcsleepmat03.mdl), Name (Name)
+{
+zzz orcsleepmat03.mdl
+}
+
+STRING 622
+// Doodads: D498 (zzz woodcross01.mdl), Name (Name)
+{
+zzz woodcross01.mdl
+}
+
+STRING 631
+// Doodads: D313 (zzz orcspear01.mdl), Name (Name)
+{
+zzz orcspear01.mdl
+}
+
+STRING 637
+// Doodads: D170 (zzz northrendgeneraltorch01.mdl), Name (Name)
+{
+zzz northrendgeneraltorch01.mdl
+}
+
+STRING 645
+// Doodads: D189 (zzz orccrate09.mdl), Name (Name)
+{
+zzz orccrate09.mdl
+}
+
+STRING 650
+// Doodads: D185 (zzz taurensack03.mdl), Name (Name)
+{
+zzz taurensack03.mdl
+}
+
+STRING 651
+// Doodads: D217 (zzz trollskullpile.mdl), Name (Name)
+{
+zzz trollskullpile.mdl
+}
+
+STRING 652
+// Doodads: D182 (zzz orccrate07.mdl), Name (Name)
+{
+zzz orccrate07.mdl
+}
+
+STRING 657
+// Doodads: D188 (zzz orccrate10.mdl), Name (Name)
+{
+zzz orccrate10.mdl
+}
+
+STRING 667
+// Doodads: D214 (zzz taurensack02.mdl), Name (Name)
+{
+zzz taurensack02.mdl
+}
+
+STRING 669
+// Doodads: D204 (zzz taurensack01.mdl), Name (Name)
+{
+zzz taurensack01.mdl
+}
+
+STRING 676
+// Doodads: D098 (zzz candle01.mdl), Name (Name)
+{
+zzz candle01.mdl
+}
+
+STRING 694
+// Doodads: D099 (zzz candle02.mdl), Name (Name)
+{
+zzz candle02.mdl
+}
+
+STRING 696
+// Doodads: D068 (zzz blastedlandsskull01.mdl), Name (Name)
+{
+zzz blastedlandsskull01.mdl
+}
+
+STRING 739
+// Doodads: D323 (zzz stormwindcrate01.mdl), Name (Name)
+{
+zzz stormwindcrate01.mdl
+}
+
+STRING 745
+// Doodads: D165 (zzz orccrate08.mdl), Name (Name)
+{
+zzz orccrate08.mdl
+}
+
+STRING 746
+// Doodads: D081 (zzz blastedlandsbonepile02.mdl), Name (Name)
+{
+zzz blastedlandsbonepile02.mdl
+}
+
+STRING 752
+// Doodads: D227 (zzz orcbottle01.mdl), Name (Name)
+{
+zzz orcbottle01.mdl
+}
+
+STRING 754
+// Doodads: D082 (zzz blastedlandsbonepile03.mdl), Name (Name)
+{
+zzz blastedlandsbonepile03.mdl
+}
+
+STRING 755
+// Doodads: D210 (zzz bucket.mdl), Name (Name)
+{
+zzz bucket.mdl
+}
+
+STRING 783
+// Doodads: D283 (zzz westfallwagon01.mdl), Name (Name)
+{
+zzz westfallwagon01.mdl
+}
+
+STRING 796
+// Doodads: D311 (zzz generalweaponrack01.mdl), Name (Name)
+{
+zzz generalweaponrack01.mdl
+}
+
+STRING 797
+// Doodads: D178 (zzz weaponcrateallianceswordopen.mdl), Name (Name)
+{
+zzz weaponcrateallianceswordopen.mdl
+}
+
+STRING 799
+// Doodads: D319 (zzz weaponcratealliancesword.mdl), Name (Name)
+{
+zzz weaponcratealliancesword.mdl
+}
+
+STRING 804
+// Doodads: D187 (zzz weaponcrateallianceswordlid.mdl), Name (Name)
+{
+zzz weaponcrateallianceswordlid.mdl
+}
+
+STRING 806
+// Doodads: D328 (zzz armorstand.mdl), Name (Name)
+{
+zzz armorstand.mdl
+}
+
+STRING 808
+// Doodads: D196 (zzz crategrainempty.mdl), Name (Name)
+{
+zzz crategrainempty.mdl
+}
+
+STRING 809
+// Doodads: D327 (zzz gunrack02d.mdl), Name (Name)
+{
+zzz gunrack02d.mdl
+}
+
+STRING 816
+// Doodads: D094 (zzz humansword01.mdl), Name (Name)
+{
+zzz humansword01.mdl
+}
+
+STRING 817
+// Doodads: D337 (zzz replacecrate01.mdl), Name (Name)
+{
+zzz replacecrate01.mdl
+}
+
+STRING 821
+// Doodads: D344 (zzz replacecrate03.mdl), Name (Name)
+{
+zzz replacecrate03.mdl
+}
+
+STRING 822
+// Doodads: D336 (zzz humanbow01.mdl), Name (Name)
+{
+zzz humanbow01.mdl
+}
+
+STRING 835
+// Doodads: D369 (zzz bottle01.mdl), Name (Name)
+{
+zzz bottle01.mdl
+}
+
+STRING 837
+// Doodads: D371 (zzz armorleathershirtblack.mdl), Name (Name)
+{
+zzz armorleathershirtblack.mdl
+}
+
+STRING 839
+// Doodads: D372 (zzz armorleathershirtorange.mdl), Name (Name)
+{
+zzz armorleathershirtorange.mdl
+}
+
+STRING 843
+// Doodads: D248 (zzz plate.mdl), Name (Name)
+{
+zzz plate.mdl
+}
+
+STRING 870
+// Doodads: D271 (zzz fish01.mdl), Name (Name)
+{
+zzz fish01.mdl
+}
+
+STRING 895
+// Doodads: D180 (zzz waterbasin.mdl), Name (Name)
+{
+zzz waterbasin.mdl
+}
+
+STRING 900
+// Doodads: D342 (zzz barrel02.mdl), Name (Name)
+{
+zzz barrel02.mdl
+}
+
+STRING 902
+// Doodads: D195 (zzz sack01.mdl), Name (Name)
+{
+zzz sack01.mdl
+}
+
+STRING 905
+// Doodads: D499 (zzz bloodymeat02.mdl), Name (Name)
+{
+zzz bloodymeat02.mdl
+}
+
+STRING 906
+// Doodads: D233 (zzz sack02.mdl), Name (Name)
+{
+zzz sack02.mdl
+}
+
+STRING 912
+// Doodads: D258 (zzz bloodymeat01.mdl), Name (Name)
+{
+zzz bloodymeat01.mdl
+}
+
+STRING 931
+{
+Just another Warcraft III map
+}
+
+STRING 932
+{
+Any
+}
+
+STRING 933
+{
+Nondescript
+}
+
+STRING 934
+{
+Unknown
+}
+
+STRING 935
+{
+Icecrown Citadel
+}
+
+STRING 936
+{
+Icecrown Citadel is the greatest fortress of the Scourge and the last bastion of the dread Lich King. Located in the frozen wastes of Icecrown on the continent of Northrend, the Citadel rises up from the Icecrown Glacier, a cathedral of blades and claws made entirely of saronite. It is a fortress as big as a city, its halls crawling with the most vile and loyal of the Scourge - a great army of the living dead standing between their dark master and those who once sought to destroy him. The fortress is, itself, layer after protective layer of cursed metal wrapped around the Frozen Throne that once held the spirit of Ner'zhul, until he joined with Arthas Menethil to become the new Lich King.
+}
+
+STRING 937
+{
+The Horde
+}
+
+STRING 938
+{
+Undead Scourge
+}
+
+STRING 939
+{
+Argent Crusade
+}
+
+STRING 940
+// Doodads: D000 (zzz adt_30_19.mdl), Name (Name)
+{
+zzz adt_30_19.mdl
+}
+
+STRING 941
+// Doodads: D001 (zzz adt_30_18.mdl), Name (Name)
+{
+zzz adt_30_18.mdl
+}
+
+STRING 942
+// Doodads: D002 (zzz adt_30_17.mdl), Name (Name)
+{
+zzz adt_30_17.mdl
+}
+
+STRING 943
+// Doodads: D003 (zzz adt_30_16.mdl), Name (Name)
+{
+zzz adt_30_16.mdl
+}
+
+STRING 944
+// Doodads: D004 (zzz adt_30_15.mdl), Name (Name)
+{
+zzz adt_30_15.mdl
+}
+
+STRING 945
+// Doodads: D005 (zzz adt_29_19.mdl), Name (Name)
+{
+zzz adt_29_19.mdl
+}
+
+STRING 946
+// Doodads: D006 (zzz adt_29_18.mdl), Name (Name)
+{
+zzz adt_29_18.mdl
+}
+
+STRING 947
+// Doodads: D007 (zzz adt_29_17.mdl), Name (Name)
+{
+zzz adt_29_17.mdl
+}
+
+STRING 948
+// Doodads: D008 (zzz adt_29_16.mdl), Name (Name)
+{
+zzz adt_29_16.mdl
+}
+
+STRING 949
+// Doodads: D009 (zzz adt_29_15.mdl), Name (Name)
+{
+zzz adt_29_15.mdl
+}
+
+STRING 950
+// Doodads: D010 (zzz adt_28_21.mdl), Name (Name)
+{
+zzz adt_28_21.mdl
+}
+
+STRING 951
+// Doodads: D011 (zzz adt_28_20.mdl), Name (Name)
+{
+zzz adt_28_20.mdl
+}
+
+STRING 952
+// Doodads: D012 (zzz adt_28_19.mdl), Name (Name)
+{
+zzz adt_28_19.mdl
+}
+
+STRING 953
+// Doodads: D013 (zzz adt_28_18.mdl), Name (Name)
+{
+zzz adt_28_18.mdl
+}
+
+STRING 954
+// Doodads: D014 (zzz adt_28_17.mdl), Name (Name)
+{
+zzz adt_28_17.mdl
+}
+
+STRING 955
+// Doodads: D015 (zzz adt_28_16.mdl), Name (Name)
+{
+zzz adt_28_16.mdl
+}
+
+STRING 956
+// Doodads: D016 (zzz adt_27_21.mdl), Name (Name)
+{
+zzz adt_27_21.mdl
+}
+
+STRING 957
+// Doodads: D017 (zzz adt_27_20.mdl), Name (Name)
+{
+zzz adt_27_20.mdl
+}
+
+STRING 958
+// Doodads: D018 (zzz adt_27_19.mdl), Name (Name)
+{
+zzz adt_27_19.mdl
+}
+
+STRING 959
+// Doodads: D019 (zzz adt_27_18.mdl), Name (Name)
+{
+zzz adt_27_18.mdl
+}
+
+STRING 960
+// Doodads: D020 (zzz adt_27_17.mdl), Name (Name)
+{
+zzz adt_27_17.mdl
+}
+
+STRING 961
+// Doodads: D021 (zzz adt_27_16.mdl), Name (Name)
+{
+zzz adt_27_16.mdl
+}
+
+STRING 962
+// Doodads: D022 (zzz adt_26_20.mdl), Name (Name)
+{
+zzz adt_26_20.mdl
+}
+
+STRING 963
+// Doodads: D023 (zzz adt_26_19.mdl), Name (Name)
+{
+zzz adt_26_19.mdl
+}
+
+STRING 964
+// Doodads: D024 (zzz adt_26_18.mdl), Name (Name)
+{
+zzz adt_26_18.mdl
+}
+
+STRING 965
+// Doodads: D025 (zzz adt_26_17.mdl), Name (Name)
+{
+zzz adt_26_17.mdl
+}
+
+STRING 966
+// Doodads: D026 (zzz sfx_fog_nasty_green.mdl), Name (Name)
+{
+zzz sfx_fog_nasty_green.mdl
+}
+
+STRING 967
+// Doodads: D027 (zzz sc_blighter_broken.mdl), Name (Name)
+{
+zzz sc_blighter_broken.mdl
+}
+
+STRING 968
+// Doodads: D028 (zzz ashtreesmoke01.mdl), Name (Name)
+{
+zzz ashtreesmoke01.mdl
+}
+
+STRING 969
+// Doodads: D029 (zzz sc_castingcircle_01.mdl), Name (Name)
+{
+zzz sc_castingcircle_01.mdl
+}
+
+STRING 970
+// Doodads: D030 (zzz shadowmooncracksmoke01.mdl), Name (Name)
+{
+zzz shadowmooncracksmoke01.mdl
+}
+
+STRING 971
+// Doodads: D031 (zzz sc_spirits_01.mdl), Name (Name)
+{
+zzz sc_spirits_01.mdl
+}
+
+STRING 972
+// Doodads: D032 (zzz sc_wagon.mdl), Name (Name)
+{
+zzz sc_wagon.mdl
+}
+
+STRING 973
+// Doodads: D033 (zzz icecrown_rock_02.mdl), Name (Name)
+{
+zzz icecrown_rock_02.mdl
+}
+
+STRING 974
+// Doodads: D034 (zzz sc_obelisk1.mdl), Name (Name)
+{
+zzz sc_obelisk1.mdl
+}
+
+STRING 975
+// Doodads: D035 (zzz undercityslimebubbles01.mdl), Name (Name)
+{
+zzz undercityslimebubbles01.mdl
+}
+
+STRING 976
+// Doodads: D036 (zzz icecrown_rock_01.mdl), Name (Name)
+{
+zzz icecrown_rock_01.mdl
+}
+
+STRING 977
+// Doodads: D037 (zzz icecrown_rock_03.mdl), Name (Name)
+{
+zzz icecrown_rock_03.mdl
+}
+
+STRING 978
+// Doodads: D038 (zzz sc_trench_p_bar.mdl), Name (Name)
+{
+zzz sc_trench_p_bar.mdl
+}
+
+STRING 979
+// Doodads: D039 (zzz sc_banner.mdl), Name (Name)
+{
+zzz sc_banner.mdl
+}
+
+STRING 980
+// Doodads: D040 (zzz undercityslimebubbles02.mdl), Name (Name)
+{
+zzz undercityslimebubbles02.mdl
+}
+
+STRING 981
+// Doodads: D041 (zzz sc_stairs2.mdl), Name (Name)
+{
+zzz sc_stairs2.mdl
+}
+
+STRING 982
+// Doodads: D042 (zzz sc_warmachine_01_green.mdl), Name (Name)
+{
+zzz sc_warmachine_01_green.mdl
+}
+
+STRING 983
+// Doodads: D043 (zzz sc_meatwagon_01.mdl), Name (Name)
+{
+zzz sc_meatwagon_01.mdl
+}
+
+STRING 984
+// Doodads: D044 (zzz sc_tent2.mdl), Name (Name)
+{
+zzz sc_tent2.mdl
+}
+
+STRING 985
+// Doodads: D045 (zzz sc_cages_01.mdl), Name (Name)
+{
+zzz sc_cages_01.mdl
+}
+
+STRING 986
+// Doodads: D046 (zzz ghostlandsshroom01.mdl), Name (Name)
+{
+zzz ghostlandsshroom01.mdl
+}
+
+STRING 987
+// Doodads: D047 (zzz sc_barricade.mdl), Name (Name)
+{
+zzz sc_barricade.mdl
+}
+
+STRING 988
+// Doodads: D048 (zzz sc_brazier2.mdl), Name (Name)
+{
+zzz sc_brazier2.mdl
+}
+
+STRING 989
+// Doodads: D049 (zzz sc_skullpikes_01.mdl), Name (Name)
+{
+zzz sc_skullpikes_01.mdl
+}
+
+STRING 990
+// Doodads: D050 (zzz sc_trench_m_tall.mdl), Name (Name)
+{
+zzz sc_trench_m_tall.mdl
+}
+
+STRING 991
+// Doodads: D051 (zzz sc_skullpikes_02.mdl), Name (Name)
+{
+zzz sc_skullpikes_02.mdl
+}
+
+STRING 992
+// Doodads: D052 (zzz sc_cauldron_empty.mdl), Name (Name)
+{
+zzz sc_cauldron_empty.mdl
+}
+
+STRING 993
+// Doodads: D053 (zzz icecrown_rock_04.mdl), Name (Name)
+{
+zzz icecrown_rock_04.mdl
+}
+
+STRING 994
+// Doodads: D054 (zzz sc_trench_c_medium.mdl), Name (Name)
+{
+zzz sc_trench_c_medium.mdl
+}
+
+STRING 995
+// Doodads: D055 (zzz icecrown_rock_06.mdl), Name (Name)
+{
+zzz icecrown_rock_06.mdl
+}
+
+STRING 996
+// Doodads: D056 (zzz icecrown_rock_05.mdl), Name (Name)
+{
+zzz icecrown_rock_05.mdl
+}
+
+STRING 997
+// Doodads: D057 (zzz coffin.mdl), Name (Name)
+{
+zzz coffin.mdl
+}
+
+STRING 998
+// Doodads: D058 (zzz coffinlid.mdl), Name (Name)
+{
+zzz coffinlid.mdl
+}
+
+STRING 999
+// Doodads: D059 (zzz skeletonlaying03.mdl), Name (Name)
+{
+zzz skeletonlaying03.mdl
+}
+
+STRING 1000
+// Doodads: D060 (zzz bodyshrouded.mdl), Name (Name)
+{
+zzz bodyshrouded.mdl
+}
+
+STRING 1001
+// Doodads: D061 (zzz sc_chest.mdl), Name (Name)
+{
+zzz sc_chest.mdl
+}
+
+STRING 1002
+// Doodads: D062 (zzz skeletonlaying02.mdl), Name (Name)
+{
+zzz skeletonlaying02.mdl
+}
+
+STRING 1003
+// Doodads: D063 (zzz skeletonlaying01.mdl), Name (Name)
+{
+zzz skeletonlaying01.mdl
+}
+
+STRING 1004
+// Doodads: D064 (zzz sc_wolfskull_green_01.mdl), Name (Name)
+{
+zzz sc_wolfskull_green_01.mdl
+}
+
+STRING 1005
+// Doodads: D065 (zzz sc_bonearm_green_01.mdl), Name (Name)
+{
+zzz sc_bonearm_green_01.mdl
+}
+
+STRING 1006
+// Doodads: D066 (zzz battlegladeswordskull.mdl), Name (Name)
+{
+zzz battlegladeswordskull.mdl
+}
+
+STRING 1007
+// Doodads: D067 (zzz sc_bonearm_01.mdl), Name (Name)
+{
+zzz sc_bonearm_01.mdl
+}
+
+STRING 1008
+// Doodads: D069 (zzz icecrown_citygate_01_set0.mdl), Name (Name)
+{
+zzz icecrown_citygate_01_set0.mdl
+}
+
+STRING 1009
+// Doodads: D070 (zzz nd_nerubian_temple06_set0.mdl), Name (Name)
+{
+zzz nd_nerubian_temple06_set0.mdl
+}
+
+STRING 1010
+// Doodads: D071 (zzz undeadziggurat_set0.mdl), Name (Name)
+{
+zzz undeadziggurat_set0.mdl
+}
+
+STRING 1011
+// Doodads: D072 (zzz icecrown_dam_01_set0.mdl), Name (Name)
+{
+zzz icecrown_dam_01_set0.mdl
+}
+
+STRING 1012
+// Doodads: D073 (zzz humantank02_set0.mdl), Name (Name)
+{
+zzz humantank02_set0.mdl
+}
+
+STRING 1013
+// Doodads: D074 (zzz slaughterhouse_set0.mdl), Name (Name)
+{
+zzz slaughterhouse_set0.mdl
+}
+
+STRING 1014
+// Doodads: D075 (zzz azjol_statue_01.mdl), Name (Name)
+{
+zzz azjol_statue_01.mdl
+}
+
+STRING 1015
+// Doodads: D076 (zzz sc_meatwagon_01_broken.mdl), Name (Name)
+{
+zzz sc_meatwagon_01_broken.mdl
+}
+
+STRING 1016
+// Doodads: D077 (zzz sc_cages_02.mdl), Name (Name)
+{
+zzz sc_cages_02.mdl
+}
+
+STRING 1017
+// Doodads: D078 (zzz lightskeletonlaying02.mdl), Name (Name)
+{
+zzz lightskeletonlaying02.mdl
+}
+
+STRING 1018
+// Doodads: D079 (zzz lightskeletonlaying01.mdl), Name (Name)
+{
+zzz lightskeletonlaying01.mdl
+}
+
+STRING 1019
+// Doodads: D080 (zzz lightskeletonlaying03.mdl), Name (Name)
+{
+zzz lightskeletonlaying03.mdl
+}
+
+STRING 1020
+// Doodads: D083 (zzz battlegladeskullhuman1.mdl), Name (Name)
+{
+zzz battlegladeskullhuman1.mdl
+}
+
+STRING 1021
+// Doodads: D084 (zzz icecrown_wall_twr_lrg_lt01_set0.mdl), Name (Name)
+{
+zzz icecrown_wall_twr_lrg_lt01_set0.mdl
+}
+
+STRING 1022
+// Doodads: D085 (zzz icecrown_domebuilding_smallnoint_01_set0.mdl), Name (Name)
+{
+zzz icecrown_domebuilding_smallnoint_01_set0.mdl
+}
+
+STRING 1023
+// Doodads: D086 (zzz icecrown_frozenwurm_01.mdl), Name (Name)
+{
+zzz icecrown_frozenwurm_01.mdl
+}
+
+STRING 1024
+// Doodads: D087 (zzz db_dragonsparerib01.mdl), Name (Name)
+{
+zzz db_dragonsparerib01.mdl
+}
+
+STRING 1025
+// Doodads: D088 (zzz db_dragonhead03.mdl), Name (Name)
+{
+zzz db_dragonhead03.mdl
+}
+
+STRING 1026
+// Doodads: D089 (zzz sc_fence.mdl), Name (Name)
+{
+zzz sc_fence.mdl
+}
+
+STRING 1027
+// Doodads: D090 (zzz sc_wall_06_piece.mdl), Name (Name)
+{
+zzz sc_wall_06_piece.mdl
+}
+
+STRING 1028
+// Doodads: D091 (zzz sc_crystal_base.mdl), Name (Name)
+{
+zzz sc_crystal_base.mdl
+}
+
+STRING 1029
+// Doodads: D092 (zzz bigcandle.mdl), Name (Name)
+{
+zzz bigcandle.mdl
+}
+
+STRING 1030
+// Doodads: D093 (zzz humansword02.mdl), Name (Name)
+{
+zzz humansword02.mdl
+}
+
+STRING 1031
+// Doodads: D095 (zzz candleblack01.mdl), Name (Name)
+{
+zzz candleblack01.mdl
+}
+
+STRING 1032
+// Doodads: D096 (zzz booklargeopen02.mdl), Name (Name)
+{
+zzz booklargeopen02.mdl
+}
+
+STRING 1033
+// Doodads: D097 (zzz lightskeletonsitting04.mdl), Name (Name)
+{
+zzz lightskeletonsitting04.mdl
+}
+
+STRING 1034
+// Doodads: D100 (zzz candle03.mdl), Name (Name)
+{
+zzz candle03.mdl
+}
+
+STRING 1035
+// Doodads: D101 (zzz bookmediumopen02.mdl), Name (Name)
+{
+zzz bookmediumopen02.mdl
+}
+
+STRING 1036
+// Doodads: D102 (zzz candleoff02.mdl), Name (Name)
+{
+zzz candleoff02.mdl
+}
+
+STRING 1037
+// Doodads: D103 (zzz skullcandle01.mdl), Name (Name)
+{
+zzz skullcandle01.mdl
+}
+
+STRING 1038
+// Doodads: D104 (zzz candleoff01.mdl), Name (Name)
+{
+zzz candleoff01.mdl
+}
+
+STRING 1039
+// Doodads: D105 (zzz skullcandle02.mdl), Name (Name)
+{
+zzz skullcandle02.mdl
+}
+
+STRING 1040
+// Doodads: D106 (zzz argentcrusade_sword_in_ice.mdl), Name (Name)
+{
+zzz argentcrusade_sword_in_ice.mdl
+}
+
+STRING 1041
+// Doodads: D107 (zzz argentcursade_windypennant01.mdl), Name (Name)
+{
+zzz argentcursade_windypennant01.mdl
+}
+
+STRING 1042
+// Doodads: D108 (zzz dr_cable_wide.mdl), Name (Name)
+{
+zzz dr_cable_wide.mdl
+}
+
+STRING 1043
+// Doodads: D109 (zzz orcwagon01.mdl), Name (Name)
+{
+zzz orcwagon01.mdl
+}
+
+STRING 1044
+// Doodads: D110 (zzz dr_cable_medium.mdl), Name (Name)
+{
+zzz dr_cable_medium.mdl
+}
+
+STRING 1045
+// Doodads: D111 (zzz stormpeaks_treei.mdl), Name (Name)
+{
+zzz stormpeaks_treei.mdl
+}
+
+STRING 1046
+// Doodads: D112 (zzz stormpeaks_treeb.mdl), Name (Name)
+{
+zzz stormpeaks_treeb.mdl
+}
+
+STRING 1047
+// Doodads: D113 (zzz argentcrusade_tent06.mdl), Name (Name)
+{
+zzz argentcrusade_tent06.mdl
+}
+
+STRING 1048
+// Doodads: D114 (zzz stormpeaks_treed.mdl), Name (Name)
+{
+zzz stormpeaks_treed.mdl
+}
+
+STRING 1049
+// Doodads: D115 (zzz vr_straw_small_01.mdl), Name (Name)
+{
+zzz vr_straw_small_01.mdl
+}
+
+STRING 1050
+// Doodads: D116 (zzz stormpeaks_treee.mdl), Name (Name)
+{
+zzz stormpeaks_treee.mdl
+}
+
+STRING 1051
+// Doodads: D117 (zzz carnivalrailing.mdl), Name (Name)
+{
+zzz carnivalrailing.mdl
+}
+
+STRING 1052
+// Doodads: D118 (zzz argent_long_banner_01.mdl), Name (Name)
+{
+zzz argent_long_banner_01.mdl
+}
+
+STRING 1053
+// Doodads: D119 (zzz shattrathsouptent.mdl), Name (Name)
+{
+zzz shattrathsouptent.mdl
+}
+
+STRING 1054
+// Doodads: D120 (zzz be_banner01.mdl), Name (Name)
+{
+zzz be_banner01.mdl
+}
+
+STRING 1055
+// Doodads: D121 (zzz be_wagon.mdl), Name (Name)
+{
+zzz be_wagon.mdl
+}
+
+STRING 1056
+// Doodads: D122 (zzz orcwagon04.mdl), Name (Name)
+{
+zzz orcwagon04.mdl
+}
+
+STRING 1057
+// Doodads: D123 (zzz argentcrusade_arch_01.mdl), Name (Name)
+{
+zzz argentcrusade_arch_01.mdl
+}
+
+STRING 1058
+// Doodads: D124 (zzz be_wagon02.mdl), Name (Name)
+{
+zzz be_wagon02.mdl
+}
+
+STRING 1059
+// Doodads: D125 (zzz hellfiresupplies_04.mdl), Name (Name)
+{
+zzz hellfiresupplies_04.mdl
+}
+
+STRING 1060
+// Doodads: D126 (zzz battlefieldbannerhorde.mdl), Name (Name)
+{
+zzz battlefieldbannerhorde.mdl
+}
+
+STRING 1061
+// Doodads: D127 (zzz orcbench01.mdl), Name (Name)
+{
+zzz orcbench01.mdl
+}
+
+STRING 1062
+// Doodads: D128 (zzz dalaran_rug_02.mdl), Name (Name)
+{
+zzz dalaran_rug_02.mdl
+}
+
+STRING 1063
+// Doodads: D129 (zzz taurencoloredsmoke01.mdl), Name (Name)
+{
+zzz taurencoloredsmoke01.mdl
+}
+
+STRING 1064
+// Doodads: D130 (zzz argentcrusade_banner01.mdl), Name (Name)
+{
+zzz argentcrusade_banner01.mdl
+}
+
+STRING 1065
+// Doodads: D131 (zzz hu_tent02.mdl), Name (Name)
+{
+zzz hu_tent02.mdl
+}
+
+STRING 1066
+// Doodads: D132 (zzz hellfiresupplies_05.mdl), Name (Name)
+{
+zzz hellfiresupplies_05.mdl
+}
+
+STRING 1067
+// Doodads: D133 (zzz bleacherswood01.mdl), Name (Name)
+{
+zzz bleacherswood01.mdl
+}
+
+STRING 1068
+// Doodads: D134 (zzz dalaran_assorted_counter01.mdl), Name (Name)
+{
+zzz dalaran_assorted_counter01.mdl
+}
+
+STRING 1069
+// Doodads: D135 (zzz dalaran_assorted_counter02.mdl), Name (Name)
+{
+zzz dalaran_assorted_counter02.mdl
+}
+
+STRING 1070
+// Doodads: D136 (zzz crystalsongbush01.mdl), Name (Name)
+{
+zzz crystalsongbush01.mdl
+}
+
+STRING 1071
+// Doodads: D137 (zzz hu_tarp_boxes.mdl), Name (Name)
+{
+zzz hu_tarp_boxes.mdl
+}
+
+STRING 1072
+// Doodads: D138 (zzz hellfiresupplies_06.mdl), Name (Name)
+{
+zzz hellfiresupplies_06.mdl
+}
+
+STRING 1073
+// Doodads: D139 (zzz goblinbleachers.mdl), Name (Name)
+{
+zzz goblinbleachers.mdl
+}
+
+STRING 1074
+// Doodads: D140 (zzz haybail01.mdl), Name (Name)
+{
+zzz haybail01.mdl
+}
+
+STRING 1075
+// Doodads: D141 (zzz dalaran_magicaltrash_01.mdl), Name (Name)
+{
+zzz dalaran_magicaltrash_01.mdl
+}
+
+STRING 1076
+// Doodads: D142 (zzz haybail02.mdl), Name (Name)
+{
+zzz haybail02.mdl
+}
+
+STRING 1077
+// Doodads: D143 (zzz wyvernnest01.mdl), Name (Name)
+{
+zzz wyvernnest01.mdl
+}
+
+STRING 1078
+// Doodads: D144 (zzz wyvernnest02.mdl), Name (Name)
+{
+zzz wyvernnest02.mdl
+}
+
+STRING 1079
+// Doodads: D145 (zzz argentcrusade_jousting_lane_middle.mdl), Name (Name)
+{
+zzz argentcrusade_jousting_lane_middle.mdl
+}
+
+STRING 1080
+// Doodads: D146 (zzz northrendtorch_01.mdl), Name (Name)
+{
+zzz northrendtorch_01.mdl
+}
+
+STRING 1081
+// Doodads: D147 (zzz outhouse.mdl), Name (Name)
+{
+zzz outhouse.mdl
+}
+
+STRING 1082
+// Doodads: D148 (zzz painting01.mdl), Name (Name)
+{
+zzz painting01.mdl
+}
+
+STRING 1083
+// Doodads: D149 (zzz he_banner_02.mdl), Name (Name)
+{
+zzz he_banner_02.mdl
+}
+
+STRING 1084
+// Doodads: D150 (zzz be_banner02.mdl), Name (Name)
+{
+zzz be_banner02.mdl
+}
+
+STRING 1085
+// Doodads: D152 (zzz stormpeaks_busha.mdl), Name (Name)
+{
+zzz stormpeaks_busha.mdl
+}
+
+STRING 1086
+// Doodads: D153 (zzz painting14.mdl), Name (Name)
+{
+zzz painting14.mdl
+}
+
+STRING 1087
+// Doodads: D154 (zzz be_bookshelfshort.mdl), Name (Name)
+{
+zzz be_bookshelfshort.mdl
+}
+
+STRING 1088
+// Doodads: D155 (zzz stormwindrug02.mdl), Name (Name)
+{
+zzz stormwindrug02.mdl
+}
+
+STRING 1089
+// Doodads: D156 (zzz tournament_banner_bloodelf01.mdl), Name (Name)
+{
+zzz tournament_banner_bloodelf01.mdl
+}
+
+STRING 1090
+// Doodads: D157 (zzz excavationrailingpostrope.mdl), Name (Name)
+{
+zzz excavationrailingpostrope.mdl
+}
+
+STRING 1091
+// Doodads: D158 (zzz tournament_banner_horde01.mdl), Name (Name)
+{
+zzz tournament_banner_horde01.mdl
+}
+
+STRING 1092
+// Doodads: D159 (zzz tournament_banner_trolls01.mdl), Name (Name)
+{
+zzz tournament_banner_trolls01.mdl
+}
+
+STRING 1093
+// Doodads: D160 (zzz generalhanginglantern01.mdl), Name (Name)
+{
+zzz generalhanginglantern01.mdl
+}
+
+STRING 1094
+// Doodads: D161 (zzz tournament_banner_tauren01.mdl), Name (Name)
+{
+zzz tournament_banner_tauren01.mdl
+}
+
+STRING 1095
+// Doodads: D162 (zzz painting15.mdl), Name (Name)
+{
+zzz painting15.mdl
+}
+
+STRING 1096
+// Doodads: D163 (zzz scholme_purplerug.mdl), Name (Name)
+{
+zzz scholme_purplerug.mdl
+}
+
+STRING 1097
+// Doodads: D164 (zzz tournament_banner_fk01.mdl), Name (Name)
+{
+zzz tournament_banner_fk01.mdl
+}
+
+STRING 1098
+// Doodads: D166 (zzz hu_fence06_northrend.mdl), Name (Name)
+{
+zzz hu_fence06_northrend.mdl
+}
+
+STRING 1099
+// Doodads: D167 (zzz caveminewheelbarrow01.mdl), Name (Name)
+{
+zzz caveminewheelbarrow01.mdl
+}
+
+STRING 1100
+// Doodads: D168 (zzz argentcrusade_fence_01.mdl), Name (Name)
+{
+zzz argentcrusade_fence_01.mdl
+}
+
+STRING 1101
+// Doodads: D169 (zzz hu_fencepost_northrend.mdl), Name (Name)
+{
+zzz hu_fencepost_northrend.mdl
+}
+
+STRING 1102
+// Doodads: D171 (zzz sackherbsstack01.mdl), Name (Name)
+{
+zzz sackherbsstack01.mdl
+}
+
+STRING 1103
+// Doodads: D172 (zzz painting07.mdl), Name (Name)
+{
+zzz painting07.mdl
+}
+
+STRING 1104
+// Doodads: D173 (zzz hu_fence05_northrend.mdl), Name (Name)
+{
+zzz hu_fence05_northrend.mdl
+}
+
+STRING 1105
+// Doodads: D174 (zzz argentcrusade_jousting_lane_end.mdl), Name (Name)
+{
+zzz argentcrusade_jousting_lane_end.mdl
+}
+
+STRING 1106
+// Doodads: D175 (zzz sackherbsstack02.mdl), Name (Name)
+{
+zzz sackherbsstack02.mdl
+}
+
+STRING 1107
+// Doodads: D176 (zzz cratehordefirstaid01.mdl), Name (Name)
+{
+zzz cratehordefirstaid01.mdl
+}
+
+STRING 1108
+// Doodads: D177 (zzz weaponcratehordeaxelid.mdl), Name (Name)
+{
+zzz weaponcratehordeaxelid.mdl
+}
+
+STRING 1109
+// Doodads: D179 (zzz innpillow.mdl), Name (Name)
+{
+zzz innpillow.mdl
+}
+
+STRING 1110
+// Doodads: D181 (zzz crate01.mdl), Name (Name)
+{
+zzz crate01.mdl
+}
+
+STRING 1111
+// Doodads: D183 (zzz weaponcratehordeaxeopen.mdl), Name (Name)
+{
+zzz weaponcratehordeaxeopen.mdl
+}
+
+STRING 1112
+// Doodads: D184 (zzz be_crate01.mdl), Name (Name)
+{
+zzz be_crate01.mdl
+}
+
+STRING 1113
+// Doodads: D186 (zzz roastboarplatter.mdl), Name (Name)
+{
+zzz roastboarplatter.mdl
+}
+
+STRING 1114
+// Doodads: D190 (zzz dalaran_crate_03.mdl), Name (Name)
+{
+zzz dalaran_crate_03.mdl
+}
+
+STRING 1115
+// Doodads: D191 (zzz fishplatter01.mdl), Name (Name)
+{
+zzz fishplatter01.mdl
+}
+
+STRING 1116
+// Doodads: D192 (zzz dr_bowl_01.mdl), Name (Name)
+{
+zzz dr_bowl_01.mdl
+}
+
+STRING 1117
+// Doodads: D193 (zzz dalaran_crate_01.mdl), Name (Name)
+{
+zzz dalaran_crate_01.mdl
+}
+
+STRING 1118
+// Doodads: D194 (zzz painting02.mdl), Name (Name)
+{
+zzz painting02.mdl
+}
+
+STRING 1119
+// Doodads: D197 (zzz sackherbspeacebloom01.mdl), Name (Name)
+{
+zzz sackherbspeacebloom01.mdl
+}
+
+STRING 1120
+// Doodads: D198 (zzz haystack01.mdl), Name (Name)
+{
+zzz haystack01.mdl
+}
+
+STRING 1121
+// Doodads: D199 (zzz tradeskill_firstaid_01.mdl), Name (Name)
+{
+zzz tradeskill_firstaid_01.mdl
+}
+
+STRING 1122
+// Doodads: D200 (zzz poodad01.mdl), Name (Name)
+{
+zzz poodad01.mdl
+}
+
+STRING 1123
+// Doodads: D201 (zzz karazahncrate01.mdl), Name (Name)
+{
+zzz karazahncrate01.mdl
+}
+
+STRING 1124
+// Doodads: D202 (zzz shovel.mdl), Name (Name)
+{
+zzz shovel.mdl
+}
+
+STRING 1125
+// Doodads: D203 (zzz generalcandelabra01.mdl), Name (Name)
+{
+zzz generalcandelabra01.mdl
+}
+
+STRING 1126
+// Doodads: D205 (zzz tournament_banner_human01.mdl), Name (Name)
+{
+zzz tournament_banner_human01.mdl
+}
+
+STRING 1127
+// Doodads: D206 (zzz sword_long_d_02.mdl), Name (Name)
+{
+zzz sword_long_d_02.mdl
+}
+
+STRING 1128
+// Doodads: D207 (zzz sackherbsstranglekelp01.mdl), Name (Name)
+{
+zzz sackherbsstranglekelp01.mdl
+}
+
+STRING 1129
+// Doodads: D208 (zzz sack01_01.mdl), Name (Name)
+{
+zzz sack01_01.mdl
+}
+
+STRING 1130
+// Doodads: D209 (zzz cratealliancefirstaid01.mdl), Name (Name)
+{
+zzz cratealliancefirstaid01.mdl
+}
+
+STRING 1131
+// Doodads: D211 (zzz painting11.mdl), Name (Name)
+{
+zzz painting11.mdl
+}
+
+STRING 1132
+// Doodads: D212 (zzz be_barrel_01.mdl), Name (Name)
+{
+zzz be_barrel_01.mdl
+}
+
+STRING 1133
+// Doodads: D213 (zzz dalaran_barrel_01.mdl), Name (Name)
+{
+zzz dalaran_barrel_01.mdl
+}
+
+STRING 1134
+// Doodads: D215 (zzz tournament_banner_draenei01.mdl), Name (Name)
+{
+zzz tournament_banner_draenei01.mdl
+}
+
+STRING 1135
+// Doodads: D216 (zzz dalaran_cakestand_01.mdl), Name (Name)
+{
+zzz dalaran_cakestand_01.mdl
+}
+
+STRING 1136
+// Doodads: D218 (zzz clothboltwhite.mdl), Name (Name)
+{
+zzz clothboltwhite.mdl
+}
+
+STRING 1137
+// Doodads: D219 (zzz tournament_banner_gnome01.mdl), Name (Name)
+{
+zzz tournament_banner_gnome01.mdl
+}
+
+STRING 1138
+// Doodads: D220 (zzz flowerswreath02.mdl), Name (Name)
+{
+zzz flowerswreath02.mdl
+}
+
+STRING 1139
+// Doodads: D221 (zzz tournament_banner_dwarf01.mdl), Name (Name)
+{
+zzz tournament_banner_dwarf01.mdl
+}
+
+STRING 1140
+// Doodads: D222 (zzz dalaran_crate_04.mdl), Name (Name)
+{
+zzz dalaran_crate_04.mdl
+}
+
+STRING 1141
+// Doodads: D223 (zzz tournament_banner_nelf01.mdl), Name (Name)
+{
+zzz tournament_banner_nelf01.mdl
+}
+
+STRING 1142
+// Doodads: D224 (zzz tradeskill_herbs_01.mdl), Name (Name)
+{
+zzz tradeskill_herbs_01.mdl
+}
+
+STRING 1143
+// Doodads: D225 (zzz dalaran_cake_02.mdl), Name (Name)
+{
+zzz dalaran_cake_02.mdl
+}
+
+STRING 1144
+// Doodads: D226 (zzz tradeskill_herbs_02.mdl), Name (Name)
+{
+zzz tradeskill_herbs_02.mdl
+}
+
+STRING 1145
+// Doodads: D228 (zzz be_bottle01.mdl), Name (Name)
+{
+zzz be_bottle01.mdl
+}
+
+STRING 1146
+// Doodads: D229 (zzz dalaran_hat_01.mdl), Name (Name)
+{
+zzz dalaran_hat_01.mdl
+}
+
+STRING 1147
+// Doodads: D230 (zzz sc_yoggthoritebar_01.mdl), Name (Name)
+{
+zzz sc_yoggthoritebar_01.mdl
+}
+
+STRING 1148
+// Doodads: D231 (zzz be_bottle03.mdl), Name (Name)
+{
+zzz be_bottle03.mdl
+}
+
+STRING 1149
+// Doodads: D232 (zzz flowersbunch01.mdl), Name (Name)
+{
+zzz flowersbunch01.mdl
+}
+
+STRING 1150
+// Doodads: D234 (zzz starfish01_02.mdl), Name (Name)
+{
+zzz starfish01_02.mdl
+}
+
+STRING 1151
+// Doodads: D235 (zzz elvenpottery04.mdl), Name (Name)
+{
+zzz elvenpottery04.mdl
+}
+
+STRING 1152
+// Doodads: D236 (zzz featherbigbrown.mdl), Name (Name)
+{
+zzz featherbigbrown.mdl
+}
+
+STRING 1153
+// Doodads: D237 (zzz inscription_quill02.mdl), Name (Name)
+{
+zzz inscription_quill02.mdl
+}
+
+STRING 1154
+// Doodads: D238 (zzz slimejar03.mdl), Name (Name)
+{
+zzz slimejar03.mdl
+}
+
+STRING 1155
+// Doodads: D239 (zzz inscription_quill01.mdl), Name (Name)
+{
+zzz inscription_quill01.mdl
+}
+
+STRING 1156
+// Doodads: D240 (zzz inscription_quill03.mdl), Name (Name)
+{
+zzz inscription_quill03.mdl
+}
+
+STRING 1157
+// Doodads: D241 (zzz inscription_quill04.mdl), Name (Name)
+{
+zzz inscription_quill04.mdl
+}
+
+STRING 1158
+// Doodads: D242 (zzz dalaran_crystalball_01.mdl), Name (Name)
+{
+zzz dalaran_crystalball_01.mdl
+}
+
+STRING 1159
+// Doodads: D243 (zzz foldedshirtbrown.mdl), Name (Name)
+{
+zzz foldedshirtbrown.mdl
+}
+
+STRING 1160
+// Doodads: D244 (zzz inscription_scroll_rolledblank.mdl), Name (Name)
+{
+zzz inscription_scroll_rolledblank.mdl
+}
+
+STRING 1161
+// Doodads: D245 (zzz argentcrusade_sword_n_stone.mdl), Name (Name)
+{
+zzz argentcrusade_sword_n_stone.mdl
+}
+
+STRING 1162
+// Doodads: D246 (zzz foldershirtgreen.mdl), Name (Name)
+{
+zzz foldershirtgreen.mdl
+}
+
+STRING 1163
+// Doodads: D247 (zzz inscription_scroll_boxup.mdl), Name (Name)
+{
+zzz inscription_scroll_boxup.mdl
+}
+
+STRING 1164
+// Doodads: D249 (zzz inscription_scroll_rolledgreen.mdl), Name (Name)
+{
+zzz inscription_scroll_rolledgreen.mdl
+}
+
+STRING 1165
+// Doodads: D250 (zzz be_meat01.mdl), Name (Name)
+{
+zzz be_meat01.mdl
+}
+
+STRING 1166
+// Doodads: D251 (zzz tradeskill_firstaid_02.mdl), Name (Name)
+{
+zzz tradeskill_firstaid_02.mdl
+}
+
+STRING 1167
+// Doodads: D252 (zzz potion_blue01.mdl), Name (Name)
+{
+zzz potion_blue01.mdl
+}
+
+STRING 1168
+// Doodads: D253 (zzz dalaran_magicaltrash_04.mdl), Name (Name)
+{
+zzz dalaran_magicaltrash_04.mdl
+}
+
+STRING 1169
+// Doodads: D254 (zzz dalaran_magicaltrash_03.mdl), Name (Name)
+{
+zzz dalaran_magicaltrash_03.mdl
+}
+
+STRING 1170
+// Doodads: D255 (zzz potion_empty01.mdl), Name (Name)
+{
+zzz potion_empty01.mdl
+}
+
+STRING 1171
+// Doodads: D256 (zzz cheesewheel01.mdl), Name (Name)
+{
+zzz cheesewheel01.mdl
+}
+
+STRING 1172
+// Doodads: D257 (zzz mug01.mdl), Name (Name)
+{
+zzz mug01.mdl
+}
+
+STRING 1173
+// Doodads: D259 (zzz potion_purple01.mdl), Name (Name)
+{
+zzz potion_purple01.mdl
+}
+
+STRING 1174
+// Doodads: D260 (zzz be_cup01.mdl), Name (Name)
+{
+zzz be_cup01.mdl
+}
+
+STRING 1175
+// Doodads: D261 (zzz nd_argentcrusadetenttwo_set1.mdl), Name (Name)
+{
+zzz nd_argentcrusadetenttwo_set1.mdl
+}
+
+STRING 1176
+// Doodads: D262 (zzz nd_argentcrusadecoliseum_set0.mdl), Name (Name)
+{
+zzz nd_argentcrusadecoliseum_set0.mdl
+}
+
+STRING 1177
+// Doodads: D263 (zzz nd_argentcrusadetentone_set2.mdl), Name (Name)
+{
+zzz nd_argentcrusadetentone_set2.mdl
+}
+
+STRING 1178
+// Doodads: D264 (zzz nd_argentcrusadestage_set0.mdl), Name (Name)
+{
+zzz nd_argentcrusadestage_set0.mdl
+}
+
+STRING 1179
+// Doodads: D265 (zzz nd_human_tower_set0.mdl), Name (Name)
+{
+zzz nd_human_tower_set0.mdl
+}
+
+STRING 1180
+// Doodads: D266 (zzz dragonblight_shard_06.mdl), Name (Name)
+{
+zzz dragonblight_shard_06.mdl
+}
+
+STRING 1181
+// Doodads: D267 (zzz dragonblight_cliff_02.mdl), Name (Name)
+{
+zzz dragonblight_cliff_02.mdl
+}
+
+STRING 1182
+// Doodads: D268 (zzz dragonblight_shard_05.mdl), Name (Name)
+{
+zzz dragonblight_shard_05.mdl
+}
+
+STRING 1183
+// Doodads: D269 (zzz dragonblight_shard_04.mdl), Name (Name)
+{
+zzz dragonblight_shard_04.mdl
+}
+
+STRING 1184
+// Doodads: D270 (zzz genericseaweed10.mdl), Name (Name)
+{
+zzz genericseaweed10.mdl
+}
+
+STRING 1185
+// Doodads: D272 (zzz genericseaweed09.mdl), Name (Name)
+{
+zzz genericseaweed09.mdl
+}
+
+STRING 1186
+// Doodads: D273 (zzz genericseaweed08.mdl), Name (Name)
+{
+zzz genericseaweed08.mdl
+}
+
+STRING 1187
+// Doodads: D274 (zzz sc_tent1.mdl), Name (Name)
+{
+zzz sc_tent1.mdl
+}
+
+STRING 1188
+// Doodads: D275 (zzz genericseaweed07.mdl), Name (Name)
+{
+zzz genericseaweed07.mdl
+}
+
+STRING 1189
+// Doodads: D276 (zzz beerfest_wagon.mdl), Name (Name)
+{
+zzz beerfest_wagon.mdl
+}
+
+STRING 1190
+// Doodads: D277 (zzz eyeofazora.mdl), Name (Name)
+{
+zzz eyeofazora.mdl
+}
+
+STRING 1191
+// Doodads: D278 (zzz argentcrusade_small01.mdl), Name (Name)
+{
+zzz argentcrusade_small01.mdl
+}
+
+STRING 1192
+// Doodads: D279 (zzz jewelcraft_grinder01.mdl), Name (Name)
+{
+zzz jewelcraft_grinder01.mdl
+}
+
+STRING 1193
+// Doodads: D280 (zzz argentcrusade_foodtent.mdl), Name (Name)
+{
+zzz argentcrusade_foodtent.mdl
+}
+
+STRING 1194
+// Doodads: D281 (zzz ak_alchemyset01.mdl), Name (Name)
+{
+zzz ak_alchemyset01.mdl
+}
+
+STRING 1195
+// Doodads: D282 (zzz argentcrusade_tent05.mdl), Name (Name)
+{
+zzz argentcrusade_tent05.mdl
+}
+
+STRING 1196
+// Doodads: D284 (zzz vr_roadplank_snow02.mdl), Name (Name)
+{
+zzz vr_roadplank_snow02.mdl
+}
+
+STRING 1197
+// Doodads: D285 (zzz argentcrusade_beervendor.mdl), Name (Name)
+{
+zzz argentcrusade_beervendor.mdl
+}
+
+STRING 1198
+// Doodads: D286 (zzz he_banner_01.mdl), Name (Name)
+{
+zzz he_banner_01.mdl
+}
+
+STRING 1199
+// Doodads: D287 (zzz he_wagon_01.mdl), Name (Name)
+{
+zzz he_wagon_01.mdl
+}
+
+STRING 1200
+// Doodads: D288 (zzz argentcrusade_opentent.mdl), Name (Name)
+{
+zzz argentcrusade_opentent.mdl
+}
+
+STRING 1201
+// Doodads: D289 (zzz excavationwaterwagon.mdl), Name (Name)
+{
+zzz excavationwaterwagon.mdl
+}
+
+STRING 1202
+// Doodads: D290 (zzz dalaran_rug_04.mdl), Name (Name)
+{
+zzz dalaran_rug_04.mdl
+}
+
+STRING 1203
+// Doodads: D291 (zzz vr_roadplank_snow04.mdl), Name (Name)
+{
+zzz vr_roadplank_snow04.mdl
+}
+
+STRING 1204
+// Doodads: D292 (zzz ebonblade_banner02.mdl), Name (Name)
+{
+zzz ebonblade_banner02.mdl
+}
+
+STRING 1205
+// Doodads: D293 (zzz dalaran_rug_01.mdl), Name (Name)
+{
+zzz dalaran_rug_01.mdl
+}
+
+STRING 1206
+// Doodads: D294 (zzz dalaran_rug_03.mdl), Name (Name)
+{
+zzz dalaran_rug_03.mdl
+}
+
+STRING 1207
+// Doodads: D295 (zzz taurenbeadcurtain01.mdl), Name (Name)
+{
+zzz taurenbeadcurtain01.mdl
+}
+
+STRING 1208
+// Doodads: D296 (zzz alliance_banner_01.mdl), Name (Name)
+{
+zzz alliance_banner_01.mdl
+}
+
+STRING 1209
+// Doodads: D297 (zzz ebonblade_banner01.mdl), Name (Name)
+{
+zzz ebonblade_banner01.mdl
+}
+
+STRING 1210
+// Doodads: D298 (zzz sc_weaponrack1.mdl), Name (Name)
+{
+zzz sc_weaponrack1.mdl
+}
+
+STRING 1211
+// Doodads: D299 (zzz alekegs01.mdl), Name (Name)
+{
+zzz alekegs01.mdl
+}
+
+STRING 1212
+// Doodads: D300 (zzz engineering_autolathe_01.mdl), Name (Name)
+{
+zzz engineering_autolathe_01.mdl
+}
+
+STRING 1213
+// Doodads: D301 (zzz inntable.mdl), Name (Name)
+{
+zzz inntable.mdl
+}
+
+STRING 1214
+// Doodads: D302 (zzz excavationropestake.mdl), Name (Name)
+{
+zzz excavationropestake.mdl
+}
+
+STRING 1215
+// Doodads: D303 (zzz stormpeaks_rockb.mdl), Name (Name)
+{
+zzz stormpeaks_rockb.mdl
+}
+
+STRING 1216
+// Doodads: D304 (zzz tradeskill_leatherworking_01.mdl), Name (Name)
+{
+zzz tradeskill_leatherworking_01.mdl
+}
+
+STRING 1217
+// Doodads: D305 (zzz tradeskill_alchemyset_03.mdl), Name (Name)
+{
+zzz tradeskill_alchemyset_03.mdl
+}
+
+STRING 1218
+// Doodads: D306 (zzz innbench.mdl), Name (Name)
+{
+zzz innbench.mdl
+}
+
+STRING 1219
+// Doodads: D307 (zzz gnometable02.mdl), Name (Name)
+{
+zzz gnometable02.mdl
+}
+
+STRING 1220
+// Doodads: D308 (zzz northrendtorch_01blue.mdl), Name (Name)
+{
+zzz northrendtorch_01blue.mdl
+}
+
+STRING 1221
+// Doodads: D309 (zzz sc_weaponrack2.mdl), Name (Name)
+{
+zzz sc_weaponrack2.mdl
+}
+
+STRING 1222
+// Doodads: D310 (zzz tradeskill_skinning_02.mdl), Name (Name)
+{
+zzz tradeskill_skinning_02.mdl
+}
+
+STRING 1223
+// Doodads: D312 (zzz alekegfoot.mdl), Name (Name)
+{
+zzz alekegfoot.mdl
+}
+
+STRING 1224
+// Doodads: D314 (zzz jewelrystore_rug_01.mdl), Name (Name)
+{
+zzz jewelrystore_rug_01.mdl
+}
+
+STRING 1225
+// Doodads: D315 (zzz metalbarstack02iron.mdl), Name (Name)
+{
+zzz metalbarstack02iron.mdl
+}
+
+STRING 1226
+// Doodads: D316 (zzz metalbarstack01iron.mdl), Name (Name)
+{
+zzz metalbarstack01iron.mdl
+}
+
+STRING 1227
+// Doodads: D317 (zzz metalbarstack01copper.mdl), Name (Name)
+{
+zzz metalbarstack01copper.mdl
+}
+
+STRING 1228
+// Doodads: D318 (zzz sc_yoggthoritebar_stack_01.mdl), Name (Name)
+{
+zzz sc_yoggthoritebar_stack_01.mdl
+}
+
+STRING 1229
+// Doodads: D320 (zzz inscription_quill_frosty.mdl), Name (Name)
+{
+zzz inscription_quill_frosty.mdl
+}
+
+STRING 1230
+// Doodads: D321 (zzz jewelry_posterscroll_02.mdl), Name (Name)
+{
+zzz jewelry_posterscroll_02.mdl
+}
+
+STRING 1231
+// Doodads: D322 (zzz rackshieldalliance02.mdl), Name (Name)
+{
+zzz rackshieldalliance02.mdl
+}
+
+STRING 1232
+// Doodads: D324 (zzz jewelcraft_gemuncut_03.mdl), Name (Name)
+{
+zzz jewelcraft_gemuncut_03.mdl
+}
+
+STRING 1233
+// Doodads: D325 (zzz rackshieldhorde02.mdl), Name (Name)
+{
+zzz rackshieldhorde02.mdl
+}
+
+STRING 1234
+// Doodads: D326 (zzz jewelcraft_gemuncut_02.mdl), Name (Name)
+{
+zzz jewelcraft_gemuncut_02.mdl
+}
+
+STRING 1235
+// Doodads: D329 (zzz tradeskill_tailoring_01.mdl), Name (Name)
+{
+zzz tradeskill_tailoring_01.mdl
+}
+
+STRING 1236
+// Doodads: D330 (zzz rackshieldhorde01.mdl), Name (Name)
+{
+zzz rackshieldhorde01.mdl
+}
+
+STRING 1237
+// Doodads: D331 (zzz tradeskill_tailoring_02.mdl), Name (Name)
+{
+zzz tradeskill_tailoring_02.mdl
+}
+
+STRING 1238
+// Doodads: D332 (zzz gnomebucket02.mdl), Name (Name)
+{
+zzz gnomebucket02.mdl
+}
+
+STRING 1239
+// Doodads: D333 (zzz inscription_bookofpower_01.mdl), Name (Name)
+{
+zzz inscription_bookofpower_01.mdl
+}
+
+STRING 1240
+// Doodads: D334 (zzz humanbow02.mdl), Name (Name)
+{
+zzz humanbow02.mdl
+}
+
+STRING 1241
+// Doodads: D335 (zzz sc_barrel_01.mdl), Name (Name)
+{
+zzz sc_barrel_01.mdl
+}
+
+STRING 1242
+// Doodads: D338 (zzz gnomebucket04.mdl), Name (Name)
+{
+zzz gnomebucket04.mdl
+}
+
+STRING 1243
+// Doodads: D339 (zzz jewelcraft_gemuncut_01.mdl), Name (Name)
+{
+zzz jewelcraft_gemuncut_01.mdl
+}
+
+STRING 1244
+// Doodads: D340 (zzz clothboltblue.mdl), Name (Name)
+{
+zzz clothboltblue.mdl
+}
+
+STRING 1245
+// Doodads: D341 (zzz gnomebucket03.mdl), Name (Name)
+{
+zzz gnomebucket03.mdl
+}
+
+STRING 1246
+// Doodads: D343 (zzz elfbarrel01.mdl), Name (Name)
+{
+zzz elfbarrel01.mdl
+}
+
+STRING 1247
+// Doodads: D345 (zzz ak_alchemybottle02.mdl), Name (Name)
+{
+zzz ak_alchemybottle02.mdl
+}
+
+STRING 1248
+// Doodads: D346 (zzz inscription_quillpeacock01.mdl), Name (Name)
+{
+zzz inscription_quillpeacock01.mdl
+}
+
+STRING 1249
+// Doodads: D347 (zzz generalbookstacktall01.mdl), Name (Name)
+{
+zzz generalbookstacktall01.mdl
+}
+
+STRING 1250
+// Doodads: D348 (zzz gnomebucket01.mdl), Name (Name)
+{
+zzz gnomebucket01.mdl
+}
+
+STRING 1251
+// Doodads: D349 (zzz gunshoppowderkegopen.mdl), Name (Name)
+{
+zzz gunshoppowderkegopen.mdl
+}
+
+STRING 1252
+// Doodads: D350 (zzz humanarrows.mdl), Name (Name)
+{
+zzz humanarrows.mdl
+}
+
+STRING 1253
+// Doodads: D351 (zzz tradeskill_enchanting_01.mdl), Name (Name)
+{
+zzz tradeskill_enchanting_01.mdl
+}
+
+STRING 1254
+// Doodads: D352 (zzz generalbookstackshort01.mdl), Name (Name)
+{
+zzz generalbookstackshort01.mdl
+}
+
+STRING 1255
+// Doodads: D353 (zzz jewelcraft_gemcut_01.mdl), Name (Name)
+{
+zzz jewelcraft_gemcut_01.mdl
+}
+
+STRING 1256
+// Doodads: D354 (zzz inscription_scroll_rolledpindouble01.mdl), Name (Name)
+{
+zzz inscription_scroll_rolledpindouble01.mdl
+}
+
+STRING 1257
+// Doodads: D355 (zzz hangingshirtgreen.mdl), Name (Name)
+{
+zzz hangingshirtgreen.mdl
+}
+
+STRING 1258
+// Doodads: D356 (zzz hangingshirtbrown.mdl), Name (Name)
+{
+zzz hangingshirtbrown.mdl
+}
+
+STRING 1259
+// Doodads: D357 (zzz metalbars01copper.mdl), Name (Name)
+{
+zzz metalbars01copper.mdl
+}
+
+STRING 1260
+// Doodads: D358 (zzz metalbars01iron.mdl), Name (Name)
+{
+zzz metalbars01iron.mdl
+}
+
+STRING 1261
+// Doodads: D359 (zzz tradeskill_leatherworking_02.mdl), Name (Name)
+{
+zzz tradeskill_leatherworking_02.mdl
+}
+
+STRING 1262
+// Doodads: D360 (zzz jewelcraft_necklace02.mdl), Name (Name)
+{
+zzz jewelcraft_necklace02.mdl
+}
+
+STRING 1263
+// Doodads: D361 (zzz inscription_scroll_boxside.mdl), Name (Name)
+{
+zzz inscription_scroll_boxside.mdl
+}
+
+STRING 1264
+// Doodads: D362 (zzz ak_alchemybottle01.mdl), Name (Name)
+{
+zzz ak_alchemybottle01.mdl
+}
+
+STRING 1265
+// Doodads: D363 (zzz breadfrench01.mdl), Name (Name)
+{
+zzz breadfrench01.mdl
+}
+
+STRING 1266
+// Doodads: D364 (zzz jewelcraft_necklace01.mdl), Name (Name)
+{
+zzz jewelcraft_necklace01.mdl
+}
+
+STRING 1267
+// Doodads: D365 (zzz wand_jeweled_b_01.mdl), Name (Name)
+{
+zzz wand_jeweled_b_01.mdl
+}
+
+STRING 1268
+// Doodads: D366 (zzz hangingshirtclotheslinegreen.mdl), Name (Name)
+{
+zzz hangingshirtclotheslinegreen.mdl
+}
+
+STRING 1269
+// Doodads: D367 (zzz tradeskill_skinning_01.mdl), Name (Name)
+{
+zzz tradeskill_skinning_01.mdl
+}
+
+STRING 1270
+// Doodads: D368 (zzz jewelcraft_figurine02.mdl), Name (Name)
+{
+zzz jewelcraft_figurine02.mdl
+}
+
+STRING 1271
+// Doodads: D370 (zzz wand_jeweled_b_02.mdl), Name (Name)
+{
+zzz wand_jeweled_b_02.mdl
+}
+
+STRING 1272
+// Doodads: D373 (zzz inscription_scroll_sealed02.mdl), Name (Name)
+{
+zzz inscription_scroll_sealed02.mdl
+}
+
+STRING 1273
+// Doodads: D374 (zzz ak_alchemybottle03.mdl), Name (Name)
+{
+zzz ak_alchemybottle03.mdl
+}
+
+STRING 1274
+// Doodads: D375 (zzz pie01.mdl), Name (Name)
+{
+zzz pie01.mdl
+}
+
+STRING 1275
+// Doodads: D376 (zzz ne_candle01.mdl), Name (Name)
+{
+zzz ne_candle01.mdl
+}
+
+STRING 1276
+// Doodads: D377 (zzz inscription_scroll_rolledpin02.mdl), Name (Name)
+{
+zzz inscription_scroll_rolledpin02.mdl
+}
+
+STRING 1277
+// Doodads: D378 (zzz jewelcraft_figurine01.mdl), Name (Name)
+{
+zzz jewelcraft_figurine01.mdl
+}
+
+STRING 1278
+// Doodads: D379 (zzz jewelcraft_ring01.mdl), Name (Name)
+{
+zzz jewelcraft_ring01.mdl
+}
+
+STRING 1279
+// Doodads: D380 (zzz jewelcraft_figurine03.mdl), Name (Name)
+{
+zzz jewelcraft_figurine03.mdl
+}
+
+STRING 1280
+// Doodads: D381 (zzz inscription_inkbottle_red01.mdl), Name (Name)
+{
+zzz inscription_inkbottle_red01.mdl
+}
+
+STRING 1281
+// Doodads: D382 (zzz inscription_inkbottle_black01.mdl), Name (Name)
+{
+zzz inscription_inkbottle_black01.mdl
+}
+
+STRING 1282
+// Doodads: D383 (zzz be_cup02.mdl), Name (Name)
+{
+zzz be_cup02.mdl
+}
+
+STRING 1283
+// Doodads: D384 (zzz jewelcraft_ring03.mdl), Name (Name)
+{
+zzz jewelcraft_ring03.mdl
+}
+
+STRING 1284
+// Doodads: D385 (zzz breadfrenchhalf.mdl), Name (Name)
+{
+zzz breadfrenchhalf.mdl
+}
+
+STRING 1285
+// Doodads: D386 (zzz cheesewheelswiss01.mdl), Name (Name)
+{
+zzz cheesewheelswiss01.mdl
+}
+
+STRING 1286
+// Doodads: D387 (zzz breadloaf01.mdl), Name (Name)
+{
+zzz breadloaf01.mdl
+}
+
+STRING 1287
+// Doodads: D388 (zzz cheesewedgeswiss01.mdl), Name (Name)
+{
+zzz cheesewedgeswiss01.mdl
+}
+
+STRING 1288
+// Doodads: D389 (zzz cheesewedge01.mdl), Name (Name)
+{
+zzz cheesewedge01.mdl
+}
+
+STRING 1289
+// Doodads: D390 (zzz breadloafhalf.mdl), Name (Name)
+{
+zzz breadloafhalf.mdl
+}
+
+STRING 1290
+// Doodads: D391 (zzz breadslice.mdl), Name (Name)
+{
+zzz breadslice.mdl
+}
+
+STRING 1291
+// Doodads: D392 (zzz muffin01.mdl), Name (Name)
+{
+zzz muffin01.mdl
+}
+
+STRING 1292
+// Doodads: D393 (zzz nd_argentcrusadetentone_set1.mdl), Name (Name)
+{
+zzz nd_argentcrusadetentone_set1.mdl
+}
+
+STRING 1293
+// Doodads: D394 (zzz sunstrider_ship_set0.mdl), Name (Name)
+{
+zzz sunstrider_ship_set0.mdl
+}
+
+STRING 1294
+// Doodads: D395 (zzz stratholmefiresmokeemberm.mdl), Name (Name)
+{
+zzz stratholmefiresmokeemberm.mdl
+}
+
+STRING 1295
+// Doodads: D396 (zzz sc_pitcylinder.mdl), Name (Name)
+{
+zzz sc_pitcylinder.mdl
+}
+
+STRING 1296
+// Doodads: D397 (zzz sc_banner_04.mdl), Name (Name)
+{
+zzz sc_banner_04.mdl
+}
+
+STRING 1297
+// Doodads: D398 (zzz sc_tent1_destroyed.mdl), Name (Name)
+{
+zzz sc_tent1_destroyed.mdl
+}
+
+STRING 1298
+// Doodads: D399 (zzz sc_wagon_broken.mdl), Name (Name)
+{
+zzz sc_wagon_broken.mdl
+}
+
+STRING 1299
+// Doodads: D400 (zzz plaugelandsbanner01.mdl), Name (Name)
+{
+zzz plaugelandsbanner01.mdl
+}
+
+STRING 1300
+// Doodads: D401 (zzz ironforgesteamtankdrag.mdl), Name (Name)
+{
+zzz ironforgesteamtankdrag.mdl
+}
+
+STRING 1301
+// Doodads: D402 (zzz sc_warmachine_01_broken.mdl), Name (Name)
+{
+zzz sc_warmachine_01_broken.mdl
+}
+
+STRING 1302
+// Doodads: D403 (zzz ironforgesteamtank.mdl), Name (Name)
+{
+zzz ironforgesteamtank.mdl
+}
+
+STRING 1303
+// Doodads: D404 (zzz ironforgesteamtankruined01.mdl), Name (Name)
+{
+zzz ironforgesteamtankruined01.mdl
+}
+
+STRING 1304
+// Doodads: D405 (zzz sc_bodycart_destroyed.mdl), Name (Name)
+{
+zzz sc_bodycart_destroyed.mdl
+}
+
+STRING 1305
+// Doodads: D406 (zzz sc_wagon_02_broken.mdl), Name (Name)
+{
+zzz sc_wagon_02_broken.mdl
+}
+
+STRING 1306
+// Doodads: D407 (zzz sc_bodycart_01.mdl), Name (Name)
+{
+zzz sc_bodycart_01.mdl
+}
+
+STRING 1307
+// Doodads: D408 (zzz sc_bodycart_02.mdl), Name (Name)
+{
+zzz sc_bodycart_02.mdl
+}
+
+STRING 1308
+// Doodads: D409 (zzz sc_wall_06.mdl), Name (Name)
+{
+zzz sc_wall_06.mdl
+}
+
+STRING 1309
+// Doodads: D410 (zzz sc_trench_c_tall.mdl), Name (Name)
+{
+zzz sc_trench_c_tall.mdl
+}
+
+STRING 1310
+// Doodads: D411 (zzz sc_wagon_02.mdl), Name (Name)
+{
+zzz sc_wagon_02.mdl
+}
+
+STRING 1311
+// Doodads: D412 (zzz sc_trench_p_bone1.mdl), Name (Name)
+{
+zzz sc_trench_p_bone1.mdl
+}
+
+STRING 1312
+// Doodads: D413 (zzz sc_trench_c_long.mdl), Name (Name)
+{
+zzz sc_trench_c_long.mdl
+}
+
+STRING 1313
+// Doodads: D414 (zzz sc_trench_m_medium.mdl), Name (Name)
+{
+zzz sc_trench_m_medium.mdl
+}
+
+STRING 1314
+// Doodads: D415 (zzz sc_bonesawtable_01.mdl), Name (Name)
+{
+zzz sc_bonesawtable_01.mdl
+}
+
+STRING 1315
+// Doodads: D416 (zzz sc_surgicaltable_01.mdl), Name (Name)
+{
+zzz sc_surgicaltable_01.mdl
+}
+
+STRING 1316
+// Doodads: D417 (zzz sc_trench_p_bone3.mdl), Name (Name)
+{
+zzz sc_trench_p_bone3.mdl
+}
+
+STRING 1317
+// Doodads: D418 (zzz sc_trench_p_chain.mdl), Name (Name)
+{
+zzz sc_trench_p_chain.mdl
+}
+
+STRING 1318
+// Doodads: D419 (zzz sc_bodycart_body.mdl), Name (Name)
+{
+zzz sc_bodycart_body.mdl
+}
+
+STRING 1319
+// Doodads: D420 (zzz sc_trench_p_bone2.mdl), Name (Name)
+{
+zzz sc_trench_p_bone2.mdl
+}
+
+STRING 1320
+// Doodads: D421 (zzz catapultball01.mdl), Name (Name)
+{
+zzz catapultball01.mdl
+}
+
+STRING 1321
+// Doodads: D422 (zzz sc_weaponrack-weapon1.mdl), Name (Name)
+{
+zzz sc_weaponrack-weapon1.mdl
+}
+
+STRING 1322
+// Doodads: D423 (zzz sc_weaponrack-weapon5.mdl), Name (Name)
+{
+zzz sc_weaponrack-weapon5.mdl
+}
+
+STRING 1323
+// Doodads: D424 (zzz sc_barrel_01_broken.mdl), Name (Name)
+{
+zzz sc_barrel_01_broken.mdl
+}
+
+STRING 1324
+// Doodads: D425 (zzz sc_crate_01.mdl), Name (Name)
+{
+zzz sc_crate_01.mdl
+}
+
+STRING 1325
+// Doodads: D426 (zzz sc_weaponrack-weapon2.mdl), Name (Name)
+{
+zzz sc_weaponrack-weapon2.mdl
+}
+
+STRING 1326
+// Doodads: D427 (zzz sc_weaponrack-weapon3.mdl), Name (Name)
+{
+zzz sc_weaponrack-weapon3.mdl
+}
+
+STRING 1327
+// Doodads: D428 (zzz sc_crate_02.mdl), Name (Name)
+{
+zzz sc_crate_02.mdl
+}
+
+STRING 1328
+// Doodads: D429 (zzz sc_plaguebarrel_02.mdl), Name (Name)
+{
+zzz sc_plaguebarrel_02.mdl
+}
+
+STRING 1329
+// Doodads: D430 (zzz sc_weaponrack-weapon4.mdl), Name (Name)
+{
+zzz sc_weaponrack-weapon4.mdl
+}
+
+STRING 1330
+// Doodads: D431 (zzz icebon03.mdl), Name (Name)
+{
+zzz icebon03.mdl
+}
+
+STRING 1331
+// Doodads: D432 (zzz icebon04.mdl), Name (Name)
+{
+zzz icebon04.mdl
+}
+
+STRING 1332
+// Doodads: D433 (zzz icebon06.mdl), Name (Name)
+{
+zzz icebon06.mdl
+}
+
+STRING 1333
+// Doodads: D434 (zzz icebon08.mdl), Name (Name)
+{
+zzz icebon08.mdl
+}
+
+STRING 1334
+// Doodads: D435 (zzz icecrown_citadel_exterior_set0.mdl), Name (Name)
+{
+zzz icecrown_citadel_exterior_set0.mdl
+}
+
+STRING 1335
+// Doodads: D436 (zzz icecrown_domebuilding_01_set1.mdl), Name (Name)
+{
+zzz icecrown_domebuilding_01_set1.mdl
+}
+
+STRING 1336
+// Doodads: D437 (zzz humantank03_set0.mdl), Name (Name)
+{
+zzz humantank03_set0.mdl
+}
+
+STRING 1337
+// Doodads: D438 (zzz icecrown_tower_perch_02_set0.mdl), Name (Name)
+{
+zzz icecrown_tower_perch_02_set0.mdl
+}
+
+STRING 1338
+// Doodads: D439 (zzz sc_crane_02.mdl), Name (Name)
+{
+zzz sc_crane_02.mdl
+}
+
+STRING 1339
+// Doodads: D440 (zzz sc_tent_destroyed.mdl), Name (Name)
+{
+zzz sc_tent_destroyed.mdl
+}
+
+STRING 1340
+// Doodads: D441 (zzz gyrocopter.mdl), Name (Name)
+{
+zzz gyrocopter.mdl
+}
+
+STRING 1341
+// Doodads: D442 (zzz dragonblight_debrispile_01.mdl), Name (Name)
+{
+zzz dragonblight_debrispile_01.mdl
+}
+
+STRING 1342
+// Doodads: D443 (zzz sc_wall_decoration_02.mdl), Name (Name)
+{
+zzz sc_wall_decoration_02.mdl
+}
+
+STRING 1343
+// Doodads: D444 (zzz sc_barrel_02_broken.mdl), Name (Name)
+{
+zzz sc_barrel_02_broken.mdl
+}
+
+STRING 1344
+// Doodads: D445 (zzz dalaran_painting_01.mdl), Name (Name)
+{
+zzz dalaran_painting_01.mdl
+}
+
+STRING 1345
+// Doodads: D446 (zzz dsexcavationplatform_set0.mdl), Name (Name)
+{
+zzz dsexcavationplatform_set0.mdl
+}
+
+STRING 1346
+// Doodads: D447 (zzz sc_blighter.mdl), Name (Name)
+{
+zzz sc_blighter.mdl
+}
+
+STRING 1347
+// Doodads: D448 (zzz sc_tanktrap.mdl), Name (Name)
+{
+zzz sc_tanktrap.mdl
+}
+
+STRING 1348
+// Doodads: D449 (zzz sc_obelisk2.mdl), Name (Name)
+{
+zzz sc_obelisk2.mdl
+}
+
+STRING 1349
+// Doodads: D450 (zzz sc_warmachine_01.mdl), Name (Name)
+{
+zzz sc_warmachine_01.mdl
+}
+
+STRING 1350
+// Doodads: D451 (zzz sc_eyeofacherus_02.mdl), Name (Name)
+{
+zzz sc_eyeofacherus_02.mdl
+}
+
+STRING 1351
+// Doodads: D452 (zzz sc_banner_02.mdl), Name (Name)
+{
+zzz sc_banner_02.mdl
+}
+
+STRING 1352
+// Doodads: D453 (zzz sc_crystal.mdl), Name (Name)
+{
+zzz sc_crystal.mdl
+}
+
+STRING 1353
+// Doodads: D454 (zzz sc_trench_m_brace.mdl), Name (Name)
+{
+zzz sc_trench_m_brace.mdl
+}
+
+STRING 1354
+// Doodads: D455 (zzz sc_operation_table.mdl), Name (Name)
+{
+zzz sc_operation_table.mdl
+}
+
+STRING 1355
+// Doodads: D456 (zzz sc_bodyjar_ghoul.mdl), Name (Name)
+{
+zzz sc_bodyjar_ghoul.mdl
+}
+
+STRING 1356
+// Doodads: D457 (zzz sc_bodyjar.mdl), Name (Name)
+{
+zzz sc_bodyjar.mdl
+}
+
+STRING 1357
+// Doodads: D458 (zzz sc_weaponrack-deathknight.mdl), Name (Name)
+{
+zzz sc_weaponrack-deathknight.mdl
+}
+
+STRING 1358
+// Doodads: D459 (zzz scourge_platform_set0.mdl), Name (Name)
+{
+zzz scourge_platform_set0.mdl
+}
+
+STRING 1359
+// Doodads: D460 (zzz dragonblight_cliff_05.mdl), Name (Name)
+{
+zzz dragonblight_cliff_05.mdl
+}
+
+STRING 1360
+// Doodads: D461 (zzz sc_blighter2.mdl), Name (Name)
+{
+zzz sc_blighter2.mdl
+}
+
+STRING 1361
+// Doodads: D462 (zzz sc_pitcylinder_02.mdl), Name (Name)
+{
+zzz sc_pitcylinder_02.mdl
+}
+
+STRING 1362
+// Doodads: D463 (zzz sc_bodycart_nobody.mdl), Name (Name)
+{
+zzz sc_bodycart_nobody.mdl
+}
+
+STRING 1363
+// Doodads: D464 (zzz sc_surgicaltable_02.mdl), Name (Name)
+{
+zzz sc_surgicaltable_02.mdl
+}
+
+STRING 1364
+// Doodads: D465 (zzz sc_weaponrack-empty.mdl), Name (Name)
+{
+zzz sc_weaponrack-empty.mdl
+}
+
+STRING 1365
+// Doodads: D466 (zzz sunstrider_ship_blue_set0.mdl), Name (Name)
+{
+zzz sunstrider_ship_blue_set0.mdl
+}
+
+STRING 1366
+// Doodads: D467 (zzz sc_fence_base.mdl), Name (Name)
+{
+zzz sc_fence_base.mdl
+}
+
+STRING 1367
+// Doodads: D468 (zzz icecrown_wall_semicircle_piece_02_long_set0.mdl), Name (Name)
+{
+zzz icecrown_wall_semicircle_piece_02_long_set0.mdl
+}
+
+STRING 1368
+// Doodads: D469 (zzz icecrown_tower_reg_01_set0.mdl), Name (Name)
+{
+zzz icecrown_tower_reg_01_set0.mdl
+}
+
+STRING 1369
+// Doodads: D470 (zzz sc_cauldron_green_02.mdl), Name (Name)
+{
+zzz sc_cauldron_green_02.mdl
+}
+
+STRING 1370
+// Doodads: D471 (zzz sc_wall_02_cap.mdl), Name (Name)
+{
+zzz sc_wall_02_cap.mdl
+}
+
+STRING 1371
+// Doodads: D472 (zzz sc_crane_01.mdl), Name (Name)
+{
+zzz sc_crane_01.mdl
+}
+
+STRING 1372
+// Doodads: D473 (zzz sc_conveyer.mdl), Name (Name)
+{
+zzz sc_conveyer.mdl
+}
+
+STRING 1373
+// Doodads: D474 (zzz sc_chain.mdl), Name (Name)
+{
+zzz sc_chain.mdl
+}
+
+STRING 1374
+// Doodads: D475 (zzz sc_wall_01_ramp.mdl), Name (Name)
+{
+zzz sc_wall_01_ramp.mdl
+}
+
+STRING 1375
+// Doodads: D476 (zzz sc_bodyhook.mdl), Name (Name)
+{
+zzz sc_bodyhook.mdl
+}
+
+STRING 1376
+// Doodads: D477 (zzz nox_anvil.mdl), Name (Name)
+{
+zzz nox_anvil.mdl
+}
+
+STRING 1377
+// Doodads: D478 (zzz sc_slimepool_green.mdl), Name (Name)
+{
+zzz sc_slimepool_green.mdl
+}
+
+STRING 1378
+// Doodads: D479 (zzz sc_plaguebomb_green.mdl), Name (Name)
+{
+zzz sc_plaguebomb_green.mdl
+}
+
+STRING 1379
+// Doodads: D480 (zzz sc_plaguebomb_orange.mdl), Name (Name)
+{
+zzz sc_plaguebomb_orange.mdl
+}
+
+STRING 1380
+// Doodads: D481 (zzz icecrown_wall_semicircle_piece_01_set0.mdl), Name (Name)
+{
+zzz icecrown_wall_semicircle_piece_01_set0.mdl
+}
+
+STRING 1381
+// Doodads: D482 (zzz icecrown_single_gate_piece_set0.mdl), Name (Name)
+{
+zzz icecrown_single_gate_piece_set0.mdl
+}
+
+STRING 1382
+// Doodads: D483 (zzz icecrown_necropolis_deathstar01_set0.mdl), Name (Name)
+{
+zzz icecrown_necropolis_deathstar01_set0.mdl
+}
+
+STRING 1383
+// Doodads: D484 (zzz sc_wall_decoration_01.mdl), Name (Name)
+{
+zzz sc_wall_decoration_01.mdl
+}
+
+STRING 1384
+// Doodads: D485 (zzz sc_runeforge_02.mdl), Name (Name)
+{
+zzz sc_runeforge_02.mdl
+}
+
+STRING 1385
+// Doodads: D486 (zzz sc_platform2.mdl), Name (Name)
+{
+zzz sc_platform2.mdl
+}
+
+STRING 1386
+// Doodads: D487 (zzz vr_lamppost_snow_01blue.mdl), Name (Name)
+{
+zzz vr_lamppost_snow_01blue.mdl
+}
+
+STRING 1387
+// Doodads: D488 (zzz vr_standinglight_snow_blue_01.mdl), Name (Name)
+{
+zzz vr_standinglight_snow_blue_01.mdl
+}
+
+STRING 1388
+// Doodads: D489 (zzz vr_roadplankandcurb_wide_01.mdl), Name (Name)
+{
+zzz vr_roadplankandcurb_wide_01.mdl
+}
+
+STRING 1389
+// Doodads: D490 (zzz vr_roadplank_01.mdl), Name (Name)
+{
+zzz vr_roadplank_01.mdl
+}
+
+STRING 1390
+// Doodads: D491 (zzz db_dragonspareribs01.mdl), Name (Name)
+{
+zzz db_dragonspareribs01.mdl
+}
+
+STRING 1391
+// Doodads: D492 (zzz db_dragonrib01.mdl), Name (Name)
+{
+zzz db_dragonrib01.mdl
+}
+
+STRING 1392
+// Doodads: D493 (zzz vr_weaponrack_01.mdl), Name (Name)
+{
+zzz vr_weaponrack_01.mdl
+}
+
+STRING 1393
+// Doodads: D494 (zzz vr_bones_01_q.mdl), Name (Name)
+{
+zzz vr_bones_01_q.mdl
+}
+
+STRING 1394
+// Doodads: D495 (zzz argentcrusade_banner01_nocoll.mdl), Name (Name)
+{
+zzz argentcrusade_banner01_nocoll.mdl
+}
+
+STRING 1395
+// Doodads: D496 (zzz vr_haybail_01.mdl), Name (Name)
+{
+zzz vr_haybail_01.mdl
+}
+
+STRING 1396
+// Doodads: D497 (zzz woodcross02.mdl), Name (Name)
+{
+zzz woodcross02.mdl
+}
+
+STRING 1397
+// Doodads: D500 (zzz sc_spiriteffect_01.mdl), Name (Name)
+{
+zzz sc_spiriteffect_01.mdl
+}
+
+STRING 1398
+// Doodads: D501 (zzz md_corruptcave02_set0.mdl), Name (Name)
+{
+zzz md_corruptcave02_set0.mdl
+}
+
+STRING 1399
+// Doodads: D502 (zzz nd_vrykul_dwelling_01snow_set0.mdl), Name (Name)
+{
+zzz nd_vrykul_dwelling_01snow_set0.mdl
+}
+
+STRING 1400
+// Doodads: D503 (zzz nd_vrykul_tower_02snow_set0.mdl), Name (Name)
+{
+zzz nd_vrykul_tower_02snow_set0.mdl
+}
+
+STRING 1401
+// Doodads: D504 (zzz nd_vrykul_dwelling_03_bsnow_set0.mdl), Name (Name)
+{
+zzz nd_vrykul_dwelling_03_bsnow_set0.mdl
+}
+
+STRING 1402
+// Doodads: D505 (zzz nd_vrykul_walls01_set0.mdl), Name (Name)
+{
+zzz nd_vrykul_walls01_set0.mdl
+}
+
+STRING 1403
+// Doodads: D506 (zzz nd_vrykul_dwelling_03_asnow_set0.mdl), Name (Name)
+{
+zzz nd_vrykul_dwelling_03_asnow_set0.mdl
+}
+
+STRING 1404
+// Doodads: D507 (zzz icecrown_dam_long_piece_set0.mdl), Name (Name)
+{
+zzz icecrown_dam_long_piece_set0.mdl
+}
+
+STRING 1405
+// Doodads: D508 (zzz ymirheim_walls03_set0.mdl), Name (Name)
+{
+zzz ymirheim_walls03_set0.mdl
+}
+
+STRING 1406
+// Doodads: D509 (zzz vr_wagon_snow_01.mdl), Name (Name)
+{
+zzz vr_wagon_snow_01.mdl
+}
+
+STRING 1407
+// Doodads: D510 (zzz vr_chains_02.mdl), Name (Name)
+{
+zzz vr_chains_02.mdl
+}
+
+STRING 1408
+// Doodads: D511 (zzz vr_tent_01.mdl), Name (Name)
+{
+zzz vr_tent_01.mdl
+}
+
+STRING 1409
+// Doodads: D512 (zzz vr_chains_01.mdl), Name (Name)
+{
+zzz vr_chains_01.mdl
+}
+
+STRING 1410
+// Doodads: D513 (zzz vr_cage_02.mdl), Name (Name)
+{
+zzz vr_cage_02.mdl
+}
+
+STRING 1411
+// Doodads: D514 (zzz vr_brazier_01.mdl), Name (Name)
+{
+zzz vr_brazier_01.mdl
+}
+
+STRING 1412
+// Doodads: D515 (zzz vr_trough.mdl), Name (Name)
+{
+zzz vr_trough.mdl
+}
+
+STRING 1413
+// Doodads: D516 (zzz vr_cage_01.mdl), Name (Name)
+{
+zzz vr_cage_01.mdl
+}
+
+STRING 1414
+// Doodads: D517 (zzz vr_cage_01_snow.mdl), Name (Name)
+{
+zzz vr_cage_01_snow.mdl
+}
+
+STRING 1415
+// Doodads: D518 (zzz vr_wrecked_crate_snow_01.mdl), Name (Name)
+{
+zzz vr_wrecked_crate_snow_01.mdl
+}
+
+STRING 1416
+// Doodads: D519 (zzz vr_wrecked_crate_snow_02.mdl), Name (Name)
+{
+zzz vr_wrecked_crate_snow_02.mdl
+}
+
+STRING 1417
+// Doodads: D520 (zzz vr_crate_snow_03.mdl), Name (Name)
+{
+zzz vr_crate_snow_03.mdl
+}
+
+STRING 1418
+// Doodads: D521 (zzz vr_crate_snow_02.mdl), Name (Name)
+{
+zzz vr_crate_snow_02.mdl
+}
+
+STRING 1419
+// Doodads: D522 (zzz vr_crate_snow_01.mdl), Name (Name)
+{
+zzz vr_crate_snow_01.mdl
+}
+
+STRING 1420
+// Doodads: D523 (zzz nd_vrykul_longhousesnow_set0.mdl), Name (Name)
+{
+zzz nd_vrykul_longhousesnow_set0.mdl
+}
+
+STRING 1421
+// Doodads: D524 (zzz icecrown_citygate_02_set0.mdl), Name (Name)
+{
+zzz icecrown_citygate_02_set0.mdl
+}
+
+STRING 1422
+// Doodads: D525 (zzz ymirheim_walls02_set0.mdl), Name (Name)
+{
+zzz ymirheim_walls02_set0.mdl
+}
+
+STRING 1423
+// Doodads: D526 (zzz ymirheim_walls01_set0.mdl), Name (Name)
+{
+zzz ymirheim_walls01_set0.mdl
+}
+
+STRING 1424
+// Doodads: D528 (zzz sc_slimepool_orange.mdl), Name (Name)
+{
+zzz sc_slimepool_orange.mdl
+}
+
+STRING 1425
+// Doodads: D529 (zzz blacksmith_smoke.mdl), Name (Name)
+{
+zzz blacksmith_smoke.mdl
+}
+
+STRING 1426
+// Doodads: D530 (zzz firewoodpile01.mdl), Name (Name)
+{
+zzz firewoodpile01.mdl
+}
+
+STRING 1427
+// Doodads: D531 (zzz dragonblight_debrispile_02.mdl), Name (Name)
+{
+zzz dragonblight_debrispile_02.mdl
+}
+
+STRING 1428
+// Doodads: D532 (zzz sc_plaguebarrel.mdl), Name (Name)
+{
+zzz sc_plaguebarrel.mdl
+}
+
+STRING 1429
+// Doodads: D533 (zzz sc_floor_decoration_01.mdl), Name (Name)
+{
+zzz sc_floor_decoration_01.mdl
+}
+
+STRING 1430
+// Doodads: D534 (zzz scholme_tapestryweb.mdl), Name (Name)
+{
+zzz scholme_tapestryweb.mdl
+}
+
+STRING 1431
+// Doodads: D535 (zzz aurablueshort.mdl), Name (Name)
+{
+zzz aurablueshort.mdl
+}
+
+STRING 1432
+// Doodads: D536 (zzz aurapurple.mdl), Name (Name)
+{
+zzz aurapurple.mdl
+}
+
+STRING 1433
+// Doodads: D537 (zzz scholme_tapestryanim.mdl), Name (Name)
+{
+zzz scholme_tapestryanim.mdl
+}
+
+STRING 1434
+// Doodads: D538 (zzz scholme_candelabra.mdl), Name (Name)
+{
+zzz scholme_candelabra.mdl
+}
+
+STRING 1435
+// Doodads: D539 (zzz scholme_bookshelfsmall.mdl), Name (Name)
+{
+zzz scholme_bookshelfsmall.mdl
+}
+
+STRING 1436
+// Doodads: D540 (zzz sc_bodyjar_skeleton.mdl), Name (Name)
+{
+zzz sc_bodyjar_skeleton.mdl
+}
+
+STRING 1437
+// Doodads: D541 (zzz inntablesmall.mdl), Name (Name)
+{
+zzz inntablesmall.mdl
+}
+
+STRING 1438
+// Doodads: D542 (zzz elvenpottery03.mdl), Name (Name)
+{
+zzz elvenpottery03.mdl
+}
+
+STRING 1439
+// Doodads: D543 (zzz generalbook01.mdl), Name (Name)
+{
+zzz generalbook01.mdl
+}
+
+STRING 1440
+// Doodads: D544 (zzz wintergrasp_tree_02.mdl), Name (Name)
+{
+zzz wintergrasp_tree_02.mdl
+}
+
+STRING 1441
+// Doodads: D545 (zzz goblintent07.mdl), Name (Name)
+{
+zzz goblintent07.mdl
+}
+
+STRING 1442
+// Doodads: D546 (zzz wg_pylon01_set0.mdl), Name (Name)
+{
+zzz wg_pylon01_set0.mdl
+}
+
+STRING 1443
+// Doodads: D547 (zzz wg_wall01_set0.mdl), Name (Name)
+{
+zzz wg_wall01_set0.mdl
+}
+
+STRING 1444
+// Doodads: D548 (zzz wg_titanbuilding07_set0.mdl), Name (Name)
+{
+zzz wg_titanbuilding07_set0.mdl
+}
+
+STRING 1445
+// Doodads: D551 (zzz vr_burialmound_01.mdl), Name (Name)
+{
+zzz vr_burialmound_01.mdl
+}
+
+STRING 1446
+// Doodads: D552 (zzz vr_burialmound_02.mdl), Name (Name)
+{
+zzz vr_burialmound_02.mdl
+}
+
+STRING 1447
+// Doodads: D553 (zzz vr_bm_wood_01.mdl), Name (Name)
+{
+zzz vr_bm_wood_01.mdl
+}
+
+STRING 1448
+// Doodads: D554 (zzz vr_fence_02.mdl), Name (Name)
+{
+zzz vr_fence_02.mdl
+}
+
+STRING 1449
+// Doodads: D555 (zzz vr_roadedge_01.mdl), Name (Name)
+{
+zzz vr_roadedge_01.mdl
+}
+
+STRING 1450
+// Doodads: D556 (zzz vr_wrecked_crate_01.mdl), Name (Name)
+{
+zzz vr_wrecked_crate_01.mdl
+}
+
+STRING 1451
+// Doodads: D557 (zzz vr_cage_top.mdl), Name (Name)
+{
+zzz vr_cage_top.mdl
+}
+
+STRING 1452
+// Doodads: D558 (zzz vr_fence_04.mdl), Name (Name)
+{
+zzz vr_fence_04.mdl
+}
+
+STRING 1453
+// Doodads: D559 (zzz vr_cage_base.mdl), Name (Name)
+{
+zzz vr_cage_base.mdl
+}
+
+STRING 1454
+// Doodads: D560 (zzz vr_bm_sword_03.mdl), Name (Name)
+{
+zzz vr_bm_sword_03.mdl
+}
+
+STRING 1455
+// Doodads: D561 (zzz vr_bm_sword_02.mdl), Name (Name)
+{
+zzz vr_bm_sword_02.mdl
+}
+
+STRING 1456
+// Doodads: D562 (zzz vr_bm_spike_01.mdl), Name (Name)
+{
+zzz vr_bm_spike_01.mdl
+}
+
+STRING 1457
+// Doodads: D563 (zzz vr_bm_shield_02.mdl), Name (Name)
+{
+zzz vr_bm_shield_02.mdl
+}
+
+STRING 1458
+// Doodads: D564 (zzz vr_bm_shield_01.mdl), Name (Name)
+{
+zzz vr_bm_shield_01.mdl
+}
+
+STRING 1459
+// Doodads: D565 (zzz icecrown_ironwall_rampart_set0.mdl), Name (Name)
+{
+zzz icecrown_ironwall_rampart_set0.mdl
+}
+
+STRING 1460
+// Doodads: D566 (zzz tradeskill_alchemycauldron_green.mdl), Name (Name)
+{
+zzz tradeskill_alchemycauldron_green.mdl
+}
+
+STRING 1461
+// Doodads: D567 (zzz tradeskill_alchemycauldron_purple.mdl), Name (Name)
+{
+zzz tradeskill_alchemycauldron_purple.mdl
+}
+
+STRING 1462
+// Doodads: D568 (zzz candleoff03.mdl), Name (Name)
+{
+zzz candleoff03.mdl
+}
+
+STRING 1463
+// Doodads: D569 (zzz aurapurpleverytall.mdl), Name (Name)
+{
+zzz aurapurpleverytall.mdl
+}
+
+STRING 1464
+// Doodads: D570 (zzz sc_wall_02.mdl), Name (Name)
+{
+zzz sc_wall_02.mdl
+}
+
+STRING 1465
+// Doodads: D571 (zzz tradeskill_alchemycauldron_white.mdl), Name (Name)
+{
+zzz tradeskill_alchemycauldron_white.mdl
+}
+
+STRING 1466
+// Doodads: D572 (zzz nexus_dragonorb_01.mdl), Name (Name)
+{
+zzz nexus_dragonorb_01.mdl
+}
+
+STRING 1467
+// Doodads: D573 (zzz scholme_logorug.mdl), Name (Name)
+{
+zzz scholme_logorug.mdl
+}
+
+STRING 1468
+// Doodads: D574 (zzz floorcandlesstraight02.mdl), Name (Name)
+{
+zzz floorcandlesstraight02.mdl
+}
+
+STRING 1469
+// Doodads: D575 (zzz floorcandlescorner01.mdl), Name (Name)
+{
+zzz floorcandlescorner01.mdl
+}
+
+STRING 1470
+// Doodads: D576 (zzz scholomancebrazier01orange.mdl), Name (Name)
+{
+zzz scholomancebrazier01orange.mdl
+}
+
+STRING 1471
+// Doodads: D577 (zzz tradeskill_alchemyset_01.mdl), Name (Name)
+{
+zzz tradeskill_alchemyset_01.mdl
+}
+
+STRING 1472
+// Doodads: D578 (zzz tradeskill_alchemyset_02.mdl), Name (Name)
+{
+zzz tradeskill_alchemyset_02.mdl
+}
+
+STRING 1473
+// Doodads: D579 (zzz generalmedchair01.mdl), Name (Name)
+{
+zzz generalmedchair01.mdl
+}
+
+STRING 1474
+// Doodads: D580 (zzz uldamanscrolldebris02.mdl), Name (Name)
+{
+zzz uldamanscrolldebris02.mdl
+}
+
+STRING 1475
+// Doodads: D581 (zzz uldamanpot01.mdl), Name (Name)
+{
+zzz uldamanpot01.mdl
+}
+
+STRING 1476
+// Doodads: D582 (zzz uldamanscrolldebris03.mdl), Name (Name)
+{
+zzz uldamanscrolldebris03.mdl
+}
+
+STRING 1477
+// Doodads: D583 (zzz booksmallopen04.mdl), Name (Name)
+{
+zzz booksmallopen04.mdl
+}
+
+STRING 1478
+// Doodads: D584 (zzz uldamanscroll01.mdl), Name (Name)
+{
+zzz uldamanscroll01.mdl
+}
+
+STRING 1479
+// Doodads: D585 (zzz bookmedium07.mdl), Name (Name)
+{
+zzz bookmedium07.mdl
+}
+
+STRING 1480
+// Doodads: D586 (zzz icecrown_domebuilding_01_set2.mdl), Name (Name)
+{
+zzz icecrown_domebuilding_01_set2.mdl
+}
+
+STRING 1481
+// Doodads: D587 (zzz nd_titanoverlook01_set0.mdl), Name (Name)
+{
+zzz nd_titanoverlook01_set0.mdl
+}
+
+STRING 1482
+// Doodads: D588 (zzz icecrown_ramp_wall01_set0.mdl), Name (Name)
+{
+zzz icecrown_ramp_wall01_set0.mdl
+}
+
+STRING 1483
+// Doodads: D589 (zzz nd_bearcave_icecrown_set0.mdl), Name (Name)
+{
+zzz nd_bearcave_icecrown_set0.mdl
+}
+
+STRING 1484
+// Doodads: D590 (zzz pick.mdl), Name (Name)
+{
+zzz pick.mdl
+}
+
+STRING 1485
+// Doodads: D591 (zzz ic_vrykultunnel01_set0.mdl), Name (Name)
+{
+zzz ic_vrykultunnel01_set0.mdl
+}
+

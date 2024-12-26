@@ -3,7 +3,7 @@ import { glob } from 'glob';
 import path from 'path';
 
 import {
-  assetPrefix, mapPath, terrainHeightClampPercent, updateDoodadModels, updateTextures, wowExportPath,
+  assetPrefix, infiniteExtentBoundRadiusThreshold, mapPath, terrainHeightClampPercent, updateDoodadModels, updateTextures, wowExportPath,
 } from '../../config';
 import { blp2Image } from '../blp/blp';
 import { convertObjMdl } from '../objmdl';
@@ -28,14 +28,15 @@ export async function extractWowExportData() {
     console.log('Converting', objFile);
     const { mdl, mtlPaths } = convertObjMdl(objFile, wowExportPath);
 
-    const outputFile = objFile
-      .replace(path.normalize(wowExportPath), path.join(path.normalize(mapPath), assetPrefix))
+    const noWowExport = objFile.replace(path.normalize(wowExportPath), '');
+    const mapAssetPrefix = path.join(path.normalize(mapPath), assetPrefix);
+    const outputFile = path.join(mapAssetPrefix, noWowExport)
       .replace('.obj', '.mdl');
 
     if (!isTerrainFile(objFile)) {
       console.log('Convert doodad to', outputFile);
       mkdirSync(path.dirname(outputFile), { recursive: true });
-      if (mdl.model.boundsRadius > 200) { // extremely large model
+      if (mdl.model.boundsRadius > infiniteExtentBoundRadiusThreshold) { // extremely large model
         mdl.setInfiniteExtents();
       }
       writeFileSync(outputFile, mdl.toString());

@@ -3,6 +3,8 @@ import { createReadStream } from 'fs';
 import { glob } from 'glob';
 import * as path from 'path';
 
+import { rawModelScaleUp } from '../../config';
+
 interface WowRow {
   ModelFile: string
   PositionX: string,
@@ -77,6 +79,10 @@ async function readAllCSVFiles(pattern: string, separator: string, wowExportPath
     if (!ids.has(d.id)) {
       ids.add(d.id);
       result.push(d);
+      d.position[0] *= rawModelScaleUp;
+      d.position[1] *= rawModelScaleUp;
+      d.position[2] *= rawModelScaleUp;
+      d.scale *= rawModelScaleUp;
     }
   });
 

@@ -96,7 +96,11 @@ async function main() {
   const terrData = getInitialTerrain(height, width);
   for (let i = 0; i < heightMap.length; i++) {
     for (let j = 0; j < heightMap[i].length; j++) {
-      terrData.groundHeight[i][j] = Math.ceil(heightMap[i][j] * (dataHeightMax - dataHeightMin) + dataHeightMin);
+      if (heightMap[i][j] === -1) {
+        continue;
+      } else {
+        terrData.groundHeight[i][j] = Math.ceil(heightMap[i][j] * (dataHeightMax - dataHeightMin) + dataHeightMin);
+      }
     }
   }
 
@@ -127,11 +131,16 @@ async function main() {
   console.log('scale', scale);
 
   // Doodads
+  const doodadScale = (scale[0] + scale[1]) / 2;
   const doodadsData: ObjectModificationTable = {
     original: {},
     custom: {},
   };
   const doodads: ReturnType<DoodadsTranslator['warToJson']>['json'] = [[], []];
+
+  // Prefix generated doodads with zzz so that they are shown last.
+  // To avoid mixing with manually added custom doodads.
+  const doodadName = (fileName: string) => `zzz ${path.basename(fileName)}`;
 
   terrainAdts.forEach(([mdl]) => {
     const id = `${generateFourCC('D').codeString}:YOtf`;
@@ -141,13 +150,13 @@ async function main() {
         id: 'dfil', type: 'string', level: 0, column: 0, value: fileName,
       },
       {
-        id: 'dnam', type: 'string', level: 0, column: 0, value: path.basename(fileName),
+        id: 'dnam', type: 'string', level: 0, column: 0, value: doodadName(fileName),
       },
       {
-        id: 'dmas', type: 'unreal', level: 0, column: 0, value: 100,
+        id: 'dmas', type: 'unreal', level: 0, column: 0, value: doodadScale * 1.2,
       },
       {
-        id: 'dmis', type: 'unreal', level: 0, column: 0, value: 1,
+        id: 'dmis', type: 'unreal', level: 0, column: 0, value: doodadScale * 0.8,
       },
       {
         id: 'dvis', type: 'unreal', level: 0, column: 0, value: 99999,
@@ -157,6 +166,12 @@ async function main() {
       },
       {
         id: 'dsnd', type: 'string', level: 0, column: 0, value: '',
+      },
+      {
+        id: 'danf', type: 'int', level: 0, column: 0, value: 1,
+      },
+      {
+        id: 'dshf', type: 'int', level: 0, column: 0, value: 1,
       },
     ];
     const id4Chars = id.slice(0, 4);
@@ -193,13 +208,13 @@ async function main() {
           id: 'dfil', type: 'string', level: 0, column: 0, value: fileName,
         },
         {
-          id: 'dnam', type: 'string', level: 0, column: 0, value: path.basename(fileName),
+          id: 'dnam', type: 'string', level: 0, column: 0, value: doodadName(fileName),
         },
         {
-          id: 'dmas', type: 'unreal', level: 0, column: 0, value: 100,
+          id: 'dmas', type: 'unreal', level: 0, column: 0, value: doodadScale * 1.2,
         },
         {
-          id: 'dmis', type: 'unreal', level: 0, column: 0, value: 1,
+          id: 'dmis', type: 'unreal', level: 0, column: 0, value: doodadScale * 0.8,
         },
         {
           id: 'dvis', type: 'unreal', level: 0, column: 0, value: 99999,
@@ -210,11 +225,16 @@ async function main() {
         {
           id: 'dsnd', type: 'string', level: 0, column: 0, value: '',
         },
+        {
+          id: 'danf', type: 'int', level: 0, column: 0, value: 1,
+        },
+        {
+          id: 'dshf', type: 'int', level: 0, column: 0, value: 1,
+        },
       ];
     }
     const id = doodadName2Id.get(fileName)!;
     const id4Chars = id.slice(0, 4);
-    const ddScale = (scale[0] + scale[1]) / 2;
     const inGameX = -doodad.position[1] * scale[1]; // in-game X and Y are swapped.
     const inGameY = doodad.position[0] * scale[0];
     const inGameZ = (doodad.position[2] * scale[2] + inGameLowestZ) + 3;
@@ -228,7 +248,7 @@ async function main() {
         inGameZ,
       ],
       angle: doodad.rotation + 180,
-      scale: [ddScale, ddScale, ddScale],
+      scale: [doodadScale, doodadScale, doodadScale],
       skinId: id4Chars,
       flags: {
         visible: true,
@@ -253,6 +273,8 @@ async function main() {
   } catch (e) {
     // ignore
   }
+  console.log('========================================================');
+  console.log('Generation completed. Map size (tiles):', height, 'x', width);
 }
 
 function computeTerrainHeightMap(terrains: MDL[]) {
@@ -280,7 +302,7 @@ function computeTerrainHeightMap(terrains: MDL[]) {
 
   console.log({ ratio: ratioZ, width, height });
 
-  const heightMap = Array.from({ length: height + 1 }, () => Array<number>(width + 1).fill(0));
+  const heightMap = Array.from({ length: height + 1 }, () => Array<number>(width + 1).fill(-1));
   terrains.forEach((terrain) => terrain.geosets
     .forEach((geoset) => geoset.vertices.forEach((v) => {
       const percent = [

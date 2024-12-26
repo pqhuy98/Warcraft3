@@ -285,6 +285,16 @@ ${this.pivotPointsToString()}
       s.boundsRadius = INF;
     });
   }
+
+  scale(value: number) {
+    this.geosets.forEach((geoset) => {
+      geoset.vertices.forEach((vertex) => {
+        vertex[0] *= value;
+        vertex[1] *= value;
+        vertex[2] *= value;
+      });
+    });
+  }
 }
 
 function calculateBoundRadius(vertices: [number, number, number][]) {

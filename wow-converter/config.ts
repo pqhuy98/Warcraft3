@@ -1,12 +1,12 @@
 export const wowExportPath = 'C:/Users/quang/wow.export/';
 export const mapPath = 'maps/test-64x64.w3x';
 // export const mapPath = '../death-knight-starting\\maps\\death-knight-starting.w3x';
-export const assetPrefix = 'wow7\\';
+export const assetPrefix = 'wow';
 
 // Fine-tuned parameters
 export const terrainHeightClampPercent = {
-  upper: 1,
-  lower: 0,
+  upper: 0.75,
+  lower: 0.6,
 };
 export const verticalHorizontalRatio = 1;
 export const waterZThreshold = -1400;
@@ -14,14 +14,16 @@ export const defaultFilterMode = 'None';
 // export const defaultFilterMode = 'Transparent';
 
 // Control parameters
-export const updateDoodadModels = false; // false to not skip this step
+export const updateDoodadModels = true; // false to skip this step
 export const updateTextures = false;
-export const updateDoodads = true;
+export const updateDoodads = false;
 
 // Map generation configs
-export const dataHeightMin = 1;
+export const dataHeightMin = 128;
 // export const dataHeightMax = 16383; // Blizzard magic number
 export const dataHeightMax = 13823; // Blizzard magic number
+export const rawModelScaleUp = 28;
+export const infiniteExtentBoundRadiusThreshold = 2000;
 
 const noneFilterPatterns = [
   'textures\\walls',
@@ -55,9 +57,11 @@ const transparentFilterPatterns = [
   'textures\\decoration',
   '_glow',
   'jlo_worc_chainsr',
+  '\\hay\\',
 ];
 const additiveFilterPatterns = [
   'genericglow',
+  'swordinice',
 ];
 
 export function getFilterMode(filePath: string): string {
