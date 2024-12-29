@@ -14,7 +14,7 @@ export async function generate(adtPatten: string, assetPrefix: string) {
 
   const terrain = wowObjectManager.terrains;
 
-  wowObjectManager.centerByParentGroup(terrain);
+  wowObjectManager.centerByParents(terrain);
   const war3Exporter = new Wc3Converter();
 
   const terrainMDLs = terrain.map((o) => o.model!.mdl);

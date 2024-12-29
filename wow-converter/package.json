@@ -8,7 +8,6 @@
   "scripts": {
     "lint": "eslint src/**/*.ts --fix",
     "convert": "tsx convert.ts",
-    "convert-v2": "tsx convert-v2.ts",
     "discover": "tsx discover.ts",
     "doodad-terrain": "tsx doodad-terrain.ts",
     "test": "tsx scripts/test.ts"

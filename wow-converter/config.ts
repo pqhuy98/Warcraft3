@@ -5,8 +5,8 @@ export const assetPrefix = 'wow';
 
 // Fine-tuned parameters
 export const terrainHeightClampPercent = {
-  upper: 1,
-  lower: 0,
+  upper: 0.8,
+  lower: 0.5,
 };
 export const waterZThreshold = -1400;
 export const defaultFilterMode = 'None';

@@ -1,4 +1,5 @@
 import { dataHeightMax, dataHeightMin, mapAngle } from '../config';
+import { distancePerTile } from './constants';
 import { Terrain } from './wc3maptranslator/data/Terrain';
 
 const fourCCPrefixes = 'abcdefghijklmnopqrstuvwxyz'.split('');
@@ -36,7 +37,6 @@ export function generateFourCC() {
 }
 
 // constants
-export const distancePerTile = 4096 / 32;
 
 export function dataXyToGameXy([x, y]: [number, number]) {
   // in-game X and Y are swapped.

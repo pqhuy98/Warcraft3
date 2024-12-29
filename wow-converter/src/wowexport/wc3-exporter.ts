@@ -5,13 +5,14 @@ import {
   dataHeightMax, dataHeightMin, mapAngle, terrainHeightClampPercent, verticalHorizontalRatio,
   waterZThreshold,
 } from '../../config';
+import { distancePerTile } from '../constants';
 import { DegToRad, RadToDeg } from '../math/math';
 import { MDL } from '../objmdl/mdl';
 import {
   dataAngleToGameAngle,
   dataHeightToGameZ,
   dataXyToGameXy,
-  distancePerTile, generateFourCC, getInitialTerrain, maxGameHeightDiff, waterZToDataHeight,
+  generateFourCC, getInitialTerrain, maxGameHeightDiff, waterZToDataHeight,
 } from '../utils';
 import { DoodadsTranslator, ObjectsTranslator, TerrainTranslator } from '../wc3maptranslator';
 import {

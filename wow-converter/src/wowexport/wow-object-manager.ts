@@ -159,7 +159,7 @@ export class WowObjectManager {
     });
   }
 
-  centerByParentGroup(parents: WowObject[]) {
+  centerByParents(parents: WowObject[]) {
     const min = [Infinity, Infinity, Infinity];
     const max = [-Infinity, -Infinity, -Infinity];
     parents.forEach((wowObject) => {
