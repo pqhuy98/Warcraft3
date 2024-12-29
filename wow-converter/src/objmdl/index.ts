@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import * as path from 'path';
 
-import { assetPrefix, getFilterMode, rawModelScaleUp } from '../../config';
+import { assetPrefix, getFilterMode, rawModelScaleUp } from '../global-config';
 import { MDL } from './mdl';
 import { MTLFile } from './mtl';
 import { IFace, OBJFile } from './obj';

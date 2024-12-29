@@ -3,9 +3,10 @@ import _ from 'lodash';
 import path from 'path';
 import { parseMDL } from 'war3-model';
 
-import { dataHeightMax, dataHeightMin, mapPath } from './config';
+import { distancePerTile } from './src/constants';
+import { dataHeightMax, dataHeightMin, mapPath } from './src/global-config';
 import {
-  dataHeightToGameZ, distancePerTile, gameZToDataHeight, getInitialTerrain, maxGameHeightDiff,
+  dataHeightToGameZ, gameZToDataHeight, getInitialTerrain, maxGameHeightDiff,
   nArray,
 } from './src/utils';
 import { DoodadsTranslator, TerrainTranslator } from './src/wc3maptranslator';

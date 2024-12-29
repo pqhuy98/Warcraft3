@@ -1,5 +1,5 @@
-import { dataHeightMax, dataHeightMin, mapAngle } from '../config';
 import { distancePerTile } from './constants';
+import { dataHeightMax, dataHeightMin, mapAngle } from './global-config';
 import { Terrain } from './wc3maptranslator/data/Terrain';
 
 const fourCCPrefixes = 'abcdefghijklmnopqrstuvwxyz'.split('');

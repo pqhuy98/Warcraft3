@@ -1,3 +1,5 @@
+import { DegToRad } from './math/math';
+
 export const wowExportPath = 'C:/Users/quang/wow.export/';
 export const mapPath = 'maps/test-64x64.w3x';
 // export const mapPath = '../death-knight-starting\\maps\\death-knight-starting.w3x';
@@ -26,6 +28,7 @@ export const dataHeightMin = 256;
 export const dataHeightMax = 13823; // Blizzard magic number
 export const rawModelScaleUp = 20;
 export const infiniteExtentBoundRadiusThreshold = 2000 / 28 * rawModelScaleUp;
+export const pitchRollThresholdRadians = DegToRad(9999);
 
 const noneFilterPatterns = [
   'textures\\walls',

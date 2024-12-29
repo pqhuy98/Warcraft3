@@ -5,7 +5,7 @@ import {
 import { glob } from 'glob';
 import * as path from 'path';
 
-import { rawModelScaleUp } from '../../config';
+import { rawModelScaleUp } from '../global-config';
 import {
   calculateChildAbsoluteEulerRotation, DegToRad, quaternionToEuler, rotateVector,
 } from '../math/math';
@@ -178,17 +178,17 @@ export class WowObjectManager {
     // console.log('Initial terrain size', (max[0] - min[0]), (max[1] - min[1]), (max[2] - min[2]));
     // console.log('Initial terrain center', center);
 
-    const dmin = [Infinity, Infinity, Infinity];
-    const dmax = [-Infinity, -Infinity, -Infinity];
-    this.doodads.forEach((dd) => {
-      if (dd.type !== 'wmo') return;
-      dmin[0] = Math.min(dmin[0], dd.position[0]);
-      dmin[1] = Math.min(dmin[1], dd.position[1]);
-      dmin[2] = Math.min(dmin[2], dd.position[2]);
-      dmax[0] = Math.max(dmax[0], dd.position[0]);
-      dmax[1] = Math.max(dmax[1], dd.position[1]);
-      dmax[2] = Math.max(dmax[2], dd.position[2]);
-    });
+    // const dmin = [Infinity, Infinity, Infinity];
+    // const dmax = [-Infinity, -Infinity, -Infinity];
+    // this.doodads.forEach((dd) => {
+    //   if (dd.type !== 'wmo') return;
+    //   dmin[0] = Math.min(dmin[0], dd.position[0]);
+    //   dmin[1] = Math.min(dmin[1], dd.position[1]);
+    //   dmin[2] = Math.min(dmin[2], dd.position[2]);
+    //   dmax[0] = Math.max(dmax[0], dd.position[0]);
+    //   dmax[1] = Math.max(dmax[1], dd.position[1]);
+    //   dmax[2] = Math.max(dmax[2], dd.position[2]);
+    // });
     // console.log('Initial doodad min/max extents', dmin, dmax);
     // console.log('Initial doodad size', [dmax[0] - dmin[0], dmax[1] - dmin[1], dmax[2] - dmin[2]]);
 
@@ -208,6 +208,9 @@ export class WowObjectManager {
         v[2] -= delta[2];
       }));
       obj.model!.mdl.sync();
+      // obj.position[0] -= delta[0];
+      // obj.position[1] -= delta[1];
+      // obj.position[2] -= delta[2];
     });
     min[0] -= delta[0];
     min[1] -= delta[1];

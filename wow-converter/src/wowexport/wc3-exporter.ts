@@ -1,12 +1,12 @@
 import { unlinkSync, writeFileSync } from 'fs';
 import * as path from 'path';
 
-import {
-  dataHeightMax, dataHeightMin, mapAngle, terrainHeightClampPercent, verticalHorizontalRatio,
-  waterZThreshold,
-} from '../../config';
 import { distancePerTile } from '../constants';
-import { DegToRad, RadToDeg } from '../math/math';
+import {
+  dataHeightMax, dataHeightMin, mapAngle, pitchRollThresholdRadians, terrainHeightClampPercent, verticalHorizontalRatio,
+  waterZThreshold,
+} from '../global-config';
+import { RadToDeg } from '../math/math';
 import { MDL } from '../objmdl/mdl';
 import {
   dataAngleToGameAngle,
@@ -103,6 +103,7 @@ export class Wc3Converter {
     // Prefix generated doodads with z so that they are shown last in Object Editor.
     // To avoid mixing with manually added custom doodads.
     const doodadName = (obj: WowObject) => `z ${path.basename(obj.model!.relativePath)} (${obj.type})`;
+    let doodadTypesWithPitchRoll = 0;
 
     doodads.forEach((obj) => {
       const fileName = obj.model!.relativePath;
@@ -111,7 +112,10 @@ export class Wc3Converter {
       const wc3Pitch = (-(obj.rotation[0] - Math.PI / 2)) % (Math.PI * 2) - Math.PI * 2;
       const wc3Roll = (-obj.rotation[1]) % (Math.PI * 2) - Math.PI * 2;
 
-      const hasPitchRoll = !['adt', 'wmo'].includes(obj.type) && Math.abs(wc3Pitch) > DegToRad(5) && Math.abs(wc3Roll) > DegToRad(5);
+      const hasPitchRoll = !['adt', 'wmo'].includes(obj.type)
+        && Math.abs(wc3Pitch) > pitchRollThresholdRadians
+        && Math.abs(wc3Roll) > pitchRollThresholdRadians;
+
       const hashKey = hasPitchRoll
         ? [fileName, obj.rotation[0].toFixed(4), obj.rotation[1].toFixed(4)].join(';')
         : fileName;
@@ -162,6 +166,7 @@ export class Wc3Converter {
               id: 'dmar', type: 'unreal', level: 0, column: 0, value: wc3Roll,
             },
           );
+          doodadTypesWithPitchRoll++;
         }
         this.doodadsData.custom[fullId] = doodadType;
         modelPathToId.set(hashKey, fullId);
@@ -215,7 +220,7 @@ export class Wc3Converter {
       });
     });
 
-    console.log('Created', Object.keys(this.doodadsData.custom).length, 'custom doodad types');
+    console.log('Created', Object.keys(this.doodadsData.custom).length, `custom doodad types (${doodadTypesWithPitchRoll} with pitch&roll)`);
     console.log('Placed', this.doodads[0].length, 'doodad instances');
   }
 

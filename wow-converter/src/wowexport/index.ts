@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import { wowExportPath } from '../../config';
+import { wowExportPath } from '../global-config';
 import { Wc3Converter } from './wc3-exporter';
 import { WowObjectManager } from './wow-object-manager';
 
@@ -12,15 +12,21 @@ export async function generate(adtPatten: string, assetPrefix: string) {
   });
   await wowObjectManager.parse(adtPatten);
 
-  const terrain = wowObjectManager.terrains;
+  const terrains = wowObjectManager.terrains;
 
-  wowObjectManager.centerByParents(terrain);
+  wowObjectManager.centerByParents(terrains);
+  // terrains.forEach((t) => {
+  //   t.position[0] = 0;
+  //   t.position[1] = 0;
+  //   t.position[2] = 0;
+  //   wowObjectManager.centerByParents([t]);
+  // });
+
+  const terrainMDLs = terrains.map((o) => o.model!.mdl);
   const war3Exporter = new Wc3Converter();
-
-  const terrainMDLs = terrain.map((o) => o.model!.mdl);
   war3Exporter.generateTerrainFromAdt(terrainMDLs);
   war3Exporter.placeDoodads(
-    terrain,
+    terrains,
     [...wowObjectManager.objects.values()],
   );
 

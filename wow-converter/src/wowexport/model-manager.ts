@@ -1,8 +1,8 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import * as path from 'path';
 
-import { infiniteExtentBoundRadiusThreshold } from '../../config';
 import { blp2Image } from '../blp/blp';
+import { infiniteExtentBoundRadiusThreshold } from '../global-config';
 import { convertObjMdl } from '../objmdl';
 import { MDL } from '../objmdl/mdl';
 import { Config } from './config';
