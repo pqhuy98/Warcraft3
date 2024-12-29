@@ -8,5 +8,5 @@
     "esModuleInterop": true,
     "strictNullChecks": true
   },
-  "include": ["src/*.ts", "*.ts", "src/wowexport/extract-wowexport.ts"  ],
+  "include": ["src/**/*.ts", "scripts/**/*.ts", "*.ts" ],
 }

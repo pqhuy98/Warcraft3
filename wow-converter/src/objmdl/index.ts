@@ -6,7 +6,7 @@ import { MDL } from './mdl';
 import { MTLFile } from './mtl';
 import { IFace, OBJFile } from './obj';
 
-export function convertObjMdl(objFilePath: string, assetRoot: string) {
+export function convertObjMdl(objFilePath: string, assetRoot: string, texturePrefix = assetPrefix) {
   const obj = new OBJFile(readFileSync(objFilePath, 'utf-8')).parse();
   const mtl = new MTLFile(objFilePath.replace(/\.obj$/, '.mtl'));
 
@@ -26,13 +26,13 @@ export function convertObjMdl(objFilePath: string, assetRoot: string) {
   const parentDir = path.dirname(objFilePath);
 
   const matMap = new Map<string, number>();
-  const mtlPaths = new Set<string>();
+  const materialPaths = new Set<string>();
   mtl.materials.forEach((material) => {
     matMap.set(material.name, mdl.materials.length);
     const materialRelativePath = path.relative(assetRoot, path.join(parentDir, material.map_Kd!));
-    mtlPaths.add(materialRelativePath);
+    materialPaths.add(materialRelativePath);
     mdl.textures.push({
-      image: path.join(assetPrefix, materialRelativePath.replace('.png', '.blp')),
+      image: path.join(texturePrefix, materialRelativePath.replace('.png', '.blp')),
       wrapHeight: true,
       wrapWidth: true,
     });
@@ -83,7 +83,7 @@ export function convertObjMdl(objFilePath: string, assetRoot: string) {
           geoset.vertexGroup.push(0);
 
           const objN = obj.models[0].vertexNormals[v.vertexNormalIndex - 1];
-          geoset.normals.push([objN.x, objN.y, objN.z]);
+          geoset.normals.push([objN.z, objN.x, objN.y]);
 
           const objT = obj.models[0].textureCoords[v.textureCoordsIndex - 1];
           geoset.tVertices.push([objT.u, 1 - objT.v]);
@@ -94,5 +94,5 @@ export function convertObjMdl(objFilePath: string, assetRoot: string) {
   });
   mdl.scale(rawModelScaleUp);
   mdl.sync();
-  return { mdl, mtlPaths };
+  return { mdl, materialPaths };
 }

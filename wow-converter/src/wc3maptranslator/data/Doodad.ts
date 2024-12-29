@@ -27,3 +27,5 @@ interface SpecialDoodad {
 }
 
 export type { Doodad, DoodadFlag, SpecialDoodad };
+
+export type DoodadList = [Doodad[], SpecialDoodad[]]

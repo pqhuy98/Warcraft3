@@ -1,5 +1,5 @@
 import csv from 'csv-parser';
-import { createReadStream } from 'fs';
+import { createReadStream, writeFileSync } from 'fs';
 import { glob } from 'glob';
 import * as path from 'path';
 
@@ -17,6 +17,7 @@ interface WowRow {
   ScaleFactor: string,
   ModelId: string,
   FileDataID: string,
+  fileName: string
 }
 
 export interface Doodad {
@@ -35,9 +36,10 @@ const readCSVFile = (file: string, separator: string): Promise<WowRow[]> => {
   return new Promise((resolve, reject) => {
     createReadStream(file)
       .pipe(csv({ separator }))
-      .on('data', (row: object) => {
+      .on('data', (row: WowRow) => {
         if (Object.keys(row).length > 1) {
-          rows.push(row as WowRow);
+          row.fileName = file;
+          rows.push(row);
         }
       })
       .on('end', () => {
@@ -59,17 +61,21 @@ async function readAllCSVFiles(pattern: string, separator: string, wowExportPath
     throw new Error('No files found matching the pattern.');
   }
 
-  const allDoodads = (await Promise.all(files.map(async (file) => {
-    const doodads = (await readCSVFile(file, separator))
-      .map((row) => (<Doodad>{
-        id: row.ModelId,
-        model: path.relative(wowExportPath, path.join(path.dirname(file), row.ModelFile)),
-        position: [maxSize - parseFloat(row.PositionZ), maxSize - parseFloat(row.PositionX), parseFloat(row.PositionY)],
-        rotation: parseFloat(row.RotationY),
-        scale: parseFloat(row.ScaleFactor),
-      }));
-    return doodads;
-  }))).flat();
+  const allRows = (await Promise.all(files.map(async (file) => readCSVFile(file, separator)))).flat();
+  writeFileSync('dist/wow-rows.json', JSON.stringify(allRows, null, 2));
+
+  const allDoodads = allRows.map((row) => {
+    if (row.ModelFile.includes('icecrownraid_set0')) {
+      console.log('readAllCSVFiles raw', row);
+    }
+    return (<Doodad>{
+      id: `${row.ModelId}:${row.FileDataID}:${row.ModelFile}:${row.PositionX}:${row.PositionY}:${row.PositionZ}`,
+      model: path.relative(wowExportPath, path.join(path.dirname(row.fileName), row.ModelFile)),
+      position: [maxSize - parseFloat(row.PositionZ), maxSize - parseFloat(row.PositionX), parseFloat(row.PositionY)],
+      rotation: parseFloat(row.RotationY),
+      scale: parseFloat(row.ScaleFactor),
+    });
+  });
   console.log(`Total rows of ${pattern}: ${allDoodads.length}`);
 
   // Remove doodads with same ids
@@ -77,6 +83,10 @@ async function readAllCSVFiles(pattern: string, separator: string, wowExportPath
   const result: Doodad[] = [];
   allDoodads.forEach((d) => {
     if (!ids.has(d.id)) {
+      if (d.model.includes('icecrownraid_set0')) {
+        console.log('readAllCSVFiles', d.model, d.position);
+      }
+
       ids.add(d.id);
       result.push(d);
       d.position[0] *= rawModelScaleUp;
@@ -85,6 +95,8 @@ async function readAllCSVFiles(pattern: string, separator: string, wowExportPath
       d.scale *= rawModelScaleUp;
     }
   });
+  console.log(`Parsed doodads: ${allDoodads.length}`);
+  console.log(`Used doodads: ${result.length}`);
 
   return result;
 }

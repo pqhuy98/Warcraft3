@@ -8,73 +8,25 @@ import {
   waterZThreshold,
 } from './config';
 import { MDL } from './src/objmdl/mdl';
-import { generateFourCC } from './src/utils';
+import {
+  dataAngleToGameAngle, dataHeightToGameZ, dataXyToGameXy, distancePerTile, generateFourCC,
+  getInitialTerrain,
+  maxGameHeightDiff,
+  waterZToDataHeight,
+} from './src/utils';
 import {
   DoodadsTranslator,
   ObjectsTranslator,
   TerrainTranslator,
 } from './src/wc3maptranslator';
 import { ObjectModificationTable, ObjectType } from './src/wc3maptranslator/data/ObjectModificationTable';
-import { Terrain } from './src/wc3maptranslator/data/Terrain';
 import { extractWowExportData } from './src/wowexport/extract-wowexport';
 
-const distancePerTile = 4096 / 32;
-const maxGameHeightDiff = (dataHeightMax - dataHeightMin) / 4;
 const inGameLowestZ = dataHeightToGameZ(dataHeightMin);
 const inGameHighestZ = dataHeightToGameZ(dataHeightMax);
 
 console.log('inGameLowestZ', inGameLowestZ);
 console.log('inGameHighestZ', inGameHighestZ);
-
-function dataHeightToGameZ(dataHeight: number): number {
-  return (dataHeight - 5632) / 4; // Blizzard magic number
-}
-
-function waterZToDataHeight(waterZ: number): number {
-  return Math.round((waterZ + 728) * 4) + 5632; // Blizzard magic numbers
-}
-
-function getInitialTerrain(height: number, width: number): Terrain {
-  const fill = <T>(v: T): T[][] => Array.from({ length: (height + 1) }, () => Array<T>(width + 1).fill(v));
-
-  return {
-    tileset: 'L',
-    customTileset: true,
-    tilePalette: ['Ldrt', 'Ldro', 'Ldrg', 'Lrok', 'Lgrs', 'Lgrd'],
-    cliffTilePalette: ['CLdi', 'CLgr'],
-    map: {
-      height,
-      width,
-      // 32x32 map has offset -2048,-2048.
-      offset: { x: -distancePerTile / 2 * width, y: -distancePerTile / 2 * height }, // Scale it according to above.
-    },
-    // "Masks"
-
-    groundHeight: fill((dataHeightMin + dataHeightMax) >> 1),
-    waterHeight: fill(dataHeightMin + 728 / 4),
-
-    // boundaryFlag: 0: not boundary, 1: boundary. Can be all 0
-    boundaryFlag: fill(false),
-
-    // flags: 32: blight, 64: water, 128: boundary
-    flags: fill(0),
-
-    // groundTexture: texture ID Can be all 0
-    groundTexture: fill(0),
-
-    // groundVariation: looks random 0, 8, 16
-    groundVariation: fill(0),
-
-    // cliffVariation: looks random 0-7
-    cliffVariation: fill(0),
-
-    // cliffTexture: all 240
-    cliffTexture: fill(240),
-
-    // layerHeight: all 7
-    layerHeight: fill(7),
-  };
-}
 
 function Min(arr: number[][]) {
   return arr.flat().reduce((acc, v) => Math.min(acc, v), arr[0][0]);
@@ -143,7 +95,7 @@ async function main() {
   const doodadName = (fileName: string) => `zzz ${path.basename(fileName)}`;
 
   terrainAdts.forEach(([mdl]) => {
-    const id = `${generateFourCC('D').codeString}:YOtf`;
+    const id = `${generateFourCC().codeString}:YOtf`;
     const fileName = path.join(assetPrefix, mdl.model.name).replaceAll('\\', '/');
     doodadsData.custom[id] = [
       {
@@ -153,10 +105,10 @@ async function main() {
         id: 'dnam', type: 'string', level: 0, column: 0, value: doodadName(fileName),
       },
       {
-        id: 'dmas', type: 'unreal', level: 0, column: 0, value: doodadScale * 1.2,
+        id: 'dmas', type: 'unreal', level: 0, column: 0, value: doodadScale * 10,
       },
       {
-        id: 'dmis', type: 'unreal', level: 0, column: 0, value: doodadScale * 0.8,
+        id: 'dmis', type: 'unreal', level: 0, column: 0, value: doodadScale * 0.5,
       },
       {
         id: 'dvis', type: 'unreal', level: 0, column: 0, value: 99999,
@@ -182,7 +134,7 @@ async function main() {
         0, 0,
         dataHeightToGameZ((dataHeightMax - dataHeightMin) / (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower) * (0.5 - terrainHeightClampPercent.lower) + dataHeightMin),
       ],
-      angle: 90,
+      angle: dataAngleToGameAngle(-90),
       scale: [scale[1], scale[0], scale[2]], // in-game X and Y are swapped.
       skinId: id4Chars,
       flags: {
@@ -201,7 +153,7 @@ async function main() {
   wowDoodads.forEach((doodad) => {
     const fileName = path.join(assetPrefix, doodad.model).replaceAll('\\', '/');
     if (!doodadName2Id.has(fileName)) {
-      const id = `${generateFourCC('D').codeString}:YOtf`;
+      const id = `${generateFourCC().codeString}:YOtf`;
       doodadName2Id.set(fileName, id);
       doodadsData.custom[id] = [
         {
@@ -211,10 +163,10 @@ async function main() {
           id: 'dnam', type: 'string', level: 0, column: 0, value: doodadName(fileName),
         },
         {
-          id: 'dmas', type: 'unreal', level: 0, column: 0, value: doodadScale * 1.2,
+          id: 'dmas', type: 'unreal', level: 0, column: 0, value: doodadScale * 10,
         },
         {
-          id: 'dmis', type: 'unreal', level: 0, column: 0, value: doodadScale * 0.8,
+          id: 'dmis', type: 'unreal', level: 0, column: 0, value: doodadScale * 0.5,
         },
         {
           id: 'dvis', type: 'unreal', level: 0, column: 0, value: 99999,
@@ -235,19 +187,18 @@ async function main() {
     }
     const id = doodadName2Id.get(fileName)!;
     const id4Chars = id.slice(0, 4);
-    const inGameX = -doodad.position[1] * scale[1]; // in-game X and Y are swapped.
-    const inGameY = doodad.position[0] * scale[0];
+    const x = doodad.position[0] * scale[0];
+    const y = doodad.position[1] * scale[1];
     const inGameZ = (doodad.position[2] * scale[2] + inGameLowestZ) + 3;
 
     doodads[0].push({
       type: id4Chars,
       variation: 0,
       position: [
-        inGameX,
-        inGameY,
+        ...dataXyToGameXy([x, y]),
         inGameZ,
       ],
-      angle: doodad.rotation + 180,
+      angle: dataAngleToGameAngle(doodad.rotation),
       scale: [doodadScale, doodadScale, doodadScale],
       skinId: id4Chars,
       flags: {

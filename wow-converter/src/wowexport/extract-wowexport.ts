@@ -26,7 +26,7 @@ export async function extractWowExportData() {
   // Convert all .obj to .mdl. Write doodads, but saving terrain files to list for post-processing
   objFiles.forEach((objFile) => {
     console.log('Converting', objFile);
-    const { mdl, mtlPaths } = convertObjMdl(objFile, wowExportPath);
+    const { mdl, materialPaths } = convertObjMdl(objFile, wowExportPath);
 
     const noWowExport = objFile.replace(path.normalize(wowExportPath), '');
     const mapAssetPrefix = path.join(path.normalize(mapPath), assetPrefix);
@@ -46,7 +46,7 @@ export async function extractWowExportData() {
     }
 
     if (updateTextures) {
-      mtlPaths.forEach((mtlPath) => {
+      materialPaths.forEach((mtlPath) => {
         if (processedMaterials.has(mtlPath)) {
           return;
         }

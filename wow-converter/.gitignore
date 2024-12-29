@@ -1,7 +1,10 @@
 target
-package-lock.json
 dist
-
+maps/**
+notes.txt
+!maps/template-empty.w3x/*
+!maps/template-empty.w3x/**/*
+!maps/template-empty.w3x
 # Logs
 logs
 *.log

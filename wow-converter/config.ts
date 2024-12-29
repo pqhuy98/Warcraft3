@@ -5,25 +5,27 @@ export const assetPrefix = 'wow';
 
 // Fine-tuned parameters
 export const terrainHeightClampPercent = {
-  upper: 0.75,
-  lower: 0.6,
+  upper: 1,
+  lower: 0,
 };
-export const verticalHorizontalRatio = 1;
 export const waterZThreshold = -1400;
 export const defaultFilterMode = 'None';
 // export const defaultFilterMode = 'Transparent';
 
 // Control parameters
-export const updateDoodadModels = true; // false to skip this step
+export const updateDoodadModels = false; // false to skip this step
 export const updateTextures = false;
-export const updateDoodads = false;
+export const updateDoodads = true;
 
 // Map generation configs
-export const dataHeightMin = 128;
-// export const dataHeightMax = 16383; // Blizzard magic number
+
+export const verticalHorizontalRatio = 1; // reducing this makes the map bigger, but doodads' position Z will become more wrong.
+
+export const mapAngle: 0 | 180 = 180;
+export const dataHeightMin = 256;
 export const dataHeightMax = 13823; // Blizzard magic number
-export const rawModelScaleUp = 28;
-export const infiniteExtentBoundRadiusThreshold = 2000;
+export const rawModelScaleUp = 20;
+export const infiniteExtentBoundRadiusThreshold = 2000 / 28 * rawModelScaleUp;
 
 const noneFilterPatterns = [
   'textures\\walls',
@@ -58,10 +60,16 @@ const transparentFilterPatterns = [
   '_glow',
   'jlo_worc_chainsr',
   '\\hay\\',
+  '\\sc_brazier',
+  'hangnets',
+  'flare05',
 ];
 const additiveFilterPatterns = [
   'genericglow',
   'swordinice',
+  '_fog_',
+  'icecrown_rays',
+  'blueglow',
 ];
 
 export function getFilterMode(filePath: string): string {

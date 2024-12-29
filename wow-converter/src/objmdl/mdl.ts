@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /* eslint-disable no-tabs */
 export class MDL {
   version: {
@@ -266,23 +268,46 @@ ${this.pivotPointsToString()}
     });
   }
 
+  // setInfiniteExtents() {
+  //   const INF = 999999;
+  //   this.model.minimumExtent = [-INF, -INF, -INF];
+  //   this.model.maximumExtent = [INF, INF, INF];
+  //   this.model.boundsRadius = INF;
+  //   this.geosets.forEach((geoset) => {
+  //     geoset.minimumExtent = [-INF, -INF, -INF];
+  //     geoset.maximumExtent = [INF, INF, INF];
+  //     geoset.boundsRadius = INF;
+  //     geoset.anim.minimumExtent = [-INF, -INF, -INF];
+  //     geoset.anim.maximumExtent = [INF, INF, INF];
+  //     geoset.anim.boundsRadius = INF;
+  //   });
+  //   this.sequences.forEach((s) => {
+  //     s.minimumExtent = [-INF, -INF, -INF];
+  //     s.maximumExtent = [INF, INF, INF];
+  //     s.boundsRadius = INF;
+  //   });
+  // }
+
   setInfiniteExtents() {
-    const INF = 999999;
-    this.model.minimumExtent = [-INF, -INF, -INF];
-    this.model.maximumExtent = [INF, INF, INF];
-    this.model.boundsRadius = INF;
+    const fixExtents = (min: number[], max: number[]) => {
+      for (let i = 0; i < min.length; i++) {
+        const abs = Math.max(Math.abs(min[i]), Math.abs(max[i]));
+        min[i] = -abs;
+        max[i] = abs;
+      }
+    };
+
+    fixExtents(this.model.minimumExtent, this.model.maximumExtent);
+    this.model.boundsRadius = _.max(this.model.maximumExtent)!;
     this.geosets.forEach((geoset) => {
-      geoset.minimumExtent = [-INF, -INF, -INF];
-      geoset.maximumExtent = [INF, INF, INF];
-      geoset.boundsRadius = INF;
-      geoset.anim.minimumExtent = [-INF, -INF, -INF];
-      geoset.anim.maximumExtent = [INF, INF, INF];
-      geoset.anim.boundsRadius = INF;
+      fixExtents(geoset.minimumExtent, geoset.maximumExtent);
+      geoset.boundsRadius = _.max(geoset.maximumExtent)!;
+      fixExtents(geoset.anim.minimumExtent, geoset.anim.maximumExtent);
+      geoset.anim.boundsRadius = _.max(geoset.anim.maximumExtent)!;
     });
     this.sequences.forEach((s) => {
-      s.minimumExtent = [-INF, -INF, -INF];
-      s.maximumExtent = [INF, INF, INF];
-      s.boundsRadius = INF;
+      fixExtents(s.minimumExtent, s.maximumExtent);
+      s.boundsRadius = _.max(s.maximumExtent)!;
     });
   }
 

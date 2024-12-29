@@ -1,6 +1,6 @@
 import { deg2Rad, rad2Deg } from '../AngleConverter';
 import { type JsonResult, type WarResult } from '../CommonInterfaces';
-import { type Doodad, SpecialDoodad } from '../data/Doodad';
+import { type Doodad, DoodadList, SpecialDoodad } from '../data/Doodad';
 import { HexBuffer } from '../HexBuffer';
 import { W3Buffer } from '../W3Buffer';
 import { type Translator } from './Translator';
@@ -15,7 +15,7 @@ enum flag {
   solid_custom_height = 6
 }
 
-export class DoodadsTranslator implements Translator<[Doodad[], SpecialDoodad[]]> {
+export class DoodadsTranslator implements Translator<DoodadList> {
   private static instance: DoodadsTranslator;
 
   private constructor() { }
