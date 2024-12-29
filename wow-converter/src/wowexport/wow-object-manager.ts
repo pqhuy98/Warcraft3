@@ -6,21 +6,12 @@ import { glob } from 'glob';
 import * as path from 'path';
 
 import { rawModelScaleUp } from '../global-config';
-import {
-  calculateChildAbsoluteEulerRotation, DegToRad, quaternionToEuler, rotateVector,
-} from '../math/math';
+import { DegToRad, quaternionToEuler } from '../math/math';
+import { V3 } from '../math/vector';
+import { WowObject } from './common';
 import { Config } from './config';
-import { AssetManager, Model } from './model-manager';
-
-export interface WowObject {
-  id: string
-  model?: Model
-  position: [number, number, number]
-  rotation: [number, number, number]
-  scaleFactor: number
-  children: WowObject[]
-  type: string
-}
+import { AssetManager } from './model-manager';
+import { computeModelMinMaxExtents } from './utils';
 
 interface PlacementInfoRow {
   ModelFile: string
@@ -77,7 +68,7 @@ export class WowObjectManager {
         children: [],
         type: file.includes('adt') ? 'adt' : 'wmo',
       });
-      await this.parseRecursive(fileName, this.roots[this.roots.length - 1], null);
+      await this.parseRecursive(fileName, this.roots[this.roots.length - 1]);
     }
   }
 
@@ -89,7 +80,7 @@ export class WowObjectManager {
     return path.join(this.config.wowExportPath, relativePath);
   }
 
-  private async parseRecursive(objectPath: string, current: WowObject, parent: WowObject | null) {
+  private async parseRecursive(objectPath: string, current: WowObject) {
     if (this.objects.has(current.id)) {
       return;
     }
@@ -102,12 +93,6 @@ export class WowObjectManager {
 
     current.model = this.assetManager.parse(objectPath);
     current.position.forEach((_, i) => current.position[i] *= rawModelScaleUp);
-    if (parent) {
-      const relativePos = rotateVector(current.position, parent.rotation);
-      current.position.forEach((_, i) => current.position[i] = parent.position[i] + relativePos[i]);
-      current.rotation = calculateChildAbsoluteEulerRotation(parent.rotation, current.rotation);
-      current.scaleFactor *= parent.scaleFactor;
-    }
 
     if (current.type === 'gobj') {
       console.log('Found gobj', current.id, current.position, current.rotation);
@@ -123,17 +108,18 @@ export class WowObjectManager {
         if (this.objects.has(id)) {
           // do nothing
         } else {
-          current.children.push({
+          const child: WowObject = {
             id,
             model: undefined,
             ...convertRowPositionRotation(row),
             scaleFactor: parseFloat(row.ScaleFactor),
             children: [],
             type: row.Type ?? 'null',
-          });
-          const child = current.children[current.children.length - 1];
+          };
+          current.children.push(child);
+
           const fileName = row.ModelFile.replaceAll('.obj', '');
-          await this.parseRecursive(path.join(path.dirname(objectPath), fileName), child, current);
+          await this.parseRecursive(path.join(path.dirname(objectPath), fileName), child);
         }
       }
     }
@@ -159,48 +145,29 @@ export class WowObjectManager {
     });
   }
 
-  centerByParents(parents: WowObject[]) {
-    const min = [Infinity, Infinity, Infinity];
-    const max = [-Infinity, -Infinity, -Infinity];
-    parents.forEach((wowObject) => {
-      const mdl = wowObject.model!.mdl;
-      mdl.sync();
-      min[0] = Math.min(min[0], mdl.model.minimumExtent[0]);
-      min[1] = Math.min(min[1], mdl.model.minimumExtent[1]);
-      min[2] = Math.min(min[2], mdl.model.minimumExtent[2]);
-      max[0] = Math.max(max[0], mdl.model.maximumExtent[0]);
-      max[1] = Math.max(max[1], mdl.model.maximumExtent[1]);
-      max[2] = Math.max(max[2], mdl.model.maximumExtent[2]);
-    });
-    const center = [(min[0] + max[0]) / 2, (min[1] + max[1]) / 2, (min[2] + max[2]) / 2];
+  centerByParentModels(parents: WowObject[]) {
+    const { min, max } = computeModelMinMaxExtents(parents);
 
-    // console.log('Initial terrain min/max extents', min, max);
-    // console.log('Initial terrain size', (max[0] - min[0]), (max[1] - min[1]), (max[2] - min[2]));
-    // console.log('Initial terrain center', center);
+    const center = V3.mean(min, max);
 
-    // const dmin = [Infinity, Infinity, Infinity];
-    // const dmax = [-Infinity, -Infinity, -Infinity];
-    // this.doodads.forEach((dd) => {
-    //   if (dd.type !== 'wmo') return;
-    //   dmin[0] = Math.min(dmin[0], dd.position[0]);
-    //   dmin[1] = Math.min(dmin[1], dd.position[1]);
-    //   dmin[2] = Math.min(dmin[2], dd.position[2]);
-    //   dmax[0] = Math.max(dmax[0], dd.position[0]);
-    //   dmax[1] = Math.max(dmax[1], dd.position[1]);
-    //   dmax[2] = Math.max(dmax[2], dd.position[2]);
-    // });
-    // console.log('Initial doodad min/max extents', dmin, dmax);
-    // console.log('Initial doodad size', [dmax[0] - dmin[0], dmax[1] - dmin[1], dmax[2] - dmin[2]]);
+    console.log('Initial terrain model min/max extents', min, max);
+    console.log('Initial terrain model size', V3.sub(max, min));
+    console.log('Initial terrain model center', center);
 
-    // For delta, X, Y are center, Z is the height of the closest vertex to center
-    // so that after translation, the center is at (0, 0, 0)
-    const delta = [
-      center[0],
-      center[1],
-      center[2],
-    ];
-    // console.log('Delta', delta);
+    let dmin = V3.all(Infinity);
+    let dmax = V3.all(-Infinity);
 
+    parents.forEach((parent) => parent.children.forEach((child) => {
+      const childPos = child.position;
+      // const childPos = rotateVector(child.position, parent.rotation);
+      dmin = V3.min(dmin, childPos);
+      dmax = V3.max(dmax, childPos);
+    }));
+    console.log('Initial doodad min/max position', dmin, dmax);
+    console.log('Initial doodad position size', V3.sub(dmax, dmin));
+
+    const delta = center;
+    console.log('Delta', delta);
     parents.forEach((obj) => {
       obj.model!.mdl.geosets.forEach((geoset) => geoset.vertices.forEach((v) => {
         v[0] -= delta[0];
@@ -208,47 +175,34 @@ export class WowObjectManager {
         v[2] -= delta[2];
       }));
       obj.model!.mdl.sync();
-      // obj.position[0] -= delta[0];
-      // obj.position[1] -= delta[1];
-      // obj.position[2] -= delta[2];
+      // obj.position[0] += delta[0];
+      // obj.position[1] += delta[1];
+      // obj.position[2] += delta[2];
     });
-    min[0] -= delta[0];
-    min[1] -= delta[1];
-    min[2] -= delta[2];
-    max[0] -= delta[0];
-    max[1] -= delta[1];
-    max[2] -= delta[2];
 
-    // console.log('After translation, extents:', min, max);
-
-    const recursiveTranslate = (node: WowObject) => {
-      node.children.forEach((child) => {
-        // console.log('Translating child', child.id, child.position);
-        child.position[0] -= delta[0];
-        child.position[1] -= delta[1];
-        child.position[2] -= delta[2];
-        // console.log('Translated child', child.id, child.position);
-        recursiveTranslate(child);
-      });
-    };
+    // const { min: min2, max: max2 } = computeAbsoluteMinMaxExtents(parents);
+    // console.log('After translation, terrain min/max extents:', min2, max2);
+    // console.log('After translation, terrain size:', V3.sub(max2, min2));
 
     for (const parent of parents) {
-      recursiveTranslate(parent);
+      const childDelta = V3.rotate(delta, [0, 0, DegToRad(90)]);
+      // const childDelta = delta;
+      parent.children.forEach((child) => {
+        // console.log('Translating child', child.id, child.position, { childDelta });
+        child.position = V3.sub(child.position, childDelta);
+        // console.log('Translated child', child.id, child.position);
+      });
     }
 
-    // const dmin2 = [Infinity, Infinity, Infinity];
-    // const dmax2 = [-Infinity, -Infinity, -Infinity];
-    // this.doodads.forEach((dd) => {
-    //   if (dd.type !== 'wmo') return;
-    //   dmin2[0] = Math.min(dmin2[0], dd.position[0]);
-    //   dmin2[1] = Math.min(dmin2[1], dd.position[1]);
-    //   dmin2[2] = Math.min(dmin2[2], dd.position[2]);
-    //   dmax2[0] = Math.max(dmax2[0], dd.position[0]);
-    //   dmax2[1] = Math.max(dmax2[1], dd.position[1]);
-    //   dmax2[2] = Math.max(dmax2[2], dd.position[2]);
-    // });
-    // console.log('After centering, doodad min/max extents', dmin2, dmax2);
-    // console.log('After centering, doodad size', [dmax2[0] - dmin2[0], dmax2[1] - dmin2[1], dmax2[2] - dmin2[2]]);
+    let dmin2 = V3.all(Infinity);
+    let dmax2 = V3.all(-Infinity);
+    parents.flatMap((p) => p.children).forEach((child) => {
+      const childPos = child.position;
+      dmin2 = V3.min(dmin2, childPos);
+      dmax2 = V3.max(dmax2, childPos);
+    });
+    console.log('After centering, doodad min/max position', dmin2, dmax2);
+    console.log('After centering, doodad position size', V3.sub(dmax2, dmin2));
   }
 }
 

@@ -45,7 +45,7 @@ export function dataXyToGameXy([x, y]: [number, number]) {
       return [y, -x];
     case 0:
     default:
-      return [-y, x];
+      return [x, y];
   }
 }
 

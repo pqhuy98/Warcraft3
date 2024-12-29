@@ -6,7 +6,7 @@ export const assetPrefix = 'wow';
 
 // Fine-tuned parameters
 export const terrainHeightClampPercent = {
-  upper: 0.5,
+  upper: 1,
   lower: 0,
 };
 export const waterZThreshold = -1400;
@@ -22,10 +22,10 @@ export const updateDoodads = true;
 
 export const verticalHorizontalRatio = 1; // reducing this makes the map bigger, but doodads' position Z will become more wrong.
 
-export const mapAngle: 0 | 180 = 180;
+export const mapAngle: 0 | 180 = 0;
 export const dataHeightMin = 256;
 export const dataHeightMax = 13823; // Blizzard magic number
-export const rawModelScaleUp = 20;
+export const rawModelScaleUp = 1;
 export const infiniteExtentBoundRadiusThreshold = 2000 / 28 * rawModelScaleUp;
 export const pitchRollThresholdRadians = DegToRad(5);
 

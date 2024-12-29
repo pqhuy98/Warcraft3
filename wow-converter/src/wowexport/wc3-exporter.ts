@@ -1,39 +1,27 @@
-import { unlinkSync, writeFileSync } from 'fs';
 import * as path from 'path';
 
 import { distancePerTile } from '../constants';
 import {
-  dataHeightMax, dataHeightMin, mapAngle, pitchRollThresholdRadians, terrainHeightClampPercent, verticalHorizontalRatio,
+  dataHeightMax, dataHeightMin, pitchRollThresholdRadians, terrainHeightClampPercent, verticalHorizontalRatio,
   waterZThreshold,
 } from '../global-config';
-import { RadToDeg } from '../math/math';
-import { MDL } from '../objmdl/mdl';
+import { calculateChildAbsoluteEulerRotation, RadToDeg, rotateVector } from '../math/math';
+import { V3, Vector3 } from '../math/vector';
 import {
-  dataAngleToGameAngle,
   dataHeightToGameZ,
-  dataXyToGameXy,
   generateFourCC, getInitialTerrain, maxGameHeightDiff, waterZToDataHeight,
 } from '../utils';
-import { DoodadsTranslator, ObjectsTranslator, TerrainTranslator } from '../wc3maptranslator';
 import {
-  DoodadList, ObjectModificationTable, ObjectType, Terrain,
+  DoodadList, ObjectModificationTable, Terrain,
 } from '../wc3maptranslator/data';
-import { WowObject } from './wow-object-manager';
+import { WowObject } from './common';
+import { computeAbsoluteMinMaxExtents } from './utils';
 
 export class Wc3Converter {
-  terrain: Terrain;
-
-  doodadsData: ObjectModificationTable = {
-    original: {},
-    custom: {},
-  };
-
-  doodads: DoodadList = [[], []];
-
   constructor() {
   }
 
-  generateTerrainFromAdt(terrainMDLs: MDL[]) {
+  generateTerrain(terrainMDLs: WowObject[]): Terrain {
     console.log('Generating terrain from', terrainMDLs.length, 'ADT files');
 
     const {
@@ -67,36 +55,42 @@ export class Wc3Converter {
         }
       }
     }
-
-    this.terrain = terrain;
+    return terrain;
   }
 
-  placeDoodads(terrains: WowObject[], doodads: WowObject[]) {
-    console.log('Placing', doodads.length, 'doodads');
+  placeDoodads(parents: WowObject[], terrain: Terrain) {
+    const doodadsData: ObjectModificationTable = {
+      original: {},
+      custom: {},
+    };
 
-    const { min, max } = computeMinMaxExtents(terrains.map((t) => t.model!.mdl));
-    const mapMin = [
-      this.terrain.map.offset.x,
-      this.terrain.map.offset.y,
+    const doodads: DoodadList = [[], []];
+
+    console.log('Placing doodads');
+
+    const { min, max } = computeAbsoluteMinMaxExtents(parents);
+    const mapMin: Vector3 = [
+      terrain.map.offset.x,
+      terrain.map.offset.y,
       dataHeightToGameZ(dataHeightMin),
     ];
-    const mapMax = [
-      this.terrain.map.offset.x + this.terrain.map.width * distancePerTile,
-      this.terrain.map.offset.y + this.terrain.map.height * distancePerTile,
+    const mapMax: Vector3 = [
+      terrain.map.offset.x + terrain.map.width * distancePerTile,
+      terrain.map.offset.y + terrain.map.height * distancePerTile,
       dataHeightToGameZ(dataHeightMax),
     ];
+    const mapSize = V3.sub(mapMax, mapMin);
+    const modelSize = V3.sub(max, min);
 
-    // console.log({ mapMin, mapMax });
-    // console.log({ min, max });
+    console.log('Map', { mapMin, mapMax, mapSize });
+    console.log('Parent model', { min, max, size: modelSize });
 
-    const { height, width } = this.terrain.map;
-    const mapSize = [height * distancePerTile, width * distancePerTile, maxGameHeightDiff];
-    const scale = [
-      mapSize[0] / (max[0] - min[0]),
-      mapSize[1] / (max[1] - min[1]),
-      mapSize[2] / ((max[2] - min[2]) * (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower)),
+    const rootScale = [
+      mapSize[0] / modelSize[0],
+      mapSize[1] / modelSize[1],
+      mapSize[2] / (modelSize[2] * (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower)),
     ];
-    // console.log({ scale });
+    // console.log({ rootScale });
 
     const modelPathToId = new Map<string, string>();
 
@@ -105,41 +99,51 @@ export class Wc3Converter {
     const doodadName = (obj: WowObject) => `z ${path.basename(obj.model!.relativePath)} (${obj.type})`;
     let doodadTypesWithPitchRoll = 0;
 
-    doodads.forEach((obj) => {
-      const fileName = obj.model!.relativePath;
+    const placeDoodadsRecursive = (obj: WowObject, parent: WowObject | null) => {
+      console.log('================================');
+      const current = { ...obj };
+      if (parent) {
+        const relativePos = V3.rotate(obj.position, parent.rotation);
+        current.position = V3.sum(parent.position, relativePos);
+        console.log({
+          objPos: obj.position,
+          parentPos: parent.position,
+          relativePos,
+          currentPos: current.position,
+        });
+        current.rotation = calculateChildAbsoluteEulerRotation(parent.rotation, current.rotation);
+        current.scaleFactor *= parent.scaleFactor;
+      }
 
       // WC3 pitch and roll must be negative, required by World Editor
-      const wc3Pitch = (-(obj.rotation[0] - Math.PI / 2)) % (Math.PI * 2) - Math.PI * 2;
-      const wc3Roll = (-obj.rotation[1]) % (Math.PI * 2) - Math.PI * 2;
+      const wc3Pitch = (-(current.rotation[0] - Math.PI / 2)) % (Math.PI * 2) - Math.PI * 2;
+      const wc3Roll = (-current.rotation[1]) % (Math.PI * 2) - Math.PI * 2;
 
-      const hasPitchRoll = !['adt', 'wmo'].includes(obj.type)
+      const hasPitchRoll = !['adt', 'wmo'].includes(current.type)
         && Math.abs(wc3Pitch) > pitchRollThresholdRadians
         && Math.abs(wc3Roll) > pitchRollThresholdRadians;
 
+      const fileName = obj.model!.relativePath;
       const hashKey = hasPitchRoll
-        ? [fileName, obj.rotation[0].toFixed(4), obj.rotation[1].toFixed(4)].join(';')
+        ? [fileName, current.rotation[0].toFixed(4), current.rotation[1].toFixed(4)].join(';')
         : fileName;
 
       // Insert new doodad type if not exists
       if (!modelPathToId.has(hashKey)) {
         const fullId = `${generateFourCC().codeString}:YOtf`;
 
-        if (obj.id.includes('lumbermill_set0')) {
-          console.log(obj.rotation, { wc3Pitch, wc3Roll });
-        }
-
         const doodadType = [
           {
             id: 'dfil', type: 'string', level: 0, column: 0, value: fileName,
           },
           {
-            id: 'dnam', type: 'string', level: 0, column: 0, value: `${doodadName(obj)} ${fullId.slice(0, 4)}`,
+            id: 'dnam', type: 'string', level: 0, column: 0, value: `${doodadName(current)} ${fullId.slice(0, 4)}`,
           },
           {
-            id: 'dmas', type: 'unreal', level: 0, column: 0, value: obj.scaleFactor * Math.max(...scale) * 10,
+            id: 'dmas', type: 'unreal', level: 0, column: 0, value: current.scaleFactor * Math.max(...rootScale) * 10,
           },
           {
-            id: 'dmis', type: 'unreal', level: 0, column: 0, value: obj.scaleFactor * Math.min(...scale) * 0.5,
+            id: 'dmis', type: 'unreal', level: 0, column: 0, value: current.scaleFactor * Math.min(...rootScale) * 0.5,
           },
           {
             id: 'dvis', type: 'unreal', level: 0, column: 0, value: 99999,
@@ -168,44 +172,44 @@ export class Wc3Converter {
           );
           doodadTypesWithPitchRoll++;
         }
-        this.doodadsData.custom[fullId] = doodadType;
+        doodadsData.custom[fullId] = doodadType;
         modelPathToId.set(hashKey, fullId);
       }
       const id4Chars = modelPathToId.get(hashKey)!.slice(0, 4);
 
-      // if (id4Chars === 'A699') {
-      //   console.log(obj.rotation);
-      //   console.log(this.doodadsData.custom[id4Chars]);
-      // }
-
       // Calculate positions
-      const [inGameX, inGameY] = dataXyToGameXy([
-        obj.position[0] * scale[0],
-        obj.position[1] * scale[1],
-      ]);
-      const zPercent = (obj.position[2] - min[2]) / (max[2] - min[2]);
+      const percent = [
+        (current.position[0] - min[0]) / modelSize[0],
+        (current.position[1] - min[1]) / modelSize[1],
+        (current.position[2] - min[2]) / modelSize[2],
+      ];
+      const inGameX = mapMin[0] + percent[0] * mapSize[0];
+      const inGameY = mapMin[1] + percent[1] * mapSize[1];
       const inGameZ = dataHeightToGameZ(dataHeightMin
         + (dataHeightMax - dataHeightMin)
         / (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower)
-        * (zPercent - terrainHeightClampPercent.lower));
+        * (percent[2] - terrainHeightClampPercent.lower));
+
+      console.log(current.id, current.position, {
+        percent, inGameX, inGameY, inGameZ,
+      });
 
       if (inGameX < mapMin[0] || inGameX > mapMax[0] || inGameY < mapMin[1] || inGameY > mapMax[1]) {
-        if (obj.id.includes('lightray')) {
-          console.warn('Placing', obj.model?.relativePath, 'outside of map bounds', inGameX, inGameY);
+        if (current.id.includes('lightray')) {
+          console.warn('Placing', current.model?.relativePath, 'outside of map bounds', inGameX, inGameY);
         }
       }
 
       // Add doodad instance
-      this.doodads[0].push({
+      doodads[0].push({
         type: id4Chars,
         variation: 0,
         position: [inGameX, inGameY, inGameZ],
-        angle: dataAngleToGameAngle(RadToDeg(obj.rotation[2])),
+        angle: RadToDeg(current.rotation[2]),
         scale: [
-          // in-game X and Y are swapped.
-          obj.scaleFactor * scale[1],
-          obj.scaleFactor * scale[0],
-          obj.scaleFactor * scale[2],
+          current.scaleFactor * rootScale[0],
+          current.scaleFactor * rootScale[1],
+          current.scaleFactor * rootScale[2],
         ],
         skinId: id4Chars,
         flags: {
@@ -216,87 +220,67 @@ export class Wc3Converter {
         life: 100,
         randomItemSetPtr: -1,
         droppedItemSets: [],
-        id: this.doodads[0].length,
+        id: doodads[0].length,
       });
-    });
 
-    console.log('Created', Object.keys(this.doodadsData.custom).length, `custom doodad types (${doodadTypesWithPitchRoll} with pitch&roll)`);
-    console.log('Placed', this.doodads[0].length, 'doodad instances');
-  }
+      current.children.forEach((child) => placeDoodadsRecursive(child, current));
+    };
 
-  writeTerrain(mapPath: string) {
-    writeFileSync(
-      path.join(mapPath, 'war3map.w3e'),
-      TerrainTranslator.jsonToWar(this.terrain).buffer,
-    );
-    try {
-      unlinkSync(path.join(mapPath, 'war3map.shd'));
-    } catch (e) {
-      // ignore
-    }
-  }
+    parents.forEach((p) => placeDoodadsRecursive(p, null));
 
-  writeDoodads(mapPath: string) {
-    writeFileSync(
-      path.join(mapPath, 'war3map.w3d'),
-      ObjectsTranslator.jsonToWar(ObjectType.Doodads, this.doodadsData).buffer,
-    );
-    writeFileSync(
-      path.join(mapPath, 'war3map.doo'),
-      DoodadsTranslator.jsonToWar(this.doodads).buffer,
-    );
+    console.log('Created', Object.keys(doodadsData.custom).length, `custom doodad types (${doodadTypesWithPitchRoll} with pitch&roll)`);
+    console.log('Placed', doodads[0].length, 'doodad instances');
+    return { doodadsData, doodads };
   }
 }
 
-function computeTerrainHeightMap(terrains: MDL[]) {
-  const { min, max } = computeMinMaxExtents(terrains);
-  const terrainSize = [max[0] - min[0], max[1] - min[1], max[2] - min[2]];
-  // console.log({ size: terrainSize });
+function computeTerrainHeightMap(terrains: WowObject[]) {
+  console.log('Computing terrain height map...');
+  const { min, max } = computeAbsoluteMinMaxExtents(terrains);
+  console.log({ min, max });
+
+  const terrainSize = V3.sub(max, min);
+  console.log({ size: terrainSize });
 
   const ratioZ = maxGameHeightDiff / (terrainSize[2] * (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower));
   const ratioXY = ratioZ / verticalHorizontalRatio;
-  const h1 = terrainSize[0] / distancePerTile * ratioXY;
-  const w1 = terrainSize[1] / distancePerTile * ratioXY;
+  const w1 = terrainSize[0] / distancePerTile * ratioXY;
+  const h1 = terrainSize[1] / distancePerTile * ratioXY;
 
   const height = Math.ceil(h1 / 4) * 4;
   const width = Math.ceil(w1 / 4) * 4;
 
-  // console.log({ ratio: ratioZ, width, height });
+  console.log({ ratio: ratioZ, width, height });
 
   const heightMap = Array.from({ length: height + 1 }, () => Array<number>(width + 1).fill(-1));
-  terrains.forEach((terrain) => terrain.geosets
-    .forEach((geoset) => geoset.vertices.forEach((v) => {
-      const percent = [
-        1 - (v[0] - min[0]) / terrainSize[0],
-        1 - (v[1] - min[1]) / terrainSize[1],
-        (v[2] - (min[2] + terrainSize[2] * terrainHeightClampPercent.lower)) / (terrainSize[2] * (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower)),
-      ];
-      if (mapAngle === 180) {
-        percent[0] = 1 - percent[0];
-        percent[1] = 1 - percent[1];
-      }
-      const i = Math.round(percent[0] * height);
-      const j = Math.round(percent[1] * width);
-      heightMap[i][j] = Math.max(heightMap[i][j], Math.max(0, Math.min(1, percent[2])));
-    })));
+  terrains.forEach((terrain) => {
+    terrain.model!.mdl.geosets
+      .forEach((geoset) => geoset.vertices.forEach((v) => {
+        const rotatedV = rotateVector(v, terrain.rotation);
+        const position = V3.sum(terrain.position, rotatedV);
+
+        // console.log({ position, min, max });
+
+        const percent = [
+          (position[0] - min[0]) / terrainSize[0],
+          (position[1] - min[1]) / terrainSize[1],
+          (position[2] - (min[2] + terrainSize[2] * terrainHeightClampPercent.lower)) / (terrainSize[2] * (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower)),
+        ];
+
+        const i = Math.round((1 - percent[1]) * height);
+        const j = Math.round(percent[0] * width);
+        if (i < 0 || i > height || j < 0 || j > width) {
+          console.error('Out of bounds', {
+            i, j, percent, position,
+          });
+          throw new Error('Out of bounds');
+        }
+
+        heightMap[i][j] = Math.max(heightMap[i][j], Math.max(0, Math.min(1, percent[2])));
+      }));
+  });
 
   return {
     heightMap, height, width,
   };
-}
-
-function computeMinMaxExtents(models: MDL[]) {
-  const min = [Infinity, Infinity, Infinity];
-  const max = [-Infinity, -Infinity, -Infinity];
-
-  models.forEach((model) => {
-    min[0] = Math.min(min[0], model.model.minimumExtent[0]);
-    min[1] = Math.min(min[1], model.model.minimumExtent[1]);
-    min[2] = Math.min(min[2], model.model.minimumExtent[2]);
-    max[0] = Math.max(max[0], model.model.maximumExtent[0]);
-    max[1] = Math.max(max[1], model.model.maximumExtent[1]);
-    max[2] = Math.max(max[2], model.model.maximumExtent[2]);
-  });
-
-  return { min, max };
 }
