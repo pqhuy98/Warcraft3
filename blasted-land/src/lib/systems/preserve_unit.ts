@@ -48,11 +48,6 @@ const debug = false;
 //   'BHds', // divine shield
 // ];
 
-const hiddenLoc = {
-  x: GetRectMinX(GetEntireMapRect()),
-  y: GetRectMinY(GetEntireMapRect()),
-};
-
 export function preserveUnit(unit: Unit): void {
   if (preservedUnits.has(unit)) {
     undoPreserveUnit(unit);
@@ -128,6 +123,10 @@ export function preserveUnit(unit: Unit): void {
           unit.show = false;
           unit.setUseFood(false);
           unit.paused = true;
+          const hiddenLoc = {
+            x: GetRectMinX(GetEntireMapRect()),
+            y: GetRectMinY(GetEntireMapRect()),
+          };
           unit.x = hiddenLoc.x;
           unit.y = hiddenLoc.y;
           unit.setPathing(false);

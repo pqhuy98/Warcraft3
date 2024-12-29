@@ -4,18 +4,19 @@ import path from 'path';
 import { parseMDL } from 'war3-model';
 
 import { distancePerTile } from './src/constants';
-import { dataHeightMax, dataHeightMin, mapPath } from './src/global-config';
+import { dataHeightMax, dataHeightMin } from './src/global-config';
 import {
   dataHeightToGameZ, gameZToDataHeight, getInitialTerrain, maxGameHeightDiff,
   nArray,
 } from './src/utils';
 import { DoodadsTranslator, TerrainTranslator } from './src/wc3maptranslator';
 
+const mapPath = 'maps/test.w3x';
 const groundGeosets = [2, 4, 5, 13, 15, 18, 23];
-const heightThreshold = 322;
+const heightThreshold = 9999;
 const floodBrushSize = 3;
-const height = 192;
-const width = 76 * 2;
+const height = 324;
+const width = 160;
 
 const json = (x: unknown) => JSON.stringify(x, null, 2);
 
