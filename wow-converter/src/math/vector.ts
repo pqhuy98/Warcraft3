@@ -23,6 +23,10 @@ export class V3 {
     ];
   }
 
+  static negative(a: Vector3): Vector3 {
+    return [-a[0], -a[1], -a[2]];
+  }
+
   static scale(a: Vector3, b: number): Vector3 {
     return [a[0] * b, a[1] * b, a[2] * b];
   }

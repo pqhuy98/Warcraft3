@@ -1,15 +1,17 @@
-type Quaternion = [number, number, number, number];
-type EulerRotation = [number, number, number];
+import { Vector3 } from './vector';
 
-export function DegToRad(degrees: number): number {
-  return degrees * (Math.PI / 180);
+export type QuaternionRotation = [number, number, number, number];
+export type EulerRotation = Vector3;
+
+export function radians(deg: number): number {
+  return deg * (Math.PI / 180);
 }
 
-export function RadToDeg(radians: number): number {
-  return radians * (180 / Math.PI);
+export function degrees(rad: number): number {
+  return rad * (180 / Math.PI);
 }
 
-function quaternionMultiply(q1: Quaternion, q2: Quaternion): Quaternion {
+function quaternionMultiply(q1: QuaternionRotation, q2: QuaternionRotation): QuaternionRotation {
   const [x1, y1, z1, w1] = q1;
   const [x2, y2, z2, w2] = q2;
 
@@ -21,7 +23,7 @@ function quaternionMultiply(q1: Quaternion, q2: Quaternion): Quaternion {
   return [x, y, z, w];
 }
 
-function quaternionNormalize(q: Quaternion): Quaternion {
+function quaternionNormalize(q: QuaternionRotation): QuaternionRotation {
   const [x, y, z, w] = q;
   const magnitude = Math.sqrt(x * x + y * y + z * z + w * w);
   if (magnitude === 0) {
@@ -44,7 +46,7 @@ export function calculateChildAbsoluteEulerRotation(
   return quaternionToEuler(combinedQuat);
 }
 
-export function quaternionToEuler(quat: Quaternion): EulerRotation {
+export function quaternionToEuler(quat: QuaternionRotation): EulerRotation {
   const [x, y, z, w] = quat;
 
   // Roll (X-axis rotation)
@@ -69,7 +71,7 @@ export function quaternionToEuler(quat: Quaternion): EulerRotation {
   return [roll, pitch, yaw];
 }
 
-export function eulerToQuaternion(eulerRad: EulerRotation): Quaternion {
+export function eulerToQuaternion(eulerRad: EulerRotation): QuaternionRotation {
   // Compute half angles
   const halfRoll = eulerRad[0] / 2;
   const halfPitch = eulerRad[1] / 2;
@@ -95,9 +97,9 @@ export function eulerToQuaternion(eulerRad: EulerRotation): Quaternion {
 }
 
 export function rotateVector(
-  position: [number, number, number],
+  position: Vector3,
   angle: EulerRotation,
-): [number, number, number] {
+): Vector3 {
   const [x, y, z] = position;
   const rx = angle[0];
   const ry = angle[1];
@@ -123,7 +125,7 @@ export function rotateVector(
   ];
 
   // Helper function to multiply matrices
-  function multiplyMatrixVector(matrix: number[][], vector: [number, number, number]): [number, number, number] {
+  function multiplyMatrixVector(matrix: number[][], vector: Vector3): Vector3 {
     return [
       matrix[0][0] * vector[0] + matrix[0][1] * vector[1] + matrix[0][2] * vector[2],
       matrix[1][0] * vector[0] + matrix[1][1] * vector[1] + matrix[1][2] * vector[2],

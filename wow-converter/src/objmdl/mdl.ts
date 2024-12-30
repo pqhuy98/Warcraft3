@@ -292,8 +292,8 @@ ${this.pivotPointsToString()}
     const fixExtents = (min: number[], max: number[]) => {
       for (let i = 0; i < min.length; i++) {
         const abs = Math.max(Math.abs(min[i]), Math.abs(max[i]));
-        min[i] = -abs;
-        max[i] = abs;
+        min[i] = -abs * 3;
+        max[i] = abs * 3;
       }
     };
 

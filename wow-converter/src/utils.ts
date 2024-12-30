@@ -1,5 +1,5 @@
 import { distancePerTile } from './constants';
-import { dataHeightMax, dataHeightMin, mapAngle } from './global-config';
+import { dataHeightMax, dataHeightMin } from './global-config';
 import { Terrain } from './wc3maptranslator/data/Terrain';
 
 const fourCCPrefixes = 'abcdefghijklmnopqrstuvwxyz'.split('');
@@ -34,23 +34,6 @@ export function generateFourCC() {
   }
 
   return { codeString, fourCC };
-}
-
-// constants
-
-export function dataXyToGameXy([x, y]: [number, number]) {
-  // in-game X and Y are swapped.
-  switch (mapAngle) {
-    case 180:
-      return [y, -x];
-    case 0:
-    default:
-      return [x, y];
-  }
-}
-
-export function dataAngleToGameAngle(angle: number) {
-  return angle + 180 + mapAngle;
 }
 
 export function dataHeightToGameZ(dataHeight: number): number {

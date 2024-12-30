@@ -6,12 +6,12 @@ import { glob } from 'glob';
 import * as path from 'path';
 
 import { rawModelScaleUp } from '../global-config';
-import { DegToRad, quaternionToEuler } from '../math/math';
-import { V3 } from '../math/vector';
+import { calculateChildAbsoluteEulerRotation, quaternionToEuler, radians } from '../math/math';
+import { V3, Vector3 } from '../math/vector';
 import { WowObject } from './common';
 import { Config } from './config';
 import { AssetManager } from './model-manager';
-import { computeModelMinMaxExtents } from './utils';
+import { computeAbsoluteMinMaxExtents } from './utils';
 
 interface PlacementInfoRow {
   ModelFile: string
@@ -63,7 +63,7 @@ export class WowObjectManager {
         id: fileName,
         model: undefined,
         position: [0, 0, 0],
-        rotation: [0, 0, DegToRad(-90)],
+        rotation: [0, 0, radians(-90)],
         scaleFactor: 1,
         children: [],
         type: file.includes('adt') ? 'adt' : 'wmo',
@@ -85,17 +85,29 @@ export class WowObjectManager {
       return;
     }
     this.objects.set(current.id, current);
+    current.model = this.assetManager.parse(objectPath);
+    current.position.forEach((_, i) => current.position[i] *= rawModelScaleUp);
+
     if (current.id.includes('adt_')) {
       this.terrains.push(current);
+      // Center the terrain model and update its position
+      const { min, max } = computeAbsoluteMinMaxExtents([current]);
+      const center = V3.mean(min, max);
+      current.model.mdl.geosets.forEach((geoset) => geoset.vertices.forEach((v) => {
+        const vAbsolute = V3.rotate(v, current.rotation);
+        const vAbsoluteCentered = V3.sum(vAbsolute, V3.negative(center));
+        const vRelative = V3.rotate(vAbsoluteCentered, V3.negative(current.rotation));
+        v[0] = vRelative[0];
+        v[1] = vRelative[1];
+        v[2] = vRelative[2];
+      }));
+      current.position = center;
     } else {
       this.doodads.push(current);
     }
 
-    current.model = this.assetManager.parse(objectPath);
-    current.position.forEach((_, i) => current.position[i] *= rawModelScaleUp);
-
     if (current.type === 'gobj') {
-      console.log('Found gobj', current.id, current.position, current.rotation);
+      console.warn('Found gobj', current.id, current.position, current.rotation);
     }
 
     const childrenCsvPath = this.full(path.join(`${objectPath}_ModelPlacementInformation.csv`));
@@ -103,7 +115,7 @@ export class WowObjectManager {
       const rows = await this.parsePlacementCsv(childrenCsvPath);
       writeFileSync(path.join('dist', path.basename(childrenCsvPath)).replace('.csv', '.json'), JSON.stringify(rows, null, 2));
       for (const row of rows) {
-        const id = `${row.ModelId}:${row.FileDataID}:${row.ModelFile}:${row.PositionX}:${row.PositionY}:${row.PositionZ}`;
+        const id = `${row.FileDataID}:${row.ModelFile}:${row.PositionX}:${row.PositionY}:${row.PositionZ}`;
 
         if (this.objects.has(id)) {
           // do nothing
@@ -116,8 +128,30 @@ export class WowObjectManager {
             children: [],
             type: row.Type ?? 'null',
           };
-          current.children.push(child);
+          if (current.type === 'adt') {
+            // console.log('---------------');
+            // console.log({ childId: child.id, parentId: current.id });
+            // console.log('Parent absolute extents', computeAbsoluteMinMaxExtents([current]));
+            // console.log('Parent model extents', computeModelMinMaxExtents([current]));
+            // console.log('Parent position', current.position);
+            // console.log('Child position before', child.position);
 
+            const wmoParentFixedRotation: Vector3 = [0, 0, radians(-90)];
+
+            const childAbsolutePosition = V3.rotate(child.position, wmoParentFixedRotation);
+            // console.log('Child absolute position', childAbsolutePosition);
+
+            const childAbsolutePositionDelta = V3.sub(childAbsolutePosition, current.position);
+            // console.log('Child absolute position delta', childAbsolutePositionDelta);
+
+            const childRelativePosition = V3.rotate(childAbsolutePositionDelta, V3.negative(wmoParentFixedRotation));
+            // console.log('Child relative position', childRelativePosition);
+
+            // console.log('Child relative position to absolute vs true absolute', V3.sub(V3.sum(current.position, V3.rotate(childRelativePosition, wmoParentFixedRotation)), childAbsolutePosition));
+            child.position = childRelativePosition;
+          }
+
+          current.children.push(child);
           const fileName = row.ModelFile.replaceAll('.obj', '');
           await this.parseRecursive(path.join(path.dirname(objectPath), fileName), child);
         }
@@ -145,64 +179,15 @@ export class WowObjectManager {
     });
   }
 
-  centerByParentModels(parents: WowObject[]) {
-    const { min, max } = computeModelMinMaxExtents(parents);
-
+  rotateRootsAtCenter(rotation: Vector3) {
+    const { min, max } = computeAbsoluteMinMaxExtents(this.roots);
     const center = V3.mean(min, max);
-
-    console.log('Initial terrain model min/max extents', min, max);
-    console.log('Initial terrain model size', V3.sub(max, min));
-    console.log('Initial terrain model center', center);
-
-    let dmin = V3.all(Infinity);
-    let dmax = V3.all(-Infinity);
-
-    parents.forEach((parent) => parent.children.forEach((child) => {
-      const childPos = child.position;
-      // const childPos = rotateVector(child.position, parent.rotation);
-      dmin = V3.min(dmin, childPos);
-      dmax = V3.max(dmax, childPos);
-    }));
-    console.log('Initial doodad min/max position', dmin, dmax);
-    console.log('Initial doodad position size', V3.sub(dmax, dmin));
-
-    const delta = center;
-    console.log('Delta', delta);
-    parents.forEach((obj) => {
-      obj.model!.mdl.geosets.forEach((geoset) => geoset.vertices.forEach((v) => {
-        v[0] -= delta[0];
-        v[1] -= delta[1];
-        v[2] -= delta[2];
-      }));
-      obj.model!.mdl.sync();
-      // obj.position[0] += delta[0];
-      // obj.position[1] += delta[1];
-      // obj.position[2] += delta[2];
+    this.roots.forEach((obj) => {
+      const diff = V3.sub(obj.position, center);
+      const rotatedDiff = V3.rotate(diff, rotation);
+      obj.position = V3.sum(center, rotatedDiff);
+      obj.rotation = calculateChildAbsoluteEulerRotation(obj.rotation, rotation);
     });
-
-    // const { min: min2, max: max2 } = computeAbsoluteMinMaxExtents(parents);
-    // console.log('After translation, terrain min/max extents:', min2, max2);
-    // console.log('After translation, terrain size:', V3.sub(max2, min2));
-
-    for (const parent of parents) {
-      const childDelta = V3.rotate(delta, [0, 0, DegToRad(90)]);
-      // const childDelta = delta;
-      parent.children.forEach((child) => {
-        // console.log('Translating child', child.id, child.position, { childDelta });
-        child.position = V3.sub(child.position, childDelta);
-        // console.log('Translated child', child.id, child.position);
-      });
-    }
-
-    let dmin2 = V3.all(Infinity);
-    let dmax2 = V3.all(-Infinity);
-    parents.flatMap((p) => p.children).forEach((child) => {
-      const childPos = child.position;
-      dmin2 = V3.min(dmin2, childPos);
-      dmax2 = V3.max(dmax2, childPos);
-    });
-    console.log('After centering, doodad min/max position', dmin2, dmax2);
-    console.log('After centering, doodad position size', V3.sub(dmax2, dmin2));
   }
 }
 
@@ -219,9 +204,9 @@ function convertRowPositionRotation(row: PlacementInfoRow): {
           parseFloat(row.PositionY),
         ],
         rotation: [
-          DegToRad(parseFloat(row.RotationZ)),
-          DegToRad(parseFloat(row.RotationX)),
-          DegToRad(parseFloat(row.RotationY) + 90),
+          radians(parseFloat(row.RotationZ)),
+          radians(parseFloat(row.RotationX)),
+          radians(parseFloat(row.RotationY) + 90),
         ],
       };
       case 'm2': return {
@@ -231,9 +216,9 @@ function convertRowPositionRotation(row: PlacementInfoRow): {
           parseFloat(row.PositionY),
         ],
         rotation: [
-          DegToRad(parseFloat(row.RotationZ) + 90),
-          DegToRad(parseFloat(row.RotationX)),
-          DegToRad(parseFloat(row.RotationY) + 90),
+          radians(parseFloat(row.RotationZ)),
+          radians(parseFloat(row.RotationX)),
+          radians(parseFloat(row.RotationY) + 90),
         ],
       };
       case 'gobj': return {
@@ -256,7 +241,6 @@ function convertRowPositionRotation(row: PlacementInfoRow): {
           parseFloat(row.RotationZ),
           parseFloat(row.RotationW),
         ]);
-        rotation[0] += DegToRad(90);
         return {
           position: [
             parseFloat(row.PositionX),
@@ -271,8 +255,8 @@ function convertRowPositionRotation(row: PlacementInfoRow): {
   const blender = getBlenderPositionRotation();
   return {
     position: [
-      -blender.position[0],
-      -blender.position[1],
+      blender.position[0],
+      blender.position[1],
       blender.position[2],
     ],
     rotation: [

@@ -1,31 +1,29 @@
 import { unlinkSync, writeFileSync } from 'fs';
 import * as path from 'path';
 
-import { wowExportPath } from '../global-config';
+import { mapAngle, wowExportPath } from '../global-config';
+import { radians } from '../math/math';
 import { DoodadsTranslator, ObjectsTranslator, TerrainTranslator } from '../wc3maptranslator';
 import { ObjectType } from '../wc3maptranslator/data';
 import { Wc3Converter } from './wc3-exporter';
 import { WowObjectManager } from './wow-object-manager';
 
 // eslint-disable-next-line @typescript-eslint/no-shadow
-export async function generate(adtPatten: string, assetPrefix: string) {
+export async function generate(adtPattern: string, assetPrefix: string) {
   const wowObjectManager = new WowObjectManager({
     wowExportPath: wowExportPath.replace(path.sep, '/'),
     assetPrefix,
   });
-  await wowObjectManager.parse(adtPatten);
+  await wowObjectManager.parse(adtPattern);
 
-  const terrains = wowObjectManager.terrains;
+  const roots = wowObjectManager.roots;
 
-  wowObjectManager.centerByParentModels(terrains);
-  // terrains.forEach((t) => {
-  //   wowObjectManager.centerByParents([t]);
-  // });
+  wowObjectManager.rotateRootsAtCenter([0, 0, radians(-90 + mapAngle)]);
 
   const war3Exporter = new Wc3Converter();
 
-  const wc3Terrain = war3Exporter.generateTerrain(terrains);
-  const { doodadsData, doodads } = war3Exporter.placeDoodads(terrains, wc3Terrain);
+  const wc3Terrain = war3Exporter.generateTerrain(roots);
+  const { doodadsData, doodads } = war3Exporter.placeDoodads(roots, wc3Terrain);
 
   return {
     wowObjectManager,

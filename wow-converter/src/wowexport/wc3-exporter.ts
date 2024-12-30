@@ -5,7 +5,7 @@ import {
   dataHeightMax, dataHeightMin, pitchRollThresholdRadians, terrainHeightClampPercent, verticalHorizontalRatio,
   waterZThreshold,
 } from '../global-config';
-import { calculateChildAbsoluteEulerRotation, RadToDeg, rotateVector } from '../math/math';
+import { calculateChildAbsoluteEulerRotation, degrees, rotateVector } from '../math/math';
 import { V3, Vector3 } from '../math/vector';
 import {
   dataHeightToGameZ,
@@ -16,6 +16,16 @@ import {
 } from '../wc3maptranslator/data';
 import { WowObject } from './common';
 import { computeAbsoluteMinMaxExtents } from './utils';
+
+enum TerrainFlag {
+  Unwalkable = 2,
+  Unflyable = 4,
+  Unbuildable = 8,
+  Ramp = 16,
+  Blight = 32,
+  Water = 64,
+  Boundary = 128,
+}
 
 export class Wc3Converter {
   constructor() {
@@ -47,7 +57,7 @@ export class Wc3Converter {
     for (let i = 0; i < heightMap.length; i++) {
       for (let j = 0; j < heightMap[i].length; j++) {
         if (terrain.groundHeight[i][j] < waterHeightThreshold) {
-          terrain.flags[i][j] |= 64;
+          terrain.flags[i][j] |= TerrainFlag.Water;
           terrain.waterHeight[i][j] = waterHeightThreshold;
           terrain.groundHeight[i][j] = Math.min(terrain.groundHeight[i][j], waterHeightThreshold - 1);
           // Make sure we don't overflow the limit
@@ -55,10 +65,18 @@ export class Wc3Converter {
         }
       }
     }
+
+    for (let i = 0; i < heightMap.length; i++) {
+      for (let j = 0; j < heightMap[i].length; j++) {
+        if (terrain.groundHeight[i][j] >= dataHeightMax) {
+          terrain.flags[i][j] |= (TerrainFlag.Unflyable | TerrainFlag.Unwalkable | TerrainFlag.Unbuildable);
+        }
+      }
+    }
     return terrain;
   }
 
-  placeDoodads(parents: WowObject[], terrain: Terrain) {
+  placeDoodads(roots: WowObject[], terrain: Terrain) {
     const doodadsData: ObjectModificationTable = {
       original: {},
       custom: {},
@@ -68,7 +86,7 @@ export class Wc3Converter {
 
     console.log('Placing doodads');
 
-    const { min, max } = computeAbsoluteMinMaxExtents(parents);
+    const { min, max } = computeAbsoluteMinMaxExtents(roots);
     const mapMin: Vector3 = [
       terrain.map.offset.x,
       terrain.map.offset.y,
@@ -90,60 +108,56 @@ export class Wc3Converter {
       mapSize[1] / modelSize[1],
       mapSize[2] / (modelSize[2] * (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower)),
     ];
-    // console.log({ rootScale });
+    console.log({ rootScale });
 
     const modelPathToId = new Map<string, string>();
 
-    // Prefix generated doodads with z so that they are shown last in Object Editor.
-    // To avoid mixing with manually added custom doodads.
-    const doodadName = (obj: WowObject) => `z ${path.basename(obj.model!.relativePath)} (${obj.type})`;
     let doodadTypesWithPitchRoll = 0;
-
-    const placeDoodadsRecursive = (obj: WowObject, parent: WowObject | null) => {
-      console.log('================================');
-      const current = { ...obj };
-      if (parent) {
-        const relativePos = V3.rotate(obj.position, parent.rotation);
-        current.position = V3.sum(parent.position, relativePos);
-        console.log({
-          objPos: obj.position,
-          parentPos: parent.position,
-          relativePos,
-          currentPos: current.position,
-        });
-        current.rotation = calculateChildAbsoluteEulerRotation(parent.rotation, current.rotation);
-        current.scaleFactor *= parent.scaleFactor;
+    const placeDoodadsRecursive = (obj: WowObject, parentAbsolute: WowObject | null) => {
+      // console.log('================================');
+      const objAbsolute = { ...obj };
+      if (parentAbsolute) {
+        const relativePos = V3.rotate(obj.position, parentAbsolute.rotation);
+        objAbsolute.position = V3.sum(parentAbsolute.position, relativePos);
+        objAbsolute.rotation = calculateChildAbsoluteEulerRotation(parentAbsolute.rotation, objAbsolute.rotation);
+        objAbsolute.scaleFactor *= parentAbsolute.scaleFactor;
+        // console.log('Translating', obj.id, 'based on parent', parentAbsolute.id);
+        // console.log({ childOldPos: obj.position, parentAbsRot: parentAbsolute.rotation });
+        // console.log({ relativePos, parentAbsPos: parentAbsolute.position, childAbsPos: objAbsolute.position });
       }
 
       // WC3 pitch and roll must be negative, required by World Editor
-      const wc3Pitch = (-(current.rotation[0] - Math.PI / 2)) % (Math.PI * 2) - Math.PI * 2;
-      const wc3Roll = (-current.rotation[1]) % (Math.PI * 2) - Math.PI * 2;
+      const wc3Roll = (-objAbsolute.rotation[0]) % (Math.PI * 2) - Math.PI * 2;
+      const wc3Pitch = (-objAbsolute.rotation[1]) % (Math.PI * 2) - Math.PI * 2;
 
-      const hasPitchRoll = !['adt', 'wmo'].includes(current.type)
-        && Math.abs(wc3Pitch) > pitchRollThresholdRadians
-        && Math.abs(wc3Roll) > pitchRollThresholdRadians;
+      const hasRollPitch = (true || !['adt', 'wmo'].includes(objAbsolute.type))
+        && Math.abs(wc3Roll) > pitchRollThresholdRadians
+        && Math.abs(wc3Pitch) > pitchRollThresholdRadians;
 
       const fileName = obj.model!.relativePath;
-      const hashKey = hasPitchRoll
-        ? [fileName, current.rotation[0].toFixed(4), current.rotation[1].toFixed(4)].join(';')
+      const hashKey = hasRollPitch
+        ? [fileName, objAbsolute.rotation[0].toFixed(2), objAbsolute.rotation[1].toFixed(2)].join(';')
         : fileName;
 
       // Insert new doodad type if not exists
       if (!modelPathToId.has(hashKey)) {
         const fullId = `${generateFourCC().codeString}:YOtf`;
+        // Prefix generated doodads with z so that they are shown last in Object Editor.
+        // To avoid mixing with manually added custom doodads. Also add FourCC id and obj.id for debugging.
+        const doodadName = `z ${path.basename(obj.model!.relativePath)} -- ${obj.type} -- ${fullId.slice(0, 4)} -- ${obj.id}`;
 
         const doodadType = [
           {
             id: 'dfil', type: 'string', level: 0, column: 0, value: fileName,
           },
           {
-            id: 'dnam', type: 'string', level: 0, column: 0, value: `${doodadName(current)} ${fullId.slice(0, 4)}`,
+            id: 'dnam', type: 'string', level: 0, column: 0, value: doodadName,
           },
           {
-            id: 'dmas', type: 'unreal', level: 0, column: 0, value: current.scaleFactor * Math.max(...rootScale) * 10,
+            id: 'dmas', type: 'unreal', level: 0, column: 0, value: objAbsolute.scaleFactor * Math.max(...rootScale) * 1.5,
           },
           {
-            id: 'dmis', type: 'unreal', level: 0, column: 0, value: current.scaleFactor * Math.min(...rootScale) * 0.5,
+            id: 'dmis', type: 'unreal', level: 0, column: 0, value: objAbsolute.scaleFactor * Math.min(...rootScale) / 1.5,
           },
           {
             id: 'dvis', type: 'unreal', level: 0, column: 0, value: 99999,
@@ -161,13 +175,13 @@ export class Wc3Converter {
             id: 'dshf', type: 'int', level: 0, column: 0, value: 1,
           },
         ];
-        if (hasPitchRoll) {
+        if (hasRollPitch) {
           doodadType.push(
-            { // pitch, must be unreal even though in Editor it's always negative
-              id: 'dmap', type: 'unreal', level: 0, column: 0, value: wc3Pitch,
-            },
             { // roll, must be unreal even though in Editor it's always negative
               id: 'dmar', type: 'unreal', level: 0, column: 0, value: wc3Roll,
+            },
+            { // pitch, must be unreal even though in Editor it's always negative
+              id: 'dmap', type: 'unreal', level: 0, column: 0, value: wc3Pitch,
             },
           );
           doodadTypesWithPitchRoll++;
@@ -179,9 +193,9 @@ export class Wc3Converter {
 
       // Calculate positions
       const percent = [
-        (current.position[0] - min[0]) / modelSize[0],
-        (current.position[1] - min[1]) / modelSize[1],
-        (current.position[2] - min[2]) / modelSize[2],
+        (objAbsolute.position[0] - min[0]) / modelSize[0],
+        (objAbsolute.position[1] - min[1]) / modelSize[1],
+        (objAbsolute.position[2] - min[2]) / modelSize[2],
       ];
       const inGameX = mapMin[0] + percent[0] * mapSize[0];
       const inGameY = mapMin[1] + percent[1] * mapSize[1];
@@ -190,14 +204,11 @@ export class Wc3Converter {
         / (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower)
         * (percent[2] - terrainHeightClampPercent.lower));
 
-      console.log(current.id, current.position, {
-        percent, inGameX, inGameY, inGameZ,
-      });
-
       if (inGameX < mapMin[0] || inGameX > mapMax[0] || inGameY < mapMin[1] || inGameY > mapMax[1]) {
-        if (current.id.includes('lightray')) {
-          console.warn('Placing', current.model?.relativePath, 'outside of map bounds', inGameX, inGameY);
-        }
+        console.warn('Placing', objAbsolute.model?.relativePath, 'outside of map bounds.');
+        // console.log(objAbsolute.id, objAbsolute.position, {
+        //   percent, inGameX, inGameY, inGameZ,
+        // }, { mapMin, mapMax });
       }
 
       // Add doodad instance
@@ -205,11 +216,11 @@ export class Wc3Converter {
         type: id4Chars,
         variation: 0,
         position: [inGameX, inGameY, inGameZ],
-        angle: RadToDeg(current.rotation[2]),
+        angle: degrees(objAbsolute.rotation[2]),
         scale: [
-          current.scaleFactor * rootScale[0],
-          current.scaleFactor * rootScale[1],
-          current.scaleFactor * rootScale[2],
+          objAbsolute.scaleFactor * rootScale[0],
+          objAbsolute.scaleFactor * rootScale[1],
+          objAbsolute.scaleFactor * rootScale[2],
         ],
         skinId: id4Chars,
         flags: {
@@ -223,10 +234,10 @@ export class Wc3Converter {
         id: doodads[0].length,
       });
 
-      current.children.forEach((child) => placeDoodadsRecursive(child, current));
+      objAbsolute.children.forEach((child) => placeDoodadsRecursive(child, objAbsolute));
     };
 
-    parents.forEach((p) => placeDoodadsRecursive(p, null));
+    roots.forEach((p) => placeDoodadsRecursive(p, null));
 
     console.log('Created', Object.keys(doodadsData.custom).length, `custom doodad types (${doodadTypesWithPitchRoll} with pitch&roll)`);
     console.log('Placed', doodads[0].length, 'doodad instances');
@@ -240,17 +251,14 @@ function computeTerrainHeightMap(terrains: WowObject[]) {
   console.log({ min, max });
 
   const terrainSize = V3.sub(max, min);
-  console.log({ size: terrainSize });
+  console.log({ terrainSize });
 
   const ratioZ = maxGameHeightDiff / (terrainSize[2] * (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower));
   const ratioXY = ratioZ / verticalHorizontalRatio;
-  const w1 = terrainSize[0] / distancePerTile * ratioXY;
-  const h1 = terrainSize[1] / distancePerTile * ratioXY;
+  const width = Math.ceil(terrainSize[0] / distancePerTile * ratioXY / 4) * 4;
+  const height = Math.ceil(terrainSize[1] / distancePerTile * ratioXY / 4) * 4;
 
-  const height = Math.ceil(h1 / 4) * 4;
-  const width = Math.ceil(w1 / 4) * 4;
-
-  console.log({ ratio: ratioZ, width, height });
+  console.log({ ratio: ratioZ, height, width });
 
   const heightMap = Array.from({ length: height + 1 }, () => Array<number>(width + 1).fill(-1));
   terrains.forEach((terrain) => {
@@ -267,16 +275,14 @@ function computeTerrainHeightMap(terrains: WowObject[]) {
           (position[2] - (min[2] + terrainSize[2] * terrainHeightClampPercent.lower)) / (terrainSize[2] * (terrainHeightClampPercent.upper - terrainHeightClampPercent.lower)),
         ];
 
-        const i = Math.round((1 - percent[1]) * height);
-        const j = Math.round(percent[0] * width);
-        if (i < 0 || i > height || j < 0 || j > width) {
-          console.error('Out of bounds', {
-            i, j, percent, position,
-          });
+        if (percent[0] < 0 || percent[0] > 1 || percent[1] < 0 || percent[1] > 1) {
+          console.error('Out of bounds', { percent, position });
           throw new Error('Out of bounds');
         }
-
-        heightMap[i][j] = Math.max(heightMap[i][j], Math.max(0, Math.min(1, percent[2])));
+        const iX = Math.round(percent[0] * width);
+        const iY = Math.round((1 - percent[1]) * height);
+        // [Y is height][X is width]
+        heightMap[iY][iX] = Math.max(heightMap[iY][iX], Math.max(0, Math.min(1, percent[2])));
       }));
   });
 

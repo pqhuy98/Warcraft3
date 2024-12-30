@@ -79,11 +79,11 @@ export function convertObjMdl(objFilePath: string, assetRoot: string, texturePre
         const objV = obj.models[0].vertices[v.vertexIndex - 1];
         if (!vMap.has(v.vertexIndex)) {
           vMap.set(v.vertexIndex, geoset.vertices.length);
-          geoset.vertices.push([objV.z, objV.x, objV.y]);
+          geoset.vertices.push([objV.x, -objV.z, objV.y]);
           geoset.vertexGroup.push(0);
 
           const objN = obj.models[0].vertexNormals[v.vertexNormalIndex - 1];
-          geoset.normals.push([objN.z, objN.x, objN.y]);
+          geoset.normals.push([objN.x, -objN.z, objN.y]);
 
           const objT = obj.models[0].textureCoords[v.textureCoordsIndex - 1];
           geoset.tVertices.push([objT.u, 1 - objT.v]);

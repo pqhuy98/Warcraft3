@@ -5,6 +5,7 @@ import { parseMDL } from 'war3-model';
 
 import { distancePerTile } from './src/constants';
 import { dataHeightMax, dataHeightMin } from './src/global-config';
+import { Vector3 } from './src/math/vector';
 import {
   dataHeightToGameZ, gameZToDataHeight, getInitialTerrain, maxGameHeightDiff,
   nArray,
@@ -20,10 +21,8 @@ const width = 160;
 
 const json = (x: unknown) => JSON.stringify(x, null, 2);
 
-type Vertex3D = [number, number, number];
-
 interface Face {
-  vertices: [Vertex3D, Vertex3D, Vertex3D];
+  vertices: [Vector3, Vector3, Vector3];
   geosetId: number
 }
 
@@ -75,7 +74,7 @@ function findIntegerPointsInTriangle(A: Vertex2D, B: Vertex2D, C: Vertex2D): Ver
   return points;
 }
 
-function calculateTriangleSlope(points: Vertex3D[]): number {
+function calculateTriangleSlope(points: Vector3[]): number {
   if (points.length !== 3) {
     throw new Error('Exactly three points are required to form a triangle.');
   }
@@ -109,7 +108,7 @@ function calculateTriangleSlope(points: Vertex3D[]): number {
   return angleInDegrees;
 }
 
-function calculateZ(v1: Vertex3D, v2: Vertex3D, v3: Vertex3D, x: number, y: number): number {
+function calculateZ(v1: Vector3, v2: Vector3, v3: Vector3, x: number, y: number): number {
   // Create vectors from v1 to v2 and v1 to v3
   const vectorA = {
     x: v2[0] - v1[0],
@@ -147,7 +146,7 @@ function calculateZ(v1: Vertex3D, v2: Vertex3D, v3: Vertex3D, x: number, y: numb
 const modelStr = readFileSync(path.join(mapPath, 'icecrownraid_set0.mdl'), 'utf-8');
 const mdl = parseMDL(modelStr);
 
-const allVertices: Vertex3D[] = [];
+const allVertices: Vector3[] = [];
 const allFaces = mdl.Geosets.flatMap(((g, geosetId) => {
   for (let i = 0; i < g.Vertices.length; i += 3) {
     allVertices.push([
@@ -160,19 +159,19 @@ const allFaces = mdl.Geosets.flatMap(((g, geosetId) => {
   const faces: Face[] = [];
   for (let i = 0; i < g.Faces.length; i += 3) {
     const id1 = g.Faces[i] * 3;
-    const v1: Vertex3D = [
+    const v1: Vector3 = [
       g.Vertices[id1],
       g.Vertices[id1 + 1],
       g.Vertices[id1 + 2],
     ];
     const id2 = g.Faces[i + 1] * 3;
-    const v2: Vertex3D = [
+    const v2: Vector3 = [
       g.Vertices[id2],
       g.Vertices[id2 + 1],
       g.Vertices[id2 + 2],
     ];
     const id3 = g.Faces[i + 2] * 3;
-    const v3: Vertex3D = [
+    const v3: Vector3 = [
       g.Vertices[id3],
       g.Vertices[id3 + 1],
       g.Vertices[id3 + 2],
@@ -274,7 +273,7 @@ allFaces.forEach((f) => {
     return;
   }
 
-  const tileVertices: [number, number, number][] = f.vertices.map((v) => {
+  const tileVertices: Vector3[] = f.vertices.map((v) => {
     // allVertices.forEach((v) => {
     let [x, y, z] = v;
     modelMin[0] = Math.min(modelMin[0], x);

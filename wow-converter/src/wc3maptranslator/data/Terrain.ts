@@ -28,3 +28,13 @@ interface Offset {
 }
 
 export type { Terrain, MapSize, Offset };
+
+export enum TerrainFlag {
+  Unwalkable = 2,
+  Unflyable = 4,
+  Unbuildable = 8,
+  Ramp = 16,
+  Blight = 32,
+  Water = 64,
+  Boundary = 128,
+}
