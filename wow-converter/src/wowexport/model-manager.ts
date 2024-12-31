@@ -3,15 +3,10 @@ import * as path from 'path';
 
 import { blp2Image } from '../blp/blp';
 import { infiniteExtentBoundRadiusThreshold } from '../global-config';
+import { V3 } from '../math/vector';
 import { convertObjMdl } from '../objmdl';
-import { MDL } from '../objmdl/mdl';
+import { Model, WowObject } from './common';
 import { Config } from './config';
-
-export interface Model {
-  relativePath: string
-  mdl: MDL
-  materialPaths: string[]
-}
 
 export class AssetManager {
   models = new Map<string, Model>();
@@ -71,4 +66,34 @@ export class AssetManager {
       blp2Image(fromPath, toPath, 'blp');
     }
   }
+}
+
+export function computeAbsoluteMinMaxExtents(objs: WowObject[]) {
+  let min = V3.all(Infinity);
+  let max = V3.all(-Infinity);
+  objs.forEach((obj) => {
+    obj.model!.mdl.geosets.forEach((geoset) => {
+      geoset.vertices.forEach((v) => {
+        const rotatedV = V3.rotate(v, obj.rotation);
+        const position = V3.sum(obj.position, rotatedV);
+        min = V3.min(min, position);
+        max = V3.max(max, position);
+      });
+    });
+  });
+  return { min, max };
+}
+
+export function computeModelMinMaxExtents(objs: WowObject[]) {
+  let min = V3.all(Infinity);
+  let max = V3.all(-Infinity);
+  objs.forEach((obj) => {
+    obj.model!.mdl.geosets.forEach((geoset) => {
+      geoset.vertices.forEach((v) => {
+        min = V3.min(min, v);
+        max = V3.max(max, v);
+      });
+    });
+  });
+  return { min, max };
 }

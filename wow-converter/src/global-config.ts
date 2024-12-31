@@ -1,31 +1,30 @@
-import { radians } from './math/math';
+import { radians } from './math/rotation';
+import { ConvertOptions } from './wowexport/common';
 
 export const wowExportPath = 'C:/Users/quang/wow.export/';
 // export const mapPath = '../death-knight-starting\\maps\\death-knight-starting.w3x';
 export const assetPrefix = 'wow';
 
-// Fine-tuned parameters
-export const terrainHeightClampPercent = {
-  upper: 0.75,
-  lower: 0.55,
+export const defaultConvertOptions: ConvertOptions = {
+  terrainHeightClampPercent: {
+    upper: 1,
+    lower: 0,
+  },
+  waterZThreshold: -2000,
+  verticalHorizontalRatio: 1, // reducing this makes the map bigger, but doodads' position Z will become more wrong.
+  pitchRollThresholdRadians: radians(5),
 };
-export const waterZThreshold = -1166;
+
+// Fine-tuned parameters
 export const defaultFilterMode = 'None';
 // export const defaultFilterMode = 'Transparent';
 
-// Control parameters
-export const updateDoodadModels = false; // false to skip this step
-export const updateTextures = false;
-export const updateDoodads = true;
-
 // Map generation configs
-export const verticalHorizontalRatio = 1; // reducing this makes the map bigger, but doodads' position Z will become more wrong.
 export const mapAngle: 0 | 90 | 180 | 270 = 0;
 export const dataHeightMin = 256;
 export const dataHeightMax = 13823; // Blizzard magic number
 export const rawModelScaleUp = 1; // TODO: investigate why bigger values don't work yet.
 export const infiniteExtentBoundRadiusThreshold = 2000 / 28 * rawModelScaleUp;
-export const pitchRollThresholdRadians = radians(5);
 
 const noneFilterPatterns = [
   'textures\\walls',

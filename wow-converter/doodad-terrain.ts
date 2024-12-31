@@ -5,7 +5,9 @@ import { parseMDL } from 'war3-model';
 
 import { distancePerTile } from './src/constants';
 import { dataHeightMax, dataHeightMin } from './src/global-config';
-import { Vector3 } from './src/math/vector';
+import { Vector3 } from './src/math/model';
+import { radians } from './src/math/rotation';
+import { V3 } from './src/math/vector';
 import {
   dataHeightToGameZ, gameZToDataHeight, getInitialTerrain, maxGameHeightDiff,
   nArray,
@@ -13,11 +15,11 @@ import {
 import { DoodadsTranslator, TerrainTranslator } from './src/wc3maptranslator';
 
 const mapPath = 'maps/test.w3x';
-const groundGeosets = [2, 4, 5, 13, 15, 18, 23];
 const heightThreshold = 9999;
-const floodBrushSize = 3;
-const height = 324;
-const width = 160;
+const floodBrushSize = 2;
+
+const modelStr = readFileSync(path.join(mapPath, 'icecrownraid_set0.final.ground.mdl'), 'utf-8');
+const mdl = parseMDL(modelStr);
 
 const json = (x: unknown) => JSON.stringify(x, null, 2);
 
@@ -143,19 +145,7 @@ function calculateZ(v1: Vector3, v2: Vector3, v3: Vector3, x: number, y: number)
   return z;
 }
 
-const modelStr = readFileSync(path.join(mapPath, 'icecrownraid_set0.mdl'), 'utf-8');
-const mdl = parseMDL(modelStr);
-
-const allVertices: Vector3[] = [];
 const allFaces = mdl.Geosets.flatMap(((g, geosetId) => {
-  for (let i = 0; i < g.Vertices.length; i += 3) {
-    allVertices.push([
-      g.Vertices[i],
-      g.Vertices[i + 1],
-      g.Vertices[i + 2],
-    ]);
-  }
-
   const faces: Face[] = [];
   for (let i = 0; i < g.Faces.length; i += 3) {
     const id1 = g.Faces[i] * 3;
@@ -190,30 +180,11 @@ const dooPath = path.join(mapPath, 'war3map.doo');
 const doodads = DoodadsTranslator.warToJson(readFileSync(dooPath)).json;
 console.log(json(doodads[0][0]));
 
-const lowestZ = _.min(allFaces.map((f) => _.min(f.vertices.map((v) => v[2]))));
-console.log({ lowestZ });
-
 const w3ePath = path.join(mapPath, 'war3map.w3e');
-// const terrain = TerrainTranslator.warToJson(readFileSync(w3ePath)).json;
-// console.log(terrain.map);
+const { height, width } = TerrainTranslator.warToJson(readFileSync(w3ePath)).json.map;
 const terrain = getInitialTerrain(height, width);
 
-const iccDoodad = doodads[0].find((d) => d.type === 'A001')!;
-console.log(iccDoodad.position[2]);
-// console.log(json(doodads[0].map((d) => d.position[2])));
-
-const centerD = [
-  (_.max(doodads[0].map((d) => d.position[0]))! + _.min(doodads[0].map((d) => d.position[0]))!) / 2,
-  (_.max(doodads[0].map((d) => d.position[1]))! + _.min(doodads[0].map((d) => d.position[1]))!) / 2,
-];
-const deltaD = iccDoodad.position[2] - dataHeightToGameZ((dataHeightMax + dataHeightMin) / 2);
-doodads[0].forEach((d) => {
-  d.position[0] -= centerD[0];
-  d.position[1] -= centerD[1];
-  d.position[2] -= deltaD;
-});
-writeFileSync(path.join(mapPath, 'war3map.doo'), DoodadsTranslator.jsonToWar(doodads).buffer);
-
+const iccDoodad = doodads[0].find((d) => d.type === 'A000')!;
 const mapSize = [terrain.map.width * distancePerTile, terrain.map.height * distancePerTile, maxGameHeightDiff];
 const mapMin = [
   terrain.map.offset.x,
@@ -228,11 +199,6 @@ const mapMax = [
 
 console.log({ mapSize });
 console.log({ mapMin, mapMax });
-
-const modelMin = [Infinity, Infinity, Infinity];
-const modelMax = [-Infinity, -Infinity, -Infinity];
-const modelIngameMin = [Infinity, Infinity, Infinity];
-const modelIngameMax = [-Infinity, -Infinity, -Infinity];
 
 const sumArray = nArray(terrain.groundHeight.length, terrain.groundHeight[0].length, 0);
 const countArray = nArray(terrain.groundHeight.length, terrain.groundHeight[0].length, 0);
@@ -263,43 +229,19 @@ for (let i = 0; i < terrain.groundHeight.length; i++) {
 let minI = Infinity;
 let maxI = -Infinity;
 
-console.log(terrain.map);
-console.log(terrain.groundTexture.length, terrain.groundTexture[0].length);
-console.log(terrain.groundHeight.length, terrain.groundHeight[0].length);
-console.log(terrain.layerHeight.length, terrain.groundHeight[0].length);
+console.log('terrain.map', terrain.map);
 
 allFaces.forEach((f) => {
-  if (!groundGeosets.includes(f.geosetId + 1)) {
-    return;
-  }
-
   const tileVertices: Vector3[] = f.vertices.map((v) => {
-    // allVertices.forEach((v) => {
-    let [x, y, z] = v;
-    modelMin[0] = Math.min(modelMin[0], x);
-    modelMin[1] = Math.min(modelMin[1], y);
-    modelMin[2] = Math.min(modelMin[2], z);
-    modelMax[0] = Math.max(modelMax[0], x);
-    modelMax[1] = Math.max(modelMax[1], y);
-    modelMax[2] = Math.max(modelMax[2], z);
-
-    x *= iccDoodad.scale[0];
-    y *= iccDoodad.scale[1];
-    z *= iccDoodad.scale[2];
+    const [x, y, z] = V3.rotate(V3.mul(v, iccDoodad.scale), [0, 0, radians(iccDoodad.angle)]);
     const gameX = x + iccDoodad.position[0];
     const gameY = y + iccDoodad.position[1];
     const gameZ = z + iccDoodad.position[2];
-    modelIngameMin[0] = Math.min(modelIngameMin[0], gameX);
-    modelIngameMin[1] = Math.min(modelIngameMin[1], gameY);
-    modelIngameMin[2] = Math.min(modelIngameMin[2], gameZ);
-    modelIngameMax[0] = Math.max(modelIngameMax[0], gameX);
-    modelIngameMax[1] = Math.max(modelIngameMax[1], gameY);
-    modelIngameMax[2] = Math.max(modelIngameMax[2], gameZ);
 
-    const percentI = 1 - (gameY - mapMin[1]) / mapSize[1];
-    const percentJ = (gameX - mapMin[0]) / mapSize[0];
-    const tileI = percentI * terrain.map.height;
-    const tileJ = percentJ * terrain.map.width;
+    const percentX = (gameX - mapMin[0]) / mapSize[0];
+    const percentY = 1 - (gameY - mapMin[1]) / mapSize[1];
+    const tileI = percentY * terrain.map.height;
+    const tileJ = percentX * terrain.map.width;
     return [tileI, tileJ, gameZ];
   });
 
@@ -310,23 +252,26 @@ allFaces.forEach((f) => {
   );
   const slope = calculateTriangleSlope(f.vertices);
 
-  // const gameZ = (tileVertices[0][2] + tileVertices[1][2] + tileVertices[2][2]) / 3;
   points.forEach(([i, j]) => {
     if (i < 0 || i >= terrain.map.height || j < 0 || j >= terrain.map.width) {
       return;
     }
-    if (slope > 25) {
+    if (slope > 45) {
       // terrain.flags[i][j] |= 128;
       // terrain.flags[i + 1][j + 1] |= 128;
       // terrain.flags[i][j + 1] |= 128;
       // terrain.flags[i + 1][j] |= 128;
       return;
     }
-    const gameZ = calculateZ(tileVertices[0], tileVertices[1], tileVertices[2], i, j);
+    const gameZ = Math.min(
+      calculateZ(tileVertices[0], tileVertices[1], tileVertices[2], i, j),
+      _.max(tileVertices.map((v) => v[2]))!,
+    );
     if (gameZ > heightThreshold) return;
 
     minI = Math.min(minI, i);
     maxI = Math.max(maxI, i);
+    // update(i, j, dataHeightMax);
     update(i, j, gameZToDataHeight(gameZ));
   });
 });
@@ -369,12 +314,5 @@ console.log(terrain.map);
 console.log(terrain.groundTexture.length, terrain.groundTexture[0].length);
 console.log(terrain.groundHeight.length, terrain.groundHeight[0].length);
 console.log(terrain.layerHeight.length, terrain.groundHeight[0].length);
-console.log({ minI, maxI });
-console.log({ modelMin, modelMax });
-
-console.log({ modelIngameMin, modelIngameMax });
-const modelSize = [modelIngameMax[0] - modelIngameMin[0], modelIngameMax[1] - modelIngameMin[1], modelIngameMax[2] - modelIngameMin[2]];
-console.log({ modelSize });
-console.log(modelSize.map((s, i) => s / iccDoodad.scale[i]));
 
 writeFileSync(w3ePath, TerrainTranslator.jsonToWar(terrain).buffer);

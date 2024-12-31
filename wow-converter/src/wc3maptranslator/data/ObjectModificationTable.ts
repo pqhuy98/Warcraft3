@@ -3,7 +3,7 @@ enum TableType {
   custom = 'custom'
 }
 
-enum ModificationType {
+const enum ModificationType {
   int = 'int',
   real = 'real',
   unreal = 'unreal',
@@ -44,8 +44,8 @@ interface Modification {
 }
 
 interface ObjectModificationTable {
-  original: object
-  custom: object
+  original: Record<string, Modification[]>
+  custom: Record<string, Modification[]>
 }
 
 export {

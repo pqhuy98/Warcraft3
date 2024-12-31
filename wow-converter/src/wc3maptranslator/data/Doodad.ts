@@ -4,9 +4,9 @@ import { ItemSet } from './ItemSet';
 interface Doodad {
   type: string
   variation: number
-  position: number[]
+  position: [number, number, number]
   angle: angle
-  scale: number[]
+  scale: [number, number, number]
   skinId: string
   flags: DoodadFlag
   life: number
@@ -23,7 +23,7 @@ interface DoodadFlag {
 
 interface SpecialDoodad {
   type: string,
-  position: number[]
+  position: [number, number, number]
 }
 
 export type { Doodad, DoodadFlag, SpecialDoodad };

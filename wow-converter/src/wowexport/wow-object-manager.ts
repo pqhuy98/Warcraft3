@@ -6,12 +6,12 @@ import { glob } from 'glob';
 import * as path from 'path';
 
 import { rawModelScaleUp } from '../global-config';
-import { calculateChildAbsoluteEulerRotation, quaternionToEuler, radians } from '../math/math';
-import { V3, Vector3 } from '../math/vector';
+import { Vector3 } from '../math/model';
+import { calculateChildAbsoluteEulerRotation, quaternionToEuler, radians } from '../math/rotation';
+import { V3 } from '../math/vector';
 import { WowObject } from './common';
 import { Config } from './config';
-import { AssetManager } from './model-manager';
-import { computeAbsoluteMinMaxExtents } from './utils';
+import { AssetManager, computeAbsoluteMinMaxExtents } from './model-manager';
 
 interface PlacementInfoRow {
   ModelFile: string

@@ -52,7 +52,11 @@ export const maxGameHeightDiff = (dataHeightMax - dataHeightMin) / 4;
 
 export const nArray = <T>(height: number, width: number, v: T): T[][] => Array.from({ length: (height + 1) }, () => Array<T>(width + 1).fill(v));
 
-export function getInitialTerrain(height: number, width: number): Terrain {
+export function getInitialTerrain(
+  height: number,
+  width: number,
+  defaultHeight: number = (dataHeightMin + dataHeightMax) >> 1,
+): Terrain {
   const fill = <T>(v: T): T[][] => nArray(height, width, v);
 
   return {
@@ -68,7 +72,7 @@ export function getInitialTerrain(height: number, width: number): Terrain {
     },
     // "Masks"
 
-    groundHeight: fill((dataHeightMin + dataHeightMax) >> 1),
+    groundHeight: fill(defaultHeight),
     waterHeight: fill(dataHeightMin + 728 / 4),
 
     // boundaryFlag: 0: not boundary, 1: boundary. Can be all 0
