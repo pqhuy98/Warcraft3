@@ -79,39 +79,20 @@ export class TerrainTranslator implements Translator<Terrain> {
     // Partition the terrainJson masks into "chunks" (i.e. rows) of (width+1) length,
     // reverse that list of rows (due to vertical flipping), and then write the rows out
     const rows = {
-      // groundHeight: splitLargeArrayIntoWidthArrays(terrainJson.groundHeight, terrainJson.map.width + 1) as number[][],
-      // waterHeight: splitLargeArrayIntoWidthArrays(terrainJson.waterHeight, terrainJson.map.width + 1) as number[][],
-      // boundaryFlag: splitLargeArrayIntoWidthArrays(terrainJson.boundaryFlag, terrainJson.map.width + 1) as boolean[][],
-      // flags: splitLargeArrayIntoWidthArrays(terrainJson.flags, terrainJson.map.width + 1) as number[][],
-      // groundTexture: splitLargeArrayIntoWidthArrays(terrainJson.groundTexture, terrainJson.map.width + 1) as number[][],
-      // groundVariation: splitLargeArrayIntoWidthArrays(terrainJson.groundVariation, terrainJson.map.width + 1) as number[][],
-      // cliffVariation: splitLargeArrayIntoWidthArrays(terrainJson.cliffVariation, terrainJson.map.width + 1) as number[][],
-      // cliffTexture: splitLargeArrayIntoWidthArrays(terrainJson.cliffTexture, terrainJson.map.width + 1) as number[][],
-      // layerHeight: splitLargeArrayIntoWidthArrays(terrainJson.layerHeight, terrainJson.map.width + 1) as number[][],
-      groundHeight: (terrainJson.groundHeight),
-      waterHeight: (terrainJson.waterHeight),
-      boundaryFlag: (terrainJson.boundaryFlag),
-      flags: (terrainJson.flags),
-      groundTexture: (terrainJson.groundTexture),
-      groundVariation: (terrainJson.groundVariation),
-      cliffVariation: (terrainJson.cliffVariation),
-      cliffTexture: (terrainJson.cliffTexture),
-      layerHeight: (terrainJson.layerHeight),
+      groundHeight: terrainJson.groundHeight,
+      waterHeight: terrainJson.waterHeight,
+      boundaryFlag: terrainJson.boundaryFlag,
+      flags: terrainJson.flags,
+      groundTexture: terrainJson.groundTexture,
+      groundVariation: terrainJson.groundVariation,
+      cliffVariation: terrainJson.cliffVariation,
+      cliffTexture: terrainJson.cliffTexture,
+      layerHeight: terrainJson.layerHeight,
       tileset: '',
       customTileset: false,
       tilePalette: [],
       cliffTilePalette: [],
     };
-
-    rows.groundHeight.reverse();
-    rows.waterHeight.reverse();
-    rows.boundaryFlag.reverse();
-    rows.flags.reverse();
-    rows.groundTexture.reverse();
-    rows.groundVariation.reverse();
-    rows.cliffVariation.reverse();
-    rows.cliffTexture.reverse();
-    rows.layerHeight.reverse();
 
     for (let i = 0; i < rows.groundHeight.length; i++) {
       for (let j = 0; j < rows.groundHeight[i].length; j++) {
@@ -255,18 +236,15 @@ export class TerrainTranslator implements Translator<Terrain> {
       arrLayerHeight.push(layerHeight);
     }
 
-    // The map was read in "backwards" because wc3 maps have origin (0,0)
-    // at the bottom left instead of top left as we desire. Flip the rows
-    // vertically to fix this.
-    result.groundHeight = splitLargeArrayIntoWidthArrays(arrGroundHeight, result.map.width + 1).reverse();
-    result.waterHeight = splitLargeArrayIntoWidthArrays(arrWaterHeight, result.map.width + 1).reverse();
-    result.boundaryFlag = splitLargeArrayIntoWidthArrays(arrBoundaryFlag, result.map.width + 1).reverse();
+    result.groundHeight = splitLargeArrayIntoWidthArrays(arrGroundHeight, result.map.width + 1);
+    result.waterHeight = splitLargeArrayIntoWidthArrays(arrWaterHeight, result.map.width + 1);
+    result.boundaryFlag = splitLargeArrayIntoWidthArrays(arrBoundaryFlag, result.map.width + 1);
     result.flags = splitLargeArrayIntoWidthArrays(arrFlags, result.map.width + 1).reverse();
-    result.groundTexture = splitLargeArrayIntoWidthArrays(arrGroundTexture, result.map.width + 1).reverse();
-    result.groundVariation = splitLargeArrayIntoWidthArrays(arrGroundVariation, result.map.width + 1).reverse();
-    result.cliffVariation = splitLargeArrayIntoWidthArrays(arrCliffVariation, result.map.width + 1).reverse();
-    result.cliffTexture = splitLargeArrayIntoWidthArrays(arrCliffTexture, result.map.width + 1).reverse();
-    result.layerHeight = splitLargeArrayIntoWidthArrays(arrLayerHeight, result.map.width + 1).reverse();
+    result.groundTexture = splitLargeArrayIntoWidthArrays(arrGroundTexture, result.map.width + 1);
+    result.groundVariation = splitLargeArrayIntoWidthArrays(arrGroundVariation, result.map.width + 1);
+    result.cliffVariation = splitLargeArrayIntoWidthArrays(arrCliffVariation, result.map.width + 1);
+    result.cliffTexture = splitLargeArrayIntoWidthArrays(arrCliffTexture, result.map.width + 1);
+    result.layerHeight = splitLargeArrayIntoWidthArrays(arrLayerHeight, result.map.width + 1);
 
     return {
       errors: [],

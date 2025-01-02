@@ -1,4 +1,4 @@
-import { type JsonResult, type WarResult } from '../CommonInterfaces'
+import { type JsonResult, type WarResult } from '../CommonInterfaces';
 
 export interface Translator<T> {
   jsonToWar: (json: T) => WarResult

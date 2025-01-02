@@ -13,19 +13,12 @@ const mapPaths = [
 function main() {
   for (const mapPath of mapPaths) {
     const dooPath = path.join(mapPath, 'war3map.doo');
-    const w3dPath = path.join(mapPath, 'war3map.w3d');
+    const w3dPath = path.join(mapPath, 'war3map.w3b');
 
     const doodads = DoodadsTranslator.warToJson(readFileSync(dooPath)).json;
-    const doodadData = ObjectsTranslator.warToJson(ObjectType.Doodads, readFileSync(w3dPath)).json;
+    const doodadData = ObjectsTranslator.warToJson(ObjectType.Destructables, readFileSync(w3dPath)).json;
     console.log(f(doodads));
     console.log(f(doodadData));
-
-    // console.log('Save unchanged', f(doodads));
-    // writeFileSync(dooPath2, DoodadsTranslator.jsonToWar(doodads).buffer);
-
-    // doodads[0][0].position[2] += 500;
-    // console.log('Save changed', f(doodads));
-    // writeFileSync(dooPath1, DoodadsTranslator.jsonToWar(doodads).buffer);
   }
 }
 

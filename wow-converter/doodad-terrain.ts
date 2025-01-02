@@ -239,7 +239,7 @@ allFaces.forEach((f) => {
     const gameZ = z + iccDoodad.position[2];
 
     const percentX = (gameX - mapMin[0]) / mapSize[0];
-    const percentY = 1 - (gameY - mapMin[1]) / mapSize[1];
+    const percentY = (gameY - mapMin[1]) / mapSize[1];
     const tileI = percentY * terrain.map.height;
     const tileJ = percentX * terrain.map.width;
     return [tileI, tileJ, gameZ];

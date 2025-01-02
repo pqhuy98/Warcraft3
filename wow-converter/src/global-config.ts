@@ -1,5 +1,5 @@
+import { ConvertOptions } from './converter/common';
 import { radians } from './math/rotation';
-import { ConvertOptions } from './wowexport/common';
 
 export const wowExportPath = 'C:/Users/quang/wow.export/';
 // export const mapPath = '../death-knight-starting\\maps\\death-knight-starting.w3x';
@@ -63,6 +63,8 @@ const transparentFilterPatterns = [
   'hangnets',
   'flare05',
   'lightbeam',
+  'jlo_worc_grate',
+  'sc_chain',
 ];
 const additiveFilterPatterns = [
   'genericglow',
@@ -70,6 +72,8 @@ const additiveFilterPatterns = [
   '_fog_',
   'icecrown_rays',
   'blueglow',
+  'treeweb01',
+  '_web',
 ];
 
 export function getFilterMode(filePath: string): string {

@@ -11,7 +11,7 @@
     "discover": "tsx discover.ts",
     "doodad-terrain": "tsx doodad-terrain.ts",
     "test": "tsx scripts/test.ts",
-    "icc-floor1": "tsx scripts/icc-floor1.ts"
+    "icc-floor1": "tsx scripts/icc/icc-floor1.ts"
   },
   "dependencies": {
     "@stylistic/eslint-plugin-ts": "^2.8.0",

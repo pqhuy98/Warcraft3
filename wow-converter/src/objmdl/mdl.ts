@@ -214,7 +214,7 @@ ${this.materialToString()}
 ${this.geosetToString()}
 ${this.boneToString()}
 ${this.pivotPointsToString()}
-`.split('\n').filter((l) => l.trim().length > 0).join('\n');
+`.split('\n').filter((l) => l.trim().length > 0).join('\n').replaceAll('  ', '\t');
   }
 
   sync() {
@@ -336,5 +336,5 @@ function calculateBoundRadius(vertices: [number, number, number][]) {
 }
 
 function f(num: number) {
-  return parseFloat(num.toFixed(6)).toString();
+  return parseFloat(num.toFixed(4)).toString();
 }
