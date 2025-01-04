@@ -1,0 +1,17 @@
+[Misc]
+DissipateTime=8.0
+DrainGivesBonusLife=1
+DrainGivesBonusMana=1
+DrainTransfersLife=1
+DrainTransfersMana=1
+DrainUsesEtheralBonus=1
+FoodCeiling=300
+GuardDistance=100000.0
+GuardReturnTime=10000.0
+MaxGuardDistance=100000.0
+MaxHeroLevel=90
+MaxLevelHeroesDrainExp=0
+MaxUnitSpeed=522.0
+MinUnitSpeed=0.0
+UpkeepUsage=300,10000,10000,10000,10000,10000,10000,10000
+

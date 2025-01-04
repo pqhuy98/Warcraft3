@@ -19,15 +19,15 @@ import {
   Doodad, DoodadList, ModificationType, ObjectModificationTable, ObjectType,
 } from '../../src/wc3maptranslator/data';
 
-const mapPath = './maps/test.w3x';
+const mapPath = './maps/icc-floor12.w3x';
 
-const mapPadding = 12;
+const mapPadding = 20;
 
 const options: ConvertOptions = {
   ...defaultConvertOptions,
   waterZThreshold: -2000,
   terrainHeightClampPercent: {
-    upper: 0.5,
+    upper: 0.56,
     lower: 0.3,
   },
 };
@@ -82,7 +82,7 @@ function buildFloor1Map(wowObjectManager: WowObjectManager) {
   });
 
   // Tweak ICC model and color
-  const noRoofPath = 'icecrownraid_set0.final.mdl';
+  const noRoofPath = 'icecrownraid_set0.floor1.mdl';
   doodadsData.custom[iccType][0].value = noRoofPath;
   doodadsData.custom[iccType].push(
     // 150 190 235
@@ -99,10 +99,10 @@ function buildFloor1Map(wowObjectManager: WowObjectManager) {
 
   // Raise terrain to match ICC
   const bonePiles = doodads[0].filter((d) => getModelFile(d.type, doodadsData).includes('bonepile'));
-  const bonePilesGroundMdlStr = readFileSync('maps/test.w3x/wow/world/expansion02/doodads/icecrown/bones/icecrown_bonepile_light_01.mdl', 'utf-8');
+  const bonePilesGroundMdlStr = readFileSync(join(mapPath, '/wow/world/expansion02/doodads/icecrown/bones/icecrown_bonepile_light_01.mdl'), 'utf-8');
 
   matchTerrainToDoodadHeights(floor1Terrain, [
-    [placedIcc, readFileSync('maps/test.w3x/icecrownraid_set0.final.ground.mdl', 'utf-8')],
+    [placedIcc, readFileSync(join(mapPath, 'icecrownraid_set0.floor1.ground.mdl'), 'utf-8')],
     ...bonePiles.map((d) => <[Doodad, string]>[d, bonePilesGroundMdlStr]),
   ]);
 
@@ -178,17 +178,17 @@ function buildFloor2Map(wowObjectManager: WowObjectManager) {
   console.log('Final map size', { height, width });
 
   const terrain = getInitialTerrain(height, width, defaultDataHeight);
-  const groundModelStr = readFileSync('maps/test.w3x/icecrownraid_set0.floor2.ground.mdl', 'utf-8');
-  console.log(groundModelStr.slice(326528 - 10, 326528));
+  const groundModelStr = readFileSync(join(mapPath, 'icecrownraid_set0.floor2.ground.mdl'), 'utf-8');
+  console.log(groundModelStr.slice(307708 - 10, 307708));
 
   const bonePiles = doodads[0].filter((d) => getModelFile(d.type, doodadsData).includes('bonepile'));
-  const bonePilesGroundMdlStr = readFileSync('maps/test.w3x/wow/world/expansion02/doodads/icecrown/bones/icecrown_bonepile_light_01.mdl', 'utf-8');
+  const bonePilesGroundMdlStr = readFileSync(join(mapPath, 'wow/world/expansion02/doodads/icecrown/bones/icecrown_bonepile_light_01.mdl'), 'utf-8');
 
   const shipRamps = doodads[0].filter((d) => getModelFile(d.type, doodadsData).includes('shipramp_horde'));
-  const shipRampGroundMdlStr = readFileSync('maps/test.w3x/shipramp_horde_01.ground.mdl', 'utf-8');
+  const shipRampGroundMdlStr = readFileSync(join(mapPath, 'shipramp_horde_01.ground.mdl'), 'utf-8');
 
   matchTerrainToDoodadHeights(terrain, [
-    [placedIcc, readFileSync('maps/test.w3x/icecrownraid_set0.floor2.ground.mdl', 'utf-8')],
+    [placedIcc, readFileSync(join(mapPath, 'icecrownraid_set0.floor2.ground.mdl'), 'utf-8')],
     ...bonePiles.map((d) => <[Doodad, string]>[d, bonePilesGroundMdlStr]),
     ...shipRamps.map((d) => <[Doodad, string]>[d, shipRampGroundMdlStr]),
   ]);

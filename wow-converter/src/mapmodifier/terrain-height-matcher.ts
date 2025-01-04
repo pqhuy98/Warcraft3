@@ -13,6 +13,7 @@ import {
 import { Doodad, Terrain } from '../wc3maptranslator/data';
 
 const floodBrushSize = 2;
+const slopeThreshold = 45;
 
 interface Face {
   vertices: [Vector3, Vector3, Vector3];
@@ -66,14 +67,9 @@ export function matchTerrainToDoodadHeights(terrain: Terrain, doodadModels: [Doo
     terrain.map.offset.y,
     dataHeightToGameZ(dataHeightMin),
   ];
-  const mapMax = [
-    terrain.map.offset.x + terrain.map.width * distancePerTile,
-    terrain.map.offset.y + terrain.map.height * distancePerTile,
-    dataHeightToGameZ(dataHeightMax),
-  ];
 
   console.log({ mapSize });
-  console.log({ mapMin, mapMax });
+  console.log({ mapMin });
 
   const sumArray = nArray(terrain.groundHeight.length, terrain.groundHeight[0].length, 0);
   const countArray = nArray(terrain.groundHeight.length, terrain.groundHeight[0].length, 0);
@@ -92,6 +88,7 @@ export function matchTerrainToDoodadHeights(terrain: Terrain, doodadModels: [Doo
     }
     const dataHeight = Math.round(sumArray[i][j] / countArray[i][j]);
     terrain.groundHeight[i][j] = Math.max(dataHeightMin, Math.min(dataHeightMax, dataHeight));
+    // terrain.groundHeight[i][j] = Math.max(dataHeightMin, Math.min(dataHeightMax, dataHeight));
   }
 
   for (let i = 0; i < terrain.groundHeight.length; i++) {
@@ -101,43 +98,35 @@ export function matchTerrainToDoodadHeights(terrain: Terrain, doodadModels: [Doo
     }
   }
 
-  let minI = Infinity;
-  let maxI = -Infinity;
-
   console.log('terrain.map', terrain.map);
 
   allFaces.forEach((f) => {
     const tileVertices: Vector3[] = f.vertices.map((v) => {
       const percentX = (v[0] - mapMin[0]) / mapSize[0];
       const percentY = (v[1] - mapMin[1]) / mapSize[1];
-      const tileI = percentY * terrain.map.height;
+      const tileI = percentY * terrain.map.height + 1;
       const tileJ = percentX * terrain.map.width;
       return [tileI, tileJ, v[2]];
     });
 
     const points = findIntegerPointsInTriangle(
-    <Vertex2D><unknown>tileVertices[0],
-    <Vertex2D><unknown>tileVertices[1],
-    <Vertex2D><unknown>tileVertices[2],
+      <Vertex2D><unknown>tileVertices[0],
+      <Vertex2D><unknown>tileVertices[1],
+      <Vertex2D><unknown>tileVertices[2],
     );
     const slope = calculateTriangleSlope(f.vertices);
 
     points.forEach(([i, j]) => {
-      if (i < 0 || i >= terrain.map.height || j < 0 || j >= terrain.map.width) {
+      if (i < 0 || i >= terrain.groundHeight.length || j < 0 || j >= terrain.groundHeight[i].length) {
         return;
       }
-      if (slope > 45) {
+      if (slope > slopeThreshold) {
         return;
       }
       const gameZ = Math.min(
         calculateZ(tileVertices[0], tileVertices[1], tileVertices[2], i, j),
       _.max(tileVertices.map((v) => v[2]))!,
       );
-      if (gameZ > floodBrushSize) return;
-
-      minI = Math.min(minI, i);
-      maxI = Math.max(maxI, i);
-      // update(i, j, dataHeightMax);
       update(i, j, gameZToDataHeight(gameZ));
     });
   });
@@ -148,8 +137,8 @@ export function matchTerrainToDoodadHeights(terrain: Terrain, doodadModels: [Doo
         if (countArray[i][j] === 0) {
           let sum = 0;
           let cnt = 0;
-          for (let i2 = Math.max(0, i - floodBrushSize); i2 <= Math.min(terrain.map.height - 1, i + floodBrushSize); i2++) {
-            for (let j2 = Math.max(0, j - floodBrushSize); j2 <= Math.min(terrain.map.width - 1, j + floodBrushSize); j2++) {
+          for (let i2 = Math.max(0, i - floodBrushSize); i2 <= Math.min(terrain.groundHeight.length - 1, i + floodBrushSize); i2++) {
+            for (let j2 = Math.max(0, j - floodBrushSize); j2 < Math.min(terrain.groundHeight[i].length - 1, j + floodBrushSize); j2++) {
               if (countArray[i2][j2] > 0) {
                 sum += terrain.groundHeight[i2][j2];
                 cnt++;
@@ -196,19 +185,19 @@ function isInsideTriangle(A: Vertex2D, B: Vertex2D, C: Vertex2D, P: Vertex2D): b
   const area3 = triangleArea(A, B, P);
 
   // Check if the sum of P's area with the sides of the triangle equals the full area
-  return fullArea === area1 + area2 + area3;
+  return Math.abs(fullArea - (area1 + area2 + area3)) < 1;
 }
 
 // Function to find integer points inside the triangle
 function findIntegerPointsInTriangle(A: Vertex2D, B: Vertex2D, C: Vertex2D): Vertex2D[] {
   const points: Vertex2D[] = [];
-  for (const p of [A, B, C]) {
-    points.push([Math.round(p[0]), Math.round(p[1])]);
-    points.push([Math.floor(p[0]), Math.floor(p[1])]);
-    points.push([Math.floor(p[0]), Math.ceil(p[1])]);
-    points.push([Math.ceil(p[0]), Math.floor(p[1])]);
-    points.push([Math.ceil(p[0]), Math.ceil(p[1])]);
-  }
+  // for (const p of [A, B, C]) {
+  // points.push([Math.round(p[0]), Math.round(p[1])]);
+  //   points.push([Math.floor(p[0]), Math.floor(p[1])]);
+  //   points.push([Math.floor(p[0]), Math.ceil(p[1])]);
+  //   points.push([Math.ceil(p[0]), Math.floor(p[1])]);
+  //   points.push([Math.ceil(p[0]), Math.ceil(p[1])]);
+  // }
 
   // Determine the bounding box of the triangle
   const minX = Math.min(A[0], B[0], C[0]);
@@ -229,14 +218,7 @@ function findIntegerPointsInTriangle(A: Vertex2D, B: Vertex2D, C: Vertex2D): Ver
   return points;
 }
 
-function calculateTriangleSlope(points: Vector3[]): number {
-  if (points.length !== 3) {
-    throw new Error('Exactly three points are required to form a triangle.');
-  }
-
-  // Destructure points for readability
-  const [A, B, C] = points;
-
+function calculateTriangleSlope([A, B, C]: [Vector3, Vector3, Vector3]): number {
   // Calculate vectors AB and AC
   const AB = [B[0] - A[0], B[1] - A[1], B[2] - A[2]];
   const AC = [C[0] - A[0], C[1] - A[1], C[2] - A[2]];

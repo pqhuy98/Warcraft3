@@ -19,7 +19,7 @@ export function mergeMapsLeftToRight(maps: [Wc3Map, Wc3Map], padding: number) {
   }
 
   const newHeight = Math.max(maps[0].terrain.map.height, maps[1].terrain.map.height);
-  const newWidth = Math.ceil((maps[0].terrain.map.width + maps[1].terrain.map.width + 1 + padding) / 4) * 4;
+  const newWidth = Math.ceil((maps[0].terrain.map.width + maps[1].terrain.map.width + padding) / 4) * 4;
   console.log(newWidth);
   const terrain = getInitialTerrain(newHeight, newWidth);
 
@@ -29,13 +29,13 @@ export function mergeMapsLeftToRight(maps: [Wc3Map, Wc3Map], padding: number) {
       y: -maps[0].terrain.map.offset.y + terrain.map.offset.y,
     },
     {
-      x: -maps[1].terrain.map.offset.x + (maps[0].terrain.map.width + padding) * distancePerTile + terrain.map.offset.x,
+      x: -maps[1].terrain.map.offset.x + (maps[0].terrain.map.width + 1 + padding) * distancePerTile + terrain.map.offset.x,
       y: -maps[1].terrain.map.offset.y + terrain.map.offset.y,
     },
   ];
   const tileOffset = [
     { i: 0, j: 0 },
-    { i: 0, j: maps[0].terrain.map.width + padding },
+    { i: 0, j: maps[0].terrain.map.width + 1 + padding },
   ];
   const newMap: Wc3Map = {
     terrain,

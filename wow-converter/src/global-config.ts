@@ -2,13 +2,12 @@ import { ConvertOptions } from './converter/common';
 import { radians } from './math/rotation';
 
 export const wowExportPath = 'C:/Users/quang/wow.export/';
-// export const mapPath = '../death-knight-starting\\maps\\death-knight-starting.w3x';
 export const assetPrefix = 'wow';
 
 export const defaultConvertOptions: ConvertOptions = {
   terrainHeightClampPercent: {
-    upper: 1,
-    lower: 0,
+    upper: 0.5,
+    lower: 0.3,
   },
   waterZThreshold: -2000,
   verticalHorizontalRatio: 1, // reducing this makes the map bigger, but doodads' position Z will become more wrong.
@@ -80,11 +79,11 @@ export function getFilterMode(filePath: string): string {
   if (noneFilterPatterns.some((pattern) => filePath.includes(pattern))) {
     return 'None';
   }
-  if (transparentFilterPatterns.some((pattern) => filePath.includes(pattern))) {
-    return 'Transparent';
-  }
   if (additiveFilterPatterns.some((pattern) => filePath.includes(pattern))) {
     return 'Additive';
+  }
+  if (transparentFilterPatterns.some((pattern) => filePath.includes(pattern))) {
+    return 'Transparent';
   }
   return defaultFilterMode;
 }

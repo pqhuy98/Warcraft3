@@ -18,7 +18,7 @@ const mapPath = 'maps/test.w3x';
 const heightThreshold = 9999;
 const floodBrushSize = 2;
 
-const modelStr = readFileSync(path.join(mapPath, 'icecrownraid_set0.final.ground.mdl'), 'utf-8');
+const modelStr = readFileSync(path.join(mapPath, 'icecrownraid_set0.floor1.ground.mdl'), 'utf-8');
 const mdl = parseMDL(modelStr);
 
 const json = (x: unknown) => JSON.stringify(x, null, 2);
