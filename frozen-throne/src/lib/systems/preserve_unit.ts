@@ -165,27 +165,6 @@ export function restoreUnit(unit: Unit, mode: RestoreMode): void {
   }
 }
 
-export function registerPreseveUnits(): void {
-  onChatCommand('-ps', true, () => {
-    temp(Group.fromHandle(GetUnitsSelectedAll(GetLocalPlayer())))
-      .for(() => preserveUnit(Unit.fromEnum()));
-  });
-
-  onChatCommand('-rsp', true, () => {
-    for (const [unit, data] of preservedUnits) {
-      data.restore(RestoreMode.BEFORE_PRESERVE);
-      undoPreserveUnit(unit);
-    }
-  });
-
-  onChatCommand('-rsd', true, () => {
-    for (const [unit, data] of preservedUnits) {
-      data.restore(RestoreMode.BEFORE_DEATH);
-      undoPreserveUnit(unit);
-    }
-  });
-}
-
 export function isPreservedUnitAlive(unit: Unit): boolean {
   if (!unit.isAlive()) return false;
   return preservedUnits.has(unit)

@@ -20,6 +20,7 @@ import {
   ABILITY_ID_CHAIN_LIGHTNING_ZEUS,
   ABILITY_ID_DEATH_COIL_LICH_KING,
   ABILITY_ID_DIVINE_FURY,
+  ABILITY_ID_FROST_BOLT_LICH_KING,
   ABILITY_ID_FROST_NOVA_LICH_KING,
   ABILITY_ID_FROSTMOURNE_ARMOR_REDUCTION,
   ABILITY_ID_HOWL_OF_TERROR_LICH_KING,
@@ -40,11 +41,10 @@ import {
 } from 'lib/location';
 import { setAllianceState, setAllianceState2Way } from 'lib/player';
 import { daemonQuestMarker } from 'lib/quests/utils';
-import { ABILITY_Bearform, ABILITY_Burrow } from 'lib/resources/war3-abilities';
+import { ABILITY_Burrow } from 'lib/resources/war3-abilities';
 import { allUpgrades } from 'lib/resources/war3-upgrades';
 import { registerHearthStone } from 'lib/systems/hearth_stone';
 import { registerAbilityVending } from 'lib/systems/item_vending';
-import { registerPreseveUnits } from 'lib/systems/preserve_unit';
 import { daemonGuardPosition } from 'lib/systems/unit_guard_position';
 import { UnitInteraction } from 'lib/systems/unit_interaction';
 import { registerFloatTextExperiments } from 'lib/texttag';
@@ -54,11 +54,11 @@ import {
 } from 'lib/unit';
 import { QuestRegistry } from 'quests/registry';
 import {
-  Camera, MapPlayer,
+  Camera,
+  MapPlayer,
 } from 'w3ts';
 import { addScriptHook, W3TS_HOOK } from 'w3ts/hooks';
 
-import { ABILITY_ID_FROST_BOLT_LICH_KING } from './lib/constants';
 
 function tsMain(): void {
   UnlockGameSpeedBJ();
@@ -76,7 +76,6 @@ function tsMain(): void {
   daemonQuestMarker();
   daemonGuardPosition();
   registerAbilityLocation();
-  registerPreseveUnits();
   registerHearthStone();
   registerItemDrops();
   registerFightingSounds();
