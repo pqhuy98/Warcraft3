@@ -13,7 +13,7 @@ import {
   Angle, centerLocRect, Destroyable, Distance, Loc, locZ, PolarProjection, randomLocInRects,
 } from 'lib/location';
 import { angleDifference } from 'lib/maths/misc';
-import { setAllianceState } from 'lib/player';
+import { setAllianceState, setAllianceState2Way } from 'lib/player';
 import { getDialogues } from 'lib/quests/dialogue_sound';
 import { QuestLog } from 'lib/quests/quest_log';
 import {
@@ -210,6 +210,16 @@ const customKillDialogues = getDialogues(
   },
 );
 
+const hints = [
+  "Enemies slain restore the Lich King's health. Slay them quickly to sustain in battle.",
+  "Frost Nova is extremely effective against clustered enemies. Its cooldown is very short, so cast often.",
+  "Wrath of the Lich King is castable only after Tirion is frozen.",
+  "The Lich King must keep moving to avoid being surrounded.",
+  "Army of the Dead draws enemy focus away from the Lich King. Heal them with Death Coil",
+  "Portal mages summon reinforcements. Slay them to slow the enemy assault.",
+  "When under Dreadlord's Sleep, order nearby undeads to attack and awaken the Lich King."
+]
+
 function prepareCrusader(unit: Unit): void {
   unit.addAnimationProps('ready', true);
   unit.removeAbility(ABILITY_Bearform.id);
@@ -222,9 +232,9 @@ function prepareCrusader(unit: Unit): void {
   unit.removeGuardPosition();
 }
 
-const requiredHeroSouls = 30;
-const debugRaiseHeores = false;
-const debug1 = true;
+const requiredHeroSouls = 50;
+const debugRaiseHeroes = false;
+const debug1 = false;
 const debug2 = false;
 const debug3 = false;
 
@@ -262,7 +272,7 @@ export class MainFight extends BaseQuest {
     let reinforcements: ReturnType<typeof this.loopSpawnReinforcements>;
     const heroes = getUnitsInRect(GetWorldBounds(), (u) => u.owner.isPlayerEnemy(lichKing.owner) && u.isAlive() && u.isHero() && u !== tirion);
 
-    if (debugRaiseHeores) {
+    if (debugRaiseHeroes) {
       const raiseDeadSound = Sound.create('QuestSounds\\__refined\\main-fight\\lichking-animated-dead-effect.mp3', true, true, false, 1, 1, 'DefaultEAXON');
       raiseDeadSound.start();
 
@@ -324,8 +334,10 @@ export class MainFight extends BaseQuest {
       });
     }
 
+    let wotlkDisabled = false
+
     // Loop for infinite fight attempts
-    for (;;) {
+    for (let attempt = 0; ; attempt++) {
       // Initial UI setup
       IntroCinematic.lichKingSit(lichKing);
       await sleep(2);
@@ -336,7 +348,10 @@ export class MainFight extends BaseQuest {
       Weather.changeWeather();
       setMinimapIconUnit(lichKing, 'boss');
       lichKing.resetCooldown();
-      lichKing.disableAbility(ABILITY_ID_WRATH_OF_THE_LICH_KING, true, false);
+      if (!wotlkDisabled) { // Blizzard bug: https://www.hiveworkshop.com/threads/blzunitdisableability-check-if-ability-is-disabled.355932/
+        lichKing.disableAbility(ABILITY_ID_WRATH_OF_THE_LICH_KING, true, false);
+        wotlkDisabled = true
+      }
       speechQueue.clear();
 
       if (!debug1) {
@@ -362,7 +377,12 @@ export class MainFight extends BaseQuest {
         // eslint-disable-next-line no-loop-func
         () => questLog.completeItem(0),
         // Enable Lich King's ultimate when after Tirion is frozen and speech is done
-        () => lichKing.disableAbility(ABILITY_ID_WRATH_OF_THE_LICH_KING, false, false),
+        () => {
+          if (wotlkDisabled) {
+            lichKing.disableAbility(ABILITY_ID_WRATH_OF_THE_LICH_KING, false, false)
+            wotlkDisabled = false
+          }
+        },
       );
       cleanUp.push(...this.lichKingDialogues());
       cleanUp.push(this.morphUnitsResetAcquireRange());
@@ -379,6 +399,12 @@ export class MainFight extends BaseQuest {
         hero.kill();
         hero.revive(hero.x, hero.y, false);
         lichKing.life = 100;
+      }
+
+      if (attempt > 0 && attempt - 1 < hints.length) {
+        void sleep(1).then(() => {
+          questLog.hint(hints[attempt-1])
+        })
       }
 
       // Wait till fight begins
@@ -796,6 +822,9 @@ export class MainFight extends BaseQuest {
       cinematicFadeOut(3);
       await sleep(4);
       MeleeVictoryDialogBJ(lichKing.owner.handle, true);
+      await sleep(2);
+      cinematicFadeIn(3);
+      setAllianceState2Way(playerLichKingNpc, lichKing.owner, "allied share unit")
     }
   }
 
@@ -868,7 +897,7 @@ export class MainFight extends BaseQuest {
         const maintainers: Unit[] = [];
         const effects: Effect[] = [];
         const phaseAngle = GetRandomDirectionDeg();
-        const maintainerCount = 3;
+        const maintainerCount = 1;
         for (let i = 0; i < maintainerCount; i++) {
           const spawnLoc = PolarProjection(loc, 200, phaseAngle + i * 360 / maintainerCount);
           const maintainer = Unit.create(

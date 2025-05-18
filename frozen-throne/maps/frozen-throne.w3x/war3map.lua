@@ -25,8 +25,8 @@ gg_unit_H001_0052 = nil
 gg_unit_H004_0000 = nil
 gg_unit_h003_0140 = nil
 gg_unit_h003_0141 = nil
-gg_unit_h003_0148 = nil
 gg_unit_h003_0147 = nil
+gg_unit_h003_0148 = nil
 function InitGlobals()
 end
 

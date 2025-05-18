@@ -17,17 +17,17 @@ Frozen Throne
 
 STRING 6
 {
-Any
+1
 }
 
 STRING 7
 {
-Frozen Throne
+Champions of the Argent Tournament, led by Tirion Fordring, stormed Icecrown Citadel and defeated the Lich King's mightiest servants and ascended the Frozen Throne. Atop the spire, the Lich King had been long waiting for Tirion's assault, knowing that Tiri
 }
 
 STRING 8
 {
-Unknown
+Warcraft Sandbox
 }
 
 STRING 9
@@ -293,13 +293,6 @@ STRING 98
 // Items: I000 (|cff0000ffFrostmourne|r), Name (Name)
 {
 |cff0000ffFrostmourne|r
-}
-
-STRING 99
-// Items: I000 (|cff0000ffFrostmourne|r), Ubertip (Tooltip - Extended)
-{
-|cffff8c00Artifact|r|nThis powerful blade collects the soul of each enemy it kills. Each soul heals the Lich King for a percentage of his maximum life, allowing him to sustain himself and remain powerful in battle.
- |n|cffffcc00History|r|n|cffffdeadFrostmourne was the mourneblade of the Lich King. A fearsome, rune-inscribed two-handed longsword, it possessed the power to shatter and imprison the souls of its victims and could remake the living into mindless undead. Frostmourne was thrust from the Frozen Throne by the Lich King Ner'zhul and was taken up by Arthas Menethil in the wastes of Northrend during the Third War. The blade spilled the blood of kings, destroyed nations, and inflicted scars on the world that remain to this day. Few weapons have shaped modern history as much as Frostmourne.|r|n|n|cffc0c0c0"Whomsoever takes up this blade shall wield power eternal. Just as the blade rends flesh, so must power scar the spirit."|r
 }
 
 STRING 100
@@ -1444,7 +1437,7 @@ The Lich King channels dark necromantic power to raise nearby dead units, turnin
 }
 
 STRING 288
-// Abilities: A007 (Army of the Dead), Ubertip (Tooltip - Normal - Extended)
+// Abilities: A007 (Army of the Dead), Researchubertip (Tooltip - Learn - Extended)
 {
 The Lich King channels dark necromantic power to raise nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for a certain duration before returning to their graves.
 }
@@ -1465,12 +1458,6 @@ STRING 291
 // Abilities: A007 (Army of the Dead), Tip (Tooltip - Normal)
 {
 Army of Death - [|cffffcc00Level 3|r]
-}
-
-STRING 292
-// Abilities: A007 (Army of the Dead), Researchubertip (Tooltip - Learn - Extended)
-{
-The Lich King channels dark necromantic power to raise nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for a certain duration before returning to their graves.
 }
 
 STRING 293
@@ -1527,22 +1514,10 @@ STRING 301
 Learn Wrath of the Lich King - [|cffffcc00Level %d|r]
 }
 
-STRING 302
-// Abilities: A00A (Wrath of the Lich King), Researchubertip (Tooltip - Learn - Extended)
-{
-The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
-}
-
 STRING 303
 // Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
 {
 Wrath of the Lich King - [|cffffcc00Level 1|r]
-}
-
-STRING 304
-// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
-{
-The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
 }
 
 STRING 305
@@ -1555,18 +1530,6 @@ STRING 306
 // Abilities: A00A (Wrath of the Lich King), Tip (Tooltip - Normal)
 {
 Wrath of the Lich King - [|cffffcc00Level 3|r]
-}
-
-STRING 307
-// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
-{
-The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
-}
-
-STRING 308
-// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
-{
-The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, an immense frost nova erupts, shattering the earth and unleashing a storm of icy death. Enemies caught in the blast are dealt massive damage and frozen solid, immobilized by the sheer cold of the Lich King's unholy wrath.
 }
 
 STRING 309
@@ -1695,12 +1658,6 @@ STRING 329
 X
 }
 
-STRING 330
-// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
-{
-Throws a magical shard of ice at a target enemy unit, dealing <A00H:ACcb,DataA1> damage and freezing the target for <A00H:ACcb,Dur1> seconds.
-}
-
 STRING 331
 // Abilities: A00H (Frost Bolt), EditorSuffix (Editor Suffix)
 {
@@ -1731,18 +1688,6 @@ STRING 335
 Frost Bolt - [|cffffcc00Level 3|r]
 }
 
-STRING 336
-// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
-{
-Throws a magical shard of ice at a target enemy unit, dealing <A00H:ACcb,DataA2> damage and freezing the target for <A00H:ACcb,Dur2> seconds.
-}
-
-STRING 337
-// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
-{
-Throws a magical shard of ice at a target enemy unit, dealing <A00H:ACcb,DataA3> damage and freezing the target for <A00H:ACcb,Dur3> seconds.
-}
-
 STRING 338
 // Abilities: A00H (Frost Bolt), Researchhotkey (Hotkey - Learn)
 {
@@ -1753,12 +1698,6 @@ STRING 339
 // Abilities: A00H (Frost Bolt), Researchtip (Tooltip - Learn)
 {
 Learn Frost Bolt - [|cffffcc00Level %d|r]
-}
-
-STRING 340
-// Abilities: A00H (Frost Bolt), Researchubertip (Tooltip - Learn - Extended)
-{
-Throws a magical shard of ice at a target enemy unit, dealing damage and freezing the target for a long duration.
 }
 
 STRING 341
@@ -1795,24 +1734,6 @@ STRING 346
 // Abilities: A00J (Frost Nova), EditorSuffix (Editor Suffix)
 {
 (Lich King)
-}
-
-STRING 347
-// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
-{
-Blasts enemy units with a wave of frost that deals <A00J:AUfn,DataB1> damage to the target, and <A00J:AUfn,DataA1> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur1> seconds.
-}
-
-STRING 348
-// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
-{
-Blasts enemy units with a wave of frost that deals <A00J:AUfn,DataB2> damage to the target, and <A00J:AUfn,DataA2> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur2> seconds.
-}
-
-STRING 349
-// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
-{
-Blasts enemy units with a wave of frost that deals <A00J:AUfn,DataB3> damage to the target, and <A00J:AUfn,DataA3> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur3> seconds.
 }
 
 STRING 350
@@ -2142,5 +2063,125 @@ STRING 414
 // Doodads: D005 (Soul), Name (Name)
 {
 Soul
+}
+
+STRING 415
+// Items: I000 (|cff0000ffFrostmourne|r), Ubertip (Tooltip - Extended)
+{
+|cffff8c00Artifact|r|nThis powerful blade collects the soul of each enemy it kills. Each soul heals the Lich King for a percentage of his maximum life, allowing him to sustain himself and remain powerful in battle. Additionally, each attack reduces the target's armor by 7 for 5 seconds.
+ |n|cffffcc00History|r|n|cffffdeadFrostmourne was the mourneblade of the Lich King. A fearsome, rune-inscribed two-handed longsword, it possessed the power to shatter and imprison the souls of its victims and could remake the living into mindless undead. Frostmourne was thrust from the Frozen Throne by the Lich King Ner'zhul and was taken up by Arthas Menethil in the wastes of Northrend during the Third War. The blade spilled the blood of kings, destroyed nations, and inflicted scars on the world that remain to this day. Few weapons have shaped modern history as much as Frostmourne.|r|n|n|cffc0c0c0"Whomsoever takes up this blade shall wield power eternal. Just as the blade rends flesh, so must power scar the spirit."|r
+}
+
+STRING 416
+// Abilities: A007 (Army of the Dead), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King channels dark necromantic power to raise 12 nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for 15 seconds before returning to their graves. Cooldown: 15 seconds.
+
+
+}
+
+STRING 417
+// Abilities: A00A (Wrath of the Lich King), Researchubertip (Tooltip - Learn - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, a powerful frost nova erupts, freezing all nearby enemies and unleashing a massive blizzard that follows him. Enemies caught in the blast are stunned, then battered by relentless cold over time. |n|n|cffffcc00Level 1|r – Deals 100 initial damage, 40 damage per second. Stuns heroes for 6 seconds, units for 6 seconds. |n|cffffcc00Level 2|r – Deals 100 initial damage, 50 damage per second. Stuns heroes for 8 seconds, units for 10 seconds. |n|cffffcc00Level 3|r – Deals 100 initial damage, 60 damage per second. Stuns heroes for 10 seconds, units for 14 seconds. |n|nArea of Effect: 1500
+
+}
+
+STRING 418
+// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, a powerful frost nova erupts, freezing enemies for 6 seconds (heroes) or 6 seconds (units), and dealing 100 damage. A massive blizzard follows him for 45 seconds, dealing 40 damage per second to all enemies within 1500 range.
+
+
+}
+
+STRING 419
+// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, a powerful frost nova erupts, freezing enemies for 8 seconds (heroes) or 10 seconds (units), and dealing 100 damage. A massive blizzard follows him for 45 seconds, dealing 50 damage per second to all enemies within 1500 range.
+
+
+}
+
+STRING 420
+// Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
+{
+The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, a powerful frost nova erupts, freezing enemies for 10 seconds (heroes) or 14 seconds (units), and dealing 100 damage. A massive blizzard follows him for 45 seconds, dealing 60 damage per second to all enemies within 1500 range.
+
+
+}
+
+STRING 421
+// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
+{
+Throws multiple magical shards of ice at enemy units around the target, dealing <A00H:ACcb,DataA1> damage and freezing them for <A00H:ACcb,Dur1> seconds.
+}
+
+STRING 422
+// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
+{
+Throws multiple magical shards of ice at enemy units around the target, dealing <A00H:ACcb,DataA2> damage and freezing them for <A00H:ACcb,Dur2> seconds.
+}
+
+STRING 423
+// Abilities: A00H (Frost Bolt), Ubertip (Tooltip - Normal - Extended)
+{
+Throws multiple magical shards of ice at enemy units around the target, dealing <A00H:ACcb,DataA3> damage and freezing them for <A00H:ACcb,Dur3> seconds.
+}
+
+STRING 424
+// Abilities: A00H (Frost Bolt), Researchubertip (Tooltip - Learn - Extended)
+{
+Throws multiple magical shards of ice at enemy units around the target, each dealing damage and freezing the target for a long duration. |n|n|cffffcc00Level 1|r – Each bolt deals <A00H:ACcb,DataA1> damage and freezes for <A00H:ACcb,Dur1> seconds. |n|cffffcc00Level 2|r – Each bolt deals <A00H:ACcb,DataA2> damage and freezes for <A00H:ACcb,Dur2> seconds. |n|cffffcc00Level 3|r – Each bolt deals <A00H:ACcb,DataA3> damage and freezes for <A00H:ACcb,Dur3> seconds.
+
+}
+
+STRING 426
+// Abilities: A00I (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+Sends out multiple coils of death that damage enemy living units or heal friendly Undead units around the target. Heal friendly Undead units for <AUdc,DataA2> hit points, or deal half damage to enemy living units.
+}
+
+STRING 427
+// Abilities: A00I (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+Sends out multiple coils of death that damage enemy living units or heal friendly Undead units around the target. Heal friendly Undead units for <AUdc,DataA3> hit points, or deal half damage to enemy living units.
+}
+
+STRING 428
+// Abilities: A00I (Death Coil), Ubertip (Tooltip - Normal - Extended)
+{
+Sends out multiple coils of death that damage enemy living units or heal friendly Undead units around the target. Heal friendly Undead units for <AUdc,DataA1> hit points, or deal half damage to enemy living units.
+}
+
+STRING 429
+// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts multiple enemy units around a target enemy with waves of damaging frost that slow movement and attack rate. Enemies close to each other will be hit by multiple Frost Novas. Deals <A00J:AUfn,DataB1> damage to each unit, and <A00J:AUfn,DataA1> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur1> seconds.
+}
+
+STRING 430
+// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts multiple enemy units around a target enemy with waves of damaging frost that slow movement and attack rate. Enemies close to each other will be hit by multiple Frost Novas. Deals <A00J:AUfn,DataB2> damage to each unit, and <A00J:AUfn,DataA2> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur2> seconds.
+}
+
+STRING 431
+// Abilities: A00J (Frost Nova), Ubertip (Tooltip - Normal - Extended)
+{
+Blasts multiple enemy units around a target enemy with waves of damaging frost that slow movement and attack rate. Enemies close to each other will be hit by multiple Frost Novas. Deals <A00J:AUfn,DataB3> damage to each unit, and <A00J:AUfn,DataA3> nova damage. Cold damage slows units' movement and attack rate for <A00J:AUfn,Dur3> seconds.
+}
+
+STRING 432
+// Abilities: A00J (Frost Nova), Researchubertip (Tooltip - Learn - Extended)
+{
+Blasts multiple enemy units around a target enemy with waves of damaging frost that slow movement and attack rate. Enemies close to each other will be hit by multiple Frost Novas. |n|n|cffffcc00Level 1|r – <AUfn,DataB1> target damage, <AUfn,DataA1> nova damage. |n|cffffcc00Level 2|r – <AUfn,DataB2> target damage, <AUfn,DataA2> nova damage. |n|cffffcc00Level 3|r – <AUfn,DataB3> target damage, <AUfn,DataA3> nova damage.
+}
+
+STRING 433
+// Abilities: A00I (Death Coil), Researchubertip (Tooltip - Learn - Extended)
+{
+Sends out multiple coils of death that damage enemy living units or heal friendly Undead units around the target. |n|n|cffffcc00Level 1|r – Each coil heals for <AUdc,DataA1> hit points. |n|cffffcc00Level 2|r – Each coil heals for <AUdc,DataA2> hit points. |n|cffffcc00Level 3|r – Each coil heals for <AUdc,DataA3> hit points.
+
 }
 

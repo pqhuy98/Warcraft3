@@ -68,7 +68,7 @@ export const TTSetting = {
   shadowStrike: cf(160, 255, 0, 5, 2, 0, 10, 0.04, false),
   manaBurn: cf(82, 82, 255, 5, 2, 0, 10, 0.04, false),
 
-  heroSoul: cf(0, 0, 255, 5, 2, 0, 15, 0.02, false),
+  heroSoul: cf(255, 0, 0, 5, 2, 0, 15, 0.02, false),
 
   info: defaultSetting,
   dialogue: {
