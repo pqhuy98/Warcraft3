@@ -10,26 +10,6 @@ STRING 4
 throne 2
 }
 
-STRING 5
-{
-Frozen Throne
-}
-
-STRING 6
-{
-1
-}
-
-STRING 7
-{
-Champions of the Argent Tournament, led by Tirion Fordring, stormed Icecrown Citadel and defeated the Lich King's mightiest servants and ascended the Frozen Throne. Atop the spire, the Lich King had been long waiting for Tirion's assault, knowing that Tiri
-}
-
-STRING 8
-{
-Warcraft Sandbox
-}
-
 STRING 9
 // Doodads: D002 (throne 3), Name (Name)
 {
@@ -142,7 +122,6 @@ STRING 31
 // Units: U000 (Desert's Wrath), Ubertip (Tooltip - Extended)
 {
 Scor'tah, once a revered guardian of the ancient desert kingdom of Aramath, fell from grace in a tragic twist of fate. Born in the searing sands, Scor'tah was a colossal scorpion worshipped by the desert nomads for his strength and cunning. His carapace, glistening like burnished gold, symbolized the sun's relentless power. However, when the Lich King’s shadow fell upon Aramath, Scor'tah was ensnared by dark magic and twisted into a malevolent force. Now a formidable lieutenant, Scor'tah wields his venomous sting and command over sandstorms to spread terror, his once noble spirit forever bound to the Lich King's sinister will.
-
 
 
 
@@ -1121,14 +1100,12 @@ STRING 237
 // Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
 {
 Teleports Zeus up to <A00B:AEbl,DataA1> range to the target location, dealing <A00C:AHtc,DataA1> damage and slowing enemies by <A00C:AHtc,DataD1,%>% for <A00C:AHtc,HeroDur1> seconds (heroes) / <A00C:AHtc,Dur1> seconds (non-heroes) in a <A00C:AHtc,Area1> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool1>
-
 }
 
 STRING 238
 // Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
 {
 Teleports Zeus up to <A00B:AEbl,DataA2> range to the target location, dealing <A00C:AHtc,DataA2> damage and slowing enemies by <A00C:AHtc,DataD2,%>% for <A00C:AHtc,HeroDur2> seconds (heroes) / <A00C:AHtc,Dur2> seconds (non-heroes) in a <A00C:AHtc,Area2> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool2>
-
 }
 
 STRING 239
@@ -1189,7 +1166,6 @@ STRING 248
 // Abilities: A00B (Thunder Blink), Researchubertip (Tooltip - Learn - Extended)
 {
 Teleports Zeus to the target location, dealing damage to nearby enemies and slowing them for a short duration. Cast Zeus's current level of Chain Lightning to all affected units. |n|n|cffffcc00Level 1|r - <A00B:AEbl,DataA1> range, <A00B:AEbl,Cool1> cooldown, <A00C:AHtc,DataA1> damage, <A00C:AHtc,Area1> radius, <A00C:AHtc,DataD1,%>% slow for <A00C:AHtc,HeroDur1>/<A00C:AHtc,Dur1> seconds. |n|cffffcc00Level 2|r - <A00B:AEbl,DataA2> range, <A00B:AEbl,Cool2> cooldown, <A00C:AHtc,DataA2> damage, <A00C:AHtc,Area2> radius, <A00C:AHtc,DataD2,%>% slow for <A00C:AHtc,HeroDur2>/<A00C:AHtc,Dur2> seconds. |n|cffffcc00Level 3|r - <A00B:AEbl,DataA3> range, <A00B:AEbl,Cool3> cooldown, <A00C:AHtc,DataA3> damage, <A00C:AHtc,Area3> radius, <A00C:AHtc,DataD3,%>% slow for <A00C:AHtc,HeroDur3>/<A00C:AHtc,Dur3> seconds. |n|cffffcc00Level 4|r - <A00B:AEbl,DataA4> range, <A00B:AEbl,Cool4> cooldown, <A00C:AHtc,DataA4> damage, <A00C:AHtc,Area4> radius, <A00C:AHtc,DataD4,%>% slow for <A00C:AHtc,HeroDur4>/<A00C:AHtc,Dur4> seconds. |n|cffffcc00Level 5|r - <A00B:AEbl,DataA5> range, <A00B:AEbl,Cool5> cooldown, <A00C:AHtc,DataA5> damage, <A00C:AHtc,Area5> radius, <A00C:AHtc,DataD5,%>% slow for <A00C:AHtc,HeroDur5>/<A00C:AHtc,Dur5> seconds. |n|cffffcc00Level 6|r - <A00B:AEbl,DataA6> range, <A00B:AEbl,Cool6> cooldown, <A00C:AHtc,DataA6> damage, <A00C:AHtc,Area6> radius, <A00C:AHtc,DataD6,%>% slow for <A00C:AHtc,HeroDur6>/<A00C:AHtc,Dur6> seconds. |n|cffffcc00Level 7|r - <A00B:AEbl,DataA7> range, <A00B:AEbl,Cool7> cooldown, <A00C:AHtc,DataA7> damage, <A00C:AHtc,Area7> radius, <A00C:AHtc,DataD7,%>% slow for <A00C:AHtc,HeroDur7>/<A00C:AHtc,Dur7> seconds. |n|cffffcc00Level 8|r - <A00B:AEbl,DataA8> range, <A00B:AEbl,Cool8> cooldown, <A00C:AHtc,DataA8> damage, <A00C:AHtc,Area8> radius, <A00C:AHtc,DataD8,%>% slow for <A00C:AHtc,HeroDur8>/<A00C:AHtc,Dur8> seconds. |n|cffffcc00Level 9|r - <A00B:AEbl,DataA9> range, <A00B:AEbl,Cool9> cooldown, <A00C:AHtc,DataA9> damage, <A00C:AHtc,Area9> radius, <A00C:AHtc,DataD9,%>% slow for <A00C:AHtc,HeroDur9>/<A00C:AHtc,Dur9> seconds. |n|cffffcc00Level 10|r - <A00B:AEbl,DataA10> range, <A00B:AEbl,Cool10> cooldown, <A00C:AHtc,DataA10> damage, <A00C:AHtc,Area10> radius, <A00C:AHtc,DataD10,%>% slow for <A00C:AHtc,HeroDur10>/<A00C:AHtc,Dur10> seconds.
-
 }
 
 STRING 249
@@ -1202,56 +1178,48 @@ STRING 250
 // Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
 {
 Teleports Zeus up to <A00B:AEbl,DataA3> range to the target location, dealing <A00C:AHtc,DataA3> damage and slowing enemies by <A00C:AHtc,DataD3,%>% for <A00C:AHtc,HeroDur3> seconds (heroes) / <A00C:AHtc,Dur3> seconds (non-heroes) in a <A00C:AHtc,Area3> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool3>
-
 }
 
 STRING 251
 // Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
 {
 Teleports Zeus up to <A00B:AEbl,DataA4> range to the target location, dealing <A00C:AHtc,DataA4> damage and slowing enemies by <A00C:AHtc,DataD4,%>% for <A00C:AHtc,HeroDur4> seconds (heroes) / <A00C:AHtc,Dur4> seconds (non-heroes) in a <A00C:AHtc,Area4> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool4>
-
 }
 
 STRING 252
 // Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
 {
 Teleports Zeus up to <A00B:AEbl,DataA5> range to the target location, dealing <A00C:AHtc,DataA5> damage and slowing enemies by <A00C:AHtc,DataD5,%>% for <A00C:AHtc,HeroDur5> seconds (heroes) / <A00C:AHtc,Dur5> seconds (non-heroes) in a <A00C:AHtc,Area5> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool5>
-
 }
 
 STRING 253
 // Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
 {
 Teleports Zeus up to <A00B:AEbl,DataA6> range to the target location, dealing <A00C:AHtc,DataA6> damage and slowing enemies by <A00C:AHtc,DataD6,%>% for <A00C:AHtc,HeroDur6> seconds (heroes) / <A00C:AHtc,Dur6> seconds (non-heroes) in a <A00C:AHtc,Area6> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool6>
-
 }
 
 STRING 254
 // Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
 {
 Teleports Zeus up to <A00B:AEbl,DataA7> range to the target location, dealing <A00C:AHtc,DataA7> damage and slowing enemies by <A00C:AHtc,DataD7,%>% for <A00C:AHtc,HeroDur7> seconds (heroes) / <A00C:AHtc,Dur7> seconds (non-heroes) in a <A00C:AHtc,Area7> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool7>
-
 }
 
 STRING 255
 // Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
 {
 Teleports Zeus up to <A00B:AEbl,DataA8> range to the target location, dealing <A00C:AHtc,DataA8> damage and slowing enemies by <A00C:AHtc,DataD8,%>% for <A00C:AHtc,HeroDur8> seconds (heroes) / <A00C:AHtc,Dur8> seconds (non-heroes) in a <A00C:AHtc,Area8> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool8>
-
 }
 
 STRING 256
 // Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
 {
 Teleports Zeus up to <A00B:AEbl,DataA9> range to the target location, dealing <A00C:AHtc,DataA9> damage and slowing enemies by <A00C:AHtc,DataD9,%>% for <A00C:AHtc,HeroDur9> seconds (heroes) / <A00C:AHtc,Dur9> seconds (non-heroes) in a <A00C:AHtc,Area9> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool9>
-
 }
 
 STRING 257
 // Abilities: A00B (Thunder Blink), Ubertip (Tooltip - Normal - Extended)
 {
 Teleports Zeus up to <A00B:AEbl,DataA10> range to the target location, dealing <A00C:AHtc,DataA10> damage and slowing enemies by <A00C:AHtc,DataD10,%>% for <A00C:AHtc,HeroDur10> seconds (heroes) / <A00C:AHtc,Dur10> seconds (non-heroes) in a <A00C:AHtc,Area10> radius. Cast Zeus's current level of Chain Lightning to all affected units. Cooldown: <A00B:AEbl,Cool10>
-
 }
 
 STRING 258
@@ -1354,7 +1322,6 @@ STRING 274
 // Abilities: A006 (Sandquake), Researchubertip (Tooltip - Learn - Extended)
 {
 Scor'tah burrows underground, swiftly moving to a target location. As he travels, the ground above him trembles violently, causing damage to enemies in his path. When he resurfaces, he deals additional damage in an area around him.
-
 
 }
 
@@ -1976,36 +1943,6 @@ STRING 394
 (Effect) (Lich King)
 }
 
-STRING 395
-{
-The Horde
-}
-
-STRING 396
-{
-The Alliance
-}
-
-STRING 397
-{
-Undead Scource
-}
-
-STRING 398
-{
-The Crusaders
-}
-
-STRING 400
-{
-The Frozen Throne
-}
-
-STRING 401
-{
-Champions of the Argent Tournament, led by Tirion Fordring, stormed Icecrown Citadel and defeated the Lich King's mightiest servants and ascended the Frozen Throne. Atop the spire, the Lich King had been long waiting for Tirion's assault, knowing that Tirion would bring with him Azeroth's greatest heroes, who could then be killed and resurrected as powerful masters of the Scourge.
-}
-
 STRING 402
 // Doodads: D003 (throne 4), Name (Name)
 {
@@ -2028,11 +1965,6 @@ STRING 408
 // Abilities: A00R (Spell Immunity), EditorSuffix (Editor Suffix)
 {
  (Wrath of the Lich King)
-}
-
-STRING 409
-{
-The Lich King
 }
 
 STRING 410
@@ -2077,21 +2009,18 @@ STRING 416
 {
 The Lich King channels dark necromantic power to raise 12 nearby dead units, turning them into loyal undead warriors. These reanimated soldiers fight for the Lich King for 15 seconds before returning to their graves. Cooldown: 15 seconds.
 
-
 }
 
 STRING 417
 // Abilities: A00A (Wrath of the Lich King), Researchubertip (Tooltip - Learn - Extended)
 {
 The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, a powerful frost nova erupts, freezing all nearby enemies and unleashing a massive blizzard that follows him. Enemies caught in the blast are stunned, then battered by relentless cold over time. |n|n|cffffcc00Level 1|r – Deals 100 initial damage, 40 damage per second. Stuns heroes for 6 seconds, units for 6 seconds. |n|cffffcc00Level 2|r – Deals 100 initial damage, 50 damage per second. Stuns heroes for 8 seconds, units for 10 seconds. |n|cffffcc00Level 3|r – Deals 100 initial damage, 60 damage per second. Stuns heroes for 10 seconds, units for 14 seconds. |n|nArea of Effect: 1500
-
 }
 
 STRING 418
 // Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
 {
 The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, a powerful frost nova erupts, freezing enemies for 6 seconds (heroes) or 6 seconds (units), and dealing 100 damage. A massive blizzard follows him for 45 seconds, dealing 40 damage per second to all enemies within 1500 range.
-
 
 }
 
@@ -2100,14 +2029,12 @@ STRING 419
 {
 The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, a powerful frost nova erupts, freezing enemies for 8 seconds (heroes) or 10 seconds (units), and dealing 100 damage. A massive blizzard follows him for 45 seconds, dealing 50 damage per second to all enemies within 1500 range.
 
-
 }
 
 STRING 420
 // Abilities: A00A (Wrath of the Lich King), Ubertip (Tooltip - Normal - Extended)
 {
 The Lich King plunges Frostmourne into the ground, channeling his boundless fury. After a brief pause, a powerful frost nova erupts, freezing enemies for 10 seconds (heroes) or 14 seconds (units), and dealing 100 damage. A massive blizzard follows him for 45 seconds, dealing 60 damage per second to all enemies within 1500 range.
-
 
 }
 
@@ -2133,7 +2060,6 @@ STRING 424
 // Abilities: A00H (Frost Bolt), Researchubertip (Tooltip - Learn - Extended)
 {
 Throws multiple magical shards of ice at enemy units around the target, each dealing damage and freezing the target for a long duration. |n|n|cffffcc00Level 1|r – Each bolt deals <A00H:ACcb,DataA1> damage and freezes for <A00H:ACcb,Dur1> seconds. |n|cffffcc00Level 2|r – Each bolt deals <A00H:ACcb,DataA2> damage and freezes for <A00H:ACcb,Dur2> seconds. |n|cffffcc00Level 3|r – Each bolt deals <A00H:ACcb,DataA3> damage and freezes for <A00H:ACcb,Dur3> seconds.
-
 }
 
 STRING 426
@@ -2182,6 +2108,43 @@ STRING 433
 // Abilities: A00I (Death Coil), Researchubertip (Tooltip - Learn - Extended)
 {
 Sends out multiple coils of death that damage enemy living units or heal friendly Undead units around the target. |n|n|cffffcc00Level 1|r – Each coil heals for <AUdc,DataA1> hit points. |n|cffffcc00Level 2|r – Each coil heals for <AUdc,DataA2> hit points. |n|cffffcc00Level 3|r – Each coil heals for <AUdc,DataA3> hit points.
+}
 
+STRING 434
+{
+What If? - Icecrown Citadel Finale
+}
+
+STRING 435
+{
+1
+}
+
+STRING 436
+{
+Step into the role of the Lich King and face off against the heroes of Azeroth in the epic finale of Icecrown Citadel.
+}
+
+STRING 437
+{
+The Frozen Throne
+}
+
+STRING 438
+{
+Champions of the Argent Tournament, led by Tirion Fordring, stormed Icecrown Citadel and defeated the Lich King's mightiest servants and ascended the Frozen Throne. Atop the spire, the Lich King had been long waiting for Tirion's assault, knowing that Tirion would bring with him Azeroth's greatest heroes, who could then be killed and resurrected as powerful masters of the Scourge.
+
+
+
+
+
+
+
+
+}
+
+STRING 439
+{
+Warcraft Sandbox
 }
 

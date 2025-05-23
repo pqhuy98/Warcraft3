@@ -822,8 +822,8 @@ RunInitializationTriggers()
 end
 
 function config()
-SetMapName("TRIGSTR_005")
-SetMapDescription("TRIGSTR_007")
+SetMapName("TRIGSTR_434")
+SetMapDescription("TRIGSTR_436")
 SetPlayers(6)
 SetTeams(6)
 SetGamePlacement(MAP_PLACEMENT_USE_MAP_SETTINGS)
