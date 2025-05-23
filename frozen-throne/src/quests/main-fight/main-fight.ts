@@ -1228,7 +1228,7 @@ export class MainFight extends BaseQuest {
     lichKing.removeAbility(ABILITY_Locust.id);
     lichKing.paused = true;
     lichKing.facing = lichKingFacing;
-    lichKing.setAnimation(21);
+    lichKing.setAnimation(22);
 
     const effect1 = Effect.create('Models\\BlueUnsummon\\BlueUnsummon.mdx', 0, 0);
     const effect2 = Effect.create(MODEL_BloodLustTarget, 0, 0);
