@@ -2148,3 +2148,9 @@ STRING 439
 Warcraft Sandbox
 }
 
+STRING 440
+// Doodads: D006 (rune), Name (Name)
+{
+rune
+}
+
