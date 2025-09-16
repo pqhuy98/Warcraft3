@@ -806,7 +806,7 @@ end
 function main()
 SetCameraBounds(-4096.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -4096.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 4096.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 4096.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -4096.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 4096.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 4096.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -4096.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
 SetDayNightModels("Environment\\DNC\\DNCLordaeron\\DNCLordaeronTerrain\\DNCLordaeronTerrain.mdl", "Environment\\DNC\\DNCLordaeron\\DNCLordaeronUnit\\DNCLordaeronUnit.mdl")
-SetTerrainFogEx(0, 100000.0, 100000.0, 0.000, 0.000, 0.000, 0.000)
+SetTerrainFogEx(0, 9000.0, 10000.0, 0.000, 0.000, 0.251, 0.353)
 NewSoundEnvironment("Default")
 SetAmbientDaySound("IceCrownDay")
 SetAmbientNightSound("IceCrownNight")
